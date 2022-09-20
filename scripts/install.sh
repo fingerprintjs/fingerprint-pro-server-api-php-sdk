@@ -1,0 +1,1 @@
+docker-compose run composer install --ignore-platform-reqs

@@ -1,0 +1,3562 @@
+openapi: 3.0.3
+info:
+  title: Fingerprint Pro Server API
+  description: >-
+    Fingerprint Pro Server API provides a way for validating visitors’ data
+    issued by Fingerprint Pro.
+  version: '3'
+  contact:
+    name: Fingerprint Support
+    email: support@fingerprint.com
+tags:
+  - name: Fingerprint
+    externalDocs:
+      description: API documentation
+      url: https://dev.fingerprint.com/docs/server-api
+servers:
+  - url: https://api.fpjs.io
+    description: Global
+  - url: https://eu.api.fpjs.io
+    description: EU
+  - url: https://ap.api.fpjs.io
+    description: Asia (Mumbai)
+security:
+  - ApiKeyHeader: []
+  - ApiKeyQuery: []
+paths:
+  /events/{request_id}:
+    get:
+      tags:
+        - Fingerprint
+      summary: Get event by request ID
+      description: >-
+        This endpoint allows you to get events with all the information from
+        each activated product - BOTD and Fingerprinting. Use the requestId as a
+        URL path :request_id parameter. This API method is scoped to a request,
+        i.e. all returned information is by requestId.
+      operationId: getEvent
+      parameters:
+        - name: request_id
+          in: path
+          description: Request ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+              examples:
+                example:
+                  summary: Example response
+                  value:
+                    products:
+                      identification:
+                        data:
+                          visitorId: Ibk1527CUFmcnjLwIs4A9
+                          requestId: 0KSh65EnVoB85JBmloQK
+                          incognito: true
+                          linkedId: somelinkedId
+                          time: '2019-05-21T16:40:13Z'
+                          timestamp: 1582299576512
+                          url: https://www.example.com/login
+                          ip: 61.127.217.15
+                          ipLocation:
+                            accuracyRadius: 10
+                            latitude: 49.982
+                            longitude: 36.2566
+                            postalCode: '61202'
+                            timezone: Europe/Dusseldorf
+                            city:
+                              name: Dusseldorf
+                            continent:
+                              code: EU
+                              name: Europe
+                            country:
+                              code: DE
+                              name: Germany
+                            subdivisions:
+                              - isoCode: '63'
+                                name: North Rhine-Westphalia
+                          browserDetails:
+                            browserName: Chrome
+                            browserMajorVersion: '74'
+                            browserFullVersion: 74.0.3729
+                            os: Windows
+                            osVersion: '7'
+                            device: Other
+                            userAgent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
+                          confidence:
+                            score: 0.97
+                          visitorFound: true
+                          firstSeenAt:
+                            global: '2022-03-16T11:26:45.362Z'
+                            subscription: '2022-03-16T11:31:01.101Z'
+                          lastSeenAt:
+                            global: '2022-03-16T11:28:34.023Z'
+                            subscription: null
+                      botd:
+                        data:
+                          bot:
+                            result: notDetected
+                          ip: 61.127.217.15
+                          time: '2019-05-21T16:40:13Z'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example:
+                  summary: Example response
+                  value:
+                    error:
+                      code: RequestIdCannotBeParsed
+                      message: invalid format of request id
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example:
+                  summary: Example response
+                  value:
+                    error:
+                      code: TokenRequired
+                      message: secret key is required
+        '429':
+          description: Too Many Requests
+          headers:
+            Retry-After:
+              description: >-
+                Indicates how long the user should wait before making a
+                follow-up request.
+              schema:
+                type: integer
+                format: int32
+                minimum: 0
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManyRequestsResponse'
+  /visitors/{visitor_id}:
+    get:
+      tags:
+        - Fingerprint
+      operationId: getVisits
+      description: >-
+        This endpoint allows you to get a history of visits with all available
+        information. Use the visitorId as a URL path parameter. This API method
+        is scoped to a visitor, i.e. all returned information is by visitorId.
+      parameters:
+        - name: visitor_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: uYIm7Ksp5rf00SllPhFp
+        - name: request_id
+          description: Filter events by requestId
+          in: query
+          schema:
+            type: string
+        - name: linked_id
+          description: Filter events by custom identifier
+          in: query
+          schema:
+            type: string
+          required: false
+        - name: limit
+          description: Limit scanned results
+          in: query
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - name: before
+          description: Used to paginate results
+          in: query
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+              examples:
+                limit1:
+                  summary: Request with limit=1
+                  value:
+                    visitorId: AcxioeQKffpXF8iGQK3P
+                    visits:
+                      - requestId: 1655373953086.DDlfmP
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 82.118.30.68
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 50.0805
+                          longitude: 14.467
+                          postalCode: 130 00
+                          timezone: Europe/Prague
+                          city:
+                            name: Prague
+                          country:
+                            code: CZ
+                            name: Czechia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '10'
+                              name: Hlavni mesto Praha
+                        timestamp: 1655373953094
+                        time: '2022-06-16T10:05:53Z'
+                        url: https://dashboard.fingerprint.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-16T10:03:00.912Z'
+                          subscription: '2022-06-16T10:03:00.912Z'
+                    lastTimestamp: 1655373953086
+                    paginationKey: 1655373953086.DDlfmP
+                limit500:
+                  summary: Request with limit=500
+                  value:
+                    visitorId: AcxioeQKffpXF8iGQK3P
+                    visits:
+                      - requestId: 1655373780901.HhjRFX
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 188.242.36.107
+                        ipLocation:
+                          accuracyRadius: 5
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1655373780912
+                        time: '2022-06-16T10:03:00Z'
+                        url: https://fingerprint.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-16T05:27:30.578Z'
+                          subscription: '2022-06-16T05:27:30.578Z'
+                      - requestId: 1655357250568.vqejDF
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 82.118.30.62
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 50.0805
+                          longitude: 14.467
+                          postalCode: 130 00
+                          timezone: Europe/Prague
+                          city:
+                            name: Prague
+                          country:
+                            code: CZ
+                            name: Czechia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '10'
+                              name: Hlavni mesto Praha
+                        timestamp: 1655357250578
+                        time: '2022-06-16T05:27:30Z'
+                        url: https://fingerprint.com/
+                        tag: {}
+                        confidence:
+                          score: 0.99
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-15T15:28:33.479Z'
+                          subscription: '2022-06-15T15:28:33.479Z'
+                      - requestId: 1655306913474.kFQsQx
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 82.118.30.68
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 50.0805
+                          longitude: 14.467
+                          postalCode: 130 00
+                          timezone: Europe/Prague
+                          city:
+                            name: Prague
+                          country:
+                            code: CZ
+                            name: Czechia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '10'
+                              name: Hlavni mesto Praha
+                        timestamp: 1655306913479
+                        time: '2022-06-15T15:28:33Z'
+                        url: https://fingerprint.com/
+                        tag: {}
+                        confidence:
+                          score: 0.99
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-15T08:47:34.677Z'
+                          subscription: '2022-06-15T08:47:34.677Z'
+                      - requestId: 1655282854672.vz4ZlN
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 82.118.30.91
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 50.0805
+                          longitude: 14.467
+                          postalCode: 130 00
+                          timezone: Europe/Prague
+                          city:
+                            name: Prague
+                          country:
+                            code: CZ
+                            name: Czechia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '10'
+                              name: Hlavni mesto Praha
+                        timestamp: 1655282854677
+                        time: '2022-06-15T08:47:34Z'
+                        url: https://fingerprint.com/
+                        tag: {}
+                        confidence:
+                          score: 0.99
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-14T14:19:42.753Z'
+                          subscription: '2022-06-14T14:19:42.753Z'
+                      - requestId: 1655216382743.RDRa4h
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 188.242.36.107
+                        ipLocation:
+                          accuracyRadius: 5
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1655216382753
+                        time: '2022-06-14T14:19:42Z'
+                        url: https://fingerprint.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-13T07:53:19.878Z'
+                          subscription: '2022-06-13T07:53:19.878Z'
+                      - requestId: 1655106799870.C8m8hR
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.137
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1655106799878
+                        time: '2022-06-13T07:53:19Z'
+                        url: https://fingerprint.com/
+                        tag: {}
+                        confidence:
+                          score: 0.99
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-07T12:54:35.413Z'
+                          subscription: '2022-06-07T12:54:35.413Z'
+                      - requestId: 1654606475406.2uXCJx
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.157
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1654606475413
+                        time: '2022-06-07T12:54:35Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 0.99
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-07T09:37:57.43Z'
+                          subscription: '2022-06-07T09:37:57.43Z'
+                      - requestId: 1654594677423.pCHmKJ
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 188.242.36.107
+                        ipLocation:
+                          accuracyRadius: 5
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1654594677430
+                        time: '2022-06-07T09:37:57Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 0.99
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-07T09:37:50.109Z'
+                          subscription: '2022-06-07T09:37:50.109Z'
+                      - requestId: 1654594670097.Lmodmj
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 188.242.36.107
+                        ipLocation:
+                          accuracyRadius: 5
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1654594670109
+                        time: '2022-06-07T09:37:50Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 0.99
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-07T08:31:31.9Z'
+                          subscription: '2022-06-07T08:31:31.9Z'
+                      - requestId: 1654590691894.aCYqYE
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 188.242.36.107
+                        ipLocation:
+                          accuracyRadius: 5
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1654590691900
+                        time: '2022-06-07T08:31:31Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 0.99
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-06T09:05:25.954Z'
+                          subscription: '2022-06-06T09:05:25.954Z'
+                      - requestId: 1654506325946.ijIwzu
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1654506325954
+                        time: '2022-06-06T09:05:25Z'
+                        url: https://fingerprintcom.netlify.app/blog/name-change/
+                        tag: {}
+                        confidence:
+                          score: 0.99
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-02T16:58:53.635Z'
+                          subscription: '2022-06-02T16:58:53.635Z'
+                      - requestId: 1654189133629.0V1gtF
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1654189133635
+                        time: '2022-06-02T16:58:53Z'
+                        url: https://fingerprintcom.netlify.app/blog/name-change/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-06-02T16:58:51.483Z'
+                          subscription: '2022-06-02T16:58:51.483Z'
+                      - requestId: 1654189131472.r49Bbh
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1654189131483
+                        time: '2022-06-02T16:58:51Z'
+                        url: https://fingerprintcom.netlify.app/
+                        tag: {}
+                        confidence:
+                          score: 0.95
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-27T14:52:26.624Z'
+                          subscription: '2022-05-27T14:52:26.624Z'
+                      - requestId: 1653663146617.o8KpJO
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '101'
+                          browserFullVersion: 101.0.4951
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/101.0.4951.64 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1653663146624
+                        time: '2022-05-27T14:52:26Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-20T09:50:06.7Z'
+                          subscription: '2022-05-20T09:50:06.7Z'
+                      - requestId: 1653040206694.Q5Csig
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '101'
+                          browserFullVersion: 101.0.4951
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/101.0.4951.54 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1653040206700
+                        time: '2022-05-20T09:50:06Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-19T16:27:38.029Z'
+                          subscription: '2022-05-19T16:27:38.029Z'
+                      - requestId: 1652977658020.xbfYhA
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '101'
+                          browserFullVersion: 101.0.4951
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/101.0.4951.54 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1652977658029
+                        time: '2022-05-19T16:27:38Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-17T15:09:32.666Z'
+                          subscription: '2022-05-17T15:09:32.666Z'
+                      - requestId: 1652800172657.xA22Pd
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '101'
+                          browserFullVersion: 101.0.4951
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/101.0.4951.54 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1652800172666
+                        time: '2022-05-17T15:09:32Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-17T14:18:17.631Z'
+                          subscription: '2022-05-17T14:18:17.631Z'
+                      - requestId: 1652797097626.faAMJO
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '101'
+                          browserFullVersion: 101.0.4951
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/101.0.4951.54 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1652797097631
+                        time: '2022-05-17T14:18:17Z'
+                        url: https://fingerprintjs.com/careers/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-17T10:16:04.809Z'
+                          subscription: '2022-05-17T10:16:04.809Z'
+                      - requestId: 1652782564800.MWH0GO
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '101'
+                          browserFullVersion: 101.0.4951
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/101.0.4951.54 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1652782564809
+                        time: '2022-05-17T10:16:04Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-16T06:47:01.511Z'
+                          subscription: '2022-05-16T06:47:01.511Z'
+                      - requestId: 1652683621505.1tOjuc
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '101'
+                          browserFullVersion: 101.0.4951
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/101.0.4951.54 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 217.150.54.233
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1652683621511
+                        time: '2022-05-16T06:47:01Z'
+                        url: https://fingerprintjs.com/products/bot-detection/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-16T06:45:49.586Z'
+                          subscription: '2022-05-16T06:45:49.586Z'
+                      - requestId: 1652683586557.67Faeg
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '101'
+                          browserFullVersion: 101.0.4951
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/101.0.4951.54 Safari/537.36
+                          botProbability: 0
+                        incognito: true
+                        ip: 217.150.54.233
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1652683586562
+                        time: '2022-05-16T06:46:26Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 0.94
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-16T06:45:49.586Z'
+                          subscription: '2022-05-16T06:45:49.586Z'
+                      - requestId: 1652683549513.aVRqEP
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '101'
+                          browserFullVersion: 101.0.4951
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/101.0.4951.54 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 217.150.54.233
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1652683549586
+                        time: '2022-05-16T06:45:49Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-05T10:11:25.96Z'
+                          subscription: '2022-05-05T10:11:25.96Z'
+                      - requestId: 1651745485951.Oj68me
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1651745485960
+                        time: '2022-05-05T10:11:25Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-05T09:33:40.155Z'
+                          subscription: '2022-05-05T09:33:40.155Z'
+                      - requestId: 1651743220004.W02rhx
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1651743220155
+                        time: '2022-05-05T09:33:40Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-05-03T15:26:32.826Z'
+                          subscription: '2022-05-03T15:26:32.826Z'
+                      - requestId: 1651591592822.Is9u93
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.157
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1651591592826
+                        time: '2022-05-03T15:26:32Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-29T13:23:37.049Z'
+                          subscription: '2022-04-29T13:23:37.049Z'
+                      - requestId: 1651238617044.rMVPGS
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 89.38.224.165
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 44.804
+                          longitude: 20.4651
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1651238617049
+                        time: '2022-04-29T13:23:37Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-29T10:37:53.333Z'
+                          subscription: '2022-04-29T10:37:53.333Z'
+                      - requestId: 1651228673329.QZI2Cu
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 188.242.36.107
+                        ipLocation:
+                          accuracyRadius: 5
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1651228673333
+                        time: '2022-04-29T10:37:53Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-28T13:58:06.323Z'
+                          subscription: '2022-04-28T13:58:06.323Z'
+                      - requestId: 1651154286221.YvuOCP
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 84.247.59.113
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 50.0971
+                          longitude: 8.5952
+                          postalCode: '65933'
+                          timezone: Europe/Berlin
+                          city:
+                            name: Frankfurt am Main
+                          country:
+                            code: DE
+                            name: Germany
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: HE
+                              name: Hesse
+                        timestamp: 1651154286323
+                        time: '2022-04-28T13:58:06Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-28T12:16:02.564Z'
+                          subscription: '2022-04-28T12:16:02.564Z'
+                      - requestId: 1651148162556.dySgif
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 84.247.59.113
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 50.0971
+                          longitude: 8.5952
+                          postalCode: '65933'
+                          timezone: Europe/Berlin
+                          city:
+                            name: Frankfurt am Main
+                          country:
+                            code: DE
+                            name: Germany
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: HE
+                              name: Hesse
+                        timestamp: 1651148162564
+                        time: '2022-04-28T12:16:02Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-28T11:57:13.267Z'
+                          subscription: '2022-04-28T11:57:13.267Z'
+                      - requestId: 1651147033260.SxmFvL
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 84.247.59.146
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 50.0971
+                          longitude: 8.5952
+                          postalCode: '65933'
+                          timezone: Europe/Berlin
+                          city:
+                            name: Frankfurt am Main
+                          country:
+                            code: DE
+                            name: Germany
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: HE
+                              name: Hesse
+                        timestamp: 1651147033267
+                        time: '2022-04-28T11:57:13Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-28T11:57:06.24Z'
+                          subscription: '2022-04-28T11:57:06.24Z'
+                      - requestId: 1651147026139.aAZ8TO
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 84.247.59.146
+                        ipLocation:
+                          accuracyRadius: 20
+                          latitude: 50.0971
+                          longitude: 8.5952
+                          postalCode: '65933'
+                          timezone: Europe/Berlin
+                          city:
+                            name: Frankfurt am Main
+                          country:
+                            code: DE
+                            name: Germany
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: HE
+                              name: Hesse
+                        timestamp: 1651147026240
+                        time: '2022-04-28T11:57:06Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-26T14:10:31.908Z'
+                          subscription: '2022-04-26T14:10:31.908Z'
+                      - requestId: 1650982231903.eG0b6v
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.105
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650982231908
+                        time: '2022-04-26T14:10:31Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-26T11:43:37.373Z'
+                          subscription: '2022-04-26T11:43:37.373Z'
+                      - requestId: 1650973417360.xupFFD
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.99
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650973417373
+                        time: '2022-04-26T11:43:37Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-26T11:43:30.111Z'
+                          subscription: '2022-04-26T11:43:30.111Z'
+                      - requestId: 1650973410104.AQD4qu
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.99
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650973410111
+                        time: '2022-04-26T11:43:30Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-26T11:22:34.148Z'
+                          subscription: '2022-04-26T11:22:34.148Z'
+                      - requestId: 1650972154133.lSWE8a
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.96
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650972154148
+                        time: '2022-04-26T11:22:34Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-26T11:22:03.83Z'
+                          subscription: '2022-04-26T11:22:03.83Z'
+                      - requestId: 1650972123824.xk8MUR
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.96
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650972123830
+                        time: '2022-04-26T11:22:03Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-25T09:46:15.458Z'
+                          subscription: '2022-04-25T09:46:15.458Z'
+                      - requestId: 1650879975452.kfuowM
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 188.242.36.107
+                        ipLocation:
+                          accuracyRadius: 5
+                          latitude: 59.8983
+                          longitude: 30.2618
+                          postalCode: '190924'
+                          timezone: Europe/Moscow
+                          city:
+                            name: St Petersburg
+                          country:
+                            code: RU
+                            name: Russia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: SPE
+                              name: St.-Petersburg
+                        timestamp: 1650879975458
+                        time: '2022-04-25T09:46:15Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-22T16:51:44.816Z'
+                          subscription: '2022-04-22T16:51:44.816Z'
+                      - requestId: 1650646304808.xQbAju
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.227
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650646304816
+                        time: '2022-04-22T16:51:44Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-21T11:43:33.116Z'
+                          subscription: '2022-04-21T11:43:33.116Z'
+                      - requestId: 1650541413105.leAPLz
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.89
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650541413116
+                        time: '2022-04-21T11:43:33Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-20T17:11:54.717Z'
+                          subscription: '2022-04-20T17:11:54.717Z'
+                      - requestId: 1650474714710.M1IGsl
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.111
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650474714717
+                        time: '2022-04-20T17:11:54Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-20T17:11:47.217Z'
+                          subscription: '2022-04-20T17:11:47.217Z'
+                      - requestId: 1650474707211.CEUuZk
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.111
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650474707217
+                        time: '2022-04-20T17:11:47Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-20T17:11:12.076Z'
+                          subscription: '2022-04-20T17:11:12.076Z'
+                      - requestId: 1650474672071.Pz4WsK
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.111
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650474672076
+                        time: '2022-04-20T17:11:12Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T12:29:06.692Z'
+                          subscription: '2022-04-19T12:29:06.692Z'
+                      - requestId: 1650371346684.1d7sgv
+                        browserDetails:
+                          browserName: Chrome Mobile
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Android
+                          osVersion: '6.0'
+                          device: Nexus 5
+                          userAgent: >-
+                            Mozilla/5.0 (Linux; Android 6.0; Nexus 5
+                            Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Mobile Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.198
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650371346692
+                        time: '2022-04-19T12:29:06Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T12:29:02.15Z'
+                          subscription: '2022-04-19T12:29:02.15Z'
+                      - requestId: 1650371342145.oWyfRx
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.198
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650371342150
+                        time: '2022-04-19T12:29:02Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T11:35:14.729Z'
+                          subscription: '2022-04-19T11:35:14.729Z'
+                      - requestId: 1650368114723.YEXcHI
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.206
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650368114729
+                        time: '2022-04-19T11:35:14Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T11:13:33.107Z'
+                          subscription: '2022-04-19T11:13:33.107Z'
+                      - requestId: 1650366813101.SvUZC1
+                        browserDetails:
+                          browserName: Chrome Mobile
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Android
+                          osVersion: '6.0'
+                          device: Nexus 5
+                          userAgent: >-
+                            Mozilla/5.0 (Linux; Android 6.0; Nexus 5
+                            Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Mobile Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.204
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650366813107
+                        time: '2022-04-19T11:13:33Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T11:13:28.453Z'
+                          subscription: '2022-04-19T11:13:28.453Z'
+                      - requestId: 1650366808426.Hy6j7v
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.204
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650366808453
+                        time: '2022-04-19T11:13:28Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T11:07:05.19Z'
+                          subscription: '2022-04-19T11:07:05.19Z'
+                      - requestId: 1650366425184.xvYkdr
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.204
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650366425190
+                        time: '2022-04-19T11:07:05Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T11:07:00.483Z'
+                          subscription: '2022-04-19T11:07:00.483Z'
+                      - requestId: 1650366420377.VR5pDX
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.204
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650366420483
+                        time: '2022-04-19T11:07:00Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T10:37:45.279Z'
+                          subscription: '2022-04-19T10:37:45.279Z'
+                      - requestId: 1650364665274.qq31O4
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.172
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650364665279
+                        time: '2022-04-19T10:37:45Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T10:22:58.87Z'
+                          subscription: '2022-04-19T10:22:58.87Z'
+                      - requestId: 1650363778864.tsVBjO
+                        browserDetails:
+                          browserName: Chrome Mobile
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Android
+                          osVersion: '6.0'
+                          device: Nexus 5
+                          userAgent: >-
+                            Mozilla/5.0 (Linux; Android 6.0; Nexus 5
+                            Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Mobile Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.210
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650363778870
+                        time: '2022-04-19T10:22:58Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T10:22:46.894Z'
+                          subscription: '2022-04-19T10:22:46.894Z'
+                      - requestId: 1650363766889.KuVDpm
+                        browserDetails:
+                          browserName: Chrome Mobile
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Android
+                          osVersion: '6.0'
+                          device: Nexus 5
+                          userAgent: >-
+                            Mozilla/5.0 (Linux; Android 6.0; Nexus 5
+                            Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Mobile Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.210
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650363766894
+                        time: '2022-04-19T10:22:46Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T10:07:01.528Z'
+                          subscription: '2022-04-19T10:07:01.528Z'
+                      - requestId: 1650362821521.dXH2Ce
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.180
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650362821528
+                        time: '2022-04-19T10:07:01Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-19T10:02:42.46Z'
+                          subscription: '2022-04-19T10:02:42.46Z'
+                      - requestId: 1650362562448.a5cPLU
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.127 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.180
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650362562460
+                        time: '2022-04-19T10:02:42Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-18T17:06:30.834Z'
+                          subscription: '2022-04-18T17:06:30.834Z'
+                      - requestId: 1650301590829.YXGX7h
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.75 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.195
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650301590834
+                        time: '2022-04-18T17:06:30Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-18T12:23:30.446Z'
+                          subscription: '2022-04-18T12:23:30.446Z'
+                      - requestId: 1650284610441.lJrX4M
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.75 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 45.86.200.179
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 52.3824
+                          longitude: 4.8995
+                          timezone: Europe/Amsterdam
+                          country:
+                            code: NL
+                            name: Netherlands
+                          continent:
+                            code: EU
+                            name: Europe
+                        timestamp: 1650284610446
+                        time: '2022-04-18T12:23:30Z'
+                        url: https://fingerprintjs.com/blog/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-04-06T14:53:00.526Z'
+                          subscription: '2022-04-06T14:53:00.526Z'
+                      - requestId: 1649256780522.WAXWf2
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.60 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 109.245.35.200
+                        ipLocation:
+                          accuracyRadius: 50
+                          latitude: 44.8166
+                          longitude: 20.4721
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1649256780526
+                        time: '2022-04-06T14:53:00Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-03-18T11:08:35.698Z'
+                          subscription: '2022-03-18T11:08:35.698Z'
+                      - requestId: 1649256780520.RRC4PR
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '100'
+                          browserFullVersion: 100.0.4896
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/100.0.4896.60 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 109.245.35.200
+                        ipLocation:
+                          accuracyRadius: 50
+                          latitude: 44.8166
+                          longitude: 20.4721
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1649256780525
+                        time: '2022-04-06T14:53:00Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-03-18T11:08:35.698Z'
+                          subscription: '2022-03-18T11:08:35.698Z'
+                      - requestId: 1647601715689.iocXfW
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '98'
+                          browserFullVersion: 98.0.4758
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/98.0.4758.109 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 178.223.21.183
+                        ipLocation:
+                          accuracyRadius: 50
+                          latitude: 44.8166
+                          longitude: 20.4721
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1647601715698
+                        time: '2022-03-18T11:08:35Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-03-16T08:21:23.62Z'
+                          subscription: '2022-03-16T08:21:23.62Z'
+                      - requestId: 1647418883615.Vck2NA
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '98'
+                          browserFullVersion: 98.0.4758
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/98.0.4758.109 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 87.116.165.97
+                        ipLocation:
+                          accuracyRadius: 50
+                          latitude: 44.8166
+                          longitude: 20.4721
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1647418883620
+                        time: '2022-03-16T08:21:23Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-03-16T08:21:18.398Z'
+                          subscription: '2022-03-16T08:21:18.398Z'
+                      - requestId: 1647418878391.NZDmht
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '98'
+                          browserFullVersion: 98.0.4758
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/98.0.4758.109 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 87.116.165.97
+                        ipLocation:
+                          accuracyRadius: 50
+                          latitude: 44.8166
+                          longitude: 20.4721
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1647418878398
+                        time: '2022-03-16T08:21:18Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-03-15T11:46:51.858Z'
+                          subscription: '2022-03-15T11:46:51.858Z'
+                      - requestId: 1647344811836.RvNkL5
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '98'
+                          browserFullVersion: 98.0.4758
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/98.0.4758.109 Safari/537.36
+                          botProbability: 0
+                        incognito: false
+                        ip: 87.116.165.97
+                        ipLocation:
+                          accuracyRadius: 50
+                          latitude: 44.8166
+                          longitude: 20.4721
+                          timezone: Europe/Belgrade
+                          city:
+                            name: Belgrade
+                          country:
+                            code: RS
+                            name: Serbia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '00'
+                              name: Belgrade
+                        timestamp: 1647344811858
+                        time: '2022-03-15T11:46:51Z'
+                        url: https://fingerprintjs.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20Z'
+                          subscription: '2022-02-04T11:31:20Z'
+                        lastSeenAt:
+                          global: '2022-03-08T12:33:05.677Z'
+                          subscription: '2022-03-08T12:33:05.677Z'
+        '429':
+          description: Too Many Requests
+          headers:
+            Retry-After:
+              description: >-
+                Indicates how long the user should wait before making a
+                follow-up request.
+              schema:
+                type: integer
+                format: int32
+                minimum: 0
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManyRequestsResponse'
+  /webhook:
+    trace:
+      tags:
+        - Fingerprint
+      description: >-
+        Fake path to describe webhook format. More information about webhooks
+        can be found in the
+        [documentation](https://dev.fingerprint.com/docs/webhooks)
+      callbacks:
+        webhook:
+          webhook:
+            post:
+              description: >-
+                You can use HTTP basic authentication and setup credentials in
+                your [Fingerprint
+                account](https://dashboard.fingerprint.com/login)
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      $ref: '#/components/schemas/WebhookVisit'
+                    example:
+                      value:
+                        requestId: Px6VxbRC6WBkA39yeNH3
+                        tag:
+                          requestType: signup
+                          yourCustomId: 45321
+                        linkedId: any-string
+                        visitorId: 3HNey93AkBW6CRbxV6xP
+                        visitorFound: true
+                        timestamp: 1554910997788
+                        time: '2019-10-12T07:20:50.52Z'
+                        incognito: false
+                        url: https://banking.example.com/signup
+                        clientReferrer: https://google.com?search=banking+services
+                        ip: 216.3.128.12
+                        ipLocation:
+                          accuracyRadius: 1
+                          city:
+                            name: Bolingbrook
+                          continent:
+                            code: NA
+                            name: North America
+                          country:
+                            code: US
+                            name: United States
+                          latitude: 41.12933
+                          longitude: -88.9954
+                          postalCode: '60547'
+                          subdivisions:
+                            - isoCode: IL
+                              name: Illinois
+                          timezone: America/Chicago
+                        browserDetails:
+                          browserName: Chrome
+                          browserFullVersion: 73.0.3683.86
+                          browserMajorVersion: '73'
+                          os: Mac OS X
+                          osVersion: 10.14.3
+                          device: Other
+                          userAgent: >-
+                            (Macintosh; Intel Mac OS X 10_14_3)
+                            Chrome/73.0.3683.86
+                        confidence:
+                          score: 0.97
+                        firstSeenAt:
+                          global: '2022-03-16T11:26:45.362Z'
+                          subscription: '2022-03-16T11:31:01.101Z'
+                        lastSeenAt:
+                          global: '2022-03-16T11:28:34.023Z'
+                          subscription: null
+components:
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: Auth-API-Key
+    ApiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+  schemas:
+    Response:
+      type: object
+      additionalProperties: false
+      properties:
+        visitorId:
+          type: string
+        visits:
+          type: array
+          items:
+            title: ResponseVisits
+            type: object
+            properties:
+              requestId:
+                description: Unique identifier of the user's identification request.
+                type: string
+                example: 1654815516083.OX6kx8
+              browserDetails:
+                $ref: '#/components/schemas/BrowserDetails'
+              incognito:
+                description: Flag if user used incognito session.
+                type: boolean
+              ip:
+                type: string
+                format: ipv4
+                example: 8.8.8.8
+              ipLocation:
+                $ref: '#/components/schemas/IPLocation'
+              timestamp:
+                description: >-
+                  Timestamp of the event with millisecond precision in Unix
+                  time.
+                type: integer
+                format: int64
+                example: 1654815516086
+              time:
+                title: Time
+                description: Time expressed according to ISO 8601 in UTC format.
+                type: string
+                format: date-time
+                example: '2022-06-09T22:58:36Z'
+              url:
+                description: Page URL from which identification request was sent.
+                type: string
+                format: uri
+                example: https://some.website/path?query=params
+              tag:
+                description: >-
+                  A customer-provided value or an object that was sent with
+                  identification request.
+                type: object
+                additionalProperties: true
+              linkedId:
+                description: >-
+                  A customer-provided id that was sent with identification
+                  request.
+                type: string
+                example: someID
+              confidence:
+                $ref: '#/components/schemas/Confidence'
+              visitorFound:
+                description: Attribute represents if a visitor had been identified before.
+                type: boolean
+              firstSeenAt:
+                $ref: '#/components/schemas/StSeenAt'
+                example:
+                  global: '2022-05-05T18:28:54.535Z'
+                  subscription: '2022-06-09T22:58:05.576Z'
+              lastSeenAt:
+                $ref: '#/components/schemas/StSeenAt'
+                example:
+                  global: '2022-06-09T22:58:35.795Z'
+                  subscription: null
+            additionalProperties: false
+            required:
+              - browserDetails
+              - confidence
+              - firstSeenAt
+              - incognito
+              - ip
+              - ipLocation
+              - lastSeenAt
+              - requestId
+              - time
+              - timestamp
+              - url
+              - visitorFound
+              - tag
+        lastTimestamp:
+          description: >-
+            When more results are available (e.g., you scanned 200 results using
+            `limit` parameter, but a total of 600 results are available), a
+            special `lastTimestamp` top-level attribute is added to the
+            response. If you want to paginate the results further in the past,
+            you should use the value of this attribute.
+          type: integer
+          format: int64
+          example: 1654815517198
+        paginationKey:
+          description: Visit's `requestId` of the last visit in the current page.
+          type: string
+          example: 1654815517198.azN4IZ
+      required:
+        - visitorId
+        - visits
+      title: PaginatedResponse
+      description: >-
+        Fields `lastTimestamp` and `paginationKey` added when `limit` or
+        `before` parameter provided and there is more data to show
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          title: ErrorResponseError
+          properties:
+            code:
+              type: string
+              example: TokenRequired
+            message:
+              type: string
+              example: secret key is required
+    ManyRequestsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: string
+          description: Error text.
+          example: request throttled
+      required:
+        - error
+    WebhookVisit:
+      type: object
+      properties:
+        visitorId:
+          type: string
+        clientReferrer:
+          type: string
+        requestId:
+          description: Unique identifier of the user's identification request.
+          type: string
+          example: 1654815516083.OX6kx8
+        browserDetails:
+          $ref: '#/components/schemas/BrowserDetails'
+        incognito:
+          description: Flag if user used incognito session.
+          type: boolean
+        ip:
+          type: string
+          format: ipv4
+          example: 8.8.8.8
+        ipLocation:
+          $ref: '#/components/schemas/IPLocation'
+        timestamp:
+          description: Timestamp of the event with millisecond precision in Unix time.
+          type: integer
+          format: int64
+          example: 1654815516086
+        time:
+          title: Time
+          description: Time expressed according to ISO 8601 in UTC format.
+          type: string
+          format: date-time
+          example: '2022-06-09T22:58:36Z'
+        url:
+          description: Page URL from which identification request was sent.
+          type: string
+          format: uri
+          example: https://some.website/path?query=params
+        tag:
+          description: >-
+            A customer-provided value or an object that was sent with
+            identification request.
+          type: object
+          additionalProperties: true
+        linkedId:
+          description: A customer-provided id that was sent with identification request.
+          type: string
+          example: someID
+        confidence:
+          $ref: '#/components/schemas/Confidence'
+        visitorFound:
+          description: Attribute represents if a visitor had been identified before.
+          type: boolean
+        firstSeenAt:
+          $ref: '#/components/schemas/StSeenAt'
+          example:
+            global: '2022-05-05T18:28:54.535Z'
+            subscription: '2022-06-09T22:58:05.576Z'
+        lastSeenAt:
+          $ref: '#/components/schemas/StSeenAt'
+          example:
+            global: '2022-06-09T22:58:35.795Z'
+            subscription: null
+      additionalProperties: false
+      required:
+        - visitorId
+        - browserDetails
+        - confidence
+        - firstSeenAt
+        - incognito
+        - ip
+        - ipLocation
+        - lastSeenAt
+        - requestId
+        - time
+        - timestamp
+        - url
+        - visitorFound
+    Visit:
+      type: object
+      additionalProperties: false
+      properties:
+        requestId:
+          description: Unique identifier of the user's identification request.
+          type: string
+          example: 1654815516083.OX6kx8
+        browserDetails:
+          $ref: '#/components/schemas/BrowserDetails'
+        incognito:
+          description: Flag if user used incognito session.
+          type: boolean
+        ip:
+          type: string
+          format: ipv4
+          example: 8.8.8.8
+        ipLocation:
+          $ref: '#/components/schemas/IPLocation'
+        timestamp:
+          description: Timestamp of the event with millisecond precision in Unix time.
+          type: integer
+          format: int64
+          example: 1654815516086
+        time:
+          title: Time
+          description: Time expressed according to ISO 8601 in UTC format.
+          type: string
+          format: date-time
+          example: '2022-06-09T22:58:36Z'
+        url:
+          description: Page URL from which identification request was sent.
+          type: string
+          format: uri
+          example: https://some.website/path?query=params
+        tag:
+          description: >-
+            A customer-provided value or an object that was sent with
+            identification request.
+          type: object
+          additionalProperties: true
+        linkedId:
+          description: A customer-provided id that was sent with identification request.
+          type: string
+          example: someID
+        confidence:
+          $ref: '#/components/schemas/Confidence'
+        visitorFound:
+          description: Attribute represents if a visitor had been identified before.
+          type: boolean
+        firstSeenAt:
+          $ref: '#/components/schemas/StSeenAt'
+          example:
+            global: '2022-05-05T18:28:54.535Z'
+            subscription: '2022-06-09T22:58:05.576Z'
+        lastSeenAt:
+          $ref: '#/components/schemas/StSeenAt'
+          example:
+            global: '2022-06-09T22:58:35.795Z'
+            subscription: null
+      required:
+        - browserDetails
+        - confidence
+        - firstSeenAt
+        - incognito
+        - ip
+        - ipLocation
+        - lastSeenAt
+        - requestId
+        - time
+        - timestamp
+        - url
+        - visitorFound
+      title: Visit
+    BrowserDetails:
+      type: object
+      additionalProperties: false
+      properties:
+        browserName:
+          type: string
+          example: Chrome
+        browserMajorVersion:
+          type: string
+          example: '101'
+        browserFullVersion:
+          type: string
+          example: 101.0.4951
+        os:
+          type: string
+          example: Windows
+        osVersion:
+          type: string
+          example: '10'
+        device:
+          type: string
+          example: Other
+        userAgent:
+          type: string
+          example: >-
+            Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+            like Gecko) Chrome/101.0.4951.41 Safari/537.36
+        botProbability:
+          type: integer
+      required:
+        - browserFullVersion
+        - browserMajorVersion
+        - browserName
+        - device
+        - os
+        - osVersion
+        - userAgent
+      title: BrowserDetails
+    Confidence:
+      type: object
+      additionalProperties: false
+      properties:
+        score:
+          description: >-
+            The confidence score is a floating-point number between 0 and 1 that
+            represents the probability of accurate identification.
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+      required:
+        - score
+      title: Confidence
+    StSeenAt:
+      type: object
+      additionalProperties: false
+      properties:
+        global:
+          type: string
+          nullable: true
+          format: date-time
+        subscription:
+          type: string
+          nullable: true
+          format: date-time
+      required:
+        - global
+        - subscription
+      title: StSeenAt
+    IPLocation:
+      type: object
+      additionalProperties: false
+      properties:
+        accuracyRadius:
+          type: integer
+          minimum: 0
+          example: 1000
+        latitude:
+          type: number
+          format: double
+          minimum: -90
+          maximum: 90
+          example: 37.75
+        longitude:
+          type: number
+          format: double
+          minimum: -180
+          maximum: 180
+          example: -97.82
+        postalCode:
+          type: string
+          example: 130 00
+        timezone:
+          type: string
+          format: timezone
+          example: America/Chicago
+        city:
+          type: object
+          additionalProperties: false
+          title: IPLocationCity
+          properties:
+            name:
+              type: string
+              example: Prague
+        country:
+          $ref: '#/components/schemas/Location'
+          example:
+            code: US
+            name: United States
+        continent:
+          $ref: '#/components/schemas/Location'
+          example:
+            code: NA
+            name: North America
+        subdivisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subdivision'
+      required:
+        - accuracyRadius
+        - continent
+        - country
+        - latitude
+        - longitude
+        - timezone
+      title: IPLocation
+    Location:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          minLength: 2
+          maxLength: 2
+          example: US
+        name:
+          type: string
+          example: United States
+      required:
+        - code
+        - name
+      title: Location
+    Subdivision:
+      type: object
+      additionalProperties: false
+      properties:
+        isoCode:
+          type: string
+          example: '10'
+        name:
+          type: string
+          example: Hlavni mesto Praha
+    ProductsResponse:
+      type: object
+      description: >-
+        Contains all the information from each activated product - BOTD and
+        Identification
+      additionalProperties: false
+      properties:
+        identification:
+          type: object
+          additionalProperties: false
+          title: ProductsResponseIdentification
+          properties:
+            data:
+              title: ProductsResponseIdentificationData
+              type: object
+              properties:
+                requestId:
+                  description: Unique identifier of the user's identification request.
+                  type: string
+                  example: 1654815516083.OX6kx8
+                browserDetails:
+                  $ref: '#/components/schemas/BrowserDetails'
+                incognito:
+                  description: Flag if user used incognito session.
+                  type: boolean
+                ip:
+                  type: string
+                  format: ipv4
+                  example: 8.8.8.8
+                ipLocation:
+                  $ref: '#/components/schemas/IPLocation'
+                timestamp:
+                  description: >-
+                    Timestamp of the event with millisecond precision in Unix
+                    time.
+                  type: integer
+                  format: int64
+                  example: 1654815516086
+                time:
+                  title: Time
+                  description: Time expressed according to ISO 8601 in UTC format.
+                  type: string
+                  format: date-time
+                  example: '2022-06-09T22:58:36Z'
+                url:
+                  description: Page URL from which identification request was sent.
+                  type: string
+                  format: uri
+                  example: https://some.website/path?query=params
+                tag:
+                  description: >-
+                    A customer-provided value or an object that was sent with
+                    identification request.
+                  type: object
+                  additionalProperties: true
+                linkedId:
+                  description: >-
+                    A customer-provided id that was sent with identification
+                    request.
+                  type: string
+                  example: someID
+                confidence:
+                  $ref: '#/components/schemas/Confidence'
+                visitorFound:
+                  description: >-
+                    Attribute represents if a visitor had been identified
+                    before.
+                  type: boolean
+                firstSeenAt:
+                  $ref: '#/components/schemas/StSeenAt'
+                  example:
+                    global: '2022-05-05T18:28:54.535Z'
+                    subscription: '2022-06-09T22:58:05.576Z'
+                lastSeenAt:
+                  $ref: '#/components/schemas/StSeenAt'
+                  example:
+                    global: '2022-06-09T22:58:35.795Z'
+                    subscription: null
+                visitorId:
+                  type: string
+              additionalProperties: false
+              required:
+                - browserDetails
+                - confidence
+                - firstSeenAt
+                - incognito
+                - ip
+                - ipLocation
+                - lastSeenAt
+                - requestId
+                - time
+                - timestamp
+                - url
+                - visitorFound
+                - visitorId
+        botd:
+          title: ProductsResponseBotd
+          type: object
+          additionalProperties: false
+          properties:
+            data:
+              $ref: '#/components/schemas/BotdResult'
+    EventResponse:
+      description: Contains event from activated products - BOTD and Identification
+      type: object
+      additionalProperties: false
+      properties:
+        products:
+          $ref: '#/components/schemas/ProductsResponse'
+    BotdResult:
+      type: object
+      additionalProperties: false
+      description: Contains all the information from BOTD product
+      properties:
+        ip:
+          type: string
+          format: ipv4
+          example: 8.8.8.8
+          description: IP address of the requesting browser or bot.
+        time:
+          title: Time
+          description: >-
+            Time in UTC when the request from the JS agent was made. We
+            recommend to treat requests that are older than 2 minutes as
+            malicious. Otherwise, request replay attacks are possible
+          type: string
+          format: date-time
+          example: '2022-06-09T22:58:36Z'
+        bot:
+          $ref: '#/components/schemas/BotdDetectionResult'
+          example:
+            result: notDetected
+      required:
+        - bot
+        - ip
+        - time
+    BotdDetectionResult:
+      type: object
+      additionalProperties: false
+      description: Stores bot detection result
+      properties:
+        result:
+          type: string
+          description: |
+            Bot detection result:
+             * `notDetected` - the visitor is not a bot
+             * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
+             * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
+          enum:
+            - notDetected
+            - good
+            - bad
+      required:
+        - result

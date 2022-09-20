@@ -1,5 +1,7 @@
 .idea
-/vendor/
+/sdk/vendor/
+/sdk/.cache
 .phpunit.result.cache
 .DS_Store
 .vscode
+.env
