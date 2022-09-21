@@ -16,13 +16,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: php-actions/composer@v5
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          only_args: --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
-          php_version: "${{ matrix.php_version }}"
+          php-version: "${{ matrix.php_version }}"
+          coverage: none
+          tools: composer:v2
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - uses: php-actions/phpunit@v3
         with:
           php_version: "${{ matrix.php_version }}"
-          bootstrap: sdk/vendor/autoload.php
+          bootstrap: vendor/autoload.php
           configuration: test/phpunit.xml.dist
           args: --coverage-text
