@@ -31,6 +31,6 @@
         "psr-4": { "Fingerprintjs\\ServerAPI\\" : "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Fingerprintjs\\ServerAPI\\" : "test/" }
+        "psr-4": { "Fingerprintjs\\ServerAPI\\" : "../test/"}
     }
 }

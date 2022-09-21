@@ -14,8 +14,8 @@ services:
   phpunit:
     image: php:7.2-cli
     volumes:
-      - ./sdk:/app
+      - ./:/app
     working_dir: /app
-    entrypoint: vendor/bin/phpunit
+    entrypoint: sdk/vendor/bin/phpunit
     env_file:
       - .env

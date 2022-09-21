@@ -23,4 +23,5 @@ sed -i '' 's/"homepage": "https:\/\/github.com\/swagger-api\/swagger-codegen"/"h
 mv -f sdk/README.md ./README.md
 rm -rf docs
 mv -f sdk/docs ./docs
-rm sdk/{git_push.sh,.php_cs,.travis.yml}
+rm -rf sdk/test
+rm sdk/{git_push.sh,.php_cs,.travis.yml, phpunit.xml.dist}
