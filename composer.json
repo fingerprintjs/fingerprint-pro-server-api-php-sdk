@@ -28,9 +28,9 @@
         "friendsofphp/php-cs-fixer": "~1.12"
     },
     "autoload": {
-        "psr-4": { "Fingerprintjs\\ServerAPI\\" : "src/" }
+        "psr-4": { "Fingerprintjs\\ServerAPI\\" : "sdk/src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Fingerprintjs\\ServerAPI\\" : "../test/"}
+        "psr-4": { "Fingerprintjs\\ServerAPI\\" : "test/" }
     }
 }

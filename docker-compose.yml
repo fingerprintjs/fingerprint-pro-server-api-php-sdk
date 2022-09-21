@@ -5,7 +5,7 @@ services:
     environment:
       - COMPOSER_CACHE_DIR=/app/.cache/composer
     volumes:
-      - ./sdk:/app
+      - ./:/app
   php:
     image: php:7.2-cli
     volumes:
@@ -16,6 +16,6 @@ services:
     volumes:
       - ./:/app
     working_dir: /app
-    entrypoint: sdk/vendor/bin/phpunit
+    entrypoint: vendor/bin/phpunit
     env_file:
       - .env

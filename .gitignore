@@ -1,6 +1,6 @@
 .idea
-/sdk/vendor/
-/sdk/.cache
+/vendor/
+/.cache
 .phpunit.result.cache
 .DS_Store
 .vscode
