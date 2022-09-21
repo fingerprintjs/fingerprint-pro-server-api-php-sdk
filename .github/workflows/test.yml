@@ -28,5 +28,5 @@ jobs:
         with:
           php_version: "${{ matrix.php_version }}"
           bootstrap: vendor/autoload.php
-          configuration: test/phpunit.xml.dist
+          configuration: phpunit.xml.dist
           args: --coverage-text
