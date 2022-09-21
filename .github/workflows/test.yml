@@ -23,7 +23,7 @@ jobs:
           coverage: none
           tools: composer:v2
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
       - uses: php-actions/phpunit@v3
         with:
           php_version: "${{ matrix.php_version }}"
