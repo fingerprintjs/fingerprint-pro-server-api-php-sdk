@@ -1,0 +1,28 @@
+name: test
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  tests:
+    name: "PHP ${{ matrix.php_version }}"
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        php_version: [ "5.5", "7.0", "7.1", "7.2" ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: php-actions/composer@v5
+        with:
+          args: --ignore-platform-reqs
+          php_version: "${{ matrix.php_version }}"
+      - uses: php-actions/phpunit@v3
+        with:
+          php_version: "${{ matrix.php_version }}"
+          bootstrap: sdk/vendor/autoload.php
+          configuration: test/phpunit.xml.dist
+          args: --coverage-text
