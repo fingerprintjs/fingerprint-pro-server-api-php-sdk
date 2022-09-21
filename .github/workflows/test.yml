@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: php-actions/composer@v5
         with:
-          args: --ignore-platform-reqs
+          args: --profile --ignore-platform-reqs
           php_version: "${{ matrix.php_version }}"
       - uses: php-actions/phpunit@v3
         with:
