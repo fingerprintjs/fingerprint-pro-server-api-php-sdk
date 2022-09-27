@@ -38,6 +38,6 @@ jobs:
         with:
           base: main
           branch: release
-          delete-branch: true
+          delete-branch: false
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
