@@ -1,0 +1,43 @@
+name: Bump
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  bump:
+    name: Bump
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: SemVer
+        id: semver
+        uses: paulhatch/semantic-version@v4.0.2
+        with:
+          tag_prefix: "v"
+          bump_each_commit: true
+          format: "${major}.${minor}.${patch}"
+      - name: Generate Code
+        shell: bash
+        run: ./scripts/generate.sh -v ${{ steps.semver.outputs.version }}
+      - name: Create commits
+        run: |
+          git add .
+          git config user.name 'GitHub'
+          git config user.email '${{ github.actor }}@users.noreply.github.com'
+          git commit -m "chore(bump): new version v${{ steps.semver.outputs.version }}"
+          git push
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          base: main
+          branch: release
+          delete-branch: true
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>

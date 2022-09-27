@@ -1,0 +1,35 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Read composer.json
+        id: set_var
+        run: |
+          content=`cat ./composer.json`
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          echo "::set-output name=composerJson::$content"
+      - name: Create Release
+        id: release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{fromJson(steps.set_var.outputs.composerJson).version}}
+          release_name: Release ${{fromJson(steps.set_var.outputs.composerJson).version}}
+          draft: false
+          prerelease: false
