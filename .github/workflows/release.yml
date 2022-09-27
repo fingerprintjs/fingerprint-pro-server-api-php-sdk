@@ -44,7 +44,7 @@ jobs:
         uses: paulhatch/semantic-version@v4.0.2
         with:
           tag_prefix: "v"
-          bump_each_commit: true
+          bump_each_commit: false
           format: "${major}.${minor}.${patch}"
       - name: Generate Code
         shell: bash
