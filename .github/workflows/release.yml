@@ -1,0 +1,66 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tests:
+    name: "PHP ${{ matrix.php_version }}"
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        php_version: [ "7.3", "7.4", "8.0", "8.1" ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php_version }}"
+          coverage: none
+          tools: composer:v2
+      - name: Install Dependencies
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+      - uses: php-actions/phpunit@v3
+        with:
+          php_version: "${{ matrix.php_version }}"
+          bootstrap: vendor/autoload.php
+          configuration: phpunit.xml.dist
+          args: --coverage-text
+  release:
+    name: Release Version
+    runs-on: "ubuntu-latest"
+    needs: tests
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: SemVer
+        id: semver
+        uses: paulhatch/semantic-version@v4.0.2
+        with:
+          tag_prefix: "v"
+          bump_each_commit: true
+          format: "${major}.${minor}.${patch}"
+      - name: Generate Code
+        shell: bash
+        run: ./scripts/generate.sh -v ${{ steps.semver.outputs.version }}
+      - name: Create commits
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Bump version to ${{ steps.semver.outputs.version }}
+          skip_fetch: true
+      - name: Create Release
+        id: release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.semver.outputs.version }}
+          release_name: Release ${{ steps.semver.outputs.version }}
+          draft: false
+          prerelease: false

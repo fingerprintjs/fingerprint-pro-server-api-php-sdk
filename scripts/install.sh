@@ -1,0 +1,1 @@
+docker-compose run composer install --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
