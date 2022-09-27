@@ -1,6 +1,6 @@
 {
     "name": "fingerprintjs/server-api-sdk",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.",
     "keywords": [
         "swagger",
