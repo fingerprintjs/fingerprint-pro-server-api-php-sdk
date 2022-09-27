@@ -39,6 +39,3 @@ jobs:
           delete-branch: true
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          add-paths: |
-            src/**
-            composer.json
