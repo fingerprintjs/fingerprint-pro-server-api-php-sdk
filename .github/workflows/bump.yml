@@ -1,4 +1,4 @@
-name: Bump
+name: Bump Version
 on:
   push:
     branches:
