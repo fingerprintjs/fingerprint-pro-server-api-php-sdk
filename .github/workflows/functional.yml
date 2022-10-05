@@ -10,8 +10,13 @@ on:
 
 jobs:
   functional_tests:
+    name: "PHP ${{ matrix.php_version }}"
     runs-on: "ubuntu-latest"
     environment: test
+
+    strategy:
+      matrix:
+        php_version: [ "7.3", "7.4", "8.0", "8.1" ]
     steps:
       - uses: actions/checkout@v3
       - name: Setup PHP
