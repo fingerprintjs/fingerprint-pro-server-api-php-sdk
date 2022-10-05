@@ -33,6 +33,7 @@ jobs:
     name: Release Version
     runs-on: "ubuntu-latest"
     needs: tests
+    environment: production
 
     steps:
       - name: Checkout
