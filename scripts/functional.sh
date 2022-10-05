@@ -1,0 +1,1 @@
+docker container run --env-file .env --rm -v $(pwd):/app/ php:7.2-cli php /app/run_checks.php

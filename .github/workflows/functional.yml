@@ -1,0 +1,31 @@
+name: Functional tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - main
+  schedule:
+    - cron: "0 5 * * *"
+
+jobs:
+  functional_tests:
+    runs-on: "ubuntu-latest"
+    environment: test
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "${{ matrix.php_version }}"
+          coverage: none
+          tools: composer:v2
+      - name: Install Dependencies
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+      - name: "Try to get data using SDK"
+        run: "php ./run_checks.php"
+        env:
+          FP_PRIVATE_API_KEY: "${{ secrets.FP_PRIVATE_API_KEY }}"
+          FP_API_HOST: "${{ secrets.FP_API_HOST }}"
+          FP_VISITOR_ID: "${{ secrets.FP_VISITOR_ID }}"
+          FP_REQUEST_ID: "${{ secrets.FP_REQUEST_ID }}"
