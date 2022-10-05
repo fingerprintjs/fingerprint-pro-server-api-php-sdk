@@ -10,7 +10,7 @@ on:
 
 jobs:
   functional_tests:
-    name: "PHP ${{ matrix.php_version }}"
+    name: "Functional Tests PHP ${{ matrix.php_version }}"
     runs-on: "ubuntu-latest"
     environment: test
 
