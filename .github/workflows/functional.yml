@@ -12,7 +12,6 @@ jobs:
   functional_tests:
     name: "Functional Tests PHP ${{ matrix.php_version }}"
     runs-on: "ubuntu-latest"
-    environment: test
 
     strategy:
       matrix:
