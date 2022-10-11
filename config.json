@@ -3,7 +3,7 @@
   "packagePath": "src",
   "invokerPackage": "Fingerprintjs\\ServerAPI",
   "composerVendorName": "fingerprintjs",
-  "composerProjectName": "fingerprint-pro-server-api-sdk",
+  "composerProjectName": "fingerprint-pro-server-api-php-sdk",
   "packageUrl": "https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk",
   "gitUserId": "fingerprintjs",
   "gitRepoId": "fingerprint-pro-server-api-php-sdk",

@@ -48,11 +48,11 @@ To install the bindings via [Composer](http://getcomposer.org/), add the followi
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/fingerprintjs/fingerprint-pro-server-api-sdk.git"
+            "url": "https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk.git"
         }
     ],
     "require": {
-        "fingerprintjs/fingerprint-pro-server-api-sdk": "*@dev"
+        "fingerprintjs/fingerprint-pro-server-api-php-sdk": "*@dev"
     }
 }
 ```
