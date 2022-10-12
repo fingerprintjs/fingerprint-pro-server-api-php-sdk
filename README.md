@@ -1,9 +1,9 @@
 <p align="center">
     <a href="https://fingerprint.com">
         <picture>
-            <source media="(prefers-color-scheme: dark)" srcset="https://fingerprint.com/img/company-logos/footer-logo.svg" />
-            <source media="(prefers-color-scheme: light)" srcset="https://fingerprint.com/img/company-logos/header-logo.svg" />
-            <img src="https://fingerprint.com/img/company-logos/header-logo.svg" alt="Fingerprint logo" width="312px" />
+            <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/main/.github/resources/logo_light.svg" />
+            <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/main/.github/resources/logo_dark.svg" />
+            <img src="https://raw.githubusercontent.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/main/.github/resources/logo_light.svg" alt="Fingerprint logo" width="312px" />
         </picture>
     </a>
 </p>
