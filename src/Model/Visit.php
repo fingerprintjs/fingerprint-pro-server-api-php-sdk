@@ -257,7 +257,7 @@ class Visit implements ModelInterface, ArrayAccess
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = [];
+        $invalidProperties = parent::listInvalidProperties();
 
         if ($this->container['request_id'] === null) {
             $invalidProperties[] = "'request_id' can't be null";
