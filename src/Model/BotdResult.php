@@ -198,7 +198,7 @@ class BotdResult implements ModelInterface, ArrayAccess
      */
     public function listInvalidProperties()
     {
-        $invalidProperties = parent::listInvalidProperties();
+        $invalidProperties = [];
 
         if ($this->container['ip'] === null) {
             $invalidProperties[] = "'ip' can't be null";

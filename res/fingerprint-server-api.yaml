@@ -3183,7 +3183,6 @@ components:
         - visitorFound
     Visit:
       type: object
-      additionalProperties: true
       properties:
         requestId:
           description: Unique identifier of the user's identification request.
@@ -3518,7 +3517,6 @@ components:
           $ref: '#/components/schemas/ProductsResponse'
     BotdResult:
       type: object
-      additionalProperties: true
       description: Contains all the information from BOTD product
       properties:
         ip:
