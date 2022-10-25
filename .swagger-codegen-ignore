@@ -1,1 +1,5 @@
 .gitignore
+src/phpunit.xml.dist
+src/.travis.yml
+src/.php_cs
+src/git_push.sh
