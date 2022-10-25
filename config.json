@@ -5,7 +5,7 @@
   "composerVendorName": "fingerprint",
   "composerProjectName": "fingerprint-pro-server-api-php-sdk",
   "packageUrl": "https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk",
-  "gitUserId": "fingerprint",
+  "gitUserId": "fingerprintjs",
   "gitRepoId": "fingerprint-pro-server-api-php-sdk",
   "description": "Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.",
   "artifactVersion": "dev-0.3.0-3"
