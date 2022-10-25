@@ -108,7 +108,7 @@ module.exports = {
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "VERSION=\"${nextRelease.version}\" sh ./scripts/generate.sh"
+                "prepareCmd": "sh ./scripts/generate.sh -v ${nextRelease.version}"
             }
         ],
         [
