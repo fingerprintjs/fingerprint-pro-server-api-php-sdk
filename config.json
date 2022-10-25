@@ -8,5 +8,5 @@
   "gitUserId": "fingerprintjs",
   "gitRepoId": "fingerprint-pro-server-api-php-sdk",
   "description": "Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.",
-  "artifactVersion": "dev-0.3.0-2"
+  "artifactVersion": "dev-0.3.0-3"
 }

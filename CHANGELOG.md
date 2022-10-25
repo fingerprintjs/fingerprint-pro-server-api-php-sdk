@@ -1,3 +1,11 @@
+## [0.3.0-develop.3](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.2...v0.3.0-develop.3) (2022-10-25)
+
+
+### Bug Fixes
+
+* posix error on releaserc ([#38](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/issues/38)) ([6a66999](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/6a669994eb21fc0081643120917a62a79637b6b7))
+* updated list of ignored generated files ([#37](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/issues/37)) ([8fced34](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/8fced34b4157c66add3662148fc8b03adafdea6f))
+
 ## [0.3.0-develop.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.1...v0.3.0-develop.2) (2022-10-25)
 
 
