@@ -21,4 +21,4 @@ mv -f src/composer.json composer.json
 rm -rf docs
 mv -f src/docs ./docs
 rm -rf src/test
-rm src/{git_push.sh,.php_cs,.travis.yml,phpunit.xml.dist}
+rm -rf src/{git_push.sh,.php_cs,.travis.yml,phpunit.xml.dist}
