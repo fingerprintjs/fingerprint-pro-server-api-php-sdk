@@ -4,7 +4,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -25,7 +25,7 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprintjs\ServerAPI\Api;
+namespace Fingerprint\ServerAPI\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -33,16 +33,16 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
-use Fingerprintjs\ServerAPI\ApiException;
-use Fingerprintjs\ServerAPI\Configuration;
-use Fingerprintjs\ServerAPI\HeaderSelector;
-use Fingerprintjs\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ApiException;
+use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerAPI\HeaderSelector;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * FingerprintApi Class Doc Comment
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -93,9 +93,9 @@ class FingerprintApi
      *
      * @param  string $request_id Request ID (required)
      *
-     * @throws \Fingerprintjs\ServerAPI\ApiException on non-2xx response
+     * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Fingerprintjs\ServerAPI\Model\EventResponse
+     * @return \Fingerprint\ServerAPI\Model\EventResponse
      */
     public function getEvent($request_id)
     {
@@ -110,13 +110,13 @@ class FingerprintApi
      *
      * @param  string $request_id Request ID (required)
      *
-     * @throws \Fingerprintjs\ServerAPI\ApiException on non-2xx response
+     * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Fingerprintjs\ServerAPI\Model\EventResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Fingerprint\ServerAPI\Model\EventResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEventWithHttpInfo($request_id)
     {
-        $returnType = '\Fingerprintjs\ServerAPI\Model\EventResponse';
+        $returnType = '\Fingerprint\ServerAPI\Model\EventResponse';
         $request = $this->getEventRequest($request_id);
 
         try {
@@ -168,7 +168,7 @@ class FingerprintApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Fingerprintjs\ServerAPI\Model\EventResponse',
+                        '\Fingerprint\ServerAPI\Model\EventResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -176,7 +176,7 @@ class FingerprintApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Fingerprintjs\ServerAPI\Model\ErrorResponse',
+                        '\Fingerprint\ServerAPI\Model\ErrorResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -184,7 +184,7 @@ class FingerprintApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Fingerprintjs\ServerAPI\Model\ErrorResponse',
+                        '\Fingerprint\ServerAPI\Model\ErrorResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -192,7 +192,7 @@ class FingerprintApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Fingerprintjs\ServerAPI\Model\ManyRequestsResponse',
+                        '\Fingerprint\ServerAPI\Model\ManyRequestsResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -234,7 +234,7 @@ class FingerprintApi
      */
     public function getEventAsyncWithHttpInfo($request_id)
     {
-        $returnType = '\Fingerprintjs\ServerAPI\Model\EventResponse';
+        $returnType = '\Fingerprint\ServerAPI\Model\EventResponse';
         $request = $this->getEventRequest($request_id);
 
         return $this->client
@@ -391,9 +391,9 @@ class FingerprintApi
      * @param  int $limit Limit scanned results (optional)
      * @param  int $before Used to paginate results (optional)
      *
-     * @throws \Fingerprintjs\ServerAPI\ApiException on non-2xx response
+     * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Fingerprintjs\ServerAPI\Model\Response
+     * @return \Fingerprint\ServerAPI\Model\Response
      */
     public function getVisits($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null)
     {
@@ -410,13 +410,13 @@ class FingerprintApi
      * @param  int $limit Limit scanned results (optional)
      * @param  int $before Used to paginate results (optional)
      *
-     * @throws \Fingerprintjs\ServerAPI\ApiException on non-2xx response
+     * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Fingerprintjs\ServerAPI\Model\Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Fingerprint\ServerAPI\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
     public function getVisitsWithHttpInfo($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null)
     {
-        $returnType = '\Fingerprintjs\ServerAPI\Model\Response';
+        $returnType = '\Fingerprint\ServerAPI\Model\Response';
         $request = $this->getVisitsRequest($visitor_id, $request_id, $linked_id, $limit, $before);
 
         try {
@@ -468,7 +468,7 @@ class FingerprintApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Fingerprintjs\ServerAPI\Model\Response',
+                        '\Fingerprint\ServerAPI\Model\Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -476,7 +476,7 @@ class FingerprintApi
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Fingerprintjs\ServerAPI\Model\ManyRequestsResponse',
+                        '\Fingerprint\ServerAPI\Model\ManyRequestsResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -526,7 +526,7 @@ class FingerprintApi
      */
     public function getVisitsAsyncWithHttpInfo($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null)
     {
-        $returnType = '\Fingerprintjs\ServerAPI\Model\Response';
+        $returnType = '\Fingerprint\ServerAPI\Model\Response';
         $request = $this->getVisitsRequest($visitor_id, $request_id, $linked_id, $limit, $before);
 
         return $this->client

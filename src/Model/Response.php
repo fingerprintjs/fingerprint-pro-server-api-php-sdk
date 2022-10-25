@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,17 +26,17 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprintjs\ServerAPI\Model;
+namespace Fingerprint\ServerAPI\Model;
 
 use \ArrayAccess;
-use \Fingerprintjs\ServerAPI\ObjectSerializer;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * Response Class Doc Comment
  *
  * @category Class
  * @description Fields &#x60;lastTimestamp&#x60; and &#x60;paginationKey&#x60; added when &#x60;limit&#x60; or &#x60;before&#x60; parameter provided and there is more data to show
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -58,7 +58,7 @@ class Response implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'visitor_id' => 'string',
-'visits' => '\Fingerprintjs\ServerAPI\Model\ResponseVisits[]',
+'visits' => '\Fingerprint\ServerAPI\Model\ResponseVisits[]',
 'last_timestamp' => 'int',
 'pagination_key' => 'string'    ];
 
@@ -248,7 +248,7 @@ class Response implements ModelInterface, ArrayAccess
     /**
      * Gets visits
      *
-     * @return \Fingerprintjs\ServerAPI\Model\ResponseVisits[]
+     * @return \Fingerprint\ServerAPI\Model\ResponseVisits[]
      */
     public function getVisits()
     {
@@ -258,7 +258,7 @@ class Response implements ModelInterface, ArrayAccess
     /**
      * Sets visits
      *
-     * @param \Fingerprintjs\ServerAPI\Model\ResponseVisits[] $visits visits
+     * @param \Fingerprint\ServerAPI\Model\ResponseVisits[] $visits visits
      *
      * @return $this
      */

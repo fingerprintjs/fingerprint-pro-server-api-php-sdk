@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,17 +26,17 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprintjs\ServerAPI\Model;
+namespace Fingerprint\ServerAPI\Model;
 
 use \ArrayAccess;
-use \Fingerprintjs\ServerAPI\ObjectSerializer;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * ProductsResponse Class Doc Comment
  *
  * @category Class
  * @description Contains all the information from each activated product - BOTD and Identification
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -57,8 +57,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'identification' => '\Fingerprintjs\ServerAPI\Model\ProductsResponseIdentification',
-'botd' => '\Fingerprintjs\ServerAPI\Model\ProductsResponseBotd'    ];
+        'identification' => '\Fingerprint\ServerAPI\Model\ProductsResponseIdentification',
+'botd' => '\Fingerprint\ServerAPI\Model\ProductsResponseBotd'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -206,7 +206,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     /**
      * Gets identification
      *
-     * @return \Fingerprintjs\ServerAPI\Model\ProductsResponseIdentification
+     * @return \Fingerprint\ServerAPI\Model\ProductsResponseIdentification
      */
     public function getIdentification()
     {
@@ -216,7 +216,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets identification
      *
-     * @param \Fingerprintjs\ServerAPI\Model\ProductsResponseIdentification $identification identification
+     * @param \Fingerprint\ServerAPI\Model\ProductsResponseIdentification $identification identification
      *
      * @return $this
      */
@@ -230,7 +230,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     /**
      * Gets botd
      *
-     * @return \Fingerprintjs\ServerAPI\Model\ProductsResponseBotd
+     * @return \Fingerprint\ServerAPI\Model\ProductsResponseBotd
      */
     public function getBotd()
     {
@@ -240,7 +240,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets botd
      *
-     * @param \Fingerprintjs\ServerAPI\Model\ProductsResponseBotd $botd botd
+     * @param \Fingerprint\ServerAPI\Model\ProductsResponseBotd $botd botd
      *
      * @return $this
      */

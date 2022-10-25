@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,17 +26,17 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprintjs\ServerAPI\Model;
+namespace Fingerprint\ServerAPI\Model;
 
 use \ArrayAccess;
-use \Fingerprintjs\ServerAPI\ObjectSerializer;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * BotdResult Class Doc Comment
  *
  * @category Class
  * @description Contains all the information from BOTD product
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -60,7 +60,7 @@ class BotdResult implements ModelInterface, ArrayAccess
         'ip' => 'string',
 'time' => '\DateTime',
 'url' => 'string',
-'bot' => '\Fingerprintjs\ServerAPI\Model\BotdDetectionResult'    ];
+'bot' => '\Fingerprint\ServerAPI\Model\BotdDetectionResult'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -302,7 +302,7 @@ class BotdResult implements ModelInterface, ArrayAccess
     /**
      * Gets bot
      *
-     * @return \Fingerprintjs\ServerAPI\Model\BotdDetectionResult
+     * @return \Fingerprint\ServerAPI\Model\BotdDetectionResult
      */
     public function getBot()
     {
@@ -312,7 +312,7 @@ class BotdResult implements ModelInterface, ArrayAccess
     /**
      * Sets bot
      *
-     * @param \Fingerprintjs\ServerAPI\Model\BotdDetectionResult $bot bot
+     * @param \Fingerprint\ServerAPI\Model\BotdDetectionResult $bot bot
      *
      * @return $this
      */
