@@ -29,4 +29,3 @@ mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
 rm -rf docs
 mv -f src/docs ./docs
-rm -rf src/test
