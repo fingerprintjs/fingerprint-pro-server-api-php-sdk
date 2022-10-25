@@ -52,7 +52,7 @@ To install the bindings via [Composer](http://getcomposer.org/), add the followi
         }
     ],
     "require": {
-        "fingerprintjs/fingerprint-pro-server-api-php-sdk": "*@dev"
+        "fingerprintjs/server-api-sdk": "dev-main"
     }
 }
 ```
