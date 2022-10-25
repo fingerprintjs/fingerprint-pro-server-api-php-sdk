@@ -1,3 +1,10 @@
+## [0.3.0-develop.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.1...v0.3.0-develop.2) (2022-10-25)
+
+
+### Bug Fixes
+
+* change prepareCmd command ([#36](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/issues/36)) ([ece2766](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/ece27666ac1bff0c177858644de231dab2af6d69))
+
 ## [0.3.0-develop.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.2.5...v0.3.0-develop.1) (2022-10-25)
 
 
