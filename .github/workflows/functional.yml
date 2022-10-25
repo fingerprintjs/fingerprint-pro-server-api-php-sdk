@@ -1,18 +1,17 @@
 name: Functional tests
 
 on:
+  pull_request:
+    branches:
+      - '*'
   workflow_dispatch:
-  push:
-    branches-ignore:
-      - main
   schedule:
-    - cron: "0 5 * * *"
+    - cron: '0 5 * * *'
 
 jobs:
   functional_tests:
     name: "Functional Tests PHP ${{ matrix.php_version }}"
     runs-on: "ubuntu-latest"
-    environment: test
 
     strategy:
       matrix:
