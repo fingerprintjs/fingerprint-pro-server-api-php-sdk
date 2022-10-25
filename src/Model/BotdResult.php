@@ -59,6 +59,7 @@ class BotdResult implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'ip' => 'string',
 'time' => '\DateTime',
+'url' => 'string',
 'bot' => '\Fingerprintjs\ServerAPI\Model\BotdDetectionResult'    ];
 
     /**
@@ -69,6 +70,7 @@ class BotdResult implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'ip' => 'ipv4',
 'time' => 'date-time',
+'url' => 'uri-reference',
 'bot' => null    ];
 
     /**
@@ -100,6 +102,7 @@ class BotdResult implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'ip' => 'ip',
 'time' => 'time',
+'url' => 'url',
 'bot' => 'bot'    ];
 
     /**
@@ -110,6 +113,7 @@ class BotdResult implements ModelInterface, ArrayAccess
     protected static $setters = [
         'ip' => 'setIp',
 'time' => 'setTime',
+'url' => 'setUrl',
 'bot' => 'setBot'    ];
 
     /**
@@ -120,6 +124,7 @@ class BotdResult implements ModelInterface, ArrayAccess
     protected static $getters = [
         'ip' => 'getIp',
 'time' => 'getTime',
+'url' => 'getUrl',
 'bot' => 'getBot'    ];
 
     /**
@@ -182,6 +187,7 @@ class BotdResult implements ModelInterface, ArrayAccess
     {
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
         $this->container['time'] = isset($data['time']) ? $data['time'] : null;
+        $this->container['url'] = isset($data['url']) ? $data['url'] : null;
         $this->container['bot'] = isset($data['bot']) ? $data['bot'] : null;
     }
 
@@ -199,6 +205,9 @@ class BotdResult implements ModelInterface, ArrayAccess
         }
         if ($this->container['time'] === null) {
             $invalidProperties[] = "'time' can't be null";
+        }
+        if ($this->container['url'] === null) {
+            $invalidProperties[] = "'url' can't be null";
         }
         if ($this->container['bot'] === null) {
             $invalidProperties[] = "'bot' can't be null";
@@ -262,6 +271,30 @@ class BotdResult implements ModelInterface, ArrayAccess
     public function setTime($time)
     {
         $this->container['time'] = $time;
+
+        return $this;
+    }
+
+    /**
+     * Gets url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->container['url'];
+    }
+
+    /**
+     * Sets url
+     *
+     * @param string $url Page URL from which identification request was sent.
+     *
+     * @return $this
+     */
+    public function setUrl($url)
+    {
+        $this->container['url'] = $url;
 
         return $this;
     }

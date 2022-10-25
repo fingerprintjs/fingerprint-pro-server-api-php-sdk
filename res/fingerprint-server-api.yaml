@@ -102,6 +102,7 @@ paths:
                         data:
                           bot:
                             result: notDetected
+                          url: https://www.example.com/login
                           ip: 61.127.217.15
                           time: '2019-05-21T16:40:13Z'
         '400':
@@ -3182,7 +3183,6 @@ components:
         - visitorFound
     Visit:
       type: object
-      additionalProperties: false
       properties:
         requestId:
           description: Unique identifier of the user's identification request.
@@ -3517,7 +3517,6 @@ components:
           $ref: '#/components/schemas/ProductsResponse'
     BotdResult:
       type: object
-      additionalProperties: false
       description: Contains all the information from BOTD product
       properties:
         ip:
@@ -3534,12 +3533,18 @@ components:
           type: string
           format: date-time
           example: '2022-06-09T22:58:36Z'
+        url:
+          description: Page URL from which identification request was sent.
+          type: string
+          format: uri-reference
+          example: https://b.fpjs.sh/
         bot:
           $ref: '#/components/schemas/BotdDetectionResult'
           example:
             result: notDetected
       required:
         - bot
+        - url
         - ip
         - time
     BotdDetectionResult:
