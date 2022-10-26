@@ -58,11 +58,11 @@ To install the bindings via [Composer](http://getcomposer.org/), add the followi
     "repositories": [
         {
             "type": "git",
-            "url": "{{gitRepoBaseURL}}/{{#composerVendorName}}{{.}}{{/composerVendorName}}{{^composerVendorName}}{{gitUserId}}{{/composerVendorName}}/{{#composerProjectName}}{{.}}{{/composerProjectName}}{{^composerProjectName}}{{gitRepoId}}{{/composerProjectName}}.git"
+            "url": "{{gitRepoBaseURL}}/{{gitUserId}}/{{gitRepoId}}.git"
         }
     ],
     "require": {
-        "{{#composerVendorName}}{{.}}{{/composerVendorName}}{{^composerVendorName}}{{gitUserId}}{{/composerVendorName}}/{{#composerProjectName}}{{.}}{{/composerProjectName}}{{^composerProjectName}}{{gitRepoId}}{{/composerProjectName}}": "*@dev"
+        "fingerprint/fingerprint-pro-server-api-sdk": "dev-main"
     }
 }
 ```

@@ -1,5 +1,5 @@
 {
-    "name": "{{#composerVendorName}}{{.}}{{/composerVendorName}}{{^composerVendorName}}{{gitUserId}}{{/composerVendorName}}/{{#composerProjectName}}{{.}}{{/composerProjectName}}{{^composerProjectName}}{{gitRepoId}}{{/composerProjectName}}",
+    "name": "{{composerVendorName}}/{{composerProjectName}}",
     {{#artifactVersion}}
     "version": "{{artifactVersion}}",
     {{/artifactVersion}}
@@ -14,8 +14,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "fingerprintjs",
-            "homepage": "https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk"
+            "name": "{{composerVendorName}}",
+            "homepage": "{{gitRepoBaseURL}}/{{gitUserId}}/{{gitRepoId}}"
         }
     ],
     "require": {

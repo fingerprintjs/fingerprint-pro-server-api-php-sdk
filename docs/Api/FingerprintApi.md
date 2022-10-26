@@ -1,4 +1,4 @@
-# Fingerprintjs\ServerAPI\FingerprintApi
+# Fingerprint\ServerAPI\FingerprintApi
 
 All URIs are relative to *https://api.fpjs.io*
 
@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**getVisits**](FingerprintApi.md#getvisits) | **GET** /visitors/{visitor_id} | 
 
 # **getEvent**
-> \Fingerprintjs\ServerAPI\Model\EventResponse getEvent($request_id)
+> \Fingerprint\ServerAPI\Model\EventResponse getEvent($request_id)
 
 Get event by request ID
 
@@ -19,14 +19,14 @@ This endpoint allows you to get events with all the information from each activa
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 // Configure API key authorization: ApiKeyHeader
-$config = Fingerprintjs\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('Auth-API-Key', 'YOUR_API_KEY');
+$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('Auth-API-Key', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprintjs\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Auth-API-Key', 'Bearer');// Configure API key authorization: ApiKeyQuery
-$config = Fingerprintjs\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('api_key', 'YOUR_API_KEY');
+// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Auth-API-Key', 'Bearer');// Configure API key authorization: ApiKeyQuery
+$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('api_key', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprintjs\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api_key', 'Bearer');
+// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api_key', 'Bearer');
 
-$apiInstance = new Fingerprintjs\ServerAPI\Api\FingerprintApi(
+$apiInstance = new Fingerprint\ServerAPI\Api\FingerprintApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\Fingerprintjs\ServerAPI\Model\EventResponse**](../Model/EventResponse.md)
+[**\Fingerprint\ServerAPI\Model\EventResponse**](../Model/EventResponse.md)
 
 ### Authorization
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getVisits**
-> \Fingerprintjs\ServerAPI\Model\Response getVisits($visitor_id, $request_id, $linked_id, $limit, $before)
+> \Fingerprint\ServerAPI\Model\Response getVisits($visitor_id, $request_id, $linked_id, $limit, $before)
 
 
 
@@ -76,14 +76,14 @@ This endpoint allows you to get a history of visits with all available informati
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 // Configure API key authorization: ApiKeyHeader
-$config = Fingerprintjs\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('Auth-API-Key', 'YOUR_API_KEY');
+$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('Auth-API-Key', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprintjs\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Auth-API-Key', 'Bearer');// Configure API key authorization: ApiKeyQuery
-$config = Fingerprintjs\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('api_key', 'YOUR_API_KEY');
+// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Auth-API-Key', 'Bearer');// Configure API key authorization: ApiKeyQuery
+$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('api_key', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprintjs\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api_key', 'Bearer');
+// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api_key', 'Bearer');
 
-$apiInstance = new Fingerprintjs\ServerAPI\Api\FingerprintApi(
+$apiInstance = new Fingerprint\ServerAPI\Api\FingerprintApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\Fingerprintjs\ServerAPI\Model\Response**](../Model/Response.md)
+[**\Fingerprint\ServerAPI\Model\Response**](../Model/Response.md)
 
 ### Authorization
 

@@ -3,11 +3,11 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $host = getenv('FP_API_HOST');
 $api_key = getenv('FP_PRIVATE_API_KEY');
 
-$config = Fingerprintjs\ServerAPI\Configuration::getDefaultConfiguration()
+$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()
     ->setApiKey('api_key', $api_key)
     ->setHost($host);
 
-$apiInstance = new Fingerprintjs\ServerAPI\Api\FingerprintApi(
+$apiInstance = new Fingerprint\ServerAPI\Api\FingerprintApi(
     new GuzzleHttp\Client(),
     $config
 );

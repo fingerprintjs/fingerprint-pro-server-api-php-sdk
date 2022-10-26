@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,16 +26,16 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprintjs\ServerAPI\Model;
+namespace Fingerprint\ServerAPI\Model;
 
 use \ArrayAccess;
-use \Fingerprintjs\ServerAPI\ObjectSerializer;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * WebhookVisit Class Doc Comment
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -59,19 +59,19 @@ class WebhookVisit implements ModelInterface, ArrayAccess
         'visitor_id' => 'string',
 'client_referrer' => 'string',
 'request_id' => 'string',
-'browser_details' => '\Fingerprintjs\ServerAPI\Model\BrowserDetails',
+'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
 'incognito' => 'bool',
 'ip' => 'string',
-'ip_location' => '\Fingerprintjs\ServerAPI\Model\IPLocation',
+'ip_location' => '\Fingerprint\ServerAPI\Model\IPLocation',
 'timestamp' => 'int',
 'time' => '\DateTime',
 'url' => 'string',
 'tag' => 'map[string,object]',
 'linked_id' => 'string',
-'confidence' => '\Fingerprintjs\ServerAPI\Model\Confidence',
+'confidence' => '\Fingerprint\ServerAPI\Model\Confidence',
 'visitor_found' => 'bool',
-'first_seen_at' => '\Fingerprintjs\ServerAPI\Model\StSeenAt',
-'last_seen_at' => '\Fingerprintjs\ServerAPI\Model\StSeenAt'    ];
+'first_seen_at' => '\Fingerprint\ServerAPI\Model\StSeenAt',
+'last_seen_at' => '\Fingerprint\ServerAPI\Model\StSeenAt'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -400,7 +400,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets browser_details
      *
-     * @return \Fingerprintjs\ServerAPI\Model\BrowserDetails
+     * @return \Fingerprint\ServerAPI\Model\BrowserDetails
      */
     public function getBrowserDetails()
     {
@@ -410,7 +410,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets browser_details
      *
-     * @param \Fingerprintjs\ServerAPI\Model\BrowserDetails $browser_details browser_details
+     * @param \Fingerprint\ServerAPI\Model\BrowserDetails $browser_details browser_details
      *
      * @return $this
      */
@@ -472,7 +472,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets ip_location
      *
-     * @return \Fingerprintjs\ServerAPI\Model\IPLocation
+     * @return \Fingerprint\ServerAPI\Model\IPLocation
      */
     public function getIpLocation()
     {
@@ -482,7 +482,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets ip_location
      *
-     * @param \Fingerprintjs\ServerAPI\Model\IPLocation $ip_location ip_location
+     * @param \Fingerprint\ServerAPI\Model\IPLocation $ip_location ip_location
      *
      * @return $this
      */
@@ -616,7 +616,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets confidence
      *
-     * @return \Fingerprintjs\ServerAPI\Model\Confidence
+     * @return \Fingerprint\ServerAPI\Model\Confidence
      */
     public function getConfidence()
     {
@@ -626,7 +626,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets confidence
      *
-     * @param \Fingerprintjs\ServerAPI\Model\Confidence $confidence confidence
+     * @param \Fingerprint\ServerAPI\Model\Confidence $confidence confidence
      *
      * @return $this
      */
@@ -664,7 +664,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets first_seen_at
      *
-     * @return \Fingerprintjs\ServerAPI\Model\StSeenAt
+     * @return \Fingerprint\ServerAPI\Model\StSeenAt
      */
     public function getFirstSeenAt()
     {
@@ -674,7 +674,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets first_seen_at
      *
-     * @param \Fingerprintjs\ServerAPI\Model\StSeenAt $first_seen_at first_seen_at
+     * @param \Fingerprint\ServerAPI\Model\StSeenAt $first_seen_at first_seen_at
      *
      * @return $this
      */
@@ -688,7 +688,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets last_seen_at
      *
-     * @return \Fingerprintjs\ServerAPI\Model\StSeenAt
+     * @return \Fingerprint\ServerAPI\Model\StSeenAt
      */
     public function getLastSeenAt()
     {
@@ -698,7 +698,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets last_seen_at
      *
-     * @param \Fingerprintjs\ServerAPI\Model\StSeenAt $last_seen_at last_seen_at
+     * @param \Fingerprint\ServerAPI\Model\StSeenAt $last_seen_at last_seen_at
      *
      * @return $this
      */

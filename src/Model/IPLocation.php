@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,16 +26,16 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprintjs\ServerAPI\Model;
+namespace Fingerprint\ServerAPI\Model;
 
 use \ArrayAccess;
-use \Fingerprintjs\ServerAPI\ObjectSerializer;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * IPLocation Class Doc Comment
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -61,10 +61,10 @@ class IPLocation implements ModelInterface, ArrayAccess
 'longitude' => 'double',
 'postal_code' => 'string',
 'timezone' => 'string',
-'city' => '\Fingerprintjs\ServerAPI\Model\IPLocationCity',
-'country' => '\Fingerprintjs\ServerAPI\Model\Location',
-'continent' => '\Fingerprintjs\ServerAPI\Model\Location',
-'subdivisions' => '\Fingerprintjs\ServerAPI\Model\Subdivision[]'    ];
+'city' => '\Fingerprint\ServerAPI\Model\IPLocationCity',
+'country' => '\Fingerprint\ServerAPI\Model\Location',
+'continent' => '\Fingerprint\ServerAPI\Model\Location',
+'subdivisions' => '\Fingerprint\ServerAPI\Model\Subdivision[]'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -385,7 +385,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Gets city
      *
-     * @return \Fingerprintjs\ServerAPI\Model\IPLocationCity
+     * @return \Fingerprint\ServerAPI\Model\IPLocationCity
      */
     public function getCity()
     {
@@ -395,7 +395,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Sets city
      *
-     * @param \Fingerprintjs\ServerAPI\Model\IPLocationCity $city city
+     * @param \Fingerprint\ServerAPI\Model\IPLocationCity $city city
      *
      * @return $this
      */
@@ -409,7 +409,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Gets country
      *
-     * @return \Fingerprintjs\ServerAPI\Model\Location
+     * @return \Fingerprint\ServerAPI\Model\Location
      */
     public function getCountry()
     {
@@ -419,7 +419,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Sets country
      *
-     * @param \Fingerprintjs\ServerAPI\Model\Location $country country
+     * @param \Fingerprint\ServerAPI\Model\Location $country country
      *
      * @return $this
      */
@@ -433,7 +433,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Gets continent
      *
-     * @return \Fingerprintjs\ServerAPI\Model\Location
+     * @return \Fingerprint\ServerAPI\Model\Location
      */
     public function getContinent()
     {
@@ -443,7 +443,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Sets continent
      *
-     * @param \Fingerprintjs\ServerAPI\Model\Location $continent continent
+     * @param \Fingerprint\ServerAPI\Model\Location $continent continent
      *
      * @return $this
      */
@@ -457,7 +457,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Gets subdivisions
      *
-     * @return \Fingerprintjs\ServerAPI\Model\Subdivision[]
+     * @return \Fingerprint\ServerAPI\Model\Subdivision[]
      */
     public function getSubdivisions()
     {
@@ -467,7 +467,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Sets subdivisions
      *
-     * @param \Fingerprintjs\ServerAPI\Model\Subdivision[] $subdivisions subdivisions
+     * @param \Fingerprint\ServerAPI\Model\Subdivision[] $subdivisions subdivisions
      *
      * @return $this
      */

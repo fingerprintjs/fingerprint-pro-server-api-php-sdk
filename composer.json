@@ -1,5 +1,5 @@
 {
-    "name": "fingerprintjs/fingerprint-pro-server-api-php-sdk",
+    "name": "fingerprint/fingerprint-pro-server-api-sdk",
     "version": "dev-0.3.0-3",
     "description": "Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.",
     "keywords": [
@@ -12,7 +12,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "fingerprintjs",
+            "name": "fingerprint",
             "homepage": "https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk"
         }
     ],
@@ -29,9 +29,9 @@
         "friendsofphp/php-cs-fixer": "~1.12"
     },
     "autoload": {
-        "psr-4": { "Fingerprintjs\\ServerAPI\\" : "./src" }
+        "psr-4": { "Fingerprint\\ServerAPI\\" : "./src" }
     },
     "autoload-dev": {
-        "psr-4": { "Fingerprintjs\\ServerAPI\\" : "test/" }
+        "psr-4": { "Fingerprint\\ServerAPI\\" : "test/" }
     }
 }

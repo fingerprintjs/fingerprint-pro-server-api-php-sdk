@@ -1,10 +1,10 @@
 <?php
 
-namespace Fingerprintjs\ServerAPI;
+namespace Fingerprint\ServerAPI;
 
-use Fingerprintjs\ServerAPI\Api\FingerprintApi;
-use Fingerprintjs\ServerAPI\Model\EventResponse;
-use Fingerprintjs\ServerAPI\Model\Response;
+use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Model\EventResponse;
+use Fingerprint\ServerAPI\Model\Response;
 use PHPUnit_Framework_TestCase;
 
 class FingerprintApiTest extends PHPUnit_Framework_TestCase

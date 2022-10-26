@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,17 +26,17 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprintjs\ServerAPI\Model;
+namespace Fingerprint\ServerAPI\Model;
 
 use \ArrayAccess;
-use \Fingerprintjs\ServerAPI\ObjectSerializer;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * EventResponse Class Doc Comment
  *
  * @category Class
  * @description Contains event from activated products - BOTD and Identification
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -57,7 +57,7 @@ class EventResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'products' => '\Fingerprintjs\ServerAPI\Model\ProductsResponse'    ];
+        'products' => '\Fingerprint\ServerAPI\Model\ProductsResponse'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -200,7 +200,7 @@ class EventResponse implements ModelInterface, ArrayAccess
     /**
      * Gets products
      *
-     * @return \Fingerprintjs\ServerAPI\Model\ProductsResponse
+     * @return \Fingerprint\ServerAPI\Model\ProductsResponse
      */
     public function getProducts()
     {
@@ -210,7 +210,7 @@ class EventResponse implements ModelInterface, ArrayAccess
     /**
      * Sets products
      *
-     * @param \Fingerprintjs\ServerAPI\Model\ProductsResponse $products products
+     * @param \Fingerprint\ServerAPI\Model\ProductsResponse $products products
      *
      * @return $this
      */

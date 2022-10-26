@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,16 +26,16 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprintjs\ServerAPI\Model;
+namespace Fingerprint\ServerAPI\Model;
 
 use \ArrayAccess;
-use \Fingerprintjs\ServerAPI\ObjectSerializer;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * ProductsResponseBotd Class Doc Comment
  *
  * @category Class
- * @package  Fingerprintjs\ServerAPI
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -56,7 +56,7 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprintjs\ServerAPI\Model\BotdResult'    ];
+        'data' => '\Fingerprint\ServerAPI\Model\BotdResult'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -199,7 +199,7 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprintjs\ServerAPI\Model\BotdResult
+     * @return \Fingerprint\ServerAPI\Model\BotdResult
      */
     public function getData()
     {
@@ -209,7 +209,7 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprintjs\ServerAPI\Model\BotdResult $data data
+     * @param \Fingerprint\ServerAPI\Model\BotdResult $data data
      *
      * @return $this
      */
