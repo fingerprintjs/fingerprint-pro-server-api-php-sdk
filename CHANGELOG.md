@@ -1,3 +1,10 @@
+## [0.3.0-develop.4](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.3...v0.3.0-develop.4) (2022-10-26)
+
+
+### Bug Fixes
+
+* changed readme instructions & renamed organization name ([334138c](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/334138ccac1f8d71bad86b1825a595ee6f43465a))
+
 ## [0.3.0-develop.3](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.2...v0.3.0-develop.3) (2022-10-25)
 
 
