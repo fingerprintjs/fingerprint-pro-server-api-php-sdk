@@ -38,6 +38,9 @@ namespace Fingerprint\ServerAPI;
  */
 class Configuration
 {
+    const REGION_GLOBAL = "https://api.fpjs.io";
+    const REGION_EUROPE = "https://eu.api.fpjs.io";
+    const REGION_ASIA = "https://ap.api.fpjs.io";
     private static $defaultConfiguration;
 
     /**
@@ -87,7 +90,7 @@ class Configuration
      *
      * @var string
      */
-    protected $userAgent = 'Swagger-Codegen/dev-0.3.0-4/php';
+    protected $userAgent = 'Swagger-Codegen/php';
 
     /**
      * Debug switch (default set to false)
@@ -122,7 +125,7 @@ class Configuration
      * Sets API key
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     * @param string $key              API key or token
+     * @param string $key API key or token
      *
      * @return $this
      */
@@ -148,7 +151,7 @@ class Configuration
      * Sets the prefix for API key (e.g. Bearer)
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     * @param string $prefix           API key prefix, e.g. Bearer
+     * @param string $prefix API key prefix, e.g. Bearer
      *
      * @return $this
      */
@@ -263,12 +266,39 @@ class Configuration
     }
 
     /**
+     * @param $region
+     * @return $this
+     */
+    public function setRegion($region = self::REGION_GLOBAL)
+    {
+        switch (trim(strtolower($region))) {
+            case self::REGION_ASIA:
+            case "as":
+            case "asia":
+                $this->setHost(self::REGION_ASIA);
+                break;
+            case self::REGION_EUROPE:
+            case "eu":
+            case "europe":
+                $this->setHost(self::REGION_EUROPE);
+                break;
+            default:
+            case self::REGION_GLOBAL:
+            case "global":
+                $this->setHost(self::REGION_GLOBAL);
+                break;
+        }
+
+        return $this;
+    }
+
+    /**
      * Sets the user agent of the api client
      *
      * @param string $userAgent the user agent of the api client
      *
-     * @throws \InvalidArgumentException
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setUserAgent($userAgent)
     {
@@ -360,15 +390,20 @@ class Configuration
     }
 
     /**
-     * Gets the default configuration instance
+     * Gets the default configuration instance, with apiKey and host params
      *
+     * @param $api_key
+     * @param $region
      * @return Configuration
      */
-    public static function getDefaultConfiguration()
+    public static function getDefaultConfiguration($api_key = null, $region = self::REGION_GLOBAL)
     {
         if (self::$defaultConfiguration === null) {
             self::$defaultConfiguration = new Configuration();
         }
+
+        self::$defaultConfiguration->setApiKey('api_key', $api_key);
+        self::$defaultConfiguration->setRegion($region);
 
         return self::$defaultConfiguration;
     }
@@ -392,11 +427,10 @@ class Configuration
      */
     public static function toDebugReport()
     {
-        $report  = 'PHP SDK (Fingerprint\ServerAPI) Debug Report:' . PHP_EOL;
+        $report = 'PHP SDK (Fingerprint\ServerAPI) Debug Report:' . PHP_EOL;
         $report .= '    OS: ' . php_uname() . PHP_EOL;
         $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
         $report .= '    OpenAPI Spec Version: 3' . PHP_EOL;
-        $report .= '    SDK Package Version: dev-0.3.0-4' . PHP_EOL;
         $report .= '    Temp Folder Path: ' . self::getDefaultConfiguration()->getTempFolderPath() . PHP_EOL;
 
         return $report;
@@ -405,7 +439,7 @@ class Configuration
     /**
      * Get API key (with prefix if set)
      *
-     * @param  string $apiKeyIdentifier name of apikey
+     * @param string $apiKeyIdentifier name of apikey
      *
      * @return string API key with the prefix
      */

@@ -4,3 +4,4 @@ src/.travis.yml
 src/.php_cs
 src/git_push.sh
 src/test/**
+src/Configuration.php
