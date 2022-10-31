@@ -1,3 +1,10 @@
+## [0.3.0-develop.5](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.4...v0.3.0-develop.5) (2022-10-31)
+
+
+### Features
+
+* simplified configuration api ([#40](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/issues/40)) ([0ea6edd](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/0ea6eddfbce92318f570ce496cd878676f9698b3))
+
 ## [0.3.0-develop.4](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.3...v0.3.0-develop.4) (2022-10-26)
 
 
