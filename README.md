@@ -82,60 +82,71 @@ Please follow the [installation procedure](#installation--usage) and then run th
 
 ```php
 <?php
+
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Configure API key authorization: ApiKeyHeader
-$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('Auth-API-Key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Auth-API-Key', 'Bearer');
-// Configure API key authorization: ApiKeyQuery
-$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('api_key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api_key', 'Bearer');
+// Our Fingerprint API Secret
+define('FPJS_API_SECRET', getenv('FPJS_API_SECRET'));
+// A Request ID that made by a specific visitor
+define('FPJS_REQUEST_ID', getenv('FPJS_REQUEST_ID'));
+// A Visitor ID of a specific visitor
+define('FPJS_VISITOR_ID', getenv('FPJS_VISITOR_ID'));
 
-$apiInstance = new Fingerprint\ServerAPI\Api\FingerprintApi(
-// If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-// This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
+// Linked id of the visit
+const FPJS_LINKED_ID = '12';
+// How many items to fetch, while paginating
+const LIMIT = 10;
+// How many items to skip, while paginating
+const BEFORE = 1;
+
+// Import Fingerprint Classes and Guzzle Http Client
+use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Configuration;
+use GuzzleHttp\Client;
+
+// Create new Configuration instance with defaultValues, added our API Secret and our Region
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
+$client = new FingerprintApi(
+    new Client(),
     $config
 );
-$request_id = "request_id_example"; // string | Request ID
 
+// Let's try to get an event with given Request ID
 try {
-    $result = $apiInstance->getEvent($request_id);
-    print_r($result);
+    // Fetch event with given Request ID
+    $response = $client->getEvent(FPJS_REQUEST_ID);
+    echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
 }
 
-// Configure API key authorization: ApiKeyHeader
-$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('Auth-API-Key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Auth-API-Key', 'Bearer');
-// Configure API key authorization: ApiKeyQuery
-$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('api_key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api_key', 'Bearer');
-
-$apiInstance = new Fingerprint\ServerAPI\Api\FingerprintApi(
-// If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-// This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$visitor_id = "visitor_id_example"; // string | 
-$request_id = "request_id_example"; // string | Filter events by requestId
-$linked_id = "linked_id_example"; // string | Filter events by custom identifier
-$limit = 56; // int | Limit scanned results
-$before = 56; // int | Used to paginate results
-
+// Let's try to get a specific visitor's all visits
 try {
-    $result = $apiInstance->getVisits($visitor_id, $request_id, $linked_id, $limit, $before);
-    print_r($result);
+    // Fetch all visits with given Visitor ID, with a page limit
+    $response = $client->getVisits(FPJS_VISITOR_ID, null, null, LIMIT);
+    echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
-    echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
 }
-?>
+
+// Let's try to get a specific visitor's all visits with linked id
+try {
+    // Fetch all visits with given Visitor ID, with a page limit, skipping first the first visit
+    $response = $client->getVisits(FPJS_VISITOR_ID, null, FPJS_LINKED_ID, LIMIT, BEFORE);
+    echo "<pre>" . $response->__toString() . "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
+}
+
+// Let's use all the parameters on getVisits
+try {
+    // We fetch the visitor's all visits with given Request ID, Linked ID with a page limit while skipping first visit
+    $response = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, BEFORE);
+    echo "<pre>" . $response->__toString() . "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
+}
+
 ```
 
 ## Documentation for API Endpoints
