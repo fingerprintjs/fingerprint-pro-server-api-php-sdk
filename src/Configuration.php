@@ -38,9 +38,9 @@ namespace Fingerprint\ServerAPI;
  */
 class Configuration
 {
-    const REGION_GLOBAL = "https://api.fpjs.io";
-    const REGION_EUROPE = "https://eu.api.fpjs.io";
-    const REGION_ASIA = "https://ap.api.fpjs.io";
+    public const REGION_GLOBAL = "https://api.fpjs.io";
+    public const REGION_EUROPE = "https://eu.api.fpjs.io";
+    public const REGION_ASIA = "https://ap.api.fpjs.io";
     private static $defaultConfiguration;
 
     /**
