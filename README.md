@@ -47,12 +47,6 @@ To install the bindings via [Composer](http://getcomposer.org/), add the followi
 
 ```
 {
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk.git"
-        }
-    ],
     "require": {
         "fingerprint/fingerprint-pro-server-api-sdk": "dev-main"
     }
@@ -60,6 +54,10 @@ To install the bindings via [Composer](http://getcomposer.org/), add the followi
 ```
 
 Then run `composer install`
+
+Or you can just run
+
+`composer require fingerprint/fingerprint-pro-server-api-sdk`
 
 ### Manual Installation
 
