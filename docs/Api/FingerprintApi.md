@@ -4,8 +4,8 @@ All URIs are relative to *https://api.fpjs.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getEvent**](FingerprintApi.md#getevent) | **GET** /events/{request_id} | Get event by request ID
-[**getVisits**](FingerprintApi.md#getvisits) | **GET** /visitors/{visitor_id} | 
+[**getEvent**](FingerprintApi.md#getEvent) | **GET** /events/{request_id} | Get event by request ID
+[**getVisits**](FingerprintApi.md#getVisits) | **GET** /visitors/{visitor_id} | 
 
 # **getEvent**
 > \Fingerprint\ServerAPI\Model\EventResponse getEvent($request_id)
@@ -17,26 +17,28 @@ This endpoint allows you to get events with all the information from each activa
 ### Example
 ```php
 <?php
-require_once(__DIR__ . '/vendor/autoload.php');
-// Configure API key authorization: ApiKeyHeader
-$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('Auth-API-Key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Auth-API-Key', 'Bearer');// Configure API key authorization: ApiKeyQuery
-$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('api_key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api_key', 'Bearer');
 
-$apiInstance = new Fingerprint\ServerAPI\Api\FingerprintApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
+require_once(__DIR__ . '/vendor/autoload.php');
+
+const FPJS_API_SECRET = "YOUR SECRET KEY COMES HERE"; // Our Fingerprint API Secret
+
+// Import Fingerprint Classes and Guzzle Http Client
+use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Configuration;
+use GuzzleHttp\Client;
+
+// Create new Configuration instance with defaultValues, added our API Secret and our Region
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
+$client = new FingerprintApi(
+    new Client(),
     $config
 );
+
 $request_id = "request_id_example"; // string | Request ID
 
 try {
-    $result = $apiInstance->getEvent($request_id);
-    print_r($result);
+    $result = $client->getEvent($request_id);
+    echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
 }
@@ -59,8 +61,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
@@ -74,21 +76,23 @@ This endpoint allows you to get a history of visits with all available informati
 ### Example
 ```php
 <?php
-require_once(__DIR__ . '/vendor/autoload.php');
-// Configure API key authorization: ApiKeyHeader
-$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('Auth-API-Key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Auth-API-Key', 'Bearer');// Configure API key authorization: ApiKeyQuery
-$config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKey('api_key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Fingerprint\ServerAPI\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api_key', 'Bearer');
 
-$apiInstance = new Fingerprint\ServerAPI\Api\FingerprintApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
+require_once(__DIR__ . '/vendor/autoload.php');
+
+const FPJS_API_SECRET = "YOUR SECRET KEY COMES HERE"; // Our Fingerprint API Secret
+
+// Import Fingerprint Classes and Guzzle Http Client
+use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Configuration;
+use GuzzleHttp\Client;
+
+// Create new Configuration instance with defaultValues, added our API Secret and our Region
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
+$client = new FingerprintApi(
+    new Client(),
     $config
 );
+
 $visitor_id = "visitor_id_example"; // string | 
 $request_id = "request_id_example"; // string | Filter events by requestId
 $linked_id = "linked_id_example"; // string | Filter events by custom identifier
@@ -96,8 +100,8 @@ $limit = 56; // int | Limit scanned results
 $before = 56; // int | Used to paginate results
 
 try {
-    $result = $apiInstance->getVisits($visitor_id, $request_id, $linked_id, $limit, $before);
-    print_r($result);
+    $result = $client->getVisits($visitor_id, $request_id, $linked_id, $limit, $before);
+    echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
@@ -124,8 +128,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

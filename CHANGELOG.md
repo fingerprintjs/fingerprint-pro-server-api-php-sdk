@@ -1,3 +1,24 @@
+## [0.3.0-develop.7](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.6...v0.3.0-develop.7) (2022-11-01)
+
+
+### Bug Fixes
+
+* api doc fixed for simpler use ([#43](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/issues/43)) ([dca0952](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/dca0952e5bce0f7138e8de0da17584d6caa329d7))
+
+## [0.3.0-develop.6](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.5...v0.3.0-develop.6) (2022-11-01)
+
+
+### Features
+
+* update php version for public consts & simplify docs ([#42](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/issues/42)) ([18eb759](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/18eb759e1296dd7339cb711c02da077f359a5a0d))
+
+## [0.3.0-develop.5](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.4...v0.3.0-develop.5) (2022-10-31)
+
+
+### Features
+
+* simplified configuration api ([#40](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/issues/40)) ([0ea6edd](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/0ea6eddfbce92318f570ce496cd878676f9698b3))
+
 ## [0.3.0-develop.4](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0-develop.3...v0.3.0-develop.4) (2022-10-26)
 
 
