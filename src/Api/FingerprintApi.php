@@ -63,6 +63,8 @@ class FingerprintApi
      */
     protected $headerSelector;
 
+    protected $integration_info = 'fingerprint-pro-server-php-sdk/0.3.0';
+
     /**
      * @param ClientInterface $client
      * @param Configuration   $config
@@ -293,7 +295,7 @@ class FingerprintApi
 
         $resourcePath = '/events/{request_id}';
         $formParams = [];
-        $queryParams = [];
+        $queryParams = ['ii' => $this->integration_info];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
@@ -589,7 +591,7 @@ class FingerprintApi
 
         $resourcePath = '/visitors/{visitor_id}';
         $formParams = [];
-        $queryParams = [];
+        $queryParams = ['ii' => $this->integration_info];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
