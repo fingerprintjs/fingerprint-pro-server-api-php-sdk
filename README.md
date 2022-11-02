@@ -71,15 +71,6 @@ Download the files and include `autoload.php`:
 require_once('/path/to/src/vendor/autoload.php');
 ```
 
-## Tests
-
-To run the unit tests:
-
-```
-composer install
-./vendor/bin/phpunit
-```
-
 ## Getting Started
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
@@ -201,6 +192,15 @@ Class | Method | HTTP request | Description
 - **API key parameter name**: api_key
 - **Location**: URL query string
 
+
+## Tests
+
+To run the unit tests:
+
+```
+composer install
+./vendor/bin/phpunit
+```
 
 ## Author
 
