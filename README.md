@@ -100,6 +100,14 @@ use Fingerprint\ServerAPI\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
+/**
+ * You can specify your region on getDefaultConfiguration function's second parameter
+ * If you leave second parameter empty, then Configuration::REGION_GLOBAL will be used as region
+ * Options for regions are:
+ * Configuration::REGION_EUROPE
+ * Congiruration::REGION_GLOBAL
+ * Configuration::REGION_ASIA
+ */
 $config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
 $client = new FingerprintApi(
     new Client(),
@@ -146,7 +154,16 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.fpjs.io*
+All URIs are relative to your region's base URL.
+
+| Region      | BasePath               |
+|-------------|------------------------|
+| US / Global | https://api.fpjs.io    |
+| Europe      | https://eu.api.fpjs.io |
+| Asia        | https://ap.api.fpjs.io |
+
+## Endpoints
+
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
