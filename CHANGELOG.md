@@ -1,3 +1,19 @@
+## [1.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.4.1...v1.0.0) (2022-11-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* We now have a mature version of the sdk
+
+### Features
+
+* remove beta disclaimer from readme ([cb39ecd](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/cb39ecdcd8648a69971b21afdbdb7529355728c6))
+
+
+### Documentation
+
+* **README:** add packagist badges ([3aea456](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/3aea456acc7797368b2edf8292ce028dab2632c8))
+
 ## [0.4.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.4.0...v0.4.1) (2022-11-02)
 
 
