@@ -1,3 +1,10 @@
+## [0.4.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.4.0...v0.4.1) (2022-11-02)
+
+
+### Documentation
+
+* **README:** update installation instructions & introduce new tags on composer.json: ([e8e6ad6](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/e8e6ad6f5c6cf570a4c7ce121f66cef94704cbf0))
+
 ## [0.4.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0...v0.4.0) (2022-11-02)
 
 
