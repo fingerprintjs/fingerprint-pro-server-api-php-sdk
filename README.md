@@ -17,6 +17,12 @@
     <a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/functional.yml">
         <img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/functional.yml/badge.svg" alt="CI badge" />
     </a>
+    <a href="https://packagist.org/packages/fingerprint/fingerprint-pro-server-api-sdk">
+        <img src="https://poser.pugx.org/fingerprint/fingerprint-pro-server-api-sdk/v" alt="Latest Stable Version on Packagist">
+    </a>
+    <a href="https://packagist.org/packages/fingerprint/fingerprint-pro-server-api-sdk">
+        <img src="http://poser.pugx.org/fingerprint/fingerprint-pro-server-api-sdk/require/php" alt="PHP Version Require">
+    </a>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/:license-mit-blue.svg?style=flat"/>
     </a>
