@@ -1,3 +1,10 @@
+## [0.4.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.3.0...v0.4.0) (2022-11-02)
+
+
+### Features
+
+* add integration info query parameter ([e4a6c18](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/e4a6c18fa6b00ac45447e040790a6b2a7c078783))
+
 ## [0.3.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.2.5...v0.3.0) (2022-11-01)
 
 
