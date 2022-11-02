@@ -6,6 +6,7 @@ use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Model\EventResponse;
 use Fingerprint\ServerAPI\Model\Response;
 use PHPUnit_Framework_TestCase;
+use ReflectionClass;
 
 class FingerprintApiTest extends PHPUnit_Framework_TestCase
 {
@@ -15,6 +16,22 @@ class FingerprintApiTest extends PHPUnit_Framework_TestCase
     const MOCK_REQUEST_ID = '0KSh65EnVoB85JBmloQK';
     const MOCK_VISITOR_ID = 'AcxioeQKffpXF8iGQK3P';
     const MOCK_VISITOR_REQUEST_ID = '1655373780901.HhjRFX';
+
+    protected function getMethod($method_name)
+    {
+        $class = new ReflectionClass(FingerprintApi::class);
+        $get_event_request_method = $class->getMethod($method_name);
+        $get_event_request_method->setAccessible(true);
+        return $get_event_request_method;
+    }
+
+    protected function getVersion()
+    {
+        $config_file = file_get_contents(__DIR__ . '/../config.json');
+        $config = json_decode($config_file, true);
+
+        return $config['artifactVersion'];
+    }
 
     public function setUp()
     {
@@ -30,6 +47,11 @@ class FingerprintApiTest extends PHPUnit_Framework_TestCase
 
     public function getEventMock()
     {
+        $event_request_method = $this->getMethod('getEventRequest');
+        /** @var \GuzzleHttp\Psr7\Request $event_request */
+        $event_request = $event_request_method->invokeArgs($this->fingerprint_api, [self::MOCK_REQUEST_ID]);
+        $query = $event_request->getUri()->getQuery();
+        $this->assertContains("ii=" . urlencode("fingerprint-pro-server-php-sdk/" . $this->getVersion()), $query);
         $events_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . '/mocks/get_event.json'));
         return ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
     }
@@ -72,7 +94,8 @@ class FingerprintApiTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetVisitsWithLimit() {
+    public function testGetVisitsWithLimit()
+    {
         $limit = 100;
         $visits = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID, null, $limit);
         $count = count($visits->getVisits());
