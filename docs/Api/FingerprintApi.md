@@ -20,7 +20,7 @@ This endpoint allows you to get events with all the information from each activa
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-const FPJS_API_PRIVATE_KEY = "YOUR SECRET KEY COMES HERE"; // Our Fingerprint API Secret
+const FPJS_API_SECRET = "Your Fingerprint API Secret Key"; // Our Fingerprint API Secret
 
 // Import Fingerprint Classes and Guzzle HTTP Client
 use Fingerprint\ServerAPI\Api\FingerprintApi;
@@ -28,7 +28,7 @@ use Fingerprint\ServerAPI\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
-$config = Configuration::getDefaultConfiguration(FPJS_API_PRIVATE_KEY, Configuration::REGION_EUROPE);
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
 $client = new FingerprintApi(
     new Client(),
     $config
@@ -79,7 +79,7 @@ This endpoint allows you to get a history of visits with all available informati
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-const FPJS_API_PRIVATE_KEY = "YOUR SECRET KEY COMES HERE"; // Our Fingerprint API Secret
+const FPJS_API_SECRET = "Your Fingerprint API Secret Key"; // Our Fingerprint API Secret
 
 // Import Fingerprint Classes and Guzzle HTTP Client
 use Fingerprint\ServerAPI\Api\FingerprintApi;
@@ -87,7 +87,7 @@ use Fingerprint\ServerAPI\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
-$config = Configuration::getDefaultConfiguration(FPJS_API_PRIVATE_KEY, Configuration::REGION_EUROPE);
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
 $client = new FingerprintApi(
     new Client(),
     $config
