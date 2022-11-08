@@ -151,6 +151,7 @@ paths:
       tags:
         - Fingerprint
       operationId: getVisits
+      summary: Get events by visitorId
       description: >-
         This endpoint allows you to get a history of visits with all available
         information. Use the visitorId as a URL path parameter. This API method
