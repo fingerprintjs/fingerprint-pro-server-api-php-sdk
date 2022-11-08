@@ -72,8 +72,8 @@ Please follow the [installation procedure](#installation--usage) and then run th
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Our Fingerprint API Secret
-const FPJS_API_SECRET = "Your Fingerprint API Secret Key";
+// Your Fingerprint Secret API Key
+const FPJS_API_SECRET = "Your Fingerprint Secret API Key";
 // A requestId made by a specific visitor
 const FPJS_REQUEST_ID = "requestId"; // Change this value with your requestId
 // A visitorId of a specific visitor
