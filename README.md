@@ -160,7 +160,7 @@ All URIs are relative to your region's base URL.
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *FingerprintApi* | [**getEvent**](docs/Api/FingerprintApi.md#getevent) | **GET** /events/{request_id} | Get event by request ID
-*FingerprintApi* | [**getVisits**](docs/Api/FingerprintApi.md#getvisits) | **GET** /visitors/{visitor_id} | 
+*FingerprintApi* | [**getVisits**](docs/Api/FingerprintApi.md#getvisits) | **GET** /visitors/{visitor_id} | Get events by visitorId
 
 ## Documentation for Models
 

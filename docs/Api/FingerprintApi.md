@@ -5,7 +5,7 @@ All URIs are relative to *https://api.fpjs.io*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getEvent**](FingerprintApi.md#getEvent) | **GET** /events/{request_id} | Get event by request ID
-[**getVisits**](FingerprintApi.md#getVisits) | **GET** /visitors/{visitor_id} | 
+[**getVisits**](FingerprintApi.md#getVisits) | **GET** /visitors/{visitor_id} | Get events by visitorId
 
 # **getEvent**
 > \Fingerprint\ServerAPI\Model\EventResponse getEvent($request_id)
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 # **getVisits**
 > \Fingerprint\ServerAPI\Model\Response getVisits($visitor_id, $request_id, $linked_id, $limit, $before)
 
-
+Get events by visitorId
 
 This endpoint allows you to get a history of visits with all available information. Use the visitorId as a URL path parameter. This API method is scoped to a visitor, i.e. all returned information is by visitorId.
 

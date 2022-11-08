@@ -387,6 +387,8 @@ class FingerprintApi
     /**
      * Operation getVisits
      *
+     * Get events by visitorId
+     *
      * @param  string $visitor_id visitor_id (required)
      * @param  string $request_id Filter events by requestId (optional)
      * @param  string $linked_id Filter events by custom identifier (optional)
@@ -405,6 +407,8 @@ class FingerprintApi
 
     /**
      * Operation getVisitsWithHttpInfo
+     *
+     * Get events by visitorId
      *
      * @param  string $visitor_id (required)
      * @param  string $request_id Filter events by requestId (optional)
@@ -491,7 +495,7 @@ class FingerprintApi
     /**
      * Operation getVisitsAsync
      *
-     * 
+     * Get events by visitorId
      *
      * @param  string $visitor_id (required)
      * @param  string $request_id Filter events by requestId (optional)
@@ -515,7 +519,7 @@ class FingerprintApi
     /**
      * Operation getVisitsAsyncWithHttpInfo
      *
-     * 
+     * Get events by visitorId
      *
      * @param  string $visitor_id (required)
      * @param  string $request_id Filter events by requestId (optional)
