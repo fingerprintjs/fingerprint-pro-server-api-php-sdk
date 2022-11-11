@@ -1,3 +1,12 @@
+## [1.0.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.0.0...v1.0.1) (2022-11-11)
+
+
+### Documentation
+
+* **README:** change description formatting ([dd0acbe](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/dd0acbe89d6858bf4fc26a20f5c24170c7c21eaf))
+* **README:** extra information about regions ([1310806](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/1310806b2015b02e9015b84304f7efc7eac3837c))
+* **README:** move tests section to bottom ([c2b0bab](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/c2b0bab528d9b202607db06be9ebb70893b9235a))
+
 ## [1.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v0.4.1...v1.0.0) (2022-11-02)
 
 
