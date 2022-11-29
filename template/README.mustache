@@ -82,29 +82,29 @@ Please follow the [installation procedure](#installation--usage) and then run th
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Your Fingerprint Secret API Key
-const FPJS_API_SECRET = "Your Fingerprint Secret API Key";
-// A requestId made by a specific visitor
-const FPJS_REQUEST_ID = "requestId"; // Change this value with your requestId
-// A visitorId of a specific visitor
-const FPJS_VISITOR_ID = "visitorId"; // Change this value with your visitorId
+// Fingerprint Pro Secret API Key
+const FPJS_API_SECRET = "Fingerprint Pro Secret API Key";
+// A mandatory visitorId of a specific visitor
+const FPJS_VISITOR_ID = "visitorId";
+// An optional requestId made by a specific visitor
+const FPJS_REQUEST_ID = "requestId";
 
-// linkedId of the visit
-const FPJS_LINKED_ID = "linkedId"; // Change this value with your linkedId
-// How many items to fetch, while paginating
+// An optional linkedId of the visit
+const FPJS_LINKED_ID = "linkedId";
+// An optional parameter limiting scanned results
 const LIMIT = 10;
-// How many items to skip, while paginating
+// An optional parameter used to paginate results, see lastTimestamp
 const BEFORE = 1;
 
-// Import Fingerprint Classes and Guzzle Http Client
+// Import Fingerprint Pro Classes and Guzzle Http Client
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Configuration;
 use GuzzleHttp\Client;
 
-// Create a new Configuration instance with your Fingerprint Pro Server API Secret Key and your Fingerprint Pro Server API Region.
+// Create a new Configuration instance with your Fingerprint Pro Server API Key and your Fingerprint Pro Server API Region.
 /**
  * You can specify a region on getDefaultConfiguration function's second parameter
- * If you leave the second parameter empty, then Configuration::REGION_GLOBAL will be used as a region
+ * If you leave the second parameter empty, then Configuration::REGION_GLOBAL will be used as a default region
  * Options for regions are:
  * Configuration::REGION_EUROPE
  * Congiruration::REGION_GLOBAL
@@ -145,13 +145,12 @@ try {
 
 // Use all the parameters on getVisits
 try {
-    // We fetch the visitor's all visits with a given requestId, linkedId with a page limit while skipping the first visit
+    // Fetch the visitor's all visits with a given requestId and linkedId with a page limit while skipping the first visit
     $response = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, BEFORE);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ## Documentation for API Endpoints
