@@ -1,10 +1,10 @@
-# ProductsResponseBotd
+# SeenAt
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**\Fingerprint\ServerAPI\Model\BotdResult**](BotdResult.md) |  | [optional] 
-**error** | [**\Fingerprint\ServerAPI\Model\BotdError**](BotdError.md) |  | [optional] 
+**global** | [**\DateTime**](\DateTime.md) |  | 
+**subscription** | [**\DateTime**](\DateTime.md) |  | 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 
