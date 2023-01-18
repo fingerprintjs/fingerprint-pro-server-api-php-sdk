@@ -2,8 +2,9 @@ openapi: 3.0.3
 info:
   title: Fingerprint Pro Server API
   description: >-
-    Fingerprint Pro Server API provides a way for validating visitors’ data
-    issued by Fingerprint Pro.
+    Fingerprint Pro Server API allows you to get information about visitors and
+    about individual events in a server environment. This API can be used for
+    data exports, decision-making, and data analysis scenarios.
   version: '3'
   contact:
     name: Fingerprint Support
@@ -28,17 +29,17 @@ paths:
     get:
       tags:
         - Fingerprint
-      summary: Get event by request ID
+      summary: Get event by requestId
       description: >-
         This endpoint allows you to get events with all the information from
-        each activated product - BOTD and Fingerprinting. Use the requestId as a
-        URL path :request_id parameter. This API method is scoped to a request,
-        i.e. all returned information is by requestId.
+        each activated product (Fingerprint Pro or Bot Detection). Use the
+        requestId as a URL path :request_id parameter. This API method is scoped
+        to a request, i.e. all returned information is by requestId.
       operationId: getEvent
       parameters:
         - name: request_id
           in: path
-          description: Request ID
+          description: requestId is the unique identifier of each request
           required: true
           schema:
             type: string
@@ -50,7 +51,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EventResponse'
               examples:
-                example:
+                fullResponse:
                   summary: Example response
                   value:
                     products:
@@ -105,25 +106,64 @@ paths:
                           url: https://www.example.com/login
                           ip: 61.127.217.15
                           time: '2019-05-21T16:40:13Z'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                example:
-                  summary: Example response
+                withBotdError:
+                  summary: Example response with BotD error
                   value:
-                    error:
-                      code: RequestIdCannotBeParsed
-                      message: invalid format of request id
+                    products:
+                      identification:
+                        data:
+                          visitorId: Ibk1527CUFmcnjLwIs4A9
+                          requestId: 0KSh65EnVoB85JBmloQK
+                          incognito: true
+                          linkedId: somelinkedId
+                          time: '2019-05-21T16:40:13Z'
+                          timestamp: 1582299576512
+                          url: https://www.example.com/login
+                          ip: 61.127.217.15
+                          ipLocation:
+                            accuracyRadius: 10
+                            latitude: 49.982
+                            longitude: 36.2566
+                            postalCode: '61202'
+                            timezone: Europe/Dusseldorf
+                            city:
+                              name: Dusseldorf
+                            continent:
+                              code: EU
+                              name: Europe
+                            country:
+                              code: DE
+                              name: Germany
+                            subdivisions:
+                              - isoCode: '63'
+                                name: North Rhine-Westphalia
+                          browserDetails:
+                            browserName: Chrome
+                            browserMajorVersion: '74'
+                            browserFullVersion: 74.0.3729
+                            os: Windows
+                            osVersion: '7'
+                            device: Other
+                            userAgent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
+                          confidence:
+                            score: 0.97
+                          visitorFound: true
+                          firstSeenAt:
+                            global: '2022-03-16T11:26:45.362Z'
+                            subscription: '2022-03-16T11:31:01.101Z'
+                          lastSeenAt:
+                            global: '2022-03-16T11:28:34.023Z'
+                            subscription: null
+                      botd:
+                        error:
+                          code: Failed
+                          message: internal server error
         '403':
           description: Forbidden
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorEvent403Response'
               examples:
                 example:
                   summary: Example response
@@ -131,13 +171,26 @@ paths:
                     error:
                       code: TokenRequired
                       message: secret key is required
+        '404':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEvent404Response'
+              examples:
+                example:
+                  summary: Example response
+                  value:
+                    error:
+                      code: RequestNotFound
+                      message: request id is not found
         '429':
           description: Too Many Requests
           headers:
             Retry-After:
               description: >-
-                Indicates how long the user should wait before making a
-                follow-up request.
+                Indicates how long the user should wait in seconds before
+                attempting the next request.
               schema:
                 type: integer
                 format: int32
@@ -151,7 +204,7 @@ paths:
       tags:
         - Fingerprint
       operationId: getVisits
-      summary: Get events by visitorId
+      summary: Get visits by visitorId
       description: >-
         This endpoint allows you to get a history of visits with all available
         information. Use the visitorId as a URL path parameter. This API method
@@ -164,12 +217,12 @@ paths:
             type: string
           example: uYIm7Ksp5rf00SllPhFp
         - name: request_id
-          description: Filter events by requestId
+          description: Filter visits by requestId
           in: query
           schema:
             type: string
         - name: linked_id
-          description: Filter events by custom identifier
+          description: Filter visits by custom identifier
           in: query
           schema:
             type: string
@@ -2873,13 +2926,22 @@ paths:
                         lastSeenAt:
                           global: '2022-03-08T12:33:05.677Z'
                           subscription: '2022-03-08T12:33:05.677Z'
+        '403':
+          description: Forbidden. Probably ApiKey is missed or provided the wrong one.
+          content:
+            text/html:
+              schema:
+                type: string
+                example: >
+                  <html> <head><title>403 Forbidden</title></head> <body>
+                  <center><h1>403 Forbidden</h1></center> </body> </html>
         '429':
           description: Too Many Requests
           headers:
             Retry-After:
               description: >-
-                Indicates how long the user should wait before making a
-                follow-up request.
+                Indicates how long the user should wait before attempting the
+                next request.
               schema:
                 type: integer
                 format: int32
@@ -2901,7 +2963,7 @@ paths:
           webhook:
             post:
               description: >-
-                You can use HTTP basic authentication and setup credentials in
+                You can use HTTP basic authentication and set up credentials in
                 your [Fingerprint
                 account](https://dashboard.fingerprint.com/login)
               requestBody:
@@ -3034,12 +3096,12 @@ components:
                 description: Attribute represents if a visitor had been identified before.
                 type: boolean
               firstSeenAt:
-                $ref: '#/components/schemas/StSeenAt'
+                $ref: '#/components/schemas/SeenAt'
                 example:
                   global: '2022-05-05T18:28:54.535Z'
                   subscription: '2022-06-09T22:58:05.576Z'
               lastSeenAt:
-                $ref: '#/components/schemas/StSeenAt'
+                $ref: '#/components/schemas/SeenAt'
                 example:
                   global: '2022-06-09T22:58:35.795Z'
                   subscription: null
@@ -3079,21 +3141,58 @@ components:
       description: >-
         Fields `lastTimestamp` and `paginationKey` added when `limit` or
         `before` parameter provided and there is more data to show
-    ErrorResponse:
+    ErrorEvent403Response:
       type: object
       additionalProperties: false
       properties:
         error:
           type: object
           additionalProperties: false
-          title: ErrorResponseError
+          title: ErrorEvent403ResponseError
           properties:
             code:
               type: string
+              description: |
+                Error code:
+                 * `TokenRequired` - `Auth-API-Key` header is missing or empty
+                 * `TokenNotFound` - subscription not found for specified secret key
+                 * `SubscriptionNotActive` - subscription is not active
+                 * `WrongRegion` - server and subscription region differ
+              enum:
+                - TokenRequired
+                - TokenNotFound
+                - SubscriptionNotActive
+                - WrongRegion
               example: TokenRequired
             message:
               type: string
               example: secret key is required
+          required:
+            - code
+            - message
+    ErrorEvent404Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          title: ErrorEvent404ResponseError
+          properties:
+            code:
+              type: string
+              description: |
+                Error code:
+                 * `RequestNotFound` - request not found for specified id
+              enum:
+                - RequestNotFound
+              example: RequestNotFound
+            message:
+              type: string
+              example: request id is not found
+          required:
+            - code
+            - message
     ManyRequestsResponse:
       type: object
       additionalProperties: false
@@ -3158,12 +3257,12 @@ components:
           description: Attribute represents if a visitor had been identified before.
           type: boolean
         firstSeenAt:
-          $ref: '#/components/schemas/StSeenAt'
+          $ref: '#/components/schemas/SeenAt'
           example:
             global: '2022-05-05T18:28:54.535Z'
             subscription: '2022-06-09T22:58:05.576Z'
         lastSeenAt:
-          $ref: '#/components/schemas/StSeenAt'
+          $ref: '#/components/schemas/SeenAt'
           example:
             global: '2022-06-09T22:58:35.795Z'
             subscription: null
@@ -3232,12 +3331,12 @@ components:
           description: Attribute represents if a visitor had been identified before.
           type: boolean
         firstSeenAt:
-          $ref: '#/components/schemas/StSeenAt'
+          $ref: '#/components/schemas/SeenAt'
           example:
             global: '2022-05-05T18:28:54.535Z'
             subscription: '2022-06-09T22:58:05.576Z'
         lastSeenAt:
-          $ref: '#/components/schemas/StSeenAt'
+          $ref: '#/components/schemas/SeenAt'
           example:
             global: '2022-06-09T22:58:35.795Z'
             subscription: null
@@ -3308,7 +3407,7 @@ components:
       required:
         - score
       title: Confidence
-    StSeenAt:
+    SeenAt:
       type: object
       additionalProperties: false
       properties:
@@ -3323,7 +3422,7 @@ components:
       required:
         - global
         - subscription
-      title: StSeenAt
+      title: SeenAt
     IPLocation:
       type: object
       additionalProperties: false
@@ -3410,8 +3509,8 @@ components:
     ProductsResponse:
       type: object
       description: >-
-        Contains all the information from each activated product - BOTD and
-        Identification
+        Contains all the information from each activated product - Fingerprint
+        Pro or Bot Detection
       additionalProperties: false
       properties:
         identification:
@@ -3476,12 +3575,12 @@ components:
                     before.
                   type: boolean
                 firstSeenAt:
-                  $ref: '#/components/schemas/StSeenAt'
+                  $ref: '#/components/schemas/SeenAt'
                   example:
                     global: '2022-05-05T18:28:54.535Z'
                     subscription: '2022-06-09T22:58:05.576Z'
                 lastSeenAt:
-                  $ref: '#/components/schemas/StSeenAt'
+                  $ref: '#/components/schemas/SeenAt'
                   example:
                     global: '2022-06-09T22:58:35.795Z'
                     subscription: null
@@ -3509,8 +3608,12 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/BotdResult'
+            error:
+              $ref: '#/components/schemas/BotdError'
     EventResponse:
-      description: Contains event from activated products - BOTD and Identification
+      description: >-
+        Contains event from activated products - Fingerprint Pro or Bot
+        Detection
       type: object
       additionalProperties: false
       properties:
@@ -3518,7 +3621,7 @@ components:
           $ref: '#/components/schemas/ProductsResponse'
     BotdResult:
       type: object
-      description: Contains all the information from BOTD product
+      description: Contains all the information from Bot Detection product
       properties:
         ip:
           type: string
@@ -3538,7 +3641,7 @@ components:
           description: Page URL from which identification request was sent.
           type: string
           format: uri-reference
-          example: https://b.fpjs.sh/
+          example: https://example.com/login
         bot:
           $ref: '#/components/schemas/BotdDetectionResult'
           example:
@@ -3566,3 +3669,23 @@ components:
             - bad
       required:
         - result
+    BotdError:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          description: |
+            Error code:
+             * `TooManyRequests` - the limit on secret API key requests per second has been exceeded
+             * `Failed` - internal server error
+          enum:
+            - TooManyRequests
+            - Failed
+          example: TooManyRequests
+        message:
+          type: string
+          example: too many requests
+      required:
+        - code
+        - message

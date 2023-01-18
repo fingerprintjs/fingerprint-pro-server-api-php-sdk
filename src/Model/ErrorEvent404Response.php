@@ -1,6 +1,6 @@
 <?php
 /**
- * ProductsResponseIdentification
+ * ErrorEvent404Response
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ProductsResponseIdentification Class Doc Comment
+ * ErrorEvent404Response Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class ProductsResponseIdentification implements ModelInterface, ArrayAccess
+class ErrorEvent404Response implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'ProductsResponseIdentification';
+    protected static $swaggerModelName = 'ErrorEvent404Response';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,7 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\ProductsResponseIdentificationData'    ];
+        'error' => '\Fingerprint\ServerAPI\Model\ErrorEvent404ResponseError'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -64,7 +64,7 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'data' => null    ];
+        'error' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -93,7 +93,7 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'data' => 'data'    ];
+        'error' => 'error'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -101,7 +101,7 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'data' => 'setData'    ];
+        'error' => 'setError'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -109,7 +109,7 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'data' => 'getData'    ];
+        'error' => 'getError'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -169,7 +169,7 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
     }
 
     /**
@@ -197,25 +197,25 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets data
+     * Gets error
      *
-     * @return \Fingerprint\ServerAPI\Model\ProductsResponseIdentificationData
+     * @return \Fingerprint\ServerAPI\Model\ErrorEvent404ResponseError
      */
-    public function getData()
+    public function getError()
     {
-        return $this->container['data'];
+        return $this->container['error'];
     }
 
     /**
-     * Sets data
+     * Sets error
      *
-     * @param \Fingerprint\ServerAPI\Model\ProductsResponseIdentificationData $data data
+     * @param \Fingerprint\ServerAPI\Model\ErrorEvent404ResponseError $error error
      *
      * @return $this
      */
-    public function setData($data)
+    public function setError($error)
     {
-        $this->container['data'] = $data;
+        $this->container['error'] = $error;
 
         return $this;
     }
