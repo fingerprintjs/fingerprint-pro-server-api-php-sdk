@@ -1,3 +1,14 @@
+## [2.0.0-develop.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.0.1...v2.0.0-develop.1) (2023-01-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* StSeenAt renamed to SeenAt
+
+### Features
+
+* run sync and generate to update source code and docs ([053be99](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/053be99edc0bb2476d55d5f87bbfc78b9ea55de5))
+
 ## [1.0.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.0.0...v1.0.1) (2022-11-11)
 
 
