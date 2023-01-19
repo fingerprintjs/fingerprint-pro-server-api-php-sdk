@@ -17,8 +17,8 @@ Name | Type | Description | Notes
 **linked_id** | **string** | A customer-provided id that was sent with identification request. | [optional] 
 **confidence** | [**\Fingerprint\ServerAPI\Model\Confidence**](Confidence.md) |  | 
 **visitor_found** | **bool** | Attribute represents if a visitor had been identified before. | 
-**first_seen_at** | [**\Fingerprint\ServerAPI\Model\StSeenAt**](StSeenAt.md) |  | 
-**last_seen_at** | [**\Fingerprint\ServerAPI\Model\StSeenAt**](StSeenAt.md) |  | 
+**first_seen_at** | [**\Fingerprint\ServerAPI\Model\SeenAt**](SeenAt.md) |  | 
+**last_seen_at** | [**\Fingerprint\ServerAPI\Model\SeenAt**](SeenAt.md) |  | 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

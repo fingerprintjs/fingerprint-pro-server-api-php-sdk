@@ -13,7 +13,7 @@
 /**
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -70,8 +70,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'linked_id' => 'string',
 'confidence' => '\Fingerprint\ServerAPI\Model\Confidence',
 'visitor_found' => 'bool',
-'first_seen_at' => '\Fingerprint\ServerAPI\Model\StSeenAt',
-'last_seen_at' => '\Fingerprint\ServerAPI\Model\StSeenAt'    ];
+'first_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt',
+'last_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -664,7 +664,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets first_seen_at
      *
-     * @return \Fingerprint\ServerAPI\Model\StSeenAt
+     * @return \Fingerprint\ServerAPI\Model\SeenAt
      */
     public function getFirstSeenAt()
     {
@@ -674,7 +674,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets first_seen_at
      *
-     * @param \Fingerprint\ServerAPI\Model\StSeenAt $first_seen_at first_seen_at
+     * @param \Fingerprint\ServerAPI\Model\SeenAt $first_seen_at first_seen_at
      *
      * @return $this
      */
@@ -688,7 +688,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets last_seen_at
      *
-     * @return \Fingerprint\ServerAPI\Model\StSeenAt
+     * @return \Fingerprint\ServerAPI\Model\SeenAt
      */
     public function getLastSeenAt()
     {
@@ -698,7 +698,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets last_seen_at
      *
-     * @param \Fingerprint\ServerAPI\Model\StSeenAt $last_seen_at last_seen_at
+     * @param \Fingerprint\ServerAPI\Model\SeenAt $last_seen_at last_seen_at
      *
      * @return $this
      */

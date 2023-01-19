@@ -1,6 +1,6 @@
 <?php
 /**
- * ProductsResponseIdentification
+ * SeenAt
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ProductsResponseIdentification Class Doc Comment
+ * SeenAt Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class ProductsResponseIdentification implements ModelInterface, ArrayAccess
+class SeenAt implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'ProductsResponseIdentification';
+    protected static $swaggerModelName = 'SeenAt';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,8 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\ProductsResponseIdentificationData'    ];
+        'global' => '\DateTime',
+'subscription' => '\DateTime'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -64,7 +65,8 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'data' => null    ];
+        'global' => 'date-time',
+'subscription' => 'date-time'    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -93,7 +95,8 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'data' => 'data'    ];
+        'global' => 'global',
+'subscription' => 'subscription'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -101,7 +104,8 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'data' => 'setData'    ];
+        'global' => 'setGlobal',
+'subscription' => 'setSubscription'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -109,7 +113,8 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'data' => 'getData'    ];
+        'global' => 'getGlobal',
+'subscription' => 'getSubscription'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -169,7 +174,8 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['global'] = isset($data['global']) ? $data['global'] : null;
+        $this->container['subscription'] = isset($data['subscription']) ? $data['subscription'] : null;
     }
 
     /**
@@ -181,6 +187,12 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['global'] === null) {
+            $invalidProperties[] = "'global' can't be null";
+        }
+        if ($this->container['subscription'] === null) {
+            $invalidProperties[] = "'subscription' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -197,25 +209,49 @@ class ProductsResponseIdentification implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets data
+     * Gets global
      *
-     * @return \Fingerprint\ServerAPI\Model\ProductsResponseIdentificationData
+     * @return \DateTime
      */
-    public function getData()
+    public function getGlobal()
     {
-        return $this->container['data'];
+        return $this->container['global'];
     }
 
     /**
-     * Sets data
+     * Sets global
      *
-     * @param \Fingerprint\ServerAPI\Model\ProductsResponseIdentificationData $data data
+     * @param \DateTime $global global
      *
      * @return $this
      */
-    public function setData($data)
+    public function setGlobal($global)
     {
-        $this->container['data'] = $data;
+        $this->container['global'] = $global;
+
+        return $this;
+    }
+
+    /**
+     * Gets subscription
+     *
+     * @return \DateTime
+     */
+    public function getSubscription()
+    {
+        return $this->container['subscription'];
+    }
+
+    /**
+     * Sets subscription
+     *
+     * @param \DateTime $subscription subscription
+     *
+     * @return $this
+     */
+    public function setSubscription($subscription)
+    {
+        $this->container['subscription'] = $subscription;
 
         return $this;
     }
