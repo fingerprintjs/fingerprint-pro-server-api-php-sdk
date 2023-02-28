@@ -1,7 +1,7 @@
 name: Functional tests
 
 on:
-  pull_request:
+  pull_request_target:
     branches:
       - '*'
   workflow_dispatch:
@@ -18,6 +18,8 @@ jobs:
         php_version: [ "7.3", "7.4", "8.0", "8.1" ]
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
