@@ -6,7 +6,7 @@
          convertWarningsToExceptions="true"
          stopOnFailure="false">
     <testsuites>
-        <testsuite>
+        <testsuite name="FingerprintAPI Test">
             <directory>./test</directory>
         </testsuite>
     </testsuites>

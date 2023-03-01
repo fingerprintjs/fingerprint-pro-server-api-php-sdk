@@ -5,10 +5,10 @@ namespace Fingerprint\ServerAPI;
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Model\EventResponse;
 use Fingerprint\ServerAPI\Model\Response;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-class FingerprintApiTest extends PHPUnit_Framework_TestCase
+class FingerprintApiTest extends TestCase
 {
     /** @var FingerprintApi */
     protected $fingerprint_api;
@@ -33,7 +33,7 @@ class FingerprintApiTest extends PHPUnit_Framework_TestCase
         return $config['artifactVersion'];
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $config = new Configuration();
         $config->setHost(getenv('FP_API_HOST'));
@@ -51,7 +51,7 @@ class FingerprintApiTest extends PHPUnit_Framework_TestCase
         /** @var \GuzzleHttp\Psr7\Request $event_request */
         $event_request = $event_request_method->invokeArgs($this->fingerprint_api, [self::MOCK_REQUEST_ID]);
         $query = $event_request->getUri()->getQuery();
-        $this->assertContains("ii=" . urlencode("fingerprint-pro-server-php-sdk/" . $this->getVersion()), $query);
+        $this->assertStringContainsString("ii=" . urlencode("fingerprint-pro-server-php-sdk/" . $this->getVersion()), $query);
         $events_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . '/mocks/get_event.json'));
         return ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
     }
