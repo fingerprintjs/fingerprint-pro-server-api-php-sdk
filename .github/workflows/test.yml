@@ -30,3 +30,4 @@ jobs:
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml.dist
           args: --coverage-text
+          version: "8.5.33"
