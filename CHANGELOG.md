@@ -1,3 +1,11 @@
+## [1.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.0.1...v1.1.0) (2023-03-01)
+
+
+### Features
+
+* **guzzle:** support laravel9 by guzzle 7.4 ([4368166](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/4368166459708cf9479bcd253b3b51563f91e439))
+* **laravel:** support for 2 latest major laravel version ([e648b5e](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/e648b5ebcce050683e3a145c4f07e3381b9a0678))
+
 ## [1.1.0-develop.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.1.0-develop.1...v1.1.0-develop.2) (2023-03-01)
 
 
