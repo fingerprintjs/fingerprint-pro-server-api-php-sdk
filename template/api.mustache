@@ -450,7 +450,7 @@ use {{invokerPackage}}\ObjectSerializer;
 
             } else {
                 // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+                $httpBody = http_build_query($formParams);
             }
         }
 
@@ -493,7 +493,7 @@ use {{invokerPackage}}\ObjectSerializer;
             $headers
         );
 
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        $query = http_build_query($queryParams);
         return new Request(
             '{{httpMethod}}',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
