@@ -13,7 +13,7 @@
 /**
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -35,7 +35,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  * ProductsResponse Class Doc Comment
  *
  * @category Class
- * @description Contains all the information from each activated product - BOTD and Identification
+ * @description Contains all the information from each activated product - Fingerprint Pro or Bot Detection
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
@@ -58,7 +58,16 @@ class ProductsResponse implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'identification' => '\Fingerprint\ServerAPI\Model\ProductsResponseIdentification',
-'botd' => '\Fingerprint\ServerAPI\Model\ProductsResponseBotd'    ];
+'botd' => '\Fingerprint\ServerAPI\Model\ProductsResponseBotd',
+'ip_info' => '\Fingerprint\ServerAPI\Model\SignalResponseIpInfo',
+'incognito' => '\Fingerprint\ServerAPI\Model\SignalResponseIncognito',
+'root_apps' => '\Fingerprint\ServerAPI\Model\SignalResponseRootApps',
+'emulator' => '\Fingerprint\ServerAPI\Model\SignalResponseEmulator',
+'ip_blocklist' => '\Fingerprint\ServerAPI\Model\SignalResponseIpBlocklist',
+'tor' => '\Fingerprint\ServerAPI\Model\SignalResponseTor',
+'vpn' => '\Fingerprint\ServerAPI\Model\SignalResponseVpn',
+'proxy' => '\Fingerprint\ServerAPI\Model\SignalResponseProxy',
+'tampering' => '\Fingerprint\ServerAPI\Model\SignalResponseTampering'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -67,7 +76,16 @@ class ProductsResponse implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'identification' => null,
-'botd' => null    ];
+'botd' => null,
+'ip_info' => null,
+'incognito' => null,
+'root_apps' => null,
+'emulator' => null,
+'ip_blocklist' => null,
+'tor' => null,
+'vpn' => null,
+'proxy' => null,
+'tampering' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -97,7 +115,16 @@ class ProductsResponse implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'identification' => 'identification',
-'botd' => 'botd'    ];
+'botd' => 'botd',
+'ip_info' => 'ipInfo',
+'incognito' => 'incognito',
+'root_apps' => 'rootApps',
+'emulator' => 'emulator',
+'ip_blocklist' => 'ipBlocklist',
+'tor' => 'tor',
+'vpn' => 'vpn',
+'proxy' => 'proxy',
+'tampering' => 'tampering'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -106,7 +133,16 @@ class ProductsResponse implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'identification' => 'setIdentification',
-'botd' => 'setBotd'    ];
+'botd' => 'setBotd',
+'ip_info' => 'setIpInfo',
+'incognito' => 'setIncognito',
+'root_apps' => 'setRootApps',
+'emulator' => 'setEmulator',
+'ip_blocklist' => 'setIpBlocklist',
+'tor' => 'setTor',
+'vpn' => 'setVpn',
+'proxy' => 'setProxy',
+'tampering' => 'setTampering'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -115,7 +151,16 @@ class ProductsResponse implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'identification' => 'getIdentification',
-'botd' => 'getBotd'    ];
+'botd' => 'getBotd',
+'ip_info' => 'getIpInfo',
+'incognito' => 'getIncognito',
+'root_apps' => 'getRootApps',
+'emulator' => 'getEmulator',
+'ip_blocklist' => 'getIpBlocklist',
+'tor' => 'getTor',
+'vpn' => 'getVpn',
+'proxy' => 'getProxy',
+'tampering' => 'getTampering'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -177,6 +222,15 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     {
         $this->container['identification'] = isset($data['identification']) ? $data['identification'] : null;
         $this->container['botd'] = isset($data['botd']) ? $data['botd'] : null;
+        $this->container['ip_info'] = isset($data['ip_info']) ? $data['ip_info'] : null;
+        $this->container['incognito'] = isset($data['incognito']) ? $data['incognito'] : null;
+        $this->container['root_apps'] = isset($data['root_apps']) ? $data['root_apps'] : null;
+        $this->container['emulator'] = isset($data['emulator']) ? $data['emulator'] : null;
+        $this->container['ip_blocklist'] = isset($data['ip_blocklist']) ? $data['ip_blocklist'] : null;
+        $this->container['tor'] = isset($data['tor']) ? $data['tor'] : null;
+        $this->container['vpn'] = isset($data['vpn']) ? $data['vpn'] : null;
+        $this->container['proxy'] = isset($data['proxy']) ? $data['proxy'] : null;
+        $this->container['tampering'] = isset($data['tampering']) ? $data['tampering'] : null;
     }
 
     /**
@@ -247,6 +301,222 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     public function setBotd($botd)
     {
         $this->container['botd'] = $botd;
+
+        return $this;
+    }
+
+    /**
+     * Gets ip_info
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseIpInfo
+     */
+    public function getIpInfo()
+    {
+        return $this->container['ip_info'];
+    }
+
+    /**
+     * Sets ip_info
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseIpInfo $ip_info ip_info
+     *
+     * @return $this
+     */
+    public function setIpInfo($ip_info)
+    {
+        $this->container['ip_info'] = $ip_info;
+
+        return $this;
+    }
+
+    /**
+     * Gets incognito
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseIncognito
+     */
+    public function getIncognito()
+    {
+        return $this->container['incognito'];
+    }
+
+    /**
+     * Sets incognito
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseIncognito $incognito incognito
+     *
+     * @return $this
+     */
+    public function setIncognito($incognito)
+    {
+        $this->container['incognito'] = $incognito;
+
+        return $this;
+    }
+
+    /**
+     * Gets root_apps
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseRootApps
+     */
+    public function getRootApps()
+    {
+        return $this->container['root_apps'];
+    }
+
+    /**
+     * Sets root_apps
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseRootApps $root_apps root_apps
+     *
+     * @return $this
+     */
+    public function setRootApps($root_apps)
+    {
+        $this->container['root_apps'] = $root_apps;
+
+        return $this;
+    }
+
+    /**
+     * Gets emulator
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseEmulator
+     */
+    public function getEmulator()
+    {
+        return $this->container['emulator'];
+    }
+
+    /**
+     * Sets emulator
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseEmulator $emulator emulator
+     *
+     * @return $this
+     */
+    public function setEmulator($emulator)
+    {
+        $this->container['emulator'] = $emulator;
+
+        return $this;
+    }
+
+    /**
+     * Gets ip_blocklist
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseIpBlocklist
+     */
+    public function getIpBlocklist()
+    {
+        return $this->container['ip_blocklist'];
+    }
+
+    /**
+     * Sets ip_blocklist
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseIpBlocklist $ip_blocklist ip_blocklist
+     *
+     * @return $this
+     */
+    public function setIpBlocklist($ip_blocklist)
+    {
+        $this->container['ip_blocklist'] = $ip_blocklist;
+
+        return $this;
+    }
+
+    /**
+     * Gets tor
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseTor
+     */
+    public function getTor()
+    {
+        return $this->container['tor'];
+    }
+
+    /**
+     * Sets tor
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseTor $tor tor
+     *
+     * @return $this
+     */
+    public function setTor($tor)
+    {
+        $this->container['tor'] = $tor;
+
+        return $this;
+    }
+
+    /**
+     * Gets vpn
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseVpn
+     */
+    public function getVpn()
+    {
+        return $this->container['vpn'];
+    }
+
+    /**
+     * Sets vpn
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseVpn $vpn vpn
+     *
+     * @return $this
+     */
+    public function setVpn($vpn)
+    {
+        $this->container['vpn'] = $vpn;
+
+        return $this;
+    }
+
+    /**
+     * Gets proxy
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseProxy
+     */
+    public function getProxy()
+    {
+        return $this->container['proxy'];
+    }
+
+    /**
+     * Sets proxy
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseProxy $proxy proxy
+     *
+     * @return $this
+     */
+    public function setProxy($proxy)
+    {
+        $this->container['proxy'] = $proxy;
+
+        return $this;
+    }
+
+    /**
+     * Gets tampering
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseTampering
+     */
+    public function getTampering()
+    {
+        return $this->container['tampering'];
+    }
+
+    /**
+     * Sets tampering
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseTampering $tampering tampering
+     *
+     * @return $this
+     */
+    public function setTampering($tampering)
+    {
+        $this->container['tampering'] = $tampering;
 
         return $this;
     }

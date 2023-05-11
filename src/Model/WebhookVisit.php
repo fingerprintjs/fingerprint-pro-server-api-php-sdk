@@ -13,7 +13,7 @@
 /**
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -58,9 +58,19 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'visitor_id' => 'string',
 'client_referrer' => 'string',
+'user_agent' => 'string',
+'bot' => '\Fingerprint\ServerAPI\Model\BotdDetectionResult',
+'ip_info' => '\Fingerprint\ServerAPI\Model\IpInfoResult',
+'incognito' => 'bool',
+'root_apps' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps',
+'emulator' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator',
+'ip_blocklist' => '\Fingerprint\ServerAPI\Model\IpBlockListResult',
+'tor' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseTor',
+'vpn' => '\Fingerprint\ServerAPI\Model\VpnResult',
+'proxy' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy',
+'tampering' => '\Fingerprint\ServerAPI\Model\TamperingResult',
 'request_id' => 'string',
 'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
-'incognito' => 'bool',
 'ip' => 'string',
 'ip_location' => '\Fingerprint\ServerAPI\Model\IPLocation',
 'timestamp' => 'int',
@@ -70,8 +80,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'linked_id' => 'string',
 'confidence' => '\Fingerprint\ServerAPI\Model\Confidence',
 'visitor_found' => 'bool',
-'first_seen_at' => '\Fingerprint\ServerAPI\Model\StSeenAt',
-'last_seen_at' => '\Fingerprint\ServerAPI\Model\StSeenAt'    ];
+'first_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt',
+'last_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -81,9 +91,19 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'visitor_id' => null,
 'client_referrer' => null,
+'user_agent' => null,
+'bot' => null,
+'ip_info' => null,
+'incognito' => null,
+'root_apps' => null,
+'emulator' => null,
+'ip_blocklist' => null,
+'tor' => null,
+'vpn' => null,
+'proxy' => null,
+'tampering' => null,
 'request_id' => null,
 'browser_details' => null,
-'incognito' => null,
 'ip' => 'ipv4',
 'ip_location' => null,
 'timestamp' => 'int64',
@@ -125,9 +145,19 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'visitor_id' => 'visitorId',
 'client_referrer' => 'clientReferrer',
+'user_agent' => 'userAgent',
+'bot' => 'bot',
+'ip_info' => 'ipInfo',
+'incognito' => 'incognito',
+'root_apps' => 'rootApps',
+'emulator' => 'emulator',
+'ip_blocklist' => 'ipBlocklist',
+'tor' => 'tor',
+'vpn' => 'vpn',
+'proxy' => 'proxy',
+'tampering' => 'tampering',
 'request_id' => 'requestId',
 'browser_details' => 'browserDetails',
-'incognito' => 'incognito',
 'ip' => 'ip',
 'ip_location' => 'ipLocation',
 'timestamp' => 'timestamp',
@@ -148,9 +178,19 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     protected static $setters = [
         'visitor_id' => 'setVisitorId',
 'client_referrer' => 'setClientReferrer',
+'user_agent' => 'setUserAgent',
+'bot' => 'setBot',
+'ip_info' => 'setIpInfo',
+'incognito' => 'setIncognito',
+'root_apps' => 'setRootApps',
+'emulator' => 'setEmulator',
+'ip_blocklist' => 'setIpBlocklist',
+'tor' => 'setTor',
+'vpn' => 'setVpn',
+'proxy' => 'setProxy',
+'tampering' => 'setTampering',
 'request_id' => 'setRequestId',
 'browser_details' => 'setBrowserDetails',
-'incognito' => 'setIncognito',
 'ip' => 'setIp',
 'ip_location' => 'setIpLocation',
 'timestamp' => 'setTimestamp',
@@ -171,9 +211,19 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     protected static $getters = [
         'visitor_id' => 'getVisitorId',
 'client_referrer' => 'getClientReferrer',
+'user_agent' => 'getUserAgent',
+'bot' => 'getBot',
+'ip_info' => 'getIpInfo',
+'incognito' => 'getIncognito',
+'root_apps' => 'getRootApps',
+'emulator' => 'getEmulator',
+'ip_blocklist' => 'getIpBlocklist',
+'tor' => 'getTor',
+'vpn' => 'getVpn',
+'proxy' => 'getProxy',
+'tampering' => 'getTampering',
 'request_id' => 'getRequestId',
 'browser_details' => 'getBrowserDetails',
-'incognito' => 'getIncognito',
 'ip' => 'getIp',
 'ip_location' => 'getIpLocation',
 'timestamp' => 'getTimestamp',
@@ -246,9 +296,19 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     {
         $this->container['visitor_id'] = isset($data['visitor_id']) ? $data['visitor_id'] : null;
         $this->container['client_referrer'] = isset($data['client_referrer']) ? $data['client_referrer'] : null;
+        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
+        $this->container['bot'] = isset($data['bot']) ? $data['bot'] : null;
+        $this->container['ip_info'] = isset($data['ip_info']) ? $data['ip_info'] : null;
+        $this->container['incognito'] = isset($data['incognito']) ? $data['incognito'] : null;
+        $this->container['root_apps'] = isset($data['root_apps']) ? $data['root_apps'] : null;
+        $this->container['emulator'] = isset($data['emulator']) ? $data['emulator'] : null;
+        $this->container['ip_blocklist'] = isset($data['ip_blocklist']) ? $data['ip_blocklist'] : null;
+        $this->container['tor'] = isset($data['tor']) ? $data['tor'] : null;
+        $this->container['vpn'] = isset($data['vpn']) ? $data['vpn'] : null;
+        $this->container['proxy'] = isset($data['proxy']) ? $data['proxy'] : null;
+        $this->container['tampering'] = isset($data['tampering']) ? $data['tampering'] : null;
         $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $this->container['browser_details'] = isset($data['browser_details']) ? $data['browser_details'] : null;
-        $this->container['incognito'] = isset($data['incognito']) ? $data['incognito'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
         $this->container['ip_location'] = isset($data['ip_location']) ? $data['ip_location'] : null;
         $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
@@ -274,14 +334,14 @@ class WebhookVisit implements ModelInterface, ArrayAccess
         if ($this->container['visitor_id'] === null) {
             $invalidProperties[] = "'visitor_id' can't be null";
         }
+        if ($this->container['incognito'] === null) {
+            $invalidProperties[] = "'incognito' can't be null";
+        }
         if ($this->container['request_id'] === null) {
             $invalidProperties[] = "'request_id' can't be null";
         }
         if ($this->container['browser_details'] === null) {
             $invalidProperties[] = "'browser_details' can't be null";
-        }
-        if ($this->container['incognito'] === null) {
-            $invalidProperties[] = "'incognito' can't be null";
         }
         if ($this->container['ip'] === null) {
             $invalidProperties[] = "'ip' can't be null";
@@ -374,6 +434,270 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets user_agent
+     *
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->container['user_agent'];
+    }
+
+    /**
+     * Sets user_agent
+     *
+     * @param string $user_agent user_agent
+     *
+     * @return $this
+     */
+    public function setUserAgent($user_agent)
+    {
+        $this->container['user_agent'] = $user_agent;
+
+        return $this;
+    }
+
+    /**
+     * Gets bot
+     *
+     * @return \Fingerprint\ServerAPI\Model\BotdDetectionResult
+     */
+    public function getBot()
+    {
+        return $this->container['bot'];
+    }
+
+    /**
+     * Sets bot
+     *
+     * @param \Fingerprint\ServerAPI\Model\BotdDetectionResult $bot bot
+     *
+     * @return $this
+     */
+    public function setBot($bot)
+    {
+        $this->container['bot'] = $bot;
+
+        return $this;
+    }
+
+    /**
+     * Gets ip_info
+     *
+     * @return \Fingerprint\ServerAPI\Model\IpInfoResult
+     */
+    public function getIpInfo()
+    {
+        return $this->container['ip_info'];
+    }
+
+    /**
+     * Sets ip_info
+     *
+     * @param \Fingerprint\ServerAPI\Model\IpInfoResult $ip_info ip_info
+     *
+     * @return $this
+     */
+    public function setIpInfo($ip_info)
+    {
+        $this->container['ip_info'] = $ip_info;
+
+        return $this;
+    }
+
+    /**
+     * Gets incognito
+     *
+     * @return bool
+     */
+    public function getIncognito()
+    {
+        return $this->container['incognito'];
+    }
+
+    /**
+     * Sets incognito
+     *
+     * @param bool $incognito Flag if user used incognito session.
+     *
+     * @return $this
+     */
+    public function setIncognito($incognito)
+    {
+        $this->container['incognito'] = $incognito;
+
+        return $this;
+    }
+
+    /**
+     * Gets root_apps
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps
+     */
+    public function getRootApps()
+    {
+        return $this->container['root_apps'];
+    }
+
+    /**
+     * Sets root_apps
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps $root_apps root_apps
+     *
+     * @return $this
+     */
+    public function setRootApps($root_apps)
+    {
+        $this->container['root_apps'] = $root_apps;
+
+        return $this;
+    }
+
+    /**
+     * Gets emulator
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator
+     */
+    public function getEmulator()
+    {
+        return $this->container['emulator'];
+    }
+
+    /**
+     * Sets emulator
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator $emulator emulator
+     *
+     * @return $this
+     */
+    public function setEmulator($emulator)
+    {
+        $this->container['emulator'] = $emulator;
+
+        return $this;
+    }
+
+    /**
+     * Gets ip_blocklist
+     *
+     * @return \Fingerprint\ServerAPI\Model\IpBlockListResult
+     */
+    public function getIpBlocklist()
+    {
+        return $this->container['ip_blocklist'];
+    }
+
+    /**
+     * Sets ip_blocklist
+     *
+     * @param \Fingerprint\ServerAPI\Model\IpBlockListResult $ip_blocklist ip_blocklist
+     *
+     * @return $this
+     */
+    public function setIpBlocklist($ip_blocklist)
+    {
+        $this->container['ip_blocklist'] = $ip_blocklist;
+
+        return $this;
+    }
+
+    /**
+     * Gets tor
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseTor
+     */
+    public function getTor()
+    {
+        return $this->container['tor'];
+    }
+
+    /**
+     * Sets tor
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseTor $tor tor
+     *
+     * @return $this
+     */
+    public function setTor($tor)
+    {
+        $this->container['tor'] = $tor;
+
+        return $this;
+    }
+
+    /**
+     * Gets vpn
+     *
+     * @return \Fingerprint\ServerAPI\Model\VpnResult
+     */
+    public function getVpn()
+    {
+        return $this->container['vpn'];
+    }
+
+    /**
+     * Sets vpn
+     *
+     * @param \Fingerprint\ServerAPI\Model\VpnResult $vpn vpn
+     *
+     * @return $this
+     */
+    public function setVpn($vpn)
+    {
+        $this->container['vpn'] = $vpn;
+
+        return $this;
+    }
+
+    /**
+     * Gets proxy
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy
+     */
+    public function getProxy()
+    {
+        return $this->container['proxy'];
+    }
+
+    /**
+     * Sets proxy
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy $proxy proxy
+     *
+     * @return $this
+     */
+    public function setProxy($proxy)
+    {
+        $this->container['proxy'] = $proxy;
+
+        return $this;
+    }
+
+    /**
+     * Gets tampering
+     *
+     * @return \Fingerprint\ServerAPI\Model\TamperingResult
+     */
+    public function getTampering()
+    {
+        return $this->container['tampering'];
+    }
+
+    /**
+     * Sets tampering
+     *
+     * @param \Fingerprint\ServerAPI\Model\TamperingResult $tampering tampering
+     *
+     * @return $this
+     */
+    public function setTampering($tampering)
+    {
+        $this->container['tampering'] = $tampering;
+
+        return $this;
+    }
+
+    /**
      * Gets request_id
      *
      * @return string
@@ -417,30 +741,6 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     public function setBrowserDetails($browser_details)
     {
         $this->container['browser_details'] = $browser_details;
-
-        return $this;
-    }
-
-    /**
-     * Gets incognito
-     *
-     * @return bool
-     */
-    public function getIncognito()
-    {
-        return $this->container['incognito'];
-    }
-
-    /**
-     * Sets incognito
-     *
-     * @param bool $incognito Flag if user used incognito session.
-     *
-     * @return $this
-     */
-    public function setIncognito($incognito)
-    {
-        $this->container['incognito'] = $incognito;
 
         return $this;
     }
@@ -664,7 +964,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets first_seen_at
      *
-     * @return \Fingerprint\ServerAPI\Model\StSeenAt
+     * @return \Fingerprint\ServerAPI\Model\SeenAt
      */
     public function getFirstSeenAt()
     {
@@ -674,7 +974,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets first_seen_at
      *
-     * @param \Fingerprint\ServerAPI\Model\StSeenAt $first_seen_at first_seen_at
+     * @param \Fingerprint\ServerAPI\Model\SeenAt $first_seen_at first_seen_at
      *
      * @return $this
      */
@@ -688,7 +988,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets last_seen_at
      *
-     * @return \Fingerprint\ServerAPI\Model\StSeenAt
+     * @return \Fingerprint\ServerAPI\Model\SeenAt
      */
     public function getLastSeenAt()
     {
@@ -698,7 +998,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets last_seen_at
      *
-     * @param \Fingerprint\ServerAPI\Model\StSeenAt $last_seen_at last_seen_at
+     * @param \Fingerprint\ServerAPI\Model\SeenAt $last_seen_at last_seen_at
      *
      * @return $this
      */

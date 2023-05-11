@@ -2,8 +2,9 @@ openapi: 3.0.3
 info:
   title: Fingerprint Pro Server API
   description: >-
-    Fingerprint Pro Server API provides a way for validating visitors’ data
-    issued by Fingerprint Pro.
+    Fingerprint Pro Server API allows you to get information about visitors and
+    about individual events in a server environment. This API can be used for
+    data exports, decision-making, and data analysis scenarios.
   version: '3'
   contact:
     name: Fingerprint Support
@@ -28,17 +29,17 @@ paths:
     get:
       tags:
         - Fingerprint
-      summary: Get event by request ID
+      summary: Get event by requestId
       description: >-
         This endpoint allows you to get events with all the information from
-        each activated product - BOTD and Fingerprinting. Use the requestId as a
-        URL path :request_id parameter. This API method is scoped to a request,
-        i.e. all returned information is by requestId.
+        each activated product (Fingerprint Pro or Bot Detection). Use the
+        requestId as a URL path :request_id parameter. This API method is scoped
+        to a request, i.e. all returned information is by requestId.
       operationId: getEvent
       parameters:
         - name: request_id
           in: path
-          description: Request ID
+          description: requestId is the unique identifier of each request
           required: true
           schema:
             type: string
@@ -50,7 +51,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/EventResponse'
               examples:
-                example:
+                fullResponse:
                   summary: Example response
                   value:
                     products:
@@ -101,29 +102,255 @@ paths:
                       botd:
                         data:
                           bot:
-                            result: notDetected
+                            result: bad
+                            type: selenium
                           url: https://www.example.com/login
                           ip: 61.127.217.15
                           time: '2019-05-21T16:40:13Z'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                example:
-                  summary: Example response
+                      ipInfo:
+                        data:
+                          v4:
+                            address: 94.142.239.124
+                            geolocation:
+                              accuracyRadius: 20
+                              latitude: 50.05
+                              longitude: 14.4
+                              postalCode: 150 00
+                              timezone: Europe/Prague
+                              city:
+                                name: Prague
+                              country:
+                                code: CZ
+                                name: Czechia
+                              continent:
+                                code: EU
+                                name: Europe
+                              subdivisions:
+                                - isoCode: '10'
+                                  name: Hlavni mesto Praha
+                      incognito:
+                        data:
+                          result: false
+                      rootApps:
+                        data:
+                          result: false
+                      emulator:
+                        data:
+                          result: false
+                      ipBlocklist:
+                        data:
+                          result: false
+                          details:
+                            emailSpam: false
+                            attackSource: false
+                      tor:
+                        data:
+                          result: false
+                      vpn:
+                        data:
+                          result: false
+                          methods:
+                            timezoneMismatch: false
+                            publicVPN: false
+                      proxy:
+                        data:
+                          result: false
+                      tampering:
+                        data:
+                          result: false
+                          anomalyScore: 0
+                allErrorsResponse:
+                  summary: Example response with all failed signals
                   value:
-                    error:
-                      code: RequestIdCannotBeParsed
-                      message: invalid format of request id
+                    products:
+                      identification:
+                        error:
+                          code: Failed
+                          message: failed
+                      botd:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      ipInfo:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      incognito:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      rootApps:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      emulator:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      ipBlocklist:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      tor:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      vpn:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      proxy:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      tampering:
+                        error:
+                          code: Failed
+                          message: internal server error
+                withBotdError:
+                  summary: Example error response with BotD error
+                  value:
+                    products:
+                      identification:
+                        data:
+                          visitorId: Ibk1527CUFmcnjLwIs4A9
+                          requestId: 0KSh65EnVoB85JBmloQK
+                          incognito: true
+                          linkedId: somelinkedId
+                          time: '2019-05-21T16:40:13Z'
+                          timestamp: 1582299576512
+                          url: https://www.example.com/login
+                          ip: 61.127.217.15
+                          ipLocation:
+                            accuracyRadius: 10
+                            latitude: 49.982
+                            longitude: 36.2566
+                            postalCode: '61202'
+                            timezone: Europe/Dusseldorf
+                            city:
+                              name: Dusseldorf
+                            continent:
+                              code: EU
+                              name: Europe
+                            country:
+                              code: DE
+                              name: Germany
+                            subdivisions:
+                              - isoCode: '63'
+                                name: North Rhine-Westphalia
+                          browserDetails:
+                            browserName: Chrome
+                            browserMajorVersion: '74'
+                            browserFullVersion: 74.0.3729
+                            os: Windows
+                            osVersion: '7'
+                            device: Other
+                            userAgent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
+                          confidence:
+                            score: 0.97
+                          visitorFound: true
+                          firstSeenAt:
+                            global: '2022-03-16T11:26:45.362Z'
+                            subscription: '2022-03-16T11:31:01.101Z'
+                          lastSeenAt:
+                            global: '2022-03-16T11:28:34.023Z'
+                            subscription: null
+                      botd:
+                        error:
+                          code: Failed
+                          message: internal server error
+                withBotdTooManyRequestsError:
+                  summary: >-
+                    Example error response with BotD error when too many
+                    requests are sent
+                  value:
+                    products:
+                      identification:
+                        data:
+                          visitorId: Ibk1527CUFmcnjLwIs4A9
+                          requestId: 0KSh65EnVoB85JBmloQK
+                          incognito: true
+                          linkedId: somelinkedId
+                          time: '2019-05-21T16:40:13Z'
+                          timestamp: 1582299576512
+                          url: https://www.example.com/login
+                          ip: 61.127.217.15
+                          ipLocation:
+                            accuracyRadius: 10
+                            latitude: 49.982
+                            longitude: 36.2566
+                            postalCode: '61202'
+                            timezone: Europe/Dusseldorf
+                            city:
+                              name: Dusseldorf
+                            continent:
+                              code: EU
+                              name: Europe
+                            country:
+                              code: DE
+                              name: Germany
+                            subdivisions:
+                              - isoCode: '63'
+                                name: North Rhine-Westphalia
+                          browserDetails:
+                            browserName: Chrome
+                            browserMajorVersion: '74'
+                            browserFullVersion: 74.0.3729
+                            os: Windows
+                            osVersion: '7'
+                            device: Other
+                            userAgent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
+                          confidence:
+                            score: 0.97
+                          visitorFound: true
+                          firstSeenAt:
+                            global: '2022-03-16T11:26:45.362Z'
+                            subscription: '2022-03-16T11:31:01.101Z'
+                          lastSeenAt:
+                            global: '2022-03-16T11:28:34.023Z'
+                            subscription: null
+                      botd:
+                        error:
+                          code: TooManyRequests
+                          message: too many requests
+                withIdentificationError:
+                  summary: Example error response with identification error
+                  value:
+                    products:
+                      identification:
+                        error:
+                          code: Failed
+                          message: failed
+                      botd:
+                        data:
+                          url: https://example.com/login
+                          bot:
+                            result: notDetected
+                          ip: 61.127.217.15
+                          time: '2019-05-21T16:40:13Z'
+                withIdentificationTooManyRequestsError:
+                  summary: >-
+                    Example error response with identification error when too
+                    many requests are sent
+                  value:
+                    products:
+                      identification:
+                        error:
+                          code: 429 Too Many Requests
+                          message: too many requests
+                      botd:
+                        data:
+                          url: https://example.com/login
+                          bot:
+                            result: notDetected
+                          ip: 61.127.217.15
+                          time: '2019-05-21T16:40:13Z'
         '403':
           description: Forbidden
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorEvent403Response'
               examples:
                 example:
                   summary: Example response
@@ -131,27 +358,25 @@ paths:
                     error:
                       code: TokenRequired
                       message: secret key is required
-        '429':
-          description: Too Many Requests
-          headers:
-            Retry-After:
-              description: >-
-                Indicates how long the user should wait before making a
-                follow-up request.
-              schema:
-                type: integer
-                format: int32
-                minimum: 0
+        '404':
+          description: Bad Request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManyRequestsResponse'
+                $ref: '#/components/schemas/ErrorEvent404Response'
+              examples:
+                example:
+                  summary: Example response
+                  value:
+                    error:
+                      code: RequestNotFound
+                      message: request id is not found
   /visitors/{visitor_id}:
     get:
       tags:
         - Fingerprint
       operationId: getVisits
-      summary: Get events by visitorId
+      summary: Get visits by visitorId
       description: >-
         This endpoint allows you to get a history of visits with all available
         information. Use the visitorId as a URL path parameter. This API method
@@ -164,12 +389,12 @@ paths:
             type: string
           example: uYIm7Ksp5rf00SllPhFp
         - name: request_id
-          description: Filter events by requestId
+          description: Filter visits by requestId
           in: query
           schema:
             type: string
         - name: linked_id
-          description: Filter events by custom identifier
+          description: Filter visits by custom identifier
           in: query
           schema:
             type: string
@@ -182,11 +407,11 @@ paths:
             format: int32
             minimum: 0
         - name: before
-          description: Used to paginate results
+          description: Timestamp (in milliseconds since epoch) used to paginate results
           in: query
           schema:
             type: integer
-            format: int32
+            format: int64
             minimum: 0
       responses:
         '200':
@@ -2873,13 +3098,24 @@ paths:
                         lastSeenAt:
                           global: '2022-03-08T12:33:05.677Z'
                           subscription: '2022-03-08T12:33:05.677Z'
+        '403':
+          description: Forbidden. Probably ApiKey is missed or provided the wrong one.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVisits403'
+              examples:
+                example:
+                  summary: Forbidden
+                  value:
+                    error: Forbidden (HTTP 403)
         '429':
           description: Too Many Requests
           headers:
             Retry-After:
               description: >-
-                Indicates how long the user should wait before making a
-                follow-up request.
+                Indicates how long the user should wait before attempting the
+                next request.
               schema:
                 type: integer
                 format: int32
@@ -2888,6 +3124,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ManyRequestsResponse'
+              examples:
+                example:
+                  summary: Example too many requests error response
+                  value:
+                    error: too many requests
   /webhook:
     trace:
       tags:
@@ -2896,19 +3137,21 @@ paths:
         Fake path to describe webhook format. More information about webhooks
         can be found in the
         [documentation](https://dev.fingerprint.com/docs/webhooks)
+      responses:
+        default:
+          description: Dummy for the schema
       callbacks:
         webhook:
           webhook:
             post:
               description: >-
-                You can use HTTP basic authentication and setup credentials in
+                You can use HTTP basic authentication and set up credentials in
                 your [Fingerprint
                 account](https://dashboard.fingerprint.com/login)
               requestBody:
                 content:
                   application/json:
                     schema:
-                      type: object
                       $ref: '#/components/schemas/WebhookVisit'
                     example:
                       value:
@@ -2960,6 +3203,56 @@ paths:
                         lastSeenAt:
                           global: '2022-03-16T11:28:34.023Z'
                           subscription: null
+                        bot:
+                          result: bad
+                          type: selenium
+                        userAgent: >-
+                          (Macintosh; Intel Mac OS X 10_14_3)
+                          Chrome/73.0.3683.86
+                        ipInfo:
+                          v4:
+                            address: 94.142.239.124
+                            geolocation:
+                              accuracyRadius: 20
+                              latitude: 50.05
+                              longitude: 14.4
+                              postalCode: 150 00
+                              timezone: Europe/Prague
+                              city:
+                                name: Prague
+                              country:
+                                code: CZ
+                                name: Czechia
+                              continent:
+                                code: EU
+                                name: Europe
+                              subdivisions:
+                                - isoCode: '10'
+                                  name: Hlavni mesto Praha
+                        rootApps:
+                          result: false
+                        emulator:
+                          result: false
+                        ipBlocklist:
+                          result: false
+                          details:
+                            emailSpam: false
+                            attackSource: false
+                        tor:
+                          result: false
+                        vpn:
+                          result: false
+                          methods:
+                            timezoneMismatch: false
+                            publicVPN: false
+                        proxy:
+                          result: false
+                        tampering:
+                          result: false
+                          anomalyScore: 0
+              responses:
+                default:
+                  description: The server doesn't validate the answer.
 components:
   securitySchemes:
     ApiKeyHeader:
@@ -3034,15 +3327,9 @@ components:
                 description: Attribute represents if a visitor had been identified before.
                 type: boolean
               firstSeenAt:
-                $ref: '#/components/schemas/StSeenAt'
-                example:
-                  global: '2022-05-05T18:28:54.535Z'
-                  subscription: '2022-06-09T22:58:05.576Z'
+                $ref: '#/components/schemas/SeenAt'
               lastSeenAt:
-                $ref: '#/components/schemas/StSeenAt'
-                example:
-                  global: '2022-06-09T22:58:35.795Z'
-                  subscription: null
+                $ref: '#/components/schemas/SeenAt'
             additionalProperties: false
             required:
               - browserDetails
@@ -3079,21 +3366,68 @@ components:
       description: >-
         Fields `lastTimestamp` and `paginationKey` added when `limit` or
         `before` parameter provided and there is more data to show
-    ErrorResponse:
+    ErrorEvent403Response:
       type: object
       additionalProperties: false
       properties:
         error:
           type: object
           additionalProperties: false
-          title: ErrorResponseError
+          title: ErrorEvent403ResponseError
           properties:
             code:
               type: string
+              description: |
+                Error code:
+                 * `TokenRequired` - `Auth-API-Key` header is missing or empty
+                 * `TokenNotFound` - subscription not found for specified secret key
+                 * `SubscriptionNotActive` - subscription is not active
+                 * `WrongRegion` - server and subscription region differ
+              enum:
+                - TokenRequired
+                - TokenNotFound
+                - SubscriptionNotActive
+                - WrongRegion
               example: TokenRequired
             message:
               type: string
               example: secret key is required
+          required:
+            - code
+            - message
+    ErrorEvent404Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          title: ErrorEvent404ResponseError
+          properties:
+            code:
+              type: string
+              description: |
+                Error code:
+                 * `RequestNotFound` - request not found for specified id
+              enum:
+                - RequestNotFound
+              example: RequestNotFound
+            message:
+              type: string
+              example: request id is not found
+          required:
+            - code
+            - message
+    ErrorVisits403:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: string
+          description: Error text.
+          example: Forbidden (HTTP 403)
+      required:
+        - error
     ManyRequestsResponse:
       type: object
       additionalProperties: false
@@ -3109,17 +3443,82 @@ components:
       properties:
         visitorId:
           type: string
+          example: 3HNey93AkBW6CRbxV6xP
         clientReferrer:
           type: string
+          example: https://google.com?search=banking+services
+        userAgent:
+          type: string
+          example: >-
+            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36
+        bot:
+          $ref: '#/components/schemas/BotdDetectionResult'
+        ipInfo:
+          $ref: '#/components/schemas/IpInfoResult'
+        incognito:
+          description: Flag if user used incognito session.
+          type: boolean
+        rootApps:
+          title: WebhookSignalResponseRootApps
+          type: object
+          properties:
+            result:
+              type: boolean
+              description: >
+                Android specific root management apps detection. There are 2
+                values: • `true` - Root Management Apps detected (e.g. Magisk) •
+                `false` - No Root Management Apps detected
+
+                Available only for events from Android client. The field will
+                not be present for a browser or iOS event.
+              example: false
+        emulator:
+          title: WebhookSignalResponseEmulator
+          type: object
+          properties:
+            result:
+              type: boolean
+              description: >
+                Android specific emulator detection. There are 2 values: •
+                `true` - Emulated environment detected (e.g. launch inside of
+                AVD) • `false` - No signs of emulated environment detected
+
+                Available only for events from Android client. The field will
+                not be present for a browser or iOS event.
+              example: false
+        ipBlocklist:
+          $ref: '#/components/schemas/IpBlockListResult'
+        tor:
+          title: WebhookSignalResponseTor
+          type: object
+          properties:
+            result:
+              type: boolean
+              description: >
+                `true` if the request IP address is a known tor exit node,
+                `false` otherwise.
+              example: false
+        vpn:
+          $ref: '#/components/schemas/VpnResult'
+        proxy:
+          title: WebhookSignalResponseProxy
+          type: object
+          properties:
+            result:
+              type: boolean
+              description: >
+                `true` if the request IP address is used by a public proxy
+                provider, `false` otherwise.
+              example: false
+        tampering:
+          $ref: '#/components/schemas/TamperingResult'
         requestId:
           description: Unique identifier of the user's identification request.
           type: string
           example: 1654815516083.OX6kx8
         browserDetails:
           $ref: '#/components/schemas/BrowserDetails'
-        incognito:
-          description: Flag if user used incognito session.
-          type: boolean
         ip:
           type: string
           format: ipv4
@@ -3158,15 +3557,9 @@ components:
           description: Attribute represents if a visitor had been identified before.
           type: boolean
         firstSeenAt:
-          $ref: '#/components/schemas/StSeenAt'
-          example:
-            global: '2022-05-05T18:28:54.535Z'
-            subscription: '2022-06-09T22:58:05.576Z'
+          $ref: '#/components/schemas/SeenAt'
         lastSeenAt:
-          $ref: '#/components/schemas/StSeenAt'
-          example:
-            global: '2022-06-09T22:58:35.795Z'
-            subscription: null
+          $ref: '#/components/schemas/SeenAt'
       additionalProperties: false
       required:
         - visitorId
@@ -3232,15 +3625,9 @@ components:
           description: Attribute represents if a visitor had been identified before.
           type: boolean
         firstSeenAt:
-          $ref: '#/components/schemas/StSeenAt'
-          example:
-            global: '2022-05-05T18:28:54.535Z'
-            subscription: '2022-06-09T22:58:05.576Z'
+          $ref: '#/components/schemas/SeenAt'
         lastSeenAt:
-          $ref: '#/components/schemas/StSeenAt'
-          example:
-            global: '2022-06-09T22:58:35.795Z'
-            subscription: null
+          $ref: '#/components/schemas/SeenAt'
       required:
         - browserDetails
         - confidence
@@ -3308,7 +3695,7 @@ components:
       required:
         - score
       title: Confidence
-    StSeenAt:
+    SeenAt:
       type: object
       additionalProperties: false
       properties:
@@ -3316,14 +3703,19 @@ components:
           type: string
           nullable: true
           format: date-time
+          example: '2022-05-05T18:28:54.535Z'
         subscription:
           type: string
           nullable: true
           format: date-time
+          example: '2022-06-09T22:58:05.576Z'
       required:
         - global
         - subscription
-      title: StSeenAt
+      title: SeenAt
+      example:
+        global: '2022-05-05T18:28:54.535Z'
+        subscription: null
     IPLocation:
       type: object
       additionalProperties: false
@@ -3361,14 +3753,8 @@ components:
               example: Prague
         country:
           $ref: '#/components/schemas/Location'
-          example:
-            code: US
-            name: United States
         continent:
           $ref: '#/components/schemas/Location'
-          example:
-            code: NA
-            name: North America
         subdivisions:
           type: array
           items:
@@ -3410,8 +3796,8 @@ components:
     ProductsResponse:
       type: object
       description: >-
-        Contains all the information from each activated product - BOTD and
-        Identification
+        Contains all the information from each activated product - Fingerprint
+        Pro or Bot Detection
       additionalProperties: false
       properties:
         identification:
@@ -3476,15 +3862,9 @@ components:
                     before.
                   type: boolean
                 firstSeenAt:
-                  $ref: '#/components/schemas/StSeenAt'
-                  example:
-                    global: '2022-05-05T18:28:54.535Z'
-                    subscription: '2022-06-09T22:58:05.576Z'
+                  $ref: '#/components/schemas/SeenAt'
                 lastSeenAt:
-                  $ref: '#/components/schemas/StSeenAt'
-                  example:
-                    global: '2022-06-09T22:58:35.795Z'
-                    subscription: null
+                  $ref: '#/components/schemas/SeenAt'
                 visitorId:
                   type: string
               additionalProperties: false
@@ -3502,6 +3882,8 @@ components:
                 - url
                 - visitorFound
                 - visitorId
+            error:
+              $ref: '#/components/schemas/IdentificationError'
         botd:
           title: ProductsResponseBotd
           type: object
@@ -3509,16 +3891,156 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/BotdResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
+        ipInfo:
+          title: SignalResponseIpInfo
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/IpInfoResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
+        incognito:
+          title: SignalResponseIncognito
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    `true` if we detected incognito mode used in the browser,
+                    `false` otherwise.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        rootApps:
+          title: SignalResponseRootApps
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    Android specific root management apps detection. There are 2
+                    values: • `true` - Root Management Apps detected (e.g.
+                    Magisk) • `false` - No Root Management Apps detected
+
+                    Available only for events from Android client. The field
+                    will not be present for a browser or iOS event.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        emulator:
+          title: SignalResponseEmulator
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    Android specific emulator detection. There are 2 values: •
+                    `true` - Emulated environment detected (e.g. launch inside
+                    of AVD) • `false` - No signs of emulated environment
+                    detected
+
+                    Available only for events from Android client. The field
+                    will not be present for a browser or iOS event.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        ipBlocklist:
+          title: SignalResponseIpBlocklist
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/IpBlockListResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
+        tor:
+          title: SignalResponseTor
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    `true` if the request IP address is a known tor exit node,
+                    `false` otherwise.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        vpn:
+          title: SignalResponseVpn
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/VpnResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
+        proxy:
+          title: SignalResponseProxy
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    `true` if the request IP address is used by a public proxy
+                    provider, `false` otherwise.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        tampering:
+          title: SignalResponseTampering
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/TamperingResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
     EventResponse:
-      description: Contains event from activated products - BOTD and Identification
+      description: >-
+        Contains event from activated products - Fingerprint Pro or Bot
+        Detection
       type: object
       additionalProperties: false
       properties:
         products:
           $ref: '#/components/schemas/ProductsResponse'
+    IdentificationError:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          description: |
+            Error code:
+             * `429 Too Many Requests` - the limit on secret API key requests per second has been exceeded
+             * `Failed` - internal server error
+          enum:
+            - 429 Too Many Requests
+            - Failed
+          example: 429 Too Many Requests
+        message:
+          type: string
+          example: too many requests
+      required:
+        - code
+        - message
     BotdResult:
       type: object
-      description: Contains all the information from BOTD product
+      description: Contains all the information from Bot Detection product
       properties:
         ip:
           type: string
@@ -3538,11 +4060,17 @@ components:
           description: Page URL from which identification request was sent.
           type: string
           format: uri-reference
-          example: https://b.fpjs.sh/
+          example: https://example.com/login
+        userAgent:
+          type: string
+          example: >-
+            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
+            (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36
+        requestId:
+          type: string
+          example: 1681392853693.lRiBBD
         bot:
           $ref: '#/components/schemas/BotdDetectionResult'
-          example:
-            result: notDetected
       required:
         - bot
         - url
@@ -3564,5 +4092,117 @@ components:
             - notDetected
             - good
             - bad
+          example: bad
+        type:
+          type: string
+          example: selenium
       required:
         - result
+    IpInfoResult:
+      type: object
+      description: >-
+        Details about the request IP address. Has separate fields for v4 and v6
+        IP address versions.
+      additionalProperties: false
+      properties:
+        v4:
+          type: object
+          additionalProperties: false
+          properties:
+            address:
+              type: string
+              format: ipv4
+              example: 94.142.239.124
+            geolocation:
+              $ref: '#/components/schemas/IPLocation'
+        v6:
+          type: object
+          additionalProperties: false
+          properties:
+            address:
+              type: string
+              format: ipv6
+              example: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+            geolocation:
+              $ref: '#/components/schemas/IPLocation'
+    IpBlockListResult:
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if request IP address is part of any database that we use to
+            search for known malicious actors, `false` otherwise.
+          example: false
+        details:
+          type: object
+          properties:
+            emailSpam:
+              type: boolean
+              description: IP address was part of a known email spam attack (SMTP).
+              example: false
+            attackSource:
+              type: boolean
+              description: IP address was part of a known network attack (SSH/HTTPS).
+              example: false
+    VpnResult:
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: >-
+            VPN or other anonymising service has been used when sending the
+            request.
+          example: false
+        methods:
+          type: object
+          properties:
+            timezoneMismatch:
+              type: boolean
+              description: >-
+                User's browser timezone doesn't match the timezone from which
+                the request was originally made.
+              example: false
+            publicVPN:
+              type: boolean
+              description: >-
+                Request IP address is owned and used by a public VPN service
+                provider.
+              example: false
+    TamperingResult:
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: >-
+            Flag indicating whether browser tampering was detected according to
+            our internal thresholds.
+          example: false
+        anomalyScore:
+          type: number
+          description: >-
+            Confidence score (`0.0 - 1.0`) for the tampering detection. Values
+            above `0.5` suggest that we're reasonably sure there was a tampering
+            attempt. Values below `0.5` are genuine browsers.
+          example: 0
+          minimum: 0
+          maximum: 1
+    ProductError:
+      type: object
+      properties:
+        code:
+          type: string
+          description: |
+            Error code:
+             * `TooManyRequests` - the limit on secret API key requests per second has been exceeded
+             * `Failed` - internal server error
+          enum:
+            - TooManyRequests
+            - Failed
+          example: TooManyRequests
+        message:
+          type: string
+          example: too many requests
+      required:
+        - code
+        - message
