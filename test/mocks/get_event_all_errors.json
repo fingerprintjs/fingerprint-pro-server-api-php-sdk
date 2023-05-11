@@ -1,0 +1,70 @@
+{
+  "products": {
+    "identification": {
+      "error": {
+        "code": "Failed",
+        "message": "failed"
+      }
+    },
+    "botd": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "ipInfo": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "incognito": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "rootApps": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "emulator": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "ipBlocklist": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "tor": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "vpn": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "proxy": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "tampering": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    }
+  }
+}
