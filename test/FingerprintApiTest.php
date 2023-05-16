@@ -4,6 +4,8 @@ namespace Fingerprint\ServerAPI;
 
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Model\EventResponse;
+use Fingerprint\ServerAPI\Model\IdentificationError;
+use Fingerprint\ServerAPI\Model\ProductError;
 use Fingerprint\ServerAPI\Model\Response;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -14,6 +16,8 @@ class FingerprintApiTest extends TestCase
     protected $fingerprint_api;
 
     const MOCK_REQUEST_ID = '0KSh65EnVoB85JBmloQK';
+    const MOCK_REQUEST_ALL_ERRORS = 'ALL_ERRORS';
+    const MOCK_REQUEST_EXTRA_FIELDS = 'EXTRA_FIELDS';
     const MOCK_VISITOR_ID = 'AcxioeQKffpXF8iGQK3P';
     const MOCK_VISITOR_REQUEST_ID = '1655373780901.HhjRFX';
 
@@ -45,14 +49,26 @@ class FingerprintApiTest extends TestCase
         $this->fingerprint_api->method('getVisits')->will($this->returnCallback([$this, 'getVisitsMock']));
     }
 
-    public function getEventMock()
+    public function getEventMock($request_id)
     {
         $event_request_method = $this->getMethod('getEventRequest');
         /** @var \GuzzleHttp\Psr7\Request $event_request */
         $event_request = $event_request_method->invokeArgs($this->fingerprint_api, [self::MOCK_REQUEST_ID]);
         $query = $event_request->getUri()->getQuery();
         $this->assertStringContainsString("ii=" . urlencode("fingerprint-pro-server-php-sdk/" . $this->getVersion()), $query);
-        $events_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . '/mocks/get_event.json'));
+        $mock_name = '';
+        switch ($request_id) {
+            case self::MOCK_REQUEST_ID:
+                $mock_name = 'get_event.json';
+                break;
+            case self::MOCK_REQUEST_ALL_ERRORS:
+                $mock_name = 'get_event_all_errors.json';
+                break;
+            case self::MOCK_REQUEST_EXTRA_FIELDS:
+                $mock_name = 'get_event_extra_fields.json';
+                break;
+        }
+        $events_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/$mock_name"));
         return ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
     }
 
@@ -76,8 +92,53 @@ class FingerprintApiTest extends TestCase
         $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID);
         $products = $event->getProducts();
         $identification_product = $products->getIdentification();
+        $botd_product = $products->getBotd();
+        $vpn_product = $products->getVpn();
+        $ip_info_product = $products->getIpInfo();
         $request_id = $identification_product->getData()->getRequestId();
         $this->assertEquals(self::MOCK_REQUEST_ID, $request_id);
+        var_dump($botd_product->getData()->getBot()->getResult());
+        $this->assertEquals('bad', $botd_product->getData()->getBot()->getResult());
+        $this->assertEquals('selenium', $botd_product->getData()->getBot()->getType());
+        $this->assertFalse( $vpn_product->getData()->getMethods()->getPublicVpn());
+        $this->assertEquals('94.142.239.124', $ip_info_product->getData()->getV4()->getAddress());
+    }
+
+    public function testGetEventWithExtraFields()
+    {
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_EXTRA_FIELDS);
+        $products = $event->getProducts();
+        $identification_product = $products->getIdentification();
+        $request_id = $identification_product->getData()->getRequestId();
+        $this->assertEquals(self::MOCK_REQUEST_ID, $request_id);
+    }
+
+    public function testGetEventWithAllErrors()
+    {
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ALL_ERRORS);
+        $products = $event->getProducts();
+        $identification_error = $products->getIdentification()->getError();
+        $botd_error = $products->getBotd()->getError();
+        $emulator_error = $products->getEmulator()->getError();
+        $incognito_error = $products->getIncognito()->getError();
+        $tor_error = $products->getTor()->getError();
+        $ip_blocklist_error = $products->getIpBlocklist()->getError();
+        $ip_info_error = $products->getIpInfo()->getError();
+        $proxy_error = $products->getProxy()->getError();
+        $root_apps_error = $products->getRootApps()->getError();
+        $tampering_error = $products->getTampering()->getError();
+        $vpn_error = $products->getVpn()->getError();
+        $this->assertEquals(IdentificationError::CODE_FAILED, $identification_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $botd_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $emulator_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $incognito_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $tor_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $ip_blocklist_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $ip_info_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $proxy_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $root_apps_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $tampering_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $vpn_error->getCode());
     }
 
     public function testGetVisits()

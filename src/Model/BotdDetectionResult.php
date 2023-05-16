@@ -13,7 +13,7 @@
 /**
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -57,7 +57,8 @@ class BotdDetectionResult implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'result' => 'string'    ];
+        'result' => 'string',
+'type' => 'string'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -65,7 +66,8 @@ class BotdDetectionResult implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'result' => null    ];
+        'result' => null,
+'type' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -94,7 +96,8 @@ class BotdDetectionResult implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'result' => 'result'    ];
+        'result' => 'result',
+'type' => 'type'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -102,7 +105,8 @@ class BotdDetectionResult implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'result' => 'setResult'    ];
+        'result' => 'setResult',
+'type' => 'setType'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -110,7 +114,8 @@ class BotdDetectionResult implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'result' => 'getResult'    ];
+        'result' => 'getResult',
+'type' => 'getType'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -186,6 +191,7 @@ self::RESULT_BAD,        ];
     public function __construct(array $data = null)
     {
         $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['type'] = isset($data['type']) ? $data['type'] : null;
     }
 
     /**
@@ -252,6 +258,30 @@ self::RESULT_BAD,        ];
             );
         }
         $this->container['result'] = $result;
+
+        return $this;
+    }
+
+    /**
+     * Gets type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->container['type'];
+    }
+
+    /**
+     * Sets type
+     *
+     * @param string $type type
+     *
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->container['type'] = $type;
 
         return $this;
     }

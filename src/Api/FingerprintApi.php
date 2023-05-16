@@ -12,7 +12,7 @@
 /**
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -91,9 +91,9 @@ class FingerprintApi
     /**
      * Operation getEvent
      *
-     * Get event by request ID
+     * Get event by requestId
      *
-     * @param  string $request_id Request ID (required)
+     * @param  string $request_id requestId is the unique identifier of each request (required)
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -108,9 +108,9 @@ class FingerprintApi
     /**
      * Operation getEventWithHttpInfo
      *
-     * Get event by request ID
+     * Get event by requestId
      *
-     * @param  string $request_id Request ID (required)
+     * @param  string $request_id requestId is the unique identifier of each request (required)
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -175,26 +175,18 @@ class FingerprintApi
                     );
                     $e->setResponseObject($data);
                     break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Fingerprint\ServerAPI\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Fingerprint\ServerAPI\Model\ErrorResponse',
+                        '\Fingerprint\ServerAPI\Model\ErrorEvent403Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
                     break;
-                case 429:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Fingerprint\ServerAPI\Model\ManyRequestsResponse',
+                        '\Fingerprint\ServerAPI\Model\ErrorEvent404Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -207,9 +199,9 @@ class FingerprintApi
     /**
      * Operation getEventAsync
      *
-     * Get event by request ID
+     * Get event by requestId
      *
-     * @param  string $request_id Request ID (required)
+     * @param  string $request_id requestId is the unique identifier of each request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -227,9 +219,9 @@ class FingerprintApi
     /**
      * Operation getEventAsyncWithHttpInfo
      *
-     * Get event by request ID
+     * Get event by requestId
      *
-     * @param  string $request_id Request ID (required)
+     * @param  string $request_id requestId is the unique identifier of each request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -279,7 +271,7 @@ class FingerprintApi
     /**
      * Create request for operation 'getEvent'
      *
-     * @param  string $request_id Request ID (required)
+     * @param  string $request_id requestId is the unique identifier of each request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -387,13 +379,13 @@ class FingerprintApi
     /**
      * Operation getVisits
      *
-     * Get events by visitorId
+     * Get visits by visitorId
      *
      * @param  string $visitor_id visitor_id (required)
-     * @param  string $request_id Filter events by requestId (optional)
-     * @param  string $linked_id Filter events by custom identifier (optional)
+     * @param  string $request_id Filter visits by requestId (optional)
+     * @param  string $linked_id Filter visits by custom identifier (optional)
      * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Used to paginate results (optional)
+     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -408,13 +400,13 @@ class FingerprintApi
     /**
      * Operation getVisitsWithHttpInfo
      *
-     * Get events by visitorId
+     * Get visits by visitorId
      *
      * @param  string $visitor_id (required)
-     * @param  string $request_id Filter events by requestId (optional)
-     * @param  string $linked_id Filter events by custom identifier (optional)
+     * @param  string $request_id Filter visits by requestId (optional)
+     * @param  string $linked_id Filter visits by custom identifier (optional)
      * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Used to paginate results (optional)
+     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -479,6 +471,14 @@ class FingerprintApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Fingerprint\ServerAPI\Model\ErrorVisits403',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 case 429:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -495,13 +495,13 @@ class FingerprintApi
     /**
      * Operation getVisitsAsync
      *
-     * Get events by visitorId
+     * Get visits by visitorId
      *
      * @param  string $visitor_id (required)
-     * @param  string $request_id Filter events by requestId (optional)
-     * @param  string $linked_id Filter events by custom identifier (optional)
+     * @param  string $request_id Filter visits by requestId (optional)
+     * @param  string $linked_id Filter visits by custom identifier (optional)
      * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Used to paginate results (optional)
+     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -519,13 +519,13 @@ class FingerprintApi
     /**
      * Operation getVisitsAsyncWithHttpInfo
      *
-     * Get events by visitorId
+     * Get visits by visitorId
      *
      * @param  string $visitor_id (required)
-     * @param  string $request_id Filter events by requestId (optional)
-     * @param  string $linked_id Filter events by custom identifier (optional)
+     * @param  string $request_id Filter visits by requestId (optional)
+     * @param  string $linked_id Filter visits by custom identifier (optional)
      * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Used to paginate results (optional)
+     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -576,10 +576,10 @@ class FingerprintApi
      * Create request for operation 'getVisits'
      *
      * @param  string $visitor_id (required)
-     * @param  string $request_id Filter events by requestId (optional)
-     * @param  string $linked_id Filter events by custom identifier (optional)
+     * @param  string $request_id Filter visits by requestId (optional)
+     * @param  string $linked_id Filter visits by custom identifier (optional)
      * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Used to paginate results (optional)
+     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -614,7 +614,7 @@ class FingerprintApi
         }
         // query params
         if ($before !== null) {
-            $queryParams['before'] = ObjectSerializer::toQueryValue($before, 'int32');
+            $queryParams['before'] = ObjectSerializer::toQueryValue($before, 'int64');
         }
 
         // path params

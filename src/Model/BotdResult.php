@@ -13,7 +13,7 @@
 /**
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -35,7 +35,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  * BotdResult Class Doc Comment
  *
  * @category Class
- * @description Contains all the information from BOTD product
+ * @description Contains all the information from Bot Detection product
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
@@ -60,6 +60,8 @@ class BotdResult implements ModelInterface, ArrayAccess
         'ip' => 'string',
 'time' => '\DateTime',
 'url' => 'string',
+'user_agent' => 'string',
+'request_id' => 'string',
 'bot' => '\Fingerprint\ServerAPI\Model\BotdDetectionResult'    ];
 
     /**
@@ -71,6 +73,8 @@ class BotdResult implements ModelInterface, ArrayAccess
         'ip' => 'ipv4',
 'time' => 'date-time',
 'url' => 'uri-reference',
+'user_agent' => null,
+'request_id' => null,
 'bot' => null    ];
 
     /**
@@ -103,6 +107,8 @@ class BotdResult implements ModelInterface, ArrayAccess
         'ip' => 'ip',
 'time' => 'time',
 'url' => 'url',
+'user_agent' => 'userAgent',
+'request_id' => 'requestId',
 'bot' => 'bot'    ];
 
     /**
@@ -114,6 +120,8 @@ class BotdResult implements ModelInterface, ArrayAccess
         'ip' => 'setIp',
 'time' => 'setTime',
 'url' => 'setUrl',
+'user_agent' => 'setUserAgent',
+'request_id' => 'setRequestId',
 'bot' => 'setBot'    ];
 
     /**
@@ -125,6 +133,8 @@ class BotdResult implements ModelInterface, ArrayAccess
         'ip' => 'getIp',
 'time' => 'getTime',
 'url' => 'getUrl',
+'user_agent' => 'getUserAgent',
+'request_id' => 'getRequestId',
 'bot' => 'getBot'    ];
 
     /**
@@ -188,6 +198,8 @@ class BotdResult implements ModelInterface, ArrayAccess
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
         $this->container['time'] = isset($data['time']) ? $data['time'] : null;
         $this->container['url'] = isset($data['url']) ? $data['url'] : null;
+        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
+        $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $this->container['bot'] = isset($data['bot']) ? $data['bot'] : null;
     }
 
@@ -295,6 +307,54 @@ class BotdResult implements ModelInterface, ArrayAccess
     public function setUrl($url)
     {
         $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets user_agent
+     *
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->container['user_agent'];
+    }
+
+    /**
+     * Sets user_agent
+     *
+     * @param string $user_agent user_agent
+     *
+     * @return $this
+     */
+    public function setUserAgent($user_agent)
+    {
+        $this->container['user_agent'] = $user_agent;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string $request_id request_id
+     *
+     * @return $this
+     */
+    public function setRequestId($request_id)
+    {
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

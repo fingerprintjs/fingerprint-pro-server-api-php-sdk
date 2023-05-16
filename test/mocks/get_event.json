@@ -60,11 +60,92 @@
     "botd": {
       "data": {
         "bot": {
-          "result": "notDetected"
+          "result": "bad",
+          "type": "selenium"
         },
         "url": "https://www.example.com/login",
         "ip": "61.127.217.15",
         "time": "2019-05-21T16:40:13Z"
+      }
+    },
+    "ipInfo": {
+      "data": {
+        "v4": {
+          "address": "94.142.239.124",
+          "geolocation": {
+            "accuracyRadius": 20,
+            "latitude": 50.05,
+            "longitude": 14.4,
+            "postalCode": "150 00",
+            "timezone": "Europe/Prague",
+            "city": {
+              "name": "Prague"
+            },
+            "country": {
+              "code": "CZ",
+              "name": "Czechia"
+            },
+            "continent": {
+              "code": "EU",
+              "name": "Europe"
+            },
+            "subdivisions": [
+              {
+                "isoCode": "10",
+                "name": "Hlavni mesto Praha"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "incognito": {
+      "data": {
+        "result": false
+      }
+    },
+    "rootApps": {
+      "data": {
+        "result": false
+      }
+    },
+    "emulator": {
+      "data": {
+        "result": false
+      }
+    },
+    "ipBlocklist": {
+      "data": {
+        "result": false,
+        "details": {
+          "emailSpam": false,
+          "attackSource": false
+        }
+      }
+    },
+    "tor": {
+      "data": {
+        "result": false
+      }
+    },
+    "vpn": {
+      "data": {
+        "result": false,
+        "methods": {
+          "timezoneMismatch": false,
+          "publicVPN": false
+        }
+      }
+    },
+    "proxy": {
+      "data": {
+        "result": false
+      }
+    },
+    "tampering": {
+      "data": {
+        "result": false,
+        "anomalyScore": 0
       }
     }
   }

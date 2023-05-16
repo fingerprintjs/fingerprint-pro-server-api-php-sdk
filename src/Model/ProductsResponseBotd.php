@@ -13,7 +13,7 @@
 /**
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -56,7 +56,8 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\BotdResult'    ];
+        'data' => '\Fingerprint\ServerAPI\Model\BotdResult',
+'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -64,7 +65,8 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'data' => null    ];
+        'data' => null,
+'error' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -93,7 +95,8 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'data' => 'data'    ];
+        'data' => 'data',
+'error' => 'error'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -101,7 +104,8 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'data' => 'setData'    ];
+        'data' => 'setData',
+'error' => 'setError'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -109,7 +113,8 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'data' => 'getData'    ];
+        'data' => 'getData',
+'error' => 'getError'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -170,6 +175,7 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
     }
 
     /**
@@ -216,6 +222,30 @@ class ProductsResponseBotd implements ModelInterface, ArrayAccess
     public function setData($data)
     {
         $this->container['data'] = $data;
+
+        return $this;
+    }
+
+    /**
+     * Gets error
+     *
+     * @return \Fingerprint\ServerAPI\Model\ProductError
+     */
+    public function getError()
+    {
+        return $this->container['error'];
+    }
+
+    /**
+     * Sets error
+     *
+     * @param \Fingerprint\ServerAPI\Model\ProductError $error error
+     *
+     * @return $this
+     */
+    public function setError($error)
+    {
+        $this->container['error'] = $error;
 
         return $this;
     }
