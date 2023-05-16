@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.1.0...v1.2.0) (2023-05-16)
+
+
+### Features
+
+* update schema to introduce new signals ([cc7640a](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/cc7640a0e3af120feae7f4056fbd3db58b8bf976))
+
 ## [1.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.0.1...v1.1.0) (2023-03-01)
 
 
