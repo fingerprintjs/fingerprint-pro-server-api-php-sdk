@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 Get event by requestId
 
-This endpoint allows you to get events with all the information from each activated product (Fingerprint Pro or Bot Detection). Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId.
+This endpoint allows you to retrieve an individual analysis event with all the information from each activated product (Identification, Bot Detection, and others). Products that are not activated for your application or not relevant to the event's detected platform (web, iOS, Android) are not included in the response.   Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
 
 ### Example
 ```php
@@ -34,7 +34,7 @@ $client = new FingerprintApi(
     $config
 );
 
-$request_id = "request_id_example"; // string | requestId is the unique identifier of each request
+$request_id = "request_id_example"; // string | The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request.
 
 try {
     $result = $client->getEvent($request_id);
@@ -49,7 +49,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request_id** | **string**| requestId is the unique identifier of each request |
+ **request_id** | **string**| The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. |
 
 ### Return type
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 Get visits by visitorId
 
-This endpoint allows you to get a history of visits with all available information. Use the visitorId as a URL path parameter. This API method is scoped to a visitor, i.e. all returned information is by visitorId.
+This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter. Only information from the _Identification_ product is returned.  #### Headers  * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
 
 ### Example
 ```php
@@ -93,11 +93,11 @@ $client = new FingerprintApi(
     $config
 );
 
-$visitor_id = "visitor_id_example"; // string | 
-$request_id = "request_id_example"; // string | Filter visits by requestId
-$linked_id = "linked_id_example"; // string | Filter visits by custom identifier
-$limit = 56; // int | Limit scanned results
-$before = 789; // int | Timestamp (in milliseconds since epoch) used to paginate results
+$visitor_id = "visitor_id_example"; // string | Unique identifier of the visitor issued by Fingerprint Pro.
+$request_id = "request_id_example"; // string | Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned.
+$linked_id = "linked_id_example"; // string | Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+$limit = 56; // int | Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500.
+$before = 789; // int | ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results.
 
 try {
     $result = $client->getVisits($visitor_id, $request_id, $linked_id, $limit, $before);
@@ -112,11 +112,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **visitor_id** | **string**|  |
- **request_id** | **string**| Filter visits by requestId | [optional]
- **linked_id** | **string**| Filter visits by custom identifier | [optional]
- **limit** | **int**| Limit scanned results | [optional]
- **before** | **int**| Timestamp (in milliseconds since epoch) used to paginate results | [optional]
+ **visitor_id** | **string**| Unique identifier of the visitor issued by Fingerprint Pro. |
+ **request_id** | **string**| Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. | [optional]
+ **linked_id** | **string**| Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. | [optional]
+ **limit** | **int**| Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. | [optional]
+ **before** | **int**| ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. | [optional]
 
 ### Return type
 

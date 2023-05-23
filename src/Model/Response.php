@@ -13,7 +13,7 @@
 /**
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -35,7 +35,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  * Response Class Doc Comment
  *
  * @category Class
- * @description Fields &#x60;lastTimestamp&#x60; and &#x60;paginationKey&#x60; added when &#x60;limit&#x60; or &#x60;before&#x60; parameter provided and there is more data to show
+ * @description Fields `lastTimestamp` and `paginationKey` added when `limit` or `before` parameter provided and there is more data to show
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
@@ -282,7 +282,7 @@ class Response implements ModelInterface, ArrayAccess
     /**
      * Sets last_timestamp
      *
-     * @param int $last_timestamp When more results are available (e.g., you scanned 200 results using `limit` parameter, but a total of 600 results are available), a special `lastTimestamp` top-level attribute is added to the response. If you want to paginate the results further in the past, you should use the value of this attribute.
+     * @param int $last_timestamp ⚠️ Deprecated paging attribute, please use `paginationKey` instead. Timestamp of the last visit in the current page of results.
      *
      * @return $this
      */
@@ -306,7 +306,7 @@ class Response implements ModelInterface, ArrayAccess
     /**
      * Sets pagination_key
      *
-     * @param string $pagination_key Visit's `requestId` of the last visit in the current page.
+     * @param string $pagination_key Request ID of the last visit in the current page of results. Use this value in the following request as the `paginationKey` parameter to get the next page of results.
      *
      * @return $this
      */

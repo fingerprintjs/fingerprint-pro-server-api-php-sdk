@@ -1,19 +1,25 @@
 openapi: 3.0.3
 info:
   title: Fingerprint Pro Server API
-  description: >-
+  description: >
     Fingerprint Pro Server API allows you to get information about visitors and
-    about individual events in a server environment. This API can be used for
-    data exports, decision-making, and data analysis scenarios.
+    about individual events in a server environment. It can be used for data
+    exports, decision-making, and data analysis scenarios.
+
+    Server API is intended for server-side usage, it's not intended to be used
+    from the client side, whether it's a browser or a mobile device.
   version: '3'
   contact:
     name: Fingerprint Support
     email: support@fingerprint.com
 tags:
   - name: Fingerprint
+    description: >-
+      Using the Server API you can retrieve information about individual
+      analysis events or event history of individual visitors.
     externalDocs:
       description: API documentation
-      url: https://dev.fingerprint.com/docs/server-api
+      url: https://dev.fingerprint.com/reference/pro-server-api
 servers:
   - url: https://api.fpjs.io
     description: Global
@@ -24,22 +30,41 @@ servers:
 security:
   - ApiKeyHeader: []
   - ApiKeyQuery: []
+x-readme:
+  samples-languages:
+    - curl
+    - node
+    - php
+    - python
+    - csharp
+    - java
+    - go
 paths:
   /events/{request_id}:
     get:
       tags:
         - Fingerprint
-      summary: Get event by requestId
-      description: >-
-        This endpoint allows you to get events with all the information from
-        each activated product (Fingerprint Pro or Bot Detection). Use the
-        requestId as a URL path :request_id parameter. This API method is scoped
-        to a request, i.e. all returned information is by requestId.
       operationId: getEvent
+      summary: Get event by requestId
+      description: >
+        This endpoint allows you to retrieve an individual analysis event with
+        all the information from each activated product (Identification, Bot
+        Detection, and others).
+
+        Products that are not activated for your application or not relevant to
+        the event's detected platform (web, iOS, Android) are not included in
+        the response. 
+
+
+        Use `requestId` as the URL path parameter. This API method is scoped to
+        a request, i.e. all returned information is by `requestId`.
       parameters:
         - name: request_id
           in: path
-          description: requestId is the unique identifier of each request
+          description: >-
+            The unique
+            [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of
+            each analysis request.
           required: true
           schema:
             type: string
@@ -160,7 +185,7 @@ paths:
                           result: false
                           anomalyScore: 0
                 allErrorsResponse:
-                  summary: Example response with all failed signals
+                  summary: All failed signals
                   value:
                     products:
                       identification:
@@ -208,7 +233,7 @@ paths:
                           code: Failed
                           message: internal server error
                 withBotdError:
-                  summary: Example error response with BotD error
+                  summary: BotD error
                   value:
                     products:
                       identification:
@@ -260,9 +285,7 @@ paths:
                           code: Failed
                           message: internal server error
                 withBotdTooManyRequestsError:
-                  summary: >-
-                    Example error response with BotD error when too many
-                    requests are sent
+                  summary: BotD too many requests error
                   value:
                     products:
                       identification:
@@ -314,7 +337,7 @@ paths:
                           code: TooManyRequests
                           message: too many requests
                 withIdentificationError:
-                  summary: Example error response with identification error
+                  summary: Identification error
                   value:
                     products:
                       identification:
@@ -329,9 +352,7 @@ paths:
                           ip: 61.127.217.15
                           time: '2019-05-21T16:40:13Z'
                 withIdentificationTooManyRequestsError:
-                  summary: >-
-                    Example error response with identification error when too
-                    many requests are sent
+                  summary: Identification too many requests error
                   value:
                     products:
                       identification:
@@ -371,43 +392,274 @@ paths:
                     error:
                       code: RequestNotFound
                       message: request id is not found
+      x-readme:
+        code-samples:
+          - language: node
+            name: Node SDK
+            install: npm install @fingerprintjs/fingerprintjs-pro-server-api
+            code: |
+              import {
+                FingerprintJsServerApiClient,
+                Region,
+              } from '@fingerprintjs/fingerprintjs-pro-server-api'
+
+              const client = new FingerprintJsServerApiClient({
+                apiKey: 'SERVER_API_KEY', // Replace with your key
+                region: Region.Global, // Replace with your region
+              })
+
+              // Get a specific fingerprinting event
+              client.getEvent('REQUEST_ID').then((event) => {
+                console.log(event)
+              })
+          - language: php
+            name: PHP SDK
+            install: composer require fingerprint/fingerprint-pro-server-api-sdk
+            code: |
+              <?php
+              require_once(__DIR__ . '/vendor/autoload.php');
+              use Fingerprint\ServerAPI\Api\FingerprintApi;
+              use Fingerprint\ServerAPI\Configuration;
+              use GuzzleHttp\Client;
+
+              $config = Configuration::getDefaultConfiguration(
+                "SERVER_API_KEY", // Replace with your key
+                Configuration::REGION_GLOBAL // Replace with your region
+              );
+
+              $client = new FingerprintApi(
+                new Client(),
+                $config
+              );
+
+              // Get a specific fingerprinting event
+              try {
+                $response = $client->getEvent("REQUEST_ID");
+                echo "<pre>" . $response->__toString() . "</pre>";
+              } catch (Exception $e) {
+                echo $e->getMessage(), PHP_EOL;
+              }
+          - language: python
+            name: Python SDK
+            install: pip install fingerprint_pro_server_api_sdk
+            code: >
+              import fingerprint_pro_server_api_sdk
+
+              from fingerprint_pro_server_api_sdk import EventResponse
+
+              from fingerprint_pro_server_api_sdk import Response
+
+              from fingerprint_pro_server_api_sdk.rest import ApiException
+
+
+              configuration = fingerprint_pro_server_api_sdk.Configuration(
+                api_key="SERVER_API_KEY", // Replace with your key
+                region="us" // Replace with your region
+              )
+
+              api_instance =
+              fingerprint_pro_server_api_sdk.FingerprintApi(configuration)
+
+
+              # Get a specific fingerprinting event
+
+              try:
+                  event: EventResponse = api_instance.get_event("REQUEST_ID")
+                  print(event)
+              except ApiException as e:
+                  print("Exception when getting an event: %s\n" % e)
+          - language: golang
+            name: Go SDK
+            install: go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk
+            code: |
+              package main
+
+              import (
+                "context"
+                "fmt"
+                "github.com/antihax/optional"
+                "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3/sdk"
+                "log"
+              )
+
+              func main() {
+                cfg := sdk.NewConfiguration()
+                client := sdk.NewAPIClient(cfg)
+
+                auth := context.WithValue(
+                  context.Background(),
+                  sdk.ContextAPIKey,
+                  sdk.APIKey{Key: "SERVER_API_KEY"}, // Replace with your key
+                )
+                cfg.ChangeRegion(sdk.RegionUS) // Replace with your region
+
+                // Get a specific fingerprinting event
+                event, eventHttpRes, eventErr :=
+                  client.FingerprintApi.GetEvent(auth, "REQUEST_ID")
+                if eventErr != nil {
+                  log.Fatal(eventErr)
+                }
+                fmt.Printf("Event: %s", event)
+              }
+          - language: java
+            name: Java SDK
+            code: |
+              import com.fingerprint.api.FingerprintApi;
+              import com.fingerprint.models.EventResponse;
+              import com.fingerprint.models.Response;
+              import com.fingerprint.sdk.ApiClient;
+              import com.fingerprint.sdk.ApiException;
+              import com.fingerprint.sdk.Configuration;
+              import com.fingerprint.sdk.Region;
+
+              public class FingerprintApiExample {
+                public static void main(String... args) {
+                  ApiClient client = Configuration.getDefaultApiClient(
+                    "SERVER_API_KEY", // Replace with your key
+                    Region.GLOBAL // Replace with your region
+                  );
+                  FingerprintApi api = new FingerprintApi(client);
+
+                  // Get a specific fingerprinting event
+                  try {
+                    EventResponse response = api.getEvent("REQUEST_ID");
+                    System.out.println(response.getProducts().toString());
+                  } catch (ApiException e) {
+                    System.err.println(e.getMessage());
+                  }
+                }
+              }
+          - language: csharp
+            name: C# SDK
+            install: dotnet add package FingerprintPro.ServerSdk
+            code: >
+              using FingerprintPro.ServerSdk.Api;
+
+              using FingerprintPro.ServerSdk.Client;
+
+
+              var configuration = new Configuration("SERVER_API_KEY"); //
+              Replace with your key
+
+              configuration.Region = Region.Us; // Replace with your region
+
+
+              var api = new FingerprintApi(
+                  configuration
+              );
+
+
+              // Get a specific fingerprinting event
+
+              var events = api.GetEvent("REQUEST_ID");
+
+              Console.WriteLine(events);
   /visitors/{visitor_id}:
     get:
       tags:
         - Fingerprint
       operationId: getVisits
       summary: Get visits by visitorId
-      description: >-
-        This endpoint allows you to get a history of visits with all available
-        information. Use the visitorId as a URL path parameter. This API method
-        is scoped to a visitor, i.e. all returned information is by visitorId.
+      description: >
+        This endpoint allows you to get a history of visits for a specific
+        `visitorId`. Use the `visitorId` as a URL path parameter.
+
+        Only information from the _Identification_ product is returned.
+
+
+        #### Headers
+
+
+        * `Retry-After` — Present in case of `429 Too many requests`. Indicates
+        how long you should wait before making a follow-up request. The value is
+        non-negative decimal integer indicating the seconds to delay after the
+        response is received.
       parameters:
         - name: visitor_id
+          description: Unique identifier of the visitor issued by Fingerprint Pro.
           in: path
           required: true
           schema:
             type: string
           example: uYIm7Ksp5rf00SllPhFp
         - name: request_id
-          description: Filter visits by requestId
+          description: >
+            Filter visits by `requestId`. 
+
+
+            Every identification request has a unique identifier associated with
+            it called `requestId`. This identifier is returned to the client in
+            the identification
+            [result](https://dev.fingerprint.com/docs/js-agent#requestid). When
+            you filter visits by `requestId`, only one visit will be returned.
           in: query
           schema:
             type: string
         - name: linked_id
-          description: Filter visits by custom identifier
+          description: >
+            Filter visits by your custom identifier. 
+
+
+            You can use
+            [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to
+            associate identification requests with your own identifier, for
+            example: session ID, purchase ID, or transaction ID. You can then
+            use this `linked_id` parameter to retrieve all events associated
+            with your custom identifier.
           in: query
           schema:
             type: string
           required: false
         - name: limit
-          description: Limit scanned results
+          description: >
+            Limit scanned results. 
+
+
+            For performance reasons, the API first scans some number of events
+            before filtering them. Use `limit` to specify how many events are
+            scanned before they are filtered by `requestId` or `linkedId`.
+            Results are always returned sorted by the timestamp (most recent
+            first).
+
+            By default, the most recent 100 visits are scanned, the maximum is
+            500. 
           in: query
           schema:
             type: integer
             format: int32
             minimum: 0
+        - name: paginationKey
+          description: >
+            Use `paginationKey` to get the next page of results. 
+
+
+            When more results are available (e.g., you requested 200 results
+            using `limit` parameter, but a total of 600 results are available),
+            the `paginationKey` top-level attribute is added to the response.
+            The key corresponds to the `requestId` of the last returned event.
+            In the following request, use that value in the `paginationKey`
+            parameter to get the next page of results:
+
+
+            1. First request, returning most recent 200 events: `GET
+            api-base-url/visitors/:visitorId?limit=200`
+
+            2. Use `response.paginationKey` to get the next page of results:
+            `GET
+            api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
+
+
+            Pagination happens during scanning and before filtering, so you can
+            get less visits than the `limit` you specified with more available
+            on the next page. When there are no more results available for
+            scanning, the `paginationKey` attribute is not returned.
+          schema:
+            type: string
+          required: false
         - name: before
-          description: Timestamp (in milliseconds since epoch) used to paginate results
+          description: >
+            ⚠️ Deprecated pagination method, please use `paginationKey` instead.
+            Timestamp (in milliseconds since epoch) used to paginate results. 
           in: query
           schema:
             type: integer
@@ -3099,7 +3351,7 @@ paths:
                           global: '2022-03-08T12:33:05.677Z'
                           subscription: '2022-03-08T12:33:05.677Z'
         '403':
-          description: Forbidden. Probably ApiKey is missed or provided the wrong one.
+          description: Forbidden. The API Key is probably missing or incorrect.
           content:
             application/json:
               schema:
@@ -3114,8 +3366,8 @@ paths:
           headers:
             Retry-After:
               description: >-
-                Indicates how long the user should wait before attempting the
-                next request.
+                Indicates how long you should wait before attempting the next
+                request.
               schema:
                 type: integer
                 format: int32
@@ -3129,6 +3381,171 @@ paths:
                   summary: Example too many requests error response
                   value:
                     error: too many requests
+      x-readme:
+        code-samples:
+          - language: node
+            name: Node SDK
+            install: npm install @fingerprintjs/fingerprintjs-pro-server-api
+            code: |
+              import {
+                FingerprintJsServerApiClient,
+                Region,
+              } from '@fingerprintjs/fingerprintjs-pro-server-api'
+
+              const client = new FingerprintJsServerApiClient({
+                apiKey: 'SERVER_API_KEY', // Replace with your key
+                region: Region.Global, // Replace with your region
+              })
+
+              // Get visit history of a specific visitor
+              client.getVisitorHistory('VISITOR_ID').then((visitorHistory) => {
+                console.log(visitorHistory)
+              })
+          - language: php
+            name: PHP SDK
+            install: composer require fingerprint/fingerprint-pro-server-api-sdk
+            code: |
+              <?php
+              require_once(__DIR__ . '/vendor/autoload.php');
+              use Fingerprint\ServerAPI\Api\FingerprintApi;
+              use Fingerprint\ServerAPI\Configuration;
+              use GuzzleHttp\Client;
+
+              $config = Configuration::getDefaultConfiguration(
+                "SERVER_API_KEY", // Replace with your key
+                Configuration::REGION_GLOBAL // Replace with your region
+              );
+
+              $client = new FingerprintApi(
+                new Client(),
+                $config
+              );
+
+              // Get visit history of a specific visitor
+              try {
+                $response = $client->getVisits("VISITOR_ID");
+                echo "<pre>" . $response->__toString() . "</pre>";
+              } catch (Exception $e) {
+                echo $e->getMessage(), PHP_EOL;
+              }
+          - language: python
+            name: Python SDK
+            install: pip install fingerprint_pro_server_api_sdk
+            code: >
+              import fingerprint_pro_server_api_sdk
+
+              from fingerprint_pro_server_api_sdk import EventResponse
+
+              from fingerprint_pro_server_api_sdk import Response
+
+              from fingerprint_pro_server_api_sdk.rest import ApiException
+
+
+              configuration = fingerprint_pro_server_api_sdk.Configuration(
+                api_key="SERVER_API_KEY", // Replace with your key
+                region="us" // Replace with your region
+              )
+
+              api_instance =
+              fingerprint_pro_server_api_sdk.FingerprintApi(configuration)
+
+
+              # Get visit history of a specific visitor
+
+              try:
+                visits: Response = api_instance.get_visits("VISITOR_ID", limit=10)
+                print(visits)
+              except ApiException as e:
+                print("Exception when getting visits: %s\n" % e)
+          - language: golang
+            name: Go SDK
+            install: go get github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk
+            code: |
+              package main
+
+              import (
+                "context"
+                "fmt"
+                "github.com/antihax/optional"
+                "github.com/fingerprintjs/fingerprint-pro-server-api-go-sdk/v3/sdk"
+                "log"
+              )
+
+              func main() {
+                cfg := sdk.NewConfiguration()
+                client := sdk.NewAPIClient(cfg)
+
+                auth := context.WithValue(
+                  context.Background(),
+                  sdk.ContextAPIKey,
+                  sdk.APIKey{Key: "SERVER_API_KEY"}, // Replace with your key
+                )
+                cfg.ChangeRegion(sdk.RegionUS) // Replace with your region
+
+                // Get visit history of a specific visitor
+                getVisitsOpts := sdk.FingerprintApiGetVisitsOpts{
+                  Limit: optional.NewInt32(10),
+                }
+                history, historyHttpRes, historyErr :=
+                  client.FingerprintApi.GetVisits(auth, "VISITOR_ID", &getVisitsOpts)
+                if err != nil {
+                  log.Fatal(err)
+                }
+                fmt.Printf("Visitor history: %s", history)
+              }
+          - language: java
+            name: Java SDK
+            code: |
+              import com.fingerprint.api.FingerprintApi;
+              import com.fingerprint.models.EventResponse;
+              import com.fingerprint.models.Response;
+              import com.fingerprint.sdk.ApiClient;
+              import com.fingerprint.sdk.ApiException;
+              import com.fingerprint.sdk.Configuration;
+              import com.fingerprint.sdk.Region;
+
+              public class FingerprintApiExample {
+                public static void main(String... args) {
+                  ApiClient client = Configuration.getDefaultApiClient(
+                    "SERVER_API_KEY", // Replace with your key
+                    Region.GLOBAL // Replace with your region
+                  );
+                  FingerprintApi api = new FingerprintApi(client);
+
+                  // Get visit history of a specific visitor
+                  try {
+                    Response response = api.getVisits("VISITOR_ID");
+                    System.out.println(response.getVisits().toString());
+                  } catch (ApiException e) {
+                    System.err.println(e.getMessage());
+                  }
+                }
+              }
+          - language: csharp
+            name: C# SDK
+            install: dotnet add package FingerprintPro.ServerSdk
+            code: >
+              using FingerprintPro.ServerSdk.Api;
+
+              using FingerprintPro.ServerSdk.Client;
+
+
+              var configuration = new Configuration("SERVER_API_KEY"); //
+              Replace with your key
+
+              configuration.Region = Region.Us; // Replace with your region
+
+
+              var api = new FingerprintApi(
+                  configuration
+              );
+
+
+              // Get visit history of a specific visitor
+
+              var visits = api.GetVisits("VISITOR_ID");
+
+              Console.WriteLine(visits);
   /webhook:
     trace:
       tags:
@@ -3346,17 +3763,17 @@ components:
               - visitorFound
               - tag
         lastTimestamp:
-          description: >-
-            When more results are available (e.g., you scanned 200 results using
-            `limit` parameter, but a total of 600 results are available), a
-            special `lastTimestamp` top-level attribute is added to the
-            response. If you want to paginate the results further in the past,
-            you should use the value of this attribute.
+          description: >
+            ⚠️ Deprecated paging attribute, please use `paginationKey` instead.
+            Timestamp of the last visit in the current page of results.
           type: integer
           format: int64
           example: 1654815517198
         paginationKey:
-          description: Visit's `requestId` of the last visit in the current page.
+          description: >-
+            Request ID of the last visit in the current page of results. Use
+            this value in the following request as the `paginationKey` parameter
+            to get the next page of results.
           type: string
           example: 1654815517198.azN4IZ
       required:
@@ -4011,8 +4428,8 @@ components:
               $ref: '#/components/schemas/ProductError'
     EventResponse:
       description: >-
-        Contains event from activated products - Fingerprint Pro or Bot
-        Detection
+        Contains results from all activated products - Fingerprint Pro, Bot
+        Detection, and others.
       type: object
       additionalProperties: false
       properties:
