@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**request_id** | **string** | Unique identifier of the user&#x27;s identification request. | 
+**request_id** | **string** | Unique identifier of the user's identification request. | 
 **browser_details** | [**\Fingerprint\ServerAPI\Model\BrowserDetails**](BrowserDetails.md) |  | 
 **incognito** | **bool** | Flag if user used incognito session. | 
 **ip** | **string** |  | 
