@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.2.0...v1.2.1) (2023-05-26)
+
+
+### Bug Fixes
+
+* update schema with improved documentation ([69c8bab](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/69c8bab9db2c7519c12eb30452bf4dc3fc578b84))
+* update templates to correctly generate backtick symbol instead of html variant &#x60; ([bb7f732](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/bb7f73240c5ce00d16aa3d9d45c5f6b889326338)), closes [#x60](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/issues/x60)
+
 ## [1.2.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.1.0...v1.2.0) (2023-05-16)
 
 
