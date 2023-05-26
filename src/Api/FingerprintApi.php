@@ -12,7 +12,7 @@
 /**
  * Fingerprint Pro Server API
  *
- * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. This API can be used for data exports, decision-making, and data analysis scenarios.
+ * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -93,7 +93,7 @@ class FingerprintApi
      *
      * Get event by requestId
      *
-     * @param  string $request_id requestId is the unique identifier of each request (required)
+     * @param  string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -110,7 +110,7 @@ class FingerprintApi
      *
      * Get event by requestId
      *
-     * @param  string $request_id requestId is the unique identifier of each request (required)
+     * @param  string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -201,7 +201,7 @@ class FingerprintApi
      *
      * Get event by requestId
      *
-     * @param  string $request_id requestId is the unique identifier of each request (required)
+     * @param  string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -221,7 +221,7 @@ class FingerprintApi
      *
      * Get event by requestId
      *
-     * @param  string $request_id requestId is the unique identifier of each request (required)
+     * @param  string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -271,7 +271,7 @@ class FingerprintApi
     /**
      * Create request for operation 'getEvent'
      *
-     * @param  string $request_id requestId is the unique identifier of each request (required)
+     * @param  string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -381,11 +381,11 @@ class FingerprintApi
      *
      * Get visits by visitorId
      *
-     * @param  string $visitor_id visitor_id (required)
-     * @param  string $request_id Filter visits by requestId (optional)
-     * @param  string $linked_id Filter visits by custom identifier (optional)
-     * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
+     * @param  string $visitor_id Unique identifier of the visitor issued by Fingerprint Pro. (required)
+     * @param  string $request_id Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
+     * @param  string $linked_id Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param  int $limit Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
+     * @param  int $before ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -402,11 +402,11 @@ class FingerprintApi
      *
      * Get visits by visitorId
      *
-     * @param  string $visitor_id (required)
-     * @param  string $request_id Filter visits by requestId (optional)
-     * @param  string $linked_id Filter visits by custom identifier (optional)
-     * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
+     * @param  string $visitor_id Unique identifier of the visitor issued by Fingerprint Pro. (required)
+     * @param  string $request_id Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
+     * @param  string $linked_id Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param  int $limit Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
+     * @param  int $before ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -497,11 +497,11 @@ class FingerprintApi
      *
      * Get visits by visitorId
      *
-     * @param  string $visitor_id (required)
-     * @param  string $request_id Filter visits by requestId (optional)
-     * @param  string $linked_id Filter visits by custom identifier (optional)
-     * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
+     * @param  string $visitor_id Unique identifier of the visitor issued by Fingerprint Pro. (required)
+     * @param  string $request_id Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
+     * @param  string $linked_id Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param  int $limit Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
+     * @param  int $before ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -521,11 +521,11 @@ class FingerprintApi
      *
      * Get visits by visitorId
      *
-     * @param  string $visitor_id (required)
-     * @param  string $request_id Filter visits by requestId (optional)
-     * @param  string $linked_id Filter visits by custom identifier (optional)
-     * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
+     * @param  string $visitor_id Unique identifier of the visitor issued by Fingerprint Pro. (required)
+     * @param  string $request_id Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
+     * @param  string $linked_id Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param  int $limit Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
+     * @param  int $before ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -575,11 +575,11 @@ class FingerprintApi
     /**
      * Create request for operation 'getVisits'
      *
-     * @param  string $visitor_id (required)
-     * @param  string $request_id Filter visits by requestId (optional)
-     * @param  string $linked_id Filter visits by custom identifier (optional)
-     * @param  int $limit Limit scanned results (optional)
-     * @param  int $before Timestamp (in milliseconds since epoch) used to paginate results (optional)
+     * @param  string $visitor_id Unique identifier of the visitor issued by Fingerprint Pro. (required)
+     * @param  string $request_id Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
+     * @param  string $linked_id Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param  int $limit Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
+     * @param  int $before ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
