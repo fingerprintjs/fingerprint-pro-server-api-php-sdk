@@ -14,8 +14,8 @@ jobs:
     runs-on: "ubuntu-latest"
 
     strategy:
+      max-parallel: 1
       matrix:
-        max-parallel: 1
         php_version: [ "7.3", "7.4", "8.0", "8.1", "8.2" ]
     steps:
       - uses: actions/checkout@v3

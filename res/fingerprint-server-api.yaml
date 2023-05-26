@@ -380,7 +380,7 @@ paths:
                       code: TokenRequired
                       message: secret key is required
         '404':
-          description: Bad Request
+          description: Not found
           content:
             application/json:
               schema:
