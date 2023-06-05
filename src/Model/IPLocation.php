@@ -229,24 +229,6 @@ class IPLocation implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['accuracy_radius'] === null) {
-            $invalidProperties[] = "'accuracy_radius' can't be null";
-        }
-        if ($this->container['latitude'] === null) {
-            $invalidProperties[] = "'latitude' can't be null";
-        }
-        if ($this->container['longitude'] === null) {
-            $invalidProperties[] = "'longitude' can't be null";
-        }
-        if ($this->container['timezone'] === null) {
-            $invalidProperties[] = "'timezone' can't be null";
-        }
-        if ($this->container['country'] === null) {
-            $invalidProperties[] = "'country' can't be null";
-        }
-        if ($this->container['continent'] === null) {
-            $invalidProperties[] = "'continent' can't be null";
-        }
         return $invalidProperties;
     }
 

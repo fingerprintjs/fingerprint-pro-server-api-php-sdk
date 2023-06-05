@@ -271,9 +271,6 @@ class ResponseVisits implements ModelInterface, ArrayAccess
         if ($this->container['ip'] === null) {
             $invalidProperties[] = "'ip' can't be null";
         }
-        if ($this->container['ip_location'] === null) {
-            $invalidProperties[] = "'ip_location' can't be null";
-        }
         if ($this->container['timestamp'] === null) {
             $invalidProperties[] = "'timestamp' can't be null";
         }

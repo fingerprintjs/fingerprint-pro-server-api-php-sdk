@@ -622,7 +622,7 @@ paths:
             first).
 
             By default, the most recent 100 visits are scanned, the maximum is
-            500. 
+            500.
           in: query
           schema:
             type: integer
@@ -653,13 +653,14 @@ paths:
             get less visits than the `limit` you specified with more available
             on the next page. When there are no more results available for
             scanning, the `paginationKey` attribute is not returned.
+          in: query
           schema:
             type: string
           required: false
         - name: before
           description: >
             ⚠️ Deprecated pagination method, please use `paginationKey` instead.
-            Timestamp (in milliseconds since epoch) used to paginate results. 
+            Timestamp (in milliseconds since epoch) used to paginate results.
           in: query
           schema:
             type: integer
@@ -970,17 +971,6 @@ paths:
                           botProbability: 0
                         incognito: false
                         ip: 45.86.200.137
-                        ipLocation:
-                          accuracyRadius: 1000
-                          latitude: 52.3824
-                          longitude: 4.8995
-                          timezone: Europe/Amsterdam
-                          country:
-                            code: NL
-                            name: Netherlands
-                          continent:
-                            code: EU
-                            name: Europe
                         timestamp: 1655106799878
                         time: '2022-06-13T07:53:19Z'
                         url: https://fingerprint.com/
@@ -1013,18 +1003,6 @@ paths:
                           accuracyRadius: 20
                           latitude: 44.804
                           longitude: 20.4651
-                          timezone: Europe/Belgrade
-                          city:
-                            name: Belgrade
-                          country:
-                            code: RS
-                            name: Serbia
-                          continent:
-                            code: EU
-                            name: Europe
-                          subdivisions:
-                            - isoCode: '00'
-                              name: Belgrade
                         timestamp: 1654606475413
                         time: '2022-06-07T12:54:35Z'
                         url: https://fingerprintjs.com/
@@ -1054,22 +1032,7 @@ paths:
                         incognito: false
                         ip: 188.242.36.107
                         ipLocation:
-                          accuracyRadius: 5
-                          latitude: 59.8983
-                          longitude: 30.2618
-                          postalCode: '190924'
                           timezone: Europe/Moscow
-                          city:
-                            name: St Petersburg
-                          country:
-                            code: RU
-                            name: Russia
-                          continent:
-                            code: EU
-                            name: Europe
-                          subdivisions:
-                            - isoCode: SPE
-                              name: St.-Petersburg
                         timestamp: 1654594677430
                         time: '2022-06-07T09:37:57Z'
                         url: https://fingerprintjs.com/
@@ -3754,7 +3717,6 @@ components:
               - firstSeenAt
               - incognito
               - ip
-              - ipLocation
               - lastSeenAt
               - requestId
               - time
@@ -3985,7 +3947,6 @@ components:
         - firstSeenAt
         - incognito
         - ip
-        - ipLocation
         - lastSeenAt
         - requestId
         - time
@@ -4051,7 +4012,6 @@ components:
         - firstSeenAt
         - incognito
         - ip
-        - ipLocation
         - lastSeenAt
         - requestId
         - time
@@ -4176,13 +4136,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Subdivision'
-      required:
-        - accuracyRadius
-        - continent
-        - country
-        - latitude
-        - longitude
-        - timezone
       title: IPLocation
     Location:
       type: object
@@ -4291,7 +4244,6 @@ components:
                 - firstSeenAt
                 - incognito
                 - ip
-                - ipLocation
                 - lastSeenAt
                 - requestId
                 - time

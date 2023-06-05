@@ -94,7 +94,7 @@ const FPJS_LINKED_ID = "linkedId";
 // An optional parameter limiting scanned results
 const LIMIT = 10;
 // An optional parameter used to paginate results, see lastTimestamp
-const BEFORE = 1;
+const PAGINATION_KEY = "1683900801733.Ogvu1j";
 
 // Import Fingerprint Pro Classes and Guzzle Http Client
 use Fingerprint\ServerAPI\Api\FingerprintApi;
@@ -137,7 +137,7 @@ try {
 // Get a specific visitor's all visits with a linkedId
 try {
     // Fetch all visits with a given visitorId, with a page limit, skipping the first visit
-    $response = $client->getVisits(FPJS_VISITOR_ID, null, FPJS_LINKED_ID, LIMIT, BEFORE);
+    $response = $client->getVisits(FPJS_VISITOR_ID, null, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
@@ -146,7 +146,7 @@ try {
 // Use all the parameters on getVisits
 try {
     // Fetch the visitor's all visits with a given requestId and linkedId with a page limit while skipping the first visit
-    $response = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, BEFORE);
+    $response = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
