@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **request_id** | **string** | Unique identifier of the user's identification request. | 
 **browser_details** | [**\Fingerprint\ServerAPI\Model\BrowserDetails**](BrowserDetails.md) |  | 
 **ip** | **string** |  | 
-**ip_location** | [**\Fingerprint\ServerAPI\Model\IPLocation**](IPLocation.md) |  | 
+**ip_location** | [**\Fingerprint\ServerAPI\Model\IPLocation**](IPLocation.md) |  | [optional] 
 **timestamp** | **int** | Timestamp of the event with millisecond precision in Unix time. | 
 **time** | [**\DateTime**](\DateTime.md) | Time expressed according to ISO 8601 in UTC format. | 
 **url** | **string** | Page URL from which identification request was sent. | 

@@ -290,20 +290,6 @@
       },
       "incognito": false,
       "ip": "45.86.200.137",
-      "ipLocation": {
-        "accuracyRadius": 1000,
-        "latitude": 52.3824,
-        "longitude": 4.8995,
-        "timezone": "Europe/Amsterdam",
-        "country": {
-          "code": "NL",
-          "name": "Netherlands"
-        },
-        "continent": {
-          "code": "EU",
-          "name": "Europe"
-        }
-      },
       "timestamp": 1655106799878,
       "time": "2022-06-13T07:53:19Z",
       "url": "https://fingerprint.com/",
@@ -338,25 +324,7 @@
       "ipLocation": {
         "accuracyRadius": 20,
         "latitude": 44.804,
-        "longitude": 20.4651,
-        "timezone": "Europe/Belgrade",
-        "city": {
-          "name": "Belgrade"
-        },
-        "country": {
-          "code": "RS",
-          "name": "Serbia"
-        },
-        "continent": {
-          "code": "EU",
-          "name": "Europe"
-        },
-        "subdivisions": [
-          {
-            "isoCode": "00",
-            "name": "Belgrade"
-          }
-        ]
+        "longitude": 20.4651
       },
       "timestamp": 1654606475413,
       "time": "2022-06-07T12:54:35Z",
@@ -390,28 +358,7 @@
       "incognito": false,
       "ip": "188.242.36.107",
       "ipLocation": {
-        "accuracyRadius": 5,
-        "latitude": 59.8983,
-        "longitude": 30.2618,
-        "postalCode": "190924",
-        "timezone": "Europe/Moscow",
-        "city": {
-          "name": "St Petersburg"
-        },
-        "country": {
-          "code": "RU",
-          "name": "Russia"
-        },
-        "continent": {
-          "code": "EU",
-          "name": "Europe"
-        },
-        "subdivisions": [
-          {
-            "isoCode": "SPE",
-            "name": "St.-Petersburg"
-          }
-        ]
+        "timezone": "Europe/Moscow"
       },
       "timestamp": 1654594677430,
       "time": "2022-06-07T09:37:57Z",
