@@ -1,3 +1,15 @@
+## [2.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.2.2...v2.0.0) (2023-06-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* For `getVisits` method `$before` argument is deprecated
+Use `$pagination_key` instead.
+
+### Features
+
+* update schema with correct `IpLocation` format and doc updates ([0318b55](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/0318b55599ede2e10d6ce9ec48c409d5fc605f03))
+
 ## [1.2.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.2.1...v1.2.2) (2023-05-26)
 
 

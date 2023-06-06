@@ -63,7 +63,7 @@ class FingerprintApi
      */
     protected $headerSelector;
 
-    protected $integration_info = 'fingerprint-pro-server-php-sdk/1.2.2';
+    protected $integration_info = 'fingerprint-pro-server-php-sdk/2.0.0';
 
     /**
      * @param ClientInterface $client
