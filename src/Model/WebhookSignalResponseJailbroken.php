@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookSignalResponseEmulator
+ * WebhookSignalResponseJailbroken
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookSignalResponseEmulator Class Doc Comment
+ * WebhookSignalResponseJailbroken Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
+class WebhookSignalResponseJailbroken implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'WebhookSignalResponseEmulator';
+    protected static $swaggerModelName = 'WebhookSignalResponseJailbroken';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -209,7 +209,7 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client isn't Android.
+     * @param bool $result iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
      *
      * @return $this
      */

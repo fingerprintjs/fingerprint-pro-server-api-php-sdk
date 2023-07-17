@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookSignalResponseEmulator
+ * SignalResponseFrida
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookSignalResponseEmulator Class Doc Comment
+ * SignalResponseFrida Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
+class SignalResponseFrida implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'WebhookSignalResponseEmulator';
+    protected static $swaggerModelName = 'SignalResponseFrida';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'result' => 'bool'    ];
+        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseFridaData',
+'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -64,7 +65,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'result' => null    ];
+        'data' => null,
+'error' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -93,7 +95,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'result' => 'result'    ];
+        'data' => 'data',
+'error' => 'error'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -101,7 +104,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'result' => 'setResult'    ];
+        'data' => 'setData',
+'error' => 'setError'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -109,7 +113,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'result' => 'getResult'    ];
+        'data' => 'getData',
+'error' => 'getError'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -169,7 +174,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
     }
 
     /**
@@ -197,25 +203,49 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets result
+     * Gets data
      *
-     * @return bool
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseFridaData
      */
-    public function getResult()
+    public function getData()
     {
-        return $this->container['result'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets result
+     * Sets data
      *
-     * @param bool $result Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client isn't Android.
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseFridaData $data data
      *
      * @return $this
      */
-    public function setResult($result)
+    public function setData($data)
     {
-        $this->container['result'] = $result;
+        $this->container['data'] = $data;
+
+        return $this;
+    }
+
+    /**
+     * Gets error
+     *
+     * @return \Fingerprint\ServerAPI\Model\ProductError
+     */
+    public function getError()
+    {
+        return $this->container['error'];
+    }
+
+    /**
+     * Sets error
+     *
+     * @param \Fingerprint\ServerAPI\Model\ProductError $error error
+     *
+     * @return $this
+     */
+    public function setError($error)
+    {
+        $this->container['error'] = $error;
 
         return $this;
     }

@@ -47,13 +47,15 @@ paths:
       operationId: getEvent
       summary: Get event by requestId
       description: >
-        This endpoint allows you to retrieve an individual analysis event with
-        all the information from each activated product (Identification, Bot
-        Detection, and others).
+        This endpoint allows you to get a detailed analysis of an individual
+        request. 
 
-        Products that are not activated for your application or not relevant to
-        the event's detected platform (web, iOS, Android) are not included in
-        the response. 
+        **Only for Enterprise customers:** Please note that the response
+        includes mobile signals (e.g. `rootApps`) even if the request orignated
+        from a non-mobile platform.
+
+        It is highly recommended that you **ignore** the mobile signals for such
+        requests. 
 
 
         Use `requestId` as the URL path parameter. This API method is scoped to
@@ -184,6 +186,25 @@ paths:
                         data:
                           result: false
                           anomalyScore: 0
+                      clonedApp:
+                        data:
+                          result: false
+                      factoryReset:
+                        data:
+                          time: '1970-01-01T00:00:00Z'
+                          timestamp: 0
+                      jailbroken:
+                        data:
+                          result: false
+                      frida:
+                        data:
+                          result: false
+                      privacySettings:
+                        data:
+                          result: false
+                      virtualMachine:
+                        data:
+                          result: false
                 allErrorsResponse:
                   summary: All failed signals
                   value:
@@ -3630,6 +3651,19 @@ paths:
                         tampering:
                           result: false
                           anomalyScore: 0
+                        clonedApp:
+                          result: false
+                        factoryReset:
+                          time: '1970-01-01T00:00:00Z'
+                          timestamp: 0
+                        jailbroken:
+                          result: false
+                        frida:
+                          result: false
+                        privacySettings:
+                          result: false
+                        virtualMachine:
+                          result: false
               responses:
                 default:
                   description: The server doesn't validate the answer.
@@ -3847,10 +3881,8 @@ components:
               description: >
                 Android specific root management apps detection. There are 2
                 values: • `true` - Root Management Apps detected (e.g. Magisk) •
-                `false` - No Root Management Apps detected
-
-                Available only for events from Android client. The field will
-                not be present for a browser or iOS event.
+                `false` - No Root Management Apps detected or the client isn't
+                Android.
               example: false
         emulator:
           title: WebhookSignalResponseEmulator
@@ -3861,10 +3893,63 @@ components:
               description: >
                 Android specific emulator detection. There are 2 values: •
                 `true` - Emulated environment detected (e.g. launch inside of
-                AVD) • `false` - No signs of emulated environment detected
-
-                Available only for events from Android client. The field will
-                not be present for a browser or iOS event.
+                AVD) • `false` - No signs of emulated environment detected or
+                the client isn't Android.
+              example: false
+        clonedApp:
+          title: WebhookSignalResponseClonedApp
+          type: object
+          properties:
+            result:
+              type: boolean
+              description: >
+                Android specific cloned application detection. There are 2
+                values: • `true` - Presence of app cloners work detected (e.g.
+                fully cloned application found or launch of it inside of a not
+                main working profile detected). • `false` - No signs of cloned
+                application detected or the client is not Android.
+              example: false
+        factoryReset:
+          title: WebhookSignalResponseFactoryReset
+          type: object
+          properties:
+            time:
+              title: Time
+              description: >
+                Time in UTC for the Android client when recent factory reset was
+                done.  If there is no sign of factory reset or the client isn't
+                Android, the field will be epoch time.
+              type: string
+              format: date-time
+              example: '2022-06-09T22:58:36Z'
+            timestamp:
+              description: >-
+                Same value as it's in the `time` field but represented in
+                timestamp format.
+              type: integer
+              format: int64
+              example: 1654815517198
+        jailbroken:
+          title: WebhookSignalResponseJailbroken
+          type: object
+          properties:
+            result:
+              type: boolean
+              description: >
+                iOS specific jailbreak detection. There are 2 values: • `true` -
+                Jailbreak detected • `false` - No signs of jailbreak or the
+                client is not iOS.
+              example: false
+        frida:
+          title: WebhookSignalResponseFrida
+          type: object
+          properties:
+            result:
+              type: boolean
+              description: >
+                iOS specific [Frida](https://frida.re/docs/ios/) detection.
+                There are 2 values: • `true` - Frida detected • `false` - No
+                signs of Frida or the client is not iOS.
               example: false
         ipBlocklist:
           $ref: '#/components/schemas/IpBlockListResult'
@@ -3877,6 +3962,27 @@ components:
               description: >
                 `true` if the request IP address is a known tor exit node,
                 `false` otherwise.
+              example: false
+        privacySettings:
+          title: WebhookSignalResponsePrivacySettings
+          type: object
+          properties:
+            result:
+              type: boolean
+              description: >
+                `true` if the request is from a privacy aware browser (e.g. Tor)
+                or from a browser in which fingerprinting is blocked. Otherwise
+                `false`.
+              example: false
+        virtualMachine:
+          title: WebhookSignalResponseVirtualMachine
+          type: object
+          properties:
+            result:
+              type: boolean
+              description: >
+                `true` if the request came from a browser running inside a
+                virtual machine (e.g. VMWare), `false` otherwise.
               example: false
         vpn:
           $ref: '#/components/schemas/VpnResult'
@@ -4297,10 +4403,8 @@ components:
                   description: >
                     Android specific root management apps detection. There are 2
                     values: • `true` - Root Management Apps detected (e.g.
-                    Magisk) • `false` - No Root Management Apps detected
-
-                    Available only for events from Android client. The field
-                    will not be present for a browser or iOS event.
+                    Magisk) • `false` - No Root Management Apps detected or the
+                    client is not Android.
                   example: false
             error:
               $ref: '#/components/schemas/ProductError'
@@ -4317,10 +4421,83 @@ components:
                     Android specific emulator detection. There are 2 values: •
                     `true` - Emulated environment detected (e.g. launch inside
                     of AVD) • `false` - No signs of emulated environment
-                    detected
-
-                    Available only for events from Android client. The field
-                    will not be present for a browser or iOS event.
+                    detected or the client is not Android.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        clonedApp:
+          title: SignalResponseClonedApp
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    Android specific cloned application detection. There are 2
+                    values: • `true` - Presence of app cloners work detected
+                    (e.g. fully cloned application found or launch of it inside
+                    of a not main working profile detected). • `false` - No
+                    signs of cloned application detected or the client is not
+                    Android.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        factoryReset:
+          title: SignalResponseFactoryReset
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                time:
+                  title: Time
+                  description: >
+                    Time in UTC for the Android client when recent factory reset
+                    was done.  If there is no sign of factory reset or the
+                    client isn't Android, the field will be epoch time.
+                  type: string
+                  format: date-time
+                  example: '2022-06-09T22:58:36Z'
+                timestamp:
+                  description: >-
+                    Same value as it's in the `time` field but represented in
+                    timestamp format.
+                  type: integer
+                  format: int64
+                  example: 1654815517198
+            error:
+              $ref: '#/components/schemas/ProductError'
+        jailbroken:
+          title: SignalResponseJailbroken
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    iOS specific jailbreak detection. There are 2 values: •
+                    `true` - Jailbreak detected • `false` - No signs of
+                    jailbreak or the client is not iOS.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        frida:
+          title: SignalResponseFrida
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    iOS specific [Frida](https://frida.re/docs/ios/) detection.
+                    There are 2 values: • `true` - Frida detected • `false` - No
+                    signs of Frida or the client is not iOS.
                   example: false
             error:
               $ref: '#/components/schemas/ProductError'
@@ -4344,6 +4521,37 @@ components:
                   description: >
                     `true` if the request IP address is a known tor exit node,
                     `false` otherwise.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        privacySettings:
+          title: SignalResponsePrivacySettings
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    `true` if the request is from a privacy aware browser (e.g.
+                    Tor) or from a browser in which fingerprinting is blocked.
+                    Otherwise `false`.
+                  example: false
+            error:
+              $ref: '#/components/schemas/ProductError'
+        virtualMachine:
+          title: SignalResponseVirtualMachine
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                result:
+                  type: boolean
+                  description: >
+                    `true` if the request came from a browser running inside a
+                    virtual machine (e.g. VMWare), `false` otherwise.
                   example: false
             error:
               $ref: '#/components/schemas/ProductError'

@@ -63,8 +63,14 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'incognito' => '\Fingerprint\ServerAPI\Model\SignalResponseIncognito',
 'root_apps' => '\Fingerprint\ServerAPI\Model\SignalResponseRootApps',
 'emulator' => '\Fingerprint\ServerAPI\Model\SignalResponseEmulator',
+'cloned_app' => '\Fingerprint\ServerAPI\Model\SignalResponseClonedApp',
+'factory_reset' => '\Fingerprint\ServerAPI\Model\SignalResponseFactoryReset',
+'jailbroken' => '\Fingerprint\ServerAPI\Model\SignalResponseJailbroken',
+'frida' => '\Fingerprint\ServerAPI\Model\SignalResponseFrida',
 'ip_blocklist' => '\Fingerprint\ServerAPI\Model\SignalResponseIpBlocklist',
 'tor' => '\Fingerprint\ServerAPI\Model\SignalResponseTor',
+'privacy_settings' => '\Fingerprint\ServerAPI\Model\SignalResponsePrivacySettings',
+'virtual_machine' => '\Fingerprint\ServerAPI\Model\SignalResponseVirtualMachine',
 'vpn' => '\Fingerprint\ServerAPI\Model\SignalResponseVpn',
 'proxy' => '\Fingerprint\ServerAPI\Model\SignalResponseProxy',
 'tampering' => '\Fingerprint\ServerAPI\Model\SignalResponseTampering'    ];
@@ -81,8 +87,14 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'incognito' => null,
 'root_apps' => null,
 'emulator' => null,
+'cloned_app' => null,
+'factory_reset' => null,
+'jailbroken' => null,
+'frida' => null,
 'ip_blocklist' => null,
 'tor' => null,
+'privacy_settings' => null,
+'virtual_machine' => null,
 'vpn' => null,
 'proxy' => null,
 'tampering' => null    ];
@@ -120,8 +132,14 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'incognito' => 'incognito',
 'root_apps' => 'rootApps',
 'emulator' => 'emulator',
+'cloned_app' => 'clonedApp',
+'factory_reset' => 'factoryReset',
+'jailbroken' => 'jailbroken',
+'frida' => 'frida',
 'ip_blocklist' => 'ipBlocklist',
 'tor' => 'tor',
+'privacy_settings' => 'privacySettings',
+'virtual_machine' => 'virtualMachine',
 'vpn' => 'vpn',
 'proxy' => 'proxy',
 'tampering' => 'tampering'    ];
@@ -138,8 +156,14 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'incognito' => 'setIncognito',
 'root_apps' => 'setRootApps',
 'emulator' => 'setEmulator',
+'cloned_app' => 'setClonedApp',
+'factory_reset' => 'setFactoryReset',
+'jailbroken' => 'setJailbroken',
+'frida' => 'setFrida',
 'ip_blocklist' => 'setIpBlocklist',
 'tor' => 'setTor',
+'privacy_settings' => 'setPrivacySettings',
+'virtual_machine' => 'setVirtualMachine',
 'vpn' => 'setVpn',
 'proxy' => 'setProxy',
 'tampering' => 'setTampering'    ];
@@ -156,8 +180,14 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'incognito' => 'getIncognito',
 'root_apps' => 'getRootApps',
 'emulator' => 'getEmulator',
+'cloned_app' => 'getClonedApp',
+'factory_reset' => 'getFactoryReset',
+'jailbroken' => 'getJailbroken',
+'frida' => 'getFrida',
 'ip_blocklist' => 'getIpBlocklist',
 'tor' => 'getTor',
+'privacy_settings' => 'getPrivacySettings',
+'virtual_machine' => 'getVirtualMachine',
 'vpn' => 'getVpn',
 'proxy' => 'getProxy',
 'tampering' => 'getTampering'    ];
@@ -226,8 +256,14 @@ class ProductsResponse implements ModelInterface, ArrayAccess
         $this->container['incognito'] = isset($data['incognito']) ? $data['incognito'] : null;
         $this->container['root_apps'] = isset($data['root_apps']) ? $data['root_apps'] : null;
         $this->container['emulator'] = isset($data['emulator']) ? $data['emulator'] : null;
+        $this->container['cloned_app'] = isset($data['cloned_app']) ? $data['cloned_app'] : null;
+        $this->container['factory_reset'] = isset($data['factory_reset']) ? $data['factory_reset'] : null;
+        $this->container['jailbroken'] = isset($data['jailbroken']) ? $data['jailbroken'] : null;
+        $this->container['frida'] = isset($data['frida']) ? $data['frida'] : null;
         $this->container['ip_blocklist'] = isset($data['ip_blocklist']) ? $data['ip_blocklist'] : null;
         $this->container['tor'] = isset($data['tor']) ? $data['tor'] : null;
+        $this->container['privacy_settings'] = isset($data['privacy_settings']) ? $data['privacy_settings'] : null;
+        $this->container['virtual_machine'] = isset($data['virtual_machine']) ? $data['virtual_machine'] : null;
         $this->container['vpn'] = isset($data['vpn']) ? $data['vpn'] : null;
         $this->container['proxy'] = isset($data['proxy']) ? $data['proxy'] : null;
         $this->container['tampering'] = isset($data['tampering']) ? $data['tampering'] : null;
@@ -402,6 +438,102 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets cloned_app
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseClonedApp
+     */
+    public function getClonedApp()
+    {
+        return $this->container['cloned_app'];
+    }
+
+    /**
+     * Sets cloned_app
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseClonedApp $cloned_app cloned_app
+     *
+     * @return $this
+     */
+    public function setClonedApp($cloned_app)
+    {
+        $this->container['cloned_app'] = $cloned_app;
+
+        return $this;
+    }
+
+    /**
+     * Gets factory_reset
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseFactoryReset
+     */
+    public function getFactoryReset()
+    {
+        return $this->container['factory_reset'];
+    }
+
+    /**
+     * Sets factory_reset
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseFactoryReset $factory_reset factory_reset
+     *
+     * @return $this
+     */
+    public function setFactoryReset($factory_reset)
+    {
+        $this->container['factory_reset'] = $factory_reset;
+
+        return $this;
+    }
+
+    /**
+     * Gets jailbroken
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseJailbroken
+     */
+    public function getJailbroken()
+    {
+        return $this->container['jailbroken'];
+    }
+
+    /**
+     * Sets jailbroken
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseJailbroken $jailbroken jailbroken
+     *
+     * @return $this
+     */
+    public function setJailbroken($jailbroken)
+    {
+        $this->container['jailbroken'] = $jailbroken;
+
+        return $this;
+    }
+
+    /**
+     * Gets frida
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseFrida
+     */
+    public function getFrida()
+    {
+        return $this->container['frida'];
+    }
+
+    /**
+     * Sets frida
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseFrida $frida frida
+     *
+     * @return $this
+     */
+    public function setFrida($frida)
+    {
+        $this->container['frida'] = $frida;
+
+        return $this;
+    }
+
+    /**
      * Gets ip_blocklist
      *
      * @return \Fingerprint\ServerAPI\Model\SignalResponseIpBlocklist
@@ -445,6 +577,54 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     public function setTor($tor)
     {
         $this->container['tor'] = $tor;
+
+        return $this;
+    }
+
+    /**
+     * Gets privacy_settings
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponsePrivacySettings
+     */
+    public function getPrivacySettings()
+    {
+        return $this->container['privacy_settings'];
+    }
+
+    /**
+     * Sets privacy_settings
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponsePrivacySettings $privacy_settings privacy_settings
+     *
+     * @return $this
+     */
+    public function setPrivacySettings($privacy_settings)
+    {
+        $this->container['privacy_settings'] = $privacy_settings;
+
+        return $this;
+    }
+
+    /**
+     * Gets virtual_machine
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseVirtualMachine
+     */
+    public function getVirtualMachine()
+    {
+        return $this->container['virtual_machine'];
+    }
+
+    /**
+     * Sets virtual_machine
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseVirtualMachine $virtual_machine virtual_machine
+     *
+     * @return $this
+     */
+    public function setVirtualMachine($virtual_machine)
+    {
+        $this->container['virtual_machine'] = $virtual_machine;
 
         return $this;
     }

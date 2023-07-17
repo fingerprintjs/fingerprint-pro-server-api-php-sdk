@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookSignalResponseEmulator
+ * WebhookSignalResponseFactoryReset
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookSignalResponseEmulator Class Doc Comment
+ * WebhookSignalResponseFactoryReset Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
+class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'WebhookSignalResponseEmulator';
+    protected static $swaggerModelName = 'WebhookSignalResponseFactoryReset';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'result' => 'bool'    ];
+        'time' => '\DateTime',
+'timestamp' => 'int'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -64,7 +65,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'result' => null    ];
+        'time' => 'date-time',
+'timestamp' => 'int64'    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -93,7 +95,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'result' => 'result'    ];
+        'time' => 'time',
+'timestamp' => 'timestamp'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -101,7 +104,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'result' => 'setResult'    ];
+        'time' => 'setTime',
+'timestamp' => 'setTimestamp'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -109,7 +113,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'result' => 'getResult'    ];
+        'time' => 'getTime',
+'timestamp' => 'getTimestamp'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -169,7 +174,8 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['time'] = isset($data['time']) ? $data['time'] : null;
+        $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
     }
 
     /**
@@ -197,25 +203,49 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets result
+     * Gets time
      *
-     * @return bool
+     * @return \DateTime
      */
-    public function getResult()
+    public function getTime()
     {
-        return $this->container['result'];
+        return $this->container['time'];
     }
 
     /**
-     * Sets result
+     * Sets time
      *
-     * @param bool $result Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client isn't Android.
+     * @param \DateTime $time Time in UTC for the Android client when recent factory reset was done.  If there is no sign of factory reset or the client isn't Android, the field will be epoch time.
      *
      * @return $this
      */
-    public function setResult($result)
+    public function setTime($time)
     {
-        $this->container['result'] = $result;
+        $this->container['time'] = $time;
+
+        return $this;
+    }
+
+    /**
+     * Gets timestamp
+     *
+     * @return int
+     */
+    public function getTimestamp()
+    {
+        return $this->container['timestamp'];
+    }
+
+    /**
+     * Sets timestamp
+     *
+     * @param int $timestamp Same value as it's in the `time` field but represented in timestamp format.
+     *
+     * @return $this
+     */
+    public function setTimestamp($timestamp)
+    {
+        $this->container['timestamp'] = $timestamp;
 
         return $this;
     }

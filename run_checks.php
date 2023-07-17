@@ -1,5 +1,9 @@
 <?php
+
+use Fingerprint\ServerAPI\Model\ResponseVisits;
+
 require_once(__DIR__ . '/vendor/autoload.php');
+
 $host = getenv('FP_API_HOST');
 $api_key = getenv('FP_PRIVATE_API_KEY');
 
@@ -17,6 +21,8 @@ $request_id = getenv('FP_REQUEST_ID');
 
 try {
     $result = $apiInstance->getVisits($visitor_id);
+    
+    fwrite(STDOUT, sprintf("Got visits: %s \n", $result));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
@@ -24,6 +30,8 @@ try {
 
 try {
     $result = $apiInstance->getEvent($request_id);
+
+    fwrite(STDOUT, sprintf("Got event: %s \n", $result));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
