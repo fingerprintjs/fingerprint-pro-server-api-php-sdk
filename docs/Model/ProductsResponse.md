@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **vpn** | [**\Fingerprint\ServerAPI\Model\SignalResponseVpn**](SignalResponseVpn.md) |  | [optional] 
 **proxy** | [**\Fingerprint\ServerAPI\Model\SignalResponseProxy**](SignalResponseProxy.md) |  | [optional] 
 **tampering** | [**\Fingerprint\ServerAPI\Model\SignalResponseTampering**](SignalResponseTampering.md) |  | [optional] 
+**raw_device_attributes** | [**\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes**](SignalResponseRawDeviceAttributes.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **vpn** | [**\Fingerprint\ServerAPI\Model\VpnResult**](VpnResult.md) |  | [optional] 
 **proxy** | [**\Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy**](WebhookSignalResponseProxy.md) |  | [optional] 
 **tampering** | [**\Fingerprint\ServerAPI\Model\TamperingResult**](TamperingResult.md) |  | [optional] 
+**raw_device_attributes** | [**\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult**](RawDeviceAttributesResult.md) |  | [optional] 
 **request_id** | **string** | Unique identifier of the user's identification request. | 
 **browser_details** | [**\Fingerprint\ServerAPI\Model\BrowserDetails**](BrowserDetails.md) |  | 
 **ip** | **string** |  | 

@@ -178,6 +178,35 @@
       "data": {
         "result": false
       }
+    },
+    "rawDeviceAttributes": {
+      "data": {
+        "architecture": {
+          "value": 127
+        },
+        "audio": {
+          "value": 35.73832903057337
+        },
+        "canvas": {
+          "value": {
+            "Winding": true,
+            "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
+            "Text": "dd2474a56ff78c1de3e7a07070ba3b7d"
+          }
+        },
+        "colorDepth": {
+          "value": 30
+        },
+        "colorGamut": {
+          "value": "srgb"
+        },
+        "contrast": {
+          "value": 0
+        },
+        "cookiesEnabled": {
+          "value": true
+        }
+      }
     }
   }
 }

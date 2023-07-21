@@ -73,7 +73,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'virtual_machine' => '\Fingerprint\ServerAPI\Model\SignalResponseVirtualMachine',
 'vpn' => '\Fingerprint\ServerAPI\Model\SignalResponseVpn',
 'proxy' => '\Fingerprint\ServerAPI\Model\SignalResponseProxy',
-'tampering' => '\Fingerprint\ServerAPI\Model\SignalResponseTampering'    ];
+'tampering' => '\Fingerprint\ServerAPI\Model\SignalResponseTampering',
+'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -97,7 +98,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'virtual_machine' => null,
 'vpn' => null,
 'proxy' => null,
-'tampering' => null    ];
+'tampering' => null,
+'raw_device_attributes' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -142,7 +144,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'virtual_machine' => 'virtualMachine',
 'vpn' => 'vpn',
 'proxy' => 'proxy',
-'tampering' => 'tampering'    ];
+'tampering' => 'tampering',
+'raw_device_attributes' => 'rawDeviceAttributes'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -166,7 +169,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'virtual_machine' => 'setVirtualMachine',
 'vpn' => 'setVpn',
 'proxy' => 'setProxy',
-'tampering' => 'setTampering'    ];
+'tampering' => 'setTampering',
+'raw_device_attributes' => 'setRawDeviceAttributes'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -190,7 +194,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'virtual_machine' => 'getVirtualMachine',
 'vpn' => 'getVpn',
 'proxy' => 'getProxy',
-'tampering' => 'getTampering'    ];
+'tampering' => 'getTampering',
+'raw_device_attributes' => 'getRawDeviceAttributes'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -267,6 +272,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
         $this->container['vpn'] = isset($data['vpn']) ? $data['vpn'] : null;
         $this->container['proxy'] = isset($data['proxy']) ? $data['proxy'] : null;
         $this->container['tampering'] = isset($data['tampering']) ? $data['tampering'] : null;
+        $this->container['raw_device_attributes'] = isset($data['raw_device_attributes']) ? $data['raw_device_attributes'] : null;
     }
 
     /**
@@ -697,6 +703,30 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     public function setTampering($tampering)
     {
         $this->container['tampering'] = $tampering;
+
+        return $this;
+    }
+
+    /**
+     * Gets raw_device_attributes
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes
+     */
+    public function getRawDeviceAttributes()
+    {
+        return $this->container['raw_device_attributes'];
+    }
+
+    /**
+     * Sets raw_device_attributes
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes $raw_device_attributes raw_device_attributes
+     *
+     * @return $this
+     */
+    public function setRawDeviceAttributes($raw_device_attributes)
+    {
+        $this->container['raw_device_attributes'] = $raw_device_attributes;
 
         return $this;
     }

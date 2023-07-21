@@ -205,6 +205,25 @@ paths:
                       virtualMachine:
                         data:
                           result: false
+                      rawDeviceAttributes:
+                        data:
+                          architecture:
+                            value: 127
+                          audio:
+                            value: 35.73832903057337
+                          canvas:
+                            value:
+                              Winding: true
+                              Geometry: 4dce9d6017c3e0c052a77252f29f2b1c
+                              Text: dd2474a56ff78c1de3e7a07070ba3b7d
+                          colorDepth:
+                            value: 30
+                          colorGamut:
+                            value: srgb
+                          contrast:
+                            value: 0
+                          cookiesEnabled:
+                            value: true
                 allErrorsResponse:
                   summary: All failed signals
                   value:
@@ -3664,6 +3683,24 @@ paths:
                           result: false
                         virtualMachine:
                           result: false
+                        rawDeviceAttributes:
+                          architecture:
+                            value: 127
+                          audio:
+                            value: 35.73832903057337
+                          canvas:
+                            value:
+                              Winding: true
+                              Geometry: 4dce9d6017c3e0c052a77252f29f2b1c
+                              Text: dd2474a56ff78c1de3e7a07070ba3b7d
+                          colorDepth:
+                            value: 30
+                          colorGamut:
+                            value: srgb
+                          contrast:
+                            value: 0
+                          cookiesEnabled:
+                            value: true
               responses:
                 default:
                   description: The server doesn't validate the answer.
@@ -3998,6 +4035,9 @@ components:
               example: false
         tampering:
           $ref: '#/components/schemas/TamperingResult'
+        rawDeviceAttributes:
+          title: WebhookSignalResponseRawDeviceAttributes
+          $ref: '#/components/schemas/RawDeviceAttributesResult'
         requestId:
           description: Unique identifier of the user's identification request.
           type: string
@@ -4586,6 +4626,12 @@ components:
               $ref: '#/components/schemas/TamperingResult'
             error:
               $ref: '#/components/schemas/ProductError'
+        rawDeviceAttributes:
+          title: SignalResponseRawDeviceAttributes
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/RawDeviceAttributesResult'
     EventResponse:
       description: >-
         Contains results from all activated products - Fingerprint Pro, Bot
@@ -4764,6 +4810,45 @@ components:
           example: 0
           minimum: 0
           maximum: 1
+    RawDeviceAttributesResult:
+      type: object
+      description: >
+        It includes 35+ raw browser identification attributes to provide
+        Fingerprint users with even more information than our standard visitor
+        ID provides. This enables Fingerprint users to not have to run our
+        open-source product in conjunction with Fingerprint Pro Plus and
+        Enterprise to get those additional attributes.
+
+        Warning: The raw signals data can change at any moment as we improve the
+        product. We cannot guarantee the internal shape of raw device attributes
+        to be stable, so typical semantic versioning rules do not apply here.
+        Use this data with caution without assuming a specific structure beyond
+        the generic type provided here.
+      additionalProperties:
+        oneOf:
+          - type: object
+            properties:
+              value:
+                title: value
+            required:
+              - value
+          - type: object
+            properties:
+              error:
+                properties:
+                  name:
+                    title: error.name
+                    type: string
+                  message:
+                    title: error.message
+                    type: string
+                required:
+                  - name
+                  - message
+                title: error
+                type: object
+            required:
+              - error
     ProductError:
       type: object
       properties:

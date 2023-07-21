@@ -75,6 +75,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'vpn' => '\Fingerprint\ServerAPI\Model\VpnResult',
 'proxy' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy',
 'tampering' => '\Fingerprint\ServerAPI\Model\TamperingResult',
+'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult',
 'request_id' => 'string',
 'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
 'ip' => 'string',
@@ -114,6 +115,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'vpn' => null,
 'proxy' => null,
 'tampering' => null,
+'raw_device_attributes' => null,
 'request_id' => null,
 'browser_details' => null,
 'ip' => 'ipv4',
@@ -174,6 +176,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'vpn' => 'vpn',
 'proxy' => 'proxy',
 'tampering' => 'tampering',
+'raw_device_attributes' => 'rawDeviceAttributes',
 'request_id' => 'requestId',
 'browser_details' => 'browserDetails',
 'ip' => 'ip',
@@ -213,6 +216,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'vpn' => 'setVpn',
 'proxy' => 'setProxy',
 'tampering' => 'setTampering',
+'raw_device_attributes' => 'setRawDeviceAttributes',
 'request_id' => 'setRequestId',
 'browser_details' => 'setBrowserDetails',
 'ip' => 'setIp',
@@ -252,6 +256,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'vpn' => 'getVpn',
 'proxy' => 'getProxy',
 'tampering' => 'getTampering',
+'raw_device_attributes' => 'getRawDeviceAttributes',
 'request_id' => 'getRequestId',
 'browser_details' => 'getBrowserDetails',
 'ip' => 'getIp',
@@ -343,6 +348,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
         $this->container['vpn'] = isset($data['vpn']) ? $data['vpn'] : null;
         $this->container['proxy'] = isset($data['proxy']) ? $data['proxy'] : null;
         $this->container['tampering'] = isset($data['tampering']) ? $data['tampering'] : null;
+        $this->container['raw_device_attributes'] = isset($data['raw_device_attributes']) ? $data['raw_device_attributes'] : null;
         $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $this->container['browser_details'] = isset($data['browser_details']) ? $data['browser_details'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
@@ -870,6 +876,30 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     public function setTampering($tampering)
     {
         $this->container['tampering'] = $tampering;
+
+        return $this;
+    }
+
+    /**
+     * Gets raw_device_attributes
+     *
+     * @return \Fingerprint\ServerAPI\Model\RawDeviceAttributesResult
+     */
+    public function getRawDeviceAttributes()
+    {
+        return $this->container['raw_device_attributes'];
+    }
+
+    /**
+     * Sets raw_device_attributes
+     *
+     * @param \Fingerprint\ServerAPI\Model\RawDeviceAttributesResult $raw_device_attributes raw_device_attributes
+     *
+     * @return $this
+     */
+    public function setRawDeviceAttributes($raw_device_attributes)
+    {
+        $this->container['raw_device_attributes'] = $raw_device_attributes;
 
         return $this;
     }
