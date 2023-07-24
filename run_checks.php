@@ -13,9 +13,9 @@ if (file_exists('.env') || file_exists('.env.local')) {
     echo "No local env file exists.";
 }
 
-$api_key = $_ENV['FP_PRIVATE_API_KEY'];
-$visitor_id = $_ENV['FP_VISITOR_ID'];
-$request_id = $_ENV['FP_REQUEST_ID'];
+$api_key = $_ENV['FP_PRIVATE_API_KEY'] ?? "Private API Key not defined";
+$visitor_id = $_ENV['FP_VISITOR_ID'] ?? "Visitor ID not defined";
+$request_id = $_ENV['FP_REQUEST_ID'] ?? "Request ID not defined";
 $region_env = $_ENV['FP_REGION'] ?? "us";
 
 $region = Configuration::REGION_GLOBAL;
