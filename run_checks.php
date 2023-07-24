@@ -6,17 +6,14 @@ use Fingerprint\ServerAPI\Configuration;
 use GuzzleHttp\Client;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-if (file_exists('.env') || file_exists('.env.local')) {
-    $dotenv->load();
-    echo "Environment variables loaded from local env file.\n";
-} else {
-    echo "No local env file exists.";
-}
 
-$api_key = $_ENV['FP_PRIVATE_API_KEY'] ?? "Private API Key not defined";
-$visitor_id = $_ENV['FP_VISITOR_ID'] ?? "Visitor ID not defined";
-$request_id = $_ENV['FP_REQUEST_ID'] ?? "Request ID not defined";
-$region_env = $_ENV['FP_REGION'] ?? "us";
+$dotenv->safeLoad();
+
+
+$api_key = $_ENV['FP_PRIVATE_API_KEY'] ?? getenv('FP_PRIVATE_API_KEY') ?? "Private API Key not defined";
+$visitor_id = $_ENV['FP_VISITOR_ID'] ?? getenv('FP_VISITOR_ID') ?? "Visitor ID not defined";
+$request_id = $_ENV['FP_REQUEST_ID'] ?? getenv('FP_REQUEST_ID') ?? "Request ID not defined";
+$region_env = $_ENV['FP_REGION'] ?? getenv('FP_REGION') ?? "us";
 
 $region = Configuration::REGION_GLOBAL;
 if ($region_env === 'eu') {
