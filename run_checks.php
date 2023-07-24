@@ -6,7 +6,12 @@ use Fingerprint\ServerAPI\Configuration;
 use GuzzleHttp\Client;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+if (file_exists('.env') || file_exists('.env.local')) {
+    $dotenv->load();
+    echo "Environment variables loaded from local env file.\n";
+} else {
+    echo "No local env file exists.";
+}
 
 $api_key = $_ENV['FP_PRIVATE_API_KEY'];
 $visitor_id = $_ENV['FP_VISITOR_ID'];
