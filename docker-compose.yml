@@ -9,8 +9,10 @@ services:
   php:
     image: php:7.2-cli
     volumes:
-      - ./src:/app
+      - ./:/app
     working_dir: /app
+    env_file:
+      - .env
   phpunit:
     image: php:7.2-cli
     volumes:
