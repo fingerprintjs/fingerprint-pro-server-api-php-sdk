@@ -17,6 +17,16 @@ You can just run `sh ./scripts/generate.sh` script and it will do all the work.
 
 To download fresh OpenAPI schema run `sh ./scripts/sync.sh`
 
+### Testing the local source code of the SDK
+
+Use the `run_checks.php` file to make API requests using the local version of the SDK.
+
+1. Make sure you have `php` installed.
+2. Make sure you have `composer` installed.
+3. Run `composer install` to install dependencies.
+4. Create an `.env` file in the root folder according to [.env.example](.env.example) with your API key and test variables.
+5. Finally, run `php run_checks.php`.
+
 ### Configuration
 
 Project configuration is described in `config.json` file. To read about available parameters run the command below:
