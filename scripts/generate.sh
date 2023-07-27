@@ -45,6 +45,19 @@ java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/f
   fi
 )
 
+(
+  # Readme file fix
+  replacement=$(printf 'The rawAttributes object follows this general shape: `{ value: any } | { error: { name: string; message: string; } }`\n')
+  readme_filename="./src/docs/Model/RawDeviceAttributesResult.md"
+  if [ "$platform" = "Darwin" ]; then
+    sed -i '' "s/^Name |.*/${replacement}/" "$readme_filename"
+    sed -i '' "/^------------ |/c\\" "$readme_filename"
+  else
+    sed -i "s/^Name |.*/${replacement}/" "$readme_filename"
+    sed -i "/^------------ |/c\\" "$readme_filename"
+  fi
+)
+
 mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
 rm -rf docs

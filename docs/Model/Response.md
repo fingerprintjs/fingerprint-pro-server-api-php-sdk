@@ -1,4 +1,6 @@
 # Response
+Fields `lastTimestamp` and `paginationKey` added when `limit` or `before` parameter provided and there is more data to show
+
 
 ## Properties
 Name | Type | Description | Notes
