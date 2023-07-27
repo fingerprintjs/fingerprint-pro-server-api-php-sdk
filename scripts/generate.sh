@@ -21,7 +21,17 @@ fi
 
 echo "VERSION: $VERSION"
 
-sed -i "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
+# Platform check
+platform=$(uname)
+(
+  # Model file fix
+  if [ "$platform" = "Darwin" ]; then
+    echo "Don't bump version in dev env"
+    # sed -i '' "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
+  else
+    sed -i "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
+  fi
+)
 
 java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json
 
