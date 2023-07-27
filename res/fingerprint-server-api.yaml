@@ -4036,7 +4036,6 @@ components:
         tampering:
           $ref: '#/components/schemas/TamperingResult'
         rawDeviceAttributes:
-          title: WebhookSignalResponseRawDeviceAttributes
           $ref: '#/components/schemas/RawDeviceAttributesResult'
         requestId:
           description: Unique identifier of the user's identification request.
@@ -4825,30 +4824,23 @@ components:
         Use this data with caution without assuming a specific structure beyond
         the generic type provided here.
       additionalProperties:
-        oneOf:
-          - type: object
+        type: object
+        properties:
+          error:
             properties:
-              value:
-                title: value
+              name:
+                title: error.name
+                type: string
+              message:
+                title: error.message
+                type: string
             required:
-              - value
-          - type: object
-            properties:
-              error:
-                properties:
-                  name:
-                    title: error.name
-                    type: string
-                  message:
-                    title: error.message
-                    type: string
-                required:
-                  - name
-                  - message
-                title: error
-                type: object
-            required:
-              - error
+              - name
+              - message
+            title: error
+            type: object
+          value:
+            title: value
     ProductError:
       type: object
       properties:

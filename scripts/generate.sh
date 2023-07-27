@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION='1.0.0'
+VERSION='2.0.0'
 
 while getopts "v:" arg; do
   case $arg in
@@ -34,6 +34,16 @@ platform=$(uname)
 )
 
 java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json
+
+# fix invalid code generated for structure with additionalProperties
+(
+  # Model file fix
+  if [ "$platform" = "Darwin" ]; then
+    sed -i '' 's/$invalidProperties = parent::listInvalidProperties();/$invalidProperties = [];/' ./src/Model/RawDeviceAttributesResult.php
+  else
+    sed -i 's/$invalidProperties = parent::listInvalidProperties();/$invalidProperties = [];/' ./src/Model/RawDeviceAttributesResult.php
+  fi
+)
 
 mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
