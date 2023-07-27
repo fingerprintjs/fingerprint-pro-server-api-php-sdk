@@ -95,13 +95,31 @@ class FingerprintApiTest extends TestCase
         $botd_product = $products->getBotd();
         $vpn_product = $products->getVpn();
         $ip_info_product = $products->getIpInfo();
+        $cloned_app_product = $products->getClonedApp();
+        $factory_reset_product = $products->getFactoryReset();
+        $jailbroken_product = $products->getJailbroken();
+        $frida_product = $products->getFrida();
+        $privacy_settings_product = $products->getPrivacySettings();
+        $virtual_machine_product = $products->getVirtualMachine();
         $request_id = $identification_product->getData()->getRequestId();
         $this->assertEquals(self::MOCK_REQUEST_ID, $request_id);
         var_dump($botd_product->getData()->getBot()->getResult());
-        $this->assertEquals('bad', $botd_product->getData()->getBot()->getResult());
-        $this->assertEquals('selenium', $botd_product->getData()->getBot()->getType());
+        $this->assertEquals('notDetected', $botd_product->getData()->getBot()->getResult());
         $this->assertFalse( $vpn_product->getData()->getMethods()->getPublicVpn());
         $this->assertEquals('94.142.239.124', $ip_info_product->getData()->getV4()->getAddress());
+        $this->assertFalse($cloned_app_product->getData()->getResult());
+        $this->assertEquals(new \DateTime('1970-01-01T00:00:00Z'), $factory_reset_product->getData()->getTime());
+        $this->assertFalse($jailbroken_product->getData()->getResult());
+        $this->assertFalse($frida_product->getData()->getResult());
+        $this->assertFalse($privacy_settings_product->getData()->getResult());
+        $this->assertFalse($virtual_machine_product->getData()->getResult());
+
+        $raw_device_attributes = $products->getRawDeviceAttributes()->getData();
+        $this->assertEquals(127, $raw_device_attributes['architecture']->value);
+        $this->assertEquals(35.73832903057337, $raw_device_attributes['audio']->value);
+        $this->assertEquals('4dce9d6017c3e0c052a77252f29f2b1c', $raw_device_attributes['canvas']->value->Geometry);
+        $this->assertEquals('srgb', $raw_device_attributes['colorGamut']->value);
+        $this->assertTrue( $raw_device_attributes['cookiesEnabled']->value);
     }
 
     public function testGetEventWithExtraFields()
@@ -128,6 +146,12 @@ class FingerprintApiTest extends TestCase
         $root_apps_error = $products->getRootApps()->getError();
         $tampering_error = $products->getTampering()->getError();
         $vpn_error = $products->getVpn()->getError();
+        $cloned_app_error = $products->getClonedApp()->getError();
+        $factory_reset_error = $products->getFactoryReset()->getError();
+        $jailbroken_error = $products->getJailbroken()->getError();
+        $frida_error = $products->getFrida()->getError();
+        $privacy_settings_error = $products->getPrivacySettings()->getError();
+        $virtual_machine_error = $products->getVirtualMachine()->getError();
         $this->assertEquals(IdentificationError::CODE_FAILED, $identification_error->getCode());
         $this->assertEquals(ProductError::CODE_FAILED, $botd_error->getCode());
         $this->assertEquals(ProductError::CODE_FAILED, $emulator_error->getCode());
@@ -139,6 +163,16 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals(ProductError::CODE_FAILED, $root_apps_error->getCode());
         $this->assertEquals(ProductError::CODE_FAILED, $tampering_error->getCode());
         $this->assertEquals(ProductError::CODE_FAILED, $vpn_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $cloned_app_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $factory_reset_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $jailbroken_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $frida_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $privacy_settings_error->getCode());
+        $this->assertEquals(ProductError::CODE_FAILED, $virtual_machine_error->getCode());
+
+        $raw_device_attributes = $products->getRawDeviceAttributes()->getData();
+        $this->assertEquals('Error', $raw_device_attributes['audio']->error->name);
+        $this->assertEquals('Error', $raw_device_attributes['canvas']->error->name);
     }
 
     public function testGetVisits()

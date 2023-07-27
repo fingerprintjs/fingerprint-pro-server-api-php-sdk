@@ -30,6 +30,30 @@
         "message": "internal server error"
       }
     },
+    "clonedApp": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "factoryReset": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "jailbroken": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "frida": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
     "emulator": {
       "error": {
         "code": "Failed",
@@ -60,10 +84,38 @@
         "message": "internal server error"
       }
     },
+    "privacySettings": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "virtualMachine": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
     "tampering": {
       "error": {
         "code": "Failed",
         "message": "internal server error"
+      }
+    },
+    "rawDeviceAttributes": {
+      "data": {
+        "audio": {
+          "error": {
+            "name": "Error",
+            "message": "internal server error"
+          }
+        },
+        "canvas": {
+          "error": {
+            "name": "Error",
+            "message": "internal server error"
+          }
+        }
       }
     }
   }

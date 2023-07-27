@@ -60,8 +60,7 @@
     "botd": {
       "data": {
         "bot": {
-          "result": "bad",
-          "type": "selenium"
+          "result": "notDetected"
         },
         "url": "https://www.example.com/login",
         "ip": "61.127.217.15",
