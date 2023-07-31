@@ -1,6 +1,6 @@
 {
     "name": "fingerprint/fingerprint-pro-server-api-sdk",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.",
     "keywords": [
         "swagger",
@@ -34,8 +34,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "guzzlehttp/guzzle": "~7.2",
-        "vlucas/phpdotenv": "^5.5"
+        "guzzlehttp/guzzle": "~7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "8.5.33",

@@ -1,3 +1,16 @@
+## [2.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v2.0.0...v2.1.0) (2023-07-31)
+
+
+### Features
+
+* add raw attributes support ([d47e33a](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/d47e33a8629dda47bab1bc72ac65739c48d416ab))
+* add smart signals support ([40011bb](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/40011bbd07ccdf1d99be5968c1786a8eb0be06eb))
+
+
+### Bug Fixes
+
+* generate correct code for the RawDeviceAttributes signal ([fd71960](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/fd71960ce144181cd8e8a6c1200ddd60cd098d58))
+
 ## [2.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v1.2.2...v2.0.0) (2023-06-06)
 
 
