@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION='1.0.0'
+VERSION='2.0.0'
 
 while getopts "v:" arg; do
   case $arg in
@@ -21,9 +21,42 @@ fi
 
 echo "VERSION: $VERSION"
 
-sed -i "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
+# Platform check
+platform=$(uname)
+(
+  # Model file fix
+  if [ "$platform" = "Darwin" ]; then
+    echo "Don't bump version in dev env"
+    # sed -i '' "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
+  else
+    sed -i "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
+  fi
+)
 
 java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json
+
+# fix invalid code generated for structure with additionalProperties
+(
+  # Model file fix
+  if [ "$platform" = "Darwin" ]; then
+    sed -i '' 's/$invalidProperties = parent::listInvalidProperties();/$invalidProperties = [];/' ./src/Model/RawDeviceAttributesResult.php
+  else
+    sed -i 's/$invalidProperties = parent::listInvalidProperties();/$invalidProperties = [];/' ./src/Model/RawDeviceAttributesResult.php
+  fi
+)
+
+(
+  # Readme file fix
+  replacement=$(printf 'The rawAttributes object follows this general shape: `{ value: any } | { error: { name: string; message: string; } }`\n')
+  readme_filename="./src/docs/Model/RawDeviceAttributesResult.md"
+  if [ "$platform" = "Darwin" ]; then
+    sed -i '' "s/^Name |.*/${replacement}/" "$readme_filename"
+    sed -i '' "/^------------ |/c\\" "$readme_filename"
+  else
+    sed -i "s/^Name |.*/${replacement}/" "$readme_filename"
+    sed -i "/^------------ |/c\\" "$readme_filename"
+  fi
+)
 
 mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json

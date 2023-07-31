@@ -1,5 +1,11 @@
 <?php
+
+use Fingerprint\ServerAPI\Model\ResponseVisits;
+
 require_once(__DIR__ . '/vendor/autoload.php');
+
+$host = getenv('FP_API_HOST');
+$api_key = getenv('FP_PRIVATE_API_KEY');
 
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Configuration;

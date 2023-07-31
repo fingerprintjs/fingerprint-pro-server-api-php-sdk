@@ -64,11 +64,18 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'incognito' => 'bool',
 'root_apps' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps',
 'emulator' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator',
+'cloned_app' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseClonedApp',
+'factory_reset' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseFactoryReset',
+'jailbroken' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseJailbroken',
+'frida' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseFrida',
 'ip_blocklist' => '\Fingerprint\ServerAPI\Model\IpBlockListResult',
 'tor' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseTor',
+'privacy_settings' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponsePrivacySettings',
+'virtual_machine' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseVirtualMachine',
 'vpn' => '\Fingerprint\ServerAPI\Model\VpnResult',
 'proxy' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy',
 'tampering' => '\Fingerprint\ServerAPI\Model\TamperingResult',
+'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult',
 'request_id' => 'string',
 'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
 'ip' => 'string',
@@ -97,11 +104,18 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'incognito' => null,
 'root_apps' => null,
 'emulator' => null,
+'cloned_app' => null,
+'factory_reset' => null,
+'jailbroken' => null,
+'frida' => null,
 'ip_blocklist' => null,
 'tor' => null,
+'privacy_settings' => null,
+'virtual_machine' => null,
 'vpn' => null,
 'proxy' => null,
 'tampering' => null,
+'raw_device_attributes' => null,
 'request_id' => null,
 'browser_details' => null,
 'ip' => 'ipv4',
@@ -151,11 +165,18 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'incognito' => 'incognito',
 'root_apps' => 'rootApps',
 'emulator' => 'emulator',
+'cloned_app' => 'clonedApp',
+'factory_reset' => 'factoryReset',
+'jailbroken' => 'jailbroken',
+'frida' => 'frida',
 'ip_blocklist' => 'ipBlocklist',
 'tor' => 'tor',
+'privacy_settings' => 'privacySettings',
+'virtual_machine' => 'virtualMachine',
 'vpn' => 'vpn',
 'proxy' => 'proxy',
 'tampering' => 'tampering',
+'raw_device_attributes' => 'rawDeviceAttributes',
 'request_id' => 'requestId',
 'browser_details' => 'browserDetails',
 'ip' => 'ip',
@@ -184,11 +205,18 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'incognito' => 'setIncognito',
 'root_apps' => 'setRootApps',
 'emulator' => 'setEmulator',
+'cloned_app' => 'setClonedApp',
+'factory_reset' => 'setFactoryReset',
+'jailbroken' => 'setJailbroken',
+'frida' => 'setFrida',
 'ip_blocklist' => 'setIpBlocklist',
 'tor' => 'setTor',
+'privacy_settings' => 'setPrivacySettings',
+'virtual_machine' => 'setVirtualMachine',
 'vpn' => 'setVpn',
 'proxy' => 'setProxy',
 'tampering' => 'setTampering',
+'raw_device_attributes' => 'setRawDeviceAttributes',
 'request_id' => 'setRequestId',
 'browser_details' => 'setBrowserDetails',
 'ip' => 'setIp',
@@ -217,11 +245,18 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'incognito' => 'getIncognito',
 'root_apps' => 'getRootApps',
 'emulator' => 'getEmulator',
+'cloned_app' => 'getClonedApp',
+'factory_reset' => 'getFactoryReset',
+'jailbroken' => 'getJailbroken',
+'frida' => 'getFrida',
 'ip_blocklist' => 'getIpBlocklist',
 'tor' => 'getTor',
+'privacy_settings' => 'getPrivacySettings',
+'virtual_machine' => 'getVirtualMachine',
 'vpn' => 'getVpn',
 'proxy' => 'getProxy',
 'tampering' => 'getTampering',
+'raw_device_attributes' => 'getRawDeviceAttributes',
 'request_id' => 'getRequestId',
 'browser_details' => 'getBrowserDetails',
 'ip' => 'getIp',
@@ -302,11 +337,18 @@ class WebhookVisit implements ModelInterface, ArrayAccess
         $this->container['incognito'] = isset($data['incognito']) ? $data['incognito'] : null;
         $this->container['root_apps'] = isset($data['root_apps']) ? $data['root_apps'] : null;
         $this->container['emulator'] = isset($data['emulator']) ? $data['emulator'] : null;
+        $this->container['cloned_app'] = isset($data['cloned_app']) ? $data['cloned_app'] : null;
+        $this->container['factory_reset'] = isset($data['factory_reset']) ? $data['factory_reset'] : null;
+        $this->container['jailbroken'] = isset($data['jailbroken']) ? $data['jailbroken'] : null;
+        $this->container['frida'] = isset($data['frida']) ? $data['frida'] : null;
         $this->container['ip_blocklist'] = isset($data['ip_blocklist']) ? $data['ip_blocklist'] : null;
         $this->container['tor'] = isset($data['tor']) ? $data['tor'] : null;
+        $this->container['privacy_settings'] = isset($data['privacy_settings']) ? $data['privacy_settings'] : null;
+        $this->container['virtual_machine'] = isset($data['virtual_machine']) ? $data['virtual_machine'] : null;
         $this->container['vpn'] = isset($data['vpn']) ? $data['vpn'] : null;
         $this->container['proxy'] = isset($data['proxy']) ? $data['proxy'] : null;
         $this->container['tampering'] = isset($data['tampering']) ? $data['tampering'] : null;
+        $this->container['raw_device_attributes'] = isset($data['raw_device_attributes']) ? $data['raw_device_attributes'] : null;
         $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $this->container['browser_details'] = isset($data['browser_details']) ? $data['browser_details'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
@@ -575,6 +617,102 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets cloned_app
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseClonedApp
+     */
+    public function getClonedApp()
+    {
+        return $this->container['cloned_app'];
+    }
+
+    /**
+     * Sets cloned_app
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseClonedApp $cloned_app cloned_app
+     *
+     * @return $this
+     */
+    public function setClonedApp($cloned_app)
+    {
+        $this->container['cloned_app'] = $cloned_app;
+
+        return $this;
+    }
+
+    /**
+     * Gets factory_reset
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseFactoryReset
+     */
+    public function getFactoryReset()
+    {
+        return $this->container['factory_reset'];
+    }
+
+    /**
+     * Sets factory_reset
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseFactoryReset $factory_reset factory_reset
+     *
+     * @return $this
+     */
+    public function setFactoryReset($factory_reset)
+    {
+        $this->container['factory_reset'] = $factory_reset;
+
+        return $this;
+    }
+
+    /**
+     * Gets jailbroken
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseJailbroken
+     */
+    public function getJailbroken()
+    {
+        return $this->container['jailbroken'];
+    }
+
+    /**
+     * Sets jailbroken
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseJailbroken $jailbroken jailbroken
+     *
+     * @return $this
+     */
+    public function setJailbroken($jailbroken)
+    {
+        $this->container['jailbroken'] = $jailbroken;
+
+        return $this;
+    }
+
+    /**
+     * Gets frida
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseFrida
+     */
+    public function getFrida()
+    {
+        return $this->container['frida'];
+    }
+
+    /**
+     * Sets frida
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseFrida $frida frida
+     *
+     * @return $this
+     */
+    public function setFrida($frida)
+    {
+        $this->container['frida'] = $frida;
+
+        return $this;
+    }
+
+    /**
      * Gets ip_blocklist
      *
      * @return \Fingerprint\ServerAPI\Model\IpBlockListResult
@@ -618,6 +756,54 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     public function setTor($tor)
     {
         $this->container['tor'] = $tor;
+
+        return $this;
+    }
+
+    /**
+     * Gets privacy_settings
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponsePrivacySettings
+     */
+    public function getPrivacySettings()
+    {
+        return $this->container['privacy_settings'];
+    }
+
+    /**
+     * Sets privacy_settings
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponsePrivacySettings $privacy_settings privacy_settings
+     *
+     * @return $this
+     */
+    public function setPrivacySettings($privacy_settings)
+    {
+        $this->container['privacy_settings'] = $privacy_settings;
+
+        return $this;
+    }
+
+    /**
+     * Gets virtual_machine
+     *
+     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseVirtualMachine
+     */
+    public function getVirtualMachine()
+    {
+        return $this->container['virtual_machine'];
+    }
+
+    /**
+     * Sets virtual_machine
+     *
+     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseVirtualMachine $virtual_machine virtual_machine
+     *
+     * @return $this
+     */
+    public function setVirtualMachine($virtual_machine)
+    {
+        $this->container['virtual_machine'] = $virtual_machine;
 
         return $this;
     }
@@ -690,6 +876,30 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     public function setTampering($tampering)
     {
         $this->container['tampering'] = $tampering;
+
+        return $this;
+    }
+
+    /**
+     * Gets raw_device_attributes
+     *
+     * @return \Fingerprint\ServerAPI\Model\RawDeviceAttributesResult
+     */
+    public function getRawDeviceAttributes()
+    {
+        return $this->container['raw_device_attributes'];
+    }
+
+    /**
+     * Sets raw_device_attributes
+     *
+     * @param \Fingerprint\ServerAPI\Model\RawDeviceAttributesResult $raw_device_attributes raw_device_attributes
+     *
+     * @return $this
+     */
+    public function setRawDeviceAttributes($raw_device_attributes)
+    {
+        $this->container['raw_device_attributes'] = $raw_device_attributes;
 
         return $this;
     }
@@ -1012,6 +1222,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
@@ -1024,6 +1235,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
@@ -1037,6 +1249,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -1053,6 +1266,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

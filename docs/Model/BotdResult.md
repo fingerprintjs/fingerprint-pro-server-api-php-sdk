@@ -1,4 +1,6 @@
 # BotdResult
+Contains all the information from Bot Detection product
+
 
 ## Properties
 Name | Type | Description | Notes

@@ -209,7 +209,7 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected Available only for events from Android client. The field will not be present for a browser or iOS event.
+     * @param bool $result Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client is not Android.
      *
      * @return $this
      */
@@ -226,6 +226,7 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
@@ -238,6 +239,7 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
@@ -251,6 +253,7 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -267,6 +270,7 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

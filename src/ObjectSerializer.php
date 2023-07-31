@@ -57,6 +57,11 @@ class ObjectSerializer
                 $data[$property] = self::sanitizeForSerialization($value);
             }
             return $data;
+        } elseif ($data instanceof \stdClass) {
+            foreach ($data as $property => $value) {
+                $data->$property = self::sanitizeForSerialization($value);
+            }
+            return $data;
         } elseif (is_object($data)) {
             $values = [];
             $formats = $data::swaggerFormats();
@@ -248,7 +253,7 @@ class ObjectSerializer
                 $values[] = self::deserialize($value, $subClass, null);
             }
             return $values;
-        } elseif ($class === 'object') {
+        } elseif ($class === 'object' || $class === '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult') {
             settype($data, 'array');
             return $data;
         } elseif ($class === '\DateTime') {
@@ -294,7 +299,7 @@ class ObjectSerializer
             // If a discriminator is defined and points to a valid subclass, use it.
             $discriminator = $class::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
-                $subclass = '{{invokerPackage}}\Model\\' . $data->{$discriminator};
+                $subclass = 'Fingerprint\ServerAPI\Model\\' . $data->{$discriminator};
                 if (is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }
