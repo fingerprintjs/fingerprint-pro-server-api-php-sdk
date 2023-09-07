@@ -1,5 +1,5 @@
 # ProductsResponse
-Contains all the information from each activated product - Fingerprint Pro or Bot Detection
+Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise)
 
 
 ## Properties
