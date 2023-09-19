@@ -1,3 +1,11 @@
+## [2.1.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v2.1.0...v2.1.1) (2023-09-19)
+
+
+### Bug Fixes
+
+* update OpenAPI Schema with `asn` and `dataCenter` signals ([36fcfe3](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/36fcfe3be5617256a43b9f809b59f0ebde166765))
+* update OpenAPI Schema with `auxiliaryMobile` method for VPN signal ([ab8c25a](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/ab8c25a890a9d78b6a52cf1a784228b4702bc4a1))
+
 ## [2.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v2.0.0...v2.1.0) (2023-07-31)
 
 
