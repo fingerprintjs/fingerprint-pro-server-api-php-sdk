@@ -57,7 +57,8 @@ class VpnResultMethods implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'timezone_mismatch' => 'bool',
-'public_vpn' => 'bool'    ];
+'public_vpn' => 'bool',
+'auxiliary_mobile' => 'bool'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -66,7 +67,8 @@ class VpnResultMethods implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'timezone_mismatch' => null,
-'public_vpn' => null    ];
+'public_vpn' => null,
+'auxiliary_mobile' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -96,7 +98,8 @@ class VpnResultMethods implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'timezone_mismatch' => 'timezoneMismatch',
-'public_vpn' => 'publicVPN'    ];
+'public_vpn' => 'publicVPN',
+'auxiliary_mobile' => 'auxiliaryMobile'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -105,7 +108,8 @@ class VpnResultMethods implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'timezone_mismatch' => 'setTimezoneMismatch',
-'public_vpn' => 'setPublicVpn'    ];
+'public_vpn' => 'setPublicVpn',
+'auxiliary_mobile' => 'setAuxiliaryMobile'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -114,7 +118,8 @@ class VpnResultMethods implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'timezone_mismatch' => 'getTimezoneMismatch',
-'public_vpn' => 'getPublicVpn'    ];
+'public_vpn' => 'getPublicVpn',
+'auxiliary_mobile' => 'getAuxiliaryMobile'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -176,6 +181,7 @@ class VpnResultMethods implements ModelInterface, ArrayAccess
     {
         $this->container['timezone_mismatch'] = isset($data['timezone_mismatch']) ? $data['timezone_mismatch'] : null;
         $this->container['public_vpn'] = isset($data['public_vpn']) ? $data['public_vpn'] : null;
+        $this->container['auxiliary_mobile'] = isset($data['auxiliary_mobile']) ? $data['auxiliary_mobile'] : null;
     }
 
     /**
@@ -246,6 +252,30 @@ class VpnResultMethods implements ModelInterface, ArrayAccess
     public function setPublicVpn($public_vpn)
     {
         $this->container['public_vpn'] = $public_vpn;
+
+        return $this;
+    }
+
+    /**
+     * Gets auxiliary_mobile
+     *
+     * @return bool
+     */
+    public function getAuxiliaryMobile()
+    {
+        return $this->container['auxiliary_mobile'];
+    }
+
+    /**
+     * Sets auxiliary_mobile
+     *
+     * @param bool $auxiliary_mobile This method applies to mobile devices only. Indicates the result of additional methods used to detect a VPN in mobile devices.
+     *
+     * @return $this
+     */
+    public function setAuxiliaryMobile($auxiliary_mobile)
+    {
+        $this->container['auxiliary_mobile'] = $auxiliary_mobile;
 
         return $this;
     }

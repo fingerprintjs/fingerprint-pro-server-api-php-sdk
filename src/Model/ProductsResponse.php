@@ -35,7 +35,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  * ProductsResponse Class Doc Comment
  *
  * @category Class
- * @description Contains all the information from each activated product - Fingerprint Pro or Bot Detection
+ * @description Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise)
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen

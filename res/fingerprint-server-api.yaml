@@ -129,8 +129,7 @@ paths:
                       botd:
                         data:
                           bot:
-                            result: bad
-                            type: selenium
+                            result: notDetected
                           url: https://www.example.com/login
                           ip: 61.127.217.15
                           time: '2019-05-21T16:40:13Z'
@@ -155,6 +154,13 @@ paths:
                               subdivisions:
                                 - isoCode: '10'
                                   name: Hlavni mesto Praha
+                            asn:
+                              asn: '7922'
+                              name: COMCAST-7922
+                              network: 73.136.0.0/13
+                            dataCenter:
+                              result: true
+                              name: DediPath
                       incognito:
                         data:
                           result: false
@@ -179,6 +185,7 @@ paths:
                           methods:
                             timezoneMismatch: false
                             publicVPN: false
+                            auxiliaryMobile: false
                       proxy:
                         data:
                           result: false
@@ -224,6 +231,106 @@ paths:
                             value: 0
                           cookiesEnabled:
                             value: true
+                proPlusBotDetectedResponse:
+                  summary: Bot detected on Pro Plus plan
+                  value:
+                    products:
+                      identification:
+                        data:
+                          visitorId: BotDetected000000000
+                          requestId: 0KSh65EnVoB85JBmloQK
+                          incognito: true
+                          linkedId: somelinkedId
+                          time: '2019-05-21T16:40:13Z'
+                          timestamp: 1582299576512
+                          url: https://www.example.com/login
+                          ip: 61.127.217.15
+                          ipLocation: {}
+                          browserDetails:
+                            browserName: ''
+                            browserMajorVersion: ''
+                            browserFullVersion: ''
+                            os: ''
+                            osVersion: ''
+                            device: ''
+                            userAgent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
+                          confidence:
+                            score: 0.5
+                            comment: The real score is unknown
+                          visitorFound: false
+                          firstSeenAt:
+                            global: null
+                            subscription: null
+                          lastSeenAt:
+                            global: null
+                            subscription: null
+                      botd:
+                        data:
+                          bot:
+                            result: bad
+                            type: selenium
+                          url: https://www.example.com/login
+                          ip: 61.127.217.15
+                          time: '2019-05-21T16:40:13Z'
+                      ipInfo:
+                        data:
+                          v4:
+                            address: 94.142.239.124
+                            geolocation:
+                              accuracyRadius: 20
+                              latitude: 50.05
+                              longitude: 14.4
+                              postalCode: 150 00
+                              timezone: Europe/Prague
+                              city:
+                                name: Prague
+                              country:
+                                code: CZ
+                                name: Czechia
+                              continent:
+                                code: EU
+                                name: Europe
+                              subdivisions:
+                                - isoCode: '10'
+                                  name: Hlavni mesto Praha
+                            asn:
+                              asn: '7922'
+                              name: COMCAST-7922
+                              network: 73.136.0.0/13
+                            dataCenter:
+                              result: true
+                              name: DediPath
+                      incognito:
+                        data:
+                          result: false
+                      rootApps:
+                        data:
+                          result: false
+                      emulator:
+                        data:
+                          result: false
+                      ipBlocklist:
+                        data:
+                          result: false
+                          details:
+                            emailSpam: false
+                            attackSource: false
+                      tor:
+                        data:
+                          result: false
+                      vpn:
+                        data:
+                          result: false
+                          methods:
+                            timezoneMismatch: false
+                            publicVPN: false
+                      proxy:
+                        data:
+                          result: false
+                      tampering:
+                        data:
+                          result: false
+                          anomalyScore: 0
                 allErrorsResponse:
                   summary: All failed signals
                   value:
@@ -248,6 +355,22 @@ paths:
                         error:
                           code: Failed
                           message: internal server error
+                      clonedApp:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      factoryReset:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      jailbroken:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      frida:
+                        error:
+                          code: Failed
+                          message: internal server error
                       emulator:
                         error:
                           code: Failed
@@ -268,10 +391,28 @@ paths:
                         error:
                           code: Failed
                           message: internal server error
+                      privacySettings:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      virtualMachine:
+                        error:
+                          code: Failed
+                          message: internal server error
                       tampering:
                         error:
                           code: Failed
                           message: internal server error
+                      rawDeviceAttributes:
+                        data:
+                          audio:
+                            error:
+                              name: Error
+                              message: internal server error
+                          canvas:
+                            error:
+                              name: Error
+                              message: internal server error
                 withBotdError:
                   summary: BotD error
                   value:
@@ -3649,6 +3790,13 @@ paths:
                               subdivisions:
                                 - isoCode: '10'
                                   name: Hlavni mesto Praha
+                            asn:
+                              asn: '7922'
+                              name: COMCAST-7922
+                              network: 73.136.0.0/13
+                            dataCenter:
+                              result: true
+                              name: DediPath
                         rootApps:
                           result: false
                         emulator:
@@ -3665,6 +3813,7 @@ paths:
                           methods:
                             timezoneMismatch: false
                             publicVPN: false
+                            auxiliaryMobile: false
                         proxy:
                           result: false
                         tampering:
@@ -4238,6 +4387,35 @@ components:
       example:
         global: '2022-05-05T18:28:54.535Z'
         subscription: null
+    ASN:
+      type: object
+      additionalProperties: false
+      properties:
+        asn:
+          type: string
+          example: '7922'
+        network:
+          type: string
+          example: 73.136.0.0/13
+        name:
+          type: string
+          example: COMCAST-7922
+      required:
+        - asn
+        - network
+      title: ASN
+    DataCenter:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+        name:
+          type: string
+          example: DediPath
+      required:
+        - result
+      title: DataCenter
     IPLocation:
       type: object
       additionalProperties: false
@@ -4311,8 +4489,8 @@ components:
     ProductsResponse:
       type: object
       description: >-
-        Contains all the information from each activated product - Fingerprint
-        Pro or Bot Detection
+        Contains all information about the request identified by `requestId`,
+        depending on the pricing plan (Pro, Pro Plus, Enterprise)
       additionalProperties: false
       properties:
         identification:
@@ -4382,6 +4560,19 @@ components:
                   $ref: '#/components/schemas/SeenAt'
                 visitorId:
                   type: string
+                  description: >
+                    String of 20 characters that uniquely identifies the
+                    visitor's browser.
+
+
+                    **Pro Plus:**
+
+                    If a bot is detected (`products.botd.bot.result !=
+                    "notDetected"`), the `visitorId` value contains a
+                    placeholder string `BotDetected000000000`.
+                  example:
+                    - Ibk1527CUFmcnjLwIs4A
+                    - BotDetected000000000
               additionalProperties: false
               required:
                 - browserDetails
@@ -4737,6 +4928,10 @@ components:
               example: 94.142.239.124
             geolocation:
               $ref: '#/components/schemas/IPLocation'
+            asn:
+              $ref: '#/components/schemas/ASN'
+            dataCenter:
+              $ref: '#/components/schemas/DataCenter'
         v6:
           type: object
           additionalProperties: false
@@ -4747,6 +4942,10 @@ components:
               example: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
             geolocation:
               $ref: '#/components/schemas/IPLocation'
+            asn:
+              $ref: '#/components/schemas/ASN'
+            dataCenter:
+              $ref: '#/components/schemas/DataCenter'
     IpBlockListResult:
       type: object
       properties:
@@ -4773,7 +4972,7 @@ components:
         result:
           type: boolean
           description: >-
-            VPN or other anonymising service has been used when sending the
+            VPN or other anonymizing service has been used when sending the
             request.
           example: false
         methods:
@@ -4790,6 +4989,12 @@ components:
               description: >-
                 Request IP address is owned and used by a public VPN service
                 provider.
+              example: false
+            auxiliaryMobile:
+              type: boolean
+              description: >-
+                This method applies to mobile devices only. Indicates the result
+                of additional methods used to detect a VPN in mobile devices.
               example: false
     TamperingResult:
       type: object

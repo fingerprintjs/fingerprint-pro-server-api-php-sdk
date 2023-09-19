@@ -94,6 +94,15 @@
                 "name": "Hlavni mesto Praha"
               }
             ]
+          },
+          "asn": {
+            "asn": "7922",
+            "name": "COMCAST-7922",
+            "network": "73.136.0.0/13"
+          },
+          "dataCenter": {
+            "result": true,
+            "name": "DediPath"
           }
         }
       }
@@ -132,7 +141,8 @@
         "result": false,
         "methods": {
           "timezoneMismatch": false,
-          "publicVPN": false
+          "publicVPN": false,
+          "auxiliaryMobile": false
         }
       }
     },

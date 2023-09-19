@@ -665,7 +665,7 @@ class ProductsResponseIdentificationData implements ModelInterface, ArrayAccess
     /**
      * Sets visitor_id
      *
-     * @param string $visitor_id visitor_id
+     * @param string $visitor_id String of 20 characters that uniquely identifies the visitor's browser.  **Pro Plus:** If a bot is detected (`products.botd.bot.result != \"notDetected\"`), the `visitorId` value contains a placeholder string `BotDetected000000000`.
      *
      * @return $this
      */

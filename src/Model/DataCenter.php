@@ -1,6 +1,6 @@
 <?php
 /**
- * VpnResult
+ * DataCenter
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * VpnResult Class Doc Comment
+ * DataCenter Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class VpnResult implements ModelInterface, ArrayAccess
+class DataCenter implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class VpnResult implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'VpnResult';
+    protected static $swaggerModelName = 'DataCenter';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,7 +57,7 @@ class VpnResult implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'result' => 'bool',
-'methods' => '\Fingerprint\ServerAPI\Model\VpnResultMethods'    ];
+'name' => 'string'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -66,7 +66,7 @@ class VpnResult implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'result' => null,
-'methods' => null    ];
+'name' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -96,7 +96,7 @@ class VpnResult implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'result' => 'result',
-'methods' => 'methods'    ];
+'name' => 'name'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -105,7 +105,7 @@ class VpnResult implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'result' => 'setResult',
-'methods' => 'setMethods'    ];
+'name' => 'setName'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -114,7 +114,7 @@ class VpnResult implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'result' => 'getResult',
-'methods' => 'getMethods'    ];
+'name' => 'getName'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -175,7 +175,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['result'] = isset($data['result']) ? $data['result'] : null;
-        $this->container['methods'] = isset($data['methods']) ? $data['methods'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
     }
 
     /**
@@ -187,6 +187,9 @@ class VpnResult implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -215,7 +218,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result VPN or other anonymizing service has been used when sending the request.
+     * @param bool $result result
      *
      * @return $this
      */
@@ -227,25 +230,25 @@ class VpnResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets methods
+     * Gets name
      *
-     * @return \Fingerprint\ServerAPI\Model\VpnResultMethods
+     * @return string
      */
-    public function getMethods()
+    public function getName()
     {
-        return $this->container['methods'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets methods
+     * Sets name
      *
-     * @param \Fingerprint\ServerAPI\Model\VpnResultMethods $methods methods
+     * @param string $name name
      *
      * @return $this
      */
-    public function setMethods($methods)
+    public function setName($name)
     {
-        $this->container['methods'] = $methods;
+        $this->container['name'] = $name;
 
         return $this;
     }

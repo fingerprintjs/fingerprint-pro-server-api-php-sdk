@@ -1,6 +1,6 @@
 <?php
 /**
- * VpnResult
+ * ASN
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * VpnResult Class Doc Comment
+ * ASN Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class VpnResult implements ModelInterface, ArrayAccess
+class ASN implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class VpnResult implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'VpnResult';
+    protected static $swaggerModelName = 'ASN';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,8 +56,9 @@ class VpnResult implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'result' => 'bool',
-'methods' => '\Fingerprint\ServerAPI\Model\VpnResultMethods'    ];
+        'asn' => 'string',
+'network' => 'string',
+'name' => 'string'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -65,8 +66,9 @@ class VpnResult implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'result' => null,
-'methods' => null    ];
+        'asn' => null,
+'network' => null,
+'name' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -95,8 +97,9 @@ class VpnResult implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'result' => 'result',
-'methods' => 'methods'    ];
+        'asn' => 'asn',
+'network' => 'network',
+'name' => 'name'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -104,8 +107,9 @@ class VpnResult implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'result' => 'setResult',
-'methods' => 'setMethods'    ];
+        'asn' => 'setAsn',
+'network' => 'setNetwork',
+'name' => 'setName'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -113,8 +117,9 @@ class VpnResult implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'result' => 'getResult',
-'methods' => 'getMethods'    ];
+        'asn' => 'getAsn',
+'network' => 'getNetwork',
+'name' => 'getName'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -174,8 +179,9 @@ class VpnResult implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
-        $this->container['methods'] = isset($data['methods']) ? $data['methods'] : null;
+        $this->container['asn'] = isset($data['asn']) ? $data['asn'] : null;
+        $this->container['network'] = isset($data['network']) ? $data['network'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
     }
 
     /**
@@ -187,6 +193,12 @@ class VpnResult implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['asn'] === null) {
+            $invalidProperties[] = "'asn' can't be null";
+        }
+        if ($this->container['network'] === null) {
+            $invalidProperties[] = "'network' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -203,49 +215,73 @@ class VpnResult implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets result
+     * Gets asn
      *
-     * @return bool
+     * @return string
      */
-    public function getResult()
+    public function getAsn()
     {
-        return $this->container['result'];
+        return $this->container['asn'];
     }
 
     /**
-     * Sets result
+     * Sets asn
      *
-     * @param bool $result VPN or other anonymizing service has been used when sending the request.
+     * @param string $asn asn
      *
      * @return $this
      */
-    public function setResult($result)
+    public function setAsn($asn)
     {
-        $this->container['result'] = $result;
+        $this->container['asn'] = $asn;
 
         return $this;
     }
 
     /**
-     * Gets methods
+     * Gets network
      *
-     * @return \Fingerprint\ServerAPI\Model\VpnResultMethods
+     * @return string
      */
-    public function getMethods()
+    public function getNetwork()
     {
-        return $this->container['methods'];
+        return $this->container['network'];
     }
 
     /**
-     * Sets methods
+     * Sets network
      *
-     * @param \Fingerprint\ServerAPI\Model\VpnResultMethods $methods methods
+     * @param string $network network
      *
      * @return $this
      */
-    public function setMethods($methods)
+    public function setNetwork($network)
     {
-        $this->container['methods'] = $methods;
+        $this->container['network'] = $network;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string $name name
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->container['name'] = $name;
 
         return $this;
     }
