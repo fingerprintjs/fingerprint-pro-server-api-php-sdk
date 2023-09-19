@@ -215,7 +215,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result VPN or other anonymising service has been used when sending the request.
+     * @param bool $result VPN or other anonymizing service has been used when sending the request.
      *
      * @return $this
      */

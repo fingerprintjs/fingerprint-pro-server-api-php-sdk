@@ -141,7 +141,8 @@
         "result": false,
         "methods": {
           "timezoneMismatch": false,
-          "publicVPN": false
+          "publicVPN": false,
+          "auxiliaryMobile": false
         }
       }
     },
