@@ -139,6 +139,7 @@
     "vpn": {
       "data": {
         "result": false,
+        "originTimezone": "Europe/Berlin",
         "methods": {
           "timezoneMismatch": false,
           "publicVPN": false,
@@ -215,6 +216,16 @@
         "cookiesEnabled": {
           "value": true
         }
+      }
+    },
+    "highActivity": {
+      "data": {
+        "result": false
+      }
+    },
+    "locationSpoofing": {
+      "data": {
+        "result": false
       }
     }
   }

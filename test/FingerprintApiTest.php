@@ -120,6 +120,12 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals('4dce9d6017c3e0c052a77252f29f2b1c', $raw_device_attributes['canvas']->value->Geometry);
         $this->assertEquals('srgb', $raw_device_attributes['colorGamut']->value);
         $this->assertTrue( $raw_device_attributes['cookiesEnabled']->value);
+
+        $location_spuffing = $products->getLocationSpoofing()->getData();
+        $this->assertFalse( $location_spuffing->getResult());
+
+        $high_activity = $products->getHighActivity()->getData();
+        $this->assertFalse( $high_activity->getResult());
     }
 
     public function testGetEventWithExtraFields()

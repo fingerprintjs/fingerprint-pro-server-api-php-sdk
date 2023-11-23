@@ -257,7 +257,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Sets accuracy_radius
      *
-     * @param int $accuracy_radius accuracy_radius
+     * @param int $accuracy_radius The IP address is likely to be within this radius (in km) of the specified location.
      *
      * @return $this
      */

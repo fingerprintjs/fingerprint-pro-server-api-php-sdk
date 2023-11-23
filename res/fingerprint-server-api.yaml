@@ -182,6 +182,7 @@ paths:
                       vpn:
                         data:
                           result: false
+                          originTimezone: Europe/Berlin
                           methods:
                             timezoneMismatch: false
                             publicVPN: false
@@ -231,106 +232,12 @@ paths:
                             value: 0
                           cookiesEnabled:
                             value: true
-                proPlusBotDetectedResponse:
-                  summary: Bot detected on Pro Plus plan
-                  value:
-                    products:
-                      identification:
-                        data:
-                          visitorId: BotDetected000000000
-                          requestId: 0KSh65EnVoB85JBmloQK
-                          incognito: true
-                          linkedId: somelinkedId
-                          time: '2019-05-21T16:40:13Z'
-                          timestamp: 1582299576512
-                          url: https://www.example.com/login
-                          ip: 61.127.217.15
-                          ipLocation: {}
-                          browserDetails:
-                            browserName: ''
-                            browserMajorVersion: ''
-                            browserFullVersion: ''
-                            os: ''
-                            osVersion: ''
-                            device: ''
-                            userAgent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
-                          confidence:
-                            score: 0.5
-                            comment: The real score is unknown
-                          visitorFound: false
-                          firstSeenAt:
-                            global: null
-                            subscription: null
-                          lastSeenAt:
-                            global: null
-                            subscription: null
-                      botd:
-                        data:
-                          bot:
-                            result: bad
-                            type: selenium
-                          url: https://www.example.com/login
-                          ip: 61.127.217.15
-                          time: '2019-05-21T16:40:13Z'
-                      ipInfo:
-                        data:
-                          v4:
-                            address: 94.142.239.124
-                            geolocation:
-                              accuracyRadius: 20
-                              latitude: 50.05
-                              longitude: 14.4
-                              postalCode: 150 00
-                              timezone: Europe/Prague
-                              city:
-                                name: Prague
-                              country:
-                                code: CZ
-                                name: Czechia
-                              continent:
-                                code: EU
-                                name: Europe
-                              subdivisions:
-                                - isoCode: '10'
-                                  name: Hlavni mesto Praha
-                            asn:
-                              asn: '7922'
-                              name: COMCAST-7922
-                              network: 73.136.0.0/13
-                            dataCenter:
-                              result: true
-                              name: DediPath
-                      incognito:
+                      highActivity:
                         data:
                           result: false
-                      rootApps:
+                      locationSpoofing:
                         data:
                           result: false
-                      emulator:
-                        data:
-                          result: false
-                      ipBlocklist:
-                        data:
-                          result: false
-                          details:
-                            emailSpam: false
-                            attackSource: false
-                      tor:
-                        data:
-                          result: false
-                      vpn:
-                        data:
-                          result: false
-                          methods:
-                            timezoneMismatch: false
-                            publicVPN: false
-                      proxy:
-                        data:
-                          result: false
-                      tampering:
-                        data:
-                          result: false
-                          anomalyScore: 0
                 allErrorsResponse:
                   summary: All failed signals
                   value:
@@ -3810,6 +3717,7 @@ paths:
                           result: false
                         vpn:
                           result: false
+                          originTimezone: Europe/Berlin
                           methods:
                             timezoneMismatch: false
                             publicVPN: false
@@ -3850,6 +3758,10 @@ paths:
                             value: 0
                           cookiesEnabled:
                             value: true
+                        highActivity:
+                          result: false
+                        locationSpoofing:
+                          result: true
               responses:
                 default:
                   description: The server doesn't validate the answer.
@@ -4186,6 +4098,10 @@ components:
           $ref: '#/components/schemas/TamperingResult'
         rawDeviceAttributes:
           $ref: '#/components/schemas/RawDeviceAttributesResult'
+        highActivity:
+          $ref: '#/components/schemas/HighActivityResult'
+        locationSpoofing:
+          $ref: '#/components/schemas/LocationSpoofingResult'
         requestId:
           description: Unique identifier of the user's identification request.
           type: string
@@ -4421,6 +4337,9 @@ components:
       additionalProperties: false
       properties:
         accuracyRadius:
+          description: >-
+            The IP address is likely to be within this radius (in km) of the
+            specified location.
           type: integer
           minimum: 0
           example: 1000
@@ -4563,16 +4482,8 @@ components:
                   description: >
                     String of 20 characters that uniquely identifies the
                     visitor's browser.
-
-
-                    **Pro Plus:**
-
-                    If a bot is detected (`products.botd.bot.result !=
-                    "notDetected"`), the `visitorId` value contains a
-                    placeholder string `BotDetected000000000`.
                   example:
                     - Ibk1527CUFmcnjLwIs4A
-                    - BotDetected000000000
               additionalProperties: false
               required:
                 - browserDetails
@@ -4816,6 +4727,22 @@ components:
               $ref: '#/components/schemas/TamperingResult'
             error:
               $ref: '#/components/schemas/ProductError'
+        highActivity:
+          title: SignalResponseHighActivity
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/HighActivityResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
+        locationSpoofing:
+          title: SignalResponseLocationSpoofing
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/LocationSpoofingResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
         rawDeviceAttributes:
           title: SignalResponseRawDeviceAttributes
           type: object
@@ -4975,6 +4902,10 @@ components:
             VPN or other anonymizing service has been used when sending the
             request.
           example: false
+        originTimezone:
+          type: string
+          description: Local timezone which is used in timezoneMismatch method.
+          example: Europe/Berlin
         methods:
           type: object
           properties:
@@ -5014,6 +4945,29 @@ components:
           example: 0
           minimum: 0
           maximum: 1
+    HighActivityResult:
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: >-
+            Flag indicating whether the request came from a high activity
+            visitor.
+          example: false
+        dailyRequests:
+          type: number
+          description: Number of requests from the same visitor in the previous day.
+          example: 10
+          minimum: 1
+    LocationSpoofingResult:
+      type: object
+      properties:
+        result:
+          type: boolean
+          description: >-
+            Flag indicating whether the request came from a device with location
+            spoofing enabled.
+          example: false
     RawDeviceAttributesResult:
       type: object
       description: >

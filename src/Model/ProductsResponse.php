@@ -74,6 +74,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'vpn' => '\Fingerprint\ServerAPI\Model\SignalResponseVpn',
 'proxy' => '\Fingerprint\ServerAPI\Model\SignalResponseProxy',
 'tampering' => '\Fingerprint\ServerAPI\Model\SignalResponseTampering',
+'high_activity' => '\Fingerprint\ServerAPI\Model\SignalResponseHighActivity',
+'location_spoofing' => '\Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing',
 'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes'    ];
 
     /**
@@ -99,6 +101,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'vpn' => null,
 'proxy' => null,
 'tampering' => null,
+'high_activity' => null,
+'location_spoofing' => null,
 'raw_device_attributes' => null    ];
 
     /**
@@ -145,6 +149,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'vpn' => 'vpn',
 'proxy' => 'proxy',
 'tampering' => 'tampering',
+'high_activity' => 'highActivity',
+'location_spoofing' => 'locationSpoofing',
 'raw_device_attributes' => 'rawDeviceAttributes'    ];
 
     /**
@@ -170,6 +176,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'vpn' => 'setVpn',
 'proxy' => 'setProxy',
 'tampering' => 'setTampering',
+'high_activity' => 'setHighActivity',
+'location_spoofing' => 'setLocationSpoofing',
 'raw_device_attributes' => 'setRawDeviceAttributes'    ];
 
     /**
@@ -195,6 +203,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'vpn' => 'getVpn',
 'proxy' => 'getProxy',
 'tampering' => 'getTampering',
+'high_activity' => 'getHighActivity',
+'location_spoofing' => 'getLocationSpoofing',
 'raw_device_attributes' => 'getRawDeviceAttributes'    ];
 
     /**
@@ -272,6 +282,8 @@ class ProductsResponse implements ModelInterface, ArrayAccess
         $this->container['vpn'] = isset($data['vpn']) ? $data['vpn'] : null;
         $this->container['proxy'] = isset($data['proxy']) ? $data['proxy'] : null;
         $this->container['tampering'] = isset($data['tampering']) ? $data['tampering'] : null;
+        $this->container['high_activity'] = isset($data['high_activity']) ? $data['high_activity'] : null;
+        $this->container['location_spoofing'] = isset($data['location_spoofing']) ? $data['location_spoofing'] : null;
         $this->container['raw_device_attributes'] = isset($data['raw_device_attributes']) ? $data['raw_device_attributes'] : null;
     }
 
@@ -703,6 +715,54 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     public function setTampering($tampering)
     {
         $this->container['tampering'] = $tampering;
+
+        return $this;
+    }
+
+    /**
+     * Gets high_activity
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseHighActivity
+     */
+    public function getHighActivity()
+    {
+        return $this->container['high_activity'];
+    }
+
+    /**
+     * Sets high_activity
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseHighActivity $high_activity high_activity
+     *
+     * @return $this
+     */
+    public function setHighActivity($high_activity)
+    {
+        $this->container['high_activity'] = $high_activity;
+
+        return $this;
+    }
+
+    /**
+     * Gets location_spoofing
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing
+     */
+    public function getLocationSpoofing()
+    {
+        return $this->container['location_spoofing'];
+    }
+
+    /**
+     * Sets location_spoofing
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing $location_spoofing location_spoofing
+     *
+     * @return $this
+     */
+    public function setLocationSpoofing($location_spoofing)
+    {
+        $this->container['location_spoofing'] = $location_spoofing;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * VpnResult
+ * SignalResponseLocationSpoofing
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * VpnResult Class Doc Comment
+ * SignalResponseLocationSpoofing Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class VpnResult implements ModelInterface, ArrayAccess
+class SignalResponseLocationSpoofing implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class VpnResult implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'VpnResult';
+    protected static $swaggerModelName = 'SignalResponseLocationSpoofing';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,9 +56,8 @@ class VpnResult implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'result' => 'bool',
-'origin_timezone' => 'string',
-'methods' => '\Fingerprint\ServerAPI\Model\VpnResultMethods'    ];
+        'data' => '\Fingerprint\ServerAPI\Model\LocationSpoofingResult',
+'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -66,9 +65,8 @@ class VpnResult implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'result' => null,
-'origin_timezone' => null,
-'methods' => null    ];
+        'data' => null,
+'error' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -97,9 +95,8 @@ class VpnResult implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'result' => 'result',
-'origin_timezone' => 'originTimezone',
-'methods' => 'methods'    ];
+        'data' => 'data',
+'error' => 'error'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -107,9 +104,8 @@ class VpnResult implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'result' => 'setResult',
-'origin_timezone' => 'setOriginTimezone',
-'methods' => 'setMethods'    ];
+        'data' => 'setData',
+'error' => 'setError'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -117,9 +113,8 @@ class VpnResult implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'result' => 'getResult',
-'origin_timezone' => 'getOriginTimezone',
-'methods' => 'getMethods'    ];
+        'data' => 'getData',
+'error' => 'getError'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -179,9 +174,8 @@ class VpnResult implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
-        $this->container['origin_timezone'] = isset($data['origin_timezone']) ? $data['origin_timezone'] : null;
-        $this->container['methods'] = isset($data['methods']) ? $data['methods'] : null;
+        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
     }
 
     /**
@@ -209,73 +203,49 @@ class VpnResult implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets result
+     * Gets data
      *
-     * @return bool
+     * @return \Fingerprint\ServerAPI\Model\LocationSpoofingResult
      */
-    public function getResult()
+    public function getData()
     {
-        return $this->container['result'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets result
+     * Sets data
      *
-     * @param bool $result VPN or other anonymizing service has been used when sending the request.
+     * @param \Fingerprint\ServerAPI\Model\LocationSpoofingResult $data data
      *
      * @return $this
      */
-    public function setResult($result)
+    public function setData($data)
     {
-        $this->container['result'] = $result;
+        $this->container['data'] = $data;
 
         return $this;
     }
 
     /**
-     * Gets origin_timezone
+     * Gets error
      *
-     * @return string
+     * @return \Fingerprint\ServerAPI\Model\ProductError
      */
-    public function getOriginTimezone()
+    public function getError()
     {
-        return $this->container['origin_timezone'];
+        return $this->container['error'];
     }
 
     /**
-     * Sets origin_timezone
+     * Sets error
      *
-     * @param string $origin_timezone Local timezone which is used in timezoneMismatch method.
+     * @param \Fingerprint\ServerAPI\Model\ProductError $error error
      *
      * @return $this
      */
-    public function setOriginTimezone($origin_timezone)
+    public function setError($error)
     {
-        $this->container['origin_timezone'] = $origin_timezone;
-
-        return $this;
-    }
-
-    /**
-     * Gets methods
-     *
-     * @return \Fingerprint\ServerAPI\Model\VpnResultMethods
-     */
-    public function getMethods()
-    {
-        return $this->container['methods'];
-    }
-
-    /**
-     * Sets methods
-     *
-     * @param \Fingerprint\ServerAPI\Model\VpnResultMethods $methods methods
-     *
-     * @return $this
-     */
-    public function setMethods($methods)
-    {
-        $this->container['methods'] = $methods;
+        $this->container['error'] = $error;
 
         return $this;
     }
