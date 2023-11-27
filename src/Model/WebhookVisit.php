@@ -76,6 +76,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'proxy' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy',
 'tampering' => '\Fingerprint\ServerAPI\Model\TamperingResult',
 'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult',
+'high_activity' => '\Fingerprint\ServerAPI\Model\HighActivityResult',
+'location_spoofing' => '\Fingerprint\ServerAPI\Model\LocationSpoofingResult',
 'request_id' => 'string',
 'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
 'ip' => 'string',
@@ -116,6 +118,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'proxy' => null,
 'tampering' => null,
 'raw_device_attributes' => null,
+'high_activity' => null,
+'location_spoofing' => null,
 'request_id' => null,
 'browser_details' => null,
 'ip' => 'ipv4',
@@ -177,6 +181,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'proxy' => 'proxy',
 'tampering' => 'tampering',
 'raw_device_attributes' => 'rawDeviceAttributes',
+'high_activity' => 'highActivity',
+'location_spoofing' => 'locationSpoofing',
 'request_id' => 'requestId',
 'browser_details' => 'browserDetails',
 'ip' => 'ip',
@@ -217,6 +223,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'proxy' => 'setProxy',
 'tampering' => 'setTampering',
 'raw_device_attributes' => 'setRawDeviceAttributes',
+'high_activity' => 'setHighActivity',
+'location_spoofing' => 'setLocationSpoofing',
 'request_id' => 'setRequestId',
 'browser_details' => 'setBrowserDetails',
 'ip' => 'setIp',
@@ -257,6 +265,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'proxy' => 'getProxy',
 'tampering' => 'getTampering',
 'raw_device_attributes' => 'getRawDeviceAttributes',
+'high_activity' => 'getHighActivity',
+'location_spoofing' => 'getLocationSpoofing',
 'request_id' => 'getRequestId',
 'browser_details' => 'getBrowserDetails',
 'ip' => 'getIp',
@@ -349,6 +359,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
         $this->container['proxy'] = isset($data['proxy']) ? $data['proxy'] : null;
         $this->container['tampering'] = isset($data['tampering']) ? $data['tampering'] : null;
         $this->container['raw_device_attributes'] = isset($data['raw_device_attributes']) ? $data['raw_device_attributes'] : null;
+        $this->container['high_activity'] = isset($data['high_activity']) ? $data['high_activity'] : null;
+        $this->container['location_spoofing'] = isset($data['location_spoofing']) ? $data['location_spoofing'] : null;
         $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $this->container['browser_details'] = isset($data['browser_details']) ? $data['browser_details'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
@@ -900,6 +912,54 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     public function setRawDeviceAttributes($raw_device_attributes)
     {
         $this->container['raw_device_attributes'] = $raw_device_attributes;
+
+        return $this;
+    }
+
+    /**
+     * Gets high_activity
+     *
+     * @return \Fingerprint\ServerAPI\Model\HighActivityResult
+     */
+    public function getHighActivity()
+    {
+        return $this->container['high_activity'];
+    }
+
+    /**
+     * Sets high_activity
+     *
+     * @param \Fingerprint\ServerAPI\Model\HighActivityResult $high_activity high_activity
+     *
+     * @return $this
+     */
+    public function setHighActivity($high_activity)
+    {
+        $this->container['high_activity'] = $high_activity;
+
+        return $this;
+    }
+
+    /**
+     * Gets location_spoofing
+     *
+     * @return \Fingerprint\ServerAPI\Model\LocationSpoofingResult
+     */
+    public function getLocationSpoofing()
+    {
+        return $this->container['location_spoofing'];
+    }
+
+    /**
+     * Sets location_spoofing
+     *
+     * @param \Fingerprint\ServerAPI\Model\LocationSpoofingResult $location_spoofing location_spoofing
+     *
+     * @return $this
+     */
+    public function setLocationSpoofing($location_spoofing)
+    {
+        $this->container['location_spoofing'] = $location_spoofing;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * VpnResult
+ * HighActivityResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * VpnResult Class Doc Comment
+ * HighActivityResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class VpnResult implements ModelInterface, ArrayAccess
+class HighActivityResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class VpnResult implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'VpnResult';
+    protected static $swaggerModelName = 'HighActivityResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,8 +57,7 @@ class VpnResult implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'result' => 'bool',
-'origin_timezone' => 'string',
-'methods' => '\Fingerprint\ServerAPI\Model\VpnResultMethods'    ];
+'daily_requests' => 'float'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -67,8 +66,7 @@ class VpnResult implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'result' => null,
-'origin_timezone' => null,
-'methods' => null    ];
+'daily_requests' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -98,8 +96,7 @@ class VpnResult implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'result' => 'result',
-'origin_timezone' => 'originTimezone',
-'methods' => 'methods'    ];
+'daily_requests' => 'dailyRequests'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -108,8 +105,7 @@ class VpnResult implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'result' => 'setResult',
-'origin_timezone' => 'setOriginTimezone',
-'methods' => 'setMethods'    ];
+'daily_requests' => 'setDailyRequests'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -118,8 +114,7 @@ class VpnResult implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'result' => 'getResult',
-'origin_timezone' => 'getOriginTimezone',
-'methods' => 'getMethods'    ];
+'daily_requests' => 'getDailyRequests'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -180,8 +175,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['result'] = isset($data['result']) ? $data['result'] : null;
-        $this->container['origin_timezone'] = isset($data['origin_timezone']) ? $data['origin_timezone'] : null;
-        $this->container['methods'] = isset($data['methods']) ? $data['methods'] : null;
+        $this->container['daily_requests'] = isset($data['daily_requests']) ? $data['daily_requests'] : null;
     }
 
     /**
@@ -221,7 +215,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result VPN or other anonymizing service has been used when sending the request.
+     * @param bool $result Flag indicating whether the request came from a high activity visitor.
      *
      * @return $this
      */
@@ -233,49 +227,25 @@ class VpnResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets origin_timezone
+     * Gets daily_requests
      *
-     * @return string
+     * @return float
      */
-    public function getOriginTimezone()
+    public function getDailyRequests()
     {
-        return $this->container['origin_timezone'];
+        return $this->container['daily_requests'];
     }
 
     /**
-     * Sets origin_timezone
+     * Sets daily_requests
      *
-     * @param string $origin_timezone Local timezone which is used in timezoneMismatch method.
+     * @param float $daily_requests Number of requests from the same visitor in the previous day.
      *
      * @return $this
      */
-    public function setOriginTimezone($origin_timezone)
+    public function setDailyRequests($daily_requests)
     {
-        $this->container['origin_timezone'] = $origin_timezone;
-
-        return $this;
-    }
-
-    /**
-     * Gets methods
-     *
-     * @return \Fingerprint\ServerAPI\Model\VpnResultMethods
-     */
-    public function getMethods()
-    {
-        return $this->container['methods'];
-    }
-
-    /**
-     * Sets methods
-     *
-     * @param \Fingerprint\ServerAPI\Model\VpnResultMethods $methods methods
-     *
-     * @return $this
-     */
-    public function setMethods($methods)
-    {
-        $this->container['methods'] = $methods;
+        $this->container['daily_requests'] = $daily_requests;
 
         return $this;
     }
