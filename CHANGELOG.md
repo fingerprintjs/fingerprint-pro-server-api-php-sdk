@@ -1,3 +1,10 @@
+## [2.2.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v2.1.1...v2.2.0) (2023-11-27)
+
+
+### Features
+
+* add `highActivity` and `locationSpoofing` signals, support `originTimezone` for `vpn` signal ([e35961c](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/e35961cf93a86a0e3d3ebe6d373452e3f7918853))
+
 ## [2.1.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v2.1.0...v2.1.1) (2023-09-19)
 
 
