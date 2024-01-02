@@ -35,6 +35,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  * DataCenter Class Doc Comment
  *
  * @category Class
+ * @description `dataCenter` is deprecated in favor of `datacenter`
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen

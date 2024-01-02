@@ -35,6 +35,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  * IPLocation Class Doc Comment
  *
  * @category Class
+ * @description This field is **deprecated** and will not return a result for **accounts created after December 18th, 2023**. Please use the [`ipInfo` Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen

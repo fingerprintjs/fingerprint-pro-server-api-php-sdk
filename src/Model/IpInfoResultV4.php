@@ -59,6 +59,7 @@ class IpInfoResultV4 implements ModelInterface, ArrayAccess
         'address' => 'string',
 'geolocation' => '\Fingerprint\ServerAPI\Model\IPLocation',
 'asn' => '\Fingerprint\ServerAPI\Model\ASN',
+'datacenter' => '\Fingerprint\ServerAPI\Model\DataCenterInfo',
 'data_center' => '\Fingerprint\ServerAPI\Model\DataCenter'    ];
 
     /**
@@ -70,6 +71,7 @@ class IpInfoResultV4 implements ModelInterface, ArrayAccess
         'address' => 'ipv4',
 'geolocation' => null,
 'asn' => null,
+'datacenter' => null,
 'data_center' => null    ];
 
     /**
@@ -102,6 +104,7 @@ class IpInfoResultV4 implements ModelInterface, ArrayAccess
         'address' => 'address',
 'geolocation' => 'geolocation',
 'asn' => 'asn',
+'datacenter' => 'datacenter',
 'data_center' => 'dataCenter'    ];
 
     /**
@@ -113,6 +116,7 @@ class IpInfoResultV4 implements ModelInterface, ArrayAccess
         'address' => 'setAddress',
 'geolocation' => 'setGeolocation',
 'asn' => 'setAsn',
+'datacenter' => 'setDatacenter',
 'data_center' => 'setDataCenter'    ];
 
     /**
@@ -124,6 +128,7 @@ class IpInfoResultV4 implements ModelInterface, ArrayAccess
         'address' => 'getAddress',
 'geolocation' => 'getGeolocation',
 'asn' => 'getAsn',
+'datacenter' => 'getDatacenter',
 'data_center' => 'getDataCenter'    ];
 
     /**
@@ -187,6 +192,7 @@ class IpInfoResultV4 implements ModelInterface, ArrayAccess
         $this->container['address'] = isset($data['address']) ? $data['address'] : null;
         $this->container['geolocation'] = isset($data['geolocation']) ? $data['geolocation'] : null;
         $this->container['asn'] = isset($data['asn']) ? $data['asn'] : null;
+        $this->container['datacenter'] = isset($data['datacenter']) ? $data['datacenter'] : null;
         $this->container['data_center'] = isset($data['data_center']) ? $data['data_center'] : null;
     }
 
@@ -282,6 +288,30 @@ class IpInfoResultV4 implements ModelInterface, ArrayAccess
     public function setAsn($asn)
     {
         $this->container['asn'] = $asn;
+
+        return $this;
+    }
+
+    /**
+     * Gets datacenter
+     *
+     * @return \Fingerprint\ServerAPI\Model\DataCenterInfo
+     */
+    public function getDatacenter()
+    {
+        return $this->container['datacenter'];
+    }
+
+    /**
+     * Sets datacenter
+     *
+     * @param \Fingerprint\ServerAPI\Model\DataCenterInfo $datacenter datacenter
+     *
+     * @return $this
+     */
+    public function setDatacenter($datacenter)
+    {
+        $this->container['datacenter'] = $datacenter;
 
         return $this;
     }

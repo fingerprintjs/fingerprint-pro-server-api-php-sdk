@@ -1,6 +1,6 @@
 <?php
 /**
- * IpInfoResultV6
+ * DataCenterInfo
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * IpInfoResultV6 Class Doc Comment
+ * DataCenterInfo Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class IpInfoResultV6 implements ModelInterface, ArrayAccess
+class DataCenterInfo implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'IpInfoResult_v6';
+    protected static $swaggerModelName = 'DataCenterInfo';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,11 +56,8 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'address' => 'string',
-'geolocation' => '\Fingerprint\ServerAPI\Model\IPLocation',
-'asn' => '\Fingerprint\ServerAPI\Model\ASN',
-'datacenter' => '\Fingerprint\ServerAPI\Model\DataCenterInfo',
-'data_center' => '\Fingerprint\ServerAPI\Model\DataCenter'    ];
+        'result' => 'bool',
+'name' => 'string'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -68,11 +65,8 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'address' => 'ipv6',
-'geolocation' => null,
-'asn' => null,
-'datacenter' => null,
-'data_center' => null    ];
+        'result' => null,
+'name' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -101,11 +95,8 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'address' => 'address',
-'geolocation' => 'geolocation',
-'asn' => 'asn',
-'datacenter' => 'datacenter',
-'data_center' => 'dataCenter'    ];
+        'result' => 'result',
+'name' => 'name'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -113,11 +104,8 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'address' => 'setAddress',
-'geolocation' => 'setGeolocation',
-'asn' => 'setAsn',
-'datacenter' => 'setDatacenter',
-'data_center' => 'setDataCenter'    ];
+        'result' => 'setResult',
+'name' => 'setName'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -125,11 +113,8 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'address' => 'getAddress',
-'geolocation' => 'getGeolocation',
-'asn' => 'getAsn',
-'datacenter' => 'getDatacenter',
-'data_center' => 'getDataCenter'    ];
+        'result' => 'getResult',
+'name' => 'getName'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -189,11 +174,8 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['address'] = isset($data['address']) ? $data['address'] : null;
-        $this->container['geolocation'] = isset($data['geolocation']) ? $data['geolocation'] : null;
-        $this->container['asn'] = isset($data['asn']) ? $data['asn'] : null;
-        $this->container['datacenter'] = isset($data['datacenter']) ? $data['datacenter'] : null;
-        $this->container['data_center'] = isset($data['data_center']) ? $data['data_center'] : null;
+        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
     }
 
     /**
@@ -205,6 +187,9 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -221,121 +206,49 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets address
+     * Gets result
+     *
+     * @return bool
+     */
+    public function getResult()
+    {
+        return $this->container['result'];
+    }
+
+    /**
+     * Sets result
+     *
+     * @param bool $result result
+     *
+     * @return $this
+     */
+    public function setResult($result)
+    {
+        $this->container['result'] = $result;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
      *
      * @return string
      */
-    public function getAddress()
+    public function getName()
     {
-        return $this->container['address'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets address
+     * Sets name
      *
-     * @param string $address address
+     * @param string $name name
      *
      * @return $this
      */
-    public function setAddress($address)
+    public function setName($name)
     {
-        $this->container['address'] = $address;
-
-        return $this;
-    }
-
-    /**
-     * Gets geolocation
-     *
-     * @return \Fingerprint\ServerAPI\Model\IPLocation
-     */
-    public function getGeolocation()
-    {
-        return $this->container['geolocation'];
-    }
-
-    /**
-     * Sets geolocation
-     *
-     * @param \Fingerprint\ServerAPI\Model\IPLocation $geolocation geolocation
-     *
-     * @return $this
-     */
-    public function setGeolocation($geolocation)
-    {
-        $this->container['geolocation'] = $geolocation;
-
-        return $this;
-    }
-
-    /**
-     * Gets asn
-     *
-     * @return \Fingerprint\ServerAPI\Model\ASN
-     */
-    public function getAsn()
-    {
-        return $this->container['asn'];
-    }
-
-    /**
-     * Sets asn
-     *
-     * @param \Fingerprint\ServerAPI\Model\ASN $asn asn
-     *
-     * @return $this
-     */
-    public function setAsn($asn)
-    {
-        $this->container['asn'] = $asn;
-
-        return $this;
-    }
-
-    /**
-     * Gets datacenter
-     *
-     * @return \Fingerprint\ServerAPI\Model\DataCenterInfo
-     */
-    public function getDatacenter()
-    {
-        return $this->container['datacenter'];
-    }
-
-    /**
-     * Sets datacenter
-     *
-     * @param \Fingerprint\ServerAPI\Model\DataCenterInfo $datacenter datacenter
-     *
-     * @return $this
-     */
-    public function setDatacenter($datacenter)
-    {
-        $this->container['datacenter'] = $datacenter;
-
-        return $this;
-    }
-
-    /**
-     * Gets data_center
-     *
-     * @return \Fingerprint\ServerAPI\Model\DataCenter
-     */
-    public function getDataCenter()
-    {
-        return $this->container['data_center'];
-    }
-
-    /**
-     * Sets data_center
-     *
-     * @param \Fingerprint\ServerAPI\Model\DataCenter $data_center data_center
-     *
-     * @return $this
-     */
-    public function setDataCenter($data_center)
-    {
-        $this->container['data_center'] = $data_center;
+        $this->container['name'] = $name;
 
         return $this;
     }
