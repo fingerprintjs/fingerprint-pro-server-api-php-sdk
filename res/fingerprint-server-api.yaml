@@ -4879,8 +4879,6 @@ components:
               $ref: '#/components/schemas/ASN'
             datacenter:
               $ref: '#/components/schemas/DataCenterInfo'
-            dataCenter:
-              $ref: '#/components/schemas/DataCenter'
         v6:
           type: object
           additionalProperties: false
@@ -4895,8 +4893,6 @@ components:
               $ref: '#/components/schemas/ASN'
             datacenter:
               $ref: '#/components/schemas/DataCenterInfo'
-            dataCenter:
-              $ref: '#/components/schemas/DataCenter'
     IpBlockListResult:
       type: object
       properties:

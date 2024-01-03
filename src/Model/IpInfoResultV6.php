@@ -59,8 +59,7 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
         'address' => 'string',
 'geolocation' => '\Fingerprint\ServerAPI\Model\IPLocation',
 'asn' => '\Fingerprint\ServerAPI\Model\ASN',
-'datacenter' => '\Fingerprint\ServerAPI\Model\DataCenterInfo',
-'data_center' => '\Fingerprint\ServerAPI\Model\DataCenter'    ];
+'datacenter' => '\Fingerprint\ServerAPI\Model\DataCenterInfo'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -71,8 +70,7 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
         'address' => 'ipv6',
 'geolocation' => null,
 'asn' => null,
-'datacenter' => null,
-'data_center' => null    ];
+'datacenter' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -104,8 +102,7 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
         'address' => 'address',
 'geolocation' => 'geolocation',
 'asn' => 'asn',
-'datacenter' => 'datacenter',
-'data_center' => 'dataCenter'    ];
+'datacenter' => 'datacenter'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -116,8 +113,7 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
         'address' => 'setAddress',
 'geolocation' => 'setGeolocation',
 'asn' => 'setAsn',
-'datacenter' => 'setDatacenter',
-'data_center' => 'setDataCenter'    ];
+'datacenter' => 'setDatacenter'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -128,8 +124,7 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
         'address' => 'getAddress',
 'geolocation' => 'getGeolocation',
 'asn' => 'getAsn',
-'datacenter' => 'getDatacenter',
-'data_center' => 'getDataCenter'    ];
+'datacenter' => 'getDatacenter'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -193,7 +188,6 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
         $this->container['geolocation'] = isset($data['geolocation']) ? $data['geolocation'] : null;
         $this->container['asn'] = isset($data['asn']) ? $data['asn'] : null;
         $this->container['datacenter'] = isset($data['datacenter']) ? $data['datacenter'] : null;
-        $this->container['data_center'] = isset($data['data_center']) ? $data['data_center'] : null;
     }
 
     /**
@@ -312,30 +306,6 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
     public function setDatacenter($datacenter)
     {
         $this->container['datacenter'] = $datacenter;
-
-        return $this;
-    }
-
-    /**
-     * Gets data_center
-     *
-     * @return \Fingerprint\ServerAPI\Model\DataCenter
-     */
-    public function getDataCenter()
-    {
-        return $this->container['data_center'];
-    }
-
-    /**
-     * Sets data_center
-     *
-     * @param \Fingerprint\ServerAPI\Model\DataCenter $data_center data_center
-     *
-     * @return $this
-     */
-    public function setDataCenter($data_center)
-    {
-        $this->container['data_center'] = $data_center;
 
         return $this;
     }
