@@ -182,7 +182,6 @@ Class | Method | HTTP request | Description
  - [BrowserDetails](docs/Model/BrowserDetails.md)
  - [Confidence](docs/Model/Confidence.md)
  - [DataCenter](docs/Model/DataCenter.md)
- - [DataCenterInfo](docs/Model/DataCenterInfo.md)
  - [ErrorEvent403Response](docs/Model/ErrorEvent403Response.md)
  - [ErrorEvent403ResponseError](docs/Model/ErrorEvent403ResponseError.md)
  - [ErrorEvent404Response](docs/Model/ErrorEvent404Response.md)

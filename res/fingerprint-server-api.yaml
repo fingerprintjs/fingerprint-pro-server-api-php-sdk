@@ -4320,22 +4320,8 @@ components:
         - asn
         - network
       title: ASN
-    DataCenterInfo:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-        name:
-          type: string
-          example: DediPath
-      required:
-        - result
-      title: DataCenterInfo
     DataCenter:
       type: object
-      deprecated: true
-      description: '`dataCenter` is deprecated in favor of `datacenter`'
       additionalProperties: false
       properties:
         result:
@@ -4878,7 +4864,7 @@ components:
             asn:
               $ref: '#/components/schemas/ASN'
             datacenter:
-              $ref: '#/components/schemas/DataCenterInfo'
+              $ref: '#/components/schemas/DataCenter'
         v6:
           type: object
           additionalProperties: false
@@ -4892,7 +4878,7 @@ components:
             asn:
               $ref: '#/components/schemas/ASN'
             datacenter:
-              $ref: '#/components/schemas/DataCenterInfo'
+              $ref: '#/components/schemas/DataCenter'
     IpBlockListResult:
       type: object
       properties:

@@ -59,7 +59,7 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
         'address' => 'string',
 'geolocation' => '\Fingerprint\ServerAPI\Model\IPLocation',
 'asn' => '\Fingerprint\ServerAPI\Model\ASN',
-'datacenter' => '\Fingerprint\ServerAPI\Model\DataCenterInfo'    ];
+'datacenter' => '\Fingerprint\ServerAPI\Model\DataCenter'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -289,7 +289,7 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
     /**
      * Gets datacenter
      *
-     * @return \Fingerprint\ServerAPI\Model\DataCenterInfo
+     * @return \Fingerprint\ServerAPI\Model\DataCenter
      */
     public function getDatacenter()
     {
@@ -299,7 +299,7 @@ class IpInfoResultV6 implements ModelInterface, ArrayAccess
     /**
      * Sets datacenter
      *
-     * @param \Fingerprint\ServerAPI\Model\DataCenterInfo $datacenter datacenter
+     * @param \Fingerprint\ServerAPI\Model\DataCenter $datacenter datacenter
      *
      * @return $this
      */
