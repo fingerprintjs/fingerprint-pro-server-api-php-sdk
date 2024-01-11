@@ -1,3 +1,15 @@
+## [3.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v2.2.0...v3.0.0) (2024-01-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* `IpInfo` field `data_center` renamed to `datacenter`
+
+### Features
+
+* deprecate `IPLocation` ([ad6201c](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/ad6201cc619cf09f74f31389eb24fe208ea1ddc4))
+* use `datacenter` instead of the wrong `dataCenter` ([19158aa](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/19158aa0054c37975a83cfe0076ad48626155943))
+
 ## [2.2.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v2.1.1...v2.2.0) (2023-11-27)
 
 
