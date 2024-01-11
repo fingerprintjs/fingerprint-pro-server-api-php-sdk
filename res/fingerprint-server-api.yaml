@@ -158,7 +158,7 @@ paths:
                               asn: '7922'
                               name: COMCAST-7922
                               network: 73.136.0.0/13
-                            dataCenter:
+                            datacenter:
                               result: true
                               name: DediPath
                       incognito:
@@ -3701,7 +3701,7 @@ paths:
                               asn: '7922'
                               name: COMCAST-7922
                               network: 73.136.0.0/13
-                            dataCenter:
+                            datacenter:
                               result: true
                               name: DediPath
                         rootApps:
@@ -4335,6 +4335,12 @@ components:
     IPLocation:
       type: object
       additionalProperties: false
+      deprecated: true
+      description: >-
+        This field is **deprecated** and will not return a result for **accounts
+        created after December 18th, 2023**. Please use the [`ipInfo` Smart
+        signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation)
+        for geolocation information.
       properties:
         accuracyRadius:
           description: >-
@@ -4857,7 +4863,7 @@ components:
               $ref: '#/components/schemas/IPLocation'
             asn:
               $ref: '#/components/schemas/ASN'
-            dataCenter:
+            datacenter:
               $ref: '#/components/schemas/DataCenter'
         v6:
           type: object
@@ -4871,7 +4877,7 @@ components:
               $ref: '#/components/schemas/IPLocation'
             asn:
               $ref: '#/components/schemas/ASN'
-            dataCenter:
+            datacenter:
               $ref: '#/components/schemas/DataCenter'
     IpBlockListResult:
       type: object
