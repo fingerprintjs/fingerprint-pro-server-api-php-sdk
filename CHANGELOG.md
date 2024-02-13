@@ -1,3 +1,10 @@
+## [3.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v3.0.0...v3.1.0) (2024-02-13)
+
+
+### Features
+
+* add method for decoding sealed results ([2008cf6](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/2008cf6427a1edced49aec1f2130e389622d8d88))
+
 ## [3.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v2.2.0...v3.0.0) (2024-01-11)
 
 
