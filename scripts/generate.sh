@@ -1,5 +1,7 @@
 #!/bin/bash
 
+shopt -s extglob
+
 VERSION='2.0.0'
 
 while getopts "v:" arg; do
@@ -63,5 +65,5 @@ java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/f
 
 mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
-rm -rf docs
-mv -f src/docs ./docs
+find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" -exec rm {} +
+mv -f src/docs/* ./docs

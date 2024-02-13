@@ -156,6 +156,32 @@ try {
 }
 ```
 
+## Sealed results
+
+This SDK provides utility methods for decoding [sealed results](https://dev.fingerprint.com/docs/sealed-client-results).
+```php
+<?php
+
+use Fingerprint\ServerAPI\Sealed\DecryptionAlgorithm;
+use Fingerprint\ServerAPI\Sealed\DecryptionKey;
+use Fingerprint\ServerAPI\Sealed\Sealed;
+
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$sealed_result = base64_decode($_ENV['BASE64_SEALED_RESULT']);
+$sealed_key = base64_decode($_ENV['BASE64_KEY']);
+
+try {
+    $data = Sealed::unsealEventResponse($sealed_result, [new DecryptionKey($sealed_key, DecryptionAlgorithm::AES_256_GCM)]);
+
+    fwrite(STDOUT, sprintf("Unsealed event: %s \n", $data));
+} catch (Exception $e) {
+    fwrite(STDERR, sprintf("Exception when unsealing event: %s\n", $e->getMessage()));
+    exit(1);
+}
+```
+To learn more, refer to example located in [sealed_results_example.php](sealed_results_example.php).
+
 ## Documentation for API Endpoints
 
 All URIs are relative to your region's base URL.
@@ -270,6 +296,11 @@ Class | Method | HTTP request | Description
 - **API key parameter name**: api_key
 - **Location**: URL query string
 
+
+## Documentation for sealed results
+
+- [Sealed](docs/Sealed/Sealed.md)
+- [DecryptionKey](docs/Sealed/DecryptionKey.md)
 
 ## Tests
 
