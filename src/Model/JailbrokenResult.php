@@ -1,6 +1,6 @@
 <?php
 /**
- * SignalResponseJailbrokenData
+ * JailbrokenResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * SignalResponseJailbrokenData Class Doc Comment
+ * JailbrokenResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class SignalResponseJailbrokenData implements ModelInterface, ArrayAccess
+class JailbrokenResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class SignalResponseJailbrokenData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'SignalResponseJailbroken_data';
+    protected static $swaggerModelName = 'JailbrokenResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -181,6 +181,9 @@ class SignalResponseJailbrokenData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 

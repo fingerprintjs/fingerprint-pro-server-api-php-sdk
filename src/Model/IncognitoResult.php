@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookSignalResponseEmulator
+ * IncognitoResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookSignalResponseEmulator Class Doc Comment
+ * IncognitoResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
+class IncognitoResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'WebhookSignalResponseEmulator';
+    protected static $swaggerModelName = 'IncognitoResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -181,6 +181,9 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -209,7 +212,7 @@ class WebhookSignalResponseEmulator implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client isn't Android.
+     * @param bool $result `true` if we detected incognito mode used in the browser, `false` otherwise.
      *
      * @return $this
      */

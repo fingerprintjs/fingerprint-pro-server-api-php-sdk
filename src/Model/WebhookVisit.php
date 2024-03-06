@@ -62,18 +62,18 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'bot' => '\Fingerprint\ServerAPI\Model\BotdDetectionResult',
 'ip_info' => '\Fingerprint\ServerAPI\Model\IpInfoResult',
 'incognito' => 'bool',
-'root_apps' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps',
-'emulator' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator',
-'cloned_app' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseClonedApp',
-'factory_reset' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseFactoryReset',
-'jailbroken' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseJailbroken',
-'frida' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseFrida',
+'root_apps' => '\Fingerprint\ServerAPI\Model\RootAppsResult',
+'emulator' => '\Fingerprint\ServerAPI\Model\EmulatorResult',
+'cloned_app' => '\Fingerprint\ServerAPI\Model\ClonedAppResult',
+'factory_reset' => '\Fingerprint\ServerAPI\Model\FactoryResetResult',
+'jailbroken' => '\Fingerprint\ServerAPI\Model\JailbrokenResult',
+'frida' => '\Fingerprint\ServerAPI\Model\FridaResult',
 'ip_blocklist' => '\Fingerprint\ServerAPI\Model\IpBlockListResult',
-'tor' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseTor',
-'privacy_settings' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponsePrivacySettings',
-'virtual_machine' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseVirtualMachine',
+'tor' => '\Fingerprint\ServerAPI\Model\TorResult',
+'privacy_settings' => '\Fingerprint\ServerAPI\Model\PrivacySettingsResult',
+'virtual_machine' => '\Fingerprint\ServerAPI\Model\VirtualMachineResult',
 'vpn' => '\Fingerprint\ServerAPI\Model\VpnResult',
-'proxy' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy',
+'proxy' => '\Fingerprint\ServerAPI\Model\ProxyResult',
 'tampering' => '\Fingerprint\ServerAPI\Model\TamperingResult',
 'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult',
 'high_activity' => '\Fingerprint\ServerAPI\Model\HighActivityResult',
@@ -589,7 +589,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets root_apps
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps
+     * @return \Fingerprint\ServerAPI\Model\RootAppsResult
      */
     public function getRootApps()
     {
@@ -599,7 +599,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets root_apps
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps $root_apps root_apps
+     * @param \Fingerprint\ServerAPI\Model\RootAppsResult $root_apps root_apps
      *
      * @return $this
      */
@@ -613,7 +613,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets emulator
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator
+     * @return \Fingerprint\ServerAPI\Model\EmulatorResult
      */
     public function getEmulator()
     {
@@ -623,7 +623,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets emulator
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator $emulator emulator
+     * @param \Fingerprint\ServerAPI\Model\EmulatorResult $emulator emulator
      *
      * @return $this
      */
@@ -637,7 +637,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets cloned_app
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseClonedApp
+     * @return \Fingerprint\ServerAPI\Model\ClonedAppResult
      */
     public function getClonedApp()
     {
@@ -647,7 +647,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets cloned_app
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseClonedApp $cloned_app cloned_app
+     * @param \Fingerprint\ServerAPI\Model\ClonedAppResult $cloned_app cloned_app
      *
      * @return $this
      */
@@ -661,7 +661,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets factory_reset
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseFactoryReset
+     * @return \Fingerprint\ServerAPI\Model\FactoryResetResult
      */
     public function getFactoryReset()
     {
@@ -671,7 +671,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets factory_reset
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseFactoryReset $factory_reset factory_reset
+     * @param \Fingerprint\ServerAPI\Model\FactoryResetResult $factory_reset factory_reset
      *
      * @return $this
      */
@@ -685,7 +685,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets jailbroken
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseJailbroken
+     * @return \Fingerprint\ServerAPI\Model\JailbrokenResult
      */
     public function getJailbroken()
     {
@@ -695,7 +695,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets jailbroken
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseJailbroken $jailbroken jailbroken
+     * @param \Fingerprint\ServerAPI\Model\JailbrokenResult $jailbroken jailbroken
      *
      * @return $this
      */
@@ -709,7 +709,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets frida
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseFrida
+     * @return \Fingerprint\ServerAPI\Model\FridaResult
      */
     public function getFrida()
     {
@@ -719,7 +719,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets frida
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseFrida $frida frida
+     * @param \Fingerprint\ServerAPI\Model\FridaResult $frida frida
      *
      * @return $this
      */
@@ -757,7 +757,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets tor
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseTor
+     * @return \Fingerprint\ServerAPI\Model\TorResult
      */
     public function getTor()
     {
@@ -767,7 +767,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets tor
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseTor $tor tor
+     * @param \Fingerprint\ServerAPI\Model\TorResult $tor tor
      *
      * @return $this
      */
@@ -781,7 +781,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets privacy_settings
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponsePrivacySettings
+     * @return \Fingerprint\ServerAPI\Model\PrivacySettingsResult
      */
     public function getPrivacySettings()
     {
@@ -791,7 +791,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets privacy_settings
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponsePrivacySettings $privacy_settings privacy_settings
+     * @param \Fingerprint\ServerAPI\Model\PrivacySettingsResult $privacy_settings privacy_settings
      *
      * @return $this
      */
@@ -805,7 +805,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets virtual_machine
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseVirtualMachine
+     * @return \Fingerprint\ServerAPI\Model\VirtualMachineResult
      */
     public function getVirtualMachine()
     {
@@ -815,7 +815,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets virtual_machine
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseVirtualMachine $virtual_machine virtual_machine
+     * @param \Fingerprint\ServerAPI\Model\VirtualMachineResult $virtual_machine virtual_machine
      *
      * @return $this
      */
@@ -853,7 +853,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets proxy
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy
+     * @return \Fingerprint\ServerAPI\Model\ProxyResult
      */
     public function getProxy()
     {
@@ -863,7 +863,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets proxy
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy $proxy proxy
+     * @param \Fingerprint\ServerAPI\Model\ProxyResult $proxy proxy
      *
      * @return $this
      */

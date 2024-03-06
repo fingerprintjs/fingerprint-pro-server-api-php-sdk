@@ -56,7 +56,7 @@ class SignalResponseProxy implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseProxyData',
+        'data' => '\Fingerprint\ServerAPI\Model\ProxyResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseProxy implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseProxyData
+     * @return \Fingerprint\ServerAPI\Model\ProxyResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseProxy implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseProxyData $data data
+     * @param \Fingerprint\ServerAPI\Model\ProxyResult $data data
      *
      * @return $this
      */

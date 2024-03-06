@@ -1,6 +1,6 @@
 <?php
 /**
- * SignalResponseClonedAppData
+ * FridaResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * SignalResponseClonedAppData Class Doc Comment
+ * FridaResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class SignalResponseClonedAppData implements ModelInterface, ArrayAccess
+class FridaResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class SignalResponseClonedAppData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'SignalResponseClonedApp_data';
+    protected static $swaggerModelName = 'FridaResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -181,6 +181,9 @@ class SignalResponseClonedAppData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -209,7 +212,7 @@ class SignalResponseClonedAppData implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
+     * @param bool $result [Frida](https://frida.re/docs/) detection for Android and iOS devices. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not a mobile device.
      *
      * @return $this
      */

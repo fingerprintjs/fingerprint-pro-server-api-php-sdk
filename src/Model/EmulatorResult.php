@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookSignalResponseFactoryReset
+ * EmulatorResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookSignalResponseFactoryReset Class Doc Comment
+ * EmulatorResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
+class EmulatorResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'WebhookSignalResponseFactoryReset';
+    protected static $swaggerModelName = 'EmulatorResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,8 +56,7 @@ class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'time' => '\DateTime',
-'timestamp' => 'int'    ];
+        'result' => 'bool'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -65,8 +64,7 @@ class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'time' => 'date-time',
-'timestamp' => 'int64'    ];
+        'result' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -95,8 +93,7 @@ class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'time' => 'time',
-'timestamp' => 'timestamp'    ];
+        'result' => 'result'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -104,8 +101,7 @@ class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'time' => 'setTime',
-'timestamp' => 'setTimestamp'    ];
+        'result' => 'setResult'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -113,8 +109,7 @@ class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'time' => 'getTime',
-'timestamp' => 'getTimestamp'    ];
+        'result' => 'getResult'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -174,8 +169,7 @@ class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['time'] = isset($data['time']) ? $data['time'] : null;
-        $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
+        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
     }
 
     /**
@@ -187,6 +181,9 @@ class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -203,49 +200,25 @@ class WebhookSignalResponseFactoryReset implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets time
+     * Gets result
      *
-     * @return \DateTime
+     * @return bool
      */
-    public function getTime()
+    public function getResult()
     {
-        return $this->container['time'];
+        return $this->container['result'];
     }
 
     /**
-     * Sets time
+     * Sets result
      *
-     * @param \DateTime $time Time in UTC for the Android client when recent factory reset was done.  If there is no sign of factory reset or the client isn't Android, the field will be epoch time.
+     * @param bool $result Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client is not Android.
      *
      * @return $this
      */
-    public function setTime($time)
+    public function setResult($result)
     {
-        $this->container['time'] = $time;
-
-        return $this;
-    }
-
-    /**
-     * Gets timestamp
-     *
-     * @return int
-     */
-    public function getTimestamp()
-    {
-        return $this->container['timestamp'];
-    }
-
-    /**
-     * Sets timestamp
-     *
-     * @param int $timestamp Same value as it's in the `time` field but represented in timestamp format.
-     *
-     * @return $this
-     */
-    public function setTimestamp($timestamp)
-    {
-        $this->container['timestamp'] = $timestamp;
+        $this->container['result'] = $result;
 
         return $this;
     }

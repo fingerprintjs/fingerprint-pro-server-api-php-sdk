@@ -1,6 +1,6 @@
 <?php
 /**
- * SignalResponseRootAppsData
+ * FactoryResetResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * SignalResponseRootAppsData Class Doc Comment
+ * FactoryResetResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
+class FactoryResetResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'SignalResponseRootApps_data';
+    protected static $swaggerModelName = 'FactoryResetResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,8 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'result' => 'bool'    ];
+        'time' => '\DateTime',
+'timestamp' => 'int'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -64,7 +65,8 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'result' => null    ];
+        'time' => 'date-time',
+'timestamp' => 'int64'    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -93,7 +95,8 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'result' => 'result'    ];
+        'time' => 'time',
+'timestamp' => 'timestamp'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -101,7 +104,8 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'result' => 'setResult'    ];
+        'time' => 'setTime',
+'timestamp' => 'setTimestamp'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -109,7 +113,8 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'result' => 'getResult'    ];
+        'time' => 'getTime',
+'timestamp' => 'getTimestamp'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -169,7 +174,8 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['time'] = isset($data['time']) ? $data['time'] : null;
+        $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
     }
 
     /**
@@ -181,6 +187,12 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['time'] === null) {
+            $invalidProperties[] = "'time' can't be null";
+        }
+        if ($this->container['timestamp'] === null) {
+            $invalidProperties[] = "'timestamp' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -197,25 +209,49 @@ class SignalResponseRootAppsData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets result
+     * Gets time
      *
-     * @return bool
+     * @return \DateTime
      */
-    public function getResult()
+    public function getTime()
     {
-        return $this->container['result'];
+        return $this->container['time'];
     }
 
     /**
-     * Sets result
+     * Sets time
      *
-     * @param bool $result Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client is not Android.
+     * @param \DateTime $time Time in UTC when the most recent factory reset of the Android or iOS device was done.  If there is no sign of factory reset or the client is not a mobile device, the field will contain the epoch time (1 January 1970) in UTC.
      *
      * @return $this
      */
-    public function setResult($result)
+    public function setTime($time)
     {
-        $this->container['result'] = $result;
+        $this->container['time'] = $time;
+
+        return $this;
+    }
+
+    /**
+     * Gets timestamp
+     *
+     * @return int
+     */
+    public function getTimestamp()
+    {
+        return $this->container['timestamp'];
+    }
+
+    /**
+     * Sets timestamp
+     *
+     * @param int $timestamp Same value as it's in the `time` field but represented in timestamp format.
+     *
+     * @return $this
+     */
+    public function setTimestamp($timestamp)
+    {
+        $this->container['timestamp'] = $timestamp;
 
         return $this;
     }

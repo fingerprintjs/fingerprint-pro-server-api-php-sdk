@@ -1,6 +1,6 @@
 <?php
 /**
- * SignalResponseFridaData
+ * VirtualMachineResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * SignalResponseFridaData Class Doc Comment
+ * VirtualMachineResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class SignalResponseFridaData implements ModelInterface, ArrayAccess
+class VirtualMachineResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class SignalResponseFridaData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'SignalResponseFrida_data';
+    protected static $swaggerModelName = 'VirtualMachineResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -181,6 +181,9 @@ class SignalResponseFridaData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -209,7 +212,7 @@ class SignalResponseFridaData implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result iOS specific [Frida](https://frida.re/docs/ios/) detection. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not iOS.
+     * @param bool $result `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
      *
      * @return $this
      */

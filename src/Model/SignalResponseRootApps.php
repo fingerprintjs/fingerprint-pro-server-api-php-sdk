@@ -56,7 +56,7 @@ class SignalResponseRootApps implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseRootAppsData',
+        'data' => '\Fingerprint\ServerAPI\Model\RootAppsResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseRootApps implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseRootAppsData
+     * @return \Fingerprint\ServerAPI\Model\RootAppsResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseRootApps implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseRootAppsData $data data
+     * @param \Fingerprint\ServerAPI\Model\RootAppsResult $data data
      *
      * @return $this
      */

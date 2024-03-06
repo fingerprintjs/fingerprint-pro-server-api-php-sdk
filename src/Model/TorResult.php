@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookSignalResponseJailbroken
+ * TorResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookSignalResponseJailbroken Class Doc Comment
+ * TorResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookSignalResponseJailbroken implements ModelInterface, ArrayAccess
+class TorResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class WebhookSignalResponseJailbroken implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'WebhookSignalResponseJailbroken';
+    protected static $swaggerModelName = 'TorResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -181,6 +181,9 @@ class WebhookSignalResponseJailbroken implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -209,7 +212,7 @@ class WebhookSignalResponseJailbroken implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
+     * @param bool $result `true` if the request IP address is a known tor exit node, `false` otherwise.
      *
      * @return $this
      */

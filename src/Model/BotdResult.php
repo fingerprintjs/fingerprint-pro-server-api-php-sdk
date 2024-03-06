@@ -73,7 +73,7 @@ class BotdResult implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'ip' => 'ipv4',
 'time' => 'date-time',
-'url' => 'uri-reference',
+'url' => null,
 'user_agent' => null,
 'request_id' => null,
 'linked_id' => null,
@@ -226,6 +226,12 @@ class BotdResult implements ModelInterface, ArrayAccess
         }
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
+        }
+        if ($this->container['user_agent'] === null) {
+            $invalidProperties[] = "'user_agent' can't be null";
+        }
+        if ($this->container['request_id'] === null) {
+            $invalidProperties[] = "'request_id' can't be null";
         }
         if ($this->container['bot'] === null) {
             $invalidProperties[] = "'bot' can't be null";

@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookSignalResponseClonedApp
+ * ProxyResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookSignalResponseClonedApp Class Doc Comment
+ * ProxyResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookSignalResponseClonedApp implements ModelInterface, ArrayAccess
+class ProxyResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class WebhookSignalResponseClonedApp implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'WebhookSignalResponseClonedApp';
+    protected static $swaggerModelName = 'ProxyResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -181,6 +181,9 @@ class WebhookSignalResponseClonedApp implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -209,7 +212,7 @@ class WebhookSignalResponseClonedApp implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
+     * @param bool $result `true` if the request IP address is used by a public proxy provider, `false` otherwise.
      *
      * @return $this
      */

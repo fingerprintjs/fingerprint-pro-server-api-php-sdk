@@ -1,6 +1,6 @@
 <?php
 /**
- * SignalResponseIncognitoData
+ * RootAppsResult
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * SignalResponseIncognitoData Class Doc Comment
+ * RootAppsResult Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class SignalResponseIncognitoData implements ModelInterface, ArrayAccess
+class RootAppsResult implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class SignalResponseIncognitoData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'SignalResponseIncognito_data';
+    protected static $swaggerModelName = 'RootAppsResult';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -181,6 +181,9 @@ class SignalResponseIncognitoData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -209,7 +212,7 @@ class SignalResponseIncognitoData implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result `true` if we detected incognito mode used in the browser, `false` otherwise.
+     * @param bool $result Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client isn't Android.
      *
      * @return $this
      */
