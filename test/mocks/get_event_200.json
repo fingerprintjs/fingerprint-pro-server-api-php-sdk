@@ -3,12 +3,13 @@
     "identification": {
       "data": {
         "visitorId": "Ibk1527CUFmcnjLwIs4A9",
-        "requestId": "0KSh65EnVoB85JBmloQK",
+        "requestId": "1708102555327.NLOjmg",
         "incognito": true,
         "linkedId": "somelinkedId",
+        "tag": {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
-        "url": "https://www.example.com/login",
+        "url": "https://www.example.com/login?hope{this{works[!",
         "ip": "61.127.217.15",
         "ipLocation": {
           "accuracyRadius": 10,
@@ -19,13 +20,13 @@
           "city": {
             "name": "Dusseldorf"
           },
-          "continent": {
-            "code": "EU",
-            "name": "Europe"
-          },
           "country": {
             "code": "DE",
             "name": "Germany"
+          },
+          "continent": {
+            "code": "EU",
+            "name": "Europe"
           },
           "subdivisions": [
             {
@@ -46,13 +47,13 @@
         "confidence": {
           "score": 0.97
         },
-        "visitorFound": true,
+        "visitorFound": false,
         "firstSeenAt": {
           "global": "2022-03-16T11:26:45.362Z",
           "subscription": "2022-03-16T11:31:01.101Z"
         },
         "lastSeenAt": {
-          "global": "2022-03-16T11:28:34.023Z",
+          "global": null,
           "subscription": null
         }
       }
@@ -62,9 +63,21 @@
         "bot": {
           "result": "notDetected"
         },
-        "url": "https://www.example.com/login",
+        "url": "https://www.example.com/login?hope{this{works}[!",
         "ip": "61.127.217.15",
-        "time": "2019-05-21T16:40:13Z"
+        "time": "2019-05-21T16:40:13Z",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
+        "requestId": "1708102555327.NLOjmg"
+      }
+    },
+    "rootApps": {
+      "data": {
+        "result": false
+      }
+    },
+    "emulator": {
+      "data": {
+        "result": false
       }
     },
     "ipInfo": {
@@ -104,22 +117,43 @@
             "result": true,
             "name": "DediPath"
           }
+        },
+        "v6": {
+          "address": "2001:db8:3333:4444:5555:6666:7777:8888",
+          "geolocation": {
+            "accuracyRadius": 5,
+            "latitude": 49.982,
+            "longitude": 36.2566,
+            "postalCode": "10112",
+            "timezone": "Europe/Berlin",
+            "city": {
+              "name": "Berlin"
+            },
+            "country": {
+              "code": "DE",
+              "name": "Germany"
+            },
+            "continent": {
+              "code": "EU",
+              "name": "Europe"
+            },
+            "subdivisions": [
+              {
+                "isoCode": "BE",
+                "name": "Land Berlin"
+              }
+            ]
+          },
+          "asn": {
+            "asn": "6805",
+            "name": "Telefonica Germany",
+            "network": "2a02:3100::/24"
+          },
+          "datacenter": {
+            "result": false,
+            "name": ""
+          }
         }
-      }
-    },
-    "incognito": {
-      "data": {
-        "result": false
-      }
-    },
-    "rootApps": {
-      "data": {
-        "result": false
-      }
-    },
-    "emulator": {
-      "data": {
-        "result": false
       }
     },
     "ipBlocklist": {
@@ -140,6 +174,7 @@
       "data": {
         "result": false,
         "originTimezone": "Europe/Berlin",
+        "originCountry": "unknown",
         "methods": {
           "timezoneMismatch": false,
           "publicVPN": false,
@@ -152,10 +187,15 @@
         "result": false
       }
     },
+    "incognito": {
+      "data": {
+        "result": false
+      }
+    },
     "tampering": {
       "data": {
         "result": false,
-        "anomalyScore": 0
+        "anomalyScore": 0.1955
       }
     },
     "clonedApp": {
@@ -208,13 +248,22 @@
           "value": 30
         },
         "colorGamut": {
-          "value": "srgb"
+          "value": "p3"
         },
         "contrast": {
           "value": 0
         },
         "cookiesEnabled": {
           "value": true
+        },
+        "cpuClass": {},
+        "fonts": {
+          "value": [
+            "Arial Unicode MS",
+            "Gill Sans",
+            "Helvetica Neue",
+            "Menlo"
+          ]
         }
       }
     },

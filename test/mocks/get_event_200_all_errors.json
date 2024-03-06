@@ -117,6 +117,24 @@
           }
         }
       }
+    },
+    "locationSpoofing": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "highActivity": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
+    },
+    "suspectScore": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
     }
   }
 }
