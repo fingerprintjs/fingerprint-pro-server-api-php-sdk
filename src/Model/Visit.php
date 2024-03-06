@@ -280,8 +280,8 @@ class Visit implements ModelInterface, ArrayAccess
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
-        if ($this->container['confidence'] === null) {
-            $invalidProperties[] = "'confidence' can't be null";
+        if ($this->container['tag'] === null) {
+            $invalidProperties[] = "'tag' can't be null";
         }
         if ($this->container['visitor_found'] === null) {
             $invalidProperties[] = "'visitor_found' can't be null";
