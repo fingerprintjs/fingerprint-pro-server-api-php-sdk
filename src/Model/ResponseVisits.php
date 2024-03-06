@@ -84,7 +84,7 @@ class ResponseVisits implements ModelInterface, ArrayAccess
 'ip_location' => null,
 'timestamp' => 'int64',
 'time' => 'date-time',
-'url' => 'uri',
+'url' => null,
 'tag' => null,
 'linked_id' => null,
 'confidence' => null,
