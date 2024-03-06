@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **tampering** | [**\Fingerprint\ServerAPI\Model\SignalResponseTampering**](SignalResponseTampering.md) |  | [optional] 
 **high_activity** | [**\Fingerprint\ServerAPI\Model\SignalResponseHighActivity**](SignalResponseHighActivity.md) |  | [optional] 
 **location_spoofing** | [**\Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing**](SignalResponseLocationSpoofing.md) |  | [optional] 
+**suspect_score** | [**\Fingerprint\ServerAPI\Model\SignalResponseSuspectScore**](SignalResponseSuspectScore.md) |  | [optional] 
 **raw_device_attributes** | [**\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes**](SignalResponseRawDeviceAttributes.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)

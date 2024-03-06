@@ -76,6 +76,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'tampering' => '\Fingerprint\ServerAPI\Model\SignalResponseTampering',
 'high_activity' => '\Fingerprint\ServerAPI\Model\SignalResponseHighActivity',
 'location_spoofing' => '\Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing',
+'suspect_score' => '\Fingerprint\ServerAPI\Model\SignalResponseSuspectScore',
 'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes'    ];
 
     /**
@@ -103,6 +104,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'tampering' => null,
 'high_activity' => null,
 'location_spoofing' => null,
+'suspect_score' => null,
 'raw_device_attributes' => null    ];
 
     /**
@@ -151,6 +153,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'tampering' => 'tampering',
 'high_activity' => 'highActivity',
 'location_spoofing' => 'locationSpoofing',
+'suspect_score' => 'suspectScore',
 'raw_device_attributes' => 'rawDeviceAttributes'    ];
 
     /**
@@ -178,6 +181,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'tampering' => 'setTampering',
 'high_activity' => 'setHighActivity',
 'location_spoofing' => 'setLocationSpoofing',
+'suspect_score' => 'setSuspectScore',
 'raw_device_attributes' => 'setRawDeviceAttributes'    ];
 
     /**
@@ -205,6 +209,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
 'tampering' => 'getTampering',
 'high_activity' => 'getHighActivity',
 'location_spoofing' => 'getLocationSpoofing',
+'suspect_score' => 'getSuspectScore',
 'raw_device_attributes' => 'getRawDeviceAttributes'    ];
 
     /**
@@ -284,6 +289,7 @@ class ProductsResponse implements ModelInterface, ArrayAccess
         $this->container['tampering'] = isset($data['tampering']) ? $data['tampering'] : null;
         $this->container['high_activity'] = isset($data['high_activity']) ? $data['high_activity'] : null;
         $this->container['location_spoofing'] = isset($data['location_spoofing']) ? $data['location_spoofing'] : null;
+        $this->container['suspect_score'] = isset($data['suspect_score']) ? $data['suspect_score'] : null;
         $this->container['raw_device_attributes'] = isset($data['raw_device_attributes']) ? $data['raw_device_attributes'] : null;
     }
 
@@ -763,6 +769,30 @@ class ProductsResponse implements ModelInterface, ArrayAccess
     public function setLocationSpoofing($location_spoofing)
     {
         $this->container['location_spoofing'] = $location_spoofing;
+
+        return $this;
+    }
+
+    /**
+     * Gets suspect_score
+     *
+     * @return \Fingerprint\ServerAPI\Model\SignalResponseSuspectScore
+     */
+    public function getSuspectScore()
+    {
+        return $this->container['suspect_score'];
+    }
+
+    /**
+     * Sets suspect_score
+     *
+     * @param \Fingerprint\ServerAPI\Model\SignalResponseSuspectScore $suspect_score suspect_score
+     *
+     * @return $this
+     */
+    public function setSuspectScore($suspect_score)
+    {
+        $this->container['suspect_score'] = $suspect_score;
 
         return $this;
     }
