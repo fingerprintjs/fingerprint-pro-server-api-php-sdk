@@ -1,6 +1,6 @@
 <?php
 /**
- * IPLocation
+ * DeprecatedIPLocation
  *
  * PHP version 5
  *
@@ -32,14 +32,15 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * IPLocation Class Doc Comment
+ * DeprecatedIPLocation Class Doc Comment
  *
  * @category Class
+ * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class IPLocation implements ModelInterface, ArrayAccess
+class DeprecatedIPLocation implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +49,7 @@ class IPLocation implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'IPLocation';
+    protected static $swaggerModelName = 'DeprecatedIPLocation';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -61,7 +62,7 @@ class IPLocation implements ModelInterface, ArrayAccess
 'longitude' => 'double',
 'postal_code' => 'string',
 'timezone' => 'string',
-'city' => '\Fingerprint\ServerAPI\Model\IPLocationCity',
+'city' => '\Fingerprint\ServerAPI\Model\DeprecatedIPLocationCity',
 'country' => '\Fingerprint\ServerAPI\Model\Location',
 'continent' => '\Fingerprint\ServerAPI\Model\Location',
 'subdivisions' => '\Fingerprint\ServerAPI\Model\Subdivision[]'    ];
@@ -367,7 +368,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Gets city
      *
-     * @return \Fingerprint\ServerAPI\Model\IPLocationCity
+     * @return \Fingerprint\ServerAPI\Model\DeprecatedIPLocationCity
      */
     public function getCity()
     {
@@ -377,7 +378,7 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Sets city
      *
-     * @param \Fingerprint\ServerAPI\Model\IPLocationCity $city city
+     * @param \Fingerprint\ServerAPI\Model\DeprecatedIPLocationCity $city city
      *
      * @return $this
      */

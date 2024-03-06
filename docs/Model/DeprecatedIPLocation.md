@@ -1,4 +1,6 @@
-# IPLocation
+# DeprecatedIPLocation
+This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
+
 
 ## Properties
 Name | Type | Description | Notes
@@ -8,7 +10,7 @@ Name | Type | Description | Notes
 **longitude** | **double** |  | [optional] 
 **postal_code** | **string** |  | [optional] 
 **timezone** | **string** |  | [optional] 
-**city** | [**\Fingerprint\ServerAPI\Model\IPLocationCity**](IPLocationCity.md) |  | [optional] 
+**city** | [**\Fingerprint\ServerAPI\Model\DeprecatedIPLocationCity**](DeprecatedIPLocationCity.md) |  | [optional] 
 **country** | [**\Fingerprint\ServerAPI\Model\Location**](Location.md) |  | [optional] 
 **continent** | [**\Fingerprint\ServerAPI\Model\Location**](Location.md) |  | [optional] 
 **subdivisions** | [**\Fingerprint\ServerAPI\Model\Subdivision[]**](Subdivision.md) |  | [optional] 

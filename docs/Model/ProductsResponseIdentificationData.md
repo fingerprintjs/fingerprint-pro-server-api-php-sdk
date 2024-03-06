@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **browser_details** | [**\Fingerprint\ServerAPI\Model\BrowserDetails**](BrowserDetails.md) |  | 
 **incognito** | **bool** | Flag if user used incognito session. | 
 **ip** | **string** |  | 
-**ip_location** | [**\Fingerprint\ServerAPI\Model\IPLocation**](IPLocation.md) |  | [optional] 
+**ip_location** | [**\Fingerprint\ServerAPI\Model\DeprecatedIPLocation**](DeprecatedIPLocation.md) |  | [optional] 
 **timestamp** | **int** | Timestamp of the event with millisecond precision in Unix time. | 
 **time** | [**\DateTime**](\DateTime.md) | Time expressed according to ISO 8601 in UTC format. | 
 **url** | **string** | Page URL from which identification request was sent. | 

@@ -60,7 +60,7 @@ class ResponseVisits implements ModelInterface, ArrayAccess
 'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
 'incognito' => 'bool',
 'ip' => 'string',
-'ip_location' => '\Fingerprint\ServerAPI\Model\IPLocation',
+'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedIPLocation',
 'timestamp' => 'int',
 'time' => '\DateTime',
 'url' => 'string',
@@ -409,7 +409,7 @@ class ResponseVisits implements ModelInterface, ArrayAccess
     /**
      * Gets ip_location
      *
-     * @return \Fingerprint\ServerAPI\Model\IPLocation
+     * @return \Fingerprint\ServerAPI\Model\DeprecatedIPLocation
      */
     public function getIpLocation()
     {
@@ -419,7 +419,7 @@ class ResponseVisits implements ModelInterface, ArrayAccess
     /**
      * Sets ip_location
      *
-     * @param \Fingerprint\ServerAPI\Model\IPLocation $ip_location ip_location
+     * @param \Fingerprint\ServerAPI\Model\DeprecatedIPLocation $ip_location ip_location
      *
      * @return $this
      */
@@ -491,7 +491,7 @@ class ResponseVisits implements ModelInterface, ArrayAccess
     /**
      * Sets url
      *
-     * @param string $url Page URL from which identification request was sent.
+     * @param string $url Page URL from which the identification request was sent.
      *
      * @return $this
      */

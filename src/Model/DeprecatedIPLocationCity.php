@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookSignalResponseTor
+ * DeprecatedIPLocationCity
  *
  * PHP version 5
  *
@@ -32,14 +32,14 @@ use \ArrayAccess;
 use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookSignalResponseTor Class Doc Comment
+ * DeprecatedIPLocationCity Class Doc Comment
  *
  * @category Class
  * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookSignalResponseTor implements ModelInterface, ArrayAccess
+class DeprecatedIPLocationCity implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class WebhookSignalResponseTor implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'WebhookSignalResponseTor';
+    protected static $swaggerModelName = 'DeprecatedIPLocationCity';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,7 @@ class WebhookSignalResponseTor implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'result' => 'bool'    ];
+        'name' => 'string'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -64,7 +64,7 @@ class WebhookSignalResponseTor implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'result' => null    ];
+        'name' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -93,7 +93,7 @@ class WebhookSignalResponseTor implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'result' => 'result'    ];
+        'name' => 'name'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -101,7 +101,7 @@ class WebhookSignalResponseTor implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'result' => 'setResult'    ];
+        'name' => 'setName'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -109,7 +109,7 @@ class WebhookSignalResponseTor implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'result' => 'getResult'    ];
+        'name' => 'getName'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -169,7 +169,7 @@ class WebhookSignalResponseTor implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
     }
 
     /**
@@ -197,25 +197,25 @@ class WebhookSignalResponseTor implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets result
+     * Gets name
      *
-     * @return bool
+     * @return string
      */
-    public function getResult()
+    public function getName()
     {
-        return $this->container['result'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets result
+     * Sets name
      *
-     * @param bool $result `true` if the request IP address is a known tor exit node, `false` otherwise.
+     * @param string $name name
      *
      * @return $this
      */
-    public function setResult($result)
+    public function setName($name)
     {
-        $this->container['result'] = $result;
+        $this->container['name'] = $name;
 
         return $this;
     }
