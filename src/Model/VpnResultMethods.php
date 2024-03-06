@@ -193,6 +193,15 @@ class VpnResultMethods implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['timezone_mismatch'] === null) {
+            $invalidProperties[] = "'timezone_mismatch' can't be null";
+        }
+        if ($this->container['public_vpn'] === null) {
+            $invalidProperties[] = "'public_vpn' can't be null";
+        }
+        if ($this->container['auxiliary_mobile'] === null) {
+            $invalidProperties[] = "'auxiliary_mobile' can't be null";
+        }
         return $invalidProperties;
     }
 

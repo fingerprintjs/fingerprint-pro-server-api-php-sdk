@@ -187,6 +187,12 @@ class IpBlockListResultDetails implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['email_spam'] === null) {
+            $invalidProperties[] = "'email_spam' can't be null";
+        }
+        if ($this->container['attack_source'] === null) {
+            $invalidProperties[] = "'attack_source' can't be null";
+        }
         return $invalidProperties;
     }
 

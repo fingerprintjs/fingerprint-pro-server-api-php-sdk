@@ -199,6 +199,12 @@ class IpInfoResultV4 implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['address'] === null) {
+            $invalidProperties[] = "'address' can't be null";
+        }
+        if ($this->container['geolocation'] === null) {
+            $invalidProperties[] = "'geolocation' can't be null";
+        }
         return $invalidProperties;
     }
 

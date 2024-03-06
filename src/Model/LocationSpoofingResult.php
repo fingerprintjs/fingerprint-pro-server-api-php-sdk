@@ -181,6 +181,9 @@ class LocationSpoofingResult implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -209,7 +212,7 @@ class LocationSpoofingResult implements ModelInterface, ArrayAccess
     /**
      * Sets result
      *
-     * @param bool $result Flag indicating whether the request came from a device with location spoofing enabled.
+     * @param bool $result Flag indicating whether the request came from a mobile device with location spoofing enabled.
      *
      * @return $this
      */

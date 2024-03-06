@@ -187,6 +187,12 @@ class TamperingResult implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
+        if ($this->container['anomaly_score'] === null) {
+            $invalidProperties[] = "'anomaly_score' can't be null";
+        }
         return $invalidProperties;
     }
 
