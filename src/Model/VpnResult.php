@@ -58,6 +58,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'result' => 'bool',
 'origin_timezone' => 'string',
+'origin_country' => 'string',
 'methods' => '\Fingerprint\ServerAPI\Model\VpnResultMethods'    ];
 
     /**
@@ -68,6 +69,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'result' => null,
 'origin_timezone' => null,
+'origin_country' => null,
 'methods' => null    ];
 
     /**
@@ -99,6 +101,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'result' => 'result',
 'origin_timezone' => 'originTimezone',
+'origin_country' => 'originCountry',
 'methods' => 'methods'    ];
 
     /**
@@ -109,6 +112,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     protected static $setters = [
         'result' => 'setResult',
 'origin_timezone' => 'setOriginTimezone',
+'origin_country' => 'setOriginCountry',
 'methods' => 'setMethods'    ];
 
     /**
@@ -119,6 +123,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     protected static $getters = [
         'result' => 'getResult',
 'origin_timezone' => 'getOriginTimezone',
+'origin_country' => 'getOriginCountry',
 'methods' => 'getMethods'    ];
 
     /**
@@ -181,6 +186,7 @@ class VpnResult implements ModelInterface, ArrayAccess
     {
         $this->container['result'] = isset($data['result']) ? $data['result'] : null;
         $this->container['origin_timezone'] = isset($data['origin_timezone']) ? $data['origin_timezone'] : null;
+        $this->container['origin_country'] = isset($data['origin_country']) ? $data['origin_country'] : null;
         $this->container['methods'] = isset($data['methods']) ? $data['methods'] : null;
     }
 
@@ -193,6 +199,15 @@ class VpnResult implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
+        if ($this->container['origin_timezone'] === null) {
+            $invalidProperties[] = "'origin_timezone' can't be null";
+        }
+        if ($this->container['methods'] === null) {
+            $invalidProperties[] = "'methods' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -252,6 +267,30 @@ class VpnResult implements ModelInterface, ArrayAccess
     public function setOriginTimezone($origin_timezone)
     {
         $this->container['origin_timezone'] = $origin_timezone;
+
+        return $this;
+    }
+
+    /**
+     * Gets origin_country
+     *
+     * @return string
+     */
+    public function getOriginCountry()
+    {
+        return $this->container['origin_country'];
+    }
+
+    /**
+     * Sets origin_country
+     *
+     * @param string $origin_country Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).
+     *
+     * @return $this
+     */
+    public function setOriginCountry($origin_country)
+    {
+        $this->container['origin_country'] = $origin_country;
 
         return $this;
     }
