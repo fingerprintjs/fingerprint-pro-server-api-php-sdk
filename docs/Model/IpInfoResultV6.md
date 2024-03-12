@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**address** | **string** |  | [optional] 
-**geolocation** | [**\Fingerprint\ServerAPI\Model\IPLocation**](IPLocation.md) |  | [optional] 
+**address** | **string** |  | 
+**geolocation** | [**\Fingerprint\ServerAPI\Model\IPLocation**](IPLocation.md) |  | 
 **asn** | [**\Fingerprint\ServerAPI\Model\ASN**](ASN.md) |  | [optional] 
 **datacenter** | [**\Fingerprint\ServerAPI\Model\DataCenter**](DataCenter.md) |  | [optional] 
 

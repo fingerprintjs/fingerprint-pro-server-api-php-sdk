@@ -56,7 +56,7 @@ class SignalResponseIncognito implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseIncognitoData',
+        'data' => '\Fingerprint\ServerAPI\Model\IncognitoResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseIncognito implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseIncognitoData
+     * @return \Fingerprint\ServerAPI\Model\IncognitoResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseIncognito implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseIncognitoData $data data
+     * @param \Fingerprint\ServerAPI\Model\IncognitoResult $data data
      *
      * @return $this
      */

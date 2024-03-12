@@ -56,7 +56,7 @@ class SignalResponseFrida implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseFridaData',
+        'data' => '\Fingerprint\ServerAPI\Model\FridaResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseFrida implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseFridaData
+     * @return \Fingerprint\ServerAPI\Model\FridaResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseFrida implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseFridaData $data data
+     * @param \Fingerprint\ServerAPI\Model\FridaResult $data data
      *
      * @return $this
      */

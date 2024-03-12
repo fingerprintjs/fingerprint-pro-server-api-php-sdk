@@ -56,7 +56,7 @@ class SignalResponseTor implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseTorData',
+        'data' => '\Fingerprint\ServerAPI\Model\TorResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseTor implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseTorData
+     * @return \Fingerprint\ServerAPI\Model\TorResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseTor implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseTorData $data data
+     * @param \Fingerprint\ServerAPI\Model\TorResult $data data
      *
      * @return $this
      */

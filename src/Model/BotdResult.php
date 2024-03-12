@@ -62,6 +62,7 @@ class BotdResult implements ModelInterface, ArrayAccess
 'url' => 'string',
 'user_agent' => 'string',
 'request_id' => 'string',
+'linked_id' => 'string',
 'bot' => '\Fingerprint\ServerAPI\Model\BotdDetectionResult'    ];
 
     /**
@@ -72,9 +73,10 @@ class BotdResult implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'ip' => 'ipv4',
 'time' => 'date-time',
-'url' => 'uri-reference',
+'url' => null,
 'user_agent' => null,
 'request_id' => null,
+'linked_id' => null,
 'bot' => null    ];
 
     /**
@@ -109,6 +111,7 @@ class BotdResult implements ModelInterface, ArrayAccess
 'url' => 'url',
 'user_agent' => 'userAgent',
 'request_id' => 'requestId',
+'linked_id' => 'linkedId',
 'bot' => 'bot'    ];
 
     /**
@@ -122,6 +125,7 @@ class BotdResult implements ModelInterface, ArrayAccess
 'url' => 'setUrl',
 'user_agent' => 'setUserAgent',
 'request_id' => 'setRequestId',
+'linked_id' => 'setLinkedId',
 'bot' => 'setBot'    ];
 
     /**
@@ -135,6 +139,7 @@ class BotdResult implements ModelInterface, ArrayAccess
 'url' => 'getUrl',
 'user_agent' => 'getUserAgent',
 'request_id' => 'getRequestId',
+'linked_id' => 'getLinkedId',
 'bot' => 'getBot'    ];
 
     /**
@@ -200,6 +205,7 @@ class BotdResult implements ModelInterface, ArrayAccess
         $this->container['url'] = isset($data['url']) ? $data['url'] : null;
         $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
         $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
+        $this->container['linked_id'] = isset($data['linked_id']) ? $data['linked_id'] : null;
         $this->container['bot'] = isset($data['bot']) ? $data['bot'] : null;
     }
 
@@ -220,6 +226,12 @@ class BotdResult implements ModelInterface, ArrayAccess
         }
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
+        }
+        if ($this->container['user_agent'] === null) {
+            $invalidProperties[] = "'user_agent' can't be null";
+        }
+        if ($this->container['request_id'] === null) {
+            $invalidProperties[] = "'request_id' can't be null";
         }
         if ($this->container['bot'] === null) {
             $invalidProperties[] = "'bot' can't be null";
@@ -355,6 +367,30 @@ class BotdResult implements ModelInterface, ArrayAccess
     public function setRequestId($request_id)
     {
         $this->container['request_id'] = $request_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets linked_id
+     *
+     * @return string
+     */
+    public function getLinkedId()
+    {
+        return $this->container['linked_id'];
+    }
+
+    /**
+     * Sets linked_id
+     *
+     * @param string $linked_id linked_id
+     *
+     * @return $this
+     */
+    public function setLinkedId($linked_id)
+    {
+        $this->container['linked_id'] = $linked_id;
 
         return $this;
     }

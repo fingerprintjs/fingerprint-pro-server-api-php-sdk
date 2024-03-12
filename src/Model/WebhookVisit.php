@@ -62,26 +62,27 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'bot' => '\Fingerprint\ServerAPI\Model\BotdDetectionResult',
 'ip_info' => '\Fingerprint\ServerAPI\Model\IpInfoResult',
 'incognito' => 'bool',
-'root_apps' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps',
-'emulator' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator',
-'cloned_app' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseClonedApp',
-'factory_reset' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseFactoryReset',
-'jailbroken' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseJailbroken',
-'frida' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseFrida',
+'root_apps' => '\Fingerprint\ServerAPI\Model\RootAppsResult',
+'emulator' => '\Fingerprint\ServerAPI\Model\EmulatorResult',
+'cloned_app' => '\Fingerprint\ServerAPI\Model\ClonedAppResult',
+'factory_reset' => '\Fingerprint\ServerAPI\Model\FactoryResetResult',
+'jailbroken' => '\Fingerprint\ServerAPI\Model\JailbrokenResult',
+'frida' => '\Fingerprint\ServerAPI\Model\FridaResult',
 'ip_blocklist' => '\Fingerprint\ServerAPI\Model\IpBlockListResult',
-'tor' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseTor',
-'privacy_settings' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponsePrivacySettings',
-'virtual_machine' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseVirtualMachine',
+'tor' => '\Fingerprint\ServerAPI\Model\TorResult',
+'privacy_settings' => '\Fingerprint\ServerAPI\Model\PrivacySettingsResult',
+'virtual_machine' => '\Fingerprint\ServerAPI\Model\VirtualMachineResult',
 'vpn' => '\Fingerprint\ServerAPI\Model\VpnResult',
-'proxy' => '\Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy',
+'proxy' => '\Fingerprint\ServerAPI\Model\ProxyResult',
 'tampering' => '\Fingerprint\ServerAPI\Model\TamperingResult',
 'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult',
 'high_activity' => '\Fingerprint\ServerAPI\Model\HighActivityResult',
 'location_spoofing' => '\Fingerprint\ServerAPI\Model\LocationSpoofingResult',
+'suspect_score' => '\Fingerprint\ServerAPI\Model\SuspectScoreResult',
 'request_id' => 'string',
 'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
 'ip' => 'string',
-'ip_location' => '\Fingerprint\ServerAPI\Model\IPLocation',
+'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedIPLocation',
 'timestamp' => 'int',
 'time' => '\DateTime',
 'url' => 'string',
@@ -120,13 +121,14 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'raw_device_attributes' => null,
 'high_activity' => null,
 'location_spoofing' => null,
+'suspect_score' => null,
 'request_id' => null,
 'browser_details' => null,
 'ip' => 'ipv4',
 'ip_location' => null,
 'timestamp' => 'int64',
 'time' => 'date-time',
-'url' => 'uri',
+'url' => null,
 'tag' => null,
 'linked_id' => null,
 'confidence' => null,
@@ -183,6 +185,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'raw_device_attributes' => 'rawDeviceAttributes',
 'high_activity' => 'highActivity',
 'location_spoofing' => 'locationSpoofing',
+'suspect_score' => 'suspectScore',
 'request_id' => 'requestId',
 'browser_details' => 'browserDetails',
 'ip' => 'ip',
@@ -225,6 +228,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'raw_device_attributes' => 'setRawDeviceAttributes',
 'high_activity' => 'setHighActivity',
 'location_spoofing' => 'setLocationSpoofing',
+'suspect_score' => 'setSuspectScore',
 'request_id' => 'setRequestId',
 'browser_details' => 'setBrowserDetails',
 'ip' => 'setIp',
@@ -267,6 +271,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 'raw_device_attributes' => 'getRawDeviceAttributes',
 'high_activity' => 'getHighActivity',
 'location_spoofing' => 'getLocationSpoofing',
+'suspect_score' => 'getSuspectScore',
 'request_id' => 'getRequestId',
 'browser_details' => 'getBrowserDetails',
 'ip' => 'getIp',
@@ -361,6 +366,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
         $this->container['raw_device_attributes'] = isset($data['raw_device_attributes']) ? $data['raw_device_attributes'] : null;
         $this->container['high_activity'] = isset($data['high_activity']) ? $data['high_activity'] : null;
         $this->container['location_spoofing'] = isset($data['location_spoofing']) ? $data['location_spoofing'] : null;
+        $this->container['suspect_score'] = isset($data['suspect_score']) ? $data['suspect_score'] : null;
         $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $this->container['browser_details'] = isset($data['browser_details']) ? $data['browser_details'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
@@ -409,8 +415,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
-        if ($this->container['confidence'] === null) {
-            $invalidProperties[] = "'confidence' can't be null";
+        if ($this->container['tag'] === null) {
+            $invalidProperties[] = "'tag' can't be null";
         }
         if ($this->container['visitor_found'] === null) {
             $invalidProperties[] = "'visitor_found' can't be null";
@@ -583,7 +589,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets root_apps
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps
+     * @return \Fingerprint\ServerAPI\Model\RootAppsResult
      */
     public function getRootApps()
     {
@@ -593,7 +599,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets root_apps
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseRootApps $root_apps root_apps
+     * @param \Fingerprint\ServerAPI\Model\RootAppsResult $root_apps root_apps
      *
      * @return $this
      */
@@ -607,7 +613,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets emulator
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator
+     * @return \Fingerprint\ServerAPI\Model\EmulatorResult
      */
     public function getEmulator()
     {
@@ -617,7 +623,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets emulator
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseEmulator $emulator emulator
+     * @param \Fingerprint\ServerAPI\Model\EmulatorResult $emulator emulator
      *
      * @return $this
      */
@@ -631,7 +637,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets cloned_app
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseClonedApp
+     * @return \Fingerprint\ServerAPI\Model\ClonedAppResult
      */
     public function getClonedApp()
     {
@@ -641,7 +647,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets cloned_app
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseClonedApp $cloned_app cloned_app
+     * @param \Fingerprint\ServerAPI\Model\ClonedAppResult $cloned_app cloned_app
      *
      * @return $this
      */
@@ -655,7 +661,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets factory_reset
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseFactoryReset
+     * @return \Fingerprint\ServerAPI\Model\FactoryResetResult
      */
     public function getFactoryReset()
     {
@@ -665,7 +671,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets factory_reset
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseFactoryReset $factory_reset factory_reset
+     * @param \Fingerprint\ServerAPI\Model\FactoryResetResult $factory_reset factory_reset
      *
      * @return $this
      */
@@ -679,7 +685,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets jailbroken
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseJailbroken
+     * @return \Fingerprint\ServerAPI\Model\JailbrokenResult
      */
     public function getJailbroken()
     {
@@ -689,7 +695,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets jailbroken
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseJailbroken $jailbroken jailbroken
+     * @param \Fingerprint\ServerAPI\Model\JailbrokenResult $jailbroken jailbroken
      *
      * @return $this
      */
@@ -703,7 +709,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets frida
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseFrida
+     * @return \Fingerprint\ServerAPI\Model\FridaResult
      */
     public function getFrida()
     {
@@ -713,7 +719,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets frida
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseFrida $frida frida
+     * @param \Fingerprint\ServerAPI\Model\FridaResult $frida frida
      *
      * @return $this
      */
@@ -751,7 +757,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets tor
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseTor
+     * @return \Fingerprint\ServerAPI\Model\TorResult
      */
     public function getTor()
     {
@@ -761,7 +767,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets tor
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseTor $tor tor
+     * @param \Fingerprint\ServerAPI\Model\TorResult $tor tor
      *
      * @return $this
      */
@@ -775,7 +781,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets privacy_settings
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponsePrivacySettings
+     * @return \Fingerprint\ServerAPI\Model\PrivacySettingsResult
      */
     public function getPrivacySettings()
     {
@@ -785,7 +791,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets privacy_settings
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponsePrivacySettings $privacy_settings privacy_settings
+     * @param \Fingerprint\ServerAPI\Model\PrivacySettingsResult $privacy_settings privacy_settings
      *
      * @return $this
      */
@@ -799,7 +805,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets virtual_machine
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseVirtualMachine
+     * @return \Fingerprint\ServerAPI\Model\VirtualMachineResult
      */
     public function getVirtualMachine()
     {
@@ -809,7 +815,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets virtual_machine
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseVirtualMachine $virtual_machine virtual_machine
+     * @param \Fingerprint\ServerAPI\Model\VirtualMachineResult $virtual_machine virtual_machine
      *
      * @return $this
      */
@@ -847,7 +853,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets proxy
      *
-     * @return \Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy
+     * @return \Fingerprint\ServerAPI\Model\ProxyResult
      */
     public function getProxy()
     {
@@ -857,7 +863,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets proxy
      *
-     * @param \Fingerprint\ServerAPI\Model\WebhookSignalResponseProxy $proxy proxy
+     * @param \Fingerprint\ServerAPI\Model\ProxyResult $proxy proxy
      *
      * @return $this
      */
@@ -965,6 +971,30 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets suspect_score
+     *
+     * @return \Fingerprint\ServerAPI\Model\SuspectScoreResult
+     */
+    public function getSuspectScore()
+    {
+        return $this->container['suspect_score'];
+    }
+
+    /**
+     * Sets suspect_score
+     *
+     * @param \Fingerprint\ServerAPI\Model\SuspectScoreResult $suspect_score suspect_score
+     *
+     * @return $this
+     */
+    public function setSuspectScore($suspect_score)
+    {
+        $this->container['suspect_score'] = $suspect_score;
+
+        return $this;
+    }
+
+    /**
      * Gets request_id
      *
      * @return string
@@ -1039,7 +1069,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets ip_location
      *
-     * @return \Fingerprint\ServerAPI\Model\IPLocation
+     * @return \Fingerprint\ServerAPI\Model\DeprecatedIPLocation
      */
     public function getIpLocation()
     {
@@ -1049,7 +1079,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets ip_location
      *
-     * @param \Fingerprint\ServerAPI\Model\IPLocation $ip_location ip_location
+     * @param \Fingerprint\ServerAPI\Model\DeprecatedIPLocation $ip_location ip_location
      *
      * @return $this
      */
@@ -1121,7 +1151,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets url
      *
-     * @param string $url Page URL from which identification request was sent.
+     * @param string $url Page URL from which the identification request was sent.
      *
      * @return $this
      */

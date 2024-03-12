@@ -187,6 +187,9 @@ class HighActivityResult implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['result'] === null) {
+            $invalidProperties[] = "'result' can't be null";
+        }
         return $invalidProperties;
     }
 

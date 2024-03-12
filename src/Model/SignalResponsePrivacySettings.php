@@ -56,7 +56,7 @@ class SignalResponsePrivacySettings implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponsePrivacySettingsData',
+        'data' => '\Fingerprint\ServerAPI\Model\PrivacySettingsResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponsePrivacySettings implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponsePrivacySettingsData
+     * @return \Fingerprint\ServerAPI\Model\PrivacySettingsResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponsePrivacySettings implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponsePrivacySettingsData $data data
+     * @param \Fingerprint\ServerAPI\Model\PrivacySettingsResult $data data
      *
      * @return $this
      */

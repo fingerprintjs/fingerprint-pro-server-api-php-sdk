@@ -56,7 +56,7 @@ class SignalResponseJailbroken implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseJailbrokenData',
+        'data' => '\Fingerprint\ServerAPI\Model\JailbrokenResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseJailbroken implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseJailbrokenData
+     * @return \Fingerprint\ServerAPI\Model\JailbrokenResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseJailbroken implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseJailbrokenData $data data
+     * @param \Fingerprint\ServerAPI\Model\JailbrokenResult $data data
      *
      * @return $this
      */

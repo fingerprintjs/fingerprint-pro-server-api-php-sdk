@@ -15,7 +15,8 @@ class FingerprintApiTest extends TestCase
     /** @var FingerprintApi */
     protected $fingerprint_api;
 
-    const MOCK_REQUEST_ID = '0KSh65EnVoB85JBmloQK';
+    const MOCK_REQUEST_ID = '1708102555327.NLOjmg';
+    const MOCK_EXTRA_FIELDS_REQUEST_ID = '0KSh65EnVoB85JBmloQK';
     const MOCK_REQUEST_ALL_ERRORS = 'ALL_ERRORS';
     const MOCK_REQUEST_EXTRA_FIELDS = 'EXTRA_FIELDS';
     const MOCK_VISITOR_ID = 'AcxioeQKffpXF8iGQK3P';
@@ -59,13 +60,13 @@ class FingerprintApiTest extends TestCase
         $mock_name = '';
         switch ($request_id) {
             case self::MOCK_REQUEST_ID:
-                $mock_name = 'get_event.json';
+                $mock_name = 'get_event_200.json';
                 break;
             case self::MOCK_REQUEST_ALL_ERRORS:
-                $mock_name = 'get_event_all_errors.json';
+                $mock_name = 'get_event_200_all_errors.json';
                 break;
             case self::MOCK_REQUEST_EXTRA_FIELDS:
-                $mock_name = 'get_event_extra_fields.json';
+                $mock_name = 'get_event_200_extra_fields.json';
                 break;
         }
         $events_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/$mock_name"));
@@ -74,7 +75,7 @@ class FingerprintApiTest extends TestCase
 
     public function getVisitsMock($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null)
     {
-        $visits_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . '/mocks/visits_limit_500.json'));
+        $visits_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . '/mocks/get_visits_200_limit_500.json'));
         if ($request_id) {
             $visits_mock_data->visits = array_filter($visits_mock_data->visits, function ($item) use ($request_id) {
                 return $item->requestId = $request_id;
@@ -118,7 +119,7 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals(127, $raw_device_attributes['architecture']->value);
         $this->assertEquals(35.73832903057337, $raw_device_attributes['audio']->value);
         $this->assertEquals('4dce9d6017c3e0c052a77252f29f2b1c', $raw_device_attributes['canvas']->value->Geometry);
-        $this->assertEquals('srgb', $raw_device_attributes['colorGamut']->value);
+        $this->assertEquals('p3', $raw_device_attributes['colorGamut']->value);
         $this->assertTrue( $raw_device_attributes['cookiesEnabled']->value);
 
         $location_spuffing = $products->getLocationSpoofing()->getData();
@@ -134,7 +135,7 @@ class FingerprintApiTest extends TestCase
         $products = $event->getProducts();
         $identification_product = $products->getIdentification();
         $request_id = $identification_product->getData()->getRequestId();
-        $this->assertEquals(self::MOCK_REQUEST_ID, $request_id);
+        $this->assertEquals(self::MOCK_EXTRA_FIELDS_REQUEST_ID, $request_id);
     }
 
     public function testGetEventWithAllErrors()

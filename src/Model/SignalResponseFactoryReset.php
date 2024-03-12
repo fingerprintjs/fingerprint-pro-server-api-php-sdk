@@ -56,7 +56,7 @@ class SignalResponseFactoryReset implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseFactoryResetData',
+        'data' => '\Fingerprint\ServerAPI\Model\FactoryResetResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseFactoryReset implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseFactoryResetData
+     * @return \Fingerprint\ServerAPI\Model\FactoryResetResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseFactoryReset implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseFactoryResetData $data data
+     * @param \Fingerprint\ServerAPI\Model\FactoryResetResult $data data
      *
      * @return $this
      */

@@ -56,7 +56,7 @@ class SignalResponseVirtualMachine implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseVirtualMachineData',
+        'data' => '\Fingerprint\ServerAPI\Model\VirtualMachineResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseVirtualMachine implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseVirtualMachineData
+     * @return \Fingerprint\ServerAPI\Model\VirtualMachineResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseVirtualMachine implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseVirtualMachineData $data data
+     * @param \Fingerprint\ServerAPI\Model\VirtualMachineResult $data data
      *
      * @return $this
      */

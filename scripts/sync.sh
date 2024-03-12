@@ -1,12 +1,12 @@
 #!/bin/bash
 
-curl -o ./res/fingerprint-server-api.yaml https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/schemes/fingerprint-server-api.yaml
+curl -o ./res/fingerprint-server-api.yaml https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/schemas/fingerprint-server-api-compact.yaml
 
 examplesList=(
-  'visits_limit_500.json'
-  'get_event.json'
-  'get_event_all_errors.json'
-  'get_event_extra_fields.json'
+  'get_visits_200_limit_500.json'
+  'get_event_200.json'
+  'get_event_200_all_errors.json'
+  'get_event_200_extra_fields.json'
 )
 
 for example in ${examplesList[*]}; do

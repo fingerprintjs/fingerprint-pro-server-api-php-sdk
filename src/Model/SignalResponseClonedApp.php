@@ -56,7 +56,7 @@ class SignalResponseClonedApp implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseClonedAppData',
+        'data' => '\Fingerprint\ServerAPI\Model\ClonedAppResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseClonedApp implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseClonedAppData
+     * @return \Fingerprint\ServerAPI\Model\ClonedAppResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseClonedApp implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseClonedAppData $data data
+     * @param \Fingerprint\ServerAPI\Model\ClonedAppResult $data data
      *
      * @return $this
      */

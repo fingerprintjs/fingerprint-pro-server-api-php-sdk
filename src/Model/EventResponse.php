@@ -57,7 +57,8 @@ class EventResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'products' => '\Fingerprint\ServerAPI\Model\ProductsResponse'    ];
+        'products' => '\Fingerprint\ServerAPI\Model\ProductsResponse',
+'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
       * Array of property to format mappings. Used for (de)serialization
@@ -65,7 +66,8 @@ class EventResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'products' => null    ];
+        'products' => null,
+'error' => null    ];
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -94,7 +96,8 @@ class EventResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'products' => 'products'    ];
+        'products' => 'products',
+'error' => 'error'    ];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses)
@@ -102,7 +105,8 @@ class EventResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'products' => 'setProducts'    ];
+        'products' => 'setProducts',
+'error' => 'setError'    ];
 
     /**
      * Array of attributes to getter functions (for serialization of requests)
@@ -110,7 +114,8 @@ class EventResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'products' => 'getProducts'    ];
+        'products' => 'getProducts',
+'error' => 'getError'    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -171,6 +176,7 @@ class EventResponse implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['products'] = isset($data['products']) ? $data['products'] : null;
+        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
     }
 
     /**
@@ -182,6 +188,9 @@ class EventResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['products'] === null) {
+            $invalidProperties[] = "'products' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -217,6 +226,30 @@ class EventResponse implements ModelInterface, ArrayAccess
     public function setProducts($products)
     {
         $this->container['products'] = $products;
+
+        return $this;
+    }
+
+    /**
+     * Gets error
+     *
+     * @return \Fingerprint\ServerAPI\Model\ProductError
+     */
+    public function getError()
+    {
+        return $this->container['error'];
+    }
+
+    /**
+     * Sets error
+     *
+     * @param \Fingerprint\ServerAPI\Model\ProductError $error error
+     *
+     * @return $this
+     */
+    public function setError($error)
+    {
+        $this->container['error'] = $error;
 
         return $this;
     }

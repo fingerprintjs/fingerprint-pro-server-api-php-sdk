@@ -56,7 +56,7 @@ class SignalResponseEmulator implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\SignalResponseEmulatorData',
+        'data' => '\Fingerprint\ServerAPI\Model\EmulatorResult',
 'error' => '\Fingerprint\ServerAPI\Model\ProductError'    ];
 
     /**
@@ -205,7 +205,7 @@ class SignalResponseEmulator implements ModelInterface, ArrayAccess
     /**
      * Gets data
      *
-     * @return \Fingerprint\ServerAPI\Model\SignalResponseEmulatorData
+     * @return \Fingerprint\ServerAPI\Model\EmulatorResult
      */
     public function getData()
     {
@@ -215,7 +215,7 @@ class SignalResponseEmulator implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Fingerprint\ServerAPI\Model\SignalResponseEmulatorData $data data
+     * @param \Fingerprint\ServerAPI\Model\EmulatorResult $data data
      *
      * @return $this
      */
