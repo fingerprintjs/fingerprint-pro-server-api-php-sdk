@@ -1,3 +1,27 @@
+## [4.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v3.1.0...v4.0.0) (2024-03-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* change models for the most smart signals
+* make identification field `confidence` optional
+* deprecated `ipLocation` field uses `DeprecatedIpLocation` model
+
+### Features
+
+* add `linkedId` field to the `BotdResult` type ([13d1998](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/13d19989391b671d36a5b933daf64816476867f8))
+* add `originCountry` field to the `vpn` signal ([d3763f9](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/d3763f97d7f4909508abdfce5cec456de42727cf))
+* add `SuspectScore` smart signal support ([aad70df](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/aad70df86d2dbc76c4bf12ede7b229f9bd413b32))
+* change `url` field format from URI to regular String ([425576e](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/425576ee9eb5f2f775ef075a3dc394f05d4858e8))
+* fix `ipLocation` deprecation ([60c77d8](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/60c77d8f448ea5d3b469d77aca10829cb62281b2))
+* make identification field `tag` required ([fbcb954](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/fbcb9547cf6dfbd03b5de00e4ae6114b9f43b06d))
+* use shared structures for webhooks and event ([49480f9](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/49480f923b2bb19b6841522def6eac9aa0b64b67))
+
+
+### Bug Fixes
+
+* make fields required according to real API response ([d129f54](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/d129f54a8bad1c3df1c000b2a96337ffb90056c0))
+
 ## [3.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v3.0.0...v3.1.0) (2024-02-13)
 
 
