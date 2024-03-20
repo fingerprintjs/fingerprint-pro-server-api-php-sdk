@@ -1,3 +1,23 @@
+name: 'Release'
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  release:
+    name: 'Publish new version'
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-server-sdk.yml@v1
+    with:
+      language: php
+      language-version: '7.3'
+      prepare-command: |
+        composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+    secrets:
+      GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+
+
 name: Release
 
 on:
