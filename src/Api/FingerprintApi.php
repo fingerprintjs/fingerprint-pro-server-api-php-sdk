@@ -79,6 +79,7 @@ class FingerprintApi
         $this->config = $config ?: new Configuration();
         $this->headerSelector = $selector ?: new HeaderSelector();
 
+        // TODO Remove on next major release
         if(version_compare(
             PHP_VERSION,
             '8.1',
