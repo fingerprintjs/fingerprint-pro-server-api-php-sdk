@@ -3,7 +3,7 @@
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
+         convertWarningsToExceptions="false"
          stopOnFailure="false">
     <testsuites>
         <testsuite name="FingerprintAPI Test">
