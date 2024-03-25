@@ -1,41 +1,20 @@
-name: Release
-
+name: 'Release'
 on:
   push:
     branches:
-      - main
       - develop
+      - main
 
 jobs:
   release:
-    name: Release Version
-    runs-on: "ubuntu-latest"
-    environment: production
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
-          java-version: '11'
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: "7.3"
-          coverage: none
-          tools: composer:v2
-
-      - name: Install Composer Dependencies
-        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
-
-      - name: Install Yarn dependencies
-        run: yarn install --cwd=release
-
-      - name: Release
-        run: ./release/node_modules/.bin/semantic-release --extends ./release/.releaserc.js
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
-          HUSKY: 0
+    name: 'Publish new version'
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-server-sdk.yml@v1
+    with:
+      language: php
+      language-version: '8.3'
+      prepare-command: |
+        composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+      appId: ${{ vars.APP_ID }}
+    secrets:
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+      NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

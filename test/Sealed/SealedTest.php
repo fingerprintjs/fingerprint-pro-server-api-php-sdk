@@ -89,7 +89,7 @@ class SealedTest extends TestCase
 
             $actualError = $error->getPrevious();
 
-            $this->assertEquals("gzinflate(): data error", $actualError->getMessage());
+            $this->assertInstanceOf(DecompressionException::class, $actualError);
         }
     }
 
