@@ -1,3 +1,15 @@
+## [4.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v4.0.0...v4.1.0) (2024-03-26)
+
+
+### Features
+
+* deprecate support for PHP versions older than 8.1 ([56042c3](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/56042c35eb01bf39a23000af6996204571dced6d))
+
+
+### Documentation
+
+* **README:** fix badges formatting ([779c726](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/779c726ef99166eaec006cd8467612b4e8037eeb))
+
 ## [4.0.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v3.1.0...v4.0.0) (2024-03-12)
 
 
