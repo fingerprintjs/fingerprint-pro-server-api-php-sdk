@@ -78,6 +78,15 @@ class FingerprintApi
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
         $this->headerSelector = $selector ?: new HeaderSelector();
+
+        // TODO Remove on next major release
+        if(version_compare(
+            PHP_VERSION,
+            '8.1',
+            '<'
+        )) {
+            trigger_error('You are using a PHP version that has reached EOL. Support for it will be removed in next major release of this SDK. Please consider upgrading to PHP 8.1 or higher.', E_USER_WARNING);
+        }
     }
 
     /**
