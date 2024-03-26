@@ -38,11 +38,11 @@ jobs:
           FP_REQUEST_ID: "${{ secrets.FP_REQUEST_ID }}"
 
   report-status:
-    needs: tests
+    needs: functional_tests
     if: always()
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/report-workflow-status.yml@v1
     with:
       notification_title: 'PHP SDK Tests has {status_message}'
-      job_status: ${{ needs.tests.result }}
+      job_status: ${{ needs.functional_tests.result }}
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
