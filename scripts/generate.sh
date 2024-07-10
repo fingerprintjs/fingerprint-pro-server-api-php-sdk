@@ -38,7 +38,8 @@ platform=$(uname)
 # clean models before generating
 rm -f ./src/Model/*
 
-java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json
+java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json -Dmodels
+java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json -DsupportingFiles
 
 # fix invalid code generated for structure with additionalProperties
 (
@@ -67,3 +68,4 @@ mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
 find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" -exec rm {} +
 mv -f src/docs/* ./docs
+cp template/docs/FingerprintApi.md docs/Api
