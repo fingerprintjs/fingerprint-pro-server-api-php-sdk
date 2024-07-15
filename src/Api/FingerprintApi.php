@@ -10,6 +10,7 @@ use GuzzleHttp\ClientInterface;
 use Fingerprint\ServerAPI\Configuration;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
+use RuntimeException;
 
 class FingerprintApi
 {
@@ -37,7 +38,7 @@ class FingerprintApi
         $this->config = $config ?: new Configuration();
     }
 
-    protected function getSDKVersion()
+    protected function getSDKVersion(): string
     {
         $string = file_get_contents(dirname(__FILE__) . "/../../composer.json");
         $jsonData = json_decode($string, true);
@@ -45,17 +46,17 @@ class FingerprintApi
         return $jsonData['version'];
     }
 
-    protected function getEventURL()
+    protected function getEventURL(): string
     {
         return $this->config->getHost() . "/events/{request_id}";
     }
 
-    protected function getVisitsURL()
+    protected function getVisitsURL(): string
     {
         return $this->config->getHost() . "/visitors/{visitor_id}";
     }
 
-    protected function getClientOptions()
+    protected function getClientOptions(): array
     {
         $options = [
             'headers' => [
@@ -81,7 +82,7 @@ class FingerprintApi
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
             if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
+                throw new RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }
         }
 
