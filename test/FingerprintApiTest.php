@@ -32,10 +32,10 @@ class FingerprintApiTest extends TestCase
 
     protected function getVersion()
     {
-        $config_file = file_get_contents(__DIR__ . '/../config.json');
+        $config_file = file_get_contents(__DIR__ . '/../composer.json');
         $config = json_decode($config_file, true);
 
-        return $config['artifactVersion'];
+        return $config['version'];
     }
 
     public function setUp(): void
