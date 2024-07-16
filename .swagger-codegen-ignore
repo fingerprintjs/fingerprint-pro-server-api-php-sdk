@@ -6,3 +6,5 @@ src/git_push.sh
 src/test/**
 src/Api/FingerprintApi.php
 src/HeaderSelector.php
+src/Model/EventResponse.php
+src/Model/Response.php

@@ -102,6 +102,7 @@ class FingerprintApi
         $content = $response->getBody()->getContents();
         /** @var EventResponse $serialized */
         $serialized = ObjectSerializer::deserialize($content, EventResponse::class, []);
+        $serialized->setRawResponse($content);
 
         return $serialized;
     }
@@ -134,6 +135,7 @@ class FingerprintApi
         $content = $response->getBody()->getContents();
         /** @var Response $serialized */
         $serialized = ObjectSerializer::deserialize($content, Response::class, []);
+        $serialized->setRawResponse($content);
 
         return $serialized;
     }

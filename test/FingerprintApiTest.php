@@ -70,7 +70,11 @@ class FingerprintApiTest extends TestCase
                 break;
         }
         $events_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/$mock_name"));
-        return ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
+        /** @var EventResponse $serialized */
+        $serialized = ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
+        $serialized->setRawResponse($events_mock_data);
+
+        return $serialized;
     }
 
     public function getVisitsMock($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null)
@@ -85,7 +89,11 @@ class FingerprintApiTest extends TestCase
         if ($limit && is_numeric($limit)) {
             $visits_mock_data->visits = array_slice($visits_mock_data->visits, 0, $limit);
         }
-        return ObjectSerializer::deserialize($visits_mock_data, Response::class);
+        /** @var Response $serialized */
+        $serialized = ObjectSerializer::deserialize($visits_mock_data, Response::class);
+        $serialized->setRawResponse($visits_mock_data);
+
+        return $serialized;
     }
 
     public function testGetEvent()
@@ -104,9 +112,8 @@ class FingerprintApiTest extends TestCase
         $virtual_machine_product = $products->getVirtualMachine();
         $request_id = $identification_product->getData()->getRequestId();
         $this->assertEquals(self::MOCK_REQUEST_ID, $request_id);
-        var_dump($botd_product->getData()->getBot()->getResult());
         $this->assertEquals('notDetected', $botd_product->getData()->getBot()->getResult());
-        $this->assertFalse( $vpn_product->getData()->getMethods()->getPublicVpn());
+        $this->assertFalse($vpn_product->getData()->getMethods()->getPublicVpn());
         $this->assertEquals('94.142.239.124', $ip_info_product->getData()->getV4()->getAddress());
         $this->assertFalse($cloned_app_product->getData()->getResult());
         $this->assertEquals(new \DateTime('1970-01-01T00:00:00Z'), $factory_reset_product->getData()->getTime());
@@ -120,13 +127,13 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals(35.73832903057337, $raw_device_attributes['audio']->value);
         $this->assertEquals('4dce9d6017c3e0c052a77252f29f2b1c', $raw_device_attributes['canvas']->value->Geometry);
         $this->assertEquals('p3', $raw_device_attributes['colorGamut']->value);
-        $this->assertTrue( $raw_device_attributes['cookiesEnabled']->value);
+        $this->assertTrue($raw_device_attributes['cookiesEnabled']->value);
 
         $location_spuffing = $products->getLocationSpoofing()->getData();
-        $this->assertFalse( $location_spuffing->getResult());
+        $this->assertFalse($location_spuffing->getResult());
 
         $high_activity = $products->getHighActivity()->getData();
-        $this->assertFalse( $high_activity->getResult());
+        $this->assertFalse($high_activity->getResult());
     }
 
     public function testGetEventWithExtraFields()
@@ -202,5 +209,18 @@ class FingerprintApiTest extends TestCase
         $visits = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID, null, $limit);
         $count = count($visits->getVisits());
         $this->assertLessThanOrEqual($limit, $count);
+    }
+
+    public function testGetEventRawResponse()
+    {
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID);
+        $mockedResult = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/get_event_200.json"));
+        $this->assertEquals($mockedResult, $event->getRawResponse());
+    }
+
+    public function testGetVisitsRawResponse() {
+        $visits = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID);
+        $mockedResult = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/get_visits_200_limit_500.json"));
+        $this->assertEquals($mockedResult, $visits->getRawResponse());
     }
 }

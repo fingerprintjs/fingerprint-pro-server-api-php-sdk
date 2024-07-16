@@ -68,3 +68,5 @@ mv -f src/composer.json composer.json
 find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" -exec rm {} +
 mv -f src/docs/* ./docs
 cp template/docs/FingerprintApi.md docs/Api
+cp template/Model/Response.php.template src/Model/Response.php
+cp template/Model/EventResponse.php.template src/Model/EventResponse.php

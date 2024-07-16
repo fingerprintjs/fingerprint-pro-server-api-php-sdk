@@ -45,7 +45,12 @@ error_reporting(error_reporting() & ~E_DEPRECATED);
 
 try {
     $result = $client->getVisits($visitor_id);
-    fwrite(STDOUT, sprintf("Got visits: %s \n", $result));
+    $rawResponseDecoded = json_decode($result->getRawResponse(), true);
+    if ($rawResponseDecoded['visitorId'] !== $visitor_id) {
+        fwrite(STDERR, sprintf("Raw response for getVisits not working"));
+        exit(1);
+    }
+    fwrite(STDOUT, sprintf("Got visits: %s \n", $result->getRawResponse()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
@@ -53,14 +58,19 @@ try {
 
 try {
     $result = $client->getEvent($request_id);
-    fwrite(STDOUT, sprintf("Got event: %s \n", $result));
+    $rawResponseDecoded = json_decode($result->getRawResponse(), true);
+    if ($rawResponseDecoded['products']['identification']['data']['requestId'] !== $request_id) {
+        fwrite(STDERR, sprintf("Raw response for getEvent not working"));
+        exit(1);
+    }
+    fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $result->getRawResponse()));
 } catch (Exception $e) {
-    fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
 }
 
 // Enable the deprecated ArrayAccess return type warning again if needed
 error_reporting(error_reporting() | E_DEPRECATED);
 
-fwrite(STDOUT, "Checks passed\n");
+fwrite(STDOUT, "\n\nChecks passed\n");
 exit(0);
