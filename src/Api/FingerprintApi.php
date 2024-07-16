@@ -71,14 +71,14 @@ class FingerprintApi
             ]
         ];
 
-        $apiKey = $this->config->getApiKeyWithPrefix('Auth-API-Key');
-        if ($apiKey !== null) {
-            $options['headers']['Auth-API-Key'] = $apiKey;
+        $headerApiKey = $this->config->getApiKeyWithPrefix('Auth-API-Key');
+        if ($headerApiKey !== null) {
+            $options['headers']['Auth-API-Key'] = $headerApiKey;
         }
 
-        $apiKey = $this->config->getApiKeyWithPrefix('api_key');
-        if ($apiKey !== null) {
-            $options['query']['api_key'] = $apiKey;
+        $queryApiKey = $this->config->getApiKeyWithPrefix('api_key');
+        if ($queryApiKey !== null) {
+            $options['query']['api_key'] = $queryApiKey;
         }
 
         if ($this->config->getDebug()) {
