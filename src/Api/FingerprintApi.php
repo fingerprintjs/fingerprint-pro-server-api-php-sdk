@@ -36,6 +36,8 @@ class FingerprintApi
     {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
+
+        $this->integration_info = str_replace("{version}", $this->getSDKVersion(), $this->integration_info);
     }
 
     protected function getSDKVersion(): string
@@ -65,7 +67,7 @@ class FingerprintApi
                 'Accept' => 'application/json; charset=utf-8',
             ],
             'query' => [
-                'ii' => str_replace("{version}", $this->getSDKVersion(), $this->integration_info),
+                'ii' => $this->integration_info,
             ]
         ];
 
