@@ -41,6 +41,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  */
 class SignalResponseIpBlocklist implements ModelInterface, ArrayAccess
 {
+    // use \Fingerprint\ServerAPI\Traits\WithRawResponse;
     const DISCRIMINATOR = null;
 
     /**

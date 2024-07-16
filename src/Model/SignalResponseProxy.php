@@ -41,6 +41,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  */
 class SignalResponseProxy implements ModelInterface, ArrayAccess
 {
+    // use \Fingerprint\ServerAPI\Traits\WithRawResponse;
     const DISCRIMINATOR = null;
 
     /**

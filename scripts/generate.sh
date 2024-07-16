@@ -68,5 +68,21 @@ mv -f src/composer.json composer.json
 find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" -exec rm {} +
 mv -f src/docs/* ./docs
 cp template/docs/FingerprintApi.md docs/Api
-cp template/Model/Response.php.template src/Model/Response.php
-cp template/Model/EventResponse.php.template src/Model/EventResponse.php
+
+# enable WithRawResponse trait for EventResponse model
+(
+  if [ "$platform" = "Darwin" ]; then
+    sed -i '' 's/\/\/ use \\/use \\/' ./src/Model/EventResponse.php
+  else
+    sed -i 's/\/\/ use \\/use \\/' ./src/Model/EventResponse.php
+  fi
+)
+
+# enable WithRawResponse trait for Response model
+(
+  if [ "$platform" = "Darwin" ]; then
+    sed -i '' 's/\/\/ use \\/use \\/' ./src/Model/Response.php
+  else
+    sed -i 's/\/\/ use \\/use \\/' ./src/Model/Response.php
+  fi
+)
