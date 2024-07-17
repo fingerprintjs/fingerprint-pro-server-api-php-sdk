@@ -67,7 +67,6 @@ mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
 find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" -exec rm {} +
 mv -f src/docs/* ./docs
-cp template/docs/FingerprintApi.md docs/Api
 
 declare -a modelsWithRawResponse=("./src/Model/EventResponse.php" "./src/Model/Response.php")
 
