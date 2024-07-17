@@ -1,0 +1,75 @@
+# {{invokerPackage}}\FingerprintApi{{#description}}
+    {{description}}{{/description}}
+
+All URIs are relative to *{{basePath}}*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+{{#operations}}{{#operation}}[**{{operationId}}**]({{classname}}.md#{{operationId}}) | **{{httpMethod}}** {{path}} | {{#summary}}{{summary}}{{/summary}}
+{{/operation}}{{/operations}}
+
+{{#operations}}
+    {{#operation}}
+        # **{{{operationId}}}**
+        > {{#returnType}}{{{returnType}}} {{/returnType}}{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}})
+
+        {{{summary}}}{{#notes}}
+
+            {{{notes}}}{{/notes}}
+
+        ### Example
+        ```php
+        <?php
+
+require_once(__DIR__ . '/vendor/autoload.php');
+
+const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
+
+// Import Fingerprint Classes and Guzzle HTTP Client
+use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Configuration;
+use GuzzleHttp\Client;
+
+// Create new Configuration instance with defaultValues, added our API Secret and our Region
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
+$client = new FingerprintApi(
+    new Client(),
+    $config
+);
+
+{{#allParams}}${{paramName}} = {{{example}}}; // {{{dataType}}} | {{{description}}}
+        {{/allParams}}
+
+try {
+    {{#returnType}}$result = {{/returnType}}$client->{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});{{#returnType}}
+            echo "<pre>" . $response->__toString() . "</pre>";{{/returnType}}
+        } catch (Exception $e) {
+        echo 'Exception when calling {{classname}}->{{operationId}}: ', $e->getMessage(), PHP_EOL;
+        }
+        ?>
+        ```
+
+        ### Parameters
+        {{^allParams}}This endpoint does not need any parameter.{{/allParams}}{{#allParams}}{{#@last}}
+            Name | Type | Description  | Notes
+            ------------- | ------------- | ------------- | -------------{{/@last}}{{/allParams}}
+        {{#allParams}} **{{paramName}}** | {{#isFile}}**{{dataType}}**{{/isFile}}{{#isPrimitiveType}}**{{dataType}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}[**{{dataType}}**](../Model/{{baseType}}.md){{/isFile}}{{/isPrimitiveType}}| {{{description}}} |{{^required}} [optional]{{/required}}{{#defaultValue}} [default to {{defaultValue}}]{{/defaultValue}}
+        {{/allParams}}
+
+        ### Return type
+
+        {{#returnType}}{{#returnTypeIsPrimitive}}**{{{returnType}}}**{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}[**{{{returnType}}}**](../Model/{{returnBaseType}}.md){{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}void (empty response body){{/returnType}}
+
+        ### Authorization
+
+        {{^authMethods}}No authorization required{{/authMethods}}{{#authMethods}}[{{{name}}}](../../README.md#{{{name}}}){{^@last}}, {{/@last}}{{/authMethods}}
+
+        ### HTTP request headers
+
+        - **Content-Type**: {{#consumes}}{{{mediaType}}}{{#hasMore}}, {{/hasMore}}{{/consumes}}{{^consumes}}Not defined{{/consumes}}
+        - **Accept**: {{#produces}}{{{mediaType}}}{{#hasMore}}, {{/hasMore}}{{/produces}}{{^produces}}Not defined{{/produces}}
+
+        [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+    {{/operation}}
+{{/operations}}
