@@ -30,12 +30,10 @@ namespace Fingerprint\ServerAPI\Api;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use Fingerprint\ServerAPI\ApiException;
 use Fingerprint\ServerAPI\Configuration;
-use Fingerprint\ServerAPI\HeaderSelector;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
@@ -50,23 +48,19 @@ class FingerprintApi
 {
     protected ClientInterface $client;
     protected Configuration $config;
-    protected HeaderSelector $headerSelector;
 
     protected $integration_info = 'fingerprint-pro-server-php-sdk/4.1.0';
 
     /**
      * @param ClientInterface $client
      * @param Configuration   $config
-     * @param HeaderSelector  $selector
      */
     public function __construct(
         ClientInterface $client = null,
-        Configuration $config = null,
-        HeaderSelector $selector = null
+        Configuration $config = null
     ) {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
-        $this->headerSelector = $selector ?: new HeaderSelector();
     }
 
     /**
@@ -138,17 +132,9 @@ class FingerprintApi
                 );
             }
 
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string','integer','bool'])) {
-                    $content = json_decode($content);
-                }
-            }
+            $responseBody = $response->getBody()->getContents();
 
-            $serialized = ObjectSerializer::deserialize($content, $returnType, []);
+            $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
             $serialized->setRawResponse($responseBody);
 
             return [
@@ -233,17 +219,9 @@ class FingerprintApi
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
+                    $responseBody = $response->getBody()->getContents();
 
-                    $serialized = ObjectSerializer::deserialize($content, $returnType, []);
+                    $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
                     $serialized->setRawResponse($responseBody);
 
                     return [
@@ -287,11 +265,10 @@ class FingerprintApi
         }
 
         $resourcePath = '/events/{request_id}';
-        $formParams = [];
+        $headers = [];
         $queryParams = ['ii' => $this->integration_info];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
 
         // path params
@@ -306,44 +283,10 @@ class FingerprintApi
         // body params
         $_tempBody = null;
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
         // for model (json/xml)
         if (isset($_tempBody)) {
             // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = http_build_query($formParams);
-            }
+            $httpBody = json_encode($_tempBody);
         }
 
         // this endpoint requires API key authentication
@@ -357,7 +300,10 @@ class FingerprintApi
             $queryParams['api_key'] = $apiKey;
         }
 
-        $defaultHeaders = [];
+        $defaultHeaders = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -448,17 +394,9 @@ class FingerprintApi
                 );
             }
 
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string','integer','bool'])) {
-                    $content = json_decode($content);
-                }
-            }
+            $responseBody = $response->getBody()->getContents();
 
-            $serialized = ObjectSerializer::deserialize($content, $returnType, []);
+            $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
             $serialized->setRawResponse($responseBody);
 
             return [
@@ -553,17 +491,9 @@ class FingerprintApi
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
+                    $responseBody = $response->getBody()->getContents();
 
-                    $serialized = ObjectSerializer::deserialize($content, $returnType, []);
+                    $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
                     $serialized->setRawResponse($responseBody);
 
                     return [
@@ -612,11 +542,10 @@ class FingerprintApi
         }
 
         $resourcePath = '/visitors/{visitor_id}';
-        $formParams = [];
+        $headers = [];
         $queryParams = ['ii' => $this->integration_info];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
         // query params
         if ($request_id !== null) {
@@ -651,44 +580,10 @@ class FingerprintApi
         // body params
         $_tempBody = null;
 
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                []
-            );
-        }
-
         // for model (json/xml)
         if (isset($_tempBody)) {
             // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = http_build_query($formParams);
-            }
+            $httpBody = json_encode($_tempBody);
         }
 
         // this endpoint requires API key authentication
@@ -702,7 +597,10 @@ class FingerprintApi
             $queryParams['api_key'] = $apiKey;
         }
 
-        $defaultHeaders = [];
+        $defaultHeaders = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
