@@ -33,7 +33,7 @@ use GuzzleHttp\Client;
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
 $config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
 $client = new FingerprintApi(
-new Client(),
+    new Client(),
 $config
 );
 
@@ -44,7 +44,7 @@ try {
 {{#returnType}}$result = {{/returnType}}$client->{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});{{#returnType}}
     echo "<pre>" . $response->__toString() . "</pre>";{{/returnType}}
 } catch (Exception $e) {
-echo 'Exception when calling {{classname}}->{{operationId}}: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling {{classname}}->{{operationId}}: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```

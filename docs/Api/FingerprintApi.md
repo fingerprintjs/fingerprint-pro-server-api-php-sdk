@@ -30,7 +30,7 @@ use GuzzleHttp\Client;
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
 $config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
 $client = new FingerprintApi(
-new Client(),
+    new Client(),
 $config
 );
 
@@ -40,7 +40,7 @@ try {
 $result = $client->getEvent($request_id);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
-echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -89,7 +89,7 @@ use GuzzleHttp\Client;
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
 $config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
 $client = new FingerprintApi(
-new Client(),
+    new Client(),
 $config
 );
 
@@ -104,7 +104,7 @@ try {
 $result = $client->getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
-echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
