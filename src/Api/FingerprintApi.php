@@ -280,14 +280,6 @@ class FingerprintApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = json_encode($_tempBody);
-        }
 
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('Auth-API-Key');
@@ -577,14 +569,6 @@ class FingerprintApi
             );
         }
 
-        // body params
-        $_tempBody = null;
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = json_encode($_tempBody);
-        }
 
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('Auth-API-Key');
