@@ -1,6 +1,5 @@
 class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^parentSchema}}implements ModelInterface, ArrayAccess{{/parentSchema}}
 {
-    // use \Fingerprint\ServerAPI\Traits\WithRawResponse;
     const DISCRIMINATOR = {{#discriminator}}'{{discriminator}}'{{/discriminator}}{{^discriminator}}null{{/discriminator}};
 
     /**

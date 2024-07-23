@@ -28,8 +28,8 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use ArrayAccess;
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * BotdDetectionResult Class Doc Comment
@@ -42,8 +42,7 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  */
 class BotdDetectionResult implements ModelInterface, ArrayAccess
 {
-    // use \Fingerprint\ServerAPI\Traits\WithRawResponse;
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
 
     /**
       * The original name of the model.
@@ -159,9 +158,9 @@ class BotdDetectionResult implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    public const RESULT_NOT_DETECTED = 'notDetected';
-    public const RESULT_GOOD = 'good';
-    public const RESULT_BAD = 'bad';
+    const RESULT_NOT_DETECTED = 'notDetected';
+const RESULT_GOOD = 'good';
+const RESULT_BAD = 'bad';
 
     /**
      * Gets allowable values of the enum

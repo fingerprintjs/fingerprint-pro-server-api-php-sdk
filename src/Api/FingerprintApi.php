@@ -85,6 +85,9 @@ class FingerprintApi
     public function getEvent($request_id)
     {
         list($response) = $this->getEventWithHttpInfo($request_id);
+        if ($response === null) {
+            throw new \Exception("SerializationError, please get full response body with getEventWithHttpInfo");
+        }
         return $response;
     }
 
@@ -97,7 +100,7 @@ class FingerprintApi
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Fingerprint\ServerAPI\Model\EventResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Fingerprint\ServerAPI\Model\EventResponse, HTTP Response body contents, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEventWithHttpInfo($request_id)
     {
@@ -134,11 +137,16 @@ class FingerprintApi
 
             $responseBody = $response->getBody()->getContents();
 
-            $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-            $serialized->setRawResponse($responseBody);
+            $serialized = null;
+            try {
+                $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
+            } catch (\Exception $e) {
+                return [null, $responseBody, $response->getStatusCode(), $response->getHeaders()];
+            }
 
             return [
                 $serialized,
+                $responseBody,
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
@@ -152,7 +160,6 @@ class FingerprintApi
                         '\Fingerprint\ServerAPI\Model\EventResponse',
                         $e->getResponseHeaders()
                     );
-                    $data->setRawResponse($responseBody);
                     $e->setResponseObject($data);
                     break;
                 case 403:
@@ -162,7 +169,6 @@ class FingerprintApi
                         '\Fingerprint\ServerAPI\Model\ErrorEvent403Response',
                         $e->getResponseHeaders()
                     );
-                    $data->setRawResponse($responseBody);
                     $e->setResponseObject($data);
                     break;
                 case 404:
@@ -172,7 +178,6 @@ class FingerprintApi
                         '\Fingerprint\ServerAPI\Model\ErrorEvent404Response',
                         $e->getResponseHeaders()
                     );
-                    $data->setRawResponse($responseBody);
                     $e->setResponseObject($data);
                     break;
             }
@@ -195,6 +200,10 @@ class FingerprintApi
         return $this->getEventAsyncWithHttpInfo($request_id)
             ->then(
                 function ($response) {
+                    list($result) = $response;
+                    if ($result === null) {
+                        throw new \Exception("SerializationError, please get full response body with getEventWithHttpInfo");
+                    }
                     return $response[0];
                 }
             );
@@ -221,11 +230,16 @@ class FingerprintApi
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody()->getContents();
 
-                    $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-                    $serialized->setRawResponse($responseBody);
+                    $serialized = null;
+                    try {
+                        $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
+                    } catch (\Exception $e) {
+                        return [null, $responseBody, $response->getStatusCode(), $response->getHeaders()];
+                    }
 
                     return [
                         $serialized,
+                        $responseBody,
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -334,6 +348,9 @@ class FingerprintApi
     public function getVisits($visitor_id, $request_id = null, $linked_id = null, $limit = null, $pagination_key = null, $before = null)
     {
         list($response) = $this->getVisitsWithHttpInfo($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before);
+        if ($response === null) {
+            throw new \Exception("SerializationError, please get full response body with getVisitsWithHttpInfo");
+        }
         return $response;
     }
 
@@ -351,7 +368,7 @@ class FingerprintApi
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Fingerprint\ServerAPI\Model\Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Fingerprint\ServerAPI\Model\Response, HTTP Response body contents, HTTP status code, HTTP response headers (array of strings)
      */
     public function getVisitsWithHttpInfo($visitor_id, $request_id = null, $linked_id = null, $limit = null, $pagination_key = null, $before = null)
     {
@@ -388,11 +405,16 @@ class FingerprintApi
 
             $responseBody = $response->getBody()->getContents();
 
-            $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-            $serialized->setRawResponse($responseBody);
+            $serialized = null;
+            try {
+                $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
+            } catch (\Exception $e) {
+                return [null, $responseBody, $response->getStatusCode(), $response->getHeaders()];
+            }
 
             return [
                 $serialized,
+                $responseBody,
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
@@ -406,7 +428,6 @@ class FingerprintApi
                         '\Fingerprint\ServerAPI\Model\Response',
                         $e->getResponseHeaders()
                     );
-                    $data->setRawResponse($responseBody);
                     $e->setResponseObject($data);
                     break;
                 case 403:
@@ -416,7 +437,6 @@ class FingerprintApi
                         '\Fingerprint\ServerAPI\Model\ErrorVisits403',
                         $e->getResponseHeaders()
                     );
-                    $data->setRawResponse($responseBody);
                     $e->setResponseObject($data);
                     break;
                 case 429:
@@ -426,7 +446,6 @@ class FingerprintApi
                         '\Fingerprint\ServerAPI\Model\ManyRequestsResponse',
                         $e->getResponseHeaders()
                     );
-                    $data->setRawResponse($responseBody);
                     $e->setResponseObject($data);
                     break;
             }
@@ -454,6 +473,10 @@ class FingerprintApi
         return $this->getVisitsAsyncWithHttpInfo($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before)
             ->then(
                 function ($response) {
+                    list($result) = $response;
+                    if ($result === null) {
+                        throw new \Exception("SerializationError, please get full response body with getVisitsWithHttpInfo");
+                    }
                     return $response[0];
                 }
             );
@@ -485,11 +508,16 @@ class FingerprintApi
                 function ($response) use ($returnType) {
                     $responseBody = $response->getBody()->getContents();
 
-                    $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-                    $serialized->setRawResponse($responseBody);
+                    $serialized = null;
+                    try {
+                        $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
+                    } catch (\Exception $e) {
+                        return [null, $responseBody, $response->getStatusCode(), $response->getHeaders()];
+                    }
 
                     return [
                         $serialized,
+                        $responseBody,
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];

@@ -269,8 +269,28 @@ class ObjectSerializer
                 return null;
             }
         } elseif (in_array($class, ['DateTime', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)) {
+            $originalData = $data;
+            $normalizedClass = strtolower($class);
+            switch ($normalizedClass) {
+                case "int":
+                    $normalizedClass = "integer";
+                break;
+                case "bool":
+                    $normalizedClass = "boolean";
+                break;
+            }
+            if ($normalizedClass === "float" && is_numeric($originalData)) {
+                return (float)$originalData;
+            }
+            if ($normalizedClass === 'string' && is_object($data)) {
+            throw new \Exception("Cannot convert object to string");
+            }
+
             settype($data, $class);
+            if (gettype($data) === $normalizedClass) {
             return $data;
+            }
+            throw new \Exception("Serialization error: Could not convert " . gettype($originalData) . " to " . $class);
         } elseif ($class === '\SplFileObject') {
             /** @var \Psr\Http\Message\StreamInterface $data */
 

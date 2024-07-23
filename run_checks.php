@@ -44,26 +44,16 @@ $client = new FingerprintApi(
 error_reporting(error_reporting() & ~E_DEPRECATED);
 
 try {
-    $result = $client->getVisits($visitor_id);
-    $rawResponseDecoded = json_decode($result->getRawResponse(), true);
-    if ($rawResponseDecoded['visitorId'] !== $visitor_id) {
-        fwrite(STDERR, sprintf("Raw response for getVisits not working"));
-        exit(1);
-    }
-    fwrite(STDOUT, sprintf("Got visits: %s \n", $result->getRawResponse()));
+    list($result, $body) = $client->getVisitsWithHttpInfo($visitor_id);
+    fwrite(STDOUT, sprintf("Got visits: %s \n", $body));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
 }
 
 try {
-    $result = $client->getEvent($request_id);
-    $rawResponseDecoded = json_decode($result->getRawResponse(), true);
-    if ($rawResponseDecoded['products']['identification']['data']['requestId'] !== $request_id) {
-        fwrite(STDERR, sprintf("Raw response for getEvent not working"));
-        exit(1);
-    }
-    fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $result->getRawResponse()));
+    list($result, $body) = $client->getEventWithHttpInfo($request_id);
+    fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $body));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);

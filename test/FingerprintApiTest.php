@@ -17,6 +17,7 @@ class FingerprintApiTest extends TestCase
 
     const MOCK_REQUEST_ID = '1708102555327.NLOjmg';
     const MOCK_REQUEST_ID_WITH_UNKNOWN = 'UNKNOWN_FIELD_REQUEST_ID';
+    const MOCK_REQUEST_ID_WITH_BROKEN = 'BROKEN_FIELD_REQUEST_ID';
     const MOCK_EXTRA_FIELDS_REQUEST_ID = '0KSh65EnVoB85JBmloQK';
     const MOCK_REQUEST_ALL_ERRORS = 'ALL_ERRORS';
     const MOCK_REQUEST_EXTRA_FIELDS = 'EXTRA_FIELDS';
@@ -47,18 +48,29 @@ class FingerprintApiTest extends TestCase
         $this->fingerprint_api = $this->getMockBuilder(FingerprintApi::class)
             ->getMock();
 
+        $this->fingerprint_api->method('getEventWithHttpInfo')->will($this->returnCallback([$this, 'getEventWithHttpInfoMock']));
         $this->fingerprint_api->method('getEvent')->will($this->returnCallback([$this, 'getEventMock']));
+        $this->fingerprint_api->method('getVisitsWithHttpInfo')->will($this->returnCallback([$this, 'getVisitsWithHttpInfoMock']));
         $this->fingerprint_api->method('getVisits')->will($this->returnCallback([$this, 'getVisitsMock']));
     }
 
-    public function getEventMock($request_id)
-    {
+    public function getEventMock($request_id) {
+        list($response) = $this->getEventWithHttpInfoMock($request_id);
+        return $response;
+    }
+
+    public function getVisitsMock($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null) {
+        list($response) = $this->getVisitsWithHttpInfoMock($visitor_id, $request_id, $linked_id, $limit, $before);
+        return $response;
+    }
+
+    public function getEventWithHttpInfoMock($request_id) {
         $event_request_method = $this->getMethod('getEventRequest');
         /** @var \GuzzleHttp\Psr7\Request $event_request */
         $event_request = $event_request_method->invokeArgs($this->fingerprint_api, [self::MOCK_REQUEST_ID]);
         $query = $event_request->getUri()->getQuery();
         $this->assertStringContainsString("ii=" . urlencode("fingerprint-pro-server-php-sdk/" . $this->getVersion()), $query);
-        $mock_name = '';
+        $mock_name = "";
         switch ($request_id) {
             case self::MOCK_REQUEST_ID:
                 $mock_name = 'get_event_200.json';
@@ -72,16 +84,21 @@ class FingerprintApiTest extends TestCase
             case self::MOCK_REQUEST_ID_WITH_UNKNOWN:
                 $mock_name = 'get_event_200_with_unknown_field.json';
                 break;
+            case self::MOCK_REQUEST_ID_WITH_BROKEN:
+                $mock_name = 'get_event_200_with_broken_format.json';
+                break;
         }
-        $events_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/$mock_name"));
-        /** @var EventResponse $serialized */
-        $serialized = ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
-        $serialized->setRawResponse($events_mock_data);
+        try {
+            $events_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/$mock_name"));
+            $serialized = ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
+        } catch (\Exception $exception) {
+            return [null, $events_mock_data, 200, []];
+        }
 
-        return $serialized;
+        return [$serialized, $events_mock_data, 200, []];
     }
 
-    public function getVisitsMock($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null)
+    public function getVisitsWithHttpInfoMock($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null)
     {
         $visits_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . '/mocks/get_visits_200_limit_500.json'));
         if ($request_id) {
@@ -93,11 +110,15 @@ class FingerprintApiTest extends TestCase
         if ($limit && is_numeric($limit)) {
             $visits_mock_data->visits = array_slice($visits_mock_data->visits, 0, $limit);
         }
-        /** @var Response $serialized */
-        $serialized = ObjectSerializer::deserialize($visits_mock_data, Response::class);
-        $serialized->setRawResponse($visits_mock_data);
 
-        return $serialized;
+        $serialized = null;
+        try {
+            $serialized = ObjectSerializer::deserialize($visits_mock_data, Response::class);
+        } catch (\Exception $exception) {
+            return [null, $visits_mock_data, 200, []];
+        }
+
+        return [$serialized, $visits_mock_data, 200, []];
     }
 
     public function testGetEvent()
@@ -217,15 +238,15 @@ class FingerprintApiTest extends TestCase
 
     public function testGetEventRawResponse()
     {
-        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID);
+        list($event, $responseBody) = $this->fingerprint_api->getEventWithHttpInfo(self::MOCK_REQUEST_ID);
         $mockedResult = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/get_event_200.json"));
-        $this->assertEquals($mockedResult, $event->getRawResponse());
+        $this->assertEquals($mockedResult, $responseBody);
     }
 
     public function testGetVisitsRawResponse() {
-        $visits = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID);
+        list($visits, $responseBody) = $this->fingerprint_api->getVisitsWithHttpInfo(self::MOCK_VISITOR_ID);
         $mockedResult = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/get_visits_200_limit_500.json"));
-        $this->assertEquals($mockedResult, $visits->getRawResponse());
+        $this->assertEquals($mockedResult, $responseBody);
     }
 
     public function testGetEventParsedModelWithUnknownField() {
@@ -234,11 +255,20 @@ class FingerprintApiTest extends TestCase
     }
 
     public function testGetUnknownFieldFromEvent() {
-        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_UNKNOWN);
-        $decoded = $event->getRawResponse();
-        $this->assertEquals("field", $decoded->unknown);
-        $this->assertEquals("field", $decoded->products->unknown);
-        $this->assertEquals("field", $decoded->products->identification->unknown);
-        $this->assertEquals("field", $decoded->products->identification->data->unknown);
+        list($event, $responseBody) = $this->fingerprint_api->getEventWithHttpInfo(self::MOCK_REQUEST_ID_WITH_UNKNOWN);
+        $this->assertEquals("field", $responseBody->unknown);
+        $this->assertEquals("field", $responseBody->products->unknown);
+        $this->assertEquals("field", $responseBody->products->identification->unknown);
+        $this->assertEquals("field", $responseBody->products->identification->data->unknown);
+    }
+
+    public function testGetBrokenFormatEvent() {
+        $event = null;
+        $responseBody = null;
+        list($event, $responseBody) = $this->fingerprint_api->getEventWithHttpInfo(self::MOCK_REQUEST_ID_WITH_BROKEN);
+
+        $this->assertNull($event);
+        $this->assertNotNull($responseBody);
+        $this->assertEquals("format", $responseBody->products->identification->data->linkedId->broken);
     }
 }

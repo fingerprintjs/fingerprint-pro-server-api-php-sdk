@@ -86,6 +86,9 @@ use {{invokerPackage}}\ObjectSerializer;
     public function {{operationId}}({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
     {
         {{#returnType}}list($response) = {{/returnType}}$this->{{operationId}}WithHttpInfo({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}});{{#returnType}}
+        if ($response === null) {
+            throw new \Exception("SerializationError, please get full response body with {{operationId}}WithHttpInfo");
+        }
         return $response;{{/returnType}}
     }
 
@@ -106,7 +109,7 @@ use {{invokerPackage}}\ObjectSerializer;
      *
      * @throws {{backSlash}}{{invokerPackage}}\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}null{{/returnType}}, HTTP status code, HTTP response headers (array of strings)
+     * @return array of {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}null{{/returnType}}, HTTP Response body contents, HTTP status code, HTTP response headers (array of strings)
      */
     public function {{operationId}}WithHttpInfo({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
     {
@@ -144,11 +147,16 @@ use {{invokerPackage}}\ObjectSerializer;
             {{#returnType}}
             $responseBody = $response->getBody()->getContents();
 
-            $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-            $serialized->setRawResponse($responseBody);
+            $serialized = null;
+            try {
+                $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
+            } catch (\Exception $e) {
+                return [null, $responseBody, $response->getStatusCode(), $response->getHeaders()];
+            }
 
             return [
                 $serialized,
+                $responseBody,
                 $response->getStatusCode(),
                 $response->getHeaders()
             ];
@@ -168,7 +176,6 @@ use {{invokerPackage}}\ObjectSerializer;
                         '{{dataType}}',
                         $e->getResponseHeaders()
                     );
-                    $data->setRawResponse($responseBody);
                     $e->setResponseObject($data);
                     break;
             {{/dataType}}
@@ -199,6 +206,10 @@ use {{invokerPackage}}\ObjectSerializer;
         return $this->{{operationId}}AsyncWithHttpInfo({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
             ->then(
                 function ($response) {
+                    list($result) = $response;
+                    if ($result === null) {
+                        throw new \Exception("SerializationError, please get full response body with {{operationId}}WithHttpInfo");
+                    }
                     return $response[0];
                 }
             );
@@ -232,17 +243,22 @@ use {{invokerPackage}}\ObjectSerializer;
                     {{#returnType}}
                     $responseBody = $response->getBody()->getContents();
 
-                    $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-                    $serialized->setRawResponse($responseBody);
+                    $serialized = null;
+                    try {
+                        $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
+                    } catch (\Exception $e) {
+                        return [null, $responseBody, $response->getStatusCode(), $response->getHeaders()];
+                    }
 
                     return [
                         $serialized,
+                        $responseBody,
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                     {{/returnType}}
                     {{^returnType}}
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    return [null, $responseBody, $response->getStatusCode(), $response->getHeaders()];
                 {{/returnType}}
                 },
                 function ($exception) {

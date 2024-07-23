@@ -28,8 +28,8 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use ArrayAccess;
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * BrowserDetails Class Doc Comment
@@ -41,8 +41,7 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  */
 class BrowserDetails implements ModelInterface, ArrayAccess
 {
-    // use \Fingerprint\ServerAPI\Traits\WithRawResponse;
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
 
     /**
       * The original name of the model.
@@ -188,7 +187,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-
+    
 
     /**
      * Associative array for storing property values
