@@ -16,6 +16,7 @@ class FingerprintApiTest extends TestCase
     protected $fingerprint_api;
 
     const MOCK_REQUEST_ID = '1708102555327.NLOjmg';
+    const MOCK_REQUEST_ID_WITH_UNKNOWN = 'UNKNOWN_FIELD_REQUEST_ID';
     const MOCK_EXTRA_FIELDS_REQUEST_ID = '0KSh65EnVoB85JBmloQK';
     const MOCK_REQUEST_ALL_ERRORS = 'ALL_ERRORS';
     const MOCK_REQUEST_EXTRA_FIELDS = 'EXTRA_FIELDS';
@@ -67,6 +68,9 @@ class FingerprintApiTest extends TestCase
                 break;
             case self::MOCK_REQUEST_EXTRA_FIELDS:
                 $mock_name = 'get_event_200_extra_fields.json';
+                break;
+            case self::MOCK_REQUEST_ID_WITH_UNKNOWN:
+                $mock_name = 'get_event_200_with_unknown_field.json';
                 break;
         }
         $events_mock_data = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/$mock_name"));
@@ -222,5 +226,16 @@ class FingerprintApiTest extends TestCase
         $visits = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID);
         $mockedResult = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . "/mocks/get_visits_200_limit_500.json"));
         $this->assertEquals($mockedResult, $visits->getRawResponse());
+    }
+
+    public function testGetEventParsedModelWithUnknownField() {
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_UNKNOWN);
+        $this->assertEquals(false, $event->getProducts()->getIncognito()->getData()->getResult());
+    }
+
+    public function testGetUnknownFieldFromEvent() {
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_UNKNOWN);
+        $decoded = $event->getRawResponse();
+        $this->assertEquals("field", $decoded->unknown);
     }
 }
