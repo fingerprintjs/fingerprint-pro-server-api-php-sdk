@@ -4,5 +4,5 @@ namespace Fingerprint\ServerAPI\Sealed;
 
 class DecryptionAlgorithm
 {
-    const AES_256_GCM = 'aes-256-gcm';
+    public const AES_256_GCM = 'aes-256-gcm';
 }

@@ -2,7 +2,6 @@
 
 namespace Fingerprint\ServerAPI\Sealed;
 
-
 use Exception;
 
 class UnsealException extends Exception

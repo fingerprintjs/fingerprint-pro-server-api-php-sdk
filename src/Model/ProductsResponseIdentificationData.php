@@ -28,8 +28,8 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use ArrayAccess;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * ProductsResponseIdentificationData Class Doc Comment
@@ -42,7 +42,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
 class ProductsResponseIdentificationData implements ModelInterface, ArrayAccess
 {
     // use \Fingerprint\ServerAPI\Traits\WithRawResponse;
-    const DISCRIMINATOR = null;
+    public const DISCRIMINATOR = null;
 
     /**
       * The original name of the model.
@@ -223,7 +223,7 @@ class ProductsResponseIdentificationData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
+
 
     /**
      * Associative array for storing property values

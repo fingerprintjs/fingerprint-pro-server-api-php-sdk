@@ -6,7 +6,8 @@ use Exception;
 use Fingerprint\ServerAPI\Model\EventResponse;
 use InvalidArgumentException;
 
-class Sealed {
+class Sealed
+{
     private static $SEAL_HEADER = "\x9E\x85\xDC\xED";
     private const NONCE_LENGTH = 12;
     private const AUTH_TAG_LENGTH = 16;
@@ -17,7 +18,8 @@ class Sealed {
      * @return EventResponse
      * @throws UnsealAggregateException
      */
-    public static function unsealEventResponse(string $sealed, array $keys): EventResponse {
+    public static function unsealEventResponse(string $sealed, array $keys): EventResponse
+    {
         $unsealed = self::unseal($sealed, $keys);
 
         $data = json_decode($unsealed, true);

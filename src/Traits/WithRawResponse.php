@@ -2,7 +2,8 @@
 
 namespace Fingerprint\ServerAPI\Traits;
 
-trait WithRawResponse {
+trait WithRawResponse
+{
     protected mixed $rawResponse = null;
 
     public function getRawResponse(): mixed

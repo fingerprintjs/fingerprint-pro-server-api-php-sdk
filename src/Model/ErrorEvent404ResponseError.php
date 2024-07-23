@@ -28,8 +28,8 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use ArrayAccess;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * ErrorEvent404ResponseError Class Doc Comment
@@ -42,7 +42,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
 class ErrorEvent404ResponseError implements ModelInterface, ArrayAccess
 {
     // use \Fingerprint\ServerAPI\Traits\WithRawResponse;
-    const DISCRIMINATOR = null;
+    public const DISCRIMINATOR = null;
 
     /**
       * The original name of the model.
@@ -158,7 +158,7 @@ class ErrorEvent404ResponseError implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const CODE_REQUEST_NOT_FOUND = 'RequestNotFound';
+    public const CODE_REQUEST_NOT_FOUND = 'RequestNotFound';
 
     /**
      * Gets allowable values of the enum
