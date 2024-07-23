@@ -368,19 +368,18 @@ use {{invokerPackage}}\ObjectSerializer;
         }
         {{/pathParams}}
 
+        {{#bodyParams}}
         // body params
         $_tempBody = null;
-        {{#bodyParams}}
         if (isset(${{paramName}})) {
             $_tempBody = ${{paramName}};
         }
-        {{/bodyParams}}
-
         // for model (json/xml)
         if (isset($_tempBody)) {
             // $_tempBody is the method argument, if present
             $httpBody = json_encode($_tempBody);
         }
+        {{/bodyParams}}
 
         {{#authMethods}}
         {{#isApiKey}}
