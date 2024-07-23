@@ -237,5 +237,8 @@ class FingerprintApiTest extends TestCase
         $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_UNKNOWN);
         $decoded = $event->getRawResponse();
         $this->assertEquals("field", $decoded->unknown);
+        $this->assertEquals("field", $decoded->products->unknown);
+        $this->assertEquals("field", $decoded->products->identification->unknown);
+        $this->assertEquals("field", $decoded->products->identification->data->unknown);
     }
 }
