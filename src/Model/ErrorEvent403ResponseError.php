@@ -28,8 +28,8 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use ArrayAccess;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * ErrorEvent403ResponseError Class Doc Comment
@@ -41,7 +41,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  */
 class ErrorEvent403ResponseError implements ModelInterface, ArrayAccess
 {
-    const DISCRIMINATOR = null;
+    public const DISCRIMINATOR = null;
 
     /**
       * The original name of the model.
@@ -157,10 +157,10 @@ class ErrorEvent403ResponseError implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const CODE_TOKEN_REQUIRED = 'TokenRequired';
-const CODE_TOKEN_NOT_FOUND = 'TokenNotFound';
-const CODE_SUBSCRIPTION_NOT_ACTIVE = 'SubscriptionNotActive';
-const CODE_WRONG_REGION = 'WrongRegion';
+    public const CODE_TOKEN_REQUIRED = 'TokenRequired';
+    public const CODE_TOKEN_NOT_FOUND = 'TokenNotFound';
+    public const CODE_SUBSCRIPTION_NOT_ACTIVE = 'SubscriptionNotActive';
+    public const CODE_WRONG_REGION = 'WrongRegion';
 
     /**
      * Gets allowable values of the enum

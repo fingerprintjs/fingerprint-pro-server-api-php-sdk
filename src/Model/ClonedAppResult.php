@@ -28,8 +28,8 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use ArrayAccess;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * ClonedAppResult Class Doc Comment
@@ -41,7 +41,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  */
 class ClonedAppResult implements ModelInterface, ArrayAccess
 {
-    const DISCRIMINATOR = null;
+    public const DISCRIMINATOR = null;
 
     /**
       * The original name of the model.
@@ -152,7 +152,7 @@ class ClonedAppResult implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
+
 
     /**
      * Associative array for storing property values

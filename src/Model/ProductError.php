@@ -28,8 +28,8 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use ArrayAccess;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * ProductError Class Doc Comment
@@ -41,7 +41,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  */
 class ProductError implements ModelInterface, ArrayAccess
 {
-    const DISCRIMINATOR = null;
+    public const DISCRIMINATOR = null;
 
     /**
       * The original name of the model.
@@ -157,8 +157,8 @@ class ProductError implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const CODE_TOO_MANY_REQUESTS = 'TooManyRequests';
-const CODE_FAILED = 'Failed';
+    public const CODE_TOO_MANY_REQUESTS = 'TooManyRequests';
+    public const CODE_FAILED = 'Failed';
 
     /**
      * Gets allowable values of the enum

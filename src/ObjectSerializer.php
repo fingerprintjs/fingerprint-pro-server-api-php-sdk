@@ -274,21 +274,21 @@ class ObjectSerializer
             switch ($normalizedClass) {
                 case "int":
                     $normalizedClass = "integer";
-                break;
+                    break;
                 case "bool":
                     $normalizedClass = "boolean";
-                break;
+                    break;
             }
             if ($normalizedClass === "float" && is_numeric($originalData)) {
                 return (float)$originalData;
             }
             if ($normalizedClass === 'string' && is_object($data)) {
-            throw new \Exception("Cannot convert object to string");
+                throw new \Exception("Cannot convert object to string");
             }
 
             settype($data, $class);
             if (gettype($data) === $normalizedClass) {
-            return $data;
+                return $data;
             }
             throw new \Exception("Serialization error: Could not convert " . gettype($originalData) . " to " . $class);
         } elseif ($class === '\SplFileObject') {

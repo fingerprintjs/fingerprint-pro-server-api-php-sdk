@@ -27,7 +27,7 @@
 
 namespace Fingerprint\ServerAPI;
 
-use \Exception;
+use Exception;
 
 /**
  * ApiException Class Doc Comment
@@ -39,7 +39,6 @@ use \Exception;
  */
 class ApiException extends Exception
 {
-
     /**
      * The HTTP body of the server response either as Json or string.
      *

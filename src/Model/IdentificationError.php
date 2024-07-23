@@ -28,8 +28,8 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use ArrayAccess;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
  * IdentificationError Class Doc Comment
@@ -41,7 +41,7 @@ use \Fingerprint\ServerAPI\ObjectSerializer;
  */
 class IdentificationError implements ModelInterface, ArrayAccess
 {
-    const DISCRIMINATOR = null;
+    public const DISCRIMINATOR = null;
 
     /**
       * The original name of the model.
@@ -157,8 +157,8 @@ class IdentificationError implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const CODE__429_TOO_MANY_REQUESTS = '429 Too Many Requests';
-const CODE_FAILED = 'Failed';
+    public const CODE__429_TOO_MANY_REQUESTS = '429 Too Many Requests';
+    public const CODE_FAILED = 'Failed';
 
     /**
      * Gets allowable values of the enum
