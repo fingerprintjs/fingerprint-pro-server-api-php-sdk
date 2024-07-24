@@ -26,6 +26,7 @@ use GuzzleHttp\RequestOptions;
 use {{invokerPackage}}\ApiException;
 use {{invokerPackage}}\Configuration;
 use {{invokerPackage}}\ObjectSerializer;
+use {{invokerPackage}}\SerializationException;
 
 /**
  * {{classname}} Class Doc Comment
@@ -82,6 +83,7 @@ use {{invokerPackage}}\ObjectSerializer;
      *
      * @throws {{backSlash}}{{invokerPackage}}\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws SerializationException
      * @return array{ {{#returnType}}{{{returnType}}}|null{{/returnType}}{{^returnType}}null{{/returnType}}, \Psr\Http\Message\ResponseInterface }
      */
     public function {{operationId}}({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
@@ -126,7 +128,7 @@ use {{invokerPackage}}\ObjectSerializer;
             try {
                 $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
             } catch (\Exception $e) {
-                return [null, $response];
+                throw new SerializationException($response);
             }
 
             return [$serialized, $response];

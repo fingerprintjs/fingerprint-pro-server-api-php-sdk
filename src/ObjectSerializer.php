@@ -28,6 +28,9 @@
 
 namespace Fingerprint\ServerAPI;
 
+use Exception;
+use InvalidArgumentException;
+
 /**
  * ObjectSerializer Class Doc Comment
  *
@@ -73,7 +76,7 @@ class ObjectSerializer
                     && method_exists($swaggerType, 'getAllowableEnumValues')
                     && !in_array($value, $swaggerType::getAllowableEnumValues())) {
                     $imploded = implode("', '", $swaggerType::getAllowableEnumValues());
-                    throw new \InvalidArgumentException("Invalid value for enum '$swaggerType', must be one of: '$imploded'");
+                    throw new InvalidArgumentException("Invalid value for enum '$swaggerType', must be one of: '$imploded'");
                 }
                 if ($value !== null) {
                     $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $swaggerType, $formats[$property]);
@@ -224,13 +227,14 @@ class ObjectSerializer
     /**
      * Deserialize a JSON string into an object
      *
-     * @param mixed    $data          object or primitive to be deserialized
-     * @param string   $class         class name is passed as a string
-     * @param string[] $httpHeaders   HTTP headers
+     * @param mixed $data object or primitive to be deserialized
+     * @param string $class class name is passed as a string
+     * @param string[] $httpHeaders HTTP headers
      *
-     * @return object|array|null an single or an array of $class instances
+     * @return mixed
+     * @throws Exception
      */
-    public static function deserialize($data, $class, $httpHeaders = null)
+    public static function deserialize($data, $class, $httpHeaders = null): mixed
     {
         if (null === $data) {
             return null;
@@ -282,22 +286,35 @@ class ObjectSerializer
                 return (float)$originalData;
             }
             if ($normalizedClass === 'string' && is_object($data)) {
-                throw new \Exception("Cannot convert object to string");
+                throw new Exception("Cannot convert object to string");
             }
 
             settype($data, $class);
             if (gettype($data) === $normalizedClass) {
                 return $data;
             }
-            throw new \Exception("Serialization error: Could not convert " . gettype($originalData) . " to " . $class);
+            throw new Exception("Serialization error: Could not convert " . gettype($originalData) . " to " . $class);
         } elseif (method_exists($class, 'getAllowableEnumValues')) {
             if (!in_array($data, $class::getAllowableEnumValues())) {
                 $imploded = implode("', '", $class::getAllowableEnumValues());
-                throw new \InvalidArgumentException("Invalid value for enum '$class', must be one of: '$imploded'");
+                throw new InvalidArgumentException("Invalid value for enum '$class', must be one of: '$imploded'");
             }
             return $data;
         }
 
-        return $data;
+        $instance = new $class();
+        foreach ($instance::swaggerTypes() as $property => $type) {
+            $propertySetter = $instance::setters()[$property];
+
+            if (!isset($propertySetter) || !isset($data->{$instance::attributeMap()[$property]})) {
+                continue;
+            }
+
+            $propertyValue = $data->{$instance::attributeMap()[$property]};
+            if (isset($propertyValue)) {
+                $instance->$propertySetter(self::deserialize($propertyValue, $type, null));
+            }
+        }
+        return $instance;
     }
 }

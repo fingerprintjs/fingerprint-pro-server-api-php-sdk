@@ -2,6 +2,7 @@
 
 namespace Fingerprint\ServerAPI;
 
+use Exception;
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Model\EventResponse;
 use Fingerprint\ServerAPI\Model\IdentificationError;
@@ -51,7 +52,12 @@ class FingerprintApiTest extends TestCase
         $this->fingerprint_api->method('getEvent')->will($this->returnCallback([$this, 'getEventWithHttpInfoMock']));
         $this->fingerprint_api->method('getVisits')->will($this->returnCallback([$this, 'getVisitsWithHttpInfoMock']));
     }
-    public function getEventWithHttpInfoMock($request_id)
+
+    /**
+     * @throws \ReflectionException
+     * @throws SerializationException
+     */
+    public function getEventWithHttpInfoMock($request_id): array
     {
         $event_request_method = $this->getMethod('getEventRequest');
         /** @var \GuzzleHttp\Psr7\Request $event_request */
@@ -83,14 +89,17 @@ class FingerprintApiTest extends TestCase
 
         try {
             $serialized = ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
-        } catch (\Exception $exception) {
-            return [null, $response];
+        } catch (Exception $exception) {
+            throw new SerializationException($response);
         }
 
         return [$serialized, $response];
     }
 
-    public function getVisitsWithHttpInfoMock($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null)
+    /**
+     * @throws SerializationException
+     */
+    public function getVisitsWithHttpInfoMock($visitor_id, $request_id = null, $linked_id = null, $limit = null, $before = null): array
     {
         $file = file_get_contents(__DIR__ . '/mocks/get_visits_200_limit_500.json');
         $visits_mock_data = \GuzzleHttp\json_decode($file);
@@ -107,8 +116,8 @@ class FingerprintApiTest extends TestCase
         $response = new \GuzzleHttp\Psr7\Response(200, [], $file);
         try {
             $serialized = ObjectSerializer::deserialize($visits_mock_data, Response::class);
-        } catch (\Exception $exception) {
-            return [null, $response];
+        } catch (Exception $exception) {
+            throw new SerializationException($response);
         }
 
         return [$serialized, $response];
@@ -261,7 +270,11 @@ class FingerprintApiTest extends TestCase
 
     public function testGetBrokenFormatEvent()
     {
-        list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_BROKEN);
+        try {
+            list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_BROKEN);
+        } catch (SerializationException $exception) {
+            $response = $exception->getResponse();
+        }
         $responseBody = \GuzzleHttp\json_decode($response->getBody()->getContents());
 
         $this->assertNull($event);

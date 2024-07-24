@@ -35,6 +35,7 @@ use GuzzleHttp\RequestOptions;
 use Fingerprint\ServerAPI\ApiException;
 use Fingerprint\ServerAPI\Configuration;
 use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\SerializationException;
 
 /**
  * FingerprintApi Class Doc Comment
@@ -81,6 +82,7 @@ class FingerprintApi
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws SerializationException
      * @return array{ \Fingerprint\ServerAPI\Model\EventResponse|null, \Psr\Http\Message\ResponseInterface }
      */
     public function getEvent($request_id)
@@ -124,7 +126,7 @@ class FingerprintApi
             try {
                 $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
             } catch (\Exception $e) {
-                return [null, $response];
+                throw new SerializationException($response);
             }
 
             return [$serialized, $response];
@@ -246,6 +248,7 @@ class FingerprintApi
      *
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
+     * @throws SerializationException
      * @return array{ \Fingerprint\ServerAPI\Model\Response|null, \Psr\Http\Message\ResponseInterface }
      */
     public function getVisits($visitor_id, $request_id = null, $linked_id = null, $limit = null, $pagination_key = null, $before = null)
@@ -289,7 +292,7 @@ class FingerprintApi
             try {
                 $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
             } catch (\Exception $e) {
-                return [null, $response];
+                throw new SerializationException($response);
             }
 
             return [$serialized, $response];
