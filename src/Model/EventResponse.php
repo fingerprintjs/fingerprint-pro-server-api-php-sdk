@@ -42,8 +42,6 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  */
 class EventResponse implements ModelInterface, ArrayAccess
 {
-    public const DISCRIMINATOR = null;
-
     /**
       * The original name of the model.
       *

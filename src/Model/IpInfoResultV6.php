@@ -41,8 +41,6 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  */
 class IpInfoResultV6 implements ModelInterface, ArrayAccess
 {
-    public const DISCRIMINATOR = null;
-
     /**
       * The original name of the model.
       *

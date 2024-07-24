@@ -5,3 +5,4 @@ src/.php_cs
 src/git_push.sh
 src/test/**
 src/HeaderSelector.php
+src/ObjectSerializer.php

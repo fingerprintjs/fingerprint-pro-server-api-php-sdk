@@ -42,8 +42,6 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  */
 class BotdResult implements ModelInterface, ArrayAccess
 {
-    public const DISCRIMINATOR = null;
-
     /**
       * The original name of the model.
       *
