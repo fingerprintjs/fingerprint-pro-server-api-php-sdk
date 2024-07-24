@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**getVisits**](FingerprintApi.md#getVisits) | **GET** /visitors/{visitor_id} | Get visits by visitorId
 
 # **getEvent**
-> \Fingerprint\ServerAPI\Model\EventResponse getEvent($request_id)
+>  [ \Fingerprint\ServerAPI\Model\EventResponse, \Psr\Http\Message\ResponseInterface ] getEvent($request_id)
 
 Get event by requestId
 
@@ -37,8 +37,8 @@ $config
 $request_id = "request_id_example"; // string | The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request.
 
 try {
-$result = $client->getEvent($request_id);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    list($model, $httpResponse) = $client->getEvent($request_id);
+    echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
 }
@@ -53,7 +53,10 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\Fingerprint\ServerAPI\Model\EventResponse**](../Model/EventResponse.md)
+Array:
+0. [**\Fingerprint\ServerAPI\Model\EventResponse**](../Model/EventResponse.md) | null,
+1. \Psr\Http\Message\ResponseInterface
+
 
 ### Authorization
 
@@ -67,7 +70,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getVisits**
-> \Fingerprint\ServerAPI\Model\Response getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before)
+>  [ \Fingerprint\ServerAPI\Model\Response, \Psr\Http\Message\ResponseInterface ] getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before)
 
 Get visits by visitorId
 
@@ -101,8 +104,8 @@ $pagination_key = "pagination_key_example"; // string | Use `paginationKey` to g
 $before = 789; // int | ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results.
 
 try {
-$result = $client->getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    list($model, $httpResponse) = $client->getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before);
+    echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
@@ -122,7 +125,10 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**\Fingerprint\ServerAPI\Model\Response**](../Model/Response.md)
+Array:
+0. [**\Fingerprint\ServerAPI\Model\Response**](../Model/Response.md) | null,
+1. \Psr\Http\Message\ResponseInterface
+
 
 ### Authorization
 

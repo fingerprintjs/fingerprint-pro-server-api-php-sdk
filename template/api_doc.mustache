@@ -11,7 +11,7 @@ Method | HTTP request | Description
 {{#operations}}
 {{#operation}}
 # **{{{operationId}}}**
-> {{#returnType}}{{{returnType}}} {{/returnType}}{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}})
+> {{#returnType}} [ {{{returnType}}}, \Psr\Http\Message\ResponseInterface ] {{/returnType}}{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}})
 
 {{{summary}}}{{#notes}}
 
@@ -41,8 +41,8 @@ $config
 {{/allParams}}
 
 try {
-{{#returnType}}$result = {{/returnType}}$client->{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});{{#returnType}}
-    echo "<pre>" . $response->__toString() . "</pre>";{{/returnType}}
+    {{#returnType}}list($model, $httpResponse) = {{/returnType}}$client->{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});{{#returnType}}
+    echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";{{/returnType}}
 } catch (Exception $e) {
     echo 'Exception when calling {{classname}}->{{operationId}}: ', $e->getMessage(), PHP_EOL;
 }
@@ -58,7 +58,10 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-{{#returnType}}{{#returnTypeIsPrimitive}}**{{{returnType}}}**{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}[**{{{returnType}}}**](../Model/{{returnBaseType}}.md){{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}void (empty response body){{/returnType}}
+Array:
+0. {{#returnType}}{{#returnTypeIsPrimitive}}**{{{returnType}}}**{{/returnTypeIsPrimitive}}{{^returnTypeIsPrimitive}}[**{{{returnType}}}**](../Model/{{returnBaseType}}.md) | null{{/returnTypeIsPrimitive}}{{/returnType}}{{^returnType}}null{{/returnType}},
+1. \Psr\Http\Message\ResponseInterface
+
 
 ### Authorization
 

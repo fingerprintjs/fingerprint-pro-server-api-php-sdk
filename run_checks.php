@@ -44,16 +44,16 @@ $client = new FingerprintApi(
 error_reporting(error_reporting() & ~E_DEPRECATED);
 
 try {
-    list($result, $body) = $client->getVisitsWithHttpInfo($visitor_id);
-    fwrite(STDOUT, sprintf("Got visits: %s \n", $body));
+    list($result, $response) = $client->getVisits($visitor_id);
+    fwrite(STDOUT, sprintf("Got visits: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
 }
 
 try {
-    list($result, $body) = $client->getEventWithHttpInfo($request_id);
-    fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $body));
+    list($result, $response) = $client->getEvent($request_id);
+    fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
