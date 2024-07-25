@@ -90,7 +90,7 @@ class FingerprintApiTest extends TestCase
         try {
             $serialized = ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
         } catch (Exception $exception) {
-            throw new SerializationException($response);
+            throw new SerializationException($response, $exception);
         }
 
         return [$serialized, $response];
@@ -117,7 +117,7 @@ class FingerprintApiTest extends TestCase
         try {
             $serialized = ObjectSerializer::deserialize($visits_mock_data, Response::class);
         } catch (Exception $exception) {
-            throw new SerializationException($response);
+            throw new SerializationException($response, $exception);
         }
 
         return [$serialized, $response];

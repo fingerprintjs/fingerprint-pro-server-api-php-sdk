@@ -83,6 +83,7 @@ class FingerprintApi
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
      * @return array{ \Fingerprint\ServerAPI\Model\EventResponse|null, \Psr\Http\Message\ResponseInterface }
      */
     public function getEvent($request_id)
@@ -126,7 +127,7 @@ class FingerprintApi
             try {
                 $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
             } catch (\Exception $e) {
-                throw new SerializationException($response);
+                throw new SerializationException($response, $e);
             }
 
             return [$serialized, $response];
@@ -249,6 +250,7 @@ class FingerprintApi
      * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
      * @return array{ \Fingerprint\ServerAPI\Model\Response|null, \Psr\Http\Message\ResponseInterface }
      */
     public function getVisits($visitor_id, $request_id = null, $linked_id = null, $limit = null, $pagination_key = null, $before = null)
@@ -292,7 +294,7 @@ class FingerprintApi
             try {
                 $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
             } catch (\Exception $e) {
-                throw new SerializationException($response);
+                throw new SerializationException($response, $e);
             }
 
             return [$serialized, $response];

@@ -84,6 +84,7 @@ use {{invokerPackage}}\SerializationException;
      * @throws {{backSlash}}{{invokerPackage}}\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
      * @return array{ {{#returnType}}{{{returnType}}}|null{{/returnType}}{{^returnType}}null{{/returnType}}, \Psr\Http\Message\ResponseInterface }
      */
     public function {{operationId}}({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
@@ -128,7 +129,7 @@ use {{invokerPackage}}\SerializationException;
             try {
                 $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
             } catch (\Exception $e) {
-                throw new SerializationException($response);
+                throw new SerializationException($response, $e);
             }
 
             return [$serialized, $response];
