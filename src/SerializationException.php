@@ -9,9 +9,9 @@ final class SerializationException extends Exception
 {
     protected readonly ResponseInterface $response;
 
-    public function __construct(ResponseInterface $response)
+public function __construct(ResponseInterface $response, Exception $prev)
     {
-        parent::__construct("Response from the server couldn't be serialized");
+        parent::__construct("Response from the server couldn't be serialized", $prev->getCode(), $prev);
         $this->response = $response;
     }
 
