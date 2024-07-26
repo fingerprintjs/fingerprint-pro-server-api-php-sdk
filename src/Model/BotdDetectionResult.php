@@ -2,8 +2,6 @@
 /**
  * BotdDetectionResult.
  *
- * PHP version 5
- *
  * @category Class
  *
  * @author   Swagger Codegen team
