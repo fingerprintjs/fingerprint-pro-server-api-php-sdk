@@ -1,7 +1,5 @@
 <?php
 
-use Fingerprint\ServerAPI\Model\ResponseVisits;
-
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $host = getenv('FP_API_HOST');

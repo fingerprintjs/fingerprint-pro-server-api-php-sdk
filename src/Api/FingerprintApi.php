@@ -1,16 +1,17 @@
 <?php
 /**
  * FingerprintApi
- * PHP version 5
+ * PHP version 5.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -27,23 +28,26 @@
 
 namespace Fingerprint\ServerAPI\Api;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\RequestOptions;
 use Fingerprint\ServerAPI\ApiException;
 use Fingerprint\ServerAPI\Configuration;
 use Fingerprint\ServerAPI\ObjectSerializer;
 use Fingerprint\ServerAPI\SerializationException;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
 
 /**
- * FingerprintApi Class Doc Comment
+ * FingerprintApi Class Doc Comment.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 class FingerprintApi
 {
@@ -52,13 +56,9 @@ class FingerprintApi
 
     protected $integration_info = 'fingerprint-pro-server-php-sdk/4.1.0';
 
-    /**
-     * @param ClientInterface $client
-     * @param Configuration   $config
-     */
     public function __construct(
-        ClientInterface $client = null,
-        Configuration $config = null
+        ?ClientInterface $client = null,
+        ?Configuration $config = null
     ) {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
@@ -72,19 +72,19 @@ class FingerprintApi
         return $this->config;
     }
 
-
     /**
-     * Operation getEvent
+     * Operation getEvent.
      *
      * Get event by requestId
      *
-     * @param  string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
+     * @param string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
      *
-     * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
+     * @return array{ null|\Fingerprint\ServerAPI\Model\EventResponse, \Psr\Http\Message\ResponseInterface }
+     *
+     * @throws ApiException              on non-2xx response
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
-     * @return array{ \Fingerprint\ServerAPI\Model\EventResponse|null, \Psr\Http\Message\ResponseInterface }
      */
     public function getEvent($request_id)
     {
@@ -93,32 +93,33 @@ class FingerprintApi
 
         try {
             $options = $this->createHttpClientOption();
+
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
-                $errorBody = $e->getResponse()->getBody()->getContents();
-                $e->getResponse()->getBody()->rewind();
-                throw new ApiException(
+                $apiException = new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $errorBody : null
+                    $e->getCode()
                 );
+                $apiException->setResponseObject($e->getResponse());
+
+                throw $apiException;
             }
 
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
+                $apiException = new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
                         $request->getUri()
                     ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
+                    $statusCode
                 );
+                $apiException->setResponseObject($response);
+
+                throw $apiException;
             }
 
             $responseBody = $response->getBody()->getContents();
@@ -131,53 +132,188 @@ class FingerprintApi
             }
 
             return [$serialized, $response];
-
         } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $responseBody = $e->getResponseBody();
-                    $data = ObjectSerializer::deserialize(
-                        $responseBody,
-                        '\Fingerprint\ServerAPI\Model\EventResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $responseBody = $e->getResponseBody();
-                    $data = ObjectSerializer::deserialize(
-                        $responseBody,
-                        '\Fingerprint\ServerAPI\Model\ErrorEvent403Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $responseBody = $e->getResponseBody();
-                    $data = ObjectSerializer::deserialize(
-                        $responseBody,
-                        '\Fingerprint\ServerAPI\Model\ErrorEvent404Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
+            try {
+                switch ($e->getCode()) {
+                    case 200:
+                        /** @var ResponseInterface $response */
+                        $response = $e->getResponseObject();
+                        $responseBody = $response->getBody()->getContents();
+                        $response->getBody()->rewind();
+                        $data = ObjectSerializer::deserialize(
+                            $responseBody,
+                            '\Fingerprint\ServerAPI\Model\EventResponse',
+                            $response->getHeaders()
+                        );
+                        $e->setResponseObject($data);
+
+                        break;
+
+                    case 403:
+                        /** @var ResponseInterface $response */
+                        $response = $e->getResponseObject();
+                        $responseBody = $response->getBody()->getContents();
+                        $response->getBody()->rewind();
+                        $data = ObjectSerializer::deserialize(
+                            $responseBody,
+                            '\Fingerprint\ServerAPI\Model\ErrorEvent403Response',
+                            $response->getHeaders()
+                        );
+                        $e->setResponseObject($data);
+
+                        break;
+
+                    case 404:
+                        /** @var ResponseInterface $response */
+                        $response = $e->getResponseObject();
+                        $responseBody = $response->getBody()->getContents();
+                        $response->getBody()->rewind();
+                        $data = ObjectSerializer::deserialize(
+                            $responseBody,
+                            '\Fingerprint\ServerAPI\Model\ErrorEvent404Response',
+                            $response->getHeaders()
+                        );
+                        $e->setResponseObject($data);
+
+                        break;
+                }
+
+                throw $e;
+            } catch (\Exception $_) {
             }
-            throw $e;
         }
     }
 
     /**
-     * Create request for operation 'getEvent'
+     * Operation getVisits.
      *
-     * @param  string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
+     * Get visits by visitorId
+     *
+     * @param string $visitor_id     Unique identifier of the visitor issued by Fingerprint Pro. (required)
+     * @param string $request_id     Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
+     * @param string $linked_id      Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param int    $limit          Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
+     * @param string $pagination_key Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. (optional)
+     * @param int    $before         ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
+     *
+     * @return array{ null|\Fingerprint\ServerAPI\Model\Response, \Psr\Http\Message\ResponseInterface }
+     *
+     * @throws ApiException              on non-2xx response
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     * @throws GuzzleException
+     */
+    public function getVisits($visitor_id, $request_id = null, $linked_id = null, $limit = null, $pagination_key = null, $before = null)
+    {
+        $returnType = '\Fingerprint\ServerAPI\Model\Response';
+        $request = $this->getVisitsRequest($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before);
+
+        try {
+            $options = $this->createHttpClientOption();
+
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                $apiException = new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode()
+                );
+                $apiException->setResponseObject($e->getResponse());
+
+                throw $apiException;
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                $apiException = new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode
+                );
+                $apiException->setResponseObject($response);
+
+                throw $apiException;
+            }
+
+            $responseBody = $response->getBody()->getContents();
+            $response->getBody()->rewind();
+
+            try {
+                $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
+            } catch (\Exception $e) {
+                throw new SerializationException($response, $e);
+            }
+
+            return [$serialized, $response];
+        } catch (ApiException $e) {
+            try {
+                switch ($e->getCode()) {
+                    case 200:
+                        /** @var ResponseInterface $response */
+                        $response = $e->getResponseObject();
+                        $responseBody = $response->getBody()->getContents();
+                        $response->getBody()->rewind();
+                        $data = ObjectSerializer::deserialize(
+                            $responseBody,
+                            '\Fingerprint\ServerAPI\Model\Response',
+                            $response->getHeaders()
+                        );
+                        $e->setResponseObject($data);
+
+                        break;
+
+                    case 403:
+                        /** @var ResponseInterface $response */
+                        $response = $e->getResponseObject();
+                        $responseBody = $response->getBody()->getContents();
+                        $response->getBody()->rewind();
+                        $data = ObjectSerializer::deserialize(
+                            $responseBody,
+                            '\Fingerprint\ServerAPI\Model\ErrorVisits403',
+                            $response->getHeaders()
+                        );
+                        $e->setResponseObject($data);
+
+                        break;
+
+                    case 429:
+                        /** @var ResponseInterface $response */
+                        $response = $e->getResponseObject();
+                        $responseBody = $response->getBody()->getContents();
+                        $response->getBody()->rewind();
+                        $data = ObjectSerializer::deserialize(
+                            $responseBody,
+                            '\Fingerprint\ServerAPI\Model\ManyRequestsResponse',
+                            $response->getHeaders()
+                        );
+                        $e->setResponseObject($data);
+
+                        break;
+                }
+
+                throw $e;
+            } catch (\Exception $_) {
+            }
+        }
+    }
+
+    /**
+     * Create request for operation 'getEvent'.
+     *
+     * @param string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
+     *
+     * @return Request
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
      */
     protected function getEventRequest($request_id)
     {
         // verify the required parameter 'request_id' is set
-        if ($request_id === null || (is_array($request_id) && count($request_id) === 0)) {
+        if (null === $request_id || (is_array($request_id) && 0 === count($request_id))) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $request_id when calling getEvent'
             );
@@ -189,25 +325,23 @@ class FingerprintApi
         $headerParams = [];
         $httpBody = '';
 
-
         // path params
-        if ($request_id !== null) {
+        if (null !== $request_id) {
             $resourcePath = str_replace(
-                '{' . 'request_id' . '}',
+                '{request_id}',
                 ObjectSerializer::toPathValue($request_id),
                 $resourcePath
             );
         }
 
-
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('Auth-API-Key');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $headers['Auth-API-Key'] = $apiKey;
         }
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('api_key');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $queryParams['api_key'] = $apiKey;
         }
 
@@ -226,130 +360,33 @@ class FingerprintApi
         );
 
         $query = http_build_query($queryParams);
+
         return new Request(
             'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );
     }
 
-
     /**
-     * Operation getVisits
+     * Create request for operation 'getVisits'.
      *
-     * Get visits by visitorId
+     * @param string $visitor_id     Unique identifier of the visitor issued by Fingerprint Pro. (required)
+     * @param string $request_id     Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
+     * @param string $linked_id      Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param int    $limit          Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
+     * @param string $pagination_key Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. (optional)
+     * @param int    $before         ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
      *
-     * @param  string $visitor_id Unique identifier of the visitor issued by Fingerprint Pro. (required)
-     * @param  string $request_id Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
-     * @param  string $linked_id Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
-     * @param  int $limit Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
-     * @param  string $pagination_key Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. (optional)
-     * @param  int $before ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
-     *
-     * @throws \Fingerprint\ServerAPI\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @throws SerializationException
-     * @throws GuzzleException
-     * @return array{ \Fingerprint\ServerAPI\Model\Response|null, \Psr\Http\Message\ResponseInterface }
-     */
-    public function getVisits($visitor_id, $request_id = null, $linked_id = null, $limit = null, $pagination_key = null, $before = null)
-    {
-        $returnType = '\Fingerprint\ServerAPI\Model\Response';
-        $request = $this->getVisitsRequest($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                $errorBody = $e->getResponse()->getBody()->getContents();
-                $e->getResponse()->getBody()->rewind();
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $errorBody : null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
-            }
-
-            $responseBody = $response->getBody()->getContents();
-            $response->getBody()->rewind();
-
-            try {
-                $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-            } catch (\Exception $e) {
-                throw new SerializationException($response, $e);
-            }
-
-            return [$serialized, $response];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $responseBody = $e->getResponseBody();
-                    $data = ObjectSerializer::deserialize(
-                        $responseBody,
-                        '\Fingerprint\ServerAPI\Model\Response',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $responseBody = $e->getResponseBody();
-                    $data = ObjectSerializer::deserialize(
-                        $responseBody,
-                        '\Fingerprint\ServerAPI\Model\ErrorVisits403',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 429:
-                    $responseBody = $e->getResponseBody();
-                    $data = ObjectSerializer::deserialize(
-                        $responseBody,
-                        '\Fingerprint\ServerAPI\Model\ManyRequestsResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Create request for operation 'getVisits'
-     *
-     * @param  string $visitor_id Unique identifier of the visitor issued by Fingerprint Pro. (required)
-     * @param  string $request_id Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
-     * @param  string $linked_id Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
-     * @param  int $limit Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
-     * @param  string $pagination_key Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. (optional)
-     * @param  int $before ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
+     * @return Request
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
      */
     protected function getVisitsRequest($visitor_id, $request_id = null, $linked_id = null, $limit = null, $pagination_key = null, $before = null)
     {
         // verify the required parameter 'visitor_id' is set
-        if ($visitor_id === null || (is_array($visitor_id) && count($visitor_id) === 0)) {
+        if (null === $visitor_id || (is_array($visitor_id) && 0 === count($visitor_id))) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $visitor_id when calling getVisits'
             );
@@ -362,44 +399,43 @@ class FingerprintApi
         $httpBody = '';
 
         // query params
-        if ($request_id !== null) {
+        if (null !== $request_id) {
             $queryParams['request_id'] = ObjectSerializer::toQueryValue($request_id, null);
         }
         // query params
-        if ($linked_id !== null) {
+        if (null !== $linked_id) {
             $queryParams['linked_id'] = ObjectSerializer::toQueryValue($linked_id, null);
         }
         // query params
-        if ($limit !== null) {
+        if (null !== $limit) {
             $queryParams['limit'] = ObjectSerializer::toQueryValue($limit, 'int32');
         }
         // query params
-        if ($pagination_key !== null) {
+        if (null !== $pagination_key) {
             $queryParams['paginationKey'] = ObjectSerializer::toQueryValue($pagination_key, null);
         }
         // query params
-        if ($before !== null) {
+        if (null !== $before) {
             $queryParams['before'] = ObjectSerializer::toQueryValue($before, 'int64');
         }
 
         // path params
-        if ($visitor_id !== null) {
+        if (null !== $visitor_id) {
             $resourcePath = str_replace(
-                '{' . 'visitor_id' . '}',
+                '{visitor_id}',
                 ObjectSerializer::toPathValue($visitor_id),
                 $resourcePath
             );
         }
 
-
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('Auth-API-Key');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $headers['Auth-API-Key'] = $apiKey;
         }
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('api_key');
-        if ($apiKey !== null) {
+        if (null !== $apiKey) {
             $queryParams['api_key'] = $apiKey;
         }
 
@@ -418,19 +454,21 @@ class FingerprintApi
         );
 
         $query = http_build_query($queryParams);
+
         return new Request(
             'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );
     }
 
     /**
-     * Create http client option
+     * Create http client option.
+     *
+     * @return array of http client options
      *
      * @throws \RuntimeException on file opening failure
-     * @return array of http client options
      */
     protected function createHttpClientOption()
     {
@@ -438,7 +476,7 @@ class FingerprintApi
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
             if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
+                throw new \RuntimeException('Failed to open the debug file: '.$this->config->getDebugFile());
             }
         }
 

@@ -27,6 +27,8 @@ use {{invokerPackage}}\ApiException;
 use {{invokerPackage}}\Configuration;
 use {{invokerPackage}}\ObjectSerializer;
 use {{invokerPackage}}\SerializationException;
+use Psr\Http\Message\ResponseInterface;
+use \GuzzleHttp\Exception\GuzzleException;
 
 /**
  * {{classname}} Class Doc Comment
@@ -97,29 +99,27 @@ use {{invokerPackage}}\SerializationException;
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
-                $errorBody = $e->getResponse()->getBody()->getContents();
-                $e->getResponse()->getBody()->rewind();
-                throw new ApiException(
+                $apiException = new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $errorBody : null
+                    $e->getCode()
                 );
+                $apiException->setResponseObject($e->getResponse());
+                throw $apiException;
             }
 
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
+                $apiException = new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
                         $request->getUri()
                     ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
+                    $statusCode
                 );
+                $apiException->setResponseObject($response);
+                throw $apiException;
             }
 
             {{#returnType}}
@@ -139,23 +139,29 @@ use {{invokerPackage}}\SerializationException;
             {{/returnType}}
 
         } catch (ApiException $e) {
-            switch ($e->getCode()) {
-        {{#responses}}
-            {{#dataType}}
-                {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
-                    $responseBody = $e->getResponseBody();
-                    $data = ObjectSerializer::deserialize(
-                        $responseBody,
-                        '{{dataType}}',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            {{/dataType}}
-        {{/responses}}
+            try {
+                switch ($e->getCode()) {
+                {{#responses}}
+                    {{#dataType}}
+                            {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
+                                /** @var ResponseInterface $response */
+                                $response = $e->getResponseObject();
+                                $responseBody = $response->getBody()->getContents();
+                                $response->getBody()->rewind();
+                                $data = ObjectSerializer::deserialize(
+                                $responseBody,
+                                '{{dataType}}',
+                                $response->getHeaders()
+                                );
+                                $e->setResponseObject($data);
+                            break;
+                    {{/dataType}}
+                {{/responses}}
+                    }
+                    throw $e;
+                } catch (\Exception $_) {
+                }
             }
-            throw $e;
-        }
     }
 
     /**

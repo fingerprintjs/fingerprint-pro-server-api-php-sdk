@@ -1,16 +1,17 @@
 <?php
 /**
  * Configuration
- * PHP version 5
+ * PHP version 5.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -29,92 +30,93 @@ namespace Fingerprint\ServerAPI;
 
 /**
  * Configuration Class Doc Comment
- * PHP version 5
+ * PHP version 5.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 class Configuration
 {
-    public const REGION_GLOBAL = "https://api.fpjs.io";
-    public const REGION_EUROPE = "https://eu.api.fpjs.io";
-    public const REGION_ASIA = "https://ap.api.fpjs.io";
-    private static $defaultConfiguration;
+    public const REGION_GLOBAL = 'https://api.fpjs.io';
+    public const REGION_EUROPE = 'https://eu.api.fpjs.io';
+    public const REGION_ASIA = 'https://ap.api.fpjs.io';
 
     /**
-     * Associate array to store API key(s)
+     * Associate array to store API key(s).
      *
      * @var string[]
      */
     protected $apiKeys = [];
 
     /**
-     * Associate array to store API prefix (e.g. Bearer)
+     * Associate array to store API prefix (e.g. Bearer).
      *
      * @var string[]
      */
     protected $apiKeyPrefixes = [];
 
     /**
-     * Access token for OAuth
+     * Access token for OAuth.
      *
      * @var string
      */
     protected $accessToken = '';
 
     /**
-     * Username for HTTP basic authentication
+     * Username for HTTP basic authentication.
      *
      * @var string
      */
     protected $username = '';
 
     /**
-     * Password for HTTP basic authentication
+     * Password for HTTP basic authentication.
      *
      * @var string
      */
     protected $password = '';
 
     /**
-     * The host
+     * The host.
      *
      * @var string
      */
     protected $host = 'https://api.fpjs.io';
 
     /**
-     * User agent of the HTTP request, set to "PHP-Swagger" by default
+     * User agent of the HTTP request, set to "PHP-Swagger" by default.
      *
      * @var string
      */
     protected $userAgent = 'Swagger-Codegen/4.1.0/php';
 
     /**
-     * Debug switch (default set to false)
+     * Debug switch (default set to false).
      *
      * @var bool
      */
     protected $debug = false;
 
     /**
-     * Debug file location (log to STDOUT by default)
+     * Debug file location (log to STDOUT by default).
      *
      * @var string
      */
     protected $debugFile = 'php://output';
 
     /**
-     * Debug file location (log to STDOUT by default)
+     * Debug file location (log to STDOUT by default).
      *
      * @var string
      */
     protected $tempFolderPath;
+    private static $defaultConfiguration;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -122,21 +124,22 @@ class Configuration
     }
 
     /**
-     * Sets API key
+     * Sets API key.
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     * @param string $key API key or token
+     * @param string $key              API key or token
      *
      * @return $this
      */
     public function setApiKey($apiKeyIdentifier, $key)
     {
         $this->apiKeys[$apiKeyIdentifier] = $key;
+
         return $this;
     }
 
     /**
-     * Gets API key
+     * Gets API key.
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
      *
@@ -148,21 +151,22 @@ class Configuration
     }
 
     /**
-     * Sets the prefix for API key (e.g. Bearer)
+     * Sets the prefix for API key (e.g. Bearer).
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
-     * @param string $prefix API key prefix, e.g. Bearer
+     * @param string $prefix           API key prefix, e.g. Bearer
      *
      * @return $this
      */
     public function setApiKeyPrefix($apiKeyIdentifier, $prefix)
     {
         $this->apiKeyPrefixes[$apiKeyIdentifier] = $prefix;
+
         return $this;
     }
 
     /**
-     * Gets API key prefix
+     * Gets API key prefix.
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
      *
@@ -174,7 +178,7 @@ class Configuration
     }
 
     /**
-     * Sets the access token for OAuth
+     * Sets the access token for OAuth.
      *
      * @param string $accessToken Token for OAuth
      *
@@ -183,11 +187,12 @@ class Configuration
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
+
         return $this;
     }
 
     /**
-     * Gets the access token for OAuth
+     * Gets the access token for OAuth.
      *
      * @return string Access token for OAuth
      */
@@ -197,7 +202,7 @@ class Configuration
     }
 
     /**
-     * Sets the username for HTTP basic authentication
+     * Sets the username for HTTP basic authentication.
      *
      * @param string $username Username for HTTP basic authentication
      *
@@ -206,11 +211,12 @@ class Configuration
     public function setUsername($username)
     {
         $this->username = $username;
+
         return $this;
     }
 
     /**
-     * Gets the username for HTTP basic authentication
+     * Gets the username for HTTP basic authentication.
      *
      * @return string Username for HTTP basic authentication
      */
@@ -220,7 +226,7 @@ class Configuration
     }
 
     /**
-     * Sets the password for HTTP basic authentication
+     * Sets the password for HTTP basic authentication.
      *
      * @param string $password Password for HTTP basic authentication
      *
@@ -229,11 +235,12 @@ class Configuration
     public function setPassword($password)
     {
         $this->password = $password;
+
         return $this;
     }
 
     /**
-     * Gets the password for HTTP basic authentication
+     * Gets the password for HTTP basic authentication.
      *
      * @return string Password for HTTP basic authentication
      */
@@ -243,7 +250,7 @@ class Configuration
     }
 
     /**
-     * Sets the host
+     * Sets the host.
      *
      * @param string $host Host
      *
@@ -252,11 +259,12 @@ class Configuration
     public function setHost($host)
     {
         $this->host = $host;
+
         return $this;
     }
 
     /**
-     * Gets the host
+     * Gets the host.
      *
      * @return string Host
      */
@@ -266,26 +274,30 @@ class Configuration
     }
 
     /**
-     * @param $region
      * @return $this
      */
     public function setRegion($region = self::REGION_GLOBAL)
     {
         switch (trim(strtolower($region))) {
             case self::REGION_ASIA:
-            case "as":
-            case "asia":
+            case 'as':
+            case 'asia':
                 $this->setHost(self::REGION_ASIA);
+
                 break;
+
             case self::REGION_EUROPE:
-            case "eu":
-            case "europe":
+            case 'eu':
+            case 'europe':
                 $this->setHost(self::REGION_EUROPE);
+
                 break;
+
             default:
             case self::REGION_GLOBAL:
-            case "global":
+            case 'global':
                 $this->setHost(self::REGION_GLOBAL);
+
                 break;
         }
 
@@ -293,11 +305,12 @@ class Configuration
     }
 
     /**
-     * Sets the user agent of the api client
+     * Sets the user agent of the api client.
      *
      * @param string $userAgent the user agent of the api client
      *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setUserAgent($userAgent)
@@ -307,11 +320,12 @@ class Configuration
         }
 
         $this->userAgent = $userAgent;
+
         return $this;
     }
 
     /**
-     * Gets the user agent of the api client
+     * Gets the user agent of the api client.
      *
      * @return string user agent
      */
@@ -321,7 +335,7 @@ class Configuration
     }
 
     /**
-     * Sets debug flag
+     * Sets debug flag.
      *
      * @param bool $debug Debug flag
      *
@@ -330,11 +344,12 @@ class Configuration
     public function setDebug($debug)
     {
         $this->debug = $debug;
+
         return $this;
     }
 
     /**
-     * Gets the debug flag
+     * Gets the debug flag.
      *
      * @return bool
      */
@@ -344,7 +359,7 @@ class Configuration
     }
 
     /**
-     * Sets the debug file
+     * Sets the debug file.
      *
      * @param string $debugFile Debug file
      *
@@ -353,11 +368,12 @@ class Configuration
     public function setDebugFile($debugFile)
     {
         $this->debugFile = $debugFile;
+
         return $this;
     }
 
     /**
-     * Gets the debug file
+     * Gets the debug file.
      *
      * @return string
      */
@@ -367,7 +383,7 @@ class Configuration
     }
 
     /**
-     * Sets the temp folder path
+     * Sets the temp folder path.
      *
      * @param string $tempFolderPath Temp folder path
      *
@@ -376,11 +392,12 @@ class Configuration
     public function setTempFolderPath($tempFolderPath)
     {
         $this->tempFolderPath = $tempFolderPath;
+
         return $this;
     }
 
     /**
-     * Gets the temp folder path
+     * Gets the temp folder path.
      *
      * @return string Temp folder path
      */
@@ -390,15 +407,13 @@ class Configuration
     }
 
     /**
-     * Gets the default configuration instance, with apiKey and host params
+     * Gets the default configuration instance, with apiKey and host params.
      *
-     * @param $api_key
-     * @param $region
      * @return Configuration
      */
     public static function getDefaultConfiguration($api_key = null, $region = self::REGION_GLOBAL)
     {
-        if (self::$defaultConfiguration === null) {
+        if (null === self::$defaultConfiguration) {
             self::$defaultConfiguration = new Configuration();
         }
 
@@ -409,11 +424,9 @@ class Configuration
     }
 
     /**
-     * Sets the detault configuration instance
+     * Sets the detault configuration instance.
      *
      * @param Configuration $config An instance of the Configuration Object
-     *
-     * @return void
      */
     public static function setDefaultConfiguration(Configuration $config)
     {
@@ -421,24 +434,24 @@ class Configuration
     }
 
     /**
-     * Gets the essential information for debugging
+     * Gets the essential information for debugging.
      *
      * @return string The report for debugging
      */
     public static function toDebugReport()
     {
-        $report = 'PHP SDK (Fingerprint\ServerAPI) Debug Report:' . PHP_EOL;
-        $report .= '    OS: ' . php_uname() . PHP_EOL;
-        $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
-        $report .= '    OpenAPI Spec Version: 3' . PHP_EOL;
-        $report .= '    SDK Package Version: 4.1.0' . PHP_EOL;
-        $report .= '    Temp Folder Path: ' . self::getDefaultConfiguration()->getTempFolderPath() . PHP_EOL;
+        $report = 'PHP SDK (Fingerprint\ServerAPI) Debug Report:'.PHP_EOL;
+        $report .= '    OS: '.php_uname().PHP_EOL;
+        $report .= '    PHP Version: '.PHP_VERSION.PHP_EOL;
+        $report .= '    OpenAPI Spec Version: 3'.PHP_EOL;
+        $report .= '    SDK Package Version: 4.1.0'.PHP_EOL;
+        $report .= '    Temp Folder Path: '.self::getDefaultConfiguration()->getTempFolderPath().PHP_EOL;
 
         return $report;
     }
 
     /**
-     * Get API key (with prefix if set)
+     * Get API key (with prefix if set).
      *
      * @param string $apiKeyIdentifier name of apikey
      *
@@ -449,14 +462,14 @@ class Configuration
         $prefix = $this->getApiKeyPrefix($apiKeyIdentifier);
         $apiKey = $this->getApiKey($apiKeyIdentifier);
 
-        if ($apiKey === null) {
+        if (null === $apiKey) {
             return null;
         }
 
-        if ($prefix === null) {
+        if (null === $prefix) {
             $keyWithPrefix = $apiKey;
         } else {
-            $keyWithPrefix = $prefix . ' ' . $apiKey;
+            $keyWithPrefix = $prefix.' '.$apiKey;
         }
 
         return $keyWithPrefix;

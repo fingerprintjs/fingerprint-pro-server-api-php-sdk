@@ -1,16 +1,17 @@
 <?php
 /**
  * ApiException
- * PHP version 5
+ * PHP version 5.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -27,80 +28,37 @@
 
 namespace Fingerprint\ServerAPI;
 
-use Exception;
-
 /**
- * ApiException Class Doc Comment
+ * ApiException Class Doc Comment.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ApiException extends Exception
+class ApiException extends \Exception
 {
     /**
-     * The HTTP body of the server response either as Json or string.
-     *
-     * @var mixed
-     */
-    protected $responseBody;
-
-    /**
-     * The HTTP header of the server response.
-     *
-     * @var string[]|null
-     */
-    protected $responseHeaders;
-
-    /**
-     * The deserialized response object
-     *
-     * @var $responseObject;
+     * The deserialized response object.
      */
     protected $responseObject;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param string        $message         Error message
-     * @param int           $code            HTTP status code
-     * @param string[]|null $responseHeaders HTTP response header
-     * @param mixed         $responseBody    HTTP decoded body of the server response either as \stdClass or string
+     * @param string $message Error message
+     * @param int    $code    HTTP status code
      */
-    public function __construct($message = "", $code = 0, $responseHeaders = [], $responseBody = null)
+    public function __construct($message = '', $code = 0)
     {
         parent::__construct($message, $code);
-        $this->responseHeaders = $responseHeaders;
-        $this->responseBody = $responseBody;
     }
 
     /**
-     * Gets the HTTP response header
-     *
-     * @return string[]|null HTTP response header
-     */
-    public function getResponseHeaders()
-    {
-        return $this->responseHeaders;
-    }
-
-    /**
-     * Gets the HTTP body of the server response either as Json or string
-     *
-     * @return mixed HTTP body of the server response either as \stdClass or string
-     */
-    public function getResponseBody()
-    {
-        return $this->responseBody;
-    }
-
-    /**
-     * Sets the deseralized response object (during deserialization)
+     * Sets the deseralized response object (during deserialization).
      *
      * @param mixed $obj Deserialized response object
-     *
-     * @return void
      */
     public function setResponseObject($obj)
     {
@@ -108,7 +66,7 @@ class ApiException extends Exception
     }
 
     /**
-     * Gets the deseralized response object (during deserialization)
+     * Gets the deseralized response object (during deserialization).
      *
      * @return mixed the deserialized response object
      */

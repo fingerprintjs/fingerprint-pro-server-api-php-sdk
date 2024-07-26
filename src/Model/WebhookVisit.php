@@ -1,17 +1,18 @@
 <?php
 /**
- * WebhookVisit
+ * WebhookVisit.
  *
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -28,319 +29,256 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use ArrayAccess;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookVisit Class Doc Comment
+ * WebhookVisit Class Doc Comment.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookVisit implements ModelInterface, ArrayAccess
+class WebhookVisit implements ModelInterface, \ArrayAccess
 {
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'WebhookVisit';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'visitor_id' => 'string',
-'client_referrer' => 'string',
-'user_agent' => 'string',
-'bot' => '\Fingerprint\ServerAPI\Model\BotdDetectionResult',
-'ip_info' => '\Fingerprint\ServerAPI\Model\IpInfoResult',
-'incognito' => 'bool',
-'root_apps' => '\Fingerprint\ServerAPI\Model\RootAppsResult',
-'emulator' => '\Fingerprint\ServerAPI\Model\EmulatorResult',
-'cloned_app' => '\Fingerprint\ServerAPI\Model\ClonedAppResult',
-'factory_reset' => '\Fingerprint\ServerAPI\Model\FactoryResetResult',
-'jailbroken' => '\Fingerprint\ServerAPI\Model\JailbrokenResult',
-'frida' => '\Fingerprint\ServerAPI\Model\FridaResult',
-'ip_blocklist' => '\Fingerprint\ServerAPI\Model\IpBlockListResult',
-'tor' => '\Fingerprint\ServerAPI\Model\TorResult',
-'privacy_settings' => '\Fingerprint\ServerAPI\Model\PrivacySettingsResult',
-'virtual_machine' => '\Fingerprint\ServerAPI\Model\VirtualMachineResult',
-'vpn' => '\Fingerprint\ServerAPI\Model\VpnResult',
-'proxy' => '\Fingerprint\ServerAPI\Model\ProxyResult',
-'tampering' => '\Fingerprint\ServerAPI\Model\TamperingResult',
-'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult',
-'high_activity' => '\Fingerprint\ServerAPI\Model\HighActivityResult',
-'location_spoofing' => '\Fingerprint\ServerAPI\Model\LocationSpoofingResult',
-'suspect_score' => '\Fingerprint\ServerAPI\Model\SuspectScoreResult',
-'request_id' => 'string',
-'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
-'ip' => 'string',
-'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedIPLocation',
-'timestamp' => 'int',
-'time' => '\DateTime',
-'url' => 'string',
-'tag' => 'map[string,object]',
-'linked_id' => 'string',
-'confidence' => '\Fingerprint\ServerAPI\Model\Confidence',
-'visitor_found' => 'bool',
-'first_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt',
-'last_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt'    ];
+        'client_referrer' => 'string',
+        'user_agent' => 'string',
+        'bot' => '\Fingerprint\ServerAPI\Model\BotdDetectionResult',
+        'ip_info' => '\Fingerprint\ServerAPI\Model\IpInfoResult',
+        'incognito' => 'bool',
+        'root_apps' => '\Fingerprint\ServerAPI\Model\RootAppsResult',
+        'emulator' => '\Fingerprint\ServerAPI\Model\EmulatorResult',
+        'cloned_app' => '\Fingerprint\ServerAPI\Model\ClonedAppResult',
+        'factory_reset' => '\Fingerprint\ServerAPI\Model\FactoryResetResult',
+        'jailbroken' => '\Fingerprint\ServerAPI\Model\JailbrokenResult',
+        'frida' => '\Fingerprint\ServerAPI\Model\FridaResult',
+        'ip_blocklist' => '\Fingerprint\ServerAPI\Model\IpBlockListResult',
+        'tor' => '\Fingerprint\ServerAPI\Model\TorResult',
+        'privacy_settings' => '\Fingerprint\ServerAPI\Model\PrivacySettingsResult',
+        'virtual_machine' => '\Fingerprint\ServerAPI\Model\VirtualMachineResult',
+        'vpn' => '\Fingerprint\ServerAPI\Model\VpnResult',
+        'proxy' => '\Fingerprint\ServerAPI\Model\ProxyResult',
+        'tampering' => '\Fingerprint\ServerAPI\Model\TamperingResult',
+        'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult',
+        'high_activity' => '\Fingerprint\ServerAPI\Model\HighActivityResult',
+        'location_spoofing' => '\Fingerprint\ServerAPI\Model\LocationSpoofingResult',
+        'suspect_score' => '\Fingerprint\ServerAPI\Model\SuspectScoreResult',
+        'request_id' => 'string',
+        'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
+        'ip' => 'string',
+        'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedIPLocation',
+        'timestamp' => 'int',
+        'time' => '\DateTime',
+        'url' => 'string',
+        'tag' => 'map[string,object]',
+        'linked_id' => 'string',
+        'confidence' => '\Fingerprint\ServerAPI\Model\Confidence',
+        'visitor_found' => 'bool',
+        'first_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt',
+        'last_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'visitor_id' => null,
-'client_referrer' => null,
-'user_agent' => null,
-'bot' => null,
-'ip_info' => null,
-'incognito' => null,
-'root_apps' => null,
-'emulator' => null,
-'cloned_app' => null,
-'factory_reset' => null,
-'jailbroken' => null,
-'frida' => null,
-'ip_blocklist' => null,
-'tor' => null,
-'privacy_settings' => null,
-'virtual_machine' => null,
-'vpn' => null,
-'proxy' => null,
-'tampering' => null,
-'raw_device_attributes' => null,
-'high_activity' => null,
-'location_spoofing' => null,
-'suspect_score' => null,
-'request_id' => null,
-'browser_details' => null,
-'ip' => 'ipv4',
-'ip_location' => null,
-'timestamp' => 'int64',
-'time' => 'date-time',
-'url' => null,
-'tag' => null,
-'linked_id' => null,
-'confidence' => null,
-'visitor_found' => null,
-'first_seen_at' => null,
-'last_seen_at' => null    ];
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerTypes()
-    {
-        return self::$swaggerTypes;
-    }
-
-    /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerFormats()
-    {
-        return self::$swaggerFormats;
-    }
+        'client_referrer' => null,
+        'user_agent' => null,
+        'bot' => null,
+        'ip_info' => null,
+        'incognito' => null,
+        'root_apps' => null,
+        'emulator' => null,
+        'cloned_app' => null,
+        'factory_reset' => null,
+        'jailbroken' => null,
+        'frida' => null,
+        'ip_blocklist' => null,
+        'tor' => null,
+        'privacy_settings' => null,
+        'virtual_machine' => null,
+        'vpn' => null,
+        'proxy' => null,
+        'tampering' => null,
+        'raw_device_attributes' => null,
+        'high_activity' => null,
+        'location_spoofing' => null,
+        'suspect_score' => null,
+        'request_id' => null,
+        'browser_details' => null,
+        'ip' => 'ipv4',
+        'ip_location' => null,
+        'timestamp' => 'int64',
+        'time' => 'date-time',
+        'url' => null,
+        'tag' => null,
+        'linked_id' => null,
+        'confidence' => null,
+        'visitor_found' => null,
+        'first_seen_at' => null,
+        'last_seen_at' => null];
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @var string[]
      */
     protected static $attributeMap = [
         'visitor_id' => 'visitorId',
-'client_referrer' => 'clientReferrer',
-'user_agent' => 'userAgent',
-'bot' => 'bot',
-'ip_info' => 'ipInfo',
-'incognito' => 'incognito',
-'root_apps' => 'rootApps',
-'emulator' => 'emulator',
-'cloned_app' => 'clonedApp',
-'factory_reset' => 'factoryReset',
-'jailbroken' => 'jailbroken',
-'frida' => 'frida',
-'ip_blocklist' => 'ipBlocklist',
-'tor' => 'tor',
-'privacy_settings' => 'privacySettings',
-'virtual_machine' => 'virtualMachine',
-'vpn' => 'vpn',
-'proxy' => 'proxy',
-'tampering' => 'tampering',
-'raw_device_attributes' => 'rawDeviceAttributes',
-'high_activity' => 'highActivity',
-'location_spoofing' => 'locationSpoofing',
-'suspect_score' => 'suspectScore',
-'request_id' => 'requestId',
-'browser_details' => 'browserDetails',
-'ip' => 'ip',
-'ip_location' => 'ipLocation',
-'timestamp' => 'timestamp',
-'time' => 'time',
-'url' => 'url',
-'tag' => 'tag',
-'linked_id' => 'linkedId',
-'confidence' => 'confidence',
-'visitor_found' => 'visitorFound',
-'first_seen_at' => 'firstSeenAt',
-'last_seen_at' => 'lastSeenAt'    ];
+        'client_referrer' => 'clientReferrer',
+        'user_agent' => 'userAgent',
+        'bot' => 'bot',
+        'ip_info' => 'ipInfo',
+        'incognito' => 'incognito',
+        'root_apps' => 'rootApps',
+        'emulator' => 'emulator',
+        'cloned_app' => 'clonedApp',
+        'factory_reset' => 'factoryReset',
+        'jailbroken' => 'jailbroken',
+        'frida' => 'frida',
+        'ip_blocklist' => 'ipBlocklist',
+        'tor' => 'tor',
+        'privacy_settings' => 'privacySettings',
+        'virtual_machine' => 'virtualMachine',
+        'vpn' => 'vpn',
+        'proxy' => 'proxy',
+        'tampering' => 'tampering',
+        'raw_device_attributes' => 'rawDeviceAttributes',
+        'high_activity' => 'highActivity',
+        'location_spoofing' => 'locationSpoofing',
+        'suspect_score' => 'suspectScore',
+        'request_id' => 'requestId',
+        'browser_details' => 'browserDetails',
+        'ip' => 'ip',
+        'ip_location' => 'ipLocation',
+        'timestamp' => 'timestamp',
+        'time' => 'time',
+        'url' => 'url',
+        'tag' => 'tag',
+        'linked_id' => 'linkedId',
+        'confidence' => 'confidence',
+        'visitor_found' => 'visitorFound',
+        'first_seen_at' => 'firstSeenAt',
+        'last_seen_at' => 'lastSeenAt'];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
     protected static $setters = [
         'visitor_id' => 'setVisitorId',
-'client_referrer' => 'setClientReferrer',
-'user_agent' => 'setUserAgent',
-'bot' => 'setBot',
-'ip_info' => 'setIpInfo',
-'incognito' => 'setIncognito',
-'root_apps' => 'setRootApps',
-'emulator' => 'setEmulator',
-'cloned_app' => 'setClonedApp',
-'factory_reset' => 'setFactoryReset',
-'jailbroken' => 'setJailbroken',
-'frida' => 'setFrida',
-'ip_blocklist' => 'setIpBlocklist',
-'tor' => 'setTor',
-'privacy_settings' => 'setPrivacySettings',
-'virtual_machine' => 'setVirtualMachine',
-'vpn' => 'setVpn',
-'proxy' => 'setProxy',
-'tampering' => 'setTampering',
-'raw_device_attributes' => 'setRawDeviceAttributes',
-'high_activity' => 'setHighActivity',
-'location_spoofing' => 'setLocationSpoofing',
-'suspect_score' => 'setSuspectScore',
-'request_id' => 'setRequestId',
-'browser_details' => 'setBrowserDetails',
-'ip' => 'setIp',
-'ip_location' => 'setIpLocation',
-'timestamp' => 'setTimestamp',
-'time' => 'setTime',
-'url' => 'setUrl',
-'tag' => 'setTag',
-'linked_id' => 'setLinkedId',
-'confidence' => 'setConfidence',
-'visitor_found' => 'setVisitorFound',
-'first_seen_at' => 'setFirstSeenAt',
-'last_seen_at' => 'setLastSeenAt'    ];
+        'client_referrer' => 'setClientReferrer',
+        'user_agent' => 'setUserAgent',
+        'bot' => 'setBot',
+        'ip_info' => 'setIpInfo',
+        'incognito' => 'setIncognito',
+        'root_apps' => 'setRootApps',
+        'emulator' => 'setEmulator',
+        'cloned_app' => 'setClonedApp',
+        'factory_reset' => 'setFactoryReset',
+        'jailbroken' => 'setJailbroken',
+        'frida' => 'setFrida',
+        'ip_blocklist' => 'setIpBlocklist',
+        'tor' => 'setTor',
+        'privacy_settings' => 'setPrivacySettings',
+        'virtual_machine' => 'setVirtualMachine',
+        'vpn' => 'setVpn',
+        'proxy' => 'setProxy',
+        'tampering' => 'setTampering',
+        'raw_device_attributes' => 'setRawDeviceAttributes',
+        'high_activity' => 'setHighActivity',
+        'location_spoofing' => 'setLocationSpoofing',
+        'suspect_score' => 'setSuspectScore',
+        'request_id' => 'setRequestId',
+        'browser_details' => 'setBrowserDetails',
+        'ip' => 'setIp',
+        'ip_location' => 'setIpLocation',
+        'timestamp' => 'setTimestamp',
+        'time' => 'setTime',
+        'url' => 'setUrl',
+        'tag' => 'setTag',
+        'linked_id' => 'setLinkedId',
+        'confidence' => 'setConfidence',
+        'visitor_found' => 'setVisitorFound',
+        'first_seen_at' => 'setFirstSeenAt',
+        'last_seen_at' => 'setLastSeenAt'];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
     protected static $getters = [
         'visitor_id' => 'getVisitorId',
-'client_referrer' => 'getClientReferrer',
-'user_agent' => 'getUserAgent',
-'bot' => 'getBot',
-'ip_info' => 'getIpInfo',
-'incognito' => 'getIncognito',
-'root_apps' => 'getRootApps',
-'emulator' => 'getEmulator',
-'cloned_app' => 'getClonedApp',
-'factory_reset' => 'getFactoryReset',
-'jailbroken' => 'getJailbroken',
-'frida' => 'getFrida',
-'ip_blocklist' => 'getIpBlocklist',
-'tor' => 'getTor',
-'privacy_settings' => 'getPrivacySettings',
-'virtual_machine' => 'getVirtualMachine',
-'vpn' => 'getVpn',
-'proxy' => 'getProxy',
-'tampering' => 'getTampering',
-'raw_device_attributes' => 'getRawDeviceAttributes',
-'high_activity' => 'getHighActivity',
-'location_spoofing' => 'getLocationSpoofing',
-'suspect_score' => 'getSuspectScore',
-'request_id' => 'getRequestId',
-'browser_details' => 'getBrowserDetails',
-'ip' => 'getIp',
-'ip_location' => 'getIpLocation',
-'timestamp' => 'getTimestamp',
-'time' => 'getTime',
-'url' => 'getUrl',
-'tag' => 'getTag',
-'linked_id' => 'getLinkedId',
-'confidence' => 'getConfidence',
-'visitor_found' => 'getVisitorFound',
-'first_seen_at' => 'getFirstSeenAt',
-'last_seen_at' => 'getLastSeenAt'    ];
+        'client_referrer' => 'getClientReferrer',
+        'user_agent' => 'getUserAgent',
+        'bot' => 'getBot',
+        'ip_info' => 'getIpInfo',
+        'incognito' => 'getIncognito',
+        'root_apps' => 'getRootApps',
+        'emulator' => 'getEmulator',
+        'cloned_app' => 'getClonedApp',
+        'factory_reset' => 'getFactoryReset',
+        'jailbroken' => 'getJailbroken',
+        'frida' => 'getFrida',
+        'ip_blocklist' => 'getIpBlocklist',
+        'tor' => 'getTor',
+        'privacy_settings' => 'getPrivacySettings',
+        'virtual_machine' => 'getVirtualMachine',
+        'vpn' => 'getVpn',
+        'proxy' => 'getProxy',
+        'tampering' => 'getTampering',
+        'raw_device_attributes' => 'getRawDeviceAttributes',
+        'high_activity' => 'getHighActivity',
+        'location_spoofing' => 'getLocationSpoofing',
+        'suspect_score' => 'getSuspectScore',
+        'request_id' => 'getRequestId',
+        'browser_details' => 'getBrowserDetails',
+        'ip' => 'getIp',
+        'ip_location' => 'getIpLocation',
+        'timestamp' => 'getTimestamp',
+        'time' => 'getTime',
+        'url' => 'getUrl',
+        'tag' => 'getTag',
+        'linked_id' => 'getLinkedId',
+        'confidence' => 'getConfidence',
+        'visitor_found' => 'getVisitorFound',
+        'first_seen_at' => 'getFirstSeenAt',
+        'last_seen_at' => 'getLastSeenAt'];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @return array
-     */
-    public static function attributeMap()
-    {
-        return self::$attributeMap;
-    }
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @return array
-     */
-    public static function setters()
-    {
-        return self::$setters;
-    }
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @return array
-     */
-    public static function getters()
-    {
-        return self::$getters;
-    }
-
-    /**
-     * The original name of the model.
-     *
-     * @return string
-     */
-    public function getModelName()
-    {
-        return self::$swaggerModelName;
-    }
-
-
-
-    /**
-     * Associative array for storing property values
+     * Associative array for storing property values.
      *
      * @var mixed[]
      */
     protected $container = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['visitor_id'] = isset($data['visitor_id']) ? $data['visitor_id'] : null;
         $this->container['client_referrer'] = isset($data['client_referrer']) ? $data['client_referrer'] : null;
@@ -381,6 +319,84 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets the string presentation of the object.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @return array
+     */
+    public static function swaggerTypes()
+    {
+        return self::$swaggerTypes;
+    }
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @return array
+     */
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
+    }
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @return array
+     */
+    public static function attributeMap()
+    {
+        return self::$attributeMap;
+    }
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @return array
+     */
+    public static function setters()
+    {
+        return self::$setters;
+    }
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @return array
+     */
+    public static function getters()
+    {
+        return self::$getters;
+    }
+
+    /**
+     * The original name of the model.
+     *
+     * @return string
+     */
+    public function getModelName()
+    {
+        return self::$swaggerModelName;
+    }
+
+    /**
      * Show all the invalid properties with reasons.
      *
      * @return array invalid properties with reasons
@@ -389,59 +405,59 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['visitor_id'] === null) {
+        if (null === $this->container['visitor_id']) {
             $invalidProperties[] = "'visitor_id' can't be null";
         }
-        if ($this->container['incognito'] === null) {
+        if (null === $this->container['incognito']) {
             $invalidProperties[] = "'incognito' can't be null";
         }
-        if ($this->container['request_id'] === null) {
+        if (null === $this->container['request_id']) {
             $invalidProperties[] = "'request_id' can't be null";
         }
-        if ($this->container['browser_details'] === null) {
+        if (null === $this->container['browser_details']) {
             $invalidProperties[] = "'browser_details' can't be null";
         }
-        if ($this->container['ip'] === null) {
+        if (null === $this->container['ip']) {
             $invalidProperties[] = "'ip' can't be null";
         }
-        if ($this->container['timestamp'] === null) {
+        if (null === $this->container['timestamp']) {
             $invalidProperties[] = "'timestamp' can't be null";
         }
-        if ($this->container['time'] === null) {
+        if (null === $this->container['time']) {
             $invalidProperties[] = "'time' can't be null";
         }
-        if ($this->container['url'] === null) {
+        if (null === $this->container['url']) {
             $invalidProperties[] = "'url' can't be null";
         }
-        if ($this->container['tag'] === null) {
+        if (null === $this->container['tag']) {
             $invalidProperties[] = "'tag' can't be null";
         }
-        if ($this->container['visitor_found'] === null) {
+        if (null === $this->container['visitor_found']) {
             $invalidProperties[] = "'visitor_found' can't be null";
         }
-        if ($this->container['first_seen_at'] === null) {
+        if (null === $this->container['first_seen_at']) {
             $invalidProperties[] = "'first_seen_at' can't be null";
         }
-        if ($this->container['last_seen_at'] === null) {
+        if (null === $this->container['last_seen_at']) {
             $invalidProperties[] = "'last_seen_at' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets visitor_id
+     * Gets visitor_id.
      *
      * @return string
      */
@@ -451,7 +467,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets visitor_id
+     * Sets visitor_id.
      *
      * @param string $visitor_id visitor_id
      *
@@ -465,7 +481,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets client_referrer
+     * Gets client_referrer.
      *
      * @return string
      */
@@ -475,7 +491,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets client_referrer
+     * Sets client_referrer.
      *
      * @param string $client_referrer client_referrer
      *
@@ -489,7 +505,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets user_agent
+     * Gets user_agent.
      *
      * @return string
      */
@@ -499,7 +515,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets user_agent
+     * Sets user_agent.
      *
      * @param string $user_agent user_agent
      *
@@ -513,9 +529,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets bot
+     * Gets bot.
      *
-     * @return \Fingerprint\ServerAPI\Model\BotdDetectionResult
+     * @return BotdDetectionResult
      */
     public function getBot()
     {
@@ -523,9 +539,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets bot
+     * Sets bot.
      *
-     * @param \Fingerprint\ServerAPI\Model\BotdDetectionResult $bot bot
+     * @param BotdDetectionResult $bot bot
      *
      * @return $this
      */
@@ -537,9 +553,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets ip_info
+     * Gets ip_info.
      *
-     * @return \Fingerprint\ServerAPI\Model\IpInfoResult
+     * @return IpInfoResult
      */
     public function getIpInfo()
     {
@@ -547,9 +563,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets ip_info
+     * Sets ip_info.
      *
-     * @param \Fingerprint\ServerAPI\Model\IpInfoResult $ip_info ip_info
+     * @param IpInfoResult $ip_info ip_info
      *
      * @return $this
      */
@@ -561,7 +577,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets incognito
+     * Gets incognito.
      *
      * @return bool
      */
@@ -571,9 +587,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets incognito
+     * Sets incognito.
      *
-     * @param bool $incognito Flag if user used incognito session.
+     * @param bool $incognito flag if user used incognito session
      *
      * @return $this
      */
@@ -585,9 +601,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets root_apps
+     * Gets root_apps.
      *
-     * @return \Fingerprint\ServerAPI\Model\RootAppsResult
+     * @return RootAppsResult
      */
     public function getRootApps()
     {
@@ -595,9 +611,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets root_apps
+     * Sets root_apps.
      *
-     * @param \Fingerprint\ServerAPI\Model\RootAppsResult $root_apps root_apps
+     * @param RootAppsResult $root_apps root_apps
      *
      * @return $this
      */
@@ -609,9 +625,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets emulator
+     * Gets emulator.
      *
-     * @return \Fingerprint\ServerAPI\Model\EmulatorResult
+     * @return EmulatorResult
      */
     public function getEmulator()
     {
@@ -619,9 +635,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets emulator
+     * Sets emulator.
      *
-     * @param \Fingerprint\ServerAPI\Model\EmulatorResult $emulator emulator
+     * @param EmulatorResult $emulator emulator
      *
      * @return $this
      */
@@ -633,9 +649,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets cloned_app
+     * Gets cloned_app.
      *
-     * @return \Fingerprint\ServerAPI\Model\ClonedAppResult
+     * @return ClonedAppResult
      */
     public function getClonedApp()
     {
@@ -643,9 +659,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets cloned_app
+     * Sets cloned_app.
      *
-     * @param \Fingerprint\ServerAPI\Model\ClonedAppResult $cloned_app cloned_app
+     * @param ClonedAppResult $cloned_app cloned_app
      *
      * @return $this
      */
@@ -657,9 +673,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets factory_reset
+     * Gets factory_reset.
      *
-     * @return \Fingerprint\ServerAPI\Model\FactoryResetResult
+     * @return FactoryResetResult
      */
     public function getFactoryReset()
     {
@@ -667,9 +683,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets factory_reset
+     * Sets factory_reset.
      *
-     * @param \Fingerprint\ServerAPI\Model\FactoryResetResult $factory_reset factory_reset
+     * @param FactoryResetResult $factory_reset factory_reset
      *
      * @return $this
      */
@@ -681,9 +697,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets jailbroken
+     * Gets jailbroken.
      *
-     * @return \Fingerprint\ServerAPI\Model\JailbrokenResult
+     * @return JailbrokenResult
      */
     public function getJailbroken()
     {
@@ -691,9 +707,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets jailbroken
+     * Sets jailbroken.
      *
-     * @param \Fingerprint\ServerAPI\Model\JailbrokenResult $jailbroken jailbroken
+     * @param JailbrokenResult $jailbroken jailbroken
      *
      * @return $this
      */
@@ -705,9 +721,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets frida
+     * Gets frida.
      *
-     * @return \Fingerprint\ServerAPI\Model\FridaResult
+     * @return FridaResult
      */
     public function getFrida()
     {
@@ -715,9 +731,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets frida
+     * Sets frida.
      *
-     * @param \Fingerprint\ServerAPI\Model\FridaResult $frida frida
+     * @param FridaResult $frida frida
      *
      * @return $this
      */
@@ -729,9 +745,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets ip_blocklist
+     * Gets ip_blocklist.
      *
-     * @return \Fingerprint\ServerAPI\Model\IpBlockListResult
+     * @return IpBlockListResult
      */
     public function getIpBlocklist()
     {
@@ -739,9 +755,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets ip_blocklist
+     * Sets ip_blocklist.
      *
-     * @param \Fingerprint\ServerAPI\Model\IpBlockListResult $ip_blocklist ip_blocklist
+     * @param IpBlockListResult $ip_blocklist ip_blocklist
      *
      * @return $this
      */
@@ -753,9 +769,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets tor
+     * Gets tor.
      *
-     * @return \Fingerprint\ServerAPI\Model\TorResult
+     * @return TorResult
      */
     public function getTor()
     {
@@ -763,9 +779,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets tor
+     * Sets tor.
      *
-     * @param \Fingerprint\ServerAPI\Model\TorResult $tor tor
+     * @param TorResult $tor tor
      *
      * @return $this
      */
@@ -777,9 +793,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets privacy_settings
+     * Gets privacy_settings.
      *
-     * @return \Fingerprint\ServerAPI\Model\PrivacySettingsResult
+     * @return PrivacySettingsResult
      */
     public function getPrivacySettings()
     {
@@ -787,9 +803,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets privacy_settings
+     * Sets privacy_settings.
      *
-     * @param \Fingerprint\ServerAPI\Model\PrivacySettingsResult $privacy_settings privacy_settings
+     * @param PrivacySettingsResult $privacy_settings privacy_settings
      *
      * @return $this
      */
@@ -801,9 +817,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets virtual_machine
+     * Gets virtual_machine.
      *
-     * @return \Fingerprint\ServerAPI\Model\VirtualMachineResult
+     * @return VirtualMachineResult
      */
     public function getVirtualMachine()
     {
@@ -811,9 +827,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets virtual_machine
+     * Sets virtual_machine.
      *
-     * @param \Fingerprint\ServerAPI\Model\VirtualMachineResult $virtual_machine virtual_machine
+     * @param VirtualMachineResult $virtual_machine virtual_machine
      *
      * @return $this
      */
@@ -825,9 +841,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets vpn
+     * Gets vpn.
      *
-     * @return \Fingerprint\ServerAPI\Model\VpnResult
+     * @return VpnResult
      */
     public function getVpn()
     {
@@ -835,9 +851,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets vpn
+     * Sets vpn.
      *
-     * @param \Fingerprint\ServerAPI\Model\VpnResult $vpn vpn
+     * @param VpnResult $vpn vpn
      *
      * @return $this
      */
@@ -849,9 +865,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets proxy
+     * Gets proxy.
      *
-     * @return \Fingerprint\ServerAPI\Model\ProxyResult
+     * @return ProxyResult
      */
     public function getProxy()
     {
@@ -859,9 +875,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets proxy
+     * Sets proxy.
      *
-     * @param \Fingerprint\ServerAPI\Model\ProxyResult $proxy proxy
+     * @param ProxyResult $proxy proxy
      *
      * @return $this
      */
@@ -873,9 +889,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets tampering
+     * Gets tampering.
      *
-     * @return \Fingerprint\ServerAPI\Model\TamperingResult
+     * @return TamperingResult
      */
     public function getTampering()
     {
@@ -883,9 +899,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets tampering
+     * Sets tampering.
      *
-     * @param \Fingerprint\ServerAPI\Model\TamperingResult $tampering tampering
+     * @param TamperingResult $tampering tampering
      *
      * @return $this
      */
@@ -897,9 +913,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets raw_device_attributes
+     * Gets raw_device_attributes.
      *
-     * @return \Fingerprint\ServerAPI\Model\RawDeviceAttributesResult
+     * @return RawDeviceAttributesResult
      */
     public function getRawDeviceAttributes()
     {
@@ -907,9 +923,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets raw_device_attributes
+     * Sets raw_device_attributes.
      *
-     * @param \Fingerprint\ServerAPI\Model\RawDeviceAttributesResult $raw_device_attributes raw_device_attributes
+     * @param RawDeviceAttributesResult $raw_device_attributes raw_device_attributes
      *
      * @return $this
      */
@@ -921,9 +937,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets high_activity
+     * Gets high_activity.
      *
-     * @return \Fingerprint\ServerAPI\Model\HighActivityResult
+     * @return HighActivityResult
      */
     public function getHighActivity()
     {
@@ -931,9 +947,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets high_activity
+     * Sets high_activity.
      *
-     * @param \Fingerprint\ServerAPI\Model\HighActivityResult $high_activity high_activity
+     * @param HighActivityResult $high_activity high_activity
      *
      * @return $this
      */
@@ -945,9 +961,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets location_spoofing
+     * Gets location_spoofing.
      *
-     * @return \Fingerprint\ServerAPI\Model\LocationSpoofingResult
+     * @return LocationSpoofingResult
      */
     public function getLocationSpoofing()
     {
@@ -955,9 +971,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets location_spoofing
+     * Sets location_spoofing.
      *
-     * @param \Fingerprint\ServerAPI\Model\LocationSpoofingResult $location_spoofing location_spoofing
+     * @param LocationSpoofingResult $location_spoofing location_spoofing
      *
      * @return $this
      */
@@ -969,9 +985,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets suspect_score
+     * Gets suspect_score.
      *
-     * @return \Fingerprint\ServerAPI\Model\SuspectScoreResult
+     * @return SuspectScoreResult
      */
     public function getSuspectScore()
     {
@@ -979,9 +995,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets suspect_score
+     * Sets suspect_score.
      *
-     * @param \Fingerprint\ServerAPI\Model\SuspectScoreResult $suspect_score suspect_score
+     * @param SuspectScoreResult $suspect_score suspect_score
      *
      * @return $this
      */
@@ -993,7 +1009,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets request_id
+     * Gets request_id.
      *
      * @return string
      */
@@ -1003,9 +1019,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets request_id
+     * Sets request_id.
      *
-     * @param string $request_id Unique identifier of the user's identification request.
+     * @param string $request_id unique identifier of the user's identification request
      *
      * @return $this
      */
@@ -1017,9 +1033,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets browser_details
+     * Gets browser_details.
      *
-     * @return \Fingerprint\ServerAPI\Model\BrowserDetails
+     * @return BrowserDetails
      */
     public function getBrowserDetails()
     {
@@ -1027,9 +1043,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets browser_details
+     * Sets browser_details.
      *
-     * @param \Fingerprint\ServerAPI\Model\BrowserDetails $browser_details browser_details
+     * @param BrowserDetails $browser_details browser_details
      *
      * @return $this
      */
@@ -1041,7 +1057,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets ip
+     * Gets ip.
      *
      * @return string
      */
@@ -1051,7 +1067,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets ip
+     * Sets ip.
      *
      * @param string $ip ip
      *
@@ -1065,9 +1081,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets ip_location
+     * Gets ip_location.
      *
-     * @return \Fingerprint\ServerAPI\Model\DeprecatedIPLocation
+     * @return DeprecatedIPLocation
      */
     public function getIpLocation()
     {
@@ -1075,9 +1091,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets ip_location
+     * Sets ip_location.
      *
-     * @param \Fingerprint\ServerAPI\Model\DeprecatedIPLocation $ip_location ip_location
+     * @param DeprecatedIPLocation $ip_location ip_location
      *
      * @return $this
      */
@@ -1089,7 +1105,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets timestamp
+     * Gets timestamp.
      *
      * @return int
      */
@@ -1099,9 +1115,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets timestamp
+     * Sets timestamp.
      *
-     * @param int $timestamp Timestamp of the event with millisecond precision in Unix time.
+     * @param int $timestamp timestamp of the event with millisecond precision in Unix time
      *
      * @return $this
      */
@@ -1113,7 +1129,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets time
+     * Gets time.
      *
      * @return \DateTime
      */
@@ -1123,9 +1139,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets time
+     * Sets time.
      *
-     * @param \DateTime $time Time expressed according to ISO 8601 in UTC format.
+     * @param \DateTime $time time expressed according to ISO 8601 in UTC format
      *
      * @return $this
      */
@@ -1137,7 +1153,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets url
+     * Gets url.
      *
      * @return string
      */
@@ -1147,9 +1163,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets url
+     * Sets url.
      *
-     * @param string $url Page URL from which the identification request was sent.
+     * @param string $url page URL from which the identification request was sent
      *
      * @return $this
      */
@@ -1161,7 +1177,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets tag
+     * Gets tag.
      *
      * @return map[string,object]
      */
@@ -1171,9 +1187,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets tag
+     * Sets tag.
      *
-     * @param map[string,object] $tag A customer-provided value or an object that was sent with identification request.
+     * @param map[string,object] $tag A customer-provided value or an object that was sent with identification request
      *
      * @return $this
      */
@@ -1185,7 +1201,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets linked_id
+     * Gets linked_id.
      *
      * @return string
      */
@@ -1195,9 +1211,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets linked_id
+     * Sets linked_id.
      *
-     * @param string $linked_id A customer-provided id that was sent with identification request.
+     * @param string $linked_id a customer-provided id that was sent with identification request
      *
      * @return $this
      */
@@ -1209,9 +1225,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets confidence
+     * Gets confidence.
      *
-     * @return \Fingerprint\ServerAPI\Model\Confidence
+     * @return Confidence
      */
     public function getConfidence()
     {
@@ -1219,9 +1235,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets confidence
+     * Sets confidence.
      *
-     * @param \Fingerprint\ServerAPI\Model\Confidence $confidence confidence
+     * @param Confidence $confidence confidence
      *
      * @return $this
      */
@@ -1233,7 +1249,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets visitor_found
+     * Gets visitor_found.
      *
      * @return bool
      */
@@ -1243,9 +1259,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets visitor_found
+     * Sets visitor_found.
      *
-     * @param bool $visitor_found Attribute represents if a visitor had been identified before.
+     * @param bool $visitor_found attribute represents if a visitor had been identified before
      *
      * @return $this
      */
@@ -1257,9 +1273,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets first_seen_at
+     * Gets first_seen_at.
      *
-     * @return \Fingerprint\ServerAPI\Model\SeenAt
+     * @return SeenAt
      */
     public function getFirstSeenAt()
     {
@@ -1267,9 +1283,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets first_seen_at
+     * Sets first_seen_at.
      *
-     * @param \Fingerprint\ServerAPI\Model\SeenAt $first_seen_at first_seen_at
+     * @param SeenAt $first_seen_at first_seen_at
      *
      * @return $this
      */
@@ -1281,9 +1297,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets last_seen_at
+     * Gets last_seen_at.
      *
-     * @return \Fingerprint\ServerAPI\Model\SeenAt
+     * @return SeenAt
      */
     public function getLastSeenAt()
     {
@@ -1291,9 +1307,9 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets last_seen_at
+     * Sets last_seen_at.
      *
-     * @param \Fingerprint\ServerAPI\Model\SeenAt $last_seen_at last_seen_at
+     * @param SeenAt $last_seen_at last_seen_at
      *
      * @return $this
      */
@@ -1303,12 +1319,13 @@ class WebhookVisit implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     #[\ReturnTypeWillChange]
     public function offsetExists($offset)
@@ -1319,7 +1336,7 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -1332,10 +1349,8 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
@@ -1350,30 +1365,11 @@ class WebhookVisit implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
     #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
-    }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

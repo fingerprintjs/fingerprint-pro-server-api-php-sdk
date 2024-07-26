@@ -68,4 +68,6 @@ mv -f src/composer.json composer.json
 find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" -exec rm {} +
 mv -f src/docs/* ./docs
 
-docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:${FIXER_VERSION:-3-php8.3} fix src
+if [ -z "$GITHUB_ACTIONS" ]; then
+  docker-compose run --rm lint
+fi
