@@ -2,8 +2,6 @@
 
 return (new PhpCsFixer\Config())
     ->setRules([
-        '@PSR1' => true,
-        '@PSR2' => true,
         '@PSR12' => true,
         '@PhpCsFixer' => true,
         'array_indentation' => true,
