@@ -57,6 +57,24 @@ try {
     exit(1);
 }
 
+$eventPromise = $client->getEventAsync($request_id);
+$eventPromise->then(function ($tuple) {
+    list($result, $response) = $tuple;
+    fwrite(STDOUT, sprintf("\n\nGot async event: %s \n", $response->getBody()->getContents()));
+}, function($exception) {
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $exception->getMessage()));
+    exit(1);
+})->wait();
+
+$visitsPromise = $client->getVisitsAsync($visitor_id);
+$visitsPromise->then(function($tuple) {
+    list($result, $response) = $tuple;
+    fwrite(STDOUT, sprintf("\n\nGot async visits: %s \n", $response->getBody()->getContents()));
+}, function ($exception) {
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $exception->getMessage()));
+    exit(1);
+})->wait();
+
 // Enable the deprecated ArrayAccess return type warning again if needed
 error_reporting(error_reporting() | E_DEPRECATED);
 
