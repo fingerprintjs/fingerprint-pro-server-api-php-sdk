@@ -1,17 +1,16 @@
 <?php
 /**
- * ProductError
- *
- * PHP version 5
+ * ProductError.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -28,48 +27,113 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ProductError Class Doc Comment
+ * ProductError Class Doc Comment.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ProductError implements ModelInterface, ArrayAccess
+class ProductError implements ModelInterface, \ArrayAccess
 {
-    const DISCRIMINATOR = null;
+    public const CODE_TOO_MANY_REQUESTS = 'TooManyRequests';
+    public const CODE_FAILED = 'Failed';
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'ProductError';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'code' => 'string',
-'message' => 'string'    ];
+        'message' => 'string'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'code' => null,
-'message' => null    ];
+        'message' => null];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'code' => 'code',
+        'message' => 'message'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'code' => 'setCode',
+        'message' => 'setMessage'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'code' => 'getCode',
+        'message' => 'getMessage'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -79,7 +143,7 @@ class ProductError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -90,35 +154,7 @@ class ProductError implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'code' => 'code',
-'message' => 'message'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'code' => 'setCode',
-'message' => 'setMessage'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'code' => 'getCode',
-'message' => 'getMessage'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -128,7 +164,7 @@ class ProductError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -138,7 +174,7 @@ class ProductError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -157,11 +193,8 @@ class ProductError implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const CODE_TOO_MANY_REQUESTS = 'TooManyRequests';
-const CODE_FAILED = 'Failed';
-
     /**
-     * Gets allowable values of the enum
+     * Gets allowable values of the enum.
      *
      * @return string[]
      */
@@ -169,26 +202,7 @@ const CODE_FAILED = 'Failed';
     {
         return [
             self::CODE_TOO_MANY_REQUESTS,
-self::CODE_FAILED,        ];
-    }
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
-        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
+            self::CODE_FAILED,        ];
     }
 
     /**
@@ -200,7 +214,7 @@ self::CODE_FAILED,        ];
     {
         $invalidProperties = [];
 
-        if ($this->container['code'] === null) {
+        if (null === $this->container['code']) {
             $invalidProperties[] = "'code' can't be null";
         }
         $allowedValues = $this->getCodeAllowableValues();
@@ -211,26 +225,26 @@ self::CODE_FAILED,        ];
             );
         }
 
-        if ($this->container['message'] === null) {
+        if (null === $this->container['message']) {
             $invalidProperties[] = "'message' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets code
+     * Gets code.
      *
      * @return string
      */
@@ -240,7 +254,7 @@ self::CODE_FAILED,        ];
     }
 
     /**
-     * Sets code
+     * Sets code.
      *
      * @param string $code Error code:  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded  * `Failed` - internal server error
      *
@@ -263,7 +277,7 @@ self::CODE_FAILED,        ];
     }
 
     /**
-     * Gets message
+     * Gets message.
      *
      * @return string
      */
@@ -273,7 +287,7 @@ self::CODE_FAILED,        ];
     }
 
     /**
-     * Sets message
+     * Sets message.
      *
      * @param string $message message
      *
@@ -285,12 +299,13 @@ self::CODE_FAILED,        ];
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     #[\ReturnTypeWillChange]
     public function offsetExists($offset)
@@ -301,7 +316,7 @@ self::CODE_FAILED,        ];
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -314,10 +329,8 @@ self::CODE_FAILED,        ];
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
@@ -332,30 +345,11 @@ self::CODE_FAILED,        ];
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
     #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
-    }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-use Fingerprint\ServerAPI\Model\ResponseVisits;
-
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $host = getenv('FP_API_HOST');
@@ -44,23 +42,23 @@ $client = new FingerprintApi(
 error_reporting(error_reporting() & ~E_DEPRECATED);
 
 try {
-    $result = $client->getVisits($visitor_id);
-    fwrite(STDOUT, sprintf("Got visits: %s \n", $result));
+    list($result, $response) = $client->getVisits($visitor_id);
+    fwrite(STDOUT, sprintf("Got visits: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
 }
 
 try {
-    $result = $client->getEvent($request_id);
-    fwrite(STDOUT, sprintf("Got event: %s \n", $result));
+    list($result, $response) = $client->getEvent($request_id);
+    fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
-    fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
 }
 
 // Enable the deprecated ArrayAccess return type warning again if needed
 error_reporting(error_reporting() | E_DEPRECATED);
 
-fwrite(STDOUT, "Checks passed\n");
+fwrite(STDOUT, "\n\nChecks passed\n");
 exit(0);

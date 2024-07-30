@@ -1,17 +1,16 @@
 <?php
 /**
- * ErrorEvent403ResponseError
- *
- * PHP version 5
+ * ErrorEvent403ResponseError.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -28,48 +27,115 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ErrorEvent403ResponseError Class Doc Comment
+ * ErrorEvent403ResponseError Class Doc Comment.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ErrorEvent403ResponseError implements ModelInterface, ArrayAccess
+class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
 {
-    const DISCRIMINATOR = null;
+    public const CODE_TOKEN_REQUIRED = 'TokenRequired';
+    public const CODE_TOKEN_NOT_FOUND = 'TokenNotFound';
+    public const CODE_SUBSCRIPTION_NOT_ACTIVE = 'SubscriptionNotActive';
+    public const CODE_WRONG_REGION = 'WrongRegion';
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'ErrorEvent403ResponseError';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'code' => 'string',
-'message' => 'string'    ];
+        'message' => 'string'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'code' => null,
-'message' => null    ];
+        'message' => null];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'code' => 'code',
+        'message' => 'message'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'code' => 'setCode',
+        'message' => 'setMessage'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'code' => 'getCode',
+        'message' => 'getMessage'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -79,7 +145,7 @@ class ErrorEvent403ResponseError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
@@ -90,35 +156,7 @@ class ErrorEvent403ResponseError implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'code' => 'code',
-'message' => 'message'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'code' => 'setCode',
-'message' => 'setMessage'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'code' => 'getCode',
-'message' => 'getMessage'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      *
      * @return array
      */
@@ -128,7 +166,7 @@ class ErrorEvent403ResponseError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
@@ -138,7 +176,7 @@ class ErrorEvent403ResponseError implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -157,13 +195,8 @@ class ErrorEvent403ResponseError implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const CODE_TOKEN_REQUIRED = 'TokenRequired';
-const CODE_TOKEN_NOT_FOUND = 'TokenNotFound';
-const CODE_SUBSCRIPTION_NOT_ACTIVE = 'SubscriptionNotActive';
-const CODE_WRONG_REGION = 'WrongRegion';
-
     /**
-     * Gets allowable values of the enum
+     * Gets allowable values of the enum.
      *
      * @return string[]
      */
@@ -171,28 +204,9 @@ const CODE_WRONG_REGION = 'WrongRegion';
     {
         return [
             self::CODE_TOKEN_REQUIRED,
-self::CODE_TOKEN_NOT_FOUND,
-self::CODE_SUBSCRIPTION_NOT_ACTIVE,
-self::CODE_WRONG_REGION,        ];
-    }
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
-        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
+            self::CODE_TOKEN_NOT_FOUND,
+            self::CODE_SUBSCRIPTION_NOT_ACTIVE,
+            self::CODE_WRONG_REGION,        ];
     }
 
     /**
@@ -204,7 +218,7 @@ self::CODE_WRONG_REGION,        ];
     {
         $invalidProperties = [];
 
-        if ($this->container['code'] === null) {
+        if (null === $this->container['code']) {
             $invalidProperties[] = "'code' can't be null";
         }
         $allowedValues = $this->getCodeAllowableValues();
@@ -215,26 +229,26 @@ self::CODE_WRONG_REGION,        ];
             );
         }
 
-        if ($this->container['message'] === null) {
+        if (null === $this->container['message']) {
             $invalidProperties[] = "'message' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid()
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets code
+     * Gets code.
      *
      * @return string
      */
@@ -244,7 +258,7 @@ self::CODE_WRONG_REGION,        ];
     }
 
     /**
-     * Sets code
+     * Sets code.
      *
      * @param string $code Error code:  * `TokenRequired` - `Auth-API-Key` header is missing or empty  * `TokenNotFound` - subscription not found for specified secret key  * `SubscriptionNotActive` - subscription is not active  * `WrongRegion` - server and subscription region differ
      *
@@ -267,7 +281,7 @@ self::CODE_WRONG_REGION,        ];
     }
 
     /**
-     * Gets message
+     * Gets message.
      *
      * @return string
      */
@@ -277,7 +291,7 @@ self::CODE_WRONG_REGION,        ];
     }
 
     /**
-     * Sets message
+     * Sets message.
      *
      * @param string $message message
      *
@@ -289,12 +303,13 @@ self::CODE_WRONG_REGION,        ];
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
-     * @return boolean
+     * @return bool
      */
     #[\ReturnTypeWillChange]
     public function offsetExists($offset)
@@ -305,7 +320,7 @@ self::CODE_WRONG_REGION,        ];
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      *
      * @return mixed
      */
@@ -318,10 +333,8 @@ self::CODE_WRONG_REGION,        ];
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
@@ -336,30 +349,11 @@ self::CODE_WRONG_REGION,        ];
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
     #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
-    }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
