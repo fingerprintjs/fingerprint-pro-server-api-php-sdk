@@ -43,12 +43,8 @@ use \GuzzleHttp\Exception\GuzzleException;
     protected ClientInterface $client;
     protected Configuration $config;
 
-    protected $integration_info = 'fingerprint-pro-server-php-sdk/{{artifactVersion}}';
+    protected string $integration_info = 'fingerprint-pro-server-php-sdk/{{artifactVersion}}';
 
-    /**
-     * @param ClientInterface $client
-     * @param Configuration   $config
-     */
     public function __construct(
         ClientInterface $client = null,
         Configuration $config = null
@@ -57,10 +53,7 @@ use \GuzzleHttp\Exception\GuzzleException;
         $this->config = $config ?: new Configuration();
     }
 
-    /**
-     * @return Configuration
-     */
-    public function getConfig()
+    public function getConfig(): Configuration
     {
         return $this->config;
     }
@@ -79,15 +72,12 @@ use \GuzzleHttp\Exception\GuzzleException;
      * {{.}}
      *
 {{/description}}
-{{#parameters}}
-     * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-{{/parameters}}
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
      * @return array{ {{#returnType}}{{{returnType}}}|null{{/returnType}}{{^returnType}}null{{/returnType}}, \Psr\Http\Message\ResponseInterface }
      */
-    public function {{operationId}}({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): array
+    public function {{operationId}}({{#parameters}}{{dataType}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): array
     {
         $returnType = '{{returnType}}';
         $request = $this->{{operationId}}Request({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}});
@@ -170,14 +160,10 @@ use \GuzzleHttp\Exception\GuzzleException;
     * {{.}}
     *
     {{/description}}
-    {{#parameters}}
-    * @param {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-    {{/parameters}}
     *
     * @throws \InvalidArgumentException
-    * @return \GuzzleHttp\Promise\PromiseInterface< array{ {{#returnType}}{{{returnType}}}|null{{/returnType}}{{^returnType}}null{{/returnType}}, \Psr\Http\Message\ResponseInterface } >
     */
-    public function {{operationId}}Async({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Promise\PromiseInterface
+    public function {{operationId}}Async({{#parameters}}{{dataType}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Promise\PromiseInterface
     {
         $returnType = '{{returnType}}';
         $request = $this->{{operationId}}Request({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}});
@@ -246,9 +232,6 @@ use \GuzzleHttp\Exception\GuzzleException;
     /**
      * Create request for operation '{{{operationId}}}'
      *
-{{#parameters}}
-     * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-{{/parameters}}
      *
      * @throws \InvalidArgumentException
      */
@@ -418,9 +401,8 @@ use \GuzzleHttp\Exception\GuzzleException;
      * Create http client option
      *
      * @throws \RuntimeException on file opening failure
-     * @return array of http client options
      */
-    protected function createHttpClientOption()
+    protected function createHttpClientOption(): array
     {
         $options = [];
         if ($this->config->getDebug()) {

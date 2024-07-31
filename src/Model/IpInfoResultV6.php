@@ -42,17 +42,15 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'IpInfoResult_v6';
+    protected static string $swaggerModelName = 'IpInfoResult_v6';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'address' => 'string',
         'geolocation' => '\Fingerprint\ServerAPI\Model\IPLocation',
         'asn' => '\Fingerprint\ServerAPI\Model\ASN',
@@ -63,7 +61,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'address' => 'ipv6',
         'geolocation' => null,
         'asn' => null,
@@ -75,7 +73,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'address' => 'address',
         'geolocation' => 'geolocation',
         'asn' => 'asn',
@@ -86,7 +84,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'address' => 'setAddress',
         'geolocation' => 'setGeolocation',
         'asn' => 'setAsn',
@@ -97,7 +95,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'address' => 'getAddress',
         'geolocation' => 'getGeolocation',
         'asn' => 'getAsn',
@@ -108,7 +106,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -126,10 +124,8 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -143,20 +139,16 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -164,40 +156,32 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -207,7 +191,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         $invalidProperties = [];
 
@@ -227,7 +211,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
@@ -249,7 +233,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAddress($address)
+    public function setAddress($address): self
     {
         $this->container['address'] = $address;
 
@@ -273,7 +257,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setGeolocation($geolocation)
+    public function setGeolocation($geolocation): self
     {
         $this->container['geolocation'] = $geolocation;
 
@@ -297,7 +281,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAsn($asn)
+    public function setAsn($asn): self
     {
         $this->container['asn'] = $asn;
 
@@ -321,7 +305,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setDatacenter($datacenter)
+    public function setDatacenter($datacenter): self
     {
         $this->container['datacenter'] = $datacenter;
 
@@ -332,11 +316,8 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -345,11 +326,8 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -360,8 +338,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -375,8 +352,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

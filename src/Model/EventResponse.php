@@ -44,17 +44,15 @@ class EventResponse implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'EventResponse';
+    protected static string $swaggerModelName = 'EventResponse';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'products' => '\Fingerprint\ServerAPI\Model\ProductsResponse',
         'error' => '\Fingerprint\ServerAPI\Model\ProductError'];
 
@@ -63,7 +61,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'products' => null,
         'error' => null];
 
@@ -73,7 +71,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'products' => 'products',
         'error' => 'error'];
 
@@ -82,7 +80,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'products' => 'setProducts',
         'error' => 'setError'];
 
@@ -91,7 +89,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'products' => 'getProducts',
         'error' => 'getError'];
 
@@ -100,7 +98,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -116,10 +114,8 @@ class EventResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -133,20 +129,16 @@ class EventResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -154,40 +146,32 @@ class EventResponse implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -197,7 +181,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         $invalidProperties = [];
 
@@ -214,7 +198,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
@@ -236,7 +220,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setProducts($products)
+    public function setProducts($products): self
     {
         $this->container['products'] = $products;
 
@@ -260,7 +244,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError($error)
+    public function setError($error): self
     {
         $this->container['error'] = $error;
 
@@ -271,11 +255,8 @@ class EventResponse implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -284,11 +265,8 @@ class EventResponse implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -299,8 +277,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -314,8 +291,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

@@ -29,6 +29,8 @@
 
 namespace Fingerprint\ServerAPI;
 
+use DateTime;
+
 /**
  * ObjectSerializer Class Doc Comment.
  *
@@ -43,12 +45,12 @@ class ObjectSerializer
     /**
      * Serialize data.
      *
-     * @param mixed  $data   the data to serialize
-     * @param string $format the format of the Swagger type of the data
+     * @param mixed       $data   the data to serialize
+     * @param null|string $format the format of the Swagger type of the data
      *
-     * @return object|string serialized form of $data
+     * @return array|object|string serialized form of $data
      */
-    public static function sanitizeForSerialization($data, $format = null)
+    public static function sanitizeForSerialization(mixed $data, ?string $format = null): array|object|string
     {
         if (is_scalar($data) || null === $data) {
             return $data;
@@ -103,7 +105,7 @@ class ObjectSerializer
      *
      * @return string the sanitized filename
      */
-    public static function sanitizeFilename($filename)
+    public static function sanitizeFilename(string $filename): string
     {
         if (preg_match('/.*[\/\\\](.*)$/', $filename, $match)) {
             return $match[1];
@@ -120,7 +122,7 @@ class ObjectSerializer
      *
      * @return string the serialized object
      */
-    public static function toPathValue($value)
+    public static function toPathValue(string $value): string
     {
         return rawurlencode(self::toString($value));
     }
@@ -136,7 +138,7 @@ class ObjectSerializer
      *
      * @return string the serialized object
      */
-    public static function toQueryValue($object, $format = null)
+    public static function toQueryValue(array|\DateTime|string $object, ?string $format = null): string
     {
         if (is_array($object)) {
             return implode(',', $object);
@@ -154,7 +156,7 @@ class ObjectSerializer
      *
      * @return string the header string
      */
-    public static function toHeaderValue($value)
+    public static function toHeaderValue(string $value): string
     {
         return self::toString($value);
     }
@@ -168,7 +170,7 @@ class ObjectSerializer
      *
      * @return string the form string
      */
-    public static function toFormValue($value)
+    public static function toFormValue(\SplFileObject|string $value): string
     {
         if ($value instanceof \SplFileObject) {
             return $value->getRealPath();
@@ -188,7 +190,7 @@ class ObjectSerializer
      *
      * @return string the header string
      */
-    public static function toString($value, $format = null)
+    public static function toString(\DateTime|string $value, ?string $format = null): string
     {
         if ($value instanceof \DateTime) {
             return ('date' === $format) ? $value->format('Y-m-d') : $value->format(\DateTime::ATOM);
@@ -204,10 +206,8 @@ class ObjectSerializer
      * @param string $collectionFormat           the format use for serialization (csv,
      *                                           ssv, tsv, pipes, multi)
      * @param bool   $allowCollectionFormatMulti allow collection format to be a multidimensional array
-     *
-     * @return string
      */
-    public static function serializeCollection(array $collection, $collectionFormat, $allowCollectionFormatMulti = false)
+    public static function serializeCollection(array $collection, string $collectionFormat, ?bool $allowCollectionFormatMulti = false): string
     {
         if ($allowCollectionFormatMulti && ('multi' === $collectionFormat)) {
             // http_build_query() almost does the job for us. We just
@@ -215,21 +215,12 @@ class ObjectSerializer
             return preg_replace('/%5B[0-9]+%5D=/', '=', http_build_query($collection, '', '&'));
         }
 
-        switch ($collectionFormat) {
-            case 'pipes':
-                return implode('|', $collection);
-
-            case 'tsv':
-                return implode("\t", $collection);
-
-            case 'ssv':
-                return implode(' ', $collection);
-
-            case 'csv':
-                // Deliberate fall through. CSV is default format.
-            default:
-                return implode(',', $collection);
-        }
+        return match ($collectionFormat) {
+            'pipes' => implode('|', $collection),
+            'tsv' => implode("\t", $collection),
+            'ssv' => implode(' ', $collection),
+            default => implode(',', $collection),
+        };
     }
 
     /**
@@ -241,12 +232,12 @@ class ObjectSerializer
      *
      * @throws \Exception
      */
-    public static function deserialize($data, $class, $httpHeaders = null): mixed
+    public static function deserialize(mixed $data, string $class, ?array $httpHeaders = null): mixed
     {
         if (null === $data) {
             return null;
         }
-        if ('map[' === substr($class, 0, 4)) { // for associative array e.g. map[string,int]
+        if (str_starts_with($class, 'map[')) { // for associative array e.g. map[string,int]
             $inner = substr($class, 4, -1);
             $deserialized = [];
             if (false !== strrpos($inner, ',')) {
