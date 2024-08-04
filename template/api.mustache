@@ -116,8 +116,9 @@ use \GuzzleHttp\Exception\GuzzleException;
 
             try {
                 $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-            } catch (\Exception $e) {
-                throw new SerializationException($response, $e);
+            } catch (SerializationException $e) {
+                $e->setResponse($response);
+                throw $e;
             }
 
             return [$serialized, $response];
@@ -147,7 +148,9 @@ use \GuzzleHttp\Exception\GuzzleException;
                 {{/responses}}
                     }
                     throw $e;
-                } catch (\Exception $_) {
+                } catch(SerializationException $exception) {
+                    $exception->setResponse($e->getResponseObject());
+                    throw $exception;
                 }
             }
     }
@@ -192,8 +195,9 @@ use \GuzzleHttp\Exception\GuzzleException;
 
                     try {
                         $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-                    } catch (\Exception $e) {
-                        throw new SerializationException($response, $e);
+                    } catch (SerializationException $e) {
+                        $e->setResponse($response);
+                        throw $e;
                     }
 
                     return [$serialized, $response];
@@ -223,7 +227,9 @@ use \GuzzleHttp\Exception\GuzzleException;
                             {{/responses}}
                         }
                         throw $e;
-                    } catch (\Exception $_) {
+                    } catch(SerializationException $exception) {
+                        $exception->setResponse($e->getResponseObject());
+                        throw $e;
                     }
                 }
             );

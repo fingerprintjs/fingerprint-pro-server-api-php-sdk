@@ -122,8 +122,10 @@ class FingerprintApi
 
             try {
                 $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-            } catch (\Exception $e) {
-                throw new SerializationException($response, $e);
+            } catch (SerializationException $e) {
+                $e->setResponse($response);
+
+                throw $e;
             }
 
             return [$serialized, $response];
@@ -174,7 +176,10 @@ class FingerprintApi
                 }
 
                 throw $e;
-            } catch (\Exception $_) {
+            } catch (SerializationException $exception) {
+                $exception->setResponse($e->getResponseObject());
+
+                throw $exception;
             }
         }
     }
@@ -215,8 +220,10 @@ class FingerprintApi
 
                     try {
                         $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-                    } catch (\Exception $e) {
-                        throw new SerializationException($response, $e);
+                    } catch (SerializationException $e) {
+                        $e->setResponse($response);
+
+                        throw $e;
                     }
 
                     return [$serialized, $response];
@@ -268,7 +275,10 @@ class FingerprintApi
                         }
 
                         throw $e;
-                    } catch (\Exception $_) {
+                    } catch (SerializationException $exception) {
+                        $exception->setResponse($e->getResponseObject());
+
+                        throw $e;
                     }
                 }
             );
@@ -326,8 +336,10 @@ class FingerprintApi
 
             try {
                 $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-            } catch (\Exception $e) {
-                throw new SerializationException($response, $e);
+            } catch (SerializationException $e) {
+                $e->setResponse($response);
+
+                throw $e;
             }
 
             return [$serialized, $response];
@@ -378,7 +390,10 @@ class FingerprintApi
                 }
 
                 throw $e;
-            } catch (\Exception $_) {
+            } catch (SerializationException $exception) {
+                $exception->setResponse($e->getResponseObject());
+
+                throw $exception;
             }
         }
     }
@@ -419,8 +434,10 @@ class FingerprintApi
 
                     try {
                         $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-                    } catch (\Exception $e) {
-                        throw new SerializationException($response, $e);
+                    } catch (SerializationException $e) {
+                        $e->setResponse($response);
+
+                        throw $e;
                     }
 
                     return [$serialized, $response];
@@ -472,7 +489,10 @@ class FingerprintApi
                         }
 
                         throw $e;
-                    } catch (\Exception $_) {
+                    } catch (SerializationException $exception) {
+                        $exception->setResponse($e->getResponseObject());
+
+                        throw $e;
                     }
                 }
             );

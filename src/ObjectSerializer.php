@@ -296,7 +296,7 @@ class ObjectSerializer
                 return (float) $originalData;
             }
             if ('string' === $normalizedClass && is_object($data)) {
-                throw new \Exception('Cannot convert object to string');
+                throw new SerializationException();
             }
 
             settype($data, $class);
@@ -304,7 +304,7 @@ class ObjectSerializer
                 return $data;
             }
 
-            throw new \Exception('Serialization error: Could not convert '.gettype($originalData).' to '.$class);
+            throw new SerializationException();
         } elseif (method_exists($class, 'getAllowableEnumValues')) {
             if (!in_array($data, $class::getAllowableEnumValues())) {
                 $imploded = implode("', '", $class::getAllowableEnumValues());
