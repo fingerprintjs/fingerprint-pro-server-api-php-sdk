@@ -65,7 +65,7 @@ java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/f
 
 mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
-find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" -exec rm {} +
+find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" ! -name "Webhook.md" -exec rm {} +
 mv -f src/docs/* ./docs
 
 if [ -z "$GITHUB_ACTIONS" ]; then

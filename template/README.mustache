@@ -184,6 +184,32 @@ All URIs are relative to your region's base URL.
 | Europe      | https://eu.api.fpjs.io |
 | Asia        | https://ap.api.fpjs.io |
 
+## Webhook Signing
+
+This SDK provides utility method for verifying the HMAC signature of the incoming webhook request.
+You can use below code to verify signature:
+
+```php
+<?php
+
+// Your webhook signing secret.
+$webhookSecret = "secret";
+
+// Request data. In real life scenerio this will be the body of incoming request
+$webhookData = "data";
+
+// Value of the "fpjs-event-signature" header.
+$webhookHeader = "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db";
+
+$isValidWebhookSign = \Fingerprint\ServerAPI\Webhook\WebhookVerifier::checkHeader($webhookHeader, $webhookData, $webhookSecret);
+
+if(!$isValidWebhookSign) {
+    fwrite(STDERR, sprintf("Webhook signature verification failed\n"));
+    exit(1);
+}
+
+```
+
 ## Endpoints
 
 
@@ -225,6 +251,10 @@ Class | Method | HTTP request | Description
 
 - [Sealed](docs/Sealed/Sealed.md)
 - [DecryptionKey](docs/Sealed/DecryptionKey.md)
+
+## Documentation for webhooks
+
+- [Webhook](docs/Webhook.md)
 
 ## Tests
 
