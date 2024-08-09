@@ -4,7 +4,7 @@ namespace Fingerprint\ServerAPI\Webhook;
 
 final class WebhookVerifier
 {
-    public static function checkHeader(string $header, string $data, string $secret): bool
+    public static function IsValidWebhookSignature(string $header, string $data, string $secret): bool
     {
         $signatures = explode(',', $header);
         foreach ($signatures as $signature) {

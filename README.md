@@ -191,7 +191,7 @@ $webhookData = "data";
 // Value of the "fpjs-event-signature" header.
 $webhookHeader = "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db";
 
-$isValidWebhookSign = \Fingerprint\ServerAPI\Webhook\WebhookVerifier::checkHeader($webhookHeader, $webhookData, $webhookSecret);
+$isValidWebhookSign = \Fingerprint\ServerAPI\Webhook\WebhookVerifier::IsValidWebhookSignature($webhookHeader, $webhookData, $webhookSecret);
 
 if(!$isValidWebhookSign) {
     fwrite(STDERR, sprintf("Webhook signature verification failed\n"));
