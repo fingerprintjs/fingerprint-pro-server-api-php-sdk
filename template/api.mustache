@@ -111,15 +111,8 @@ use \GuzzleHttp\Exception\GuzzleException;
             }
 
             {{#returnType}}
-            $responseBody = $response->getBody()->getContents();
-            $response->getBody()->rewind();
 
-            try {
-                $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-            } catch (SerializationException $e) {
-                $e->setResponse($response);
-                throw $e;
-            }
+            $serialized = ObjectSerializer::deserialize($response, $returnType);
 
             return [$serialized, $response];
             {{/returnType}}
@@ -128,30 +121,22 @@ use \GuzzleHttp\Exception\GuzzleException;
             {{/returnType}}
 
         } catch (ApiException $e) {
-            try {
-                switch ($e->getCode()) {
+            /** @var ResponseInterface $response */
+            $response = $e->getResponseObject();
+            switch ($e->getCode()) {
                 {{#responses}}
                     {{#dataType}}
-                            {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
-                                /** @var ResponseInterface $response */
-                                $response = $e->getResponseObject();
-                                $responseBody = $response->getBody()->getContents();
-                                $response->getBody()->rewind();
-                                $data = ObjectSerializer::deserialize(
-                                $responseBody,
-                                '{{dataType}}',
-                                $response->getHeaders()
-                                );
-                                $e->setResponseObject($data);
-                            break;
+                        {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
+                        $data = ObjectSerializer::deserialize(
+                        $response,
+                        '{{dataType}}'
+                        );
+                        $e->setResponseObject($data);
+                        break;
                     {{/dataType}}
                 {{/responses}}
-                    }
-                    throw $e;
-                } catch(SerializationException $exception) {
-                    $exception->setResponse($e->getResponseObject());
-                    throw $exception;
                 }
+                throw $e;
             }
     }
 
@@ -165,6 +150,7 @@ use \GuzzleHttp\Exception\GuzzleException;
     {{/description}}
     *
     * @throws \InvalidArgumentException
+    * @throws SerializationException
     */
     public function {{operationId}}Async({{#parameters}}{{dataType}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Promise\PromiseInterface
     {
@@ -190,15 +176,8 @@ use \GuzzleHttp\Exception\GuzzleException;
                         throw $apiException;
                     }
                 {{#returnType}}
-                    $responseBody = $response->getBody()->getContents();
-                    $response->getBody()->rewind();
 
-                    try {
-                        $serialized = ObjectSerializer::deserialize($responseBody, $returnType, []);
-                    } catch (SerializationException $e) {
-                        $e->setResponse($response);
-                        throw $e;
-                    }
+                    $serialized = ObjectSerializer::deserialize($response, $returnType);
 
                     return [$serialized, $response];
                 {{/returnType}}
@@ -207,30 +186,22 @@ use \GuzzleHttp\Exception\GuzzleException;
                 {{/returnType}}
                 },
                 function ($e) {
-                    try {
-                        switch ($e->getCode()) {
-                            {{#responses}}
-                                {{#dataType}}
-                                    {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
-                                        /** @var ResponseInterface $response */
-                                        $response = $e->getResponseObject();
-                                        $responseBody = $response->getBody()->getContents();
-                                        $response->getBody()->rewind();
-                                        $data = ObjectSerializer::deserialize(
-                                        $responseBody,
-                                        '{{dataType}}',
-                                        $response->getHeaders()
-                                    );
-                                        $e->setResponseObject($data);
-                                    break;
-                                {{/dataType}}
-                            {{/responses}}
-                        }
-                        throw $e;
-                    } catch(SerializationException $exception) {
-                        $exception->setResponse($e->getResponseObject());
-                        throw $e;
+                    /** @var ResponseInterface $response */
+                    $response = $e->getResponseObject();
+                    switch ($e->getCode()) {
+                    {{#responses}}
+                        {{#dataType}}
+                            {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
+                            $data = ObjectSerializer::deserialize(
+                            $response,
+                            '{{dataType}}'
+                            );
+                            $e->setResponseObject($data);
+                            break;
+                        {{/dataType}}
+                    {{/responses}}
                     }
+                    throw $e;
                 }
             );
     }
@@ -240,6 +211,7 @@ use \GuzzleHttp\Exception\GuzzleException;
      *
      *
      * @throws \InvalidArgumentException
+     * @throws SerializationException
      */
     protected function {{operationId}}Request({{#parameters}}{{dataType}}{{^required}}|null{{/required}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Psr7\Request
     {

@@ -30,6 +30,7 @@
 namespace Fingerprint\ServerAPI;
 
 use DateTime;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * ObjectSerializer Class Doc Comment.
@@ -226,13 +227,41 @@ class ObjectSerializer
     /**
      * Deserialize a JSON string into an object.
      *
-     * @param mixed    $data        object or primitive to be deserialized
-     * @param string   $class       class name is passed as a string
-     * @param string[] $httpHeaders HTTP headers
+     * @param string $class class name is passed as a string
      *
      * @throws \Exception
      */
-    public static function deserialize(mixed $data, string $class, ?array $httpHeaders = null): mixed
+    public static function deserialize(ResponseInterface $response, string $class): mixed
+    {
+        $data = $response->getBody()->getContents();
+        $response->getBody()->rewind();
+
+        return self::mapToClass($data, $class, $response);
+    }
+
+    protected static function mapToClass(mixed $data, string $class, ResponseInterface $response): mixed
+    {
+        if ('string' === gettype($data)) {
+            $data = json_decode($data, false);
+        }
+        $instance = new $class();
+        foreach ($instance::swaggerTypes() as $property => $type) {
+            $propertySetter = $instance::setters()[$property];
+
+            if (!isset($propertySetter) || !isset($data->{$instance::attributeMap()[$property]})) {
+                continue;
+            }
+
+            $propertyValue = $data->{$instance::attributeMap()[$property]};
+            if (isset($propertyValue)) {
+                $instance->{$propertySetter}(self::castData($propertyValue, $type, $response));
+            }
+        }
+
+        return $instance;
+    }
+
+    protected static function castData(mixed $data, string $class, ResponseInterface $response): mixed
     {
         if (null === $data) {
             return null;
@@ -244,7 +273,7 @@ class ObjectSerializer
                 $subClass_array = explode(',', $inner, 2);
                 $subClass = $subClass_array[1];
                 foreach ($data as $key => $value) {
-                    $deserialized[$key] = self::deserialize($value, $subClass, null);
+                    $deserialized[$key] = self::castData($value, $subClass, $response);
                 }
             }
 
@@ -254,7 +283,7 @@ class ObjectSerializer
             $subClass = substr($class, 0, -2);
             $values = [];
             foreach ($data as $key => $value) {
-                $values[] = self::deserialize($value, $subClass, null);
+                $values[] = self::castData($value, $subClass, $response);
             }
 
             return $values;
@@ -296,7 +325,7 @@ class ObjectSerializer
                 return (float) $originalData;
             }
             if ('string' === $normalizedClass && is_object($data)) {
-                throw new SerializationException();
+                throw new SerializationException($response);
             }
 
             settype($data, $class);
@@ -304,7 +333,7 @@ class ObjectSerializer
                 return $data;
             }
 
-            throw new SerializationException();
+            throw new SerializationException($response);
         } elseif (method_exists($class, 'getAllowableEnumValues')) {
             if (!in_array($data, $class::getAllowableEnumValues())) {
                 $imploded = implode("', '", $class::getAllowableEnumValues());
@@ -315,20 +344,6 @@ class ObjectSerializer
             return $data;
         }
 
-        $instance = new $class();
-        foreach ($instance::swaggerTypes() as $property => $type) {
-            $propertySetter = $instance::setters()[$property];
-
-            if (!isset($propertySetter) || !isset($data->{$instance::attributeMap()[$property]})) {
-                continue;
-            }
-
-            $propertyValue = $data->{$instance::attributeMap()[$property]};
-            if (isset($propertyValue)) {
-                $instance->{$propertySetter}(self::deserialize($propertyValue, $type, null));
-            }
-        }
-
-        return $instance;
+        return self::mapToClass($data, $class, $response);
     }
 }

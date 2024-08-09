@@ -43,6 +43,9 @@ error_reporting(error_reporting() & ~E_DEPRECATED);
 
 try {
     list($result, $response) = $client->getVisits($visitor_id);
+    if($result->getVisitorId() !== $visitor_id) {
+        throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
+    }
     fwrite(STDOUT, sprintf("Got visits: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
@@ -50,7 +53,11 @@ try {
 }
 
 try {
+    /** @var $result \Fingerprint\ServerAPI\Model\EventResponse */
     list($result, $response) = $client->getEvent($request_id);
+    if($result->getProducts()->getIdentification()->getData()->getRequestId() !== $request_id) {
+        throw new Exception('Argument requestId is not equal to deserialized getRequestId');
+    }
     fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
@@ -58,8 +65,11 @@ try {
 }
 
 $eventPromise = $client->getEventAsync($request_id);
-$eventPromise->then(function ($tuple) {
+$eventPromise->then(function ($tuple) use($request_id) {
     list($result, $response) = $tuple;
+    if($result->getProducts()->getIdentification()->getData()->getRequestId() !== $request_id) {
+        throw new Exception('Argument requestId is not equal to deserialized getRequestId');
+    }
     fwrite(STDOUT, sprintf("\n\nGot async event: %s \n", $response->getBody()->getContents()));
 }, function($exception) {
     fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $exception->getMessage()));
@@ -67,8 +77,11 @@ $eventPromise->then(function ($tuple) {
 })->wait();
 
 $visitsPromise = $client->getVisitsAsync($visitor_id);
-$visitsPromise->then(function($tuple) {
+$visitsPromise->then(function($tuple) use($visitor_id) {
     list($result, $response) = $tuple;
+    if($result->getVisitorId() !== $visitor_id) {
+        throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
+    }
     fwrite(STDOUT, sprintf("\n\nGot async visits: %s \n", $response->getBody()->getContents()));
 }, function ($exception) {
     fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $exception->getMessage()));
