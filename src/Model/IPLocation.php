@@ -42,17 +42,15 @@ class IPLocation implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'IPLocation';
+    protected static string $swaggerModelName = 'IPLocation';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'accuracy_radius' => 'int',
         'latitude' => 'double',
         'longitude' => 'double',
@@ -68,7 +66,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'accuracy_radius' => null,
         'latitude' => 'double',
         'longitude' => 'double',
@@ -85,7 +83,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'accuracy_radius' => 'accuracyRadius',
         'latitude' => 'latitude',
         'longitude' => 'longitude',
@@ -101,7 +99,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'accuracy_radius' => 'setAccuracyRadius',
         'latitude' => 'setLatitude',
         'longitude' => 'setLongitude',
@@ -117,7 +115,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'accuracy_radius' => 'getAccuracyRadius',
         'latitude' => 'getLatitude',
         'longitude' => 'getLongitude',
@@ -133,7 +131,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -156,10 +154,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -173,20 +169,16 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -194,40 +186,32 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -237,7 +221,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         return [];
     }
@@ -248,7 +232,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
@@ -270,7 +254,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAccuracyRadius($accuracy_radius)
+    public function setAccuracyRadius($accuracy_radius): self
     {
         $this->container['accuracy_radius'] = $accuracy_radius;
 
@@ -294,7 +278,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLatitude($latitude)
+    public function setLatitude($latitude): self
     {
         $this->container['latitude'] = $latitude;
 
@@ -318,7 +302,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLongitude($longitude)
+    public function setLongitude($longitude): self
     {
         $this->container['longitude'] = $longitude;
 
@@ -342,7 +326,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPostalCode($postal_code)
+    public function setPostalCode($postal_code): self
     {
         $this->container['postal_code'] = $postal_code;
 
@@ -366,7 +350,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTimezone($timezone)
+    public function setTimezone($timezone): self
     {
         $this->container['timezone'] = $timezone;
 
@@ -390,7 +374,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setCity($city)
+    public function setCity($city): self
     {
         $this->container['city'] = $city;
 
@@ -414,7 +398,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setCountry($country)
+    public function setCountry($country): self
     {
         $this->container['country'] = $country;
 
@@ -438,7 +422,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setContinent($continent)
+    public function setContinent($continent): self
     {
         $this->container['continent'] = $continent;
 
@@ -462,7 +446,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setSubdivisions($subdivisions)
+    public function setSubdivisions($subdivisions): self
     {
         $this->container['subdivisions'] = $subdivisions;
 
@@ -473,11 +457,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -486,11 +467,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -501,8 +479,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -516,8 +493,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

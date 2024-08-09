@@ -44,17 +44,15 @@ class BotdResult implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'BotdResult';
+    protected static string $swaggerModelName = 'BotdResult';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'ip' => 'string',
         'time' => '\DateTime',
         'url' => 'string',
@@ -68,7 +66,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'ip' => 'ipv4',
         'time' => 'date-time',
         'url' => null,
@@ -83,7 +81,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'ip' => 'ip',
         'time' => 'time',
         'url' => 'url',
@@ -97,7 +95,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'ip' => 'setIp',
         'time' => 'setTime',
         'url' => 'setUrl',
@@ -111,7 +109,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'ip' => 'getIp',
         'time' => 'getTime',
         'url' => 'getUrl',
@@ -125,7 +123,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -146,10 +144,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -163,20 +159,16 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -184,40 +176,32 @@ class BotdResult implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -227,7 +211,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         $invalidProperties = [];
 
@@ -259,7 +243,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
@@ -281,7 +265,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIp($ip)
+    public function setIp($ip): self
     {
         $this->container['ip'] = $ip;
 
@@ -305,7 +289,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTime($time)
+    public function setTime($time): self
     {
         $this->container['time'] = $time;
 
@@ -329,7 +313,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUrl($url)
+    public function setUrl($url): self
     {
         $this->container['url'] = $url;
 
@@ -353,7 +337,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUserAgent($user_agent)
+    public function setUserAgent($user_agent): self
     {
         $this->container['user_agent'] = $user_agent;
 
@@ -377,7 +361,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRequestId($request_id)
+    public function setRequestId($request_id): self
     {
         $this->container['request_id'] = $request_id;
 
@@ -401,7 +385,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLinkedId($linked_id)
+    public function setLinkedId($linked_id): self
     {
         $this->container['linked_id'] = $linked_id;
 
@@ -425,7 +409,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBot($bot)
+    public function setBot($bot): self
     {
         $this->container['bot'] = $bot;
 
@@ -436,11 +420,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -449,11 +430,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -464,8 +442,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -479,8 +456,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

@@ -42,17 +42,15 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'ResponseVisits';
+    protected static string $swaggerModelName = 'ResponseVisits';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'request_id' => 'string',
         'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
         'incognito' => 'bool',
@@ -73,7 +71,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'request_id' => null,
         'browser_details' => null,
         'incognito' => null,
@@ -95,7 +93,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'request_id' => 'requestId',
         'browser_details' => 'browserDetails',
         'incognito' => 'incognito',
@@ -116,7 +114,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'request_id' => 'setRequestId',
         'browser_details' => 'setBrowserDetails',
         'incognito' => 'setIncognito',
@@ -137,7 +135,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'request_id' => 'getRequestId',
         'browser_details' => 'getBrowserDetails',
         'incognito' => 'getIncognito',
@@ -158,7 +156,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -186,10 +184,8 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -203,20 +199,16 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -224,40 +216,32 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -267,7 +251,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         $invalidProperties = [];
 
@@ -314,7 +298,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
@@ -336,7 +320,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRequestId($request_id)
+    public function setRequestId($request_id): self
     {
         $this->container['request_id'] = $request_id;
 
@@ -360,7 +344,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserDetails($browser_details)
+    public function setBrowserDetails($browser_details): self
     {
         $this->container['browser_details'] = $browser_details;
 
@@ -384,7 +368,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIncognito($incognito)
+    public function setIncognito($incognito): self
     {
         $this->container['incognito'] = $incognito;
 
@@ -408,7 +392,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIp($ip)
+    public function setIp($ip): self
     {
         $this->container['ip'] = $ip;
 
@@ -432,7 +416,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpLocation($ip_location)
+    public function setIpLocation($ip_location): self
     {
         $this->container['ip_location'] = $ip_location;
 
@@ -456,7 +440,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTimestamp($timestamp)
+    public function setTimestamp($timestamp): self
     {
         $this->container['timestamp'] = $timestamp;
 
@@ -480,7 +464,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTime($time)
+    public function setTime($time): self
     {
         $this->container['time'] = $time;
 
@@ -504,7 +488,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUrl($url)
+    public function setUrl($url): self
     {
         $this->container['url'] = $url;
 
@@ -528,7 +512,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTag($tag)
+    public function setTag($tag): self
     {
         $this->container['tag'] = $tag;
 
@@ -552,7 +536,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLinkedId($linked_id)
+    public function setLinkedId($linked_id): self
     {
         $this->container['linked_id'] = $linked_id;
 
@@ -576,7 +560,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setConfidence($confidence)
+    public function setConfidence($confidence): self
     {
         $this->container['confidence'] = $confidence;
 
@@ -600,7 +584,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVisitorFound($visitor_found)
+    public function setVisitorFound($visitor_found): self
     {
         $this->container['visitor_found'] = $visitor_found;
 
@@ -624,7 +608,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFirstSeenAt($first_seen_at)
+    public function setFirstSeenAt($first_seen_at): self
     {
         $this->container['first_seen_at'] = $first_seen_at;
 
@@ -648,7 +632,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLastSeenAt($last_seen_at)
+    public function setLastSeenAt($last_seen_at): self
     {
         $this->container['last_seen_at'] = $last_seen_at;
 
@@ -659,11 +643,8 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -672,11 +653,8 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -687,8 +665,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -702,8 +679,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

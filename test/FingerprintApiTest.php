@@ -84,11 +84,10 @@ class FingerprintApiTest extends TestCase
         }
 
         $file = file_get_contents(__DIR__ . "/mocks/$mock_name");
-        $events_mock_data = \GuzzleHttp\json_decode($file);
         $response = new \GuzzleHttp\Psr7\Response(200, [], $file);
 
         try {
-            $serialized = ObjectSerializer::deserialize($events_mock_data, EventResponse::class);
+            $serialized = ObjectSerializer::deserialize($response, EventResponse::class);
         } catch (Exception $exception) {
             throw new SerializationException($response, $exception);
         }
@@ -113,9 +112,9 @@ class FingerprintApiTest extends TestCase
             $visits_mock_data->visits = array_slice($visits_mock_data->visits, 0, $limit);
         }
 
-        $response = new \GuzzleHttp\Psr7\Response(200, [], $file);
+        $response = new \GuzzleHttp\Psr7\Response(200, [], json_encode($visits_mock_data));
         try {
-            $serialized = ObjectSerializer::deserialize($visits_mock_data, Response::class);
+            $serialized = ObjectSerializer::deserialize($response, Response::class);
         } catch (Exception $exception) {
             throw new SerializationException($response, $exception);
         }

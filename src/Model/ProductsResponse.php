@@ -44,17 +44,15 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'ProductsResponse';
+    protected static string $swaggerModelName = 'ProductsResponse';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'identification' => '\Fingerprint\ServerAPI\Model\ProductsResponseIdentification',
         'botd' => '\Fingerprint\ServerAPI\Model\ProductsResponseBotd',
         'ip_info' => '\Fingerprint\ServerAPI\Model\SignalResponseIpInfo',
@@ -82,7 +80,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'identification' => null,
         'botd' => null,
         'ip_info' => null,
@@ -111,7 +109,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'identification' => 'identification',
         'botd' => 'botd',
         'ip_info' => 'ipInfo',
@@ -139,7 +137,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'identification' => 'setIdentification',
         'botd' => 'setBotd',
         'ip_info' => 'setIpInfo',
@@ -167,7 +165,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'identification' => 'getIdentification',
         'botd' => 'getBotd',
         'ip_info' => 'getIpInfo',
@@ -195,7 +193,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -230,10 +228,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -247,20 +243,16 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -268,40 +260,32 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -311,7 +295,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         return [];
     }
@@ -322,7 +306,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
@@ -344,7 +328,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIdentification($identification)
+    public function setIdentification($identification): self
     {
         $this->container['identification'] = $identification;
 
@@ -368,7 +352,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBotd($botd)
+    public function setBotd($botd): self
     {
         $this->container['botd'] = $botd;
 
@@ -392,7 +376,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpInfo($ip_info)
+    public function setIpInfo($ip_info): self
     {
         $this->container['ip_info'] = $ip_info;
 
@@ -416,7 +400,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIncognito($incognito)
+    public function setIncognito($incognito): self
     {
         $this->container['incognito'] = $incognito;
 
@@ -440,7 +424,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRootApps($root_apps)
+    public function setRootApps($root_apps): self
     {
         $this->container['root_apps'] = $root_apps;
 
@@ -464,7 +448,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setEmulator($emulator)
+    public function setEmulator($emulator): self
     {
         $this->container['emulator'] = $emulator;
 
@@ -488,7 +472,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setClonedApp($cloned_app)
+    public function setClonedApp($cloned_app): self
     {
         $this->container['cloned_app'] = $cloned_app;
 
@@ -512,7 +496,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFactoryReset($factory_reset)
+    public function setFactoryReset($factory_reset): self
     {
         $this->container['factory_reset'] = $factory_reset;
 
@@ -536,7 +520,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setJailbroken($jailbroken)
+    public function setJailbroken($jailbroken): self
     {
         $this->container['jailbroken'] = $jailbroken;
 
@@ -560,7 +544,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFrida($frida)
+    public function setFrida($frida): self
     {
         $this->container['frida'] = $frida;
 
@@ -584,7 +568,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpBlocklist($ip_blocklist)
+    public function setIpBlocklist($ip_blocklist): self
     {
         $this->container['ip_blocklist'] = $ip_blocklist;
 
@@ -608,7 +592,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTor($tor)
+    public function setTor($tor): self
     {
         $this->container['tor'] = $tor;
 
@@ -632,7 +616,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPrivacySettings($privacy_settings)
+    public function setPrivacySettings($privacy_settings): self
     {
         $this->container['privacy_settings'] = $privacy_settings;
 
@@ -656,7 +640,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVirtualMachine($virtual_machine)
+    public function setVirtualMachine($virtual_machine): self
     {
         $this->container['virtual_machine'] = $virtual_machine;
 
@@ -680,7 +664,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVpn($vpn)
+    public function setVpn($vpn): self
     {
         $this->container['vpn'] = $vpn;
 
@@ -704,7 +688,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setProxy($proxy)
+    public function setProxy($proxy): self
     {
         $this->container['proxy'] = $proxy;
 
@@ -728,7 +712,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTampering($tampering)
+    public function setTampering($tampering): self
     {
         $this->container['tampering'] = $tampering;
 
@@ -752,7 +736,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setHighActivity($high_activity)
+    public function setHighActivity($high_activity): self
     {
         $this->container['high_activity'] = $high_activity;
 
@@ -776,7 +760,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLocationSpoofing($location_spoofing)
+    public function setLocationSpoofing($location_spoofing): self
     {
         $this->container['location_spoofing'] = $location_spoofing;
 
@@ -800,7 +784,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setSuspectScore($suspect_score)
+    public function setSuspectScore($suspect_score): self
     {
         $this->container['suspect_score'] = $suspect_score;
 
@@ -824,7 +808,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRawDeviceAttributes($raw_device_attributes)
+    public function setRawDeviceAttributes($raw_device_attributes): self
     {
         $this->container['raw_device_attributes'] = $raw_device_attributes;
 
@@ -835,11 +819,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -848,11 +829,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -863,8 +841,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -878,8 +855,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
