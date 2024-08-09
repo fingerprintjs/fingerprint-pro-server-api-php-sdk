@@ -48,6 +48,9 @@ class ApiException extends \Exception
         parent::__construct($message, $code);
     }
 
+    /**
+     * Sets the deseralized response object (during deserialization).
+     */
     public function setResponseObject(ResponseInterface $obj): void
     {
         $this->responseObject = $obj;

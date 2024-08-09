@@ -72,6 +72,9 @@ use \GuzzleHttp\Exception\GuzzleException;
      * {{.}}
      *
 {{/description}}
+{{#parameters}}
+     * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
+{{/parameters}}
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
@@ -148,6 +151,9 @@ use \GuzzleHttp\Exception\GuzzleException;
     * {{.}}
     *
     {{/description}}
+    {{#parameters}}
+    * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
+    {{/parameters}}
     *
     * @throws \InvalidArgumentException
     * @throws SerializationException

@@ -126,7 +126,7 @@ class Configuration
      *
      * @return null|string API key or token
      */
-    public function getApiKey($apiKeyIdentifier): ?string
+    public function getApiKey(string $apiKeyIdentifier): ?string
     {
         return isset($this->apiKeys[$apiKeyIdentifier]) ? $this->apiKeys[$apiKeyIdentifier] : null;
     }
