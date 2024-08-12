@@ -88,6 +88,17 @@ $visitsPromise->then(function($tuple) use($visitor_id) {
     exit(1);
 })->wait();
 
+$webhookSecret = "secret";
+$webhookData = "data";
+$webhookHeader = "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db";
+$isValidWebhookSign = \Fingerprint\ServerAPI\Webhook\WebhookVerifier::IsValidWebhookSignature($webhookHeader, $webhookData, $webhookSecret);
+if($isValidWebhookSign) {
+    fwrite(STDOUT, sprintf("\n\nVerified webhook signature\n"));
+} else {
+    fwrite(STDERR, sprintf("\n\nWebhook signature verification failed\n"));
+    exit(1);
+}
+
 // Enable the deprecated ArrayAccess return type warning again if needed
 error_reporting(error_reporting() | E_DEPRECATED);
 
