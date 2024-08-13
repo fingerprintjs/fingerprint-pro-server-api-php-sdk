@@ -130,6 +130,8 @@ use \GuzzleHttp\Exception\GuzzleException;
                 {{#responses}}
                     {{#dataType}}
                         {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
+                        $errorDetail = ObjectSerializer::deserialize($response, '{{dataType}}');
+                        $e->setErrorDetails($errorDetail);
                         $e->setResponseObject($response);
                         break;
                     {{/dataType}}
@@ -194,6 +196,8 @@ use \GuzzleHttp\Exception\GuzzleException;
                     {{#responses}}
                         {{#dataType}}
                             {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
+                            $errorDetail = ObjectSerializer::deserialize($response, '{{dataType}}');
+                            $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
                             break;
                         {{/dataType}}

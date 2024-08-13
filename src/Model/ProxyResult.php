@@ -197,10 +197,8 @@ class ProxyResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets result.
-     *
-     * @return bool
      */
-    public function getResult()
+    public function getResult(): bool
     {
         return $this->container['result'];
     }
@@ -212,7 +210,7 @@ class ProxyResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setResult($result): self
+    public function setResult(bool $result): self
     {
         $this->container['result'] = $result;
 

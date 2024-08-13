@@ -197,10 +197,8 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ProductsResponseIdentificationData
      */
-    public function getData()
+    public function getData(): ProductsResponseIdentificationData
     {
         return $this->container['data'];
     }
@@ -212,7 +210,7 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setData($data): self
+    public function setData(ProductsResponseIdentificationData $data): self
     {
         $this->container['data'] = $data;
 
@@ -221,10 +219,8 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return IdentificationError
      */
-    public function getError()
+    public function getError(): IdentificationError
     {
         return $this->container['error'];
     }
@@ -236,7 +232,7 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError($error): self
+    public function setError(IdentificationError $error): self
     {
         $this->container['error'] = $error;
 

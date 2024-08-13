@@ -197,10 +197,8 @@ class SuspectScoreResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets result.
-     *
-     * @return int
      */
-    public function getResult()
+    public function getResult(): int
     {
         return $this->container['result'];
     }
@@ -212,7 +210,7 @@ class SuspectScoreResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setResult($result): self
+    public function setResult(int $result): self
     {
         $this->container['result'] = $result;
 

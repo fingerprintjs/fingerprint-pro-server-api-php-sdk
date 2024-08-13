@@ -221,10 +221,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets result.
-     *
-     * @return bool
      */
-    public function getResult()
+    public function getResult(): bool
     {
         return $this->container['result'];
     }
@@ -236,7 +234,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setResult($result): self
+    public function setResult(bool $result): self
     {
         $this->container['result'] = $result;
 
@@ -245,10 +243,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets origin_timezone.
-     *
-     * @return string
      */
-    public function getOriginTimezone()
+    public function getOriginTimezone(): string
     {
         return $this->container['origin_timezone'];
     }
@@ -260,7 +256,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setOriginTimezone($origin_timezone): self
+    public function setOriginTimezone(string $origin_timezone): self
     {
         $this->container['origin_timezone'] = $origin_timezone;
 
@@ -269,10 +265,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets origin_country.
-     *
-     * @return string
      */
-    public function getOriginCountry()
+    public function getOriginCountry(): string
     {
         return $this->container['origin_country'];
     }
@@ -284,7 +278,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setOriginCountry($origin_country): self
+    public function setOriginCountry(string $origin_country): self
     {
         $this->container['origin_country'] = $origin_country;
 
@@ -293,10 +287,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets methods.
-     *
-     * @return VpnResultMethods
      */
-    public function getMethods()
+    public function getMethods(): VpnResultMethods
     {
         return $this->container['methods'];
     }
@@ -308,7 +300,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setMethods($methods): self
+    public function setMethods(VpnResultMethods $methods): self
     {
         $this->container['methods'] = $methods;
 

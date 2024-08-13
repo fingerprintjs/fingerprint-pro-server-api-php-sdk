@@ -197,10 +197,8 @@ class SignalResponseFrida implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return FridaResult
      */
-    public function getData()
+    public function getData(): FridaResult
     {
         return $this->container['data'];
     }
@@ -212,7 +210,7 @@ class SignalResponseFrida implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setData($data): self
+    public function setData(FridaResult $data): self
     {
         $this->container['data'] = $data;
 
@@ -221,10 +219,8 @@ class SignalResponseFrida implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ProductError
      */
-    public function getError()
+    public function getError(): ProductError
     {
         return $this->container['error'];
     }
@@ -236,7 +232,7 @@ class SignalResponseFrida implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError($error): self
+    public function setError(ProductError $error): self
     {
         $this->container['error'] = $error;
 

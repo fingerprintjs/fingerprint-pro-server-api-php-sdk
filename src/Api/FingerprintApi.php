@@ -128,16 +128,22 @@ class FingerprintApi
 
             switch ($e->getCode()) {
                 case 200:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\EventResponse');
+                    $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 403:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorEvent403Response');
+                    $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 404:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorEvent404Response');
+                    $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
@@ -192,16 +198,22 @@ class FingerprintApi
 
                     switch ($e->getCode()) {
                         case 200:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\EventResponse');
+                            $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 403:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorEvent403Response');
+                            $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 404:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorEvent404Response');
+                            $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
@@ -275,16 +287,22 @@ class FingerprintApi
 
             switch ($e->getCode()) {
                 case 200:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\Response');
+                    $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 403:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorVisits403');
+                    $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 429:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ManyRequestsResponse');
+                    $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
@@ -344,16 +362,22 @@ class FingerprintApi
 
                     switch ($e->getCode()) {
                         case 200:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\Response');
+                            $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 403:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorVisits403');
+                            $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 429:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ManyRequestsResponse');
+                            $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;

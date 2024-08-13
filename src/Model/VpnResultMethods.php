@@ -215,10 +215,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 
     /**
      * Gets timezone_mismatch.
-     *
-     * @return bool
      */
-    public function getTimezoneMismatch()
+    public function getTimezoneMismatch(): bool
     {
         return $this->container['timezone_mismatch'];
     }
@@ -230,7 +228,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTimezoneMismatch($timezone_mismatch): self
+    public function setTimezoneMismatch(bool $timezone_mismatch): self
     {
         $this->container['timezone_mismatch'] = $timezone_mismatch;
 
@@ -239,10 +237,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 
     /**
      * Gets public_vpn.
-     *
-     * @return bool
      */
-    public function getPublicVpn()
+    public function getPublicVpn(): bool
     {
         return $this->container['public_vpn'];
     }
@@ -254,7 +250,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPublicVpn($public_vpn): self
+    public function setPublicVpn(bool $public_vpn): self
     {
         $this->container['public_vpn'] = $public_vpn;
 
@@ -263,10 +259,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 
     /**
      * Gets auxiliary_mobile.
-     *
-     * @return bool
      */
-    public function getAuxiliaryMobile()
+    public function getAuxiliaryMobile(): bool
     {
         return $this->container['auxiliary_mobile'];
     }
@@ -278,7 +272,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAuxiliaryMobile($auxiliary_mobile): self
+    public function setAuxiliaryMobile(bool $auxiliary_mobile): self
     {
         $this->container['auxiliary_mobile'] = $auxiliary_mobile;
 

@@ -8,6 +8,7 @@ $api_key = getenv('FP_PRIVATE_API_KEY');
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Configuration;
 use GuzzleHttp\Client;
+use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
@@ -91,7 +92,7 @@ $visitsPromise->then(function($tuple) use($visitor_id) {
 $webhookSecret = "secret";
 $webhookData = "data";
 $webhookHeader = "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db";
-$isValidWebhookSign = \Fingerprint\ServerAPI\Webhook\WebhookVerifier::IsValidWebhookSignature($webhookHeader, $webhookData, $webhookSecret);
+$isValidWebhookSign = WebhookVerifier::IsValidWebhookSignature($webhookHeader, $webhookData, $webhookSecret);
 if($isValidWebhookSign) {
     fwrite(STDOUT, sprintf("\n\nVerified webhook signature\n"));
 } else {

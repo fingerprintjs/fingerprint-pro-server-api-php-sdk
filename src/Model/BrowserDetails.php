@@ -257,10 +257,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets browser_name.
-     *
-     * @return string
      */
-    public function getBrowserName()
+    public function getBrowserName(): string
     {
         return $this->container['browser_name'];
     }
@@ -272,7 +270,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserName($browser_name): self
+    public function setBrowserName(string $browser_name): self
     {
         $this->container['browser_name'] = $browser_name;
 
@@ -281,10 +279,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets browser_major_version.
-     *
-     * @return string
      */
-    public function getBrowserMajorVersion()
+    public function getBrowserMajorVersion(): string
     {
         return $this->container['browser_major_version'];
     }
@@ -296,7 +292,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserMajorVersion($browser_major_version): self
+    public function setBrowserMajorVersion(string $browser_major_version): self
     {
         $this->container['browser_major_version'] = $browser_major_version;
 
@@ -305,10 +301,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets browser_full_version.
-     *
-     * @return string
      */
-    public function getBrowserFullVersion()
+    public function getBrowserFullVersion(): string
     {
         return $this->container['browser_full_version'];
     }
@@ -320,7 +314,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserFullVersion($browser_full_version): self
+    public function setBrowserFullVersion(string $browser_full_version): self
     {
         $this->container['browser_full_version'] = $browser_full_version;
 
@@ -329,10 +323,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets os.
-     *
-     * @return string
      */
-    public function getOs()
+    public function getOs(): string
     {
         return $this->container['os'];
     }
@@ -344,7 +336,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setOs($os): self
+    public function setOs(string $os): self
     {
         $this->container['os'] = $os;
 
@@ -353,10 +345,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets os_version.
-     *
-     * @return string
      */
-    public function getOsVersion()
+    public function getOsVersion(): string
     {
         return $this->container['os_version'];
     }
@@ -368,7 +358,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setOsVersion($os_version): self
+    public function setOsVersion(string $os_version): self
     {
         $this->container['os_version'] = $os_version;
 
@@ -377,10 +367,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets device.
-     *
-     * @return string
      */
-    public function getDevice()
+    public function getDevice(): string
     {
         return $this->container['device'];
     }
@@ -392,7 +380,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setDevice($device): self
+    public function setDevice(string $device): self
     {
         $this->container['device'] = $device;
 
@@ -401,10 +389,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets user_agent.
-     *
-     * @return string
      */
-    public function getUserAgent()
+    public function getUserAgent(): string
     {
         return $this->container['user_agent'];
     }
@@ -416,7 +402,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUserAgent($user_agent): self
+    public function setUserAgent(string $user_agent): self
     {
         $this->container['user_agent'] = $user_agent;
 
@@ -425,10 +411,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets bot_probability.
-     *
-     * @return int
      */
-    public function getBotProbability()
+    public function getBotProbability(): int
     {
         return $this->container['bot_probability'];
     }
@@ -440,7 +424,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBotProbability($bot_probability): self
+    public function setBotProbability(int $bot_probability): self
     {
         $this->container['bot_probability'] = $bot_probability;
 

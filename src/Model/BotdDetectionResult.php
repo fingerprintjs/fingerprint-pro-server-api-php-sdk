@@ -229,10 +229,8 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets result.
-     *
-     * @return string
      */
-    public function getResult()
+    public function getResult(): string
     {
         return $this->container['result'];
     }
@@ -244,7 +242,7 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setResult($result): self
+    public function setResult(string $result): self
     {
         $allowedValues = $this->getResultAllowableValues();
         if (!in_array($result, $allowedValues, true)) {
@@ -262,10 +260,8 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets type.
-     *
-     * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->container['type'];
     }
@@ -277,7 +273,7 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setType($type): self
+    public function setType(string $type): self
     {
         $this->container['type'] = $type;
 

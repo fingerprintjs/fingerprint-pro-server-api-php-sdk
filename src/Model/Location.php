@@ -206,10 +206,8 @@ class Location implements ModelInterface, \ArrayAccess
 
     /**
      * Gets code.
-     *
-     * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->container['code'];
     }
@@ -221,7 +219,7 @@ class Location implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setCode($code): self
+    public function setCode(string $code): self
     {
         $this->container['code'] = $code;
 
@@ -230,10 +228,8 @@ class Location implements ModelInterface, \ArrayAccess
 
     /**
      * Gets name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->container['name'];
     }
@@ -245,7 +241,7 @@ class Location implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setName($name): self
+    public function setName(string $name): self
     {
         $this->container['name'] = $name;
 

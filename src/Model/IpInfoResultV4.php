@@ -218,10 +218,8 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets address.
-     *
-     * @return string
      */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->container['address'];
     }
@@ -233,7 +231,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAddress($address): self
+    public function setAddress(string $address): self
     {
         $this->container['address'] = $address;
 
@@ -242,10 +240,8 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets geolocation.
-     *
-     * @return IPLocation
      */
-    public function getGeolocation()
+    public function getGeolocation(): IPLocation
     {
         return $this->container['geolocation'];
     }
@@ -257,7 +253,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setGeolocation($geolocation): self
+    public function setGeolocation(IPLocation $geolocation): self
     {
         $this->container['geolocation'] = $geolocation;
 
@@ -266,10 +262,8 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets asn.
-     *
-     * @return ASN
      */
-    public function getAsn()
+    public function getAsn(): ASN
     {
         return $this->container['asn'];
     }
@@ -281,7 +275,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAsn($asn): self
+    public function setAsn(ASN $asn): self
     {
         $this->container['asn'] = $asn;
 
@@ -290,10 +284,8 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets datacenter.
-     *
-     * @return DataCenter
      */
-    public function getDatacenter()
+    public function getDatacenter(): DataCenter
     {
         return $this->container['datacenter'];
     }
@@ -305,7 +297,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setDatacenter($datacenter): self
+    public function setDatacenter(DataCenter $datacenter): self
     {
         $this->container['datacenter'] = $datacenter;
 

@@ -440,10 +440,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets visitor_id.
-     *
-     * @return string
      */
-    public function getVisitorId()
+    public function getVisitorId(): string
     {
         return $this->container['visitor_id'];
     }
@@ -455,7 +453,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVisitorId($visitor_id): self
+    public function setVisitorId(string $visitor_id): self
     {
         $this->container['visitor_id'] = $visitor_id;
 
@@ -464,10 +462,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets client_referrer.
-     *
-     * @return string
      */
-    public function getClientReferrer()
+    public function getClientReferrer(): string
     {
         return $this->container['client_referrer'];
     }
@@ -479,7 +475,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setClientReferrer($client_referrer): self
+    public function setClientReferrer(string $client_referrer): self
     {
         $this->container['client_referrer'] = $client_referrer;
 
@@ -488,10 +484,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets user_agent.
-     *
-     * @return string
      */
-    public function getUserAgent()
+    public function getUserAgent(): string
     {
         return $this->container['user_agent'];
     }
@@ -503,7 +497,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUserAgent($user_agent): self
+    public function setUserAgent(string $user_agent): self
     {
         $this->container['user_agent'] = $user_agent;
 
@@ -512,10 +506,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets bot.
-     *
-     * @return BotdDetectionResult
      */
-    public function getBot()
+    public function getBot(): BotdDetectionResult
     {
         return $this->container['bot'];
     }
@@ -527,7 +519,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBot($bot): self
+    public function setBot(BotdDetectionResult $bot): self
     {
         $this->container['bot'] = $bot;
 
@@ -536,10 +528,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_info.
-     *
-     * @return IpInfoResult
      */
-    public function getIpInfo()
+    public function getIpInfo(): IpInfoResult
     {
         return $this->container['ip_info'];
     }
@@ -551,7 +541,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpInfo($ip_info): self
+    public function setIpInfo(IpInfoResult $ip_info): self
     {
         $this->container['ip_info'] = $ip_info;
 
@@ -560,10 +550,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets incognito.
-     *
-     * @return bool
      */
-    public function getIncognito()
+    public function getIncognito(): bool
     {
         return $this->container['incognito'];
     }
@@ -575,7 +563,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIncognito($incognito): self
+    public function setIncognito(bool $incognito): self
     {
         $this->container['incognito'] = $incognito;
 
@@ -584,10 +572,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets root_apps.
-     *
-     * @return RootAppsResult
      */
-    public function getRootApps()
+    public function getRootApps(): RootAppsResult
     {
         return $this->container['root_apps'];
     }
@@ -599,7 +585,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRootApps($root_apps): self
+    public function setRootApps(RootAppsResult $root_apps): self
     {
         $this->container['root_apps'] = $root_apps;
 
@@ -608,10 +594,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets emulator.
-     *
-     * @return EmulatorResult
      */
-    public function getEmulator()
+    public function getEmulator(): EmulatorResult
     {
         return $this->container['emulator'];
     }
@@ -623,7 +607,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setEmulator($emulator): self
+    public function setEmulator(EmulatorResult $emulator): self
     {
         $this->container['emulator'] = $emulator;
 
@@ -632,10 +616,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets cloned_app.
-     *
-     * @return ClonedAppResult
      */
-    public function getClonedApp()
+    public function getClonedApp(): ClonedAppResult
     {
         return $this->container['cloned_app'];
     }
@@ -647,7 +629,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setClonedApp($cloned_app): self
+    public function setClonedApp(ClonedAppResult $cloned_app): self
     {
         $this->container['cloned_app'] = $cloned_app;
 
@@ -656,10 +638,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets factory_reset.
-     *
-     * @return FactoryResetResult
      */
-    public function getFactoryReset()
+    public function getFactoryReset(): FactoryResetResult
     {
         return $this->container['factory_reset'];
     }
@@ -671,7 +651,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFactoryReset($factory_reset): self
+    public function setFactoryReset(FactoryResetResult $factory_reset): self
     {
         $this->container['factory_reset'] = $factory_reset;
 
@@ -680,10 +660,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets jailbroken.
-     *
-     * @return JailbrokenResult
      */
-    public function getJailbroken()
+    public function getJailbroken(): JailbrokenResult
     {
         return $this->container['jailbroken'];
     }
@@ -695,7 +673,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setJailbroken($jailbroken): self
+    public function setJailbroken(JailbrokenResult $jailbroken): self
     {
         $this->container['jailbroken'] = $jailbroken;
 
@@ -704,10 +682,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets frida.
-     *
-     * @return FridaResult
      */
-    public function getFrida()
+    public function getFrida(): FridaResult
     {
         return $this->container['frida'];
     }
@@ -719,7 +695,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFrida($frida): self
+    public function setFrida(FridaResult $frida): self
     {
         $this->container['frida'] = $frida;
 
@@ -728,10 +704,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_blocklist.
-     *
-     * @return IpBlockListResult
      */
-    public function getIpBlocklist()
+    public function getIpBlocklist(): IpBlockListResult
     {
         return $this->container['ip_blocklist'];
     }
@@ -743,7 +717,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpBlocklist($ip_blocklist): self
+    public function setIpBlocklist(IpBlockListResult $ip_blocklist): self
     {
         $this->container['ip_blocklist'] = $ip_blocklist;
 
@@ -752,10 +726,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets tor.
-     *
-     * @return TorResult
      */
-    public function getTor()
+    public function getTor(): TorResult
     {
         return $this->container['tor'];
     }
@@ -767,7 +739,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTor($tor): self
+    public function setTor(TorResult $tor): self
     {
         $this->container['tor'] = $tor;
 
@@ -776,10 +748,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets privacy_settings.
-     *
-     * @return PrivacySettingsResult
      */
-    public function getPrivacySettings()
+    public function getPrivacySettings(): PrivacySettingsResult
     {
         return $this->container['privacy_settings'];
     }
@@ -791,7 +761,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPrivacySettings($privacy_settings): self
+    public function setPrivacySettings(PrivacySettingsResult $privacy_settings): self
     {
         $this->container['privacy_settings'] = $privacy_settings;
 
@@ -800,10 +770,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets virtual_machine.
-     *
-     * @return VirtualMachineResult
      */
-    public function getVirtualMachine()
+    public function getVirtualMachine(): VirtualMachineResult
     {
         return $this->container['virtual_machine'];
     }
@@ -815,7 +783,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVirtualMachine($virtual_machine): self
+    public function setVirtualMachine(VirtualMachineResult $virtual_machine): self
     {
         $this->container['virtual_machine'] = $virtual_machine;
 
@@ -824,10 +792,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets vpn.
-     *
-     * @return VpnResult
      */
-    public function getVpn()
+    public function getVpn(): VpnResult
     {
         return $this->container['vpn'];
     }
@@ -839,7 +805,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVpn($vpn): self
+    public function setVpn(VpnResult $vpn): self
     {
         $this->container['vpn'] = $vpn;
 
@@ -848,10 +814,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets proxy.
-     *
-     * @return ProxyResult
      */
-    public function getProxy()
+    public function getProxy(): ProxyResult
     {
         return $this->container['proxy'];
     }
@@ -863,7 +827,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setProxy($proxy): self
+    public function setProxy(ProxyResult $proxy): self
     {
         $this->container['proxy'] = $proxy;
 
@@ -872,10 +836,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets tampering.
-     *
-     * @return TamperingResult
      */
-    public function getTampering()
+    public function getTampering(): TamperingResult
     {
         return $this->container['tampering'];
     }
@@ -887,7 +849,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTampering($tampering): self
+    public function setTampering(TamperingResult $tampering): self
     {
         $this->container['tampering'] = $tampering;
 
@@ -896,10 +858,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets raw_device_attributes.
-     *
-     * @return RawDeviceAttributesResult
      */
-    public function getRawDeviceAttributes()
+    public function getRawDeviceAttributes(): RawDeviceAttributesResult
     {
         return $this->container['raw_device_attributes'];
     }
@@ -911,7 +871,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRawDeviceAttributes($raw_device_attributes): self
+    public function setRawDeviceAttributes(RawDeviceAttributesResult $raw_device_attributes): self
     {
         $this->container['raw_device_attributes'] = $raw_device_attributes;
 
@@ -920,10 +880,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets high_activity.
-     *
-     * @return HighActivityResult
      */
-    public function getHighActivity()
+    public function getHighActivity(): HighActivityResult
     {
         return $this->container['high_activity'];
     }
@@ -935,7 +893,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setHighActivity($high_activity): self
+    public function setHighActivity(HighActivityResult $high_activity): self
     {
         $this->container['high_activity'] = $high_activity;
 
@@ -944,10 +902,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets location_spoofing.
-     *
-     * @return LocationSpoofingResult
      */
-    public function getLocationSpoofing()
+    public function getLocationSpoofing(): LocationSpoofingResult
     {
         return $this->container['location_spoofing'];
     }
@@ -959,7 +915,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLocationSpoofing($location_spoofing): self
+    public function setLocationSpoofing(LocationSpoofingResult $location_spoofing): self
     {
         $this->container['location_spoofing'] = $location_spoofing;
 
@@ -968,10 +924,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets suspect_score.
-     *
-     * @return SuspectScoreResult
      */
-    public function getSuspectScore()
+    public function getSuspectScore(): SuspectScoreResult
     {
         return $this->container['suspect_score'];
     }
@@ -983,7 +937,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setSuspectScore($suspect_score): self
+    public function setSuspectScore(SuspectScoreResult $suspect_score): self
     {
         $this->container['suspect_score'] = $suspect_score;
 
@@ -992,10 +946,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets request_id.
-     *
-     * @return string
      */
-    public function getRequestId()
+    public function getRequestId(): string
     {
         return $this->container['request_id'];
     }
@@ -1007,7 +959,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRequestId($request_id): self
+    public function setRequestId(string $request_id): self
     {
         $this->container['request_id'] = $request_id;
 
@@ -1016,10 +968,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets browser_details.
-     *
-     * @return BrowserDetails
      */
-    public function getBrowserDetails()
+    public function getBrowserDetails(): BrowserDetails
     {
         return $this->container['browser_details'];
     }
@@ -1031,7 +981,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserDetails($browser_details): self
+    public function setBrowserDetails(BrowserDetails $browser_details): self
     {
         $this->container['browser_details'] = $browser_details;
 
@@ -1040,10 +990,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip.
-     *
-     * @return string
      */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->container['ip'];
     }
@@ -1055,7 +1003,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIp($ip): self
+    public function setIp(string $ip): self
     {
         $this->container['ip'] = $ip;
 
@@ -1064,10 +1012,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_location.
-     *
-     * @return DeprecatedIPLocation
      */
-    public function getIpLocation()
+    public function getIpLocation(): DeprecatedIPLocation
     {
         return $this->container['ip_location'];
     }
@@ -1079,7 +1025,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpLocation($ip_location): self
+    public function setIpLocation(DeprecatedIPLocation $ip_location): self
     {
         $this->container['ip_location'] = $ip_location;
 
@@ -1088,10 +1034,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets timestamp.
-     *
-     * @return int
      */
-    public function getTimestamp()
+    public function getTimestamp(): int
     {
         return $this->container['timestamp'];
     }
@@ -1103,7 +1047,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTimestamp($timestamp): self
+    public function setTimestamp(int $timestamp): self
     {
         $this->container['timestamp'] = $timestamp;
 
@@ -1112,10 +1056,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets time.
-     *
-     * @return \DateTime
      */
-    public function getTime()
+    public function getTime(): \DateTime
     {
         return $this->container['time'];
     }
@@ -1127,7 +1069,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTime($time): self
+    public function setTime(\DateTime $time): self
     {
         $this->container['time'] = $time;
 
@@ -1136,10 +1078,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets url.
-     *
-     * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->container['url'];
     }
@@ -1151,7 +1091,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUrl($url): self
+    public function setUrl(string $url): self
     {
         $this->container['url'] = $url;
 
@@ -1163,7 +1103,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return map[string,object]
      */
-    public function getTag()
+    public function getTag(): array
     {
         return $this->container['tag'];
     }
@@ -1175,7 +1115,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTag($tag): self
+    public function setTag(array $tag): self
     {
         $this->container['tag'] = $tag;
 
@@ -1184,10 +1124,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
-     *
-     * @return string
      */
-    public function getLinkedId()
+    public function getLinkedId(): string
     {
         return $this->container['linked_id'];
     }
@@ -1199,7 +1137,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLinkedId($linked_id): self
+    public function setLinkedId(string $linked_id): self
     {
         $this->container['linked_id'] = $linked_id;
 
@@ -1208,10 +1146,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets confidence.
-     *
-     * @return Confidence
      */
-    public function getConfidence()
+    public function getConfidence(): Confidence
     {
         return $this->container['confidence'];
     }
@@ -1223,7 +1159,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setConfidence($confidence): self
+    public function setConfidence(Confidence $confidence): self
     {
         $this->container['confidence'] = $confidence;
 
@@ -1232,10 +1168,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets visitor_found.
-     *
-     * @return bool
      */
-    public function getVisitorFound()
+    public function getVisitorFound(): bool
     {
         return $this->container['visitor_found'];
     }
@@ -1247,7 +1181,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVisitorFound($visitor_found): self
+    public function setVisitorFound(bool $visitor_found): self
     {
         $this->container['visitor_found'] = $visitor_found;
 
@@ -1256,10 +1190,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets first_seen_at.
-     *
-     * @return SeenAt
      */
-    public function getFirstSeenAt()
+    public function getFirstSeenAt(): SeenAt
     {
         return $this->container['first_seen_at'];
     }
@@ -1271,7 +1203,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFirstSeenAt($first_seen_at): self
+    public function setFirstSeenAt(SeenAt $first_seen_at): self
     {
         $this->container['first_seen_at'] = $first_seen_at;
 
@@ -1280,10 +1212,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets last_seen_at.
-     *
-     * @return SeenAt
      */
-    public function getLastSeenAt()
+    public function getLastSeenAt(): SeenAt
     {
         return $this->container['last_seen_at'];
     }
@@ -1295,7 +1225,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLastSeenAt($last_seen_at): self
+    public function setLastSeenAt(SeenAt $last_seen_at): self
     {
         $this->container['last_seen_at'] = $last_seen_at;
 

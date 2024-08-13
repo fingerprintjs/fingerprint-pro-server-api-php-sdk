@@ -191,10 +191,8 @@ class IPLocationCity implements ModelInterface, \ArrayAccess
 
     /**
      * Gets name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->container['name'];
     }
@@ -206,7 +204,7 @@ class IPLocationCity implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setName($name): self
+    public function setName(string $name): self
     {
         $this->container['name'] = $name;
 

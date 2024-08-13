@@ -197,10 +197,8 @@ class SignalResponseTor implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return TorResult
      */
-    public function getData()
+    public function getData(): TorResult
     {
         return $this->container['data'];
     }
@@ -212,7 +210,7 @@ class SignalResponseTor implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setData($data): self
+    public function setData(TorResult $data): self
     {
         $this->container['data'] = $data;
 
@@ -221,10 +219,8 @@ class SignalResponseTor implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ProductError
      */
-    public function getError()
+    public function getError(): ProductError
     {
         return $this->container['error'];
     }
@@ -236,7 +232,7 @@ class SignalResponseTor implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError($error): self
+    public function setError(ProductError $error): self
     {
         $this->container['error'] = $error;
 

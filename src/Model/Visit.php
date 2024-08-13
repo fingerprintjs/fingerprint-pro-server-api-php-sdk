@@ -305,10 +305,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets request_id.
-     *
-     * @return string
      */
-    public function getRequestId()
+    public function getRequestId(): string
     {
         return $this->container['request_id'];
     }
@@ -320,7 +318,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRequestId($request_id): self
+    public function setRequestId(string $request_id): self
     {
         $this->container['request_id'] = $request_id;
 
@@ -329,10 +327,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets browser_details.
-     *
-     * @return BrowserDetails
      */
-    public function getBrowserDetails()
+    public function getBrowserDetails(): BrowserDetails
     {
         return $this->container['browser_details'];
     }
@@ -344,7 +340,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserDetails($browser_details): self
+    public function setBrowserDetails(BrowserDetails $browser_details): self
     {
         $this->container['browser_details'] = $browser_details;
 
@@ -353,10 +349,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets incognito.
-     *
-     * @return bool
      */
-    public function getIncognito()
+    public function getIncognito(): bool
     {
         return $this->container['incognito'];
     }
@@ -368,7 +362,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIncognito($incognito): self
+    public function setIncognito(bool $incognito): self
     {
         $this->container['incognito'] = $incognito;
 
@@ -377,10 +371,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip.
-     *
-     * @return string
      */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->container['ip'];
     }
@@ -392,7 +384,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIp($ip): self
+    public function setIp(string $ip): self
     {
         $this->container['ip'] = $ip;
 
@@ -401,10 +393,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_location.
-     *
-     * @return DeprecatedIPLocation
      */
-    public function getIpLocation()
+    public function getIpLocation(): DeprecatedIPLocation
     {
         return $this->container['ip_location'];
     }
@@ -416,7 +406,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpLocation($ip_location): self
+    public function setIpLocation(DeprecatedIPLocation $ip_location): self
     {
         $this->container['ip_location'] = $ip_location;
 
@@ -425,10 +415,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets timestamp.
-     *
-     * @return int
      */
-    public function getTimestamp()
+    public function getTimestamp(): int
     {
         return $this->container['timestamp'];
     }
@@ -440,7 +428,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTimestamp($timestamp): self
+    public function setTimestamp(int $timestamp): self
     {
         $this->container['timestamp'] = $timestamp;
 
@@ -449,10 +437,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets time.
-     *
-     * @return \DateTime
      */
-    public function getTime()
+    public function getTime(): \DateTime
     {
         return $this->container['time'];
     }
@@ -464,7 +450,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTime($time): self
+    public function setTime(\DateTime $time): self
     {
         $this->container['time'] = $time;
 
@@ -473,10 +459,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets url.
-     *
-     * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->container['url'];
     }
@@ -488,7 +472,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUrl($url): self
+    public function setUrl(string $url): self
     {
         $this->container['url'] = $url;
 
@@ -500,7 +484,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return map[string,object]
      */
-    public function getTag()
+    public function getTag(): array
     {
         return $this->container['tag'];
     }
@@ -512,7 +496,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTag($tag): self
+    public function setTag(array $tag): self
     {
         $this->container['tag'] = $tag;
 
@@ -521,10 +505,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
-     *
-     * @return string
      */
-    public function getLinkedId()
+    public function getLinkedId(): string
     {
         return $this->container['linked_id'];
     }
@@ -536,7 +518,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLinkedId($linked_id): self
+    public function setLinkedId(string $linked_id): self
     {
         $this->container['linked_id'] = $linked_id;
 
@@ -545,10 +527,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets confidence.
-     *
-     * @return Confidence
      */
-    public function getConfidence()
+    public function getConfidence(): Confidence
     {
         return $this->container['confidence'];
     }
@@ -560,7 +540,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setConfidence($confidence): self
+    public function setConfidence(Confidence $confidence): self
     {
         $this->container['confidence'] = $confidence;
 
@@ -569,10 +549,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets visitor_found.
-     *
-     * @return bool
      */
-    public function getVisitorFound()
+    public function getVisitorFound(): bool
     {
         return $this->container['visitor_found'];
     }
@@ -584,7 +562,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVisitorFound($visitor_found): self
+    public function setVisitorFound(bool $visitor_found): self
     {
         $this->container['visitor_found'] = $visitor_found;
 
@@ -593,10 +571,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets first_seen_at.
-     *
-     * @return SeenAt
      */
-    public function getFirstSeenAt()
+    public function getFirstSeenAt(): SeenAt
     {
         return $this->container['first_seen_at'];
     }
@@ -608,7 +584,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFirstSeenAt($first_seen_at): self
+    public function setFirstSeenAt(SeenAt $first_seen_at): self
     {
         $this->container['first_seen_at'] = $first_seen_at;
 
@@ -617,10 +593,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets last_seen_at.
-     *
-     * @return SeenAt
      */
-    public function getLastSeenAt()
+    public function getLastSeenAt(): SeenAt
     {
         return $this->container['last_seen_at'];
     }
@@ -632,7 +606,7 @@ class Visit implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLastSeenAt($last_seen_at): self
+    public function setLastSeenAt(SeenAt $last_seen_at): self
     {
         $this->container['last_seen_at'] = $last_seen_at;
 

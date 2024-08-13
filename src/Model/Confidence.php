@@ -197,10 +197,8 @@ class Confidence implements ModelInterface, \ArrayAccess
 
     /**
      * Gets score.
-     *
-     * @return float
      */
-    public function getScore()
+    public function getScore(): float
     {
         return $this->container['score'];
     }
@@ -212,7 +210,7 @@ class Confidence implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setScore($score): self
+    public function setScore(float $score): self
     {
         $this->container['score'] = $score;
 

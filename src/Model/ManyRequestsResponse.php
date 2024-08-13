@@ -197,10 +197,8 @@ class ManyRequestsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return string
      */
-    public function getError()
+    public function getError(): string
     {
         return $this->container['error'];
     }
@@ -212,7 +210,7 @@ class ManyRequestsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError($error): self
+    public function setError(string $error): self
     {
         $this->container['error'] = $error;
 

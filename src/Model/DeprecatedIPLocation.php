@@ -241,10 +241,8 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets accuracy_radius.
-     *
-     * @return int
      */
-    public function getAccuracyRadius()
+    public function getAccuracyRadius(): int
     {
         return $this->container['accuracy_radius'];
     }
@@ -256,7 +254,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAccuracyRadius($accuracy_radius): self
+    public function setAccuracyRadius(int $accuracy_radius): self
     {
         $this->container['accuracy_radius'] = $accuracy_radius;
 
@@ -265,10 +263,8 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets latitude.
-     *
-     * @return float
      */
-    public function getLatitude()
+    public function getLatitude(): float
     {
         return $this->container['latitude'];
     }
@@ -280,7 +276,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLatitude($latitude): self
+    public function setLatitude(float $latitude): self
     {
         $this->container['latitude'] = $latitude;
 
@@ -289,10 +285,8 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets longitude.
-     *
-     * @return float
      */
-    public function getLongitude()
+    public function getLongitude(): float
     {
         return $this->container['longitude'];
     }
@@ -304,7 +298,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLongitude($longitude): self
+    public function setLongitude(float $longitude): self
     {
         $this->container['longitude'] = $longitude;
 
@@ -313,10 +307,8 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets postal_code.
-     *
-     * @return string
      */
-    public function getPostalCode()
+    public function getPostalCode(): string
     {
         return $this->container['postal_code'];
     }
@@ -328,7 +320,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPostalCode($postal_code): self
+    public function setPostalCode(string $postal_code): self
     {
         $this->container['postal_code'] = $postal_code;
 
@@ -337,10 +329,8 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets timezone.
-     *
-     * @return string
      */
-    public function getTimezone()
+    public function getTimezone(): string
     {
         return $this->container['timezone'];
     }
@@ -352,7 +342,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTimezone($timezone): self
+    public function setTimezone(string $timezone): self
     {
         $this->container['timezone'] = $timezone;
 
@@ -361,10 +351,8 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets city.
-     *
-     * @return DeprecatedIPLocationCity
      */
-    public function getCity()
+    public function getCity(): DeprecatedIPLocationCity
     {
         return $this->container['city'];
     }
@@ -376,7 +364,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setCity($city): self
+    public function setCity(DeprecatedIPLocationCity $city): self
     {
         $this->container['city'] = $city;
 
@@ -385,10 +373,8 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets country.
-     *
-     * @return Location
      */
-    public function getCountry()
+    public function getCountry(): Location
     {
         return $this->container['country'];
     }
@@ -400,7 +386,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setCountry($country): self
+    public function setCountry(Location $country): self
     {
         $this->container['country'] = $country;
 
@@ -409,10 +395,8 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets continent.
-     *
-     * @return Location
      */
-    public function getContinent()
+    public function getContinent(): Location
     {
         return $this->container['continent'];
     }
@@ -424,7 +408,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setContinent($continent): self
+    public function setContinent(Location $continent): self
     {
         $this->container['continent'] = $continent;
 
@@ -436,7 +420,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return \Fingerprint\ServerAPI\Model\Subdivision[]
      */
-    public function getSubdivisions()
+    public function getSubdivisions(): array
     {
         return $this->container['subdivisions'];
     }
@@ -448,7 +432,7 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setSubdivisions($subdivisions): self
+    public function setSubdivisions(array $subdivisions): self
     {
         $this->container['subdivisions'] = $subdivisions;
 

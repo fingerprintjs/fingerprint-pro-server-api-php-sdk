@@ -206,10 +206,8 @@ class IpBlockListResultDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets email_spam.
-     *
-     * @return bool
      */
-    public function getEmailSpam()
+    public function getEmailSpam(): bool
     {
         return $this->container['email_spam'];
     }
@@ -221,7 +219,7 @@ class IpBlockListResultDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setEmailSpam($email_spam): self
+    public function setEmailSpam(bool $email_spam): self
     {
         $this->container['email_spam'] = $email_spam;
 
@@ -230,10 +228,8 @@ class IpBlockListResultDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets attack_source.
-     *
-     * @return bool
      */
-    public function getAttackSource()
+    public function getAttackSource(): bool
     {
         return $this->container['attack_source'];
     }
@@ -245,7 +241,7 @@ class IpBlockListResultDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAttackSource($attack_source): self
+    public function setAttackSource(bool $attack_source): self
     {
         $this->container['attack_source'] = $attack_source;
 

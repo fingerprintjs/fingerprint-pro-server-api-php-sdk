@@ -212,10 +212,8 @@ class ASN implements ModelInterface, \ArrayAccess
 
     /**
      * Gets asn.
-     *
-     * @return string
      */
-    public function getAsn()
+    public function getAsn(): string
     {
         return $this->container['asn'];
     }
@@ -227,7 +225,7 @@ class ASN implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAsn($asn): self
+    public function setAsn(string $asn): self
     {
         $this->container['asn'] = $asn;
 
@@ -236,10 +234,8 @@ class ASN implements ModelInterface, \ArrayAccess
 
     /**
      * Gets network.
-     *
-     * @return string
      */
-    public function getNetwork()
+    public function getNetwork(): string
     {
         return $this->container['network'];
     }
@@ -251,7 +247,7 @@ class ASN implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setNetwork($network): self
+    public function setNetwork(string $network): self
     {
         $this->container['network'] = $network;
 
@@ -260,10 +256,8 @@ class ASN implements ModelInterface, \ArrayAccess
 
     /**
      * Gets name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->container['name'];
     }
@@ -275,7 +269,7 @@ class ASN implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setName($name): self
+    public function setName(string $name): self
     {
         $this->container['name'] = $name;
 

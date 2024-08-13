@@ -220,10 +220,8 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets visitor_id.
-     *
-     * @return string
      */
-    public function getVisitorId()
+    public function getVisitorId(): string
     {
         return $this->container['visitor_id'];
     }
@@ -235,7 +233,7 @@ class Response implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVisitorId($visitor_id): self
+    public function setVisitorId(string $visitor_id): self
     {
         $this->container['visitor_id'] = $visitor_id;
 
@@ -247,7 +245,7 @@ class Response implements ModelInterface, \ArrayAccess
      *
      * @return \Fingerprint\ServerAPI\Model\ResponseVisits[]
      */
-    public function getVisits()
+    public function getVisits(): array
     {
         return $this->container['visits'];
     }
@@ -259,7 +257,7 @@ class Response implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVisits($visits): self
+    public function setVisits(array $visits): self
     {
         $this->container['visits'] = $visits;
 
@@ -268,10 +266,8 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets last_timestamp.
-     *
-     * @return int
      */
-    public function getLastTimestamp()
+    public function getLastTimestamp(): int
     {
         return $this->container['last_timestamp'];
     }
@@ -283,7 +279,7 @@ class Response implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLastTimestamp($last_timestamp): self
+    public function setLastTimestamp(int $last_timestamp): self
     {
         $this->container['last_timestamp'] = $last_timestamp;
 
@@ -292,10 +288,8 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets pagination_key.
-     *
-     * @return string
      */
-    public function getPaginationKey()
+    public function getPaginationKey(): string
     {
         return $this->container['pagination_key'];
     }
@@ -307,7 +301,7 @@ class Response implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPaginationKey($pagination_key): self
+    public function setPaginationKey(string $pagination_key): self
     {
         $this->container['pagination_key'] = $pagination_key;
 

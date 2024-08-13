@@ -28,6 +28,7 @@
 
 namespace Fingerprint\ServerAPI;
 
+use Fingerprint\ServerAPI\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -42,6 +43,7 @@ use Psr\Http\Message\ResponseInterface;
 class ApiException extends \Exception
 {
     protected ResponseInterface $responseObject;
+    protected ModelInterface $errorDetails;
 
     public function __construct(?string $message = '', ?int $code = 0)
     {
@@ -59,5 +61,15 @@ class ApiException extends \Exception
     public function getResponseObject(): ResponseInterface
     {
         return $this->responseObject;
+    }
+
+    public function getErrorDetails(): ModelInterface
+    {
+        return $this->errorDetails;
+    }
+
+    public function setErrorDetails(ModelInterface $errorDetails): void
+    {
+        $this->errorDetails = $errorDetails;
     }
 }

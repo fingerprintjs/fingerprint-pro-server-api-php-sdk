@@ -250,10 +250,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip.
-     *
-     * @return string
      */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->container['ip'];
     }
@@ -265,7 +263,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIp($ip): self
+    public function setIp(string $ip): self
     {
         $this->container['ip'] = $ip;
 
@@ -274,10 +272,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets time.
-     *
-     * @return \DateTime
      */
-    public function getTime()
+    public function getTime(): \DateTime
     {
         return $this->container['time'];
     }
@@ -289,7 +285,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTime($time): self
+    public function setTime(\DateTime $time): self
     {
         $this->container['time'] = $time;
 
@@ -298,10 +294,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets url.
-     *
-     * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->container['url'];
     }
@@ -313,7 +307,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUrl($url): self
+    public function setUrl(string $url): self
     {
         $this->container['url'] = $url;
 
@@ -322,10 +316,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets user_agent.
-     *
-     * @return string
      */
-    public function getUserAgent()
+    public function getUserAgent(): string
     {
         return $this->container['user_agent'];
     }
@@ -337,7 +329,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUserAgent($user_agent): self
+    public function setUserAgent(string $user_agent): self
     {
         $this->container['user_agent'] = $user_agent;
 
@@ -346,10 +338,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets request_id.
-     *
-     * @return string
      */
-    public function getRequestId()
+    public function getRequestId(): string
     {
         return $this->container['request_id'];
     }
@@ -361,7 +351,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRequestId($request_id): self
+    public function setRequestId(string $request_id): self
     {
         $this->container['request_id'] = $request_id;
 
@@ -370,10 +360,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
-     *
-     * @return string
      */
-    public function getLinkedId()
+    public function getLinkedId(): string
     {
         return $this->container['linked_id'];
     }
@@ -385,7 +373,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLinkedId($linked_id): self
+    public function setLinkedId(string $linked_id): self
     {
         $this->container['linked_id'] = $linked_id;
 
@@ -394,10 +382,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets bot.
-     *
-     * @return BotdDetectionResult
      */
-    public function getBot()
+    public function getBot(): BotdDetectionResult
     {
         return $this->container['bot'];
     }
@@ -409,7 +395,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBot($bot): self
+    public function setBot(BotdDetectionResult $bot): self
     {
         $this->container['bot'] = $bot;
 

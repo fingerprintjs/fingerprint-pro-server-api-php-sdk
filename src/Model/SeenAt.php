@@ -206,10 +206,8 @@ class SeenAt implements ModelInterface, \ArrayAccess
 
     /**
      * Gets global.
-     *
-     * @return \DateTime
      */
-    public function getGlobal()
+    public function getGlobal(): \DateTime
     {
         return $this->container['global'];
     }
@@ -221,7 +219,7 @@ class SeenAt implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setGlobal($global): self
+    public function setGlobal(\DateTime $global): self
     {
         $this->container['global'] = $global;
 
@@ -230,10 +228,8 @@ class SeenAt implements ModelInterface, \ArrayAccess
 
     /**
      * Gets subscription.
-     *
-     * @return \DateTime
      */
-    public function getSubscription()
+    public function getSubscription(): \DateTime
     {
         return $this->container['subscription'];
     }
@@ -245,7 +241,7 @@ class SeenAt implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setSubscription($subscription): self
+    public function setSubscription(\DateTime $subscription): self
     {
         $this->container['subscription'] = $subscription;
 

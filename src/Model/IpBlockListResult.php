@@ -206,10 +206,8 @@ class IpBlockListResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets result.
-     *
-     * @return bool
      */
-    public function getResult()
+    public function getResult(): bool
     {
         return $this->container['result'];
     }
@@ -221,7 +219,7 @@ class IpBlockListResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setResult($result): self
+    public function setResult(bool $result): self
     {
         $this->container['result'] = $result;
 
@@ -230,10 +228,8 @@ class IpBlockListResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets details.
-     *
-     * @return IpBlockListResultDetails
      */
-    public function getDetails()
+    public function getDetails(): IpBlockListResultDetails
     {
         return $this->container['details'];
     }
@@ -245,7 +241,7 @@ class IpBlockListResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setDetails($details): self
+    public function setDetails(IpBlockListResultDetails $details): self
     {
         $this->container['details'] = $details;
 

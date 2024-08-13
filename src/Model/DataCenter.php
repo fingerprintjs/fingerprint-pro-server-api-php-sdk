@@ -203,10 +203,8 @@ class DataCenter implements ModelInterface, \ArrayAccess
 
     /**
      * Gets result.
-     *
-     * @return bool
      */
-    public function getResult()
+    public function getResult(): bool
     {
         return $this->container['result'];
     }
@@ -218,7 +216,7 @@ class DataCenter implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setResult($result): self
+    public function setResult(bool $result): self
     {
         $this->container['result'] = $result;
 
@@ -227,10 +225,8 @@ class DataCenter implements ModelInterface, \ArrayAccess
 
     /**
      * Gets name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->container['name'];
     }
@@ -242,7 +238,7 @@ class DataCenter implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setName($name): self
+    public function setName(string $name): self
     {
         $this->container['name'] = $name;
 

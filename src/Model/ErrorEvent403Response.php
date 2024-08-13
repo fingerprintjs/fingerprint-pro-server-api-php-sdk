@@ -191,10 +191,8 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ErrorEvent403ResponseError
      */
-    public function getError()
+    public function getError(): ErrorEvent403ResponseError
     {
         return $this->container['error'];
     }
@@ -206,7 +204,7 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError($error): self
+    public function setError(ErrorEvent403ResponseError $error): self
     {
         $this->container['error'] = $error;
 
