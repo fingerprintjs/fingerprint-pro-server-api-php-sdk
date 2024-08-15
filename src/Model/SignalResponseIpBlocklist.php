@@ -198,7 +198,7 @@ class SignalResponseIpBlocklist implements ModelInterface, \ArrayAccess
     /**
      * Gets data.
      */
-    public function getData(): IpBlockListResult
+    public function getData(): ?IpBlockListResult
     {
         return $this->container['data'];
     }
@@ -220,7 +220,7 @@ class SignalResponseIpBlocklist implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      */
-    public function getError(): ProductError
+    public function getError(): ?ProductError
     {
         return $this->container['error'];
     }

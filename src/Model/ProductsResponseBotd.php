@@ -198,7 +198,7 @@ class ProductsResponseBotd implements ModelInterface, \ArrayAccess
     /**
      * Gets data.
      */
-    public function getData(): BotdResult
+    public function getData(): ?BotdResult
     {
         return $this->container['data'];
     }
@@ -220,7 +220,7 @@ class ProductsResponseBotd implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      */
-    public function getError(): ProductError
+    public function getError(): ?ProductError
     {
         return $this->container['error'];
     }

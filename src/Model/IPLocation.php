@@ -240,7 +240,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Gets accuracy_radius.
      */
-    public function getAccuracyRadius(): int
+    public function getAccuracyRadius(): ?int
     {
         return $this->container['accuracy_radius'];
     }
@@ -262,7 +262,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Gets latitude.
      */
-    public function getLatitude(): float
+    public function getLatitude(): ?float
     {
         return $this->container['latitude'];
     }
@@ -284,7 +284,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Gets longitude.
      */
-    public function getLongitude(): float
+    public function getLongitude(): ?float
     {
         return $this->container['longitude'];
     }
@@ -306,7 +306,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Gets postal_code.
      */
-    public function getPostalCode(): string
+    public function getPostalCode(): ?string
     {
         return $this->container['postal_code'];
     }
@@ -328,7 +328,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Gets timezone.
      */
-    public function getTimezone(): string
+    public function getTimezone(): ?string
     {
         return $this->container['timezone'];
     }
@@ -350,7 +350,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Gets city.
      */
-    public function getCity(): IPLocationCity
+    public function getCity(): ?IPLocationCity
     {
         return $this->container['city'];
     }
@@ -372,7 +372,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Gets country.
      */
-    public function getCountry(): Location
+    public function getCountry(): ?Location
     {
         return $this->container['country'];
     }
@@ -394,7 +394,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Gets continent.
      */
-    public function getContinent(): Location
+    public function getContinent(): ?Location
     {
         return $this->container['continent'];
     }
@@ -418,7 +418,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return \Fingerprint\ServerAPI\Model\Subdivision[]
      */
-    public function getSubdivisions(): array
+    public function getSubdivisions(): ?array
     {
         return $this->container['subdivisions'];
     }

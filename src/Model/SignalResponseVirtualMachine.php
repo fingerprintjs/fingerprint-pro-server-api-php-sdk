@@ -198,7 +198,7 @@ class SignalResponseVirtualMachine implements ModelInterface, \ArrayAccess
     /**
      * Gets data.
      */
-    public function getData(): VirtualMachineResult
+    public function getData(): ?VirtualMachineResult
     {
         return $this->container['data'];
     }
@@ -220,7 +220,7 @@ class SignalResponseVirtualMachine implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      */
-    public function getError(): ProductError
+    public function getError(): ?ProductError
     {
         return $this->container['error'];
     }

@@ -198,7 +198,7 @@ class SignalResponsePrivacySettings implements ModelInterface, \ArrayAccess
     /**
      * Gets data.
      */
-    public function getData(): PrivacySettingsResult
+    public function getData(): ?PrivacySettingsResult
     {
         return $this->container['data'];
     }
@@ -220,7 +220,7 @@ class SignalResponsePrivacySettings implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      */
-    public function getError(): ProductError
+    public function getError(): ?ProductError
     {
         return $this->container['error'];
     }

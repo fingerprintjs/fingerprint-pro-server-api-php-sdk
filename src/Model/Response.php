@@ -221,7 +221,7 @@ class Response implements ModelInterface, \ArrayAccess
     /**
      * Gets visitor_id.
      */
-    public function getVisitorId(): string
+    public function getVisitorId(): ?string
     {
         return $this->container['visitor_id'];
     }
@@ -245,7 +245,7 @@ class Response implements ModelInterface, \ArrayAccess
      *
      * @return \Fingerprint\ServerAPI\Model\ResponseVisits[]
      */
-    public function getVisits(): array
+    public function getVisits(): ?array
     {
         return $this->container['visits'];
     }
@@ -267,7 +267,7 @@ class Response implements ModelInterface, \ArrayAccess
     /**
      * Gets last_timestamp.
      */
-    public function getLastTimestamp(): int
+    public function getLastTimestamp(): ?int
     {
         return $this->container['last_timestamp'];
     }
@@ -289,7 +289,7 @@ class Response implements ModelInterface, \ArrayAccess
     /**
      * Gets pagination_key.
      */
-    public function getPaginationKey(): string
+    public function getPaginationKey(): ?string
     {
         return $this->container['pagination_key'];
     }

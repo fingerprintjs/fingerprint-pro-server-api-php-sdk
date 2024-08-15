@@ -198,7 +198,7 @@ class SignalResponseJailbroken implements ModelInterface, \ArrayAccess
     /**
      * Gets data.
      */
-    public function getData(): JailbrokenResult
+    public function getData(): ?JailbrokenResult
     {
         return $this->container['data'];
     }
@@ -220,7 +220,7 @@ class SignalResponseJailbroken implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      */
-    public function getError(): ProductError
+    public function getError(): ?ProductError
     {
         return $this->container['error'];
     }

@@ -192,7 +192,7 @@ class DeprecatedIPLocationCity implements ModelInterface, \ArrayAccess
     /**
      * Gets name.
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->container['name'];
     }

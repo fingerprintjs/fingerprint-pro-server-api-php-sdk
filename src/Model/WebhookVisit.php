@@ -441,7 +441,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets visitor_id.
      */
-    public function getVisitorId(): string
+    public function getVisitorId(): ?string
     {
         return $this->container['visitor_id'];
     }
@@ -463,7 +463,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets client_referrer.
      */
-    public function getClientReferrer(): string
+    public function getClientReferrer(): ?string
     {
         return $this->container['client_referrer'];
     }
@@ -485,7 +485,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets user_agent.
      */
-    public function getUserAgent(): string
+    public function getUserAgent(): ?string
     {
         return $this->container['user_agent'];
     }
@@ -507,7 +507,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets bot.
      */
-    public function getBot(): BotdDetectionResult
+    public function getBot(): ?BotdDetectionResult
     {
         return $this->container['bot'];
     }
@@ -529,7 +529,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets ip_info.
      */
-    public function getIpInfo(): IpInfoResult
+    public function getIpInfo(): ?IpInfoResult
     {
         return $this->container['ip_info'];
     }
@@ -551,7 +551,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets incognito.
      */
-    public function getIncognito(): bool
+    public function getIncognito(): ?bool
     {
         return $this->container['incognito'];
     }
@@ -573,7 +573,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets root_apps.
      */
-    public function getRootApps(): RootAppsResult
+    public function getRootApps(): ?RootAppsResult
     {
         return $this->container['root_apps'];
     }
@@ -595,7 +595,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets emulator.
      */
-    public function getEmulator(): EmulatorResult
+    public function getEmulator(): ?EmulatorResult
     {
         return $this->container['emulator'];
     }
@@ -617,7 +617,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets cloned_app.
      */
-    public function getClonedApp(): ClonedAppResult
+    public function getClonedApp(): ?ClonedAppResult
     {
         return $this->container['cloned_app'];
     }
@@ -639,7 +639,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets factory_reset.
      */
-    public function getFactoryReset(): FactoryResetResult
+    public function getFactoryReset(): ?FactoryResetResult
     {
         return $this->container['factory_reset'];
     }
@@ -661,7 +661,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets jailbroken.
      */
-    public function getJailbroken(): JailbrokenResult
+    public function getJailbroken(): ?JailbrokenResult
     {
         return $this->container['jailbroken'];
     }
@@ -683,7 +683,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets frida.
      */
-    public function getFrida(): FridaResult
+    public function getFrida(): ?FridaResult
     {
         return $this->container['frida'];
     }
@@ -705,7 +705,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets ip_blocklist.
      */
-    public function getIpBlocklist(): IpBlockListResult
+    public function getIpBlocklist(): ?IpBlockListResult
     {
         return $this->container['ip_blocklist'];
     }
@@ -727,7 +727,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets tor.
      */
-    public function getTor(): TorResult
+    public function getTor(): ?TorResult
     {
         return $this->container['tor'];
     }
@@ -749,7 +749,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets privacy_settings.
      */
-    public function getPrivacySettings(): PrivacySettingsResult
+    public function getPrivacySettings(): ?PrivacySettingsResult
     {
         return $this->container['privacy_settings'];
     }
@@ -771,7 +771,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets virtual_machine.
      */
-    public function getVirtualMachine(): VirtualMachineResult
+    public function getVirtualMachine(): ?VirtualMachineResult
     {
         return $this->container['virtual_machine'];
     }
@@ -793,7 +793,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets vpn.
      */
-    public function getVpn(): VpnResult
+    public function getVpn(): ?VpnResult
     {
         return $this->container['vpn'];
     }
@@ -815,7 +815,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets proxy.
      */
-    public function getProxy(): ProxyResult
+    public function getProxy(): ?ProxyResult
     {
         return $this->container['proxy'];
     }
@@ -837,7 +837,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets tampering.
      */
-    public function getTampering(): TamperingResult
+    public function getTampering(): ?TamperingResult
     {
         return $this->container['tampering'];
     }
@@ -859,7 +859,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets raw_device_attributes.
      */
-    public function getRawDeviceAttributes(): RawDeviceAttributesResult
+    public function getRawDeviceAttributes(): ?RawDeviceAttributesResult
     {
         return $this->container['raw_device_attributes'];
     }
@@ -881,7 +881,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets high_activity.
      */
-    public function getHighActivity(): HighActivityResult
+    public function getHighActivity(): ?HighActivityResult
     {
         return $this->container['high_activity'];
     }
@@ -903,7 +903,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets location_spoofing.
      */
-    public function getLocationSpoofing(): LocationSpoofingResult
+    public function getLocationSpoofing(): ?LocationSpoofingResult
     {
         return $this->container['location_spoofing'];
     }
@@ -925,7 +925,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets suspect_score.
      */
-    public function getSuspectScore(): SuspectScoreResult
+    public function getSuspectScore(): ?SuspectScoreResult
     {
         return $this->container['suspect_score'];
     }
@@ -947,7 +947,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets request_id.
      */
-    public function getRequestId(): string
+    public function getRequestId(): ?string
     {
         return $this->container['request_id'];
     }
@@ -969,7 +969,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets browser_details.
      */
-    public function getBrowserDetails(): BrowserDetails
+    public function getBrowserDetails(): ?BrowserDetails
     {
         return $this->container['browser_details'];
     }
@@ -991,7 +991,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets ip.
      */
-    public function getIp(): string
+    public function getIp(): ?string
     {
         return $this->container['ip'];
     }
@@ -1013,7 +1013,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets ip_location.
      */
-    public function getIpLocation(): DeprecatedIPLocation
+    public function getIpLocation(): ?DeprecatedIPLocation
     {
         return $this->container['ip_location'];
     }
@@ -1035,7 +1035,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets timestamp.
      */
-    public function getTimestamp(): int
+    public function getTimestamp(): ?int
     {
         return $this->container['timestamp'];
     }
@@ -1057,7 +1057,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets time.
      */
-    public function getTime(): \DateTime
+    public function getTime(): ?\DateTime
     {
         return $this->container['time'];
     }
@@ -1079,7 +1079,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets url.
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->container['url'];
     }
@@ -1103,7 +1103,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
      *
      * @return map[string,object]
      */
-    public function getTag(): array
+    public function getTag(): ?array
     {
         return $this->container['tag'];
     }
@@ -1125,7 +1125,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets linked_id.
      */
-    public function getLinkedId(): string
+    public function getLinkedId(): ?string
     {
         return $this->container['linked_id'];
     }
@@ -1147,7 +1147,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets confidence.
      */
-    public function getConfidence(): Confidence
+    public function getConfidence(): ?Confidence
     {
         return $this->container['confidence'];
     }
@@ -1169,7 +1169,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets visitor_found.
      */
-    public function getVisitorFound(): bool
+    public function getVisitorFound(): ?bool
     {
         return $this->container['visitor_found'];
     }
@@ -1191,7 +1191,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets first_seen_at.
      */
-    public function getFirstSeenAt(): SeenAt
+    public function getFirstSeenAt(): ?SeenAt
     {
         return $this->container['first_seen_at'];
     }
@@ -1213,7 +1213,7 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets last_seen_at.
      */
-    public function getLastSeenAt(): SeenAt
+    public function getLastSeenAt(): ?SeenAt
     {
         return $this->container['last_seen_at'];
     }

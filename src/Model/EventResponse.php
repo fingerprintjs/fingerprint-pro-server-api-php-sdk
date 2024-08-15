@@ -206,7 +206,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets products.
      */
-    public function getProducts(): ProductsResponse
+    public function getProducts(): ?ProductsResponse
     {
         return $this->container['products'];
     }
@@ -228,7 +228,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      */
-    public function getError(): ProductError
+    public function getError(): ?ProductError
     {
         return $this->container['error'];
     }

@@ -220,7 +220,7 @@ class SignalResponseRawDeviceAttributes implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      */
-    public function getError(): ProductError
+    public function getError(): ?ProductError
     {
         return $this->container['error'];
     }

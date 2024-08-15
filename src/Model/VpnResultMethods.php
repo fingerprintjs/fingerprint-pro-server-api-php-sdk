@@ -216,7 +216,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     /**
      * Gets timezone_mismatch.
      */
-    public function getTimezoneMismatch(): bool
+    public function getTimezoneMismatch(): ?bool
     {
         return $this->container['timezone_mismatch'];
     }
@@ -238,7 +238,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     /**
      * Gets public_vpn.
      */
-    public function getPublicVpn(): bool
+    public function getPublicVpn(): ?bool
     {
         return $this->container['public_vpn'];
     }
@@ -260,7 +260,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     /**
      * Gets auxiliary_mobile.
      */
-    public function getAuxiliaryMobile(): bool
+    public function getAuxiliaryMobile(): ?bool
     {
         return $this->container['auxiliary_mobile'];
     }

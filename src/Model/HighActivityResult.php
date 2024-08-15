@@ -204,7 +204,7 @@ class HighActivityResult implements ModelInterface, \ArrayAccess
     /**
      * Gets result.
      */
-    public function getResult(): bool
+    public function getResult(): ?bool
     {
         return $this->container['result'];
     }
@@ -226,7 +226,7 @@ class HighActivityResult implements ModelInterface, \ArrayAccess
     /**
      * Gets daily_requests.
      */
-    public function getDailyRequests(): float
+    public function getDailyRequests(): ?float
     {
         return $this->container['daily_requests'];
     }

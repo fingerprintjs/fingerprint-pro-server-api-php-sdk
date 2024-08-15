@@ -207,7 +207,7 @@ class FactoryResetResult implements ModelInterface, \ArrayAccess
     /**
      * Gets time.
      */
-    public function getTime(): \DateTime
+    public function getTime(): ?\DateTime
     {
         return $this->container['time'];
     }
@@ -229,7 +229,7 @@ class FactoryResetResult implements ModelInterface, \ArrayAccess
     /**
      * Gets timestamp.
      */
-    public function getTimestamp(): int
+    public function getTimestamp(): ?int
     {
         return $this->container['timestamp'];
     }

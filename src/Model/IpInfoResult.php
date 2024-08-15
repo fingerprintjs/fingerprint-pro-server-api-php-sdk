@@ -200,7 +200,7 @@ class IpInfoResult implements ModelInterface, \ArrayAccess
     /**
      * Gets v4.
      */
-    public function getV4(): IpInfoResultV4
+    public function getV4(): ?IpInfoResultV4
     {
         return $this->container['v4'];
     }
@@ -222,7 +222,7 @@ class IpInfoResult implements ModelInterface, \ArrayAccess
     /**
      * Gets v6.
      */
-    public function getV6(): IpInfoResultV6
+    public function getV6(): ?IpInfoResultV6
     {
         return $this->container['v6'];
     }

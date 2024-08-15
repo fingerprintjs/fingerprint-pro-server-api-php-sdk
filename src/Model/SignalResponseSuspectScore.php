@@ -198,7 +198,7 @@ class SignalResponseSuspectScore implements ModelInterface, \ArrayAccess
     /**
      * Gets data.
      */
-    public function getData(): SuspectScoreResult
+    public function getData(): ?SuspectScoreResult
     {
         return $this->container['data'];
     }
@@ -220,7 +220,7 @@ class SignalResponseSuspectScore implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      */
-    public function getError(): ProductError
+    public function getError(): ?ProductError
     {
         return $this->container['error'];
     }

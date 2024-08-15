@@ -207,7 +207,7 @@ class TamperingResult implements ModelInterface, \ArrayAccess
     /**
      * Gets result.
      */
-    public function getResult(): bool
+    public function getResult(): ?bool
     {
         return $this->container['result'];
     }
@@ -229,7 +229,7 @@ class TamperingResult implements ModelInterface, \ArrayAccess
     /**
      * Gets anomaly_score.
      */
-    public function getAnomalyScore(): float
+    public function getAnomalyScore(): ?float
     {
         return $this->container['anomaly_score'];
     }

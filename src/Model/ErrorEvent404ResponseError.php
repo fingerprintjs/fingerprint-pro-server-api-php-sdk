@@ -228,7 +228,7 @@ class ErrorEvent404ResponseError implements ModelInterface, \ArrayAccess
     /**
      * Gets code.
      */
-    public function getCode(): string
+    public function getCode(): ?string
     {
         return $this->container['code'];
     }
@@ -259,7 +259,7 @@ class ErrorEvent404ResponseError implements ModelInterface, \ArrayAccess
     /**
      * Gets message.
      */
-    public function getMessage(): string
+    public function getMessage(): ?string
     {
         return $this->container['message'];
     }

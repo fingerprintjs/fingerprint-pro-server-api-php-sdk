@@ -59,10 +59,10 @@ fi
   # Model file fix
   if [ "$platform" = "Darwin" ]; then
     sed -i '' 's/public function setData(RawDeviceAttributesResult $data): self/public function setData(array $data): self/' ./src/Model/SignalResponseRawDeviceAttributes.php
-    sed -i '' 's/public function getData(): RawDeviceAttributesResult/public function getData(): array/' ./src/Model/SignalResponseRawDeviceAttributes.php
+    sed -i '' 's/public function getData(): ?RawDeviceAttributesResult/public function getData(): array/' ./src/Model/SignalResponseRawDeviceAttributes.php
   else
     sed -i 's/public function setData(RawDeviceAttributesResult $data): self/public function setData(array $data): self/' ./src/Model/SignalResponseRawDeviceAttributes.php
-    sed -i 's/public function getData(): RawDeviceAttributesResult/public function getData(): array/' ./src/Model/SignalResponseRawDeviceAttributes.php
+    sed -i 's/public function getData(): ?RawDeviceAttributesResult/public function getData(): array/' ./src/Model/SignalResponseRawDeviceAttributes.php
   fi
 )
 

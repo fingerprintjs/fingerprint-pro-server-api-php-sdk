@@ -219,7 +219,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
     /**
      * Gets address.
      */
-    public function getAddress(): string
+    public function getAddress(): ?string
     {
         return $this->container['address'];
     }
@@ -241,7 +241,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
     /**
      * Gets geolocation.
      */
-    public function getGeolocation(): IPLocation
+    public function getGeolocation(): ?IPLocation
     {
         return $this->container['geolocation'];
     }
@@ -263,7 +263,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
     /**
      * Gets asn.
      */
-    public function getAsn(): ASN
+    public function getAsn(): ?ASN
     {
         return $this->container['asn'];
     }
@@ -285,7 +285,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
     /**
      * Gets datacenter.
      */
-    public function getDatacenter(): DataCenter
+    public function getDatacenter(): ?DataCenter
     {
         return $this->container['datacenter'];
     }
