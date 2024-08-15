@@ -246,7 +246,7 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
 
     /**
      * Gets {{name}}
-     * @return {{datatype}}
+     * @return {{^required}}?{{/required}}{{datatype}}
      */
     public function {{getter}}(): {{^required}}?{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}}
     {
@@ -256,7 +256,7 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
     /**
      * Sets {{name}}
      *
-     * @param {{datatype}} ${{name}}{{#description}} {{{description}}}{{/description}}{{^description}} {{{name}}}{{/description}}
+     * @param {{^required}}?{{/required}}{{datatype}} ${{name}}{{#description}} {{{description}}}{{/description}}{{^description}} {{{name}}}{{/description}}
      *
      * @return $this
      */
