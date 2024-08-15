@@ -251,7 +251,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
     /**
      * Gets ip.
      */
-    public function getIp(): ?string
+    public function getIp(): string
     {
         return $this->container['ip'];
     }
@@ -273,7 +273,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
     /**
      * Gets time.
      */
-    public function getTime(): ?\DateTime
+    public function getTime(): \DateTime
     {
         return $this->container['time'];
     }
@@ -295,7 +295,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
     /**
      * Gets url.
      */
-    public function getUrl(): ?string
+    public function getUrl(): string
     {
         return $this->container['url'];
     }
@@ -317,7 +317,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
     /**
      * Gets user_agent.
      */
-    public function getUserAgent(): ?string
+    public function getUserAgent(): string
     {
         return $this->container['user_agent'];
     }
@@ -339,7 +339,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
     /**
      * Gets request_id.
      */
-    public function getRequestId(): ?string
+    public function getRequestId(): string
     {
         return $this->container['request_id'];
     }
@@ -383,7 +383,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
     /**
      * Gets bot.
      */
-    public function getBot(): ?BotdDetectionResult
+    public function getBot(): BotdDetectionResult
     {
         return $this->container['bot'];
     }

@@ -248,7 +248,7 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
      * Gets {{name}}
      * @return {{datatype}}
      */
-    public function {{getter}}(): {{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}}|null
+    public function {{getter}}(): {{^required}}?{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}}
     {
         return $this->container['{{name}}'];
     }

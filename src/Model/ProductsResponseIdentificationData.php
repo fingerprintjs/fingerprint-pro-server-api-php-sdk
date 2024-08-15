@@ -315,7 +315,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets request_id.
      */
-    public function getRequestId(): ?string
+    public function getRequestId(): string
     {
         return $this->container['request_id'];
     }
@@ -337,7 +337,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets browser_details.
      */
-    public function getBrowserDetails(): ?BrowserDetails
+    public function getBrowserDetails(): BrowserDetails
     {
         return $this->container['browser_details'];
     }
@@ -359,7 +359,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets incognito.
      */
-    public function getIncognito(): ?bool
+    public function getIncognito(): bool
     {
         return $this->container['incognito'];
     }
@@ -381,7 +381,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets ip.
      */
-    public function getIp(): ?string
+    public function getIp(): string
     {
         return $this->container['ip'];
     }
@@ -425,7 +425,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets timestamp.
      */
-    public function getTimestamp(): ?int
+    public function getTimestamp(): int
     {
         return $this->container['timestamp'];
     }
@@ -447,7 +447,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets time.
      */
-    public function getTime(): ?\DateTime
+    public function getTime(): \DateTime
     {
         return $this->container['time'];
     }
@@ -469,7 +469,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets url.
      */
-    public function getUrl(): ?string
+    public function getUrl(): string
     {
         return $this->container['url'];
     }
@@ -493,7 +493,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return map[string,object]
      */
-    public function getTag(): ?array
+    public function getTag(): array
     {
         return $this->container['tag'];
     }
@@ -559,7 +559,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets visitor_found.
      */
-    public function getVisitorFound(): ?bool
+    public function getVisitorFound(): bool
     {
         return $this->container['visitor_found'];
     }
@@ -581,7 +581,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets first_seen_at.
      */
-    public function getFirstSeenAt(): ?SeenAt
+    public function getFirstSeenAt(): SeenAt
     {
         return $this->container['first_seen_at'];
     }
@@ -603,7 +603,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets last_seen_at.
      */
-    public function getLastSeenAt(): ?SeenAt
+    public function getLastSeenAt(): SeenAt
     {
         return $this->container['last_seen_at'];
     }
@@ -625,7 +625,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets visitor_id.
      */
-    public function getVisitorId(): ?string
+    public function getVisitorId(): string
     {
         return $this->container['visitor_id'];
     }

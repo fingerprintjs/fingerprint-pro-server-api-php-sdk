@@ -198,7 +198,7 @@ class ErrorVisits403 implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      */
-    public function getError(): ?string
+    public function getError(): string
     {
         return $this->container['error'];
     }

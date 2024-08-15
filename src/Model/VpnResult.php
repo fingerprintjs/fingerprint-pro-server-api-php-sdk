@@ -222,7 +222,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
     /**
      * Gets result.
      */
-    public function getResult(): ?bool
+    public function getResult(): bool
     {
         return $this->container['result'];
     }
@@ -244,7 +244,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
     /**
      * Gets origin_timezone.
      */
-    public function getOriginTimezone(): ?string
+    public function getOriginTimezone(): string
     {
         return $this->container['origin_timezone'];
     }
@@ -288,7 +288,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
     /**
      * Gets methods.
      */
-    public function getMethods(): ?VpnResultMethods
+    public function getMethods(): VpnResultMethods
     {
         return $this->container['methods'];
     }

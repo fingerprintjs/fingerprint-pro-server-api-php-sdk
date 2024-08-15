@@ -221,7 +221,7 @@ class Response implements ModelInterface, \ArrayAccess
     /**
      * Gets visitor_id.
      */
-    public function getVisitorId(): ?string
+    public function getVisitorId(): string
     {
         return $this->container['visitor_id'];
     }
@@ -245,7 +245,7 @@ class Response implements ModelInterface, \ArrayAccess
      *
      * @return \Fingerprint\ServerAPI\Model\ResponseVisits[]
      */
-    public function getVisits(): ?array
+    public function getVisits(): array
     {
         return $this->container['visits'];
     }

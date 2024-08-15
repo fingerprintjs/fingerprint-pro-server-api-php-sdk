@@ -258,7 +258,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Gets browser_name.
      */
-    public function getBrowserName(): ?string
+    public function getBrowserName(): string
     {
         return $this->container['browser_name'];
     }
@@ -280,7 +280,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Gets browser_major_version.
      */
-    public function getBrowserMajorVersion(): ?string
+    public function getBrowserMajorVersion(): string
     {
         return $this->container['browser_major_version'];
     }
@@ -302,7 +302,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Gets browser_full_version.
      */
-    public function getBrowserFullVersion(): ?string
+    public function getBrowserFullVersion(): string
     {
         return $this->container['browser_full_version'];
     }
@@ -324,7 +324,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Gets os.
      */
-    public function getOs(): ?string
+    public function getOs(): string
     {
         return $this->container['os'];
     }
@@ -346,7 +346,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Gets os_version.
      */
-    public function getOsVersion(): ?string
+    public function getOsVersion(): string
     {
         return $this->container['os_version'];
     }
@@ -368,7 +368,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Gets device.
      */
-    public function getDevice(): ?string
+    public function getDevice(): string
     {
         return $this->container['device'];
     }
@@ -390,7 +390,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Gets user_agent.
      */
-    public function getUserAgent(): ?string
+    public function getUserAgent(): string
     {
         return $this->container['user_agent'];
     }

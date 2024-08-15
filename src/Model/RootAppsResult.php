@@ -198,7 +198,7 @@ class RootAppsResult implements ModelInterface, \ArrayAccess
     /**
      * Gets result.
      */
-    public function getResult(): ?bool
+    public function getResult(): bool
     {
         return $this->container['result'];
     }

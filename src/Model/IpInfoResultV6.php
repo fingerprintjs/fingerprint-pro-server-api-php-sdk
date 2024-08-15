@@ -219,7 +219,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
     /**
      * Gets address.
      */
-    public function getAddress(): ?string
+    public function getAddress(): string
     {
         return $this->container['address'];
     }
@@ -241,7 +241,7 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
     /**
      * Gets geolocation.
      */
-    public function getGeolocation(): ?IPLocation
+    public function getGeolocation(): IPLocation
     {
         return $this->container['geolocation'];
     }

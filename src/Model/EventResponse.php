@@ -206,7 +206,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets products.
      */
-    public function getProducts(): ?ProductsResponse
+    public function getProducts(): ProductsResponse
     {
         return $this->container['products'];
     }

@@ -213,7 +213,7 @@ class ASN implements ModelInterface, \ArrayAccess
     /**
      * Gets asn.
      */
-    public function getAsn(): ?string
+    public function getAsn(): string
     {
         return $this->container['asn'];
     }
@@ -235,7 +235,7 @@ class ASN implements ModelInterface, \ArrayAccess
     /**
      * Gets network.
      */
-    public function getNetwork(): ?string
+    public function getNetwork(): string
     {
         return $this->container['network'];
     }

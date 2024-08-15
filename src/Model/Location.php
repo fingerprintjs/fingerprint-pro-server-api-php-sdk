@@ -207,7 +207,7 @@ class Location implements ModelInterface, \ArrayAccess
     /**
      * Gets code.
      */
-    public function getCode(): ?string
+    public function getCode(): string
     {
         return $this->container['code'];
     }
@@ -229,7 +229,7 @@ class Location implements ModelInterface, \ArrayAccess
     /**
      * Gets name.
      */
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->container['name'];
     }

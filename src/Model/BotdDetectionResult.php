@@ -230,7 +230,7 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
     /**
      * Gets result.
      */
-    public function getResult(): ?string
+    public function getResult(): string
     {
         return $this->container['result'];
     }

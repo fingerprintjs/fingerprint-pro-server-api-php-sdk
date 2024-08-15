@@ -207,7 +207,7 @@ class IpBlockListResult implements ModelInterface, \ArrayAccess
     /**
      * Gets result.
      */
-    public function getResult(): ?bool
+    public function getResult(): bool
     {
         return $this->container['result'];
     }
@@ -229,7 +229,7 @@ class IpBlockListResult implements ModelInterface, \ArrayAccess
     /**
      * Gets details.
      */
-    public function getDetails(): ?IpBlockListResultDetails
+    public function getDetails(): IpBlockListResultDetails
     {
         return $this->container['details'];
     }
