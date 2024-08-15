@@ -212,7 +212,7 @@ class IpInfoResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setV4(IpInfoResultV4 $v4): self
+    public function setV4(?IpInfoResultV4 $v4): self
     {
         $this->container['v4'] = $v4;
 
@@ -234,7 +234,7 @@ class IpInfoResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setV6(IpInfoResultV6 $v6): self
+    public function setV6(?IpInfoResultV6 $v6): self
     {
         $this->container['v6'] = $v6;
 

@@ -326,7 +326,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIdentification(ProductsResponseIdentification $identification): self
+    public function setIdentification(?ProductsResponseIdentification $identification): self
     {
         $this->container['identification'] = $identification;
 
@@ -348,7 +348,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBotd(ProductsResponseBotd $botd): self
+    public function setBotd(?ProductsResponseBotd $botd): self
     {
         $this->container['botd'] = $botd;
 
@@ -370,7 +370,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpInfo(SignalResponseIpInfo $ip_info): self
+    public function setIpInfo(?SignalResponseIpInfo $ip_info): self
     {
         $this->container['ip_info'] = $ip_info;
 
@@ -392,7 +392,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIncognito(SignalResponseIncognito $incognito): self
+    public function setIncognito(?SignalResponseIncognito $incognito): self
     {
         $this->container['incognito'] = $incognito;
 
@@ -414,7 +414,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRootApps(SignalResponseRootApps $root_apps): self
+    public function setRootApps(?SignalResponseRootApps $root_apps): self
     {
         $this->container['root_apps'] = $root_apps;
 
@@ -436,7 +436,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setEmulator(SignalResponseEmulator $emulator): self
+    public function setEmulator(?SignalResponseEmulator $emulator): self
     {
         $this->container['emulator'] = $emulator;
 
@@ -458,7 +458,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setClonedApp(SignalResponseClonedApp $cloned_app): self
+    public function setClonedApp(?SignalResponseClonedApp $cloned_app): self
     {
         $this->container['cloned_app'] = $cloned_app;
 
@@ -480,7 +480,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFactoryReset(SignalResponseFactoryReset $factory_reset): self
+    public function setFactoryReset(?SignalResponseFactoryReset $factory_reset): self
     {
         $this->container['factory_reset'] = $factory_reset;
 
@@ -502,7 +502,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setJailbroken(SignalResponseJailbroken $jailbroken): self
+    public function setJailbroken(?SignalResponseJailbroken $jailbroken): self
     {
         $this->container['jailbroken'] = $jailbroken;
 
@@ -524,7 +524,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFrida(SignalResponseFrida $frida): self
+    public function setFrida(?SignalResponseFrida $frida): self
     {
         $this->container['frida'] = $frida;
 
@@ -546,7 +546,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpBlocklist(SignalResponseIpBlocklist $ip_blocklist): self
+    public function setIpBlocklist(?SignalResponseIpBlocklist $ip_blocklist): self
     {
         $this->container['ip_blocklist'] = $ip_blocklist;
 
@@ -568,7 +568,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTor(SignalResponseTor $tor): self
+    public function setTor(?SignalResponseTor $tor): self
     {
         $this->container['tor'] = $tor;
 
@@ -590,7 +590,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPrivacySettings(SignalResponsePrivacySettings $privacy_settings): self
+    public function setPrivacySettings(?SignalResponsePrivacySettings $privacy_settings): self
     {
         $this->container['privacy_settings'] = $privacy_settings;
 
@@ -612,7 +612,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVirtualMachine(SignalResponseVirtualMachine $virtual_machine): self
+    public function setVirtualMachine(?SignalResponseVirtualMachine $virtual_machine): self
     {
         $this->container['virtual_machine'] = $virtual_machine;
 
@@ -634,7 +634,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVpn(SignalResponseVpn $vpn): self
+    public function setVpn(?SignalResponseVpn $vpn): self
     {
         $this->container['vpn'] = $vpn;
 
@@ -656,7 +656,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setProxy(SignalResponseProxy $proxy): self
+    public function setProxy(?SignalResponseProxy $proxy): self
     {
         $this->container['proxy'] = $proxy;
 
@@ -678,7 +678,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTampering(SignalResponseTampering $tampering): self
+    public function setTampering(?SignalResponseTampering $tampering): self
     {
         $this->container['tampering'] = $tampering;
 
@@ -700,7 +700,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setHighActivity(SignalResponseHighActivity $high_activity): self
+    public function setHighActivity(?SignalResponseHighActivity $high_activity): self
     {
         $this->container['high_activity'] = $high_activity;
 
@@ -722,7 +722,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLocationSpoofing(SignalResponseLocationSpoofing $location_spoofing): self
+    public function setLocationSpoofing(?SignalResponseLocationSpoofing $location_spoofing): self
     {
         $this->container['location_spoofing'] = $location_spoofing;
 
@@ -744,7 +744,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setSuspectScore(SignalResponseSuspectScore $suspect_score): self
+    public function setSuspectScore(?SignalResponseSuspectScore $suspect_score): self
     {
         $this->container['suspect_score'] = $suspect_score;
 
@@ -766,7 +766,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRawDeviceAttributes(SignalResponseRawDeviceAttributes $raw_device_attributes): self
+    public function setRawDeviceAttributes(?SignalResponseRawDeviceAttributes $raw_device_attributes): self
     {
         $this->container['raw_device_attributes'] = $raw_device_attributes;
 

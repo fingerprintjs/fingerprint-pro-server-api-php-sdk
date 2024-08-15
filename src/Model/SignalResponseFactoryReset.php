@@ -210,7 +210,7 @@ class SignalResponseFactoryReset implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setData(FactoryResetResult $data): self
+    public function setData(?FactoryResetResult $data): self
     {
         $this->container['data'] = $data;
 
@@ -232,7 +232,7 @@ class SignalResponseFactoryReset implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError(ProductError $error): self
+    public function setError(?ProductError $error): self
     {
         $this->container['error'] = $error;
 

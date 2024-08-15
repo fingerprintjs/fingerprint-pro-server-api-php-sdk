@@ -204,7 +204,7 @@ class ErrorEvent404Response implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError(ErrorEvent404ResponseError $error): self
+    public function setError(?ErrorEvent404ResponseError $error): self
     {
         $this->container['error'] = $error;
 

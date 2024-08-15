@@ -406,7 +406,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIpLocation(DeprecatedIPLocation $ip_location): self
+    public function setIpLocation(?DeprecatedIPLocation $ip_location): self
     {
         $this->container['ip_location'] = $ip_location;
 
@@ -518,7 +518,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLinkedId(string $linked_id): self
+    public function setLinkedId(?string $linked_id): self
     {
         $this->container['linked_id'] = $linked_id;
 
@@ -540,7 +540,7 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setConfidence(Confidence $confidence): self
+    public function setConfidence(?Confidence $confidence): self
     {
         $this->container['confidence'] = $confidence;
 

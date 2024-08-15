@@ -238,7 +238,7 @@ class HighActivityResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setDailyRequests(float $daily_requests): self
+    public function setDailyRequests(?float $daily_requests): self
     {
         $this->container['daily_requests'] = $daily_requests;
 

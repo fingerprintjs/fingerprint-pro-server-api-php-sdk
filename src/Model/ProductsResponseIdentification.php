@@ -210,7 +210,7 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setData(ProductsResponseIdentificationData $data): self
+    public function setData(?ProductsResponseIdentificationData $data): self
     {
         $this->container['data'] = $data;
 
@@ -232,7 +232,7 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError(IdentificationError $error): self
+    public function setError(?IdentificationError $error): self
     {
         $this->container['error'] = $error;
 

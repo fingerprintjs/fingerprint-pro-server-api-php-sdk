@@ -210,7 +210,7 @@ class SignalResponseProxy implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setData(ProxyResult $data): self
+    public function setData(?ProxyResult $data): self
     {
         $this->container['data'] = $data;
 
@@ -232,7 +232,7 @@ class SignalResponseProxy implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError(ProductError $error): self
+    public function setError(?ProductError $error): self
     {
         $this->container['error'] = $error;
 

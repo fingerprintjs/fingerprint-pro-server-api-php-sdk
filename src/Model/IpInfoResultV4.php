@@ -275,7 +275,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAsn(ASN $asn): self
+    public function setAsn(?ASN $asn): self
     {
         $this->container['asn'] = $asn;
 
@@ -297,7 +297,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setDatacenter(DataCenter $datacenter): self
+    public function setDatacenter(?DataCenter $datacenter): self
     {
         $this->container['datacenter'] = $datacenter;
 

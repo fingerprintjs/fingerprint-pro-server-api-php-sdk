@@ -373,7 +373,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLinkedId(string $linked_id): self
+    public function setLinkedId(?string $linked_id): self
     {
         $this->container['linked_id'] = $linked_id;
 

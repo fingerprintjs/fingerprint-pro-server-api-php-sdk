@@ -210,7 +210,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIsoCode(string $iso_code): self
+    public function setIsoCode(?string $iso_code): self
     {
         $this->container['iso_code'] = $iso_code;
 
@@ -232,7 +232,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->container['name'] = $name;
 

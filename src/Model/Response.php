@@ -279,7 +279,7 @@ class Response implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLastTimestamp(int $last_timestamp): self
+    public function setLastTimestamp(?int $last_timestamp): self
     {
         $this->container['last_timestamp'] = $last_timestamp;
 
@@ -301,7 +301,7 @@ class Response implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPaginationKey(string $pagination_key): self
+    public function setPaginationKey(?string $pagination_key): self
     {
         $this->container['pagination_key'] = $pagination_key;
 

@@ -273,7 +273,7 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->container['type'] = $type;
 

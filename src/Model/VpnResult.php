@@ -278,7 +278,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setOriginCountry(string $origin_country): self
+    public function setOriginCountry(?string $origin_country): self
     {
         $this->container['origin_country'] = $origin_country;
 

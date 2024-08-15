@@ -238,7 +238,7 @@ class DataCenter implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->container['name'] = $name;
 

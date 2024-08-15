@@ -210,7 +210,7 @@ class SignalResponseHighActivity implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setData(HighActivityResult $data): self
+    public function setData(?HighActivityResult $data): self
     {
         $this->container['data'] = $data;
 
@@ -232,7 +232,7 @@ class SignalResponseHighActivity implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setError(ProductError $error): self
+    public function setError(?ProductError $error): self
     {
         $this->container['error'] = $error;
 

@@ -252,7 +252,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAccuracyRadius(int $accuracy_radius): self
+    public function setAccuracyRadius(?int $accuracy_radius): self
     {
         $this->container['accuracy_radius'] = $accuracy_radius;
 
@@ -274,7 +274,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLatitude(float $latitude): self
+    public function setLatitude(?float $latitude): self
     {
         $this->container['latitude'] = $latitude;
 
@@ -296,7 +296,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLongitude(float $longitude): self
+    public function setLongitude(?float $longitude): self
     {
         $this->container['longitude'] = $longitude;
 
@@ -318,7 +318,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPostalCode(string $postal_code): self
+    public function setPostalCode(?string $postal_code): self
     {
         $this->container['postal_code'] = $postal_code;
 
@@ -340,7 +340,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTimezone(string $timezone): self
+    public function setTimezone(?string $timezone): self
     {
         $this->container['timezone'] = $timezone;
 
@@ -362,7 +362,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setCity(IPLocationCity $city): self
+    public function setCity(?IPLocationCity $city): self
     {
         $this->container['city'] = $city;
 
@@ -384,7 +384,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setCountry(Location $country): self
+    public function setCountry(?Location $country): self
     {
         $this->container['country'] = $country;
 
@@ -406,7 +406,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setContinent(Location $continent): self
+    public function setContinent(?Location $continent): self
     {
         $this->container['continent'] = $continent;
 
@@ -430,7 +430,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setSubdivisions(array $subdivisions): self
+    public function setSubdivisions(?array $subdivisions): self
     {
         $this->container['subdivisions'] = $subdivisions;
 

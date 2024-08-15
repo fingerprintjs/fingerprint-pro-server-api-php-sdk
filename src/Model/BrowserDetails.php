@@ -424,7 +424,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBotProbability(int $bot_probability): self
+    public function setBotProbability(?int $bot_probability): self
     {
         $this->container['bot_probability'] = $bot_probability;
 
