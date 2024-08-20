@@ -260,6 +260,8 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets type.
+     *
+     * @return ?string
      */
     public function getType(): ?string
     {
@@ -269,7 +271,7 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
     /**
      * Sets type.
      *
-     * @param string $type type
+     * @param ?string $type type
      *
      * @return $this
      */

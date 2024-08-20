@@ -227,6 +227,8 @@ class EventResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {
@@ -236,7 +238,7 @@ class EventResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets error.
      *
-     * @param ProductError $error error
+     * @param ?\Fingerprint\ServerAPI\Model\ProductError $error error
      *
      * @return $this
      */

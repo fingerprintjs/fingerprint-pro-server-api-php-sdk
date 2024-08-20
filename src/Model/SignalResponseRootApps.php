@@ -197,6 +197,8 @@ class SignalResponseRootApps implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\RootAppsResult
      */
     public function getData(): ?RootAppsResult
     {
@@ -206,7 +208,7 @@ class SignalResponseRootApps implements ModelInterface, \ArrayAccess
     /**
      * Sets data.
      *
-     * @param RootAppsResult $data data
+     * @param ?\Fingerprint\ServerAPI\Model\RootAppsResult $data data
      *
      * @return $this
      */
@@ -219,6 +221,8 @@ class SignalResponseRootApps implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {
@@ -228,7 +232,7 @@ class SignalResponseRootApps implements ModelInterface, \ArrayAccess
     /**
      * Sets error.
      *
-     * @param ProductError $error error
+     * @param ?\Fingerprint\ServerAPI\Model\ProductError $error error
      *
      * @return $this
      */

@@ -265,6 +265,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets origin_country.
+     *
+     * @return ?string
      */
     public function getOriginCountry(): ?string
     {
@@ -274,7 +276,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
     /**
      * Sets origin_country.
      *
-     * @param string $origin_country Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).
+     * @param ?string $origin_country Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).
      *
      * @return $this
      */

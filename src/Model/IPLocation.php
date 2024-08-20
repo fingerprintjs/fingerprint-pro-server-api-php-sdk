@@ -239,6 +239,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets accuracy_radius.
+     *
+     * @return ?int
      */
     public function getAccuracyRadius(): ?int
     {
@@ -248,7 +250,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Sets accuracy_radius.
      *
-     * @param int $accuracy_radius the IP address is likely to be within this radius (in km) of the specified location
+     * @param ?int $accuracy_radius the IP address is likely to be within this radius (in km) of the specified location
      *
      * @return $this
      */
@@ -261,6 +263,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets latitude.
+     *
+     * @return ?double
      */
     public function getLatitude(): ?float
     {
@@ -270,7 +274,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Sets latitude.
      *
-     * @param float $latitude latitude
+     * @param ?double $latitude latitude
      *
      * @return $this
      */
@@ -283,6 +287,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets longitude.
+     *
+     * @return ?double
      */
     public function getLongitude(): ?float
     {
@@ -292,7 +298,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Sets longitude.
      *
-     * @param float $longitude longitude
+     * @param ?double $longitude longitude
      *
      * @return $this
      */
@@ -305,6 +311,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets postal_code.
+     *
+     * @return ?string
      */
     public function getPostalCode(): ?string
     {
@@ -314,7 +322,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Sets postal_code.
      *
-     * @param string $postal_code postal_code
+     * @param ?string $postal_code postal_code
      *
      * @return $this
      */
@@ -327,6 +335,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets timezone.
+     *
+     * @return ?string
      */
     public function getTimezone(): ?string
     {
@@ -336,7 +346,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Sets timezone.
      *
-     * @param string $timezone timezone
+     * @param ?string $timezone timezone
      *
      * @return $this
      */
@@ -349,6 +359,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets city.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\IPLocationCity
      */
     public function getCity(): ?IPLocationCity
     {
@@ -358,7 +370,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Sets city.
      *
-     * @param IPLocationCity $city city
+     * @param ?\Fingerprint\ServerAPI\Model\IPLocationCity $city city
      *
      * @return $this
      */
@@ -371,6 +383,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets country.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\Location
      */
     public function getCountry(): ?Location
     {
@@ -380,7 +394,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Sets country.
      *
-     * @param Location $country country
+     * @param ?\Fingerprint\ServerAPI\Model\Location $country country
      *
      * @return $this
      */
@@ -393,6 +407,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets continent.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\Location
      */
     public function getContinent(): ?Location
     {
@@ -402,7 +418,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Sets continent.
      *
-     * @param Location $continent continent
+     * @param ?\Fingerprint\ServerAPI\Model\Location $continent continent
      *
      * @return $this
      */
@@ -416,7 +432,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Gets subdivisions.
      *
-     * @return \Fingerprint\ServerAPI\Model\Subdivision[]
+     * @return ?\Fingerprint\ServerAPI\Model\Subdivision[]
      */
     public function getSubdivisions(): ?array
     {
@@ -426,7 +442,7 @@ class IPLocation implements ModelInterface, \ArrayAccess
     /**
      * Sets subdivisions.
      *
-     * @param \Fingerprint\ServerAPI\Model\Subdivision[] $subdivisions subdivisions
+     * @param ?\Fingerprint\ServerAPI\Model\Subdivision[] $subdivisions subdivisions
      *
      * @return $this
      */

@@ -313,6 +313,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets identification.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductsResponseIdentification
      */
     public function getIdentification(): ?ProductsResponseIdentification
     {
@@ -322,7 +324,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets identification.
      *
-     * @param ProductsResponseIdentification $identification identification
+     * @param ?\Fingerprint\ServerAPI\Model\ProductsResponseIdentification $identification identification
      *
      * @return $this
      */
@@ -335,6 +337,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets botd.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductsResponseBotd
      */
     public function getBotd(): ?ProductsResponseBotd
     {
@@ -344,7 +348,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets botd.
      *
-     * @param ProductsResponseBotd $botd botd
+     * @param ?\Fingerprint\ServerAPI\Model\ProductsResponseBotd $botd botd
      *
      * @return $this
      */
@@ -357,6 +361,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_info.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseIpInfo
      */
     public function getIpInfo(): ?SignalResponseIpInfo
     {
@@ -366,7 +372,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_info.
      *
-     * @param SignalResponseIpInfo $ip_info ip_info
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseIpInfo $ip_info ip_info
      *
      * @return $this
      */
@@ -379,6 +385,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets incognito.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseIncognito
      */
     public function getIncognito(): ?SignalResponseIncognito
     {
@@ -388,7 +396,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets incognito.
      *
-     * @param SignalResponseIncognito $incognito incognito
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseIncognito $incognito incognito
      *
      * @return $this
      */
@@ -401,6 +409,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets root_apps.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseRootApps
      */
     public function getRootApps(): ?SignalResponseRootApps
     {
@@ -410,7 +420,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets root_apps.
      *
-     * @param SignalResponseRootApps $root_apps root_apps
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseRootApps $root_apps root_apps
      *
      * @return $this
      */
@@ -423,6 +433,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets emulator.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseEmulator
      */
     public function getEmulator(): ?SignalResponseEmulator
     {
@@ -432,7 +444,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets emulator.
      *
-     * @param SignalResponseEmulator $emulator emulator
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseEmulator $emulator emulator
      *
      * @return $this
      */
@@ -445,6 +457,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets cloned_app.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseClonedApp
      */
     public function getClonedApp(): ?SignalResponseClonedApp
     {
@@ -454,7 +468,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets cloned_app.
      *
-     * @param SignalResponseClonedApp $cloned_app cloned_app
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseClonedApp $cloned_app cloned_app
      *
      * @return $this
      */
@@ -467,6 +481,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets factory_reset.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseFactoryReset
      */
     public function getFactoryReset(): ?SignalResponseFactoryReset
     {
@@ -476,7 +492,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets factory_reset.
      *
-     * @param SignalResponseFactoryReset $factory_reset factory_reset
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseFactoryReset $factory_reset factory_reset
      *
      * @return $this
      */
@@ -489,6 +505,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets jailbroken.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseJailbroken
      */
     public function getJailbroken(): ?SignalResponseJailbroken
     {
@@ -498,7 +516,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets jailbroken.
      *
-     * @param SignalResponseJailbroken $jailbroken jailbroken
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseJailbroken $jailbroken jailbroken
      *
      * @return $this
      */
@@ -511,6 +529,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets frida.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseFrida
      */
     public function getFrida(): ?SignalResponseFrida
     {
@@ -520,7 +540,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets frida.
      *
-     * @param SignalResponseFrida $frida frida
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseFrida $frida frida
      *
      * @return $this
      */
@@ -533,6 +553,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_blocklist.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseIpBlocklist
      */
     public function getIpBlocklist(): ?SignalResponseIpBlocklist
     {
@@ -542,7 +564,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_blocklist.
      *
-     * @param SignalResponseIpBlocklist $ip_blocklist ip_blocklist
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseIpBlocklist $ip_blocklist ip_blocklist
      *
      * @return $this
      */
@@ -555,6 +577,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets tor.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseTor
      */
     public function getTor(): ?SignalResponseTor
     {
@@ -564,7 +588,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets tor.
      *
-     * @param SignalResponseTor $tor tor
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseTor $tor tor
      *
      * @return $this
      */
@@ -577,6 +601,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets privacy_settings.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponsePrivacySettings
      */
     public function getPrivacySettings(): ?SignalResponsePrivacySettings
     {
@@ -586,7 +612,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets privacy_settings.
      *
-     * @param SignalResponsePrivacySettings $privacy_settings privacy_settings
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponsePrivacySettings $privacy_settings privacy_settings
      *
      * @return $this
      */
@@ -599,6 +625,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets virtual_machine.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseVirtualMachine
      */
     public function getVirtualMachine(): ?SignalResponseVirtualMachine
     {
@@ -608,7 +636,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets virtual_machine.
      *
-     * @param SignalResponseVirtualMachine $virtual_machine virtual_machine
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseVirtualMachine $virtual_machine virtual_machine
      *
      * @return $this
      */
@@ -621,6 +649,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets vpn.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseVpn
      */
     public function getVpn(): ?SignalResponseVpn
     {
@@ -630,7 +660,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets vpn.
      *
-     * @param SignalResponseVpn $vpn vpn
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseVpn $vpn vpn
      *
      * @return $this
      */
@@ -643,6 +673,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets proxy.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseProxy
      */
     public function getProxy(): ?SignalResponseProxy
     {
@@ -652,7 +684,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets proxy.
      *
-     * @param SignalResponseProxy $proxy proxy
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseProxy $proxy proxy
      *
      * @return $this
      */
@@ -665,6 +697,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets tampering.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseTampering
      */
     public function getTampering(): ?SignalResponseTampering
     {
@@ -674,7 +708,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets tampering.
      *
-     * @param SignalResponseTampering $tampering tampering
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseTampering $tampering tampering
      *
      * @return $this
      */
@@ -687,6 +721,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets high_activity.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseHighActivity
      */
     public function getHighActivity(): ?SignalResponseHighActivity
     {
@@ -696,7 +732,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets high_activity.
      *
-     * @param SignalResponseHighActivity $high_activity high_activity
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseHighActivity $high_activity high_activity
      *
      * @return $this
      */
@@ -709,6 +745,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets location_spoofing.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing
      */
     public function getLocationSpoofing(): ?SignalResponseLocationSpoofing
     {
@@ -718,7 +756,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets location_spoofing.
      *
-     * @param SignalResponseLocationSpoofing $location_spoofing location_spoofing
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing $location_spoofing location_spoofing
      *
      * @return $this
      */
@@ -731,6 +769,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets suspect_score.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseSuspectScore
      */
     public function getSuspectScore(): ?SignalResponseSuspectScore
     {
@@ -740,7 +780,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets suspect_score.
      *
-     * @param SignalResponseSuspectScore $suspect_score suspect_score
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseSuspectScore $suspect_score suspect_score
      *
      * @return $this
      */
@@ -753,6 +793,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets raw_device_attributes.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes
      */
     public function getRawDeviceAttributes(): ?SignalResponseRawDeviceAttributes
     {
@@ -762,7 +804,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets raw_device_attributes.
      *
-     * @param SignalResponseRawDeviceAttributes $raw_device_attributes raw_device_attributes
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes $raw_device_attributes raw_device_attributes
      *
      * @return $this
      */

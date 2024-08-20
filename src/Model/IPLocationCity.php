@@ -191,6 +191,8 @@ class IPLocationCity implements ModelInterface, \ArrayAccess
 
     /**
      * Gets name.
+     *
+     * @return ?string
      */
     public function getName(): ?string
     {
@@ -200,7 +202,7 @@ class IPLocationCity implements ModelInterface, \ArrayAccess
     /**
      * Sets name.
      *
-     * @param string $name name
+     * @param ?string $name name
      *
      * @return $this
      */

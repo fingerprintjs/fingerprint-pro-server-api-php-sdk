@@ -225,6 +225,8 @@ class HighActivityResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets daily_requests.
+     *
+     * @return ?float
      */
     public function getDailyRequests(): ?float
     {
@@ -234,7 +236,7 @@ class HighActivityResult implements ModelInterface, \ArrayAccess
     /**
      * Sets daily_requests.
      *
-     * @param float $daily_requests number of requests from the same visitor in the previous day
+     * @param ?float $daily_requests number of requests from the same visitor in the previous day
      *
      * @return $this
      */

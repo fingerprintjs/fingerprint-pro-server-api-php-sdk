@@ -360,6 +360,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
+     *
+     * @return ?string
      */
     public function getLinkedId(): ?string
     {
@@ -369,7 +371,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
     /**
      * Sets linked_id.
      *
-     * @param string $linked_id linked_id
+     * @param ?string $linked_id linked_id
      *
      * @return $this
      */

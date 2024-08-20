@@ -191,6 +191,8 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ErrorEvent403ResponseError
      */
     public function getError(): ?ErrorEvent403ResponseError
     {
@@ -200,7 +202,7 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
     /**
      * Sets error.
      *
-     * @param ErrorEvent403ResponseError $error error
+     * @param ?\Fingerprint\ServerAPI\Model\ErrorEvent403ResponseError $error error
      *
      * @return $this
      */

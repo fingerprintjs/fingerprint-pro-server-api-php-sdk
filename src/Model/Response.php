@@ -266,6 +266,8 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets last_timestamp.
+     *
+     * @return ?int
      */
     public function getLastTimestamp(): ?int
     {
@@ -275,7 +277,7 @@ class Response implements ModelInterface, \ArrayAccess
     /**
      * Sets last_timestamp.
      *
-     * @param int $last_timestamp ⚠️ Deprecated paging attribute, please use `paginationKey` instead. Timestamp of the last visit in the current page of results.
+     * @param ?int $last_timestamp ⚠️ Deprecated paging attribute, please use `paginationKey` instead. Timestamp of the last visit in the current page of results.
      *
      * @return $this
      */
@@ -288,6 +290,8 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets pagination_key.
+     *
+     * @return ?string
      */
     public function getPaginationKey(): ?string
     {
@@ -297,7 +301,7 @@ class Response implements ModelInterface, \ArrayAccess
     /**
      * Sets pagination_key.
      *
-     * @param string $pagination_key Request ID of the last visit in the current page of results. Use this value in the following request as the `paginationKey` parameter to get the next page of results.
+     * @param ?string $pagination_key Request ID of the last visit in the current page of results. Use this value in the following request as the `paginationKey` parameter to get the next page of results.
      *
      * @return $this
      */

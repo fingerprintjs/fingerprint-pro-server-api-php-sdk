@@ -411,6 +411,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets bot_probability.
+     *
+     * @return ?int
      */
     public function getBotProbability(): ?int
     {
@@ -420,7 +422,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Sets bot_probability.
      *
-     * @param int $bot_probability bot_probability
+     * @param ?int $bot_probability bot_probability
      *
      * @return $this
      */

@@ -197,6 +197,8 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductsResponseIdentificationData
      */
     public function getData(): ?ProductsResponseIdentificationData
     {
@@ -206,7 +208,7 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
     /**
      * Sets data.
      *
-     * @param ProductsResponseIdentificationData $data data
+     * @param ?\Fingerprint\ServerAPI\Model\ProductsResponseIdentificationData $data data
      *
      * @return $this
      */
@@ -219,6 +221,8 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\IdentificationError
      */
     public function getError(): ?IdentificationError
     {
@@ -228,7 +232,7 @@ class ProductsResponseIdentification implements ModelInterface, \ArrayAccess
     /**
      * Sets error.
      *
-     * @param IdentificationError $error error
+     * @param ?\Fingerprint\ServerAPI\Model\IdentificationError $error error
      *
      * @return $this
      */
