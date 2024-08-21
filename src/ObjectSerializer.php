@@ -29,6 +29,8 @@
 
 namespace Fingerprint\ServerAPI;
 
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * ObjectSerializer Class Doc Comment.
  *
@@ -43,12 +45,12 @@ class ObjectSerializer
     /**
      * Serialize data.
      *
-     * @param mixed  $data   the data to serialize
-     * @param string $format the format of the Swagger type of the data
+     * @param mixed       $data   the data to serialize
+     * @param null|string $format the format of the Swagger type of the data
      *
-     * @return object|string serialized form of $data
+     * @return array|object|string serialized form of $data
      */
-    public static function sanitizeForSerialization($data, $format = null)
+    public static function sanitizeForSerialization(mixed $data, ?string $format = null): array|object|string
     {
         if (is_scalar($data) || null === $data) {
             return $data;
@@ -96,23 +98,6 @@ class ObjectSerializer
     }
 
     /**
-     * Sanitize filename by removing path.
-     * e.g. ../../sun.gif becomes sun.gif.
-     *
-     * @param string $filename filename to be sanitized
-     *
-     * @return string the sanitized filename
-     */
-    public static function sanitizeFilename($filename)
-    {
-        if (preg_match('/.*[\/\\\](.*)$/', $filename, $match)) {
-            return $match[1];
-        }
-
-        return $filename;
-    }
-
-    /**
      * Take value and turn it into a string suitable for inclusion in
      * the path, by url-encoding.
      *
@@ -120,7 +105,7 @@ class ObjectSerializer
      *
      * @return string the serialized object
      */
-    public static function toPathValue($value)
+    public static function toPathValue(string $value): string
     {
         return rawurlencode(self::toString($value));
     }
@@ -136,45 +121,13 @@ class ObjectSerializer
      *
      * @return string the serialized object
      */
-    public static function toQueryValue($object, $format = null)
+    public static function toQueryValue(array|\DateTime|string $object, ?string $format = null): string
     {
         if (is_array($object)) {
             return implode(',', $object);
         }
 
         return self::toString($object, $format);
-    }
-
-    /**
-     * Take value and turn it into a string suitable for inclusion in
-     * the header. If it's a string, pass through unchanged
-     * If it's a datetime object, format it in RFC3339.
-     *
-     * @param string $value a string which will be part of the header
-     *
-     * @return string the header string
-     */
-    public static function toHeaderValue($value)
-    {
-        return self::toString($value);
-    }
-
-    /**
-     * Take value and turn it into a string suitable for inclusion in
-     * the http body (form parameter). If it's a string, pass through unchanged
-     * If it's a datetime object, format it in RFC3339.
-     *
-     * @param \SplFileObject|string $value the value of the form parameter
-     *
-     * @return string the form string
-     */
-    public static function toFormValue($value)
-    {
-        if ($value instanceof \SplFileObject) {
-            return $value->getRealPath();
-        }
-
-        return self::toString($value);
     }
 
     /**
@@ -188,7 +141,7 @@ class ObjectSerializer
      *
      * @return string the header string
      */
-    public static function toString($value, $format = null)
+    public static function toString(\DateTime|string $value, ?string $format = null): string
     {
         if ($value instanceof \DateTime) {
             return ('date' === $format) ? $value->format('Y-m-d') : $value->format(\DateTime::ATOM);
@@ -198,62 +151,55 @@ class ObjectSerializer
     }
 
     /**
-     * Serialize an array to a string.
-     *
-     * @param array  $collection                 collection to serialize to a string
-     * @param string $collectionFormat           the format use for serialization (csv,
-     *                                           ssv, tsv, pipes, multi)
-     * @param bool   $allowCollectionFormatMulti allow collection format to be a multidimensional array
-     *
-     * @return string
-     */
-    public static function serializeCollection(array $collection, $collectionFormat, $allowCollectionFormatMulti = false)
-    {
-        if ($allowCollectionFormatMulti && ('multi' === $collectionFormat)) {
-            // http_build_query() almost does the job for us. We just
-            // need to fix the result of multidimensional arrays.
-            return preg_replace('/%5B[0-9]+%5D=/', '=', http_build_query($collection, '', '&'));
-        }
-
-        switch ($collectionFormat) {
-            case 'pipes':
-                return implode('|', $collection);
-
-            case 'tsv':
-                return implode("\t", $collection);
-
-            case 'ssv':
-                return implode(' ', $collection);
-
-            case 'csv':
-                // Deliberate fall through. CSV is default format.
-            default:
-                return implode(',', $collection);
-        }
-    }
-
-    /**
      * Deserialize a JSON string into an object.
      *
-     * @param mixed    $data        object or primitive to be deserialized
-     * @param string   $class       class name is passed as a string
-     * @param string[] $httpHeaders HTTP headers
+     * @param string $class class name is passed as a string
      *
      * @throws \Exception
      */
-    public static function deserialize($data, $class, $httpHeaders = null): mixed
+    public static function deserialize(ResponseInterface $response, string $class): mixed
+    {
+        $data = $response->getBody()->getContents();
+        $response->getBody()->rewind();
+
+        return self::mapToClass($data, $class, $response);
+    }
+
+    protected static function mapToClass(mixed $data, string $class, ResponseInterface $response): mixed
+    {
+        if ('string' === gettype($data)) {
+            $data = json_decode($data, false);
+        }
+        $instance = new $class();
+        foreach ($instance::swaggerTypes() as $property => $type) {
+            $propertySetter = $instance::setters()[$property];
+
+            if (!isset($propertySetter) || !isset($data->{$instance::attributeMap()[$property]})) {
+                continue;
+            }
+
+            $propertyValue = $data->{$instance::attributeMap()[$property]};
+            if (isset($propertyValue)) {
+                $instance->{$propertySetter}(self::castData($propertyValue, $type, $response));
+            }
+        }
+
+        return $instance;
+    }
+
+    protected static function castData(mixed $data, string $class, ResponseInterface $response): mixed
     {
         if (null === $data) {
             return null;
         }
-        if ('map[' === substr($class, 0, 4)) { // for associative array e.g. map[string,int]
+        if (str_starts_with($class, 'map[')) { // for associative array e.g. map[string,int]
             $inner = substr($class, 4, -1);
             $deserialized = [];
             if (false !== strrpos($inner, ',')) {
                 $subClass_array = explode(',', $inner, 2);
                 $subClass = $subClass_array[1];
                 foreach ($data as $key => $value) {
-                    $deserialized[$key] = self::deserialize($value, $subClass, null);
+                    $deserialized[$key] = self::castData($value, $subClass, $response);
                 }
             }
 
@@ -263,7 +209,7 @@ class ObjectSerializer
             $subClass = substr($class, 0, -2);
             $values = [];
             foreach ($data as $key => $value) {
-                $values[] = self::deserialize($value, $subClass, null);
+                $values[] = self::castData($value, $subClass, $response);
             }
 
             return $values;
@@ -305,7 +251,7 @@ class ObjectSerializer
                 return (float) $originalData;
             }
             if ('string' === $normalizedClass && is_object($data)) {
-                throw new \Exception('Cannot convert object to string');
+                throw new SerializationException($response);
             }
 
             settype($data, $class);
@@ -313,7 +259,7 @@ class ObjectSerializer
                 return $data;
             }
 
-            throw new \Exception('Serialization error: Could not convert '.gettype($originalData).' to '.$class);
+            throw new SerializationException($response);
         } elseif (method_exists($class, 'getAllowableEnumValues')) {
             if (!in_array($data, $class::getAllowableEnumValues())) {
                 $imploded = implode("', '", $class::getAllowableEnumValues());
@@ -324,20 +270,6 @@ class ObjectSerializer
             return $data;
         }
 
-        $instance = new $class();
-        foreach ($instance::swaggerTypes() as $property => $type) {
-            $propertySetter = $instance::setters()[$property];
-
-            if (!isset($propertySetter) || !isset($data->{$instance::attributeMap()[$property]})) {
-                continue;
-            }
-
-            $propertyValue = $data->{$instance::attributeMap()[$property]};
-            if (isset($propertyValue)) {
-                $instance->{$propertySetter}(self::deserialize($propertyValue, $type, null));
-            }
-        }
-
-        return $instance;
+        return self::mapToClass($data, $class, $response);
     }
 }

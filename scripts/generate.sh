@@ -40,6 +40,10 @@ rm -f ./src/Model/*
 
 java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json
 
+if [ -z "$GITHUB_ACTIONS" ]; then
+  docker-compose run --rm lint
+fi
+
 # fix invalid code generated for structure with additionalProperties
 (
   # Model file fix
@@ -47,6 +51,18 @@ java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/f
     sed -i '' 's/$invalidProperties = parent::listInvalidProperties();/$invalidProperties = [];/' ./src/Model/RawDeviceAttributesResult.php
   else
     sed -i 's/$invalidProperties = parent::listInvalidProperties();/$invalidProperties = [];/' ./src/Model/RawDeviceAttributesResult.php
+  fi
+)
+
+# fix invalid code generated for SignalResponseRawDeviceAttributes
+(
+  # Model file fix
+  if [ "$platform" = "Darwin" ]; then
+    sed -i '' 's/public function setData(?RawDeviceAttributesResult $data): self/public function setData(?array $data): self/' ./src/Model/SignalResponseRawDeviceAttributes.php
+    sed -i '' 's/public function getData(): ?RawDeviceAttributesResult/public function getData(): array/' ./src/Model/SignalResponseRawDeviceAttributes.php
+  else
+    sed -i 's/public function setData(?RawDeviceAttributesResult $data): self/public function setData(?array $data): self/' ./src/Model/SignalResponseRawDeviceAttributes.php
+    sed -i 's/public function getData(): ?RawDeviceAttributesResult/public function getData(): array/' ./src/Model/SignalResponseRawDeviceAttributes.php
   fi
 )
 
@@ -67,7 +83,3 @@ mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
 find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" ! -name "Webhook.md" -exec rm {} +
 mv -f src/docs/* ./docs
-
-if [ -z "$GITHUB_ACTIONS" ]; then
-  docker-compose run --rm lint
-fi

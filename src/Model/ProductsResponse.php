@@ -44,17 +44,15 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'ProductsResponse';
+    protected static string $swaggerModelName = 'ProductsResponse';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'identification' => '\Fingerprint\ServerAPI\Model\ProductsResponseIdentification',
         'botd' => '\Fingerprint\ServerAPI\Model\ProductsResponseBotd',
         'ip_info' => '\Fingerprint\ServerAPI\Model\SignalResponseIpInfo',
@@ -82,7 +80,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'identification' => null,
         'botd' => null,
         'ip_info' => null,
@@ -111,7 +109,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'identification' => 'identification',
         'botd' => 'botd',
         'ip_info' => 'ipInfo',
@@ -139,7 +137,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'identification' => 'setIdentification',
         'botd' => 'setBotd',
         'ip_info' => 'setIpInfo',
@@ -167,7 +165,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'identification' => 'getIdentification',
         'botd' => 'getBotd',
         'ip_info' => 'getIpInfo',
@@ -195,7 +193,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -230,10 +228,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -247,20 +243,16 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -268,40 +260,32 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -311,7 +295,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         return [];
     }
@@ -322,7 +306,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
@@ -330,9 +314,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets identification.
      *
-     * @return ProductsResponseIdentification
+     * @return ?\Fingerprint\ServerAPI\Model\ProductsResponseIdentification
      */
-    public function getIdentification()
+    public function getIdentification(): ?ProductsResponseIdentification
     {
         return $this->container['identification'];
     }
@@ -340,11 +324,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets identification.
      *
-     * @param ProductsResponseIdentification $identification identification
+     * @param ?\Fingerprint\ServerAPI\Model\ProductsResponseIdentification $identification identification
      *
      * @return $this
      */
-    public function setIdentification($identification)
+    public function setIdentification(?ProductsResponseIdentification $identification): self
     {
         $this->container['identification'] = $identification;
 
@@ -354,9 +338,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets botd.
      *
-     * @return ProductsResponseBotd
+     * @return ?\Fingerprint\ServerAPI\Model\ProductsResponseBotd
      */
-    public function getBotd()
+    public function getBotd(): ?ProductsResponseBotd
     {
         return $this->container['botd'];
     }
@@ -364,11 +348,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets botd.
      *
-     * @param ProductsResponseBotd $botd botd
+     * @param ?\Fingerprint\ServerAPI\Model\ProductsResponseBotd $botd botd
      *
      * @return $this
      */
-    public function setBotd($botd)
+    public function setBotd(?ProductsResponseBotd $botd): self
     {
         $this->container['botd'] = $botd;
 
@@ -378,9 +362,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets ip_info.
      *
-     * @return SignalResponseIpInfo
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseIpInfo
      */
-    public function getIpInfo()
+    public function getIpInfo(): ?SignalResponseIpInfo
     {
         return $this->container['ip_info'];
     }
@@ -388,11 +372,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_info.
      *
-     * @param SignalResponseIpInfo $ip_info ip_info
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseIpInfo $ip_info ip_info
      *
      * @return $this
      */
-    public function setIpInfo($ip_info)
+    public function setIpInfo(?SignalResponseIpInfo $ip_info): self
     {
         $this->container['ip_info'] = $ip_info;
 
@@ -402,9 +386,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets incognito.
      *
-     * @return SignalResponseIncognito
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseIncognito
      */
-    public function getIncognito()
+    public function getIncognito(): ?SignalResponseIncognito
     {
         return $this->container['incognito'];
     }
@@ -412,11 +396,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets incognito.
      *
-     * @param SignalResponseIncognito $incognito incognito
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseIncognito $incognito incognito
      *
      * @return $this
      */
-    public function setIncognito($incognito)
+    public function setIncognito(?SignalResponseIncognito $incognito): self
     {
         $this->container['incognito'] = $incognito;
 
@@ -426,9 +410,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets root_apps.
      *
-     * @return SignalResponseRootApps
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseRootApps
      */
-    public function getRootApps()
+    public function getRootApps(): ?SignalResponseRootApps
     {
         return $this->container['root_apps'];
     }
@@ -436,11 +420,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets root_apps.
      *
-     * @param SignalResponseRootApps $root_apps root_apps
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseRootApps $root_apps root_apps
      *
      * @return $this
      */
-    public function setRootApps($root_apps)
+    public function setRootApps(?SignalResponseRootApps $root_apps): self
     {
         $this->container['root_apps'] = $root_apps;
 
@@ -450,9 +434,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets emulator.
      *
-     * @return SignalResponseEmulator
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseEmulator
      */
-    public function getEmulator()
+    public function getEmulator(): ?SignalResponseEmulator
     {
         return $this->container['emulator'];
     }
@@ -460,11 +444,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets emulator.
      *
-     * @param SignalResponseEmulator $emulator emulator
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseEmulator $emulator emulator
      *
      * @return $this
      */
-    public function setEmulator($emulator)
+    public function setEmulator(?SignalResponseEmulator $emulator): self
     {
         $this->container['emulator'] = $emulator;
 
@@ -474,9 +458,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets cloned_app.
      *
-     * @return SignalResponseClonedApp
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseClonedApp
      */
-    public function getClonedApp()
+    public function getClonedApp(): ?SignalResponseClonedApp
     {
         return $this->container['cloned_app'];
     }
@@ -484,11 +468,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets cloned_app.
      *
-     * @param SignalResponseClonedApp $cloned_app cloned_app
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseClonedApp $cloned_app cloned_app
      *
      * @return $this
      */
-    public function setClonedApp($cloned_app)
+    public function setClonedApp(?SignalResponseClonedApp $cloned_app): self
     {
         $this->container['cloned_app'] = $cloned_app;
 
@@ -498,9 +482,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets factory_reset.
      *
-     * @return SignalResponseFactoryReset
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseFactoryReset
      */
-    public function getFactoryReset()
+    public function getFactoryReset(): ?SignalResponseFactoryReset
     {
         return $this->container['factory_reset'];
     }
@@ -508,11 +492,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets factory_reset.
      *
-     * @param SignalResponseFactoryReset $factory_reset factory_reset
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseFactoryReset $factory_reset factory_reset
      *
      * @return $this
      */
-    public function setFactoryReset($factory_reset)
+    public function setFactoryReset(?SignalResponseFactoryReset $factory_reset): self
     {
         $this->container['factory_reset'] = $factory_reset;
 
@@ -522,9 +506,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets jailbroken.
      *
-     * @return SignalResponseJailbroken
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseJailbroken
      */
-    public function getJailbroken()
+    public function getJailbroken(): ?SignalResponseJailbroken
     {
         return $this->container['jailbroken'];
     }
@@ -532,11 +516,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets jailbroken.
      *
-     * @param SignalResponseJailbroken $jailbroken jailbroken
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseJailbroken $jailbroken jailbroken
      *
      * @return $this
      */
-    public function setJailbroken($jailbroken)
+    public function setJailbroken(?SignalResponseJailbroken $jailbroken): self
     {
         $this->container['jailbroken'] = $jailbroken;
 
@@ -546,9 +530,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets frida.
      *
-     * @return SignalResponseFrida
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseFrida
      */
-    public function getFrida()
+    public function getFrida(): ?SignalResponseFrida
     {
         return $this->container['frida'];
     }
@@ -556,11 +540,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets frida.
      *
-     * @param SignalResponseFrida $frida frida
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseFrida $frida frida
      *
      * @return $this
      */
-    public function setFrida($frida)
+    public function setFrida(?SignalResponseFrida $frida): self
     {
         $this->container['frida'] = $frida;
 
@@ -570,9 +554,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets ip_blocklist.
      *
-     * @return SignalResponseIpBlocklist
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseIpBlocklist
      */
-    public function getIpBlocklist()
+    public function getIpBlocklist(): ?SignalResponseIpBlocklist
     {
         return $this->container['ip_blocklist'];
     }
@@ -580,11 +564,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_blocklist.
      *
-     * @param SignalResponseIpBlocklist $ip_blocklist ip_blocklist
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseIpBlocklist $ip_blocklist ip_blocklist
      *
      * @return $this
      */
-    public function setIpBlocklist($ip_blocklist)
+    public function setIpBlocklist(?SignalResponseIpBlocklist $ip_blocklist): self
     {
         $this->container['ip_blocklist'] = $ip_blocklist;
 
@@ -594,9 +578,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets tor.
      *
-     * @return SignalResponseTor
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseTor
      */
-    public function getTor()
+    public function getTor(): ?SignalResponseTor
     {
         return $this->container['tor'];
     }
@@ -604,11 +588,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets tor.
      *
-     * @param SignalResponseTor $tor tor
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseTor $tor tor
      *
      * @return $this
      */
-    public function setTor($tor)
+    public function setTor(?SignalResponseTor $tor): self
     {
         $this->container['tor'] = $tor;
 
@@ -618,9 +602,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets privacy_settings.
      *
-     * @return SignalResponsePrivacySettings
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponsePrivacySettings
      */
-    public function getPrivacySettings()
+    public function getPrivacySettings(): ?SignalResponsePrivacySettings
     {
         return $this->container['privacy_settings'];
     }
@@ -628,11 +612,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets privacy_settings.
      *
-     * @param SignalResponsePrivacySettings $privacy_settings privacy_settings
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponsePrivacySettings $privacy_settings privacy_settings
      *
      * @return $this
      */
-    public function setPrivacySettings($privacy_settings)
+    public function setPrivacySettings(?SignalResponsePrivacySettings $privacy_settings): self
     {
         $this->container['privacy_settings'] = $privacy_settings;
 
@@ -642,9 +626,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets virtual_machine.
      *
-     * @return SignalResponseVirtualMachine
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseVirtualMachine
      */
-    public function getVirtualMachine()
+    public function getVirtualMachine(): ?SignalResponseVirtualMachine
     {
         return $this->container['virtual_machine'];
     }
@@ -652,11 +636,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets virtual_machine.
      *
-     * @param SignalResponseVirtualMachine $virtual_machine virtual_machine
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseVirtualMachine $virtual_machine virtual_machine
      *
      * @return $this
      */
-    public function setVirtualMachine($virtual_machine)
+    public function setVirtualMachine(?SignalResponseVirtualMachine $virtual_machine): self
     {
         $this->container['virtual_machine'] = $virtual_machine;
 
@@ -666,9 +650,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets vpn.
      *
-     * @return SignalResponseVpn
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseVpn
      */
-    public function getVpn()
+    public function getVpn(): ?SignalResponseVpn
     {
         return $this->container['vpn'];
     }
@@ -676,11 +660,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets vpn.
      *
-     * @param SignalResponseVpn $vpn vpn
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseVpn $vpn vpn
      *
      * @return $this
      */
-    public function setVpn($vpn)
+    public function setVpn(?SignalResponseVpn $vpn): self
     {
         $this->container['vpn'] = $vpn;
 
@@ -690,9 +674,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets proxy.
      *
-     * @return SignalResponseProxy
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseProxy
      */
-    public function getProxy()
+    public function getProxy(): ?SignalResponseProxy
     {
         return $this->container['proxy'];
     }
@@ -700,11 +684,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets proxy.
      *
-     * @param SignalResponseProxy $proxy proxy
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseProxy $proxy proxy
      *
      * @return $this
      */
-    public function setProxy($proxy)
+    public function setProxy(?SignalResponseProxy $proxy): self
     {
         $this->container['proxy'] = $proxy;
 
@@ -714,9 +698,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets tampering.
      *
-     * @return SignalResponseTampering
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseTampering
      */
-    public function getTampering()
+    public function getTampering(): ?SignalResponseTampering
     {
         return $this->container['tampering'];
     }
@@ -724,11 +708,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets tampering.
      *
-     * @param SignalResponseTampering $tampering tampering
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseTampering $tampering tampering
      *
      * @return $this
      */
-    public function setTampering($tampering)
+    public function setTampering(?SignalResponseTampering $tampering): self
     {
         $this->container['tampering'] = $tampering;
 
@@ -738,9 +722,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets high_activity.
      *
-     * @return SignalResponseHighActivity
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseHighActivity
      */
-    public function getHighActivity()
+    public function getHighActivity(): ?SignalResponseHighActivity
     {
         return $this->container['high_activity'];
     }
@@ -748,11 +732,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets high_activity.
      *
-     * @param SignalResponseHighActivity $high_activity high_activity
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseHighActivity $high_activity high_activity
      *
      * @return $this
      */
-    public function setHighActivity($high_activity)
+    public function setHighActivity(?SignalResponseHighActivity $high_activity): self
     {
         $this->container['high_activity'] = $high_activity;
 
@@ -762,9 +746,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets location_spoofing.
      *
-     * @return SignalResponseLocationSpoofing
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing
      */
-    public function getLocationSpoofing()
+    public function getLocationSpoofing(): ?SignalResponseLocationSpoofing
     {
         return $this->container['location_spoofing'];
     }
@@ -772,11 +756,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets location_spoofing.
      *
-     * @param SignalResponseLocationSpoofing $location_spoofing location_spoofing
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing $location_spoofing location_spoofing
      *
      * @return $this
      */
-    public function setLocationSpoofing($location_spoofing)
+    public function setLocationSpoofing(?SignalResponseLocationSpoofing $location_spoofing): self
     {
         $this->container['location_spoofing'] = $location_spoofing;
 
@@ -786,9 +770,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets suspect_score.
      *
-     * @return SignalResponseSuspectScore
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseSuspectScore
      */
-    public function getSuspectScore()
+    public function getSuspectScore(): ?SignalResponseSuspectScore
     {
         return $this->container['suspect_score'];
     }
@@ -796,11 +780,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets suspect_score.
      *
-     * @param SignalResponseSuspectScore $suspect_score suspect_score
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseSuspectScore $suspect_score suspect_score
      *
      * @return $this
      */
-    public function setSuspectScore($suspect_score)
+    public function setSuspectScore(?SignalResponseSuspectScore $suspect_score): self
     {
         $this->container['suspect_score'] = $suspect_score;
 
@@ -810,9 +794,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets raw_device_attributes.
      *
-     * @return SignalResponseRawDeviceAttributes
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes
      */
-    public function getRawDeviceAttributes()
+    public function getRawDeviceAttributes(): ?SignalResponseRawDeviceAttributes
     {
         return $this->container['raw_device_attributes'];
     }
@@ -820,11 +804,11 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets raw_device_attributes.
      *
-     * @param SignalResponseRawDeviceAttributes $raw_device_attributes raw_device_attributes
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes $raw_device_attributes raw_device_attributes
      *
      * @return $this
      */
-    public function setRawDeviceAttributes($raw_device_attributes)
+    public function setRawDeviceAttributes(?SignalResponseRawDeviceAttributes $raw_device_attributes): self
     {
         $this->container['raw_device_attributes'] = $raw_device_attributes;
 
@@ -835,11 +819,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -848,11 +829,8 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -863,8 +841,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -878,8 +855,7 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

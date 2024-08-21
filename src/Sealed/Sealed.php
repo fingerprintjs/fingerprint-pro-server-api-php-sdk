@@ -3,6 +3,9 @@
 namespace Fingerprint\ServerAPI\Sealed;
 
 use Fingerprint\ServerAPI\Model\EventResponse;
+use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\SerializationException;
+use GuzzleHttp\Psr7\Response;
 
 class Sealed
 {
@@ -14,6 +17,7 @@ class Sealed
      * @param DecryptionKey[] $keys
      *
      * @throws UnsealAggregateException
+     * @throws SerializationException
      */
     public static function unsealEventResponse(string $sealed, array $keys): EventResponse
     {
@@ -25,7 +29,9 @@ class Sealed
             throw new InvalidSealedDataException();
         }
 
-        return new EventResponse($data);
+        $response = new Response(200, [], $unsealed);
+
+        return ObjectSerializer::deserialize($response, EventResponse::class);
     }
 
     /**

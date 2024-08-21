@@ -6,6 +6,9 @@ use Fingerprint\ServerAPI\Sealed\Sealed;
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad();
+
 $sealed_result = base64_decode($_ENV['BASE64_SEALED_RESULT'] ?? getenv('BASE64_SEALED_RESULT') ?? "");
 $sealed_key = base64_decode($_ENV['BASE64_KEY'] ?? getenv('BASE64_KEY') ?? "");
 

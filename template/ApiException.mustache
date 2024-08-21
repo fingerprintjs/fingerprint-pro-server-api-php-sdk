@@ -19,6 +19,8 @@
 namespace {{invokerPackage}};
 
 use \Exception;
+use Fingerprint\ServerAPI\Model\ModelInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * ApiException Class Doc Comment
@@ -30,46 +32,35 @@ use \Exception;
  */
 class ApiException extends Exception
 {
+    protected ResponseInterface $responseObject;
+    protected ModelInterface $errorDetails;
 
-    /**
-     * The deserialized response object
-     *
-     * @var $responseObject;
-     */
-    protected $responseObject;
-
-    /**
-     * Constructor
-     *
-     * @param string        $message         Error message
-     * @param int           $code            HTTP status code
-     * @param string[]|null $responseHeaders HTTP response header
-     * @param mixed         $responseBody    HTTP decoded body of the server response either as \stdClass or string
-     */
-    public function __construct($message = "", $code = 0)
+    public function __construct(?string $message = "", ?int $code = 0)
     {
         parent::__construct($message, $code);
     }
 
+
     /**
     * Sets the deseralized response object (during deserialization)
-    *
-    * @param mixed $obj Deserialized response object
-    *
-    * @return void
     */
-    public function setResponseObject($obj)
+    public function setResponseObject(ResponseInterface $obj): void
     {
         $this->responseObject = $obj;
     }
 
-    /**
-    * Gets the deseralized response object (during deserialization)
-    *
-    * @return mixed the deserialized response object
-    */
-    public function getResponseObject()
+    public function getResponseObject(): ResponseInterface
     {
         return $this->responseObject;
+    }
+
+    public function getErrorDetails(): ModelInterface
+    {
+        return $this->errorDetails;
+    }
+
+    public function setErrorDetails(ModelInterface $errorDetails): void
+    {
+        $this->errorDetails = $errorDetails;
     }
 }

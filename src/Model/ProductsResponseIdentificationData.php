@@ -42,17 +42,15 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'ProductsResponseIdentificationData';
+    protected static string $swaggerModelName = 'ProductsResponseIdentificationData';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'request_id' => 'string',
         'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
         'incognito' => 'bool',
@@ -74,7 +72,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'request_id' => null,
         'browser_details' => null,
         'incognito' => null,
@@ -97,7 +95,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'request_id' => 'requestId',
         'browser_details' => 'browserDetails',
         'incognito' => 'incognito',
@@ -119,7 +117,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'request_id' => 'setRequestId',
         'browser_details' => 'setBrowserDetails',
         'incognito' => 'setIncognito',
@@ -141,7 +139,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'request_id' => 'getRequestId',
         'browser_details' => 'getBrowserDetails',
         'incognito' => 'getIncognito',
@@ -163,7 +161,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -192,10 +190,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -209,20 +205,16 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -230,40 +222,32 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -273,7 +257,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         $invalidProperties = [];
 
@@ -323,17 +307,15 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
 
     /**
      * Gets request_id.
-     *
-     * @return string
      */
-    public function getRequestId()
+    public function getRequestId(): string
     {
         return $this->container['request_id'];
     }
@@ -345,7 +327,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setRequestId($request_id)
+    public function setRequestId(string $request_id): self
     {
         $this->container['request_id'] = $request_id;
 
@@ -354,10 +336,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets browser_details.
-     *
-     * @return BrowserDetails
      */
-    public function getBrowserDetails()
+    public function getBrowserDetails(): BrowserDetails
     {
         return $this->container['browser_details'];
     }
@@ -369,7 +349,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserDetails($browser_details)
+    public function setBrowserDetails(BrowserDetails $browser_details): self
     {
         $this->container['browser_details'] = $browser_details;
 
@@ -378,10 +358,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets incognito.
-     *
-     * @return bool
      */
-    public function getIncognito()
+    public function getIncognito(): bool
     {
         return $this->container['incognito'];
     }
@@ -393,7 +371,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIncognito($incognito)
+    public function setIncognito(bool $incognito): self
     {
         $this->container['incognito'] = $incognito;
 
@@ -402,10 +380,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip.
-     *
-     * @return string
      */
-    public function getIp()
+    public function getIp(): string
     {
         return $this->container['ip'];
     }
@@ -417,7 +393,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setIp($ip)
+    public function setIp(string $ip): self
     {
         $this->container['ip'] = $ip;
 
@@ -427,9 +403,9 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets ip_location.
      *
-     * @return DeprecatedIPLocation
+     * @return ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation
      */
-    public function getIpLocation()
+    public function getIpLocation(): ?DeprecatedIPLocation
     {
         return $this->container['ip_location'];
     }
@@ -437,11 +413,11 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_location.
      *
-     * @param DeprecatedIPLocation $ip_location ip_location
+     * @param ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation $ip_location ip_location
      *
      * @return $this
      */
-    public function setIpLocation($ip_location)
+    public function setIpLocation(?DeprecatedIPLocation $ip_location): self
     {
         $this->container['ip_location'] = $ip_location;
 
@@ -450,10 +426,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets timestamp.
-     *
-     * @return int
      */
-    public function getTimestamp()
+    public function getTimestamp(): int
     {
         return $this->container['timestamp'];
     }
@@ -465,7 +439,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTimestamp($timestamp)
+    public function setTimestamp(int $timestamp): self
     {
         $this->container['timestamp'] = $timestamp;
 
@@ -474,10 +448,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets time.
-     *
-     * @return \DateTime
      */
-    public function getTime()
+    public function getTime(): \DateTime
     {
         return $this->container['time'];
     }
@@ -489,7 +461,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTime($time)
+    public function setTime(\DateTime $time): self
     {
         $this->container['time'] = $time;
 
@@ -498,10 +470,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets url.
-     *
-     * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->container['url'];
     }
@@ -513,7 +483,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUrl($url)
+    public function setUrl(string $url): self
     {
         $this->container['url'] = $url;
 
@@ -525,7 +495,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return map[string,object]
      */
-    public function getTag()
+    public function getTag(): array
     {
         return $this->container['tag'];
     }
@@ -537,7 +507,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTag($tag)
+    public function setTag(array $tag): self
     {
         $this->container['tag'] = $tag;
 
@@ -547,9 +517,9 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets linked_id.
      *
-     * @return string
+     * @return ?string
      */
-    public function getLinkedId()
+    public function getLinkedId(): ?string
     {
         return $this->container['linked_id'];
     }
@@ -557,11 +527,11 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Sets linked_id.
      *
-     * @param string $linked_id a customer-provided id that was sent with identification request
+     * @param ?string $linked_id a customer-provided id that was sent with identification request
      *
      * @return $this
      */
-    public function setLinkedId($linked_id)
+    public function setLinkedId(?string $linked_id): self
     {
         $this->container['linked_id'] = $linked_id;
 
@@ -571,9 +541,9 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Gets confidence.
      *
-     * @return Confidence
+     * @return ?\Fingerprint\ServerAPI\Model\Confidence
      */
-    public function getConfidence()
+    public function getConfidence(): ?Confidence
     {
         return $this->container['confidence'];
     }
@@ -581,11 +551,11 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
     /**
      * Sets confidence.
      *
-     * @param Confidence $confidence confidence
+     * @param ?\Fingerprint\ServerAPI\Model\Confidence $confidence confidence
      *
      * @return $this
      */
-    public function setConfidence($confidence)
+    public function setConfidence(?Confidence $confidence): self
     {
         $this->container['confidence'] = $confidence;
 
@@ -594,10 +564,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets visitor_found.
-     *
-     * @return bool
      */
-    public function getVisitorFound()
+    public function getVisitorFound(): bool
     {
         return $this->container['visitor_found'];
     }
@@ -609,7 +577,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVisitorFound($visitor_found)
+    public function setVisitorFound(bool $visitor_found): self
     {
         $this->container['visitor_found'] = $visitor_found;
 
@@ -618,10 +586,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets first_seen_at.
-     *
-     * @return SeenAt
      */
-    public function getFirstSeenAt()
+    public function getFirstSeenAt(): SeenAt
     {
         return $this->container['first_seen_at'];
     }
@@ -633,7 +599,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setFirstSeenAt($first_seen_at)
+    public function setFirstSeenAt(SeenAt $first_seen_at): self
     {
         $this->container['first_seen_at'] = $first_seen_at;
 
@@ -642,10 +608,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets last_seen_at.
-     *
-     * @return SeenAt
      */
-    public function getLastSeenAt()
+    public function getLastSeenAt(): SeenAt
     {
         return $this->container['last_seen_at'];
     }
@@ -657,7 +621,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setLastSeenAt($last_seen_at)
+    public function setLastSeenAt(SeenAt $last_seen_at): self
     {
         $this->container['last_seen_at'] = $last_seen_at;
 
@@ -666,10 +630,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets visitor_id.
-     *
-     * @return string
      */
-    public function getVisitorId()
+    public function getVisitorId(): string
     {
         return $this->container['visitor_id'];
     }
@@ -681,7 +643,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setVisitorId($visitor_id)
+    public function setVisitorId(string $visitor_id): self
     {
         $this->container['visitor_id'] = $visitor_id;
 
@@ -692,11 +654,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -705,11 +664,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -720,8 +676,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -735,8 +690,7 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

@@ -28,6 +28,9 @@
 
 namespace Fingerprint\ServerAPI;
 
+use Fingerprint\ServerAPI\Model\ModelInterface;
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * ApiException Class Doc Comment.
  *
@@ -39,39 +42,34 @@ namespace Fingerprint\ServerAPI;
  */
 class ApiException extends \Exception
 {
-    /**
-     * The deserialized response object.
-     */
-    protected $responseObject;
+    protected ResponseInterface $responseObject;
+    protected ModelInterface $errorDetails;
 
-    /**
-     * Constructor.
-     *
-     * @param string $message Error message
-     * @param int    $code    HTTP status code
-     */
-    public function __construct($message = '', $code = 0)
+    public function __construct(?string $message = '', ?int $code = 0)
     {
         parent::__construct($message, $code);
     }
 
     /**
      * Sets the deseralized response object (during deserialization).
-     *
-     * @param mixed $obj Deserialized response object
      */
-    public function setResponseObject($obj)
+    public function setResponseObject(ResponseInterface $obj): void
     {
         $this->responseObject = $obj;
     }
 
-    /**
-     * Gets the deseralized response object (during deserialization).
-     *
-     * @return mixed the deserialized response object
-     */
-    public function getResponseObject()
+    public function getResponseObject(): ResponseInterface
     {
         return $this->responseObject;
+    }
+
+    public function getErrorDetails(): ModelInterface
+    {
+        return $this->errorDetails;
+    }
+
+    public function setErrorDetails(ModelInterface $errorDetails): void
+    {
+        $this->errorDetails = $errorDetails;
     }
 }

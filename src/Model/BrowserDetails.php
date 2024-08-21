@@ -42,17 +42,15 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'BrowserDetails';
+    protected static string $swaggerModelName = 'BrowserDetails';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'browser_name' => 'string',
         'browser_major_version' => 'string',
         'browser_full_version' => 'string',
@@ -67,7 +65,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'browser_name' => null,
         'browser_major_version' => null,
         'browser_full_version' => null,
@@ -83,7 +81,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'browser_name' => 'browserName',
         'browser_major_version' => 'browserMajorVersion',
         'browser_full_version' => 'browserFullVersion',
@@ -98,7 +96,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'browser_name' => 'setBrowserName',
         'browser_major_version' => 'setBrowserMajorVersion',
         'browser_full_version' => 'setBrowserFullVersion',
@@ -113,7 +111,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'browser_name' => 'getBrowserName',
         'browser_major_version' => 'getBrowserMajorVersion',
         'browser_full_version' => 'getBrowserFullVersion',
@@ -128,7 +126,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -150,10 +148,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -167,20 +163,16 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -188,40 +180,32 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -231,7 +215,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         $invalidProperties = [];
 
@@ -266,17 +250,15 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
 
     /**
      * Gets browser_name.
-     *
-     * @return string
      */
-    public function getBrowserName()
+    public function getBrowserName(): string
     {
         return $this->container['browser_name'];
     }
@@ -288,7 +270,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserName($browser_name)
+    public function setBrowserName(string $browser_name): self
     {
         $this->container['browser_name'] = $browser_name;
 
@@ -297,10 +279,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets browser_major_version.
-     *
-     * @return string
      */
-    public function getBrowserMajorVersion()
+    public function getBrowserMajorVersion(): string
     {
         return $this->container['browser_major_version'];
     }
@@ -312,7 +292,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserMajorVersion($browser_major_version)
+    public function setBrowserMajorVersion(string $browser_major_version): self
     {
         $this->container['browser_major_version'] = $browser_major_version;
 
@@ -321,10 +301,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets browser_full_version.
-     *
-     * @return string
      */
-    public function getBrowserFullVersion()
+    public function getBrowserFullVersion(): string
     {
         return $this->container['browser_full_version'];
     }
@@ -336,7 +314,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setBrowserFullVersion($browser_full_version)
+    public function setBrowserFullVersion(string $browser_full_version): self
     {
         $this->container['browser_full_version'] = $browser_full_version;
 
@@ -345,10 +323,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets os.
-     *
-     * @return string
      */
-    public function getOs()
+    public function getOs(): string
     {
         return $this->container['os'];
     }
@@ -360,7 +336,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setOs($os)
+    public function setOs(string $os): self
     {
         $this->container['os'] = $os;
 
@@ -369,10 +345,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets os_version.
-     *
-     * @return string
      */
-    public function getOsVersion()
+    public function getOsVersion(): string
     {
         return $this->container['os_version'];
     }
@@ -384,7 +358,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setOsVersion($os_version)
+    public function setOsVersion(string $os_version): self
     {
         $this->container['os_version'] = $os_version;
 
@@ -393,10 +367,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets device.
-     *
-     * @return string
      */
-    public function getDevice()
+    public function getDevice(): string
     {
         return $this->container['device'];
     }
@@ -408,7 +380,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setDevice($device)
+    public function setDevice(string $device): self
     {
         $this->container['device'] = $device;
 
@@ -417,10 +389,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets user_agent.
-     *
-     * @return string
      */
-    public function getUserAgent()
+    public function getUserAgent(): string
     {
         return $this->container['user_agent'];
     }
@@ -432,7 +402,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setUserAgent($user_agent)
+    public function setUserAgent(string $user_agent): self
     {
         $this->container['user_agent'] = $user_agent;
 
@@ -442,9 +412,9 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Gets bot_probability.
      *
-     * @return int
+     * @return ?int
      */
-    public function getBotProbability()
+    public function getBotProbability(): ?int
     {
         return $this->container['bot_probability'];
     }
@@ -452,11 +422,11 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Sets bot_probability.
      *
-     * @param int $bot_probability bot_probability
+     * @param ?int $bot_probability bot_probability
      *
      * @return $this
      */
-    public function setBotProbability($bot_probability)
+    public function setBotProbability(?int $bot_probability): self
     {
         $this->container['bot_probability'] = $bot_probability;
 
@@ -467,11 +437,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -480,11 +447,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -495,8 +459,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -510,8 +473,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

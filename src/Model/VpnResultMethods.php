@@ -42,17 +42,15 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'VpnResult_methods';
+    protected static string $swaggerModelName = 'VpnResult_methods';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'timezone_mismatch' => 'bool',
         'public_vpn' => 'bool',
         'auxiliary_mobile' => 'bool'];
@@ -62,7 +60,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'timezone_mismatch' => null,
         'public_vpn' => null,
         'auxiliary_mobile' => null];
@@ -73,7 +71,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'timezone_mismatch' => 'timezoneMismatch',
         'public_vpn' => 'publicVPN',
         'auxiliary_mobile' => 'auxiliaryMobile'];
@@ -83,7 +81,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'timezone_mismatch' => 'setTimezoneMismatch',
         'public_vpn' => 'setPublicVpn',
         'auxiliary_mobile' => 'setAuxiliaryMobile'];
@@ -93,7 +91,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'timezone_mismatch' => 'getTimezoneMismatch',
         'public_vpn' => 'getPublicVpn',
         'auxiliary_mobile' => 'getAuxiliaryMobile'];
@@ -103,7 +101,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -120,10 +118,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -137,20 +133,16 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -158,40 +150,32 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -201,7 +185,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         $invalidProperties = [];
 
@@ -224,17 +208,15 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
 
     /**
      * Gets timezone_mismatch.
-     *
-     * @return bool
      */
-    public function getTimezoneMismatch()
+    public function getTimezoneMismatch(): bool
     {
         return $this->container['timezone_mismatch'];
     }
@@ -246,7 +228,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setTimezoneMismatch($timezone_mismatch)
+    public function setTimezoneMismatch(bool $timezone_mismatch): self
     {
         $this->container['timezone_mismatch'] = $timezone_mismatch;
 
@@ -255,10 +237,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 
     /**
      * Gets public_vpn.
-     *
-     * @return bool
      */
-    public function getPublicVpn()
+    public function getPublicVpn(): bool
     {
         return $this->container['public_vpn'];
     }
@@ -270,7 +250,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setPublicVpn($public_vpn)
+    public function setPublicVpn(bool $public_vpn): self
     {
         $this->container['public_vpn'] = $public_vpn;
 
@@ -279,10 +259,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 
     /**
      * Gets auxiliary_mobile.
-     *
-     * @return bool
      */
-    public function getAuxiliaryMobile()
+    public function getAuxiliaryMobile(): bool
     {
         return $this->container['auxiliary_mobile'];
     }
@@ -294,7 +272,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @return $this
      */
-    public function setAuxiliaryMobile($auxiliary_mobile)
+    public function setAuxiliaryMobile(bool $auxiliary_mobile): self
     {
         $this->container['auxiliary_mobile'] = $auxiliary_mobile;
 
@@ -305,11 +283,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -318,11 +293,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -333,8 +305,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -348,8 +319,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

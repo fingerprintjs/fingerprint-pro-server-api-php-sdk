@@ -42,17 +42,15 @@ class Subdivision implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
-     *
-     * @var string
      */
-    protected static $swaggerModelName = 'Subdivision';
+    protected static string $swaggerModelName = 'Subdivision';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static $swaggerTypes = [
+    protected static array $swaggerTypes = [
         'iso_code' => 'string',
         'name' => 'string'];
 
@@ -61,7 +59,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $swaggerFormats = [
+    protected static array $swaggerFormats = [
         'iso_code' => null,
         'name' => null];
 
@@ -71,7 +69,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $attributeMap = [
+    protected static array $attributeMap = [
         'iso_code' => 'isoCode',
         'name' => 'name'];
 
@@ -80,7 +78,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $setters = [
+    protected static array $setters = [
         'iso_code' => 'setIsoCode',
         'name' => 'setName'];
 
@@ -89,7 +87,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @var string[]
      */
-    protected static $getters = [
+    protected static array $getters = [
         'iso_code' => 'getIsoCode',
         'name' => 'getName'];
 
@@ -98,7 +96,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
      * Constructor.
@@ -114,10 +112,8 @@ class Subdivision implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
             return json_encode(
@@ -131,20 +127,16 @@ class Subdivision implements ModelInterface, \ArrayAccess
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerTypes()
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @return array
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
@@ -152,40 +144,32 @@ class Subdivision implements ModelInterface, \ArrayAccess
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name.
-     *
-     * @return array
      */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @return array
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @return array
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
     }
@@ -195,7 +179,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         return [];
     }
@@ -206,7 +190,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
     }
@@ -214,9 +198,9 @@ class Subdivision implements ModelInterface, \ArrayAccess
     /**
      * Gets iso_code.
      *
-     * @return string
+     * @return ?string
      */
-    public function getIsoCode()
+    public function getIsoCode(): ?string
     {
         return $this->container['iso_code'];
     }
@@ -224,11 +208,11 @@ class Subdivision implements ModelInterface, \ArrayAccess
     /**
      * Sets iso_code.
      *
-     * @param string $iso_code iso_code
+     * @param ?string $iso_code iso_code
      *
      * @return $this
      */
-    public function setIsoCode($iso_code)
+    public function setIsoCode(?string $iso_code): self
     {
         $this->container['iso_code'] = $iso_code;
 
@@ -238,9 +222,9 @@ class Subdivision implements ModelInterface, \ArrayAccess
     /**
      * Gets name.
      *
-     * @return string
+     * @return ?string
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->container['name'];
     }
@@ -248,11 +232,11 @@ class Subdivision implements ModelInterface, \ArrayAccess
     /**
      * Sets name.
      *
-     * @param string $name name
+     * @param ?string $name name
      *
      * @return $this
      */
-    public function setName($name)
+    public function setName(?string $name): self
     {
         $this->container['name'] = $name;
 
@@ -263,11 +247,8 @@ class Subdivision implements ModelInterface, \ArrayAccess
      * Returns true if offset exists. False otherwise.
      *
      * @param int $offset Offset
-     *
-     * @return bool
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -276,11 +257,8 @@ class Subdivision implements ModelInterface, \ArrayAccess
      * Gets offset.
      *
      * @param int $offset Offset
-     *
-     * @return mixed
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -291,8 +269,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      * @param int   $offset Offset
      * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -306,8 +283,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
      *
      * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
