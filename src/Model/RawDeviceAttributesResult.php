@@ -174,7 +174,7 @@ class RawDeviceAttributesResult implements ModelInterface, \ArrayAccess
      */
     public function listInvalidProperties(): array
     {
-        return [];
+        return parent::listInvalidProperties();
     }
 
     /**
