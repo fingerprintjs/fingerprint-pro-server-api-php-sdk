@@ -1,0 +1,23 @@
+{
+  "products": {
+    "identification": {
+      "error": {
+        "code": "Failed",
+        "message": "failed"
+      }
+    },
+    "botd": {
+      "data": {
+        "bot": {
+          "result": "bad",
+          "type": "headlessChrome"
+        },
+        "url": "https://example.com/login",
+        "ip": "94.60.143.223",
+        "time": "2024-02-23T10:20:25.287Z",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/121.0.6167.57 Safari/537.36",
+        "requestId": "1708683625245.tuJ4nD"
+      }
+    }
+  }
+}
