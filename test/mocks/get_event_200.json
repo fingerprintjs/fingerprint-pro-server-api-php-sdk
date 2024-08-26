@@ -178,7 +178,8 @@
         "methods": {
           "timezoneMismatch": false,
           "publicVPN": false,
-          "auxiliaryMobile": false
+          "auxiliaryMobile": false,
+          "osMismatch": false
         }
       }
     },
@@ -258,12 +259,7 @@
         },
         "cpuClass": {},
         "fonts": {
-          "value": [
-            "Arial Unicode MS",
-            "Gill Sans",
-            "Helvetica Neue",
-            "Menlo"
-          ]
+          "value": ["Arial Unicode MS", "Gill Sans", "Helvetica Neue", "Menlo"]
         }
       }
     },
@@ -273,6 +269,42 @@
       }
     },
     "locationSpoofing": {
+      "data": {
+        "result": false
+      }
+    },
+    "remoteControl": {
+      "data": {
+        "result": false
+      }
+    },
+    "velocity": {
+      "data": {
+        "distinctIp": {
+          "intervals": {
+            "5m": 1,
+            "1h": 1,
+            "24h": 1
+          }
+        },
+        "distinctLinkedId": {},
+        "distinctCountry": {
+          "intervals": {
+            "5m": 1,
+            "1h": 2,
+            "24h": 2
+          }
+        },
+        "events": {
+          "intervals": {
+            "5m": 1,
+            "1h": 5,
+            "24h": 5
+          }
+        }
+      }
+    },
+    "developerTools": {
       "data": {
         "result": false
       }

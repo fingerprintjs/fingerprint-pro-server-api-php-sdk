@@ -26,6 +26,9 @@ Name | Type | Description | Notes
 **location_spoofing** | [**\Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing**](SignalResponseLocationSpoofing.md) |  | [optional] 
 **suspect_score** | [**\Fingerprint\ServerAPI\Model\SignalResponseSuspectScore**](SignalResponseSuspectScore.md) |  | [optional] 
 **raw_device_attributes** | [**\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes**](SignalResponseRawDeviceAttributes.md) |  | [optional] 
+**remote_control** | [**\Fingerprint\ServerAPI\Model\SignalResponseRemoteControl**](SignalResponseRemoteControl.md) |  | [optional] 
+**velocity** | [**\Fingerprint\ServerAPI\Model\SignalResponseVelocity**](SignalResponseVelocity.md) |  | [optional] 
+**developer_tools** | [**\Fingerprint\ServerAPI\Model\SignalResponseDeveloperTools**](SignalResponseDeveloperTools.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

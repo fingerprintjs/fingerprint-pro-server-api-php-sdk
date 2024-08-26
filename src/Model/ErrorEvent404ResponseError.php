@@ -236,7 +236,7 @@ class ErrorEvent404ResponseError implements ModelInterface, \ArrayAccess
     /**
      * Sets code.
      *
-     * @param string $code Error code:  * `RequestNotFound` - request not found for specified id
+     * @param string $code Error code:  * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
      *
      * @return $this
      */

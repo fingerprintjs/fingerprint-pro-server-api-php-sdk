@@ -73,9 +73,9 @@ class FingerprintApi
     /**
      * Operation getEvent.
      *
-     * Get event by requestId
+     * Get event by request ID
      *
-     * @param string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
+     * @param string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each identification request. (required)
      *
      * @return array{ null|\Fingerprint\ServerAPI\Model\EventResponse, \Psr\Http\Message\ResponseInterface }
      *
@@ -135,7 +135,7 @@ class FingerprintApi
                     break;
 
                 case 403:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorEvent403Response');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorCommon403Response');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
@@ -156,9 +156,9 @@ class FingerprintApi
     /**
      * Operation getEventAsync.
      *
-     * Get event by requestId
+     * Get event by request ID
      *
-     * @param string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. (required)
+     * @param string $request_id The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each identification request. (required)
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
@@ -205,7 +205,7 @@ class FingerprintApi
                             break;
 
                         case 403:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorEvent403Response');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorCommon403Response');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
@@ -227,9 +227,9 @@ class FingerprintApi
     /**
      * Operation getVisits.
      *
-     * Get visits by visitorId
+     * Get visits by visitor ID
      *
-     * @param string $visitor_id     Unique identifier of the visitor issued by Fingerprint Pro. (required)
+     * @param string $visitor_id     Unique [visitor identifier](https://dev.fingerprint.com/docs/js-agent#visitorid) issued by Fingerprint Pro. (required)
      * @param string $request_id     Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
      * @param string $linked_id      Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
      * @param int    $limit          Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
@@ -301,7 +301,7 @@ class FingerprintApi
                     break;
 
                 case 429:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ManyRequestsResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\TooManyRequestsResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
@@ -315,9 +315,9 @@ class FingerprintApi
     /**
      * Operation getVisitsAsync.
      *
-     * Get visits by visitorId
+     * Get visits by visitor ID
      *
-     * @param string $visitor_id     Unique identifier of the visitor issued by Fingerprint Pro. (required)
+     * @param string $visitor_id     Unique [visitor identifier](https://dev.fingerprint.com/docs/js-agent#visitorid) issued by Fingerprint Pro. (required)
      * @param string $request_id     Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
      * @param string $linked_id      Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
      * @param int    $limit          Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
@@ -376,7 +376,7 @@ class FingerprintApi
                             break;
 
                         case 429:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ManyRequestsResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\TooManyRequestsResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 

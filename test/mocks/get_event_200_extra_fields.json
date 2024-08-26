@@ -6,6 +6,7 @@
         "requestId": "0KSh65EnVoB85JBmloQK",
         "incognito": true,
         "linkedId": "somelinkedId",
+        "tag": {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
         "url": "https://www.example.com/login",
@@ -44,7 +45,8 @@
           "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ...."
         },
         "confidence": {
-          "score": 0.97
+          "score": 0.97,
+          "revision": "v1.1"
         },
         "visitorFound": true,
         "firstSeenAt": {
@@ -59,6 +61,8 @@
     },
     "botd": {
       "data": {
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
+        "requestId": "1708102555327.NLOjmg",
         "bot": {
           "result": "notDetected"
         },

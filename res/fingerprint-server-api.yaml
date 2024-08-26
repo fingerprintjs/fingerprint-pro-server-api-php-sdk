@@ -36,14 +36,13 @@ paths:
       tags:
         - Fingerprint
       operationId: getEvent
-      summary: Get event by requestId
+      summary: Get event by request ID
       description: >
-        This endpoint allows you to get a detailed analysis of an individual
-        request. 
+        Get a detailed analysis of an individual identification event, including
+        Smart Signals. 
 
-        **Only for Enterprise customers:** Please note that the response
-        includes mobile signals (e.g. `rootApps`) even if the request originated
-        from a non-mobile platform.
+        Please note that the response includes mobile signals (e.g. `rootApps`)
+        even if the request originated from a non-mobile platform.
 
         It is highly recommended that you **ignore** the mobile signals for such
         requests. 
@@ -57,7 +56,7 @@ paths:
           description: >-
             The unique
             [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of
-            each analysis request.
+            each identification request.
           required: true
           schema:
             type: string
@@ -73,7 +72,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorEvent403Response'
+                $ref: '#/components/schemas/ErrorCommon403Response'
         '404':
           description: Not found
           content:
@@ -85,9 +84,9 @@ paths:
       tags:
         - Fingerprint
       operationId: getVisits
-      summary: Get visits by visitorId
+      summary: Get visits by visitor ID
       description: >
-        This endpoint allows you to get a history of visits for a specific
+        Get a history of visits (identification events) for a specific
         `visitorId`. Use the `visitorId` as a URL path parameter.
 
         Only information from the _Identification_ product is returned.
@@ -102,7 +101,10 @@ paths:
         response is received.
       parameters:
         - name: visitor_id
-          description: Unique identifier of the visitor issued by Fingerprint Pro.
+          description: >-
+            Unique [visitor
+            identifier](https://dev.fingerprint.com/docs/js-agent#visitorid)
+            issued by Fingerprint Pro.
           in: path
           required: true
           schema:
@@ -210,8 +212,8 @@ paths:
           headers:
             Retry-After:
               description: >-
-                Indicates how long you should wait before attempting the next
-                request.
+                Indicates how many seconds you should wait before attempting the
+                next request.
               schema:
                 type: integer
                 format: int32
@@ -219,7 +221,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManyRequestsResponse'
+                $ref: '#/components/schemas/TooManyRequestsResponse'
   /webhook:
     trace:
       tags:
@@ -346,6 +348,7 @@ paths:
                             timezoneMismatch: false
                             publicVPN: false
                             auxiliaryMobile: false
+                            osMismatch: false
                         proxy:
                           result: false
                         tampering:
@@ -388,6 +391,27 @@ paths:
                           result: true
                         suspectScore:
                           result: 0
+                        remoteControl:
+                          result: false
+                        velocity:
+                          distinctIp:
+                            intervals:
+                              5m: 1
+                              1h: 1
+                              24h: 1
+                          distinctLinkedId: {}
+                          distinctCountry:
+                            intervals:
+                              5m: 1
+                              1h: 2
+                              24h: 2
+                          events:
+                            intervals:
+                              5m: 1
+                              1h: 5
+                              24h: 5
+                        developerTools:
+                          result: false
               responses:
                 default:
                   description: The server doesn't validate the answer.
@@ -524,8 +548,8 @@ components:
               - time
               - timestamp
               - url
-              - tag
               - visitorFound
+              - tag
         lastTimestamp:
           description: >
             ⚠️ Deprecated paging attribute, please use `paginationKey` instead.
@@ -547,32 +571,55 @@ components:
       description: >-
         Fields `lastTimestamp` and `paginationKey` added when `limit` or
         `before` parameter provided and there is more data to show
-    ErrorEvent403Response:
+    ErrorCommon403Response:
       type: object
       additionalProperties: false
       properties:
         error:
           type: object
           additionalProperties: false
-          title: ErrorEvent403ResponseError
+          title: Common403ErrorResponse
           properties:
             code:
               type: string
               description: |
                 Error code:
                  * `TokenRequired` - `Auth-API-Key` header is missing or empty
-                 * `TokenNotFound` - subscription not found for specified secret key
-                 * `SubscriptionNotActive` - subscription is not active
-                 * `WrongRegion` - server and subscription region differ
+                 * `TokenNotFound` - No Fingerprint application found for specified secret key
+                 * `SubscriptionNotActive` - Fingerprint application is not active
+                 * `WrongRegion` - server and application region differ
+                 * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application
               enum:
                 - TokenRequired
                 - TokenNotFound
                 - SubscriptionNotActive
                 - WrongRegion
+                - FeatureNotEnabled
               example: TokenRequired
             message:
               type: string
               example: secret key is required
+          required:
+            - code
+            - message
+    ErrorCommon429Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: |
+                Error code: * `TooManyRequests` - The request is throttled.
+              enum:
+                - TooManyRequests
+              example: TooManyRequests
+            message:
+              type: string
+              example: request throttled
           required:
             - code
             - message
@@ -589,7 +636,7 @@ components:
               type: string
               description: |
                 Error code:
-                 * `RequestNotFound` - request not found for specified id
+                 * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
               enum:
                 - RequestNotFound
               example: RequestNotFound
@@ -609,7 +656,7 @@ components:
           example: Forbidden (HTTP 403)
       required:
         - error
-    ManyRequestsResponse:
+    TooManyRequestsResponse:
       type: object
       additionalProperties: false
       properties:
@@ -619,6 +666,51 @@ components:
           example: request throttled
       required:
         - error
+    ErrorVisitor404Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          title: ErrorVisitor404ResponseError
+          properties:
+            code:
+              type: string
+              description: >
+                Error code: * `VisitorNotFound` - The specified visitor ID was
+                not found. It never existed or it may have already been deleted.
+              enum:
+                - VisitorNotFound
+              example: VisitorNotFound
+            message:
+              type: string
+              example: visitor not found
+          required:
+            - code
+            - message
+    ErrorVisitor400Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: >
+                Error code: * `RequestCannotBeParsed` - The visitor ID parameter
+                is missing or in the wrong format.
+              enum:
+                - RequestCannotBeParsed
+              example: RequestCannotBeParsed
+            message:
+              type: string
+              example: invalid visitor id
+          required:
+            - code
+            - message
     WebhookVisit:
       type: object
       properties:
@@ -674,6 +766,12 @@ components:
           $ref: '#/components/schemas/LocationSpoofingResult'
         suspectScore:
           $ref: '#/components/schemas/SuspectScoreResult'
+        remoteControl:
+          $ref: '#/components/schemas/RemoteControlResult'
+        velocity:
+          $ref: '#/components/schemas/VelocityResult'
+        developerTools:
+          $ref: '#/components/schemas/DeveloperToolsResult'
         requestId:
           description: Unique identifier of the user's identification request.
           type: string
@@ -778,7 +876,6 @@ components:
         - time
         - timestamp
         - url
-        - tag
         - visitorFound
     Visit:
       type: object
@@ -889,7 +986,6 @@ components:
         - time
         - timestamp
         - url
-        - tag
         - visitorFound
       title: Visit
     BrowserDetails:
@@ -942,6 +1038,12 @@ components:
           format: float
           minimum: 0
           maximum: 1
+        revision:
+          description: >-
+            The revision name of the method used to calculate the Confidence
+            score. This field is only present for customers who opted in to an
+            alternative calculation method.
+          type: string
       required:
         - score
       title: Confidence
@@ -1203,9 +1305,9 @@ components:
                 - time
                 - timestamp
                 - url
-                - tag
                 - visitorFound
                 - visitorId
+                - tag
             error:
               $ref: '#/components/schemas/IdentificationError'
         botd:
@@ -1234,7 +1336,7 @@ components:
             data:
               $ref: '#/components/schemas/IncognitoResult'
             error:
-              $ref: '#/components/schemas/ProductError'
+              $ref: '#/components/schemas/IdentificationError'
         rootApps:
           title: SignalResponseRootApps
           type: object
@@ -1351,7 +1453,7 @@ components:
             data:
               $ref: '#/components/schemas/TamperingResult'
             error:
-              $ref: '#/components/schemas/ProductError'
+              $ref: '#/components/schemas/IdentificationError'
         highActivity:
           title: SignalResponseHighActivity
           type: object
@@ -1386,6 +1488,33 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/RawDeviceAttributesResult'
+            error:
+              $ref: '#/components/schemas/IdentificationError'
+        remoteControl:
+          title: SignalResponseRemoteControl
+          type: object
+          additionalProperties: false
+          properties:
+            data:
+              $ref: '#/components/schemas/RemoteControlResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
+        velocity:
+          title: SignalResponseVelocity
+          type: object
+          additionalProperties: false
+          properties:
+            data:
+              $ref: '#/components/schemas/VelocityResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
+        developerTools:
+          title: SignalResponseDeveloperTools
+          type: object
+          additionalProperties: false
+          properties:
+            data:
+              $ref: '#/components/schemas/DeveloperToolsResult'
             error:
               $ref: '#/components/schemas/ProductError'
     EventResponse:
@@ -1582,8 +1711,8 @@ components:
             timezoneMismatch:
               type: boolean
               description: >-
-                User's browser timezone doesn't match the timezone from which
-                the request was originally made.
+                The browser timezone doesn't match the timezone inferred from
+                the request IP address.
               example: false
             publicVPN:
               type: boolean
@@ -1597,10 +1726,17 @@ components:
                 This method applies to mobile devices only. Indicates the result
                 of additional methods used to detect a VPN in mobile devices.
               example: false
+            osMismatch:
+              type: boolean
+              description: >-
+                The browser runs on a different operating system than the
+                operating system inferred from the  request network signature.
+              example: false
           required:
             - timezoneMismatch
             - publicVPN
             - auxiliaryMobile
+            - osMismatch
       required:
         - result
         - originTimezone
@@ -1672,6 +1808,36 @@ components:
           example: 0
       required:
         - result
+    VelocityResult:
+      type: object
+      description: >
+        Sums key data points for a specific `visitorId` at three distinct time
+        intervals: 5 minutes, 1 hour, and 24 hours as follows: 
+
+        - Number of identification events attributed to the visitor ID - Number
+        of distinct IP addresses associated to the visitor ID. - Number of
+        distinct countries associated with the visitor ID. - Number of distinct
+        `linkedId`s associated with the visitor ID.
+
+        The `24h` interval of `distinctIp`, `distinctLinkedId`, and
+        `distinctCountry` will be omitted if the number of `events` for the
+        visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher
+        than 20.000.
+      additionalProperties: false
+      properties:
+        distinctIp:
+          $ref: '#/components/schemas/VelocityIntervals'
+        distinctLinkedId:
+          $ref: '#/components/schemas/VelocityIntervals'
+        distinctCountry:
+          $ref: '#/components/schemas/VelocityIntervals'
+        events:
+          $ref: '#/components/schemas/VelocityIntervals'
+      required:
+        - distinctIp
+        - distinctLinkedId
+        - distinctCountry
+        - events
     RawDeviceAttributesResult:
       type: object
       description: >
@@ -1709,19 +1875,27 @@ components:
       additionalProperties: false
       properties:
         time:
-          title: Time
           description: >
-            Time in UTC when the most recent factory reset of the Android or iOS
-            device was done.  If there is no sign of factory reset or the client
-            is not a mobile device, the field will contain the epoch time (1
-            January 1970) in UTC.
+            Indicates the time (in UTC) of the most recent factory reset that
+            happened on the **mobile device**. 
+
+            When a factory reset cannot be detected on the mobile device or when
+            the request is initiated from a browser, this field will correspond
+            to the *epoch* time (i.e 1 Jan 1970 UTC).
+
+            See [Factory Reset
+            Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection)
+            to learn more about this Smart Signal.
           type: string
           format: date-time
           example: '2022-06-09T22:58:36Z'
         timestamp:
-          description: >-
-            Same value as it's in the `time` field but represented in timestamp
-            format.
+          description: >
+            This field is just another representation of the value in the `time`
+            field.
+
+            The time of the most recent factory reset that happened on the
+            **mobile device** is expressed as Unix epoch time.       
           type: integer
           format: int64
           example: 1654815517198
@@ -1877,3 +2051,126 @@ components:
       required:
         - code
         - message
+    RemoteControlResult:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request came from a machine being remotely controlled
+            (e.g. TeamViewer), `false` otherwise.
+          example: false
+      required:
+        - result
+    DeveloperToolsResult:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the browser is Chrome with DevTools open or Firefox with
+            Developer Tools open, `false` otherwise.
+          example: false
+      required:
+        - result
+    EventUpdateRequest:
+      type: object
+      properties:
+        linkedId:
+          type: string
+          description: LinkedID value to assign to the existing event
+        tag:
+          type: object
+          description: >-
+            Full `tag` value to be set to the existing event. Replaces any
+            existing `tag` payload completely.
+        suspect:
+          type: boolean
+          description: Suspect flag indicating observed suspicious or fraudulent event
+    ErrorUpdateEvent400Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          title: ErrorUpdateEvent400ResponseError
+          properties:
+            code:
+              type: string
+              description: >
+                Error code: * `RequestCannotBeParsed` - the JSON content of the
+                request contains some errors that prevented us from parsing it
+                (wrong type/surpassed limits) * `Failed` - the event is more
+                than 10 days old and cannot be updated
+              enum:
+                - RequestCannotBeParsed
+                - Failed
+              example: RequestCannotBeParsed
+            message:
+              type: string
+              description: Details about the underlying issue with the input payload
+              example: suspect flag must be a boolean
+          required:
+            - code
+            - message
+    ErrorUpdateEvent409Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          title: ErrorUpdateEvent409ResponseError
+          properties:
+            code:
+              type: string
+              description: >
+                Error code: * `StateNotReady` - The event specified with request
+                id is not ready for updates yet. Try again.
+
+                This error happens in rare cases when update API is called
+                immediately after receiving the request id on the client. In
+                case you need to send information right away, we recommend using
+                the JS agent API instead.
+              enum:
+                - StateNotReady
+              example: StateNotReady
+            message:
+              type: string
+              example: resource is not mutable yet, try again
+          required:
+            - code
+            - message
+    VelocityIntervals:
+      type: object
+      additionalProperties: false
+      properties:
+        intervals:
+          $ref: '#/components/schemas/VelocityIntervalResult'
+    VelocityIntervalResult:
+      type: object
+      description: >
+        Is absent if the velocity data could not be generated for the visitor
+        ID.
+      additionalProperties: false
+      properties:
+        5m:
+          type: integer
+          example: 1
+        1h:
+          type: integer
+          example: 1
+        24h:
+          type: integer
+          description: >
+            The `24h` interval of `distinctIp`, `distinctLinkedId`, and
+            `distinctCountry` will be omitted if the number of `events`` for the
+            visitor ID in the last 24 hours (`events.intervals.['24h']`) is
+            higher than 20.000.
+          example: 1
+      required:
+        - 5m
+        - 1h
