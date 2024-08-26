@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getEvent**](FingerprintApi.md#getEvent) | **GET** /events/{request_id} | Get event by request ID
 [**getVisits**](FingerprintApi.md#getVisits) | **GET** /visitors/{visitor_id} | Get visits by visitor ID
+[**updateEvent**](FingerprintApi.md#updateEvent) | **PUT** /events/{request_id} | Update an event with a given request ID
 
 # **getEvent**
 >  [ \Fingerprint\ServerAPI\Model\EventResponse, \Psr\Http\Message\ResponseInterface ] getEvent($request_id)
@@ -137,6 +138,69 @@ Array:
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateEvent**
+> updateEvent($body, $request_id)
+
+Update an event with a given request ID
+
+Change information in existing events specified by `requestId` or *flag suspicious events*.  When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.  **Warning** It's not possible to update events older than 10 days.
+
+### Example
+```php
+<?php
+
+require_once(__DIR__ . '/vendor/autoload.php');
+
+const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
+
+// Import Fingerprint Classes and Guzzle HTTP Client
+use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Configuration;
+use GuzzleHttp\Client;
+
+// Create new Configuration instance with defaultValues, added our API Secret and our Region
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
+$client = new FingerprintApi(
+    new Client(),
+$config
+);
+
+$body = new \Fingerprint\ServerAPI\Model\EventUpdateRequest(); // \Fingerprint\ServerAPI\Model\EventUpdateRequest | 
+$request_id = "request_id_example"; // string | The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid).
+
+try {
+    $client->updateEvent($body, $request_id);
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->updateEvent: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**\Fingerprint\ServerAPI\Model\EventUpdateRequest**](../Model/EventUpdateRequest.md)|  |
+ **request_id** | **string**| The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid). |
+
+### Return type
+
+Array:
+0. null,
+1. \Psr\Http\Message\ResponseInterface
+
+
+### Authorization
+
+[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

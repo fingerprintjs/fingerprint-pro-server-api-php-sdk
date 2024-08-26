@@ -30,6 +30,7 @@ namespace Fingerprint\ServerAPI\Api;
 
 use Fingerprint\ServerAPI\ApiException;
 use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerAPI\Model\EventUpdateRequest;
 use Fingerprint\ServerAPI\ObjectSerializer;
 use Fingerprint\ServerAPI\SerializationException;
 use GuzzleHttp\Client;
@@ -389,6 +390,172 @@ class FingerprintApi
     }
 
     /**
+     * Operation updateEvent.
+     *
+     * Update an event with a given request ID
+     *
+     * @param EventUpdateRequest $body       (required)
+     * @param string             $request_id The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid). (required)
+     *
+     * @return array{ null, \Psr\Http\Message\ResponseInterface }
+     *
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     * @throws GuzzleException
+     */
+    public function updateEvent(EventUpdateRequest $body, string $request_id): array
+    {
+        $returnType = '';
+        $request = $this->updateEventRequest($body, $request_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                $apiException = new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode()
+                );
+                $apiException->setResponseObject($e->getResponse());
+
+                throw $apiException;
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                $apiException = new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode
+                );
+                $apiException->setResponseObject($response);
+
+                throw $apiException;
+            }
+
+            return [null, $response];
+        } catch (ApiException $e) {
+            /** @var ResponseInterface $response */
+            $response = $e->getResponseObject();
+
+            switch ($e->getCode()) {
+                case 400:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorUpdateEvent400Response');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 403:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorCommon403Response');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 404:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorEvent404Response');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 409:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorUpdateEvent409Response');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateEventAsync.
+     *
+     * Update an event with a given request ID
+     *
+     * @param EventUpdateRequest $body       (required)
+     * @param string             $request_id The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid). (required)
+     *
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     */
+    public function updateEventAsync(EventUpdateRequest $body, string $request_id): PromiseInterface
+    {
+        $returnType = '';
+        $request = $this->updateEventRequest($body, $request_id);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($request) {
+                    $statusCode = $response->getStatusCode();
+
+                    if ($statusCode < 200 || $statusCode > 299) {
+                        $apiException = new ApiException(
+                            sprintf(
+                                '[%d] Error connecting to the API (%s)',
+                                $statusCode,
+                                $request->getUri()
+                            ),
+                            $statusCode
+                        );
+                        $apiException->setResponseObject($response);
+
+                        throw $apiException;
+                    }
+
+                    return [null, $response];
+                },
+                function ($e) {
+                    /** @var ResponseInterface $response */
+                    $response = $e->getResponseObject();
+
+                    switch ($e->getCode()) {
+                        case 400:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorUpdateEvent400Response');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 403:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorCommon403Response');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 404:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorEvent404Response');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 409:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorUpdateEvent409Response');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+                    }
+
+                    throw $e;
+                }
+            );
+    }
+
+    /**
      * Create request for operation 'getEvent'.
      *
      * @throws \InvalidArgumentException
@@ -533,6 +700,88 @@ class FingerprintApi
 
         return new Request(
             'GET',
+            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Create request for operation 'updateEvent'.
+     *
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     */
+    protected function updateEventRequest(EventUpdateRequest $body, string $request_id): Request
+    {
+        // verify the required parameter 'body' is set
+        if (null === $body || (is_array($body) && 0 === count($body))) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling updateEvent'
+            );
+        }
+        // verify the required parameter 'request_id' is set
+        if (null === $request_id || (is_array($request_id) && 0 === count($request_id))) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $request_id when calling updateEvent'
+            );
+        }
+
+        $resourcePath = '/events/{request_id}';
+        $headers = [];
+        $queryParams = ['ii' => $this->integration_info];
+        $headerParams = [];
+        $httpBody = '';
+
+        // path params
+        if (null !== $request_id) {
+            $resourcePath = str_replace(
+                '{request_id}',
+                ObjectSerializer::toPathValue($request_id),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+        if (isset($body)) {
+            $_tempBody = $body;
+        }
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = json_encode($_tempBody);
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Auth-API-Key');
+        if (null !== $apiKey) {
+            $headers['Auth-API-Key'] = $apiKey;
+        }
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('api_key');
+        if (null !== $apiKey) {
+            $queryParams['api_key'] = $apiKey;
+        }
+
+        $defaultHeaders = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = http_build_query($queryParams);
+
+        return new Request(
+            'PUT',
             $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
             $headers,
             $httpBody

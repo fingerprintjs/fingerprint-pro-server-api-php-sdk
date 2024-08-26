@@ -79,6 +79,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorEvent404Response'
+    put:
+      tags:
+        - Fingerprint
+      operationId: updateEvent
+      summary: Update an event with a given request ID
+      description: >
+        Change information in existing events specified by `requestId` or *flag
+        suspicious events*.
+
+
+        When an event is created, it is assigned `linkedId` and `tag` submitted
+        through the JS agent parameters. This information might not be available
+        on the client so the Server API allows for updating the attributes after
+        the fact.
+
+
+        **Warning** It's not possible to update events older than 10 days.
+      parameters:
+        - name: request_id
+          in: path
+          description: >-
+            The unique event
+            [identifier](https://dev.fingerprint.com/docs/js-agent#requestid).
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpdateRequest'
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUpdateEvent400Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCommon403Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEvent404Response'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUpdateEvent409Response'
   /visitors/{visitor_id}:
     get:
       tags:
