@@ -281,6 +281,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TooManyRequestsResponse'
+    delete:
+      tags:
+        - Fingerprint
+      operationId: deleteVisitorData
+      summary: Delete data by visitor ID
+      description: >
+        Request deleting all data associated with the specified visitor ID. This
+        API is useful for compliance with privacy regulations.
+
+        All delete requests are queued: 
+
+
+        * Recent data (10 days or newer) belonging to the specified visitor will
+        be deleted within 24 hours.
+
+        * Data from older (11 days or more) identification events  will be
+        deleted after 90 days.
+
+
+        If you are interested in using this API, please [contact our support
+        team](https://fingerprint.com/support/) to enable it for you. Otherwise,
+        you will receive a 403.
+      parameters:
+        - name: visitor_id
+          in: path
+          description: >-
+            The [visitor
+            ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to
+            delete.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK. The visitor ID is scheduled for deletion.
+        '400':
+          description: >-
+            Bad request. The visitor ID parameter is missing or in the wrong
+            format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVisitor400Response'
+        '403':
+          description: Forbidden. Access to this API is denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCommon403Response'
+        '404':
+          description: >-
+            Not found. The visitor ID cannot be found in this application's
+            data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVisitor404Response'
+        '429':
+          description: Too Many Requests. The request is throttled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCommon429Response'
   /webhook:
     trace:
       tags:

@@ -4,9 +4,71 @@ All URIs are relative to *https://api.fpjs.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**deleteVisitorData**](FingerprintApi.md#deleteVisitorData) | **DELETE** /visitors/{visitor_id} | Delete data by visitor ID
 [**getEvent**](FingerprintApi.md#getEvent) | **GET** /events/{request_id} | Get event by request ID
 [**getVisits**](FingerprintApi.md#getVisits) | **GET** /visitors/{visitor_id} | Get visits by visitor ID
 [**updateEvent**](FingerprintApi.md#updateEvent) | **PUT** /events/{request_id} | Update an event with a given request ID
+
+# **deleteVisitorData**
+> deleteVisitorData($visitor_id)
+
+Delete data by visitor ID
+
+Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. All delete requests are queued:   * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours. * Data from older (11 days or more) identification events  will be deleted after 90 days.  If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
+
+### Example
+```php
+<?php
+
+require_once(__DIR__ . '/vendor/autoload.php');
+
+const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
+
+// Import Fingerprint Classes and Guzzle HTTP Client
+use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Configuration;
+use GuzzleHttp\Client;
+
+// Create new Configuration instance with defaultValues, added our API Secret and our Region
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
+$client = new FingerprintApi(
+    new Client(),
+$config
+);
+
+$visitor_id = "visitor_id_example"; // string | The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete.
+
+try {
+    $client->deleteVisitorData($visitor_id);
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->deleteVisitorData: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **visitor_id** | **string**| The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete. |
+
+### Return type
+
+Array:
+0. null,
+1. \Psr\Http\Message\ResponseInterface
+
+
+### Authorization
+
+[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getEvent**
 >  [ \Fingerprint\ServerAPI\Model\EventResponse, \Psr\Http\Message\ResponseInterface ] getEvent($request_id)
