@@ -83,6 +83,7 @@ class FingerprintApi
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
+     * @throws ApiException
      */
     public function deleteVisitorData(string $visitor_id): array
     {
@@ -168,6 +169,8 @@ class FingerprintApi
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
     public function deleteVisitorDataAsync(string $visitor_id): PromiseInterface
     {
@@ -247,6 +250,7 @@ class FingerprintApi
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
+     * @throws ApiException
      */
     public function getEvent(string $request_id): array
     {
@@ -327,6 +331,8 @@ class FingerprintApi
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
     public function getEventAsync(string $request_id): PromiseInterface
     {
@@ -406,6 +412,7 @@ class FingerprintApi
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
+     * @throws ApiException
      */
     public function getVisits(string $visitor_id, ?string $request_id = null, ?string $linked_id = null, ?int $limit = null, ?string $pagination_key = null, ?int $before = null): array
     {
@@ -491,6 +498,8 @@ class FingerprintApi
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
     public function getVisitsAsync(string $visitor_id, ?string $request_id = null, ?string $linked_id = null, ?int $limit = null, ?string $pagination_key = null, ?int $before = null): PromiseInterface
     {
@@ -566,6 +575,7 @@ class FingerprintApi
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
+     * @throws ApiException
      */
     public function updateEvent(EventUpdateRequest $body, string $request_id): array
     {
@@ -652,6 +662,8 @@ class FingerprintApi
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
     public function updateEventAsync(EventUpdateRequest $body, string $request_id): PromiseInterface
     {
@@ -724,6 +736,8 @@ class FingerprintApi
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
     protected function deleteVisitorDataRequest(string $visitor_id): Request
     {
@@ -789,6 +803,8 @@ class FingerprintApi
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
     protected function getEventRequest(string $request_id): Request
     {
@@ -854,6 +870,8 @@ class FingerprintApi
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
     protected function getVisitsRequest(string $visitor_id, ?string $request_id = null, ?string $linked_id = null, ?int $limit = null, ?string $pagination_key = null, ?int $before = null): Request
     {
@@ -940,6 +958,8 @@ class FingerprintApi
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
     protected function updateEventRequest(EventUpdateRequest $body, string $request_id): Request
     {
