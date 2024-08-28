@@ -137,6 +137,14 @@ use \GuzzleHttp\Exception\GuzzleException;
                     {{/dataType}}
                 {{/responses}}
                 }
+
+                if ($e->getCode() === 429) {
+                    $e->setRetryAfter(1);
+                    if ($response->hasHeader('retry-after')) {
+                        $e->setRetryAfter((int)$response->getHeader('retry-after'));
+                    }
+                }
+
                 throw $e;
             }
     }
@@ -203,6 +211,14 @@ use \GuzzleHttp\Exception\GuzzleException;
                         {{/dataType}}
                     {{/responses}}
                     }
+
+                    if ($e->getCode() === 429) {
+                        $e->setRetryAfter(1);
+                        if ($response->hasHeader('retry-after')) {
+                            $e->setRetryAfter((int)$response->getHeader('retry-after'));
+                        }
+                    }
+
                     throw $e;
                 }
             );
