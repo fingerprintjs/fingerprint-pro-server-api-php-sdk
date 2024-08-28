@@ -43,7 +43,7 @@ use Psr\Http\Message\ResponseInterface;
 class ApiException extends \Exception
 {
     protected ResponseInterface $responseObject;
-    protected ModelInterface $errorDetails;
+    protected ?ModelInterface $errorDetails = null;
 
     public function __construct(?string $message = '', ?int $code = 0)
     {
