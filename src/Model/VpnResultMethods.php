@@ -53,7 +53,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     protected static array $swaggerTypes = [
         'timezone_mismatch' => 'bool',
         'public_vpn' => 'bool',
-        'auxiliary_mobile' => 'bool'];
+        'auxiliary_mobile' => 'bool',
+        'os_mismatch' => 'bool'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -63,7 +64,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     protected static array $swaggerFormats = [
         'timezone_mismatch' => null,
         'public_vpn' => null,
-        'auxiliary_mobile' => null];
+        'auxiliary_mobile' => null,
+        'os_mismatch' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -74,7 +76,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     protected static array $attributeMap = [
         'timezone_mismatch' => 'timezoneMismatch',
         'public_vpn' => 'publicVPN',
-        'auxiliary_mobile' => 'auxiliaryMobile'];
+        'auxiliary_mobile' => 'auxiliaryMobile',
+        'os_mismatch' => 'osMismatch'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -84,7 +87,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     protected static array $setters = [
         'timezone_mismatch' => 'setTimezoneMismatch',
         'public_vpn' => 'setPublicVpn',
-        'auxiliary_mobile' => 'setAuxiliaryMobile'];
+        'auxiliary_mobile' => 'setAuxiliaryMobile',
+        'os_mismatch' => 'setOsMismatch'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -94,7 +98,8 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     protected static array $getters = [
         'timezone_mismatch' => 'getTimezoneMismatch',
         'public_vpn' => 'getPublicVpn',
-        'auxiliary_mobile' => 'getAuxiliaryMobile'];
+        'auxiliary_mobile' => 'getAuxiliaryMobile',
+        'os_mismatch' => 'getOsMismatch'];
 
     /**
      * Associative array for storing property values.
@@ -114,6 +119,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
         $this->container['timezone_mismatch'] = isset($data['timezone_mismatch']) ? $data['timezone_mismatch'] : null;
         $this->container['public_vpn'] = isset($data['public_vpn']) ? $data['public_vpn'] : null;
         $this->container['auxiliary_mobile'] = isset($data['auxiliary_mobile']) ? $data['auxiliary_mobile'] : null;
+        $this->container['os_mismatch'] = isset($data['os_mismatch']) ? $data['os_mismatch'] : null;
     }
 
     /**
@@ -198,6 +204,9 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
         if (null === $this->container['auxiliary_mobile']) {
             $invalidProperties[] = "'auxiliary_mobile' can't be null";
         }
+        if (null === $this->container['os_mismatch']) {
+            $invalidProperties[] = "'os_mismatch' can't be null";
+        }
 
         return $invalidProperties;
     }
@@ -224,7 +233,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     /**
      * Sets timezone_mismatch.
      *
-     * @param bool $timezone_mismatch user's browser timezone doesn't match the timezone from which the request was originally made
+     * @param bool $timezone_mismatch the browser timezone doesn't match the timezone inferred from the request IP address
      *
      * @return $this
      */
@@ -275,6 +284,28 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
     public function setAuxiliaryMobile(bool $auxiliary_mobile): self
     {
         $this->container['auxiliary_mobile'] = $auxiliary_mobile;
+
+        return $this;
+    }
+
+    /**
+     * Gets os_mismatch.
+     */
+    public function getOsMismatch(): bool
+    {
+        return $this->container['os_mismatch'];
+    }
+
+    /**
+     * Sets os_mismatch.
+     *
+     * @param bool $os_mismatch the browser runs on a different operating system than the operating system inferred from the  request network signature
+     *
+     * @return $this
+     */
+    public function setOsMismatch(bool $os_mismatch): self
+    {
+        $this->container['os_mismatch'] = $os_mismatch;
 
         return $this;
     }

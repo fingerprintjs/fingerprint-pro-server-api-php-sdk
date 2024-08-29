@@ -73,7 +73,10 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
         'high_activity' => '\Fingerprint\ServerAPI\Model\SignalResponseHighActivity',
         'location_spoofing' => '\Fingerprint\ServerAPI\Model\SignalResponseLocationSpoofing',
         'suspect_score' => '\Fingerprint\ServerAPI\Model\SignalResponseSuspectScore',
-        'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes'];
+        'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\SignalResponseRawDeviceAttributes',
+        'remote_control' => '\Fingerprint\ServerAPI\Model\SignalResponseRemoteControl',
+        'velocity' => '\Fingerprint\ServerAPI\Model\SignalResponseVelocity',
+        'developer_tools' => '\Fingerprint\ServerAPI\Model\SignalResponseDeveloperTools'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -101,7 +104,10 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
         'high_activity' => null,
         'location_spoofing' => null,
         'suspect_score' => null,
-        'raw_device_attributes' => null];
+        'raw_device_attributes' => null,
+        'remote_control' => null,
+        'velocity' => null,
+        'developer_tools' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -130,7 +136,10 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
         'high_activity' => 'highActivity',
         'location_spoofing' => 'locationSpoofing',
         'suspect_score' => 'suspectScore',
-        'raw_device_attributes' => 'rawDeviceAttributes'];
+        'raw_device_attributes' => 'rawDeviceAttributes',
+        'remote_control' => 'remoteControl',
+        'velocity' => 'velocity',
+        'developer_tools' => 'developerTools'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -158,7 +167,10 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
         'high_activity' => 'setHighActivity',
         'location_spoofing' => 'setLocationSpoofing',
         'suspect_score' => 'setSuspectScore',
-        'raw_device_attributes' => 'setRawDeviceAttributes'];
+        'raw_device_attributes' => 'setRawDeviceAttributes',
+        'remote_control' => 'setRemoteControl',
+        'velocity' => 'setVelocity',
+        'developer_tools' => 'setDeveloperTools'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -186,7 +198,10 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
         'high_activity' => 'getHighActivity',
         'location_spoofing' => 'getLocationSpoofing',
         'suspect_score' => 'getSuspectScore',
-        'raw_device_attributes' => 'getRawDeviceAttributes'];
+        'raw_device_attributes' => 'getRawDeviceAttributes',
+        'remote_control' => 'getRemoteControl',
+        'velocity' => 'getVelocity',
+        'developer_tools' => 'getDeveloperTools'];
 
     /**
      * Associative array for storing property values.
@@ -224,6 +239,9 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
         $this->container['location_spoofing'] = isset($data['location_spoofing']) ? $data['location_spoofing'] : null;
         $this->container['suspect_score'] = isset($data['suspect_score']) ? $data['suspect_score'] : null;
         $this->container['raw_device_attributes'] = isset($data['raw_device_attributes']) ? $data['raw_device_attributes'] : null;
+        $this->container['remote_control'] = isset($data['remote_control']) ? $data['remote_control'] : null;
+        $this->container['velocity'] = isset($data['velocity']) ? $data['velocity'] : null;
+        $this->container['developer_tools'] = isset($data['developer_tools']) ? $data['developer_tools'] : null;
     }
 
     /**
@@ -811,6 +829,78 @@ class ProductsResponse implements ModelInterface, \ArrayAccess
     public function setRawDeviceAttributes(?SignalResponseRawDeviceAttributes $raw_device_attributes): self
     {
         $this->container['raw_device_attributes'] = $raw_device_attributes;
+
+        return $this;
+    }
+
+    /**
+     * Gets remote_control.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseRemoteControl
+     */
+    public function getRemoteControl(): ?SignalResponseRemoteControl
+    {
+        return $this->container['remote_control'];
+    }
+
+    /**
+     * Sets remote_control.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseRemoteControl $remote_control remote_control
+     *
+     * @return $this
+     */
+    public function setRemoteControl(?SignalResponseRemoteControl $remote_control): self
+    {
+        $this->container['remote_control'] = $remote_control;
+
+        return $this;
+    }
+
+    /**
+     * Gets velocity.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseVelocity
+     */
+    public function getVelocity(): ?SignalResponseVelocity
+    {
+        return $this->container['velocity'];
+    }
+
+    /**
+     * Sets velocity.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseVelocity $velocity velocity
+     *
+     * @return $this
+     */
+    public function setVelocity(?SignalResponseVelocity $velocity): self
+    {
+        $this->container['velocity'] = $velocity;
+
+        return $this;
+    }
+
+    /**
+     * Gets developer_tools.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SignalResponseDeveloperTools
+     */
+    public function getDeveloperTools(): ?SignalResponseDeveloperTools
+    {
+        return $this->container['developer_tools'];
+    }
+
+    /**
+     * Sets developer_tools.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\SignalResponseDeveloperTools $developer_tools developer_tools
+     *
+     * @return $this
+     */
+    public function setDeveloperTools(?SignalResponseDeveloperTools $developer_tools): self
+    {
+        $this->container['developer_tools'] = $developer_tools;
 
         return $this;
     }

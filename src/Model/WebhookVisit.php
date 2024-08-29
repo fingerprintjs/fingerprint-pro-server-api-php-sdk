@@ -74,6 +74,9 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
         'high_activity' => '\Fingerprint\ServerAPI\Model\HighActivityResult',
         'location_spoofing' => '\Fingerprint\ServerAPI\Model\LocationSpoofingResult',
         'suspect_score' => '\Fingerprint\ServerAPI\Model\SuspectScoreResult',
+        'remote_control' => '\Fingerprint\ServerAPI\Model\RemoteControlResult',
+        'velocity' => '\Fingerprint\ServerAPI\Model\VelocityResult',
+        'developer_tools' => '\Fingerprint\ServerAPI\Model\DeveloperToolsResult',
         'request_id' => 'string',
         'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
         'ip' => 'string',
@@ -117,6 +120,9 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
         'high_activity' => null,
         'location_spoofing' => null,
         'suspect_score' => null,
+        'remote_control' => null,
+        'velocity' => null,
+        'developer_tools' => null,
         'request_id' => null,
         'browser_details' => null,
         'ip' => 'ipv4',
@@ -161,6 +167,9 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
         'high_activity' => 'highActivity',
         'location_spoofing' => 'locationSpoofing',
         'suspect_score' => 'suspectScore',
+        'remote_control' => 'remoteControl',
+        'velocity' => 'velocity',
+        'developer_tools' => 'developerTools',
         'request_id' => 'requestId',
         'browser_details' => 'browserDetails',
         'ip' => 'ip',
@@ -204,6 +213,9 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
         'high_activity' => 'setHighActivity',
         'location_spoofing' => 'setLocationSpoofing',
         'suspect_score' => 'setSuspectScore',
+        'remote_control' => 'setRemoteControl',
+        'velocity' => 'setVelocity',
+        'developer_tools' => 'setDeveloperTools',
         'request_id' => 'setRequestId',
         'browser_details' => 'setBrowserDetails',
         'ip' => 'setIp',
@@ -247,6 +259,9 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
         'high_activity' => 'getHighActivity',
         'location_spoofing' => 'getLocationSpoofing',
         'suspect_score' => 'getSuspectScore',
+        'remote_control' => 'getRemoteControl',
+        'velocity' => 'getVelocity',
+        'developer_tools' => 'getDeveloperTools',
         'request_id' => 'getRequestId',
         'browser_details' => 'getBrowserDetails',
         'ip' => 'getIp',
@@ -299,6 +314,9 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
         $this->container['high_activity'] = isset($data['high_activity']) ? $data['high_activity'] : null;
         $this->container['location_spoofing'] = isset($data['location_spoofing']) ? $data['location_spoofing'] : null;
         $this->container['suspect_score'] = isset($data['suspect_score']) ? $data['suspect_score'] : null;
+        $this->container['remote_control'] = isset($data['remote_control']) ? $data['remote_control'] : null;
+        $this->container['velocity'] = isset($data['velocity']) ? $data['velocity'] : null;
+        $this->container['developer_tools'] = isset($data['developer_tools']) ? $data['developer_tools'] : null;
         $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $this->container['browser_details'] = isset($data['browser_details']) ? $data['browser_details'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
@@ -410,9 +428,6 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
         }
         if (null === $this->container['url']) {
             $invalidProperties[] = "'url' can't be null";
-        }
-        if (null === $this->container['tag']) {
-            $invalidProperties[] = "'tag' can't be null";
         }
         if (null === $this->container['visitor_found']) {
             $invalidProperties[] = "'visitor_found' can't be null";
@@ -987,6 +1002,78 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     }
 
     /**
+     * Gets remote_control.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\RemoteControlResult
+     */
+    public function getRemoteControl(): ?RemoteControlResult
+    {
+        return $this->container['remote_control'];
+    }
+
+    /**
+     * Sets remote_control.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\RemoteControlResult $remote_control remote_control
+     *
+     * @return $this
+     */
+    public function setRemoteControl(?RemoteControlResult $remote_control): self
+    {
+        $this->container['remote_control'] = $remote_control;
+
+        return $this;
+    }
+
+    /**
+     * Gets velocity.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\VelocityResult
+     */
+    public function getVelocity(): ?VelocityResult
+    {
+        return $this->container['velocity'];
+    }
+
+    /**
+     * Sets velocity.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\VelocityResult $velocity velocity
+     *
+     * @return $this
+     */
+    public function setVelocity(?VelocityResult $velocity): self
+    {
+        $this->container['velocity'] = $velocity;
+
+        return $this;
+    }
+
+    /**
+     * Gets developer_tools.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\DeveloperToolsResult
+     */
+    public function getDeveloperTools(): ?DeveloperToolsResult
+    {
+        return $this->container['developer_tools'];
+    }
+
+    /**
+     * Sets developer_tools.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\DeveloperToolsResult $developer_tools developer_tools
+     *
+     * @return $this
+     */
+    public function setDeveloperTools(?DeveloperToolsResult $developer_tools): self
+    {
+        $this->container['developer_tools'] = $developer_tools;
+
+        return $this;
+    }
+
+    /**
      * Gets request_id.
      */
     public function getRequestId(): string
@@ -1145,9 +1232,9 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Gets tag.
      *
-     * @return map[string,object]
+     * @return ?map[string,object]
      */
-    public function getTag(): array
+    public function getTag(): ?array
     {
         return $this->container['tag'];
     }
@@ -1155,11 +1242,11 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
     /**
      * Sets tag.
      *
-     * @param map[string,object] $tag A customer-provided value or an object that was sent with identification request
+     * @param ?map[string,object] $tag A customer-provided value or an object that was sent with identification request
      *
      * @return $this
      */
-    public function setTag(array $tag): self
+    public function setTag(?array $tag): self
     {
         $this->container['tag'] = $tag;
 

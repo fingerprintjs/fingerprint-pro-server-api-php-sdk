@@ -1,0 +1,222 @@
+{
+  "requestId": "Px6VxbRC6WBkA39yeNH3",
+  "tag": {
+    "requestType": "signup",
+    "yourCustomId": 45321
+  },
+  "linkedId": "any-string",
+  "visitorId": "3HNey93AkBW6CRbxV6xP",
+  "visitorFound": true,
+  "timestamp": 1554910997788,
+  "time": "2019-10-12T07:20:50.52Z",
+  "incognito": false,
+  "url": "https://banking.example.com/signup",
+  "clientReferrer": "https://google.com?search=banking+services",
+  "ip": "216.3.128.12",
+  "ipLocation": {
+    "accuracyRadius": 1,
+    "city": {
+      "name": "Bolingbrook"
+    },
+    "continent": {
+      "code": "NA",
+      "name": "North America"
+    },
+    "country": {
+      "code": "US",
+      "name": "United States"
+    },
+    "latitude": 41.12933,
+    "longitude": -88.9954,
+    "postalCode": "60547",
+    "subdivisions": [
+      {
+        "isoCode": "IL",
+        "name": "Illinois"
+      }
+    ],
+    "timezone": "America/Chicago"
+  },
+  "browserDetails": {
+    "browserName": "Chrome",
+    "browserFullVersion": "73.0.3683.86",
+    "browserMajorVersion": "73",
+    "os": "Mac OS X",
+    "osVersion": "10.14.3",
+    "device": "Other",
+    "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86"
+  },
+  "confidence": {
+    "score": 0.97
+  },
+  "firstSeenAt": {
+    "global": "2022-03-16T11:26:45.362Z",
+    "subscription": "2022-03-16T11:31:01.101Z"
+  },
+  "lastSeenAt": {
+    "global": "2022-03-16T11:28:34.023Z",
+    "subscription": null
+  },
+  "bot": {
+    "result": "bad",
+    "type": "selenium"
+  },
+  "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
+  "ipInfo": {
+    "v4": {
+      "address": "94.142.239.124",
+      "geolocation": {
+        "accuracyRadius": 20,
+        "latitude": 50.05,
+        "longitude": 14.4,
+        "postalCode": "150 00",
+        "timezone": "Europe/Prague",
+        "city": {
+          "name": "Prague"
+        },
+        "country": {
+          "code": "CZ",
+          "name": "Czechia"
+        },
+        "continent": {
+          "code": "EU",
+          "name": "Europe"
+        },
+        "subdivisions": [
+          {
+            "isoCode": "10",
+            "name": "Hlavni mesto Praha"
+          }
+        ]
+      },
+      "asn": {
+        "asn": "7922",
+        "name": "COMCAST-7922",
+        "network": "73.136.0.0/13"
+      },
+      "datacenter": {
+        "result": true,
+        "name": "DediPath"
+      }
+    }
+  },
+  "rootApps": {
+    "result": false
+  },
+  "emulator": {
+    "result": false
+  },
+  "ipBlocklist": {
+    "result": false,
+    "details": {
+      "emailSpam": false,
+      "attackSource": false
+    }
+  },
+  "tor": {
+    "result": false
+  },
+  "vpn": {
+    "result": false,
+    "originTimezone": "Europe/Berlin",
+    "originCountry": "unknown",
+    "methods": {
+      "timezoneMismatch": false,
+      "publicVPN": false,
+      "auxiliaryMobile": false,
+      "osMismatch": false
+    }
+  },
+  "proxy": {
+    "result": false
+  },
+  "tampering": {
+    "result": false,
+    "anomalyScore": 0
+  },
+  "clonedApp": {
+    "result": false
+  },
+  "factoryReset": {
+    "time": "1970-01-01T00:00:00Z",
+    "timestamp": 0
+  },
+  "jailbroken": {
+    "result": false
+  },
+  "frida": {
+    "result": false
+  },
+  "privacySettings": {
+    "result": false
+  },
+  "virtualMachine": {
+    "result": false
+  },
+  "rawDeviceAttributes": {
+    "architecture": {
+      "value": 127
+    },
+    "audio": {
+      "value": 35.73832903057337
+    },
+    "canvas": {
+      "value": {
+        "Winding": true,
+        "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
+        "Text": "dd2474a56ff78c1de3e7a07070ba3b7d"
+      }
+    },
+    "colorDepth": {
+      "value": 30
+    },
+    "colorGamut": {
+      "value": "srgb"
+    },
+    "contrast": {
+      "value": 0
+    },
+    "cookiesEnabled": {
+      "value": true
+    }
+  },
+  "highActivity": {
+    "result": false
+  },
+  "locationSpoofing": {
+    "result": true
+  },
+  "suspectScore": {
+    "result": 0
+  },
+  "remoteControl": {
+    "result": false
+  },
+  "velocity": {
+    "distinctIp": {
+      "intervals": {
+        "5m": 1,
+        "1h": 1,
+        "24h": 1
+      }
+    },
+    "distinctLinkedId": {},
+    "distinctCountry": {
+      "intervals": {
+        "5m": 1,
+        "1h": 2,
+        "24h": 2
+      }
+    },
+    "events": {
+      "intervals": {
+        "5m": 1,
+        "1h": 5,
+        "24h": 5
+      }
+    }
+  },
+  "developerTools": {
+    "result": false
+  }
+}
