@@ -68,6 +68,9 @@ class FingerprintApiTest extends TestCase
     {
         $mock_name = "";
         $status = 200;
+        $headers = [
+            'Content-Type' => 'application/json',
+        ];
 
         if ($method === "GET" || $method === "DELETE") {
             switch ($mockId) {
@@ -111,6 +114,7 @@ class FingerprintApiTest extends TestCase
                 case self::MOCK_VISITOR_ID_429_ERROR:
                     $mock_name = 'get_visits_429_too_many_requests_error.json';
                     $status = 429;
+                    $headers['retry-after'] = 30;
                     break;
                 case self::MOCK_VISITOR_ID_400_ERROR:
                     $mock_name = "400_error_incorrect_visitor_id.json";
@@ -157,7 +161,7 @@ class FingerprintApiTest extends TestCase
             $contents = json_encode($visits_mock_data);
         }
 
-        return new Response($status, [], $contents);
+        return new Response($status, $headers, $contents);
     }
 
     public function testGetEvent()
@@ -389,6 +393,7 @@ class FingerprintApiTest extends TestCase
             $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID_429_ERROR);
         } catch (ApiException $e) {
             $this->assertEquals(TooManyRequestsResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(30, $e->getRetryAfter());
             throw $e;
         }
     }
@@ -492,6 +497,7 @@ class FingerprintApiTest extends TestCase
             $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_429_ERROR);
         } catch (ApiException $e) {
             $this->assertEquals(ErrorCommon429Response::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(30, $e->getRetryAfter());
             throw $e;
         }
     }

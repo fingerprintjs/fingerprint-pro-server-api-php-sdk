@@ -159,7 +159,7 @@ class FingerprintApi
             if (429 === $e->getCode()) {
                 $e->setRetryAfter(1);
                 if ($response->hasHeader('retry-after')) {
-                    $e->setRetryAfter((int) $response->getHeader('retry-after'));
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
                 }
             }
 
@@ -243,7 +243,7 @@ class FingerprintApi
                     if (429 === $e->getCode()) {
                         $e->setRetryAfter(1);
                         if ($response->hasHeader('retry-after')) {
-                            $e->setRetryAfter((int) $response->getHeader('retry-after'));
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
                         }
                     }
 
@@ -335,7 +335,7 @@ class FingerprintApi
             if (429 === $e->getCode()) {
                 $e->setRetryAfter(1);
                 if ($response->hasHeader('retry-after')) {
-                    $e->setRetryAfter((int) $response->getHeader('retry-after'));
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
                 }
             }
 
@@ -414,7 +414,7 @@ class FingerprintApi
                     if (429 === $e->getCode()) {
                         $e->setRetryAfter(1);
                         if ($response->hasHeader('retry-after')) {
-                            $e->setRetryAfter((int) $response->getHeader('retry-after'));
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
                         }
                     }
 
@@ -511,7 +511,7 @@ class FingerprintApi
             if (429 === $e->getCode()) {
                 $e->setRetryAfter(1);
                 if ($response->hasHeader('retry-after')) {
-                    $e->setRetryAfter((int) $response->getHeader('retry-after'));
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
                 }
             }
 
@@ -595,7 +595,7 @@ class FingerprintApi
                     if (429 === $e->getCode()) {
                         $e->setRetryAfter(1);
                         if ($response->hasHeader('retry-after')) {
-                            $e->setRetryAfter((int) $response->getHeader('retry-after'));
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
                         }
                     }
 
@@ -693,7 +693,7 @@ class FingerprintApi
             if (429 === $e->getCode()) {
                 $e->setRetryAfter(1);
                 if ($response->hasHeader('retry-after')) {
-                    $e->setRetryAfter((int) $response->getHeader('retry-after'));
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
                 }
             }
 
@@ -778,7 +778,7 @@ class FingerprintApi
                     if (429 === $e->getCode()) {
                         $e->setRetryAfter(1);
                         if ($response->hasHeader('retry-after')) {
-                            $e->setRetryAfter((int) $response->getHeader('retry-after'));
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
                         }
                     }
 
