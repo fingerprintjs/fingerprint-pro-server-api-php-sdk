@@ -52,7 +52,7 @@ class SignalResponseTampering implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'data' => '\Fingerprint\ServerAPI\Model\TamperingResult',
-        'error' => '\Fingerprint\ServerAPI\Model\ProductError'];
+        'error' => '\Fingerprint\ServerAPI\Model\IdentificationError'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -222,9 +222,9 @@ class SignalResponseTampering implements ModelInterface, \ArrayAccess
     /**
      * Gets error.
      *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
+     * @return ?\Fingerprint\ServerAPI\Model\IdentificationError
      */
-    public function getError(): ?ProductError
+    public function getError(): ?IdentificationError
     {
         return $this->container['error'];
     }
@@ -232,11 +232,11 @@ class SignalResponseTampering implements ModelInterface, \ArrayAccess
     /**
      * Sets error.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductError $error error
+     * @param ?\Fingerprint\ServerAPI\Model\IdentificationError $error error
      *
      * @return $this
      */
-    public function setError(?ProductError $error): self
+    public function setError(?IdentificationError $error): self
     {
         $this->container['error'] = $error;
 

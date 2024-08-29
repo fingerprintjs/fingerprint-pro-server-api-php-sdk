@@ -84,6 +84,7 @@ const PAGINATION_KEY = "1683900801733.Ogvu1j";
 // Import Fingerprint Pro Classes and Guzzle Http Client
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerAPI\Model\EventUpdateRequest;
 use GuzzleHttp\Client;
 
 // Create a new Configuration instance with your Fingerprint Pro Server API Key and your Fingerprint Pro Server API Region.
@@ -104,7 +105,7 @@ $client = new FingerprintApi(
 // Get an event with a given requestId
 try {
     // Fetch the event with a given requestId
-    $response = $client->getEvent(FPJS_REQUEST_ID);
+    list($model, $response) = $client->getEvent(FPJS_REQUEST_ID);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
@@ -113,30 +114,55 @@ try {
 // Get a specific visitor's all visits
 try {
     // Fetch all visits with a given visitorId, with a page limit
-    $response = $client->getVisits(FPJS_VISITOR_ID, null, null, LIMIT);
+    list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, null, null, LIMIT);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
-    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
 
 // Get a specific visitor's all visits with a linkedId
 try {
     // Fetch all visits with a given visitorId, with a page limit, skipping the first visit
-    $response = $client->getVisits(FPJS_VISITOR_ID, null, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
+    list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, null, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
-    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
 
 // Use all the parameters on getVisits
 try {
     // Fetch the visitor's all visits with a given requestId and linkedId with a page limit while skipping the first visit
-    $response = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
+    list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
-    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
+}
+
+// Update Event
+try {
+    $body = new EventUpdateRequest([
+        'linked_id' => 'new linked id',
+        'tag' => json_encode(['new_property' => 'new value']),
+        'suspect' => true,
+    ]);
+    list($model, $response) = $client->updateEvent($body, FPJS_REQUEST_ID);
+    echo "<pre>" . $response->__toString() . "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->updateEvent: ', $e->getMessage(), PHP_EOL;
+}
+
+// Delete by visitor ID
+try {
+    list($model, $response) = $client->deleteVisitorData(FPJS_VISITOR_ID);
+    echo "<pre>" . $response->__toString() . "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->deleteVisitorData: ', $e->getMessage(), PHP_EOL;
 }
 ```
+
+> ⚠️ Warning It's not possible to update events older than 10 days.
+
+> ⚠️ If you are interested in using `deleteVisitorData` API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
 
 ## Sealed results
 
@@ -207,8 +233,10 @@ if(!$isValidWebhookSign) {
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*FingerprintApi* | [**getEvent**](docs/Api/FingerprintApi.md#getevent) | **GET** /events/{request_id} | Get event by requestId
-*FingerprintApi* | [**getVisits**](docs/Api/FingerprintApi.md#getvisits) | **GET** /visitors/{visitor_id} | Get visits by visitorId
+*FingerprintApi* | [**deleteVisitorData**](docs/Api/FingerprintApi.md#deletevisitordata) | **DELETE** /visitors/{visitor_id} | Delete data by visitor ID
+*FingerprintApi* | [**getEvent**](docs/Api/FingerprintApi.md#getevent) | **GET** /events/{request_id} | Get event by request ID
+*FingerprintApi* | [**getVisits**](docs/Api/FingerprintApi.md#getvisits) | **GET** /visitors/{visitor_id} | Get visits by visitor ID
+*FingerprintApi* | [**updateEvent**](docs/Api/FingerprintApi.md#updateevent) | **PUT** /events/{request_id} | Update an event with a given request ID
 
 ## Documentation for Models
 
@@ -217,17 +245,29 @@ Class | Method | HTTP request | Description
  - [BotdResult](docs/Model/BotdResult.md)
  - [BrowserDetails](docs/Model/BrowserDetails.md)
  - [ClonedAppResult](docs/Model/ClonedAppResult.md)
+ - [Common403ErrorResponse](docs/Model/Common403ErrorResponse.md)
  - [Confidence](docs/Model/Confidence.md)
  - [DataCenter](docs/Model/DataCenter.md)
  - [DeprecatedIPLocation](docs/Model/DeprecatedIPLocation.md)
  - [DeprecatedIPLocationCity](docs/Model/DeprecatedIPLocationCity.md)
+ - [DeveloperToolsResult](docs/Model/DeveloperToolsResult.md)
  - [EmulatorResult](docs/Model/EmulatorResult.md)
- - [ErrorEvent403Response](docs/Model/ErrorEvent403Response.md)
- - [ErrorEvent403ResponseError](docs/Model/ErrorEvent403ResponseError.md)
+ - [ErrorCommon403Response](docs/Model/ErrorCommon403Response.md)
+ - [ErrorCommon429Response](docs/Model/ErrorCommon429Response.md)
+ - [ErrorCommon429ResponseError](docs/Model/ErrorCommon429ResponseError.md)
  - [ErrorEvent404Response](docs/Model/ErrorEvent404Response.md)
  - [ErrorEvent404ResponseError](docs/Model/ErrorEvent404ResponseError.md)
+ - [ErrorUpdateEvent400Response](docs/Model/ErrorUpdateEvent400Response.md)
+ - [ErrorUpdateEvent400ResponseError](docs/Model/ErrorUpdateEvent400ResponseError.md)
+ - [ErrorUpdateEvent409Response](docs/Model/ErrorUpdateEvent409Response.md)
+ - [ErrorUpdateEvent409ResponseError](docs/Model/ErrorUpdateEvent409ResponseError.md)
+ - [ErrorVisitor400Response](docs/Model/ErrorVisitor400Response.md)
+ - [ErrorVisitor400ResponseError](docs/Model/ErrorVisitor400ResponseError.md)
+ - [ErrorVisitor404Response](docs/Model/ErrorVisitor404Response.md)
+ - [ErrorVisitor404ResponseError](docs/Model/ErrorVisitor404ResponseError.md)
  - [ErrorVisits403](docs/Model/ErrorVisits403.md)
  - [EventResponse](docs/Model/EventResponse.md)
+ - [EventUpdateRequest](docs/Model/EventUpdateRequest.md)
  - [FactoryResetResult](docs/Model/FactoryResetResult.md)
  - [FridaResult](docs/Model/FridaResult.md)
  - [HighActivityResult](docs/Model/HighActivityResult.md)
@@ -243,7 +283,6 @@ Class | Method | HTTP request | Description
  - [JailbrokenResult](docs/Model/JailbrokenResult.md)
  - [Location](docs/Model/Location.md)
  - [LocationSpoofingResult](docs/Model/LocationSpoofingResult.md)
- - [ManyRequestsResponse](docs/Model/ManyRequestsResponse.md)
  - [PrivacySettingsResult](docs/Model/PrivacySettingsResult.md)
  - [ProductError](docs/Model/ProductError.md)
  - [ProductsResponse](docs/Model/ProductsResponse.md)
@@ -252,11 +291,13 @@ Class | Method | HTTP request | Description
  - [ProductsResponseIdentificationData](docs/Model/ProductsResponseIdentificationData.md)
  - [ProxyResult](docs/Model/ProxyResult.md)
  - [RawDeviceAttributesResult](docs/Model/RawDeviceAttributesResult.md)
+ - [RemoteControlResult](docs/Model/RemoteControlResult.md)
  - [Response](docs/Model/Response.md)
  - [ResponseVisits](docs/Model/ResponseVisits.md)
  - [RootAppsResult](docs/Model/RootAppsResult.md)
  - [SeenAt](docs/Model/SeenAt.md)
  - [SignalResponseClonedApp](docs/Model/SignalResponseClonedApp.md)
+ - [SignalResponseDeveloperTools](docs/Model/SignalResponseDeveloperTools.md)
  - [SignalResponseEmulator](docs/Model/SignalResponseEmulator.md)
  - [SignalResponseFactoryReset](docs/Model/SignalResponseFactoryReset.md)
  - [SignalResponseFrida](docs/Model/SignalResponseFrida.md)
@@ -269,16 +310,22 @@ Class | Method | HTTP request | Description
  - [SignalResponsePrivacySettings](docs/Model/SignalResponsePrivacySettings.md)
  - [SignalResponseProxy](docs/Model/SignalResponseProxy.md)
  - [SignalResponseRawDeviceAttributes](docs/Model/SignalResponseRawDeviceAttributes.md)
+ - [SignalResponseRemoteControl](docs/Model/SignalResponseRemoteControl.md)
  - [SignalResponseRootApps](docs/Model/SignalResponseRootApps.md)
  - [SignalResponseSuspectScore](docs/Model/SignalResponseSuspectScore.md)
  - [SignalResponseTampering](docs/Model/SignalResponseTampering.md)
  - [SignalResponseTor](docs/Model/SignalResponseTor.md)
+ - [SignalResponseVelocity](docs/Model/SignalResponseVelocity.md)
  - [SignalResponseVirtualMachine](docs/Model/SignalResponseVirtualMachine.md)
  - [SignalResponseVpn](docs/Model/SignalResponseVpn.md)
  - [Subdivision](docs/Model/Subdivision.md)
  - [SuspectScoreResult](docs/Model/SuspectScoreResult.md)
  - [TamperingResult](docs/Model/TamperingResult.md)
+ - [TooManyRequestsResponse](docs/Model/TooManyRequestsResponse.md)
  - [TorResult](docs/Model/TorResult.md)
+ - [VelocityIntervalResult](docs/Model/VelocityIntervalResult.md)
+ - [VelocityIntervals](docs/Model/VelocityIntervals.md)
+ - [VelocityResult](docs/Model/VelocityResult.md)
  - [VirtualMachineResult](docs/Model/VirtualMachineResult.md)
  - [Visit](docs/Model/Visit.md)
  - [VpnResult](docs/Model/VpnResult.md)

@@ -1,6 +1,6 @@
 <?php
 /**
- * ErrorEvent403ResponseError.
+ * ErrorUpdateEvent400Response.
  *
  * @category Class
  *
@@ -30,7 +30,7 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ErrorEvent403ResponseError Class Doc Comment.
+ * ErrorUpdateEvent400Response Class Doc Comment.
  *
  * @category Class
  *
@@ -38,17 +38,12 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
+class ErrorUpdateEvent400Response implements ModelInterface, \ArrayAccess
 {
-    public const CODE_TOKEN_REQUIRED = 'TokenRequired';
-    public const CODE_TOKEN_NOT_FOUND = 'TokenNotFound';
-    public const CODE_SUBSCRIPTION_NOT_ACTIVE = 'SubscriptionNotActive';
-    public const CODE_WRONG_REGION = 'WrongRegion';
-
     /**
      * The original name of the model.
      */
-    protected static string $swaggerModelName = 'ErrorEvent403ResponseError';
+    protected static string $swaggerModelName = 'ErrorUpdateEvent400Response';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -56,8 +51,7 @@ class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'code' => 'string',
-        'message' => 'string'];
+        'error' => '\Fingerprint\ServerAPI\Model\ErrorUpdateEvent400ResponseError'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -65,8 +59,7 @@ class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerFormats = [
-        'code' => null,
-        'message' => null];
+        'error' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -75,8 +68,7 @@ class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $attributeMap = [
-        'code' => 'code',
-        'message' => 'message'];
+        'error' => 'error'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -84,8 +76,7 @@ class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $setters = [
-        'code' => 'setCode',
-        'message' => 'setMessage'];
+        'error' => 'setError'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -93,8 +84,7 @@ class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $getters = [
-        'code' => 'getCode',
-        'message' => 'getMessage'];
+        'error' => 'getError'];
 
     /**
      * Associative array for storing property values.
@@ -111,8 +101,7 @@ class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
      */
     public function __construct(?array $data = null)
     {
-        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
-        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
+        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
     }
 
     /**
@@ -180,44 +169,13 @@ class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets allowable values of the enum.
-     *
-     * @return string[]
-     */
-    public function getCodeAllowableValues(): array
-    {
-        return [
-            self::CODE_TOKEN_REQUIRED,
-            self::CODE_TOKEN_NOT_FOUND,
-            self::CODE_SUBSCRIPTION_NOT_ACTIVE,
-            self::CODE_WRONG_REGION,        ];
-    }
-
-    /**
      * Show all the invalid properties with reasons.
      *
      * @return array invalid properties with reasons
      */
     public function listInvalidProperties(): array
     {
-        $invalidProperties = [];
-
-        if (null === $this->container['code']) {
-            $invalidProperties[] = "'code' can't be null";
-        }
-        $allowedValues = $this->getCodeAllowableValues();
-        if (!is_null($this->container['code']) && !in_array($this->container['code'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'code', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
-
-        if (null === $this->container['message']) {
-            $invalidProperties[] = "'message' can't be null";
-        }
-
-        return $invalidProperties;
+        return [];
     }
 
     /**
@@ -232,54 +190,25 @@ class ErrorEvent403ResponseError implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets code.
+     * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ErrorUpdateEvent400ResponseError
      */
-    public function getCode(): string
+    public function getError(): ?ErrorUpdateEvent400ResponseError
     {
-        return $this->container['code'];
+        return $this->container['error'];
     }
 
     /**
-     * Sets code.
+     * Sets error.
      *
-     * @param string $code Error code:  * `TokenRequired` - `Auth-API-Key` header is missing or empty  * `TokenNotFound` - subscription not found for specified secret key  * `SubscriptionNotActive` - subscription is not active  * `WrongRegion` - server and subscription region differ
+     * @param ?\Fingerprint\ServerAPI\Model\ErrorUpdateEvent400ResponseError $error error
      *
      * @return $this
      */
-    public function setCode(string $code): self
+    public function setError(?ErrorUpdateEvent400ResponseError $error): self
     {
-        $allowedValues = $this->getCodeAllowableValues();
-        if (!in_array($code, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'code', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['code'] = $code;
-
-        return $this;
-    }
-
-    /**
-     * Gets message.
-     */
-    public function getMessage(): string
-    {
-        return $this->container['message'];
-    }
-
-    /**
-     * Sets message.
-     *
-     * @param string $message message
-     *
-     * @return $this
-     */
-    public function setMessage(string $message): self
-    {
-        $this->container['message'] = $message;
+        $this->container['error'] = $error;
 
         return $this;
     }

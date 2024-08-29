@@ -215,7 +215,7 @@ class FactoryResetResult implements ModelInterface, \ArrayAccess
     /**
      * Sets time.
      *
-     * @param \DateTime $time Time in UTC when the most recent factory reset of the Android or iOS device was done.  If there is no sign of factory reset or the client is not a mobile device, the field will contain the epoch time (1 January 1970) in UTC.
+     * @param \DateTime $time Indicates the time (in UTC) of the most recent factory reset that happened on the **mobile device**.  When a factory reset cannot be detected on the mobile device or when the request is initiated from a browser, this field will correspond to the *epoch* time (i.e 1 Jan 1970 UTC). See [Factory Reset Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection) to learn more about this Smart Signal.
      *
      * @return $this
      */
@@ -237,7 +237,7 @@ class FactoryResetResult implements ModelInterface, \ArrayAccess
     /**
      * Sets timestamp.
      *
-     * @param int $timestamp same value as it's in the `time` field but represented in timestamp format
+     * @param int $timestamp This field is just another representation of the value in the `time` field. The time of the most recent factory reset that happened on the **mobile device** is expressed as Unix epoch time.
      *
      * @return $this
      */

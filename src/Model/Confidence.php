@@ -51,7 +51,8 @@ class Confidence implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'score' => 'float'];
+        'score' => 'float',
+        'revision' => 'string'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -59,7 +60,8 @@ class Confidence implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerFormats = [
-        'score' => 'float'];
+        'score' => 'float',
+        'revision' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -68,7 +70,8 @@ class Confidence implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $attributeMap = [
-        'score' => 'score'];
+        'score' => 'score',
+        'revision' => 'revision'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -76,7 +79,8 @@ class Confidence implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $setters = [
-        'score' => 'setScore'];
+        'score' => 'setScore',
+        'revision' => 'setRevision'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -84,7 +88,8 @@ class Confidence implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $getters = [
-        'score' => 'getScore'];
+        'score' => 'getScore',
+        'revision' => 'getRevision'];
 
     /**
      * Associative array for storing property values.
@@ -102,6 +107,7 @@ class Confidence implements ModelInterface, \ArrayAccess
     public function __construct(?array $data = null)
     {
         $this->container['score'] = isset($data['score']) ? $data['score'] : null;
+        $this->container['revision'] = isset($data['revision']) ? $data['revision'] : null;
     }
 
     /**
@@ -213,6 +219,30 @@ class Confidence implements ModelInterface, \ArrayAccess
     public function setScore(float $score): self
     {
         $this->container['score'] = $score;
+
+        return $this;
+    }
+
+    /**
+     * Gets revision.
+     *
+     * @return ?string
+     */
+    public function getRevision(): ?string
+    {
+        return $this->container['revision'];
+    }
+
+    /**
+     * Sets revision.
+     *
+     * @param ?string $revision The revision name of the method used to calculate the Confidence score. This field is only present for customers who opted in to an alternative calculation method.
+     *
+     * @return $this
+     */
+    public function setRevision(?string $revision): self
+    {
+        $this->container['revision'] = $revision;
 
         return $this;
     }
