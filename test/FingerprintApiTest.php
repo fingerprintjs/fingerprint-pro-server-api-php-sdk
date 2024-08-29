@@ -3,10 +3,18 @@
 namespace Fingerprint\ServerAPI;
 
 use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Model\ErrorCommon403Response;
+use Fingerprint\ServerAPI\Model\ErrorCommon429Response;
+use Fingerprint\ServerAPI\Model\ErrorEvent404Response;
+use Fingerprint\ServerAPI\Model\ErrorUpdateEvent400Response;
 use Fingerprint\ServerAPI\Model\ErrorUpdateEvent409Response;
+use Fingerprint\ServerAPI\Model\ErrorVisitor400Response;
+use Fingerprint\ServerAPI\Model\ErrorVisitor404Response;
+use Fingerprint\ServerAPI\Model\ErrorVisits403;
 use Fingerprint\ServerAPI\Model\EventUpdateRequest;
 use Fingerprint\ServerAPI\Model\IdentificationError;
 use Fingerprint\ServerAPI\Model\ProductError;
+use Fingerprint\ServerAPI\Model\TooManyRequestsResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
@@ -361,7 +369,12 @@ class FingerprintApiTest extends TestCase
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(403);
 
-        $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID_403_ERROR);
+        try {
+            $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID_403_ERROR);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorVisits403::class, get_class($e->getErrorDetails()));
+            throw $e;
+        }
     }
 
     public function testGetVisits429Error()
@@ -372,7 +385,12 @@ class FingerprintApiTest extends TestCase
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(429);
 
-        $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID_429_ERROR);
+        try {
+            $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID_429_ERROR);
+        } catch (ApiException $e) {
+            $this->assertEquals(TooManyRequestsResponse::class, get_class($e->getErrorDetails()));
+            throw $e;
+        }
     }
 
     public function testGetEvent403Error()
@@ -383,7 +401,12 @@ class FingerprintApiTest extends TestCase
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(403);
 
-        $this->fingerprint_api->getEvent(self::MOCK_EVENT_ID_403_ERROR);
+        try {
+            $this->fingerprint_api->getEvent(self::MOCK_EVENT_ID_403_ERROR);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorCommon403Response::class, get_class($e->getErrorDetails()));
+            throw $e;
+        }
     }
 
     public function testGetEvent404Error()
@@ -394,7 +417,14 @@ class FingerprintApiTest extends TestCase
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(404);
 
-        $this->fingerprint_api->getEvent(self::MOCK_EVENT_ID_404_ERROR);
+        try {
+            $this->fingerprint_api->getEvent(self::MOCK_EVENT_ID_404_ERROR);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorEvent404Response::class, get_class($e->getErrorDetails()));
+            $this->assertEquals("request id is not found", $e->getErrorDetails()->getError()->getMessage());
+            $this->assertEquals("RequestNotFound", $e->getErrorDetails()->getError()->getCode());
+            throw $e;
+        }
     }
 
     public function testDeleteVisitorData400Error()
@@ -405,7 +435,15 @@ class FingerprintApiTest extends TestCase
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(400);
 
-        $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_400_ERROR);
+        try {
+
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_400_ERROR);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorVisitor400Response::class, get_class($e->getErrorDetails()));
+            $this->assertEquals("invalid visitor id", $e->getErrorDetails()->getError()->getMessage());
+            $this->assertEquals("RequestCannotBeParsed", $e->getErrorDetails()->getError()->getCode());
+            throw $e;
+        }
     }
 
     public function testDeleteVisitorData403Error()
@@ -416,7 +454,12 @@ class FingerprintApiTest extends TestCase
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(403);
 
-        $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_403_ERROR);
+        try {
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_403_ERROR);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorCommon403Response::class, get_class($e->getErrorDetails()));
+            throw $e;
+        }
     }
 
     public function testDeleteVisitorData404Error()
@@ -430,6 +473,7 @@ class FingerprintApiTest extends TestCase
         try {
             $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_404_ERROR);
         } catch (ApiException $e) {
+            $this->assertEquals(ErrorVisitor404Response::class, get_class($e->getErrorDetails()));
             $this->assertEquals("VisitorNotFound", $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
@@ -444,7 +488,12 @@ class FingerprintApiTest extends TestCase
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(429);
 
-        $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_429_ERROR);
+        try {
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_429_ERROR);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorCommon429Response::class, get_class($e->getErrorDetails()));
+            throw $e;
+        }
     }
 
     public function testUpdateEvent400Error()
@@ -458,6 +507,7 @@ class FingerprintApiTest extends TestCase
         try {
             $this->fingerprint_api->updateEvent(new EventUpdateRequest([]), self::MOCK_EVENT_ID_400_ERROR);
         } catch (ApiException $e) {
+            $this->assertEquals(ErrorUpdateEvent400Response::class, get_class($e->getErrorDetails()));
             $this->assertEquals("RequestCannotBeParsed", $e->getErrorDetails()->getError()->getCode());
             throw $e;
         }
@@ -475,6 +525,7 @@ class FingerprintApiTest extends TestCase
         try {
             $this->fingerprint_api->updateEvent(new EventUpdateRequest([]), self::MOCK_EVENT_ID_403_ERROR);
         } catch (ApiException $e) {
+            $this->assertEquals(ErrorCommon403Response::class, get_class($e->getErrorDetails()));
             $this->assertEquals("TokenRequired", $e->getErrorDetails()->getError()->getCode());
             throw $e;
         }
@@ -491,7 +542,7 @@ class FingerprintApiTest extends TestCase
         try {
             $this->fingerprint_api->updateEvent(new EventUpdateRequest([]), self::MOCK_EVENT_ID_404_ERROR);
         } catch (ApiException $e) {
-
+            $this->assertEquals(ErrorEvent404Response::class, get_class($e->getErrorDetails()));
             $this->assertEquals("RequestNotFound", $e->getErrorDetails()->getError()->getCode());
             throw $e;
         }
@@ -508,6 +559,7 @@ class FingerprintApiTest extends TestCase
         try {
             $this->fingerprint_api->updateEvent(new EventUpdateRequest([]), self::MOCK_EVENT_ID_409_ERROR);
         } catch (ApiException $e) {
+            $this->assertEquals(ErrorUpdateEvent409Response::class, get_class($e->getErrorDetails()));
             $this->assertEquals("StateNotReady", $e->getErrorDetails()->getError()->getCode());
             throw $e;
         }
