@@ -22,7 +22,7 @@ jobs:
         run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
       - uses: php-actions/phpunit@v3
         with:
-          php_version: "${{ matrix.php_version }}"
+          php_version: 8.2
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml.dist
           args: --coverage-xml cov/xml
