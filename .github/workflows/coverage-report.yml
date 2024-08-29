@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - coverage # remove before merge to main
+      - chore/code-coverage # remove before merge to main
 
 permissions:
   contents: write
