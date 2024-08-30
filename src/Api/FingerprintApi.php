@@ -156,6 +156,13 @@ class FingerprintApi
                     break;
             }
 
+            if (429 === $e->getCode()) {
+                $e->setRetryAfter(1);
+                if ($response->hasHeader('retry-after')) {
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                }
+            }
+
             throw $e;
         }
     }
@@ -231,6 +238,13 @@ class FingerprintApi
                             $e->setResponseObject($response);
 
                             break;
+                    }
+
+                    if (429 === $e->getCode()) {
+                        $e->setRetryAfter(1);
+                        if ($response->hasHeader('retry-after')) {
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                        }
                     }
 
                     throw $e;
@@ -318,6 +332,13 @@ class FingerprintApi
                     break;
             }
 
+            if (429 === $e->getCode()) {
+                $e->setRetryAfter(1);
+                if ($response->hasHeader('retry-after')) {
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                }
+            }
+
             throw $e;
         }
     }
@@ -388,6 +409,13 @@ class FingerprintApi
                             $e->setResponseObject($response);
 
                             break;
+                    }
+
+                    if (429 === $e->getCode()) {
+                        $e->setRetryAfter(1);
+                        if ($response->hasHeader('retry-after')) {
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                        }
                     }
 
                     throw $e;
@@ -480,6 +508,13 @@ class FingerprintApi
                     break;
             }
 
+            if (429 === $e->getCode()) {
+                $e->setRetryAfter(1);
+                if ($response->hasHeader('retry-after')) {
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                }
+            }
+
             throw $e;
         }
     }
@@ -555,6 +590,13 @@ class FingerprintApi
                             $e->setResponseObject($response);
 
                             break;
+                    }
+
+                    if (429 === $e->getCode()) {
+                        $e->setRetryAfter(1);
+                        if ($response->hasHeader('retry-after')) {
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                        }
                     }
 
                     throw $e;
@@ -648,6 +690,13 @@ class FingerprintApi
                     break;
             }
 
+            if (429 === $e->getCode()) {
+                $e->setRetryAfter(1);
+                if ($response->hasHeader('retry-after')) {
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                }
+            }
+
             throw $e;
         }
     }
@@ -724,6 +773,13 @@ class FingerprintApi
                             $e->setResponseObject($response);
 
                             break;
+                    }
+
+                    if (429 === $e->getCode()) {
+                        $e->setRetryAfter(1);
+                        if ($response->hasHeader('retry-after')) {
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                        }
                     }
 
                     throw $e;
