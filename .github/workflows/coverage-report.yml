@@ -23,6 +23,8 @@ jobs:
       - uses: KengoTODA/actions-setup-docker-compose@4677f0d86d41e623c9c6e11e1d910976da297bc0
         with:
           version: '2.14.2'
+      - name: "Create Empty env File for Docker"
+        run: touch .env
       - name: PHPUnit
         run: docker-compose run phpunit --coverage-xml cov/xml --coverage-html cov/html --coverage-clover=cov/xml/clover.xml
       - name: "Parse Coverage"
