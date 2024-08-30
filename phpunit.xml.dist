@@ -16,4 +16,9 @@
             <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
+    <coverage>
+        <report>
+            <clover outputFile="cov/xml/clover.xml" />
+        </report>
+    </coverage>
 </phpunit>

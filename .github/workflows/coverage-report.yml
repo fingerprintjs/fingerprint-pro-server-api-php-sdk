@@ -20,22 +20,17 @@ jobs:
           extensions: xdebug
       - name: Install Dependencies
         run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
-      - uses: php-actions/phpunit@v3
-        with:
-          php_version: 8.2
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml.dist
-          args: --coverage-xml cov/xml
-          version: "9.3.0"
+      - name: PHPUnit
+        run: docker-compose run phpunit --coverage-xml cov/xml --coverage-html cov/html --coverage-clover=cov/xml/clover.xml
       - name: "Parse Coverage"
         run: "php ./coverage.php"
       - name: Create Coverage Badges
         uses: jaywcjlove/coverage-badges-cli@e07f25709cd25486855c1ba1b26da53576ff3620
         with:
           source: cov/json/index.json
-          output: htmlcov/badges.svg
+          output: cov/html/coverage.svg
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@8817a56e5bfec6e2b08345c81f4d422db53a2cdc
         with:
           branch: gh-pages
-          folder: htmlcov
+          folder: cov/html

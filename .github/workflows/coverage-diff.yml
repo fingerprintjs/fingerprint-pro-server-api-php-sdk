@@ -1,0 +1,31 @@
+name: 'coverage-diff'
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+jobs:
+  coverage-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          coverage: none
+          tools: composer:v2
+          extensions: xdebug
+      - name: Install Dependencies
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+      - uses: php-actions/phpunit@v3
+        with:
+          php_version: 8.2
+          bootstrap: vendor/autoload.php
+          configuration: phpunit.xml.dist
+          args: --coverage-xml cov/xml --coverage-html cov/html --coverage-clover cov/xml/clover.xml
+          version: "9.3.0"
+      - name: Get Cover
+        uses: orgoro/coverage@3f13a558c5af7376496aa4848bf0224aead366ac
+        with:
+          coverageFile: ./cov/xml/clover.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
