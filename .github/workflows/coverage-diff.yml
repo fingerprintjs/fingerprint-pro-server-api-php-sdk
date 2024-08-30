@@ -5,6 +5,9 @@ on:
       - master
       - main
       - chore/code-coverage # remove this after merged to main
+  push: # remove before merge to main
+    branches:
+      - chore/code-coverage
 jobs:
   coverage-diff:
     runs-on: ubuntu-latest
