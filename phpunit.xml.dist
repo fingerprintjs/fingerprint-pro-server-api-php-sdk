@@ -15,10 +15,7 @@
 
     <coverage processUncoveredFiles="true">
         <include>
-            <file>./src/Api/FingerprintApi.php</file>
-            <file>./src/Sealed/Sealed.php</file>
-            <file>./src/Webhook/WebhookVerifier.php</file>
-            <file>./src/ObjectSerializer.php</file>
+            <directory suffix=".php">./src</directory>
         </include>
         <report>
             <clover outputFile="cov/xml/clover.xml" />
