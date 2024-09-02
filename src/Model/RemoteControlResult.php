@@ -1,6 +1,6 @@
 <?php
 /**
- * ErrorEvent403Response.
+ * RemoteControlResult.
  *
  * @category Class
  *
@@ -30,7 +30,7 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ErrorEvent403Response Class Doc Comment.
+ * RemoteControlResult Class Doc Comment.
  *
  * @category Class
  *
@@ -38,12 +38,12 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ErrorEvent403Response implements ModelInterface, \ArrayAccess
+class RemoteControlResult implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
      */
-    protected static string $swaggerModelName = 'ErrorEvent403Response';
+    protected static string $swaggerModelName = 'RemoteControlResult';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -51,7 +51,7 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'error' => '\Fingerprint\ServerAPI\Model\ErrorEvent403ResponseError'];
+        'result' => 'bool'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -59,7 +59,7 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerFormats = [
-        'error' => null];
+        'result' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -68,7 +68,7 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $attributeMap = [
-        'error' => 'error'];
+        'result' => 'result'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -76,7 +76,7 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $setters = [
-        'error' => 'setError'];
+        'result' => 'setResult'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -84,7 +84,7 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $getters = [
-        'error' => 'getError'];
+        'result' => 'getResult'];
 
     /**
      * Associative array for storing property values.
@@ -101,7 +101,7 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
      */
     public function __construct(?array $data = null)
     {
-        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
+        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
     }
 
     /**
@@ -175,7 +175,13 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
      */
     public function listInvalidProperties(): array
     {
-        return [];
+        $invalidProperties = [];
+
+        if (null === $this->container['result']) {
+            $invalidProperties[] = "'result' can't be null";
+        }
+
+        return $invalidProperties;
     }
 
     /**
@@ -190,25 +196,23 @@ class ErrorEvent403Response implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ErrorEvent403ResponseError
+     * Gets result.
      */
-    public function getError(): ?ErrorEvent403ResponseError
+    public function getResult(): bool
     {
-        return $this->container['error'];
+        return $this->container['result'];
     }
 
     /**
-     * Sets error.
+     * Sets result.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ErrorEvent403ResponseError $error error
+     * @param bool $result `true` if the request came from a machine being remotely controlled (e.g. TeamViewer), `false` otherwise.
      *
      * @return $this
      */
-    public function setError(?ErrorEvent403ResponseError $error): self
+    public function setResult(bool $result): self
     {
-        $this->container['error'] = $error;
+        $this->container['result'] = $result;
 
         return $this;
     }

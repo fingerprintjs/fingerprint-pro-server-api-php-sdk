@@ -1,6 +1,6 @@
 <?php
 /**
- * ManyRequestsResponse.
+ * ErrorCommon403Response.
  *
  * @category Class
  *
@@ -30,7 +30,7 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ManyRequestsResponse Class Doc Comment.
+ * ErrorCommon403Response Class Doc Comment.
  *
  * @category Class
  *
@@ -38,12 +38,12 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ManyRequestsResponse implements ModelInterface, \ArrayAccess
+class ErrorCommon403Response implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
      */
-    protected static string $swaggerModelName = 'ManyRequestsResponse';
+    protected static string $swaggerModelName = 'ErrorCommon403Response';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -51,7 +51,7 @@ class ManyRequestsResponse implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'error' => 'string'];
+        'error' => '\Fingerprint\ServerAPI\Model\Common403ErrorResponse'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -175,13 +175,7 @@ class ManyRequestsResponse implements ModelInterface, \ArrayAccess
      */
     public function listInvalidProperties(): array
     {
-        $invalidProperties = [];
-
-        if (null === $this->container['error']) {
-            $invalidProperties[] = "'error' can't be null";
-        }
-
-        return $invalidProperties;
+        return [];
     }
 
     /**
@@ -197,8 +191,10 @@ class ManyRequestsResponse implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\Common403ErrorResponse
      */
-    public function getError(): string
+    public function getError(): ?Common403ErrorResponse
     {
         return $this->container['error'];
     }
@@ -206,11 +202,11 @@ class ManyRequestsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets error.
      *
-     * @param string $error error text
+     * @param ?\Fingerprint\ServerAPI\Model\Common403ErrorResponse $error error
      *
      * @return $this
      */
-    public function setError(string $error): self
+    public function setError(?Common403ErrorResponse $error): self
     {
         $this->container['error'] = $error;
 

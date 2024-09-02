@@ -1,0 +1,62 @@
+{
+  "visitorId": "AcxioeQKffpXF8iGQK3P",
+  "visits": [
+    {
+      "requestId": "1655373953086.DDlfmP",
+      "browserDetails": {
+        "browserName": "Chrome",
+        "browserMajorVersion": "102",
+        "browserFullVersion": "102.0.5005",
+        "os": "Mac OS X",
+        "osVersion": "10.15.7",
+        "device": "Other",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36",
+        "botProbability": 0
+      },
+      "incognito": false,
+      "ip": "82.118.30.68",
+      "ipLocation": {
+        "accuracyRadius": 1000,
+        "latitude": 50.0805,
+        "longitude": 14.467,
+        "postalCode": "130 00",
+        "timezone": "Europe/Prague",
+        "city": {
+          "name": "Prague"
+        },
+        "country": {
+          "code": "CZ",
+          "name": "Czechia"
+        },
+        "continent": {
+          "code": "EU",
+          "name": "Europe"
+        },
+        "subdivisions": [
+          {
+            "isoCode": "10",
+            "name": "Hlavni mesto Praha"
+          }
+        ]
+      },
+      "timestamp": 1655373953094,
+      "time": "2022-06-16T10:05:53Z",
+      "url": "https://dashboard.fingerprint.com/",
+      "tag": {},
+      "confidence": {
+        "score": 1
+      },
+      "visitorFound": true,
+      "firstSeenAt": {
+        "global": "2022-02-04T11:31:20Z",
+        "subscription": "2022-02-04T11:31:20Z"
+      },
+      "lastSeenAt": {
+        "global": "2022-06-16T10:03:00.912Z",
+        "subscription": "2022-06-16T10:03:00.912Z"
+      }
+    }
+  ],
+  "lastTimestamp": 1655373953086,
+  "paginationKey": "1655373953086.DDlfmP"
+}

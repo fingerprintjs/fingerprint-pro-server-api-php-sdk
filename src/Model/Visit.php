@@ -276,9 +276,6 @@ class Visit implements ModelInterface, \ArrayAccess
         if (null === $this->container['url']) {
             $invalidProperties[] = "'url' can't be null";
         }
-        if (null === $this->container['tag']) {
-            $invalidProperties[] = "'tag' can't be null";
-        }
         if (null === $this->container['visitor_found']) {
             $invalidProperties[] = "'visitor_found' can't be null";
         }
@@ -484,9 +481,9 @@ class Visit implements ModelInterface, \ArrayAccess
     /**
      * Gets tag.
      *
-     * @return map[string,object]
+     * @return ?map[string,object]
      */
-    public function getTag(): array
+    public function getTag(): ?array
     {
         return $this->container['tag'];
     }
@@ -494,11 +491,11 @@ class Visit implements ModelInterface, \ArrayAccess
     /**
      * Sets tag.
      *
-     * @param map[string,object] $tag A customer-provided value or an object that was sent with identification request
+     * @param ?map[string,object] $tag A customer-provided value or an object that was sent with identification request
      *
      * @return $this
      */
-    public function setTag(array $tag): self
+    public function setTag(?array $tag): self
     {
         $this->container['tag'] = $tag;
 

@@ -78,6 +78,7 @@ use \GuzzleHttp\Exception\GuzzleException;
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
+     * @throws ApiException
      * @return array{ {{#returnType}}{{{returnType}}}|null{{/returnType}}{{^returnType}}null{{/returnType}}, \Psr\Http\Message\ResponseInterface }
      */
     public function {{operationId}}({{#parameters}}{{dataType}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): array
@@ -137,6 +138,14 @@ use \GuzzleHttp\Exception\GuzzleException;
                     {{/dataType}}
                 {{/responses}}
                 }
+
+                if ($e->getCode() === 429) {
+                    $e->setRetryAfter(1);
+                    if ($response->hasHeader('retry-after')) {
+                        $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                    }
+                }
+
                 throw $e;
             }
     }
@@ -155,6 +164,8 @@ use \GuzzleHttp\Exception\GuzzleException;
     *
     * @throws \InvalidArgumentException
     * @throws SerializationException
+    * @throws GuzzleException
+    * @throws ApiException
     */
     public function {{operationId}}Async({{#parameters}}{{dataType}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Promise\PromiseInterface
     {
@@ -203,6 +214,14 @@ use \GuzzleHttp\Exception\GuzzleException;
                         {{/dataType}}
                     {{/responses}}
                     }
+
+                    if ($e->getCode() === 429) {
+                        $e->setRetryAfter(1);
+                        if ($response->hasHeader('retry-after')) {
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                        }
+                    }
+
                     throw $e;
                 }
             );
@@ -214,6 +233,8 @@ use \GuzzleHttp\Exception\GuzzleException;
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
     protected function {{operationId}}Request({{#parameters}}{{dataType}}{{^required}}|null{{/required}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Psr7\Request
     {
