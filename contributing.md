@@ -17,7 +17,7 @@ You can just run `sh ./scripts/generate.sh` script and it will do all the work.
 
 To download fresh OpenAPI schema run `sh ./scripts/sync.sh`
 
-## Creating Coverage Report
+## Creating Coverage Report (Markdown)
 
 To generate a code coverage report in markdown format, follow these steps:
 
@@ -29,6 +29,17 @@ To generate a code coverage report in markdown format, follow these steps:
     ```shell
    docker-compose run php php coverage.php
     ```
+
+The markdown report will be saved in the cov/markdown/coverage_report.md file. You can open this file to review the coverage details.
+
+## Creating Coverage Report (HTML)
+
+To generate a code coverage report in HTML format, just run this command:
+
+Run PHPUnit with the `--coverage-html` option to generate a coverage report in Clover HTML format:
+```shell
+docker-compose run phpunit --coverage-html=cov/html
+```
 
 The markdown report will be saved in the cov/markdown/coverage_report.md file. You can open this file to review the coverage details.
 
