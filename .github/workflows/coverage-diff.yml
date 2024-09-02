@@ -27,23 +27,29 @@ jobs:
           chmod -R 777 cov
       - name: "Create Empty env File for Docker"
         run: touch .env
+      - name: Clear previous coverage data
+        run: rm -f cov/xml/clover-pr.xml cov/xml/clover-base.xml
       - name: PHPUnit for PR
         run: docker-compose run phpunit --coverage-clover=cov/xml/clover.xml
       - name: Calculate coverage for PR branch
         id: pr_coverage
         run: |
           COVERAGE_PR=$(awk -F'"' '
-            /<metrics/ {
+              /<metrics/ {
               covered_statements += $10;
               total_statements += $8;
             }
             END {
               if (total_statements > 0) {
-                print (covered_statements / total_statements) * 100;
-              } else {
-                print 0;
-              }
-            }' cov/xml/clover.xml)
+                coverage = (covered_statements / total_statements) * 100;
+                if (coverage > 100) {
+                coverage = 100;
+            }
+            print coverage;
+            } else {
+              print 0;
+            }
+          }' clover-pr.xml)
           echo "COVERAGE_PR=$COVERAGE_PR" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
