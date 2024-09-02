@@ -56,16 +56,16 @@ jobs:
       - name: Calculate coverage for PR branch
         id: pr_coverage
         run: |
-          COVERED_STATEMENTS=$(grep -oP 'coveredstatements="\K[0-9]+' clover-pr.xml | paste -sd+ | bc)
-          TOTAL_STATEMENTS=$(grep -oP 'statements="\K[0-9]+' clover-pr.xml | paste -sd+ | bc)
+          COVERED_STATEMENTS=$(grep -oP 'coveredstatements="\K[0-9]+' cov/xml/clover-pr.xml | paste -sd+ | bc)
+          TOTAL_STATEMENTS=$(grep -oP 'statements="\K[0-9]+' cov/xml/clover-pr.xml | paste -sd+ | bc)
           COVERAGE_PR=$(echo "scale=2; $COVERED_STATEMENTS/$TOTAL_STATEMENTS*100" | bc)
           echo "COVERAGE_PR=$COVERAGE_PR" >> $GITHUB_ENV
 
       - name: Calculate coverage for base branch
         id: base_coverage
         run: |
-          COVERED_STATEMENTS=$(grep -oP 'coveredstatements="\K[0-9]+' clover-base.xml | paste -sd+ | bc)
-          TOTAL_STATEMENTS=$(grep -oP 'statements="\K[0-9]+' clover-base.xml | paste -sd+ | bc)
+          COVERED_STATEMENTS=$(grep -oP 'coveredstatements="\K[0-9]+' cov/xml/clover-base.xml | paste -sd+ | bc)
+          TOTAL_STATEMENTS=$(grep -oP 'statements="\K[0-9]+' cov/xml/clover-base.xml | paste -sd+ | bc)
           COVERAGE_BASE=$(echo "scale=2; $COVERED_STATEMENTS/$TOTAL_STATEMENTS*100" | bc)
           echo "COVERAGE_BASE=$COVERAGE_BASE" >> $GITHUB_ENV
           
