@@ -72,18 +72,22 @@ jobs:
       - name: Calculate coverage for base branch
         id: base_coverage
         run: |
-          COVERAGE_BASE=$(awk -F'"' '
+          COVERAGE_BASE=$(if [ -f cov/xml/clover.xml ]; then
+          awk -F'"' '
             /<metrics/ {
-              covered_statements += $10;
-              total_statements += $8;
+            covered_statements += $10;
+            total_statements += $8;
+          }
+          END {
+            if (total_statements > 0) {
+              print (covered_statements / total_statements) * 100;
+            } else {
+              print 0;
             }
-            END {
-              if (total_statements > 0) {
-                print (covered_statements / total_statements) * 100;
-              } else {
-                print 0;
-              }
-            }' cov/xml/clover.xml)
+          }' cov/xml/clover.xml
+          else
+            echo 0
+          fi)
           echo "COVERAGE_BASE=$COVERAGE_BASE" >> $GITHUB_ENV
           
       - name: Compare coverage
@@ -106,10 +110,15 @@ jobs:
       - name: Post coverage comment to PR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERAGE_PR: ${{ env.COVERAGE_PR }}
+          COVERAGE_BASE: ${{ env.COVERAGE_BASE }}
+          COVERAGE_MESSAGE: ${{ env.COVERAGE_MESSAGE }}
         run: |
-          PR_COMMENT=$(jq -n --arg message "$COVERAGE_MESSAGE" \
-          '{"body": "### Code Coverage Report\n\n**PR Coverage**: '$COVERAGE_PR'%\n**Base Coverage**: '$COVERAGE_BASE'%\n\n$COVERAGE_MESSAGE"}')
-          
+          PR_COMMENT=$(jq -n --arg pr_coverage "$COVERAGE_PR" \
+                            --arg base_coverage "$COVERAGE_BASE" \
+                            --arg coverage_message "$COVERAGE_MESSAGE" \
+                            '{"body": "### Code Coverage Report\n\n**PR Coverage**: \($pr_coverage)%\n**Base Coverage**: \($base_coverage)%\n\n\($coverage_message)"}')
+
           curl -s -H "Authorization: token $GITHUB_TOKEN" \
           -X POST -d "$PR_COMMENT" \
           "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
