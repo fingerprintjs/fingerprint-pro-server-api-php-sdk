@@ -32,6 +32,24 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.base.ref }}
+
+      - uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231
+        with:
+          php-version: 8.2
+          coverage: none
+          tools: composer:v2
+          extensions: xdebug
+      - name: Install Dependencies
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+      - uses: KengoTODA/actions-setup-docker-compose@4677f0d86d41e623c9c6e11e1d910976da297bc0
+        with:
+          version: '2.14.2'
+      - name: Set Permissions for Coverage Directory
+        run: |
+          mkdir -p cov/json cov/xml cov/html
+          chmod -R 777 cov
+      - name: "Create Empty env File for Docker"
+        run: touch .env
       - name: PHPUnit for Base
         run: docker-compose run phpunit --coverage-clover=cov/xml/clover-base.xml
 
