@@ -105,7 +105,7 @@ class Sealed
      */
     private static function decompress($data): string
     {
-        if (false === $data || strlen($data) === 0) {
+        if (false === $data || 0 === strlen($data)) {
             throw new DecompressionException();
         }
         $inflated = @gzinflate($data); // Ignore warnings, because we check the decompressed data's validity and throw error if necessary
