@@ -41,7 +41,7 @@ Run PHPUnit with the `--coverage-html` option to generate a coverage report in C
 docker-compose run phpunit --coverage-html=cov/html
 ```
 
-The markdown report will be saved in the cov/markdown/coverage_report.md file. You can open this file to review the coverage details.
+The html report will be saved in the cov/html directory. You can open this folder to review the coverage details.
 
 ### Testing the local source code of the SDK
 
