@@ -37,6 +37,12 @@ jobs:
           php ./coverage.php
           COVERAGE_PR=$(jq -r '.total.statements.pct' cov/json/index.json)
           echo "COVERAGE_PR=$COVERAGE_PR" >> $GITHUB_ENV
+      - name: Upload coverage report markdown
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report-md
+          path: cov/markdown/coverage_report.md
 
       - uses: actions/checkout@v4
         with:
@@ -93,6 +99,12 @@ jobs:
           fi
           
           echo "COVERAGE_MESSAGE=$COVERAGE_MESSAGE" >> $GITHUB_ENV
+
+      - name: Download coverage report markdown
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-report-md
+          path: cov/markdown/
 
       - name: Add coverage message to markdown
         run: |
