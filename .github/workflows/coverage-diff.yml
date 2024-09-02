@@ -91,7 +91,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_COMMENT=$(jq -n --arg message "$COVERAGE_MESSAGE" \
-          '{"body": "### Code Coverage Report\n\n**PR Coverage**: '$COVERAGE_PR'%\n**Base Coverage**: '$COVERAGE_BASE'%\n\n$COVERAGE_MESSAGE"}')
+          '{"body": "### Code Coverage Report\n\n**PR Coverage**: '$COVERAGE_PR'%\n**Base Coverage**: '$COVERAGE_BASE'%\n\n'$COVERAGE_MESSAGE'"}')
           
           curl -s -H "Authorization: token $GITHUB_TOKEN" \
           -X POST -d "$PR_COMMENT" \
