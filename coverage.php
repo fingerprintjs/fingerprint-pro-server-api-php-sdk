@@ -40,7 +40,8 @@ $markdown .= sprintf(
     $percentage
 );
 
-$markdown .= "\n## Files Coverage\n\n";
+$markdown .= "\n<details>\n";
+$markdown .= "<summary>Files Coverage</summary>\n\n";
 $markdown .= "| File | Methods | Conditionals | Statements | Total Coverage |\n";
 $markdown .= "|------|-------------------|-------------------------|------------------------|----------------|\n";
 
@@ -65,5 +66,7 @@ foreach ($arr["project"]["file"] as $file) {
         $totalCoveragePct
     );
 }
+
+$markdown .= "\n</details>\n";
 
 file_put_contents($markdownPath . "coverage_report.md", $markdown);

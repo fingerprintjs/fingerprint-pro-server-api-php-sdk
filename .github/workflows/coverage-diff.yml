@@ -64,8 +64,16 @@ jobs:
       - name: Create coverage report for Base
         id: base_coverage
         run: |
-          php ./coverage.php
-          COVERAGE_BASE=$(jq -r '.total.statements.pct' cov/json/index.json)
+          COVERAGE_BASE=0
+          
+          if [ -f "./coverage.php" ]; then
+            php ./coverage.php
+          fi
+          
+          if [ -f "cov/json/index.json" ]; then
+            COVERAGE_BASE=$(jq -r '.total.statements.pct' cov/json/index.json)
+          fi
+          
           echo "COVERAGE_BASE=$COVERAGE_BASE" >> $GITHUB_ENV
 
       - name: Compare coverage
