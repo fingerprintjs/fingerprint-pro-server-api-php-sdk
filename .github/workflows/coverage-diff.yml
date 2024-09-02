@@ -29,8 +29,9 @@ jobs:
         run: touch .env
       - name: PHPUnit for PR
         run: docker-compose run phpunit --coverage-clover=cov/xml/clover-pr.xml
-      - name: Checkout base branch
-        run: git checkout ${{ github.event.pull_request.base.ref }}
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
       - name: PHPUnit for Base
         run: docker-compose run phpunit --coverage-clover=cov/xml/clover-base.xml
 
