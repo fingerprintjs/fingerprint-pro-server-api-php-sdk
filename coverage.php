@@ -42,15 +42,14 @@ $markdown .= sprintf(
 
 $markdown .= "\n<details>\n";
 $markdown .= "<summary>Files Coverage</summary>\n\n";
-$markdown .= "| File | Methods | Conditionals | Statements | Total Coverage |\n";
-$markdown .= "|------|-------------------|-------------------------|------------------------|----------------|\n";
+$markdown .= "| File | Methods | Statements | Total Coverage |\n";
+$markdown .= "|------|-------------------|------------------------|----------------|\n";
 
 foreach ($arr["project"]["file"] as $file) {
     $filePath = $file["@attributes"]["name"];
     $fileMetrics = $file["metrics"]["@attributes"];
 
     $methodsPct = $fileMetrics["methods"] > 0 ? ($fileMetrics["coveredmethods"] / $fileMetrics["methods"]) * 100 : 0;
-    $conditionalsPct = $fileMetrics["conditionals"] > 0 ? ($fileMetrics["coveredconditionals"] / $fileMetrics["conditionals"]) * 100 : 0;
     $statementsPct = $fileMetrics["statements"] > 0 ? ($fileMetrics["coveredstatements"] / $fileMetrics["statements"]) * 100 : 0;
 
     $fileElements = (int)$fileMetrics["elements"];
@@ -58,10 +57,9 @@ foreach ($arr["project"]["file"] as $file) {
     $totalCoveragePct = $fileElements > 0 ? ($fileCoveredElements / $fileElements) * 100 : 0;
 
     $markdown .= sprintf(
-        "| %s | %.2f%% | %.2f%% | %.2f%% | %.2f%% |\n",
+        "| %s | %.2f%% | %.2f%% | %.2f%% |\n",
         basename($filePath),
         $methodsPct,
-        $conditionalsPct,
         $statementsPct,
         $totalCoveragePct
     );
