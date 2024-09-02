@@ -269,6 +269,7 @@ class FingerprintApiTest extends TestCase
 
     public function testGetBrokenFormatEvent()
     {
+        $event = null;
         try {
             list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_BROKEN);
         } catch (SerializationException $exception) {

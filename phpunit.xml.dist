@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="./vendor/autoload.php"
          colors="true"
+         convertDeprecationsToExceptions="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="false"
          convertWarningsToExceptions="false"
          stopOnFailure="false">
+
     <testsuites>
         <testsuite name="FingerprintAPI Test">
             <directory>./test</directory>
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
-    <coverage>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <file>./src/Api/FingerprintApi.php</file>
+            <file>./src/Sealed/Sealed.php</file>
+            <file>./src/Webhook/WebhookVerifier.php</file>
+            <file>./src/ObjectSerializer.php</file>
+        </include>
         <report>
             <clover outputFile="cov/xml/clover.xml" />
         </report>

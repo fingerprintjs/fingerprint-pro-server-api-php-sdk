@@ -31,25 +31,11 @@ jobs:
         run: rm -f cov/xml/clover-pr.xml cov/xml/clover-base.xml cov/xml/clover.xml
       - name: PHPUnit for PR
         run: docker-compose run phpunit --coverage-clover=cov/xml/clover.xml
-      - name: Calculate coverage for PR branch
+      - name: Create coverage report for PR
         id: pr_coverage
         run: |
-          COVERAGE_PR=$(awk -F'"' '
-              /<metrics/ {
-              covered_statements += $10;
-              total_statements += $8;
-            }
-            END {
-              if (total_statements > 0) {
-                coverage = (covered_statements / total_statements) * 100;
-                if (coverage > 100) {
-                coverage = 100;
-            }
-            print coverage;
-            } else {
-              print 0;
-            }
-          }' cov/xml/clover.xml)
+          php ./coverage.php
+          COVERAGE_PR=$(jq -r '.total.statements.pct' cov/json/index.json)
           echo "COVERAGE_PR=$COVERAGE_PR" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
@@ -75,28 +61,15 @@ jobs:
         run: touch .env
       - name: PHPUnit for Base
         run: docker-compose run phpunit --coverage-clover=cov/xml/clover.xml
-      - name: Calculate coverage for base branch
+      - name: Create coverage report for Base
         id: base_coverage
         run: |
-          COVERAGE_BASE=$(if [ -f cov/xml/clover.xml ]; then
-          awk -F'"' '
-            /<metrics/ {
-            covered_statements += $10;
-            total_statements += $8;
-          }
-          END {
-            if (total_statements > 0) {
-              print (covered_statements / total_statements) * 100;
-            } else {
-              print 0;
-            }
-          }' cov/xml/clover.xml
-          else
-            echo 0
-          fi)
+          php ./coverage.php
+          COVERAGE_BASE=$(jq -r '.total.statements.pct' cov/json/index.json)
           echo "COVERAGE_BASE=$COVERAGE_BASE" >> $GITHUB_ENV
-          
+
       - name: Compare coverage
+        id: compare_coverage
         run: |
           COVERAGE_DIFF=$(echo "$COVERAGE_PR - $COVERAGE_BASE" | awk '{printf "%.2f", $0}')
           echo "Coverage PR: $COVERAGE_PR%"
@@ -113,18 +86,13 @@ jobs:
           
           echo "COVERAGE_MESSAGE=$COVERAGE_MESSAGE" >> $GITHUB_ENV
 
-      - name: Post coverage comment to PR
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERAGE_PR: ${{ env.COVERAGE_PR }}
-          COVERAGE_BASE: ${{ env.COVERAGE_BASE }}
-          COVERAGE_MESSAGE: ${{ env.COVERAGE_MESSAGE }}
+      - name: Add coverage message to markdown
         run: |
-          PR_COMMENT=$(jq -n --arg pr_coverage "$COVERAGE_PR" \
-                            --arg base_coverage "$COVERAGE_BASE" \
-                            --arg coverage_message "$COVERAGE_MESSAGE" \
-                            '{"body": "### Code Coverage Report\n\n**PR Coverage**: \($pr_coverage)%\n**Base Coverage**: \($base_coverage)%\n\n\($coverage_message)"}')
+          echo "$COVERAGE_MESSAGE" | cat - cov/markdown/coverage_report.md > temp && mv temp cov/markdown/coverage_report.md
 
-          curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          -X POST -d "$PR_COMMENT" \
-          "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
+      - name: Add comment with coverage report
+        uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31
+        with:
+          message: |
+            ${{ steps.compare_coverage.outputs.COVERAGE_MESSAGE }}
+            $(cat cov/markdown/coverage_report.md)
