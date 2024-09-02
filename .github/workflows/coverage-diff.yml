@@ -27,10 +27,53 @@ jobs:
           chmod -R 777 cov
       - name: "Create Empty env File for Docker"
         run: touch .env
-      - name: PHPUnit
-        run: docker-compose run phpunit --coverage-xml cov/xml --coverage-html cov/html --coverage-clover=cov/xml/clover.xml
-      - name: Get Cover
-        uses: orgoro/coverage@3f13a558c5af7376496aa4848bf0224aead366ac
-        with:
-          coverageFile: ./cov/xml/clover.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: PHPUnit for PR
+        run: docker-compose run phpunit --coverage-clover=cov/xml/clover-pr.xml
+      - name: Checkout base branch
+        run: git checkout ${{ github.event.pull_request.base.ref }}
+      - name: PHPUnit for Base
+        run: docker-compose run phpunit --coverage-clover=cov/xml/clover-base.xml
+
+      - name: Calculate coverage for PR branch
+        id: pr_coverage
+        run: |
+          COVERED_STATEMENTS=$(grep -oP 'coveredstatements="\K[0-9]+' clover-pr.xml | paste -sd+ | bc)
+          TOTAL_STATEMENTS=$(grep -oP 'statements="\K[0-9]+' clover-pr.xml | paste -sd+ | bc)
+          COVERAGE_PR=$(echo "scale=2; $COVERED_STATEMENTS/$TOTAL_STATEMENTS*100" | bc)
+          echo "COVERAGE_PR=$COVERAGE_PR" >> $GITHUB_ENV
+
+      - name: Calculate coverage for base branch
+        id: base_coverage
+        run: |
+          COVERED_STATEMENTS=$(grep -oP 'coveredstatements="\K[0-9]+' clover-base.xml | paste -sd+ | bc)
+          TOTAL_STATEMENTS=$(grep -oP 'statements="\K[0-9]+' clover-base.xml | paste -sd+ | bc)
+          COVERAGE_BASE=$(echo "scale=2; $COVERED_STATEMENTS/$TOTAL_STATEMENTS*100" | bc)
+          echo "COVERAGE_BASE=$COVERAGE_BASE" >> $GITHUB_ENV
+          
+      - name: Compare coverage
+        run: |
+          COVERAGE_DIFF=$(echo "$COVERAGE_PR - $COVERAGE_BASE" | bc)
+          echo "Coverage PR: $COVERAGE_PR%"
+          echo "Coverage Base: $COVERAGE_BASE%"
+          echo "Coverage Diff: $COVERAGE_DIFF%"
+          
+          if [ $(echo "$COVERAGE_DIFF > 0" | bc) -eq 1 ]; then
+            COVERAGE_MESSAGE=":green_circle: Coverage increased by $COVERAGE_DIFF%"
+          elif [ $(echo "$COVERAGE_DIFF < 0" | bc) -eq 1 ]; then
+            COVERAGE_MESSAGE=":red_circle: Coverage decreased by ${COVERAGE_DIFF#-}%"
+          else
+            COVERAGE_MESSAGE=":yellow_circle: Coverage remained the same."
+          fi
+          
+          echo "COVERAGE_MESSAGE=$COVERAGE_MESSAGE" >> $GITHUB_ENV
+
+      - name: Post coverage comment to PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_COMMENT=$(jq -n --arg message "$COVERAGE_MESSAGE" \
+          '{"body": "### Code Coverage Report\n\n**PR Coverage**: '$COVERAGE_PR'%\n**Base Coverage**: '$COVERAGE_BASE'%\n\n$COVERAGE_MESSAGE"}')
+          
+          curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          -X POST -d "$PR_COMMENT" \
+          "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
