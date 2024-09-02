@@ -106,13 +106,15 @@ jobs:
           name: coverage-report-md
           path: cov/markdown/
 
-      - name: Add coverage message to markdown
+      - name: Combine Coverage Message and Report
+        id: combine_message
         run: |
-          echo "$COVERAGE_MESSAGE" | cat - cov/markdown/coverage_report.md > temp && mv temp cov/markdown/coverage_report.md
+          echo "${{ steps.compare_coverage.outputs.COVERAGE_MESSAGE }}" > coverage_message.txt
+          cat cov/markdown/coverage_report.md >> coverage_message.txt
+          combined_message=$(cat coverage_message.txt)
+          echo "combined_message=$combined_message" >> $GITHUB_ENV
 
       - name: Add comment with coverage report
         uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31
         with:
-          message: |
-            ${{ steps.compare_coverage.outputs.COVERAGE_MESSAGE }}
-            $(cat cov/markdown/coverage_report.md)
+          message: ${{ env.combined_message }}
