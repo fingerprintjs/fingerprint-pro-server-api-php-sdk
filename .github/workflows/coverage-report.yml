@@ -31,12 +31,12 @@ jobs:
       - name: "Parse Coverage"
         run: "php ./coverage.php"
       - name: Create Coverage Badges
-        uses: jaywcjlove/coverage-badges-cli@e07f25709cd25486855c1ba1b26da53576ff3620
+        uses: jaywcjlove/coverage-badges-cli@df58615045079f1c827de7867044bbab3ec22b43
         with:
           source: cov/json/index.json
           output: cov/html/coverage.svg
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@8817a56e5bfec6e2b08345c81f4d422db53a2cdc
+        uses: JamesIves/github-pages-deploy-action@920cbb300dcd3f0568dbc42700c61e2fd9e6139c
         with:
           branch: gh-pages
           folder: cov/html
