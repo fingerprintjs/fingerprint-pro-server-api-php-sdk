@@ -1,5 +1,7 @@
 <?php
 
+# This script generates JSON report for coverage badge github action and generates markdown report for coverage-diff github action
+
 $outputPath = __DIR__ . "/cov/json/";
 $markdownPath = __DIR__ . "/cov/markdown/";
 

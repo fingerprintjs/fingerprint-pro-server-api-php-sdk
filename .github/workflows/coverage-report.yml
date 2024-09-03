@@ -29,7 +29,7 @@ jobs:
       - name: PHPUnit
         run: docker-compose run --user "$(id -u):$(id -g)" phpunit
       - name: "Parse Coverage"
-        run: "php ./coverage.php"
+        run: "php ./generate_coverage_report.php"
       - name: Create Coverage Badges
         uses: jaywcjlove/coverage-badges-cli@df58615045079f1c827de7867044bbab3ec22b43
         with:

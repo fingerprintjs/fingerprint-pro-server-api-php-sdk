@@ -29,9 +29,9 @@ To generate a code coverage report, follow these steps:
    - The Clover XML report will be saved in `cov/xml/clover.xml`.
    - The HTML report will be saved in the `cov/html` directory.
 
-2. To convert the Clover XML report into a markdown report, run the coverage.php script:
+2. To convert the Clover XML report into a markdown report, run the generate_coverage_report.php script:
    ```shell
-   docker-compose run php php coverage.php
+   docker-compose run php php generate_coverage_report.php
    ```
 
 The markdown report will be saved in the `cov/markdown/coverage_report.md` file. You can open this file to review the coverage details.

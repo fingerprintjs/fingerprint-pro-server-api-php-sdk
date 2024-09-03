@@ -32,7 +32,7 @@ jobs:
       - name: Create coverage report for PR
         id: pr_coverage
         run: |
-          php ./coverage.php
+          php ./generate_coverage_report.php
           COVERAGE_PR=$(jq -r '.total.statements.pct' cov/json/index.json)
           echo "COVERAGE_PR=$COVERAGE_PR" >> $GITHUB_ENV
       - name: Upload coverage report markdown
@@ -67,8 +67,8 @@ jobs:
         run: |
           COVERAGE_BASE=0
           
-          if [ -f "./coverage.php" ]; then
-            php ./coverage.php
+          if [ -f "./generate_coverage_report.php" ]; then
+            php ./generate_coverage_report.php
           fi
           
           if [ -f "cov/json/index.json" ]; then
