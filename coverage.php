@@ -59,8 +59,8 @@ $markdown .= sprintf(
 
 $markdown .= "\n<details>\n";
 $markdown .= "<summary>Files Coverage</summary>\n\n";
-$markdown .= "| File | Methods | Statements | Total Coverage |\n";
-$markdown .= "|------|---------|------------|----------------|\n";
+$markdown .= "| St. | File | Methods | Statements | Total Coverage |\n";
+$markdown .= "|-----|------|---------|------------|----------------|\n";
 
 foreach ($arr["project"]["file"] as $file) {
     $filePath = 'src/' . explode('src/', $file["@attributes"]['name'])[1];
@@ -74,7 +74,8 @@ foreach ($arr["project"]["file"] as $file) {
     $totalCoveragePct = $fileElements > 0 ? ($fileCoveredElements / $fileElements) * 100 : 0;
 
     $markdown .= sprintf(
-        "| %s | %.2f%% | %.2f%% | %.2f%% |\n",
+        "| %s | %s | %.2f%% | %.2f%% | %.2f%% |\n",
+        getCoverageStatus($totalCoveragePct),
         $filePath,
         $methodsPct,
         $statementsPct,
