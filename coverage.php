@@ -46,7 +46,7 @@ $markdown .= "| File | Methods | Statements | Total Coverage |\n";
 $markdown .= "|------|-------------------|------------------------|----------------|\n";
 
 foreach ($arr["project"]["file"] as $file) {
-    $filePath = $file["@attributes"]["name"];
+    $filePath = 'src/' . explode('src/', $file["@attributes"]['name'])[1];
     $fileMetrics = $file["metrics"]["@attributes"];
 
     $methodsPct = $fileMetrics["methods"] > 0 ? ($fileMetrics["coveredmethods"] / $fileMetrics["methods"]) * 100 : 0;
@@ -58,7 +58,7 @@ foreach ($arr["project"]["file"] as $file) {
 
     $markdown .= sprintf(
         "| %s | %.2f%% | %.2f%% | %.2f%% |\n",
-        basename($filePath),
+        $filePath,
         $methodsPct,
         $statementsPct,
         $totalCoveragePct
