@@ -40,3 +40,5 @@ jobs:
         with:
           branch: gh-pages
           folder: cov/html
+          clean-exclude: |
+            .nojekyll
