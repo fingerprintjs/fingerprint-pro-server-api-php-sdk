@@ -1,10 +1,7 @@
 name: 'coverage-diff'
 on:
   pull_request:
-    branches:
-      - main
-      - chore/code-coverage # remove this before merge to main
-      - develop # remove this before merge to main
+
 jobs:
   coverage-diff:
     runs-on: ubuntu-latest
