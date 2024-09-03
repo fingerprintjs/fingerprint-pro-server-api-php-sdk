@@ -26,7 +26,7 @@ jobs:
       - name: Clear previous coverage data
         run: rm -f cov/xml/clover-pr.xml cov/xml/clover-base.xml cov/xml/clover.xml
       - name: PHPUnit for PR
-        run: docker-compose run phpunit --coverage-clover=cov/xml/clover.xml
+        run: docker-compose run phpunit
       - name: Create coverage report for PR
         id: pr_coverage
         run: |
@@ -58,7 +58,7 @@ jobs:
       - name: "Create Empty env File for Docker"
         run: touch .env
       - name: PHPUnit for Base
-        run: docker-compose run phpunit --coverage-clover=cov/xml/clover.xml
+        run: docker-compose run phpunit
       - name: Create coverage report for Base
         id: base_coverage
         run: |

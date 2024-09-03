@@ -21,27 +21,27 @@ To download fresh OpenAPI schema run `sh ./scripts/sync.sh`
 
 To generate a code coverage report in markdown format, follow these steps:
 
-1. Run PHPUnit with the `--coverage-clover` option to generate a coverage report in Clover XML format:
+1. Run PHPUnit to generate a coverage report in Clover XML format:
    ```shell
-   docker-compose run phpunit --coverage-clover=cov/xml/clover.xml
+   docker-compose run phpunit
    ```
-2. After generating the Clover XML file, run the coverage.php script to convert it into a markdown report:
+2. After PHPUnit generates the Clover XML file in `cov/xml/clover.xml`, run the coverage.php script to convert it into a markdown report:
     ```shell
    docker-compose run php php coverage.php
     ```
 
-The markdown report will be saved in the cov/markdown/coverage_report.md file. You can open this file to review the coverage details.
+The markdown report will be saved in the `cov/markdown/coverage_report.md` file. You can open this file to review the coverage details.
 
 ## Creating Coverage Report (HTML)
 
 To generate a code coverage report in HTML format, just run this command:
 
-Run PHPUnit with the `--coverage-html` option to generate a coverage report in Clover HTML format:
+Run PHPUnit to generate a coverage report in HTML format:
 ```shell
-docker-compose run phpunit --coverage-html=cov/html
+docker-compose run phpunit
 ```
 
-The html report will be saved in the cov/html directory. You can open this folder to review the coverage details.
+The html report will be saved in the `cov/html` directory. You can open this folder to review the coverage details.
 
 ### Testing the local source code of the SDK
 

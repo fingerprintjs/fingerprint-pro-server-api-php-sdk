@@ -18,7 +18,9 @@
             <directory suffix=".php">./src</directory>
         </include>
         <report>
+            <xml outputDirectory="cov/xml" />
             <clover outputFile="cov/xml/clover.xml" />
+            <html outputDirectory="cov/html" />
         </report>
     </coverage>
 </phpunit>
