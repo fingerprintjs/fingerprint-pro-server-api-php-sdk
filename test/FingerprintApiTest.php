@@ -341,6 +341,7 @@ class FingerprintApiTest extends TestCase
 
     public function testGetBrokenFormatEvent()
     {
+        $event = null;
         $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_ID_WITH_BROKEN));
 

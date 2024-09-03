@@ -1,0 +1,118 @@
+name: 'coverage-diff'
+on:
+  pull_request:
+
+jobs:
+  coverage-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: false
+      - uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231
+        with:
+          php-version: 8.2
+          coverage: none
+          tools: composer:v2
+          extensions: xdebug
+      - name: Install Dependencies
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+      - uses: KengoTODA/actions-setup-docker-compose@4677f0d86d41e623c9c6e11e1d910976da297bc0
+        with:
+          version: '2.14.2'
+      - name: "Create Empty env File for Docker"
+        run: touch .env
+      - name: Clear previous coverage data
+        run: rm -f cov/xml/clover-pr.xml cov/xml/clover-base.xml cov/xml/clover.xml
+      - name: PHPUnit for PR
+        run: docker-compose run phpunit
+      - name: Create coverage report for PR
+        id: pr_coverage
+        run: |
+          php ./generate_coverage_report.php
+          COVERAGE_PR=$(jq -r '.total.statements.pct' cov/json/index.json)
+          echo "COVERAGE_PR=$COVERAGE_PR" >> $GITHUB_ENV
+      - name: Upload coverage report markdown
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-md
+          path: cov/markdown/coverage_report.md
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          clean: false
+
+      - uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231
+        with:
+          php-version: 8.2
+          coverage: none
+          tools: composer:v2
+          extensions: xdebug
+      - name: Install Dependencies
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+      - uses: KengoTODA/actions-setup-docker-compose@4677f0d86d41e623c9c6e11e1d910976da297bc0
+        with:
+          version: '2.14.2'
+      - name: "Create Empty env File for Docker"
+        run: touch .env
+      - name: PHPUnit for Base
+        run: docker-compose run phpunit
+      - name: Create coverage report for Base
+        id: base_coverage
+        run: |
+          COVERAGE_BASE=0
+          
+          if [ -f "./generate_coverage_report.php" ]; then
+            php ./generate_coverage_report.php
+          fi
+          
+          if [ -f "cov/json/index.json" ]; then
+            COVERAGE_BASE=$(jq -r '.total.statements.pct' cov/json/index.json)
+          fi
+          
+          echo "COVERAGE_BASE=$COVERAGE_BASE" >> $GITHUB_ENV
+
+      - name: Compare coverage
+        id: compare_coverage
+        run: |
+          COVERAGE_DIFF=$(echo "$COVERAGE_PR - $COVERAGE_BASE" | awk '{printf "%.2f", $0}')
+          echo "Coverage PR: $COVERAGE_PR%"
+          echo "Coverage Base: $COVERAGE_BASE%"
+          echo "Coverage Diff: $COVERAGE_DIFF%"
+          
+          if (( $(echo "$COVERAGE_DIFF > 0" | awk '{print ($0 > 0)}') )); then
+            COVERAGE_MESSAGE=":green_circle: Coverage increased by $COVERAGE_DIFF%"
+          elif (( $(echo "$COVERAGE_DIFF < 0" | awk '{print ($0 < 0)}') )); then
+            COVERAGE_MESSAGE=":red_circle: Coverage decreased by ${COVERAGE_DIFF#-}%"
+          else
+            COVERAGE_MESSAGE=":yellow_circle: Coverage remained the same."
+          fi
+          
+          echo "COVERAGE_MESSAGE=$COVERAGE_MESSAGE" >> $GITHUB_ENV
+
+      - name: Download coverage report markdown
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report-md
+          path: cov/markdown/
+
+      - name: Combine Coverage Message and Report
+        run: |
+          echo "${COVERAGE_MESSAGE}" > coverage_message.txt
+          cat cov/markdown/coverage_report.md >> coverage_message.txt
+          combined_message=$(cat coverage_message.txt)
+          echo "combined_message<<EOF" >> $GITHUB_ENV
+          echo "$combined_message" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Add comment with coverage report
+        uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31
+        with:
+          message: "${{ env.combined_message }}"
+      - name: Add coverage report to the job summary
+        run: |
+          {
+            echo "${{ env.combined_message }}" 
+          } >> $GITHUB_STEP_SUMMARY

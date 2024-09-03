@@ -17,14 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231
         with:
           php-version: "${{ matrix.php_version }}"
           coverage: none
           tools: composer:v2
       - name: Install Dependencies
         run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
-      - uses: php-actions/phpunit@v3
+      - uses: php-actions/phpunit@aed47a6852905dbd05b7c1a47c526b38fcc4bc17
         with:
           php_version: "${{ matrix.php_version }}"
           bootstrap: vendor/autoload.php

@@ -17,6 +17,25 @@ You can just run `sh ./scripts/generate.sh` script and it will do all the work.
 
 To download fresh OpenAPI schema run `sh ./scripts/sync.sh`
 
+## Creating Coverage Report (Markdown and HTML)
+
+To generate a code coverage report, follow these steps:
+
+1. Run PHPUnit to generate a coverage report:
+   ```shell
+   docker-compose run phpunit
+   ```
+
+   - The Clover XML report will be saved in `cov/xml/clover.xml`.
+   - The HTML report will be saved in the `cov/html` directory.
+
+2. To convert the Clover XML report into a markdown report, run the generate_coverage_report.php script:
+   ```shell
+   docker-compose run php php generate_coverage_report.php
+   ```
+
+The markdown report will be saved in the `cov/markdown/coverage_report.md` file. You can open this file to review the coverage details.
+
 ### Testing the local source code of the SDK
 
 Use the `run_checks.php` file to make API requests using the local version of the SDK.
@@ -27,10 +46,26 @@ Use the `run_checks.php` file to make API requests using the local version of th
 4. Create an `.env` file in the root folder according to [.env.example](.env.example) with your API key and test variables.
 5. Finally, run `php run_checks.php`.
 
+### Testing the local source code of the SDK (Docker)
+
+As an alternative to running the SDK tests locally, you can use Docker:
+
+1. Ensure that Docker is installed and running on your machine.
+2. Create an `.env` file in the root folder according to [.env.example](.env.example) with your API key and test variables.
+3. Run the following command to install dependencies using Docker:
+   ```shell
+   docker-compose run composer install
+   ```
+4. Run the following command to execute the SDK tests using Docker:
+   ```shell
+   docker-compose run php php run_checks.php
+   ```
+
 ### Configuration
 
-Project configuration is described in `config.json` file. To read about available parameters run the command below:
+Project configuration is described in the `config.json` file. To read about available parameters run the command below:
 
 ```shell
 java -jar ./bin/swagger-codegen-cli.jar config-help -l php
 ```
+
