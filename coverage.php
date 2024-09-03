@@ -32,7 +32,7 @@ function getCoverageStatus($percentage) {
 // Generate JSON report
 $map = [
     "total" => [
-        "statements" => ["pct" => $statementsPct],
+        "statements" => ["pct" => number_format($statementsPct, 2)],
     ]
 ];
 file_put_contents($outputPath . "index.json", json_encode($map));
