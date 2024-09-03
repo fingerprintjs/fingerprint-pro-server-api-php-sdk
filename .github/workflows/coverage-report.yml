@@ -27,7 +27,7 @@ jobs:
       - name: "Create Empty env File for Docker"
         run: touch .env
       - name: PHPUnit
-        run: docker-compose run phpunit
+        run: docker-compose run --user "$(id -u):$(id -g)" phpunit
       - name: "Parse Coverage"
         run: "php ./coverage.php"
       - name: Create Coverage Badges
