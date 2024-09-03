@@ -3,14 +3,6 @@
 $outputPath = __DIR__ . "/cov/json/";
 $markdownPath = __DIR__ . "/cov/markdown/";
 
-if (!file_exists($outputPath)) {
-    mkdir($outputPath, 0777, true);
-}
-
-if (!file_exists($markdownPath)) {
-    mkdir($markdownPath, 0777, true);
-}
-
 $contents = file_get_contents(__DIR__ . "/cov/xml/clover.xml");
 $xml = simplexml_load_string($contents);
 $arr = json_decode(json_encode($xml), true);

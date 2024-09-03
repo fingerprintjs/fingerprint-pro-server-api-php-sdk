@@ -8,4 +8,5 @@
 release/yarn-error.log
 release/node_modules
 .php-cs-fixer.cache
-cov/
+cov/**/*.*
+!cov/**/.gitkeep

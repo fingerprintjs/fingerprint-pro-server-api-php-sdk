@@ -21,10 +21,6 @@ jobs:
       - uses: KengoTODA/actions-setup-docker-compose@4677f0d86d41e623c9c6e11e1d910976da297bc0
         with:
           version: '2.14.2'
-      - name: Set Permissions for Coverage Directory
-        run: |
-          mkdir -p cov/json cov/xml cov/html
-          chmod -R 777 cov
       - name: "Create Empty env File for Docker"
         run: touch .env
       - name: Clear previous coverage data
@@ -59,10 +55,6 @@ jobs:
       - uses: KengoTODA/actions-setup-docker-compose@4677f0d86d41e623c9c6e11e1d910976da297bc0
         with:
           version: '2.14.2'
-      - name: Set Permissions for Coverage Directory
-        run: |
-          mkdir -p cov/json cov/xml cov/html
-          chmod -R 777 cov
       - name: "Create Empty env File for Docker"
         run: touch .env
       - name: PHPUnit for Base
