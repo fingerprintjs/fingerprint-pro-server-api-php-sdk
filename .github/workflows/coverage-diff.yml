@@ -111,3 +111,8 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31
         with:
           message: "${{ env.combined_message }}"
+      - name: Add coverage report to the job summary
+        run: |
+          {
+            echo "${{ env.combined_message }}" 
+          } >> $GITHUB_STEP_SUMMARY
