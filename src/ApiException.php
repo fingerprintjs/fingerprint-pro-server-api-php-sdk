@@ -1,17 +1,16 @@
 <?php
 /**
  * ApiException
- * PHP version 5.
+ * PHP version 5
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API.
+ * Fingerprint Pro Server API
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -28,32 +27,33 @@
 
 namespace Fingerprint\ServerAPI;
 
+use \Exception;
 use Fingerprint\ServerAPI\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * ApiException Class Doc Comment.
+ * ApiException Class Doc Comment
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class ApiException extends \Exception
+class ApiException extends Exception
 {
     protected ResponseInterface $responseObject;
     protected ?ModelInterface $errorDetails = null;
     protected ?int $retryAfter = null;
 
-    public function __construct(?string $message = '', ?int $code = 0)
+    public function __construct(?string $message = "", ?int $code = 0)
     {
         parent::__construct($message, $code);
     }
 
+
     /**
-     * Sets the deseralized response object (during deserialization).
-     */
+    * Sets the deseralized response object (during deserialization)
+    */
     public function setResponseObject(ResponseInterface $obj): void
     {
         $this->responseObject = $obj;

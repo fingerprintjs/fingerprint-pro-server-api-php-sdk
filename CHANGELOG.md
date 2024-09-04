@@ -1,3 +1,38 @@
+## [5.0.0-develop.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v4.1.0...v5.0.0-develop.1) (2024-09-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* Renamed Error Response Model Names
+`ErrorEvent403ResponseError` → `Common403ErrorResponse`
+`ManyRequestsResponse` → `TooManyRequestsResponse`
+* Webhook `tag` field is now optional
+* API Methods now throws `SerializationException`
+* API Methods returns tuple instead of models
+* API Methods removed other than `getModel`
+* Upgraded minimum php version to 8.1
+* Request logic is rewritten, Upgraded minimum php version to 8.1
+
+### Features
+
+* add `remoteControl`, `velocity` and `developerTools` signals ([5bf9368](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/5bf9368fb1bb5abbfa72366fe6c66fe32352ad54))
+* add delete visitor data endpoint ([a00f325](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/a00f325706af38cc20e4c387db44dfa83c7a7a22))
+* add retry after policy to api exception ([64e0510](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/64e05100a2c20c8d1f8e5f9719ee5292c59761c2))
+* add support for validating webhook signatures inter-768 ([6a4cbd6](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/6a4cbd6e2a521a209806337d90ae8f7e291a534b))
+* add update event endpoint (PUT) ([cb21d0b](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/cb21d0b4c48b7b94f4e9a7de1ab74313fe339e5f))
+* change api to return tuple instead of serialized model ([62e4ad3](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/62e4ad3020425667f45e3beeb166b4095a437ab5))
+* introduce rawResponse for getVisits and getEvent methods ([9b01ba6](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/9b01ba65e7ac794c77afedc155823baef2c80b17))
+* introduce serialization exception ([bfea23a](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/bfea23a50b61152d4fc65d290c730d0e3fcb6123))
+* only generate models and docs from swagger codegen ([26e984f](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/26e984ffd01dc9f21af3dd4da75fcb7e4309961f))
+* remove raw response and introduce with http info ([ce2fedf](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/ce2fedfcd94f5f1459049ba49eff75e2d3b8620c))
+* rewrite request logic ([0016822](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/001682270fd4370484b25062550a65bd375b9372))
+* upgrade min php version to 8 ([5698871](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/5698871fa497ee4ad50b2941d39769b45f15dfc2))
+
+
+### Bug Fixes
+
+* serializaiton problem on sealed results ([29cb26c](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/29cb26c3f50bfa035ca750948bb92a2299f579bd))
+
 ## [4.1.0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v4.0.0...v4.1.0) (2024-03-26)
 
 
