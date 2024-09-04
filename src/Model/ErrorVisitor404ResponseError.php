@@ -44,6 +44,7 @@ class ErrorVisitor404ResponseError implements ModelInterface, \ArrayAccess
 
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'ErrorVisitor404ResponseError';
 
@@ -114,6 +115,7 @@ class ErrorVisitor404ResponseError implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {

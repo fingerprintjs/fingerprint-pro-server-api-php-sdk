@@ -42,6 +42,7 @@ class EventUpdateRequest implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'EventUpdateRequest';
 
@@ -118,6 +119,7 @@ class EventUpdateRequest implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -203,6 +205,8 @@ class EventUpdateRequest implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
+     *
+     * @return ?string
      */
     public function getLinkedId(): ?string
     {
@@ -225,6 +229,8 @@ class EventUpdateRequest implements ModelInterface, \ArrayAccess
 
     /**
      * Gets tag.
+     *
+     * @return ?object
      */
     public function getTag(): ?object
     {
@@ -247,6 +253,8 @@ class EventUpdateRequest implements ModelInterface, \ArrayAccess
 
     /**
      * Gets suspect.
+     *
+     * @return ?bool
      */
     public function getSuspect(): ?bool
     {

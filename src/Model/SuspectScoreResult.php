@@ -42,6 +42,7 @@ class SuspectScoreResult implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'SuspectScoreResult';
 
@@ -106,6 +107,7 @@ class SuspectScoreResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {

@@ -42,6 +42,7 @@ class Confidence implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'Confidence';
 
@@ -112,6 +113,7 @@ class Confidence implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -225,6 +227,8 @@ class Confidence implements ModelInterface, \ArrayAccess
 
     /**
      * Gets revision.
+     *
+     * @return ?string
      */
     public function getRevision(): ?string
     {

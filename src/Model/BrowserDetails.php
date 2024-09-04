@@ -42,6 +42,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'BrowserDetails';
 
@@ -148,6 +149,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -411,6 +413,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets bot_probability.
+     *
+     * @return ?int
      */
     public function getBotProbability(): ?int
     {

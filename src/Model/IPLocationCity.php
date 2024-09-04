@@ -42,6 +42,7 @@ class IPLocationCity implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'IPLocationCity';
 
@@ -106,6 +107,7 @@ class IPLocationCity implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -191,6 +193,8 @@ class IPLocationCity implements ModelInterface, \ArrayAccess
 
     /**
      * Gets name.
+     *
+     * @return ?string
      */
     public function getName(): ?string
     {

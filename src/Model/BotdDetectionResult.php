@@ -48,6 +48,7 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
 
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'BotdDetectionResult';
 
@@ -118,6 +119,7 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -260,6 +262,8 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets type.
+     *
+     * @return ?string
      */
     public function getType(): ?string
     {

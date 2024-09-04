@@ -44,6 +44,7 @@ class Response implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'Response';
 
@@ -126,6 +127,7 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -266,6 +268,8 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets last_timestamp.
+     *
+     * @return ?int
      */
     public function getLastTimestamp(): ?int
     {
@@ -288,6 +292,8 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets pagination_key.
+     *
+     * @return ?string
      */
     public function getPaginationKey(): ?string
     {

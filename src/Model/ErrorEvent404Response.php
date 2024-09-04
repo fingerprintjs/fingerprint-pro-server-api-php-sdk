@@ -42,6 +42,7 @@ class ErrorEvent404Response implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'ErrorEvent404Response';
 
@@ -106,6 +107,7 @@ class ErrorEvent404Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -191,6 +193,8 @@ class ErrorEvent404Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ErrorEvent404ResponseError
      */
     public function getError(): ?ErrorEvent404ResponseError
     {

@@ -42,6 +42,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'IpInfoResult_v4';
 
@@ -124,6 +125,7 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -262,6 +264,8 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets asn.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ASN
      */
     public function getAsn(): ?ASN
     {
@@ -284,6 +288,8 @@ class IpInfoResultV4 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets datacenter.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\DataCenter
      */
     public function getDatacenter(): ?DataCenter
     {
