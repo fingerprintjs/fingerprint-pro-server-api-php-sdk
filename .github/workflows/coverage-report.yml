@@ -1,0 +1,42 @@
+name: 'coverage-report'
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+jobs:
+  coverage-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231
+        with:
+          php-version: 8.2
+          coverage: none
+          tools: composer:v2
+          extensions: xdebug
+      - name: Install Dependencies
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+      - uses: KengoTODA/actions-setup-docker-compose@4677f0d86d41e623c9c6e11e1d910976da297bc0
+        with:
+          version: '2.14.2'
+      - name: "Create Empty env File for Docker"
+        run: touch .env
+      - name: PHPUnit
+        run: docker-compose run --user "$(id -u):$(id -g)" phpunit
+      - name: "Parse Coverage"
+        run: "php ./generate_coverage_report.php"
+      - name: Create Coverage Badges
+        uses: jaywcjlove/coverage-badges-cli@df58615045079f1c827de7867044bbab3ec22b43
+        with:
+          source: cov/json/index.json
+          output: cov/html/coverage.svg
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@920cbb300dcd3f0568dbc42700c61e2fd9e6139c
+        with:
+          branch: gh-pages
+          folder: cov/html
+          clean-exclude: |
+            .nojekyll

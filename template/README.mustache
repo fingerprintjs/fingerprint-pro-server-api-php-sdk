@@ -10,6 +10,7 @@
 <p align="center">
 <a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/release.yml"><img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/release.yml/badge.svg" alt="CI badge" /></a>
 <a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/test.yml"><img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/test.yml/badge.svg" alt="CI badge" /></a>
+<a href="https://fingerprintjs.github.io/fingerprint-pro-server-api-php-sdk"><img src="https://fingerprintjs.github.io/fingerprint-pro-server-api-php-sdk/coverage.svg" alt="Unit Test Coverage" /></a>
 <a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/functional.yml"><img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/functional.yml/badge.svg" alt="CI badge" /></a>
 <a href="https://packagist.org/packages/fingerprint/fingerprint-pro-server-api-sdk"><img src="https://poser.pugx.org/fingerprint/fingerprint-pro-server-api-sdk/v" alt="Latest Stable Version on Packagist"></a>
 <a href="https://packagist.org/packages/fingerprint/fingerprint-pro-server-api-sdk"><img src="https://poser.pugx.org/fingerprint/fingerprint-pro-server-api-sdk/require/php?style=flat-square" alt="PHP Version Require"></a>
@@ -94,6 +95,7 @@ const PAGINATION_KEY = "1683900801733.Ogvu1j";
 // Import Fingerprint Pro Classes and Guzzle Http Client
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerAPI\Model\EventUpdateRequest;
 use GuzzleHttp\Client;
 
 // Create a new Configuration instance with your Fingerprint Pro Server API Key and your Fingerprint Pro Server API Region.
@@ -114,7 +116,7 @@ $client = new FingerprintApi(
 // Get an event with a given requestId
 try {
     // Fetch the event with a given requestId
-    $response = $client->getEvent(FPJS_REQUEST_ID);
+    list($model, $response) = $client->getEvent(FPJS_REQUEST_ID);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
@@ -123,30 +125,55 @@ try {
 // Get a specific visitor's all visits
 try {
     // Fetch all visits with a given visitorId, with a page limit
-    $response = $client->getVisits(FPJS_VISITOR_ID, null, null, LIMIT);
+    list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, null, null, LIMIT);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
-    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
 
 // Get a specific visitor's all visits with a linkedId
 try {
     // Fetch all visits with a given visitorId, with a page limit, skipping the first visit
-    $response = $client->getVisits(FPJS_VISITOR_ID, null, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
+    list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, null, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
-    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
 
 // Use all the parameters on getVisits
 try {
     // Fetch the visitor's all visits with a given requestId and linkedId with a page limit while skipping the first visit
-    $response = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
+    list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
     echo "<pre>" . $response->__toString() . "</pre>";
 } catch (Exception $e) {
-    echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
+}
+
+// Update Event
+try {
+    $body = new EventUpdateRequest([
+        'linked_id' => 'new linked id',
+        'tag' => json_encode(['new_property' => 'new value']),
+        'suspect' => true,
+    ]);
+    list($model, $response) = $client->updateEvent($body, FPJS_REQUEST_ID);
+    echo "<pre>" . $response->__toString() . "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->updateEvent: ', $e->getMessage(), PHP_EOL;
+}
+
+// Delete by visitor ID
+try {
+    list($model, $response) = $client->deleteVisitorData(FPJS_VISITOR_ID);
+    echo "<pre>" . $response->__toString() . "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->deleteVisitorData: ', $e->getMessage(), PHP_EOL;
 }
 ```
+
+> ⚠️ Warning It's not possible to update events older than 10 days.
+
+> ⚠️ If you are interested in using `deleteVisitorData` API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
 
 ## Sealed results
 
@@ -183,6 +210,34 @@ All URIs are relative to your region's base URL.
 | US / Global | https://api.fpjs.io    |
 | Europe      | https://eu.api.fpjs.io |
 | Asia        | https://ap.api.fpjs.io |
+
+## Webhook Signing
+
+This SDK provides utility method for verifying the HMAC signature of the incoming webhook request.
+You can use below code to verify signature:
+
+```php
+<?php
+
+use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
+
+// Your webhook signing secret.
+$webhookSecret = "secret";
+
+// Request data. In real life scenerio this will be the body of incoming request
+$webhookData = "data";
+
+// Value of the "fpjs-event-signature" header.
+$webhookHeader = "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db";
+
+$isValidWebhookSign = WebhookVerifier::IsValidWebhookSignature($webhookHeader, $webhookData, $webhookSecret);
+
+if(!$isValidWebhookSign) {
+    fwrite(STDERR, sprintf("Webhook signature verification failed\n"));
+    exit(1);
+}
+
+```
 
 ## Endpoints
 
@@ -225,6 +280,10 @@ Class | Method | HTTP request | Description
 
 - [Sealed](docs/Sealed/Sealed.md)
 - [DecryptionKey](docs/Sealed/DecryptionKey.md)
+
+## Documentation for webhooks
+
+- [Webhook](docs/Webhook.md)
 
 ## Tests
 

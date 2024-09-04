@@ -1,7 +1,5 @@
 <?php
 
-use Fingerprint\ServerAPI\Model\ResponseVisits;
-
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $host = getenv('FP_API_HOST');
@@ -10,6 +8,7 @@ $api_key = getenv('FP_PRIVATE_API_KEY');
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Configuration;
 use GuzzleHttp\Client;
+use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 
@@ -44,23 +43,65 @@ $client = new FingerprintApi(
 error_reporting(error_reporting() & ~E_DEPRECATED);
 
 try {
-    $result = $client->getVisits($visitor_id);
-    fwrite(STDOUT, sprintf("Got visits: %s \n", $result));
+    list($result, $response) = $client->getVisits($visitor_id);
+    if($result->getVisitorId() !== $visitor_id) {
+        throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
+    }
+    fwrite(STDOUT, sprintf("Got visits: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
     exit(1);
 }
 
 try {
-    $result = $client->getEvent($request_id);
-    fwrite(STDOUT, sprintf("Got event: %s \n", $result));
+    /** @var $result \Fingerprint\ServerAPI\Model\EventResponse */
+    list($result, $response) = $client->getEvent($request_id);
+    if($result->getProducts()->getIdentification()->getData()->getRequestId() !== $request_id) {
+        throw new Exception('Argument requestId is not equal to deserialized getRequestId');
+    }
+    fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
-    fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
+    exit(1);
+}
+
+$eventPromise = $client->getEventAsync($request_id);
+$eventPromise->then(function ($tuple) use($request_id) {
+    list($result, $response) = $tuple;
+    if($result->getProducts()->getIdentification()->getData()->getRequestId() !== $request_id) {
+        throw new Exception('Argument requestId is not equal to deserialized getRequestId');
+    }
+    fwrite(STDOUT, sprintf("\n\nGot async event: %s \n", $response->getBody()->getContents()));
+}, function($exception) {
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $exception->getMessage()));
+    exit(1);
+})->wait();
+
+$visitsPromise = $client->getVisitsAsync($visitor_id);
+$visitsPromise->then(function($tuple) use($visitor_id) {
+    list($result, $response) = $tuple;
+    if($result->getVisitorId() !== $visitor_id) {
+        throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
+    }
+    fwrite(STDOUT, sprintf("\n\nGot async visits: %s \n", $response->getBody()->getContents()));
+}, function ($exception) {
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $exception->getMessage()));
+    exit(1);
+})->wait();
+
+$webhookSecret = "secret";
+$webhookData = "data";
+$webhookHeader = "v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db";
+$isValidWebhookSign = WebhookVerifier::IsValidWebhookSignature($webhookHeader, $webhookData, $webhookSecret);
+if($isValidWebhookSign) {
+    fwrite(STDOUT, sprintf("\n\nVerified webhook signature\n"));
+} else {
+    fwrite(STDERR, sprintf("\n\nWebhook signature verification failed\n"));
     exit(1);
 }
 
 // Enable the deprecated ArrayAccess return type warning again if needed
 error_reporting(error_reporting() | E_DEPRECATED);
 
-fwrite(STDOUT, "Checks passed\n");
+fwrite(STDOUT, "\n\nChecks passed\n");
 exit(0);

@@ -22,7 +22,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231
         with:
           php-version: "${{ matrix.php_version }}"
           coverage: none

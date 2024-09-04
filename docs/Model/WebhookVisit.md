@@ -26,6 +26,9 @@ Name | Type | Description | Notes
 **high_activity** | [**\Fingerprint\ServerAPI\Model\HighActivityResult**](HighActivityResult.md) |  | [optional] 
 **location_spoofing** | [**\Fingerprint\ServerAPI\Model\LocationSpoofingResult**](LocationSpoofingResult.md) |  | [optional] 
 **suspect_score** | [**\Fingerprint\ServerAPI\Model\SuspectScoreResult**](SuspectScoreResult.md) |  | [optional] 
+**remote_control** | [**\Fingerprint\ServerAPI\Model\RemoteControlResult**](RemoteControlResult.md) |  | [optional] 
+**velocity** | [**\Fingerprint\ServerAPI\Model\VelocityResult**](VelocityResult.md) |  | [optional] 
+**developer_tools** | [**\Fingerprint\ServerAPI\Model\DeveloperToolsResult**](DeveloperToolsResult.md) |  | [optional] 
 **request_id** | **string** | Unique identifier of the user's identification request. | 
 **browser_details** | [**\Fingerprint\ServerAPI\Model\BrowserDetails**](BrowserDetails.md) |  | 
 **ip** | **string** |  | 
@@ -33,7 +36,7 @@ Name | Type | Description | Notes
 **timestamp** | **int** | Timestamp of the event with millisecond precision in Unix time. | 
 **time** | [**\DateTime**](\DateTime.md) | Time expressed according to ISO 8601 in UTC format. | 
 **url** | **string** | Page URL from which the identification request was sent. | 
-**tag** | **map[string,object]** | A customer-provided value or an object that was sent with identification request. | 
+**tag** | **map[string,object]** | A customer-provided value or an object that was sent with identification request. | [optional] 
 **linked_id** | **string** | A customer-provided id that was sent with identification request. | [optional] 
 **confidence** | [**\Fingerprint\ServerAPI\Model\Confidence**](Confidence.md) |  | [optional] 
 **visitor_found** | **bool** | Attribute represents if a visitor had been identified before. | 

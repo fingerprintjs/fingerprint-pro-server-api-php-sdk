@@ -1,17 +1,16 @@
 <?php
 /**
- * IPLocation
- *
- * PHP version 5
+ * IPLocation.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -28,186 +27,119 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * IPLocation Class Doc Comment
+ * IPLocation Class Doc Comment.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class IPLocation implements ModelInterface, ArrayAccess
+class IPLocation implements ModelInterface, \ArrayAccess
 {
-    const DISCRIMINATOR = null;
-
-    /**
-      * The original name of the model.
-      *
-      * @var string
-      */
-    protected static $swaggerModelName = 'IPLocation';
-
-    /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
-    protected static $swaggerTypes = [
-        'accuracy_radius' => 'int',
-'latitude' => 'double',
-'longitude' => 'double',
-'postal_code' => 'string',
-'timezone' => 'string',
-'city' => '\Fingerprint\ServerAPI\Model\IPLocationCity',
-'country' => '\Fingerprint\ServerAPI\Model\Location',
-'continent' => '\Fingerprint\ServerAPI\Model\Location',
-'subdivisions' => '\Fingerprint\ServerAPI\Model\Subdivision[]'    ];
-
-    /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
-    protected static $swaggerFormats = [
-        'accuracy_radius' => null,
-'latitude' => 'double',
-'longitude' => 'double',
-'postal_code' => null,
-'timezone' => 'timezone',
-'city' => null,
-'country' => null,
-'continent' => null,
-'subdivisions' => null    ];
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerTypes()
-    {
-        return self::$swaggerTypes;
-    }
-
-    /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @return array
-     */
-    public static function swaggerFormats()
-    {
-        return self::$swaggerFormats;
-    }
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'accuracy_radius' => 'accuracyRadius',
-'latitude' => 'latitude',
-'longitude' => 'longitude',
-'postal_code' => 'postalCode',
-'timezone' => 'timezone',
-'city' => 'city',
-'country' => 'country',
-'continent' => 'continent',
-'subdivisions' => 'subdivisions'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'accuracy_radius' => 'setAccuracyRadius',
-'latitude' => 'setLatitude',
-'longitude' => 'setLongitude',
-'postal_code' => 'setPostalCode',
-'timezone' => 'setTimezone',
-'city' => 'setCity',
-'country' => 'setCountry',
-'continent' => 'setContinent',
-'subdivisions' => 'setSubdivisions'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'accuracy_radius' => 'getAccuracyRadius',
-'latitude' => 'getLatitude',
-'longitude' => 'getLongitude',
-'postal_code' => 'getPostalCode',
-'timezone' => 'getTimezone',
-'city' => 'getCity',
-'country' => 'getCountry',
-'continent' => 'getContinent',
-'subdivisions' => 'getSubdivisions'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @return array
-     */
-    public static function attributeMap()
-    {
-        return self::$attributeMap;
-    }
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @return array
-     */
-    public static function setters()
-    {
-        return self::$setters;
-    }
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @return array
-     */
-    public static function getters()
-    {
-        return self::$getters;
-    }
-
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
-    {
-        return self::$swaggerModelName;
-    }
-
-    
+    protected static string $swaggerModelName = 'IPLocation';
 
     /**
-     * Associative array for storing property values
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
+    protected static array $swaggerTypes = [
+        'accuracy_radius' => 'int',
+        'latitude' => 'double',
+        'longitude' => 'double',
+        'postal_code' => 'string',
+        'timezone' => 'string',
+        'city' => '\Fingerprint\ServerAPI\Model\IPLocationCity',
+        'country' => '\Fingerprint\ServerAPI\Model\Location',
+        'continent' => '\Fingerprint\ServerAPI\Model\Location',
+        'subdivisions' => '\Fingerprint\ServerAPI\Model\Subdivision[]'];
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
+    protected static array $swaggerFormats = [
+        'accuracy_radius' => null,
+        'latitude' => 'double',
+        'longitude' => 'double',
+        'postal_code' => null,
+        'timezone' => 'timezone',
+        'city' => null,
+        'country' => null,
+        'continent' => null,
+        'subdivisions' => null];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'accuracy_radius' => 'accuracyRadius',
+        'latitude' => 'latitude',
+        'longitude' => 'longitude',
+        'postal_code' => 'postalCode',
+        'timezone' => 'timezone',
+        'city' => 'city',
+        'country' => 'country',
+        'continent' => 'continent',
+        'subdivisions' => 'subdivisions'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'accuracy_radius' => 'setAccuracyRadius',
+        'latitude' => 'setLatitude',
+        'longitude' => 'setLongitude',
+        'postal_code' => 'setPostalCode',
+        'timezone' => 'setTimezone',
+        'city' => 'setCity',
+        'country' => 'setCountry',
+        'continent' => 'setContinent',
+        'subdivisions' => 'setSubdivisions'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'accuracy_radius' => 'getAccuracyRadius',
+        'latitude' => 'getLatitude',
+        'longitude' => 'getLongitude',
+        'postal_code' => 'getPostalCode',
+        'timezone' => 'getTimezone',
+        'city' => 'getCity',
+        'country' => 'getCountry',
+        'continent' => 'getContinent',
+        'subdivisions' => 'getSubdivisions'];
+
+    /**
+     * Associative array for storing property values.
      *
      * @var mixed[]
      */
-    protected $container = [];
+    protected array $container = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['accuracy_radius'] = isset($data['accuracy_radius']) ? $data['accuracy_radius'] : null;
         $this->container['latitude'] = isset($data['latitude']) ? $data['latitude'] : null;
@@ -221,47 +153,108 @@ class IPLocation implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets the string presentation of the object.
+     */
+    public function __toString(): string
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
+     */
+    public static function swaggerTypes(): array
+    {
+        return self::$swaggerTypes;
+    }
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization.
+     */
+    public static function swaggerFormats(): array
+    {
+        return self::$swaggerFormats;
+    }
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     */
+    public static function attributeMap(): array
+    {
+        return self::$attributeMap;
+    }
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     */
+    public static function setters(): array
+    {
+        return self::$setters;
+    }
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     */
+    public static function getters(): array
+    {
+        return self::$getters;
+    }
+
+    /**
+     * The original name of the model.
+     */
+    public function getModelName(): string
+    {
+        return self::$swaggerModelName;
+    }
+
+    /**
      * Show all the invalid properties with reasons.
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets accuracy_radius
+     * Gets accuracy_radius.
      *
-     * @return int
+     * @return ?int
      */
-    public function getAccuracyRadius()
+    public function getAccuracyRadius(): ?int
     {
         return $this->container['accuracy_radius'];
     }
 
     /**
-     * Sets accuracy_radius
+     * Sets accuracy_radius.
      *
-     * @param int $accuracy_radius The IP address is likely to be within this radius (in km) of the specified location.
+     * @param ?int $accuracy_radius the IP address is likely to be within this radius (in km) of the specified location
      *
      * @return $this
      */
-    public function setAccuracyRadius($accuracy_radius)
+    public function setAccuracyRadius(?int $accuracy_radius): self
     {
         $this->container['accuracy_radius'] = $accuracy_radius;
 
@@ -269,23 +262,23 @@ class IPLocation implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets latitude
+     * Gets latitude.
      *
-     * @return double
+     * @return ?double
      */
-    public function getLatitude()
+    public function getLatitude(): ?float
     {
         return $this->container['latitude'];
     }
 
     /**
-     * Sets latitude
+     * Sets latitude.
      *
-     * @param double $latitude latitude
+     * @param ?double $latitude latitude
      *
      * @return $this
      */
-    public function setLatitude($latitude)
+    public function setLatitude(?float $latitude): self
     {
         $this->container['latitude'] = $latitude;
 
@@ -293,23 +286,23 @@ class IPLocation implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets longitude
+     * Gets longitude.
      *
-     * @return double
+     * @return ?double
      */
-    public function getLongitude()
+    public function getLongitude(): ?float
     {
         return $this->container['longitude'];
     }
 
     /**
-     * Sets longitude
+     * Sets longitude.
      *
-     * @param double $longitude longitude
+     * @param ?double $longitude longitude
      *
      * @return $this
      */
-    public function setLongitude($longitude)
+    public function setLongitude(?float $longitude): self
     {
         $this->container['longitude'] = $longitude;
 
@@ -317,23 +310,23 @@ class IPLocation implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets postal_code
+     * Gets postal_code.
      *
-     * @return string
+     * @return ?string
      */
-    public function getPostalCode()
+    public function getPostalCode(): ?string
     {
         return $this->container['postal_code'];
     }
 
     /**
-     * Sets postal_code
+     * Sets postal_code.
      *
-     * @param string $postal_code postal_code
+     * @param ?string $postal_code postal_code
      *
      * @return $this
      */
-    public function setPostalCode($postal_code)
+    public function setPostalCode(?string $postal_code): self
     {
         $this->container['postal_code'] = $postal_code;
 
@@ -341,23 +334,23 @@ class IPLocation implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets timezone
+     * Gets timezone.
      *
-     * @return string
+     * @return ?string
      */
-    public function getTimezone()
+    public function getTimezone(): ?string
     {
         return $this->container['timezone'];
     }
 
     /**
-     * Sets timezone
+     * Sets timezone.
      *
-     * @param string $timezone timezone
+     * @param ?string $timezone timezone
      *
      * @return $this
      */
-    public function setTimezone($timezone)
+    public function setTimezone(?string $timezone): self
     {
         $this->container['timezone'] = $timezone;
 
@@ -365,23 +358,23 @@ class IPLocation implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets city
+     * Gets city.
      *
-     * @return \Fingerprint\ServerAPI\Model\IPLocationCity
+     * @return ?\Fingerprint\ServerAPI\Model\IPLocationCity
      */
-    public function getCity()
+    public function getCity(): ?IPLocationCity
     {
         return $this->container['city'];
     }
 
     /**
-     * Sets city
+     * Sets city.
      *
-     * @param \Fingerprint\ServerAPI\Model\IPLocationCity $city city
+     * @param ?\Fingerprint\ServerAPI\Model\IPLocationCity $city city
      *
      * @return $this
      */
-    public function setCity($city)
+    public function setCity(?IPLocationCity $city): self
     {
         $this->container['city'] = $city;
 
@@ -389,23 +382,23 @@ class IPLocation implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets country
+     * Gets country.
      *
-     * @return \Fingerprint\ServerAPI\Model\Location
+     * @return ?\Fingerprint\ServerAPI\Model\Location
      */
-    public function getCountry()
+    public function getCountry(): ?Location
     {
         return $this->container['country'];
     }
 
     /**
-     * Sets country
+     * Sets country.
      *
-     * @param \Fingerprint\ServerAPI\Model\Location $country country
+     * @param ?\Fingerprint\ServerAPI\Model\Location $country country
      *
      * @return $this
      */
-    public function setCountry($country)
+    public function setCountry(?Location $country): self
     {
         $this->container['country'] = $country;
 
@@ -413,23 +406,23 @@ class IPLocation implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets continent
+     * Gets continent.
      *
-     * @return \Fingerprint\ServerAPI\Model\Location
+     * @return ?\Fingerprint\ServerAPI\Model\Location
      */
-    public function getContinent()
+    public function getContinent(): ?Location
     {
         return $this->container['continent'];
     }
 
     /**
-     * Sets continent
+     * Sets continent.
      *
-     * @param \Fingerprint\ServerAPI\Model\Location $continent continent
+     * @param ?\Fingerprint\ServerAPI\Model\Location $continent continent
      *
      * @return $this
      */
-    public function setContinent($continent)
+    public function setContinent(?Location $continent): self
     {
         $this->container['continent'] = $continent;
 
@@ -437,37 +430,35 @@ class IPLocation implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets subdivisions
+     * Gets subdivisions.
      *
-     * @return \Fingerprint\ServerAPI\Model\Subdivision[]
+     * @return ?\Fingerprint\ServerAPI\Model\Subdivision[]
      */
-    public function getSubdivisions()
+    public function getSubdivisions(): ?array
     {
         return $this->container['subdivisions'];
     }
 
     /**
-     * Sets subdivisions
+     * Sets subdivisions.
      *
-     * @param \Fingerprint\ServerAPI\Model\Subdivision[] $subdivisions subdivisions
+     * @param ?\Fingerprint\ServerAPI\Model\Subdivision[] $subdivisions subdivisions
      *
      * @return $this
      */
-    public function setSubdivisions($subdivisions)
+    public function setSubdivisions(?array $subdivisions): self
     {
         $this->container['subdivisions'] = $subdivisions;
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
-     *
-     * @return boolean
+     * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -475,12 +466,9 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return mixed
+     * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -488,13 +476,10 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -506,30 +491,10 @@ class IPLocation implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
-    }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

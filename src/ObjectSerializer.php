@@ -1,17 +1,18 @@
 <?php
 /**
- * ObjectSerializer
+ * ObjectSerializer.
  *
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -28,78 +29,72 @@
 
 namespace Fingerprint\ServerAPI;
 
+use Psr\Http\Message\ResponseInterface;
+
 /**
- * ObjectSerializer Class Doc Comment
+ * ObjectSerializer Class Doc Comment.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 class ObjectSerializer
 {
     /**
-     * Serialize data
+     * Serialize data.
      *
-     * @param mixed  $data   the data to serialize
-     * @param string $format the format of the Swagger type of the data
+     * @param mixed       $data   the data to serialize
+     * @param null|string $format the format of the Swagger type of the data
      *
-     * @return string|object serialized form of $data
+     * @return array|object|string serialized form of $data
      */
-    public static function sanitizeForSerialization($data, $format = null)
+    public static function sanitizeForSerialization(mixed $data, ?string $format = null): array|object|string
     {
         if (is_scalar($data) || null === $data) {
             return $data;
-        } elseif ($data instanceof \DateTime) {
-            return ($format === 'date') ? $data->format('Y-m-d') : $data->format(\DateTime::ATOM);
-        } elseif (is_array($data)) {
+        }
+        if ($data instanceof \DateTime) {
+            return ('date' === $format) ? $data->format('Y-m-d') : $data->format(\DateTime::ATOM);
+        }
+        if (is_array($data)) {
             foreach ($data as $property => $value) {
                 $data[$property] = self::sanitizeForSerialization($value);
             }
+
             return $data;
-        } elseif ($data instanceof \stdClass) {
+        }
+        if ($data instanceof \stdClass) {
             foreach ($data as $property => $value) {
-                $data->$property = self::sanitizeForSerialization($value);
+                $data->{$property} = self::sanitizeForSerialization($value);
             }
+
             return $data;
-        } elseif (is_object($data)) {
+        }
+        if (is_object($data)) {
             $values = [];
             $formats = $data::swaggerFormats();
             foreach ($data::swaggerTypes() as $property => $swaggerType) {
                 $getter = $data::getters()[$property];
-                $value = $data->$getter();
-                if ($value !== null
+                $value = $data->{$getter}();
+                if (null !== $value
                     && !in_array($swaggerType, ['DateTime', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)
                     && method_exists($swaggerType, 'getAllowableEnumValues')
                     && !in_array($value, $swaggerType::getAllowableEnumValues())) {
                     $imploded = implode("', '", $swaggerType::getAllowableEnumValues());
-                    throw new \InvalidArgumentException("Invalid value for enum '$swaggerType', must be one of: '$imploded'");
+
+                    throw new \InvalidArgumentException("Invalid value for enum '{$swaggerType}', must be one of: '{$imploded}'");
                 }
-                if ($value !== null) {
+                if (null !== $value) {
                     $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $swaggerType, $formats[$property]);
                 }
             }
-            return (object)$values;
-        } else {
-            return (string)$data;
-        }
-    }
 
-    /**
-     * Sanitize filename by removing path.
-     * e.g. ../../sun.gif becomes sun.gif
-     *
-     * @param string $filename filename to be sanitized
-     *
-     * @return string the sanitized filename
-     */
-    public static function sanitizeFilename($filename)
-    {
-        if (preg_match("/.*[\/\\\\](.*)$/", $filename, $match)) {
-            return $match[1];
-        } else {
-            return $filename;
+            return (object) $values;
         }
+
+        return (string) $data;
     }
 
     /**
@@ -110,7 +105,7 @@ class ObjectSerializer
      *
      * @return string the serialized object
      */
-    public static function toPathValue($value)
+    public static function toPathValue(string $value): string
     {
         return rawurlencode(self::toString($value));
     }
@@ -121,142 +116,110 @@ class ObjectSerializer
      * If it's a string, pass through unchanged. It will be url-encoded
      * later.
      *
-     * @param string[]|string|\DateTime $object an object to be serialized to a string
-     * @param string|null $format the format of the parameter
+     * @param \DateTime|string|string[] $object an object to be serialized to a string
+     * @param null|string               $format the format of the parameter
      *
      * @return string the serialized object
      */
-    public static function toQueryValue($object, $format = null)
+    public static function toQueryValue(array|\DateTime|string $object, ?string $format = null): string
     {
         if (is_array($object)) {
             return implode(',', $object);
-        } else {
-            return self::toString($object, $format);
         }
-    }
 
-    /**
-     * Take value and turn it into a string suitable for inclusion in
-     * the header. If it's a string, pass through unchanged
-     * If it's a datetime object, format it in RFC3339
-     *
-     * @param string $value a string which will be part of the header
-     *
-     * @return string the header string
-     */
-    public static function toHeaderValue($value)
-    {
-        return self::toString($value);
-    }
-
-    /**
-     * Take value and turn it into a string suitable for inclusion in
-     * the http body (form parameter). If it's a string, pass through unchanged
-     * If it's a datetime object, format it in RFC3339
-     *
-     * @param string|\SplFileObject $value the value of the form parameter
-     *
-     * @return string the form string
-     */
-    public static function toFormValue($value)
-    {
-        if ($value instanceof \SplFileObject) {
-            return $value->getRealPath();
-        } else {
-            return self::toString($value);
-        }
+        return self::toString($object, $format);
     }
 
     /**
      * Take value and turn it into a string suitable for inclusion in
      * the parameter. If it's a string, pass through unchanged
      * If it's a datetime object, format it in RFC3339
-     * If it's a date, format it in Y-m-d
+     * If it's a date, format it in Y-m-d.
      *
-     * @param string|\DateTime $value the value of the parameter
-     * @param string|null $format the format of the parameter
+     * @param \DateTime|string $value  the value of the parameter
+     * @param null|string      $format the format of the parameter
      *
      * @return string the header string
      */
-    public static function toString($value, $format = null)
+    public static function toString(\DateTime|string $value, ?string $format = null): string
     {
         if ($value instanceof \DateTime) {
-            return ($format === 'date') ? $value->format('Y-m-d') : $value->format(\DateTime::ATOM);
-        } else {
-            return $value;
+            return ('date' === $format) ? $value->format('Y-m-d') : $value->format(\DateTime::ATOM);
         }
+
+        return $value;
     }
 
     /**
-     * Serialize an array to a string.
+     * Deserialize a JSON string into an object.
      *
-     * @param array  $collection                 collection to serialize to a string
-     * @param string $collectionFormat           the format use for serialization (csv,
-     * ssv, tsv, pipes, multi)
-     * @param bool   $allowCollectionFormatMulti allow collection format to be a multidimensional array
+     * @param string $class class name is passed as a string
      *
-     * @return string
+     * @throws \Exception
      */
-    public static function serializeCollection(array $collection, $collectionFormat, $allowCollectionFormatMulti = false)
+    public static function deserialize(ResponseInterface $response, string $class): mixed
     {
-        if ($allowCollectionFormatMulti && ('multi' === $collectionFormat)) {
-            // http_build_query() almost does the job for us. We just
-            // need to fix the result of multidimensional arrays.
-            return preg_replace('/%5B[0-9]+%5D=/', '=', http_build_query($collection, '', '&'));
-        }
-        switch ($collectionFormat) {
-            case 'pipes':
-                return implode('|', $collection);
+        $data = $response->getBody()->getContents();
+        $response->getBody()->rewind();
 
-            case 'tsv':
-                return implode("\t", $collection);
-
-            case 'ssv':
-                return implode(' ', $collection);
-
-            case 'csv':
-                // Deliberate fall through. CSV is default format.
-            default:
-                return implode(',', $collection);
-        }
+        return self::mapToClass($data, $class, $response);
     }
 
-    /**
-     * Deserialize a JSON string into an object
-     *
-     * @param mixed    $data          object or primitive to be deserialized
-     * @param string   $class         class name is passed as a string
-     * @param string[] $httpHeaders   HTTP headers
-     * @param string   $discriminator discriminator if polymorphism is used
-     *
-     * @return object|array|null an single or an array of $class instances
-     */
-    public static function deserialize($data, $class, $httpHeaders = null)
+    protected static function mapToClass(mixed $data, string $class, ResponseInterface $response): mixed
+    {
+        if ('string' === gettype($data)) {
+            $data = json_decode($data, false);
+        }
+        $instance = new $class();
+        foreach ($instance::swaggerTypes() as $property => $type) {
+            $propertySetter = $instance::setters()[$property];
+
+            if (!isset($propertySetter) || !isset($data->{$instance::attributeMap()[$property]})) {
+                continue;
+            }
+
+            $propertyValue = $data->{$instance::attributeMap()[$property]};
+            if (isset($propertyValue)) {
+                $instance->{$propertySetter}(self::castData($propertyValue, $type, $response));
+            }
+        }
+
+        return $instance;
+    }
+
+    protected static function castData(mixed $data, string $class, ResponseInterface $response): mixed
     {
         if (null === $data) {
             return null;
-        } elseif (substr($class, 0, 4) === 'map[') { // for associative array e.g. map[string,int]
+        }
+        if (str_starts_with($class, 'map[')) { // for associative array e.g. map[string,int]
             $inner = substr($class, 4, -1);
             $deserialized = [];
-            if (strrpos($inner, ",") !== false) {
+            if (false !== strrpos($inner, ',')) {
                 $subClass_array = explode(',', $inner, 2);
                 $subClass = $subClass_array[1];
                 foreach ($data as $key => $value) {
-                    $deserialized[$key] = self::deserialize($value, $subClass, null);
+                    $deserialized[$key] = self::castData($value, $subClass, $response);
                 }
             }
+
             return $deserialized;
-        } elseif (strcasecmp(substr($class, -2), '[]') === 0) {
+        }
+        if (0 === strcasecmp(substr($class, -2), '[]')) {
             $subClass = substr($class, 0, -2);
             $values = [];
             foreach ($data as $key => $value) {
-                $values[] = self::deserialize($value, $subClass, null);
+                $values[] = self::castData($value, $subClass, $response);
             }
+
             return $values;
-        } elseif ($class === 'object' || $class === '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult') {
+        }
+        if ('object' === $class || '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult' === $class) {
             settype($data, 'array');
+
             return $data;
-        } elseif ($class === '\DateTime') {
+        }
+        if ('\DateTime' === $class) {
             // Some API's return an invalid, empty string as a
             // date-time property. DateTime::__construct() will return
             // the current time for empty input which is probably not
@@ -265,59 +228,48 @@ class ObjectSerializer
             // this graceful.
             if (!empty($data)) {
                 return new \DateTime($data);
-            } else {
-                return null;
             }
-        } elseif (in_array($class, ['DateTime', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)) {
+
+            return null;
+        }
+        if (in_array($class, ['DateTime', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)) {
+            $originalData = $data;
+            $normalizedClass = strtolower($class);
+
+            switch ($normalizedClass) {
+                case 'int':
+                    $normalizedClass = 'integer';
+
+                    break;
+
+                case 'bool':
+                    $normalizedClass = 'boolean';
+
+                    break;
+            }
+            if ('float' === $normalizedClass && is_numeric($originalData)) {
+                return (float) $originalData;
+            }
+            if ('string' === $normalizedClass && is_object($data)) {
+                throw new SerializationException($response);
+            }
+
             settype($data, $class);
-            return $data;
-        } elseif ($class === '\SplFileObject') {
-            /** @var \Psr\Http\Message\StreamInterface $data */
-
-            // determine file name
-            if (array_key_exists('Content-Disposition', $httpHeaders) &&
-                preg_match('/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match)) {
-                $filename = Configuration::getDefaultConfiguration()->getTempFolderPath() . DIRECTORY_SEPARATOR . self::sanitizeFilename($match[1]);
-            } else {
-                $filename = tempnam(Configuration::getDefaultConfiguration()->getTempFolderPath(), '');
+            if (gettype($data) === $normalizedClass) {
+                return $data;
             }
 
-            $file = fopen($filename, 'w');
-            while ($chunk = $data->read(200)) {
-                fwrite($file, $chunk);
-            }
-            fclose($file);
-
-            return new \SplFileObject($filename, 'r');
+            throw new SerializationException($response);
         } elseif (method_exists($class, 'getAllowableEnumValues')) {
             if (!in_array($data, $class::getAllowableEnumValues())) {
                 $imploded = implode("', '", $class::getAllowableEnumValues());
-                throw new \InvalidArgumentException("Invalid value for enum '$class', must be one of: '$imploded'");
+
+                throw new \InvalidArgumentException("Invalid value for enum '{$class}', must be one of: '{$imploded}'");
             }
+
             return $data;
-        } else {
-            // If a discriminator is defined and points to a valid subclass, use it.
-            $discriminator = $class::DISCRIMINATOR;
-            if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
-                $subclass = 'Fingerprint\ServerAPI\Model\\' . $data->{$discriminator};
-                if (is_subclass_of($subclass, $class)) {
-                    $class = $subclass;
-                }
-            }
-            $instance = new $class();
-            foreach ($instance::swaggerTypes() as $property => $type) {
-                $propertySetter = $instance::setters()[$property];
-
-                if (!isset($propertySetter) || !isset($data->{$instance::attributeMap()[$property]})) {
-                    continue;
-                }
-
-                $propertyValue = $data->{$instance::attributeMap()[$property]};
-                if (isset($propertyValue)) {
-                    $instance->$propertySetter(self::deserialize($propertyValue, $type, null));
-                }
-            }
-            return $instance;
         }
+
+        return self::mapToClass($data, $class, $response);
     }
 }

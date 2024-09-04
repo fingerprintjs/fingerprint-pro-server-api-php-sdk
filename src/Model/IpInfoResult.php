@@ -1,17 +1,16 @@
 <?php
 /**
- * IpInfoResult
- *
- * PHP version 5
+ * IpInfoResult.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -28,155 +27,153 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * IpInfoResult Class Doc Comment
+ * IpInfoResult Class Doc Comment.
  *
  * @category Class
+ *
  * @description Details about the request IP address. Has separate fields for v4 and v6 IP address versions.
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class IpInfoResult implements ModelInterface, ArrayAccess
+class IpInfoResult implements ModelInterface, \ArrayAccess
 {
-    const DISCRIMINATOR = null;
-
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
-    protected static $swaggerModelName = 'IpInfoResult';
-
-    /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
-    protected static $swaggerTypes = [
-        'v4' => '\Fingerprint\ServerAPI\Model\IpInfoResultV4',
-'v6' => '\Fingerprint\ServerAPI\Model\IpInfoResultV6'    ];
-
-    /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
-    protected static $swaggerFormats = [
-        'v4' => null,
-'v6' => null    ];
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @return array
+     * The original name of the model.
      */
-    public static function swaggerTypes()
+    protected static string $swaggerModelName = 'IpInfoResult';
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
+    protected static array $swaggerTypes = [
+        'v4' => '\Fingerprint\ServerAPI\Model\IpInfoResultV4',
+        'v6' => '\Fingerprint\ServerAPI\Model\IpInfoResultV6'];
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
+    protected static array $swaggerFormats = [
+        'v4' => null,
+        'v6' => null];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'v4' => 'v4',
+        'v6' => 'v6'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'v4' => 'setV4',
+        'v6' => 'setV6'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'v4' => 'getV4',
+        'v6' => 'getV6'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['v4'] = isset($data['v4']) ? $data['v4'] : null;
+        $this->container['v6'] = isset($data['v6']) ? $data['v6'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     */
+    public function __toString(): string
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
+     */
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @return array
+     * Array of property to format mappings. Used for (de)serialization.
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
+     * and the value is the original name.
      */
-    protected static $attributeMap = [
-        'v4' => 'v4',
-'v6' => 'v6'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'v4' => 'setV4',
-'v6' => 'setV6'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'v4' => 'getV4',
-'v6' => 'getV6'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @return array
-     */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @return array
+     * Array of attributes to setter functions (for deserialization of responses).
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @return array
+     * Array of attributes to getter functions (for serialization of requests).
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
-    }
-
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['v4'] = isset($data['v4']) ? $data['v4'] : null;
-        $this->container['v6'] = isset($data['v6']) ? $data['v6'] : null;
     }
 
     /**
@@ -184,43 +181,40 @@ class IpInfoResult implements ModelInterface, ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets v4
+     * Gets v4.
      *
-     * @return \Fingerprint\ServerAPI\Model\IpInfoResultV4
+     * @return ?\Fingerprint\ServerAPI\Model\IpInfoResultV4
      */
-    public function getV4()
+    public function getV4(): ?IpInfoResultV4
     {
         return $this->container['v4'];
     }
 
     /**
-     * Sets v4
+     * Sets v4.
      *
-     * @param \Fingerprint\ServerAPI\Model\IpInfoResultV4 $v4 v4
+     * @param ?\Fingerprint\ServerAPI\Model\IpInfoResultV4 $v4 v4
      *
      * @return $this
      */
-    public function setV4($v4)
+    public function setV4(?IpInfoResultV4 $v4): self
     {
         $this->container['v4'] = $v4;
 
@@ -228,37 +222,35 @@ class IpInfoResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets v6
+     * Gets v6.
      *
-     * @return \Fingerprint\ServerAPI\Model\IpInfoResultV6
+     * @return ?\Fingerprint\ServerAPI\Model\IpInfoResultV6
      */
-    public function getV6()
+    public function getV6(): ?IpInfoResultV6
     {
         return $this->container['v6'];
     }
 
     /**
-     * Sets v6
+     * Sets v6.
      *
-     * @param \Fingerprint\ServerAPI\Model\IpInfoResultV6 $v6 v6
+     * @param ?\Fingerprint\ServerAPI\Model\IpInfoResultV6 $v6 v6
      *
      * @return $this
      */
-    public function setV6($v6)
+    public function setV6(?IpInfoResultV6 $v6): self
     {
         $this->container['v6'] = $v6;
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
-     *
-     * @return boolean
+     * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -266,12 +258,9 @@ class IpInfoResult implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return mixed
+     * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -279,13 +268,10 @@ class IpInfoResult implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -297,30 +283,10 @@ class IpInfoResult implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
-    }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

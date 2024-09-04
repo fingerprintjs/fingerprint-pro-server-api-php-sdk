@@ -1,17 +1,16 @@
 <?php
 /**
- * FactoryResetResult
- *
- * PHP version 5
+ * FactoryResetResult.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -28,154 +27,151 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * FactoryResetResult Class Doc Comment
+ * FactoryResetResult Class Doc Comment.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class FactoryResetResult implements ModelInterface, ArrayAccess
+class FactoryResetResult implements ModelInterface, \ArrayAccess
 {
-    const DISCRIMINATOR = null;
-
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
-    protected static $swaggerModelName = 'FactoryResetResult';
-
-    /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
-    protected static $swaggerTypes = [
-        'time' => '\DateTime',
-'timestamp' => 'int'    ];
-
-    /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
-    protected static $swaggerFormats = [
-        'time' => 'date-time',
-'timestamp' => 'int64'    ];
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization
-     *
-     * @return array
+     * The original name of the model.
      */
-    public static function swaggerTypes()
+    protected static string $swaggerModelName = 'FactoryResetResult';
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
+    protected static array $swaggerTypes = [
+        'time' => '\DateTime',
+        'timestamp' => 'int'];
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
+    protected static array $swaggerFormats = [
+        'time' => 'date-time',
+        'timestamp' => 'int64'];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'time' => 'time',
+        'timestamp' => 'timestamp'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'time' => 'setTime',
+        'timestamp' => 'setTimestamp'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'time' => 'getTime',
+        'timestamp' => 'getTimestamp'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['time'] = isset($data['time']) ? $data['time'] : null;
+        $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     */
+    public function __toString(): string
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
+     */
+    public static function swaggerTypes(): array
     {
         return self::$swaggerTypes;
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
-     *
-     * @return array
+     * Array of property to format mappings. Used for (de)serialization.
      */
-    public static function swaggerFormats()
+    public static function swaggerFormats(): array
     {
         return self::$swaggerFormats;
     }
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
+     * and the value is the original name.
      */
-    protected static $attributeMap = [
-        'time' => 'time',
-'timestamp' => 'timestamp'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'time' => 'setTime',
-'timestamp' => 'setTimestamp'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'time' => 'getTime',
-'timestamp' => 'getTimestamp'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @return array
-     */
-    public static function attributeMap()
+    public static function attributeMap(): array
     {
         return self::$attributeMap;
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @return array
+     * Array of attributes to setter functions (for deserialization of responses).
      */
-    public static function setters()
+    public static function setters(): array
     {
         return self::$setters;
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @return array
+     * Array of attributes to getter functions (for serialization of requests).
      */
-    public static function getters()
+    public static function getters(): array
     {
         return self::$getters;
     }
 
     /**
      * The original name of the model.
-     *
-     * @return string
      */
-    public function getModelName()
+    public function getModelName(): string
     {
         return self::$swaggerModelName;
-    }
-
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['time'] = isset($data['time']) ? $data['time'] : null;
-        $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
     }
 
     /**
@@ -183,49 +179,47 @@ class FactoryResetResult implements ModelInterface, ArrayAccess
      *
      * @return array invalid properties with reasons
      */
-    public function listInvalidProperties()
+    public function listInvalidProperties(): array
     {
         $invalidProperties = [];
 
-        if ($this->container['time'] === null) {
+        if (null === $this->container['time']) {
             $invalidProperties[] = "'time' can't be null";
         }
-        if ($this->container['timestamp'] === null) {
+        if (null === $this->container['timestamp']) {
             $invalidProperties[] = "'timestamp' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
-    public function valid()
+    public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets time
-     *
-     * @return \DateTime
+     * Gets time.
      */
-    public function getTime()
+    public function getTime(): \DateTime
     {
         return $this->container['time'];
     }
 
     /**
-     * Sets time
+     * Sets time.
      *
-     * @param \DateTime $time Time in UTC when the most recent factory reset of the Android or iOS device was done.  If there is no sign of factory reset or the client is not a mobile device, the field will contain the epoch time (1 January 1970) in UTC.
+     * @param \DateTime $time Indicates the time (in UTC) of the most recent factory reset that happened on the **mobile device**.  When a factory reset cannot be detected on the mobile device or when the request is initiated from a browser, this field will correspond to the *epoch* time (i.e 1 Jan 1970 UTC). See [Factory Reset Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection) to learn more about this Smart Signal.
      *
      * @return $this
      */
-    public function setTime($time)
+    public function setTime(\DateTime $time): self
     {
         $this->container['time'] = $time;
 
@@ -233,37 +227,33 @@ class FactoryResetResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets timestamp
-     *
-     * @return int
+     * Gets timestamp.
      */
-    public function getTimestamp()
+    public function getTimestamp(): int
     {
         return $this->container['timestamp'];
     }
 
     /**
-     * Sets timestamp
+     * Sets timestamp.
      *
-     * @param int $timestamp Same value as it's in the `time` field but represented in timestamp format.
+     * @param int $timestamp This field is just another representation of the value in the `time` field. The time of the most recent factory reset that happened on the **mobile device** is expressed as Unix epoch time.
      *
      * @return $this
      */
-    public function setTimestamp($timestamp)
+    public function setTimestamp(int $timestamp): self
     {
         $this->container['timestamp'] = $timestamp;
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
-     *
-     * @return boolean
+     * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -271,12 +261,9 @@ class FactoryResetResult implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return mixed
+     * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -284,13 +271,10 @@ class FactoryResetResult implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
-     *
-     * @return void
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -302,30 +286,10 @@ class FactoryResetResult implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
-     *
-     * @return void
+     * @param int $offset Offset
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
-    }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

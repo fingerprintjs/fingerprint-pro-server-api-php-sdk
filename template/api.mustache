@@ -21,13 +21,14 @@ namespace {{apiPackage}};
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use {{invokerPackage}}\ApiException;
 use {{invokerPackage}}\Configuration;
-use {{invokerPackage}}\HeaderSelector;
 use {{invokerPackage}}\ObjectSerializer;
+use {{invokerPackage}}\SerializationException;
+use Psr\Http\Message\ResponseInterface;
+use \GuzzleHttp\Exception\GuzzleException;
 
 /**
  * {{classname}} Class Doc Comment
@@ -39,48 +40,27 @@ use {{invokerPackage}}\ObjectSerializer;
  */
 {{#operations}}class {{classname}}
 {
-    /**
-     * @var ClientInterface
-     */
-    protected $client;
+    protected ClientInterface $client;
+    protected Configuration $config;
 
-    /**
-     * @var Configuration
-     */
-    protected $config;
+    protected string $integration_info = 'fingerprint-pro-server-php-sdk/{{artifactVersion}}';
 
-    /**
-     * @var HeaderSelector
-     */
-    protected $headerSelector;
-
-    protected $integration_info = 'fingerprint-pro-server-php-sdk/{{artifactVersion}}';
-
-    /**
-     * @param ClientInterface $client
-     * @param Configuration   $config
-     * @param HeaderSelector  $selector
-     */
     public function __construct(
         ClientInterface $client = null,
-        Configuration $config = null,
-        HeaderSelector $selector = null
+        Configuration $config = null
     ) {
         $this->client = $client ?: new Client();
         $this->config = $config ?: new Configuration();
-        $this->headerSelector = $selector ?: new HeaderSelector();
     }
 
-    /**
-     * @return Configuration
-     */
-    public function getConfig()
+    public function getConfig(): Configuration
     {
         return $this->config;
     }
 
 {{#operation}}
 {{#contents}}
+
     /**
      * Operation {{{operationId}}}
 {{#summary}}
@@ -93,39 +73,15 @@ use {{invokerPackage}}\ObjectSerializer;
      *
 {{/description}}
 {{#parameters}}
-     * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}}{{^description}} {{paramName}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-{{/parameters}}
-     *
-     * @throws {{backSlash}}{{invokerPackage}}\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}
-     */
-    public function {{operationId}}({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
-    {
-        {{#returnType}}list($response) = {{/returnType}}$this->{{operationId}}WithHttpInfo({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}});{{#returnType}}
-        return $response;{{/returnType}}
-    }
-
-    /**
-     * Operation {{{operationId}}}WithHttpInfo
-{{#summary}}
-     *
-     * {{{summary}}}
-{{/summary}}
-     *
-{{#description}}
-     * {{.}}
-     *
-{{/description}}
-{{#parameters}}
      * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
 {{/parameters}}
-     *
-     * @throws {{backSlash}}{{invokerPackage}}\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}null{{/returnType}}, HTTP status code, HTTP response headers (array of strings)
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
+     * @return array{ {{#returnType}}{{{returnType}}}|null{{/returnType}}{{^returnType}}null{{/returnType}}, \Psr\Http\Message\ResponseInterface }
      */
-    public function {{operationId}}WithHttpInfo({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
+    public function {{operationId}}({{#parameters}}{{dataType}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): array
     {
         $returnType = '{{returnType}}';
         $request = $this->{{operationId}}Request({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}});
@@ -135,112 +91,83 @@ use {{invokerPackage}}\ObjectSerializer;
             try {
                 $response = $this->client->send($request, $options);
             } catch (RequestException $e) {
-                throw new ApiException(
+                $apiException = new ApiException(
                     "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                    $e->getCode()
                 );
+                $apiException->setResponseObject($e->getResponse());
+                throw $apiException;
             }
 
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
+                $apiException = new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
                         $request->getUri()
                     ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
+                    $statusCode
                 );
+                $apiException->setResponseObject($response);
+                throw $apiException;
             }
 
             {{#returnType}}
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if (!in_array($returnType, ['string','integer','bool'])) {
-                    $content = json_decode($content);
-                }
-            }
 
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
+            $serialized = ObjectSerializer::deserialize($response, $returnType);
+
+            return [$serialized, $response];
             {{/returnType}}
             {{^returnType}}
-            return [null, $statusCode, $response->getHeaders()];
+            return [null, $response];
             {{/returnType}}
 
         } catch (ApiException $e) {
+            /** @var ResponseInterface $response */
+            $response = $e->getResponseObject();
             switch ($e->getCode()) {
-        {{#responses}}
-            {{#dataType}}
-                {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '{{dataType}}',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            {{/dataType}}
-        {{/responses}}
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation {{{operationId}}}Async
-     *
-     * {{{summary}}}
-     *
-{{#description}}
-     * {{.}}
-     *
-{{/description}}
-{{#parameters}}
-     * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-{{/parameters}}
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function {{operationId}}Async({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
-    {
-        return $this->{{operationId}}AsyncWithHttpInfo({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
-            ->then(
-                function ($response) {
-                    return $response[0];
+                {{#responses}}
+                    {{#dataType}}
+                        {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
+                        $errorDetail = ObjectSerializer::deserialize($response, '{{dataType}}');
+                        $e->setErrorDetails($errorDetail);
+                        $e->setResponseObject($response);
+                        break;
+                    {{/dataType}}
+                {{/responses}}
                 }
-            );
+
+                if ($e->getCode() === 429) {
+                    $e->setRetryAfter(1);
+                    if ($response->hasHeader('retry-after')) {
+                        $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                    }
+                }
+
+                throw $e;
+            }
     }
 
     /**
-     * Operation {{{operationId}}}AsyncWithHttpInfo
-     *
-     * {{{summary}}}
-     *
-{{#description}}
-     * {{.}}
-     *
-{{/description}}
-{{#parameters}}
-     * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-{{/parameters}}
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function {{operationId}}AsyncWithHttpInfo({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
+    * Operation {{{operationId}}}Async
+    *
+    * {{{summary}}}
+    {{#description}}
+    * {{.}}
+    *
+    {{/description}}
+    {{#parameters}}
+    * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
+    {{/parameters}}
+    *
+    * @throws \InvalidArgumentException
+    * @throws SerializationException
+    * @throws GuzzleException
+    * @throws ApiException
+    */
+    public function {{operationId}}Async({{#parameters}}{{dataType}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Promise\PromiseInterface
     {
         $returnType = '{{returnType}}';
         $request = $this->{{operationId}}Request({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}});
@@ -248,41 +175,54 @@ use {{invokerPackage}}\ObjectSerializer;
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
-                    {{#returnType}}
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
+                function ($response) use ($returnType, $request) {
+                    $statusCode = $response->getStatusCode();
+
+                    if ($statusCode < 200 || $statusCode > 299) {
+                        $apiException = new ApiException(
+                            sprintf(
+                                '[%d] Error connecting to the API (%s)',
+                                $statusCode,
+                                $request->getUri()
+                            ),
+                            $statusCode
+                        );
+                        $apiException->setResponseObject($response);
+                        throw $apiException;
+                    }
+                {{#returnType}}
+
+                    $serialized = ObjectSerializer::deserialize($response, $returnType);
+
+                    return [$serialized, $response];
+                {{/returnType}}
+                {{^returnType}}
+                    return [null, $response];
+                {{/returnType}}
+                },
+                function ($e) {
+                    /** @var ResponseInterface $response */
+                    $response = $e->getResponseObject();
+                    switch ($e->getCode()) {
+                    {{#responses}}
+                        {{#dataType}}
+                            {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
+                            $errorDetail = ObjectSerializer::deserialize($response, '{{dataType}}');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+                            break;
+                        {{/dataType}}
+                    {{/responses}}
+                    }
+
+                    if ($e->getCode() === 429) {
+                        $e->setRetryAfter(1);
+                        if ($response->hasHeader('retry-after')) {
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
                         }
                     }
 
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                    {{/returnType}}
-                    {{^returnType}}
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                {{/returnType}}
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
+                    throw $e;
                 }
             );
     }
@@ -290,14 +230,13 @@ use {{invokerPackage}}\ObjectSerializer;
     /**
      * Create request for operation '{{{operationId}}}'
      *
-{{#parameters}}
-     * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-{{/parameters}}
      *
      * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
      */
-    protected function {{operationId}}Request({{#parameters}}${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}})
+    protected function {{operationId}}Request({{#parameters}}{{dataType}}{{^required}}|null{{/required}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Psr7\Request
     {
         {{#parameters}}
         {{#required}}
@@ -349,11 +288,10 @@ use {{invokerPackage}}\ObjectSerializer;
         {{/parameters}}
 
         $resourcePath = '{{{path}}}';
-        $formParams = [];
+        $headers = [];
         $queryParams = ['ii' => $this->integration_info];
         $headerParams = [];
         $httpBody = '';
-        $multipart = false;
 
         {{#queryParams}}
         // query params
@@ -394,65 +332,18 @@ use {{invokerPackage}}\ObjectSerializer;
         }
         {{/pathParams}}
 
-        {{#formParams}}
-        // form params
-        if (${{paramName}} !== null) {
-            {{#isBinary}}
-            $multipart = true;
-            $formParams['{{baseName}}'] = \GuzzleHttp\Psr7\try_fopen(ObjectSerializer::toFormValue(${{paramName}}), 'rb');
-            {{/isBinary}}
-            {{^isBinary}}
-            $formParams['{{baseName}}'] = ObjectSerializer::toFormValue(${{paramName}});
-            {{/isBinary}}
-        }
-        {{/formParams}}
+        {{#bodyParams}}
         // body params
         $_tempBody = null;
-        {{#bodyParams}}
         if (isset(${{paramName}})) {
             $_tempBody = ${{paramName}};
         }
-        {{/bodyParams}}
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                [{{#produces}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/produces}}]
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                [{{#produces}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/produces}}],
-                [{{#consumes}}'{{{mediaType}}}'{{#hasMore}}, {{/hasMore}}{{/consumes}}]
-            );
-        }
-
         // for model (json/xml)
         if (isset($_tempBody)) {
             // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = http_build_query($formParams);
-            }
+            $httpBody = json_encode($_tempBody);
         }
+        {{/bodyParams}}
 
         {{#authMethods}}
         {{#isApiKey}}
@@ -482,7 +373,10 @@ use {{invokerPackage}}\ObjectSerializer;
         {{/isOAuth}}
         {{/authMethods}}
 
-        $defaultHeaders = [];
+        $defaultHeaders = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
@@ -508,9 +402,8 @@ use {{invokerPackage}}\ObjectSerializer;
      * Create http client option
      *
      * @throws \RuntimeException on file opening failure
-     * @return array of http client options
      */
-    protected function createHttpClientOption()
+    protected function createHttpClientOption(): array
     {
         $options = [];
         if ($this->config->getDebug()) {

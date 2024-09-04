@@ -2,22 +2,25 @@
 
 namespace Fingerprint\ServerAPI\Sealed;
 
-use Exception;
 use Fingerprint\ServerAPI\Model\EventResponse;
-use InvalidArgumentException;
+use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\SerializationException;
+use GuzzleHttp\Psr7\Response;
 
-class Sealed {
-    private static $SEAL_HEADER = "\x9E\x85\xDC\xED";
+class Sealed
+{
     private const NONCE_LENGTH = 12;
     private const AUTH_TAG_LENGTH = 16;
+    private static $SEAL_HEADER = "\x9E\x85\xDC\xED";
 
     /**
-     * @param string $sealed
      * @param DecryptionKey[] $keys
-     * @return EventResponse
+     *
      * @throws UnsealAggregateException
+     * @throws SerializationException
      */
-    public static function unsealEventResponse(string $sealed, array $keys): EventResponse {
+    public static function unsealEventResponse(string $sealed, array $keys): EventResponse
+    {
         $unsealed = self::unseal($sealed, $keys);
 
         $data = json_decode($unsealed, true);
@@ -26,15 +29,17 @@ class Sealed {
             throw new InvalidSealedDataException();
         }
 
-        return new EventResponse($data);
+        $response = new Response(200, [], $unsealed);
+
+        return ObjectSerializer::deserialize($response, EventResponse::class);
     }
 
     /**
      * Decrypts the sealed response with the provided keys.
      *
-     * @param string $sealed Base64 encoded sealed data
-     * @param DecryptionKey[] $keys Decryption keys. The SDK will try to decrypt the result with each key until it succeeds.
-     * @return string
+     * @param string          $sealed Base64 encoded sealed data
+     * @param DecryptionKey[] $keys   Decryption keys. The SDK will try to decrypt the result with each key until it succeeds.
+     *
      * @throws UnsealAggregateException
      */
     public static function unseal(string $sealed, array $keys): string
@@ -50,18 +55,20 @@ class Sealed {
                 case DecryptionAlgorithm::AES_256_GCM:
                     try {
                         $data = substr($sealed, strlen(self::$SEAL_HEADER));
+
                         return self::decryptAes256Gcm($data, $key->getKey());
-                    } catch (Exception $exception) {
+                    } catch (\Exception $exception) {
                         $aggregateException->addException(new UnsealException(
-                            "Failed to decrypt",
+                            'Failed to decrypt',
                             $exception,
                             $key
                         ));
                     }
+
                     break;
 
                 default:
-                    throw new InvalidArgumentException("Invalid decryption algorithm");
+                    throw new \InvalidArgumentException('Invalid decryption algorithm');
             }
         }
 
@@ -69,7 +76,10 @@ class Sealed {
     }
 
     /**
-     * @throws Exception
+     * @param mixed $sealedData
+     * @param mixed $decryptionKey
+     *
+     * @throws \Exception
      */
     private static function decryptAes256Gcm($sealedData, $decryptionKey): string
     {
@@ -81,21 +91,26 @@ class Sealed {
 
         $decryptedData = openssl_decrypt($ciphertext, 'aes-256-gcm', $decryptionKey, OPENSSL_RAW_DATA, $nonce, $tag);
 
-        if ($decryptedData === false) {
-            throw new Exception("Decryption failed");
+        if (false === $decryptedData) {
+            throw new \Exception('Decryption failed');
         }
 
         return self::decompress($decryptedData);
     }
 
     /**
-     * @throws Exception
+     * @param mixed $data
+     *
+     * @throws \Exception
      */
     private static function decompress($data): string
     {
-        $inflated = gzinflate($data);
+        if (false === $data || 0 === strlen($data)) {
+            throw new DecompressionException();
+        }
+        $inflated = @gzinflate($data); // Ignore warnings, because we check the decompressed data's validity and throw error if necessary
 
-        if ($inflated === false) {
+        if (false === $inflated) {
             throw new DecompressionException();
         }
 

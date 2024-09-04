@@ -2,10 +2,7 @@
 
 namespace Fingerprint\ServerAPI\Sealed;
 
-
-use Exception;
-
-class UnsealException extends Exception
+class UnsealException extends \Exception
 {
     public $decryptionKeyDescription;
 
@@ -17,10 +14,10 @@ class UnsealException extends Exception
 
     public function __toString()
     {
-        return "UnsealException{" .
-            "decryptionKey=" . $this->decryptionKeyDescription .
-            ", message=" . $this->getMessage() .
-            ", cause=" . $this->getPrevious() .
+        return 'UnsealException{'.
+            'decryptionKey='.$this->decryptionKeyDescription.
+            ', message='.$this->getMessage().
+            ', cause='.$this->getPrevious().
             '}';
     }
 }
