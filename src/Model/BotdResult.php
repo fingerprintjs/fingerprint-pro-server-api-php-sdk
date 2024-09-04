@@ -44,6 +44,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'BotdResult';
 
@@ -144,6 +145,7 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -360,6 +362,8 @@ class BotdResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
+     *
+     * @return ?string
      */
     public function getLinkedId(): ?string
     {

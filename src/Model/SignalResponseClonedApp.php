@@ -42,6 +42,7 @@ class SignalResponseClonedApp implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'SignalResponseClonedApp';
 
@@ -112,6 +113,7 @@ class SignalResponseClonedApp implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -197,6 +199,8 @@ class SignalResponseClonedApp implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ClonedAppResult
      */
     public function getData(): ?ClonedAppResult
     {
@@ -219,6 +223,8 @@ class SignalResponseClonedApp implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

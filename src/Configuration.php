@@ -124,7 +124,7 @@ class Configuration
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
      *
-     * @return null|string API key or token
+     * @return string|null API key or token
      */
     public function getApiKey(string $apiKeyIdentifier): ?string
     {
@@ -150,6 +150,7 @@ class Configuration
      * Gets API key prefix.
      *
      * @param string $apiKeyIdentifier API key identifier (authentication scheme)
+     *
      */
     public function getApiKeyPrefix(string $apiKeyIdentifier): ?string
     {
@@ -329,6 +330,7 @@ class Configuration
 
     /**
      * Gets the debug flag.
+     *
      */
     public function getDebug(): bool
     {
@@ -351,6 +353,7 @@ class Configuration
 
     /**
      * Gets the debug file.
+     *
      */
     public function getDebugFile(): string
     {
@@ -383,6 +386,7 @@ class Configuration
 
     /**
      * Gets the default configuration instance, with apiKey and host params.
+     *
      */
     public static function getDefaultConfiguration(?string $api_key = null, ?string $region = self::REGION_GLOBAL): self
     {
@@ -400,6 +404,7 @@ class Configuration
      * Sets the detault configuration instance.
      *
      * @param Configuration $config An instance of the Configuration Object
+     *
      */
     public static function setDefaultConfiguration(Configuration $config): void
     {
@@ -428,7 +433,7 @@ class Configuration
      *
      * @param string $apiKeyIdentifier name of apikey
      *
-     * @return null|string API key with the prefix
+     * @return string|null API key with the prefix
      */
     public function getApiKeyWithPrefix(string $apiKeyIdentifier): ?string
     {

@@ -42,6 +42,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'VpnResult_methods';
 
@@ -124,6 +125,7 @@ class VpnResultMethods implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {

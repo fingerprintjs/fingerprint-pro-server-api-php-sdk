@@ -44,6 +44,7 @@ class VelocityIntervalResult implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'VelocityIntervalResult';
 
@@ -120,6 +121,7 @@ class VelocityIntervalResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -258,6 +260,8 @@ class VelocityIntervalResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets _24h.
+     *
+     * @return ?int
      */
     public function get24h(): ?int
     {

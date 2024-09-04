@@ -42,6 +42,7 @@ class VirtualMachineResult implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'VirtualMachineResult';
 
@@ -106,6 +107,7 @@ class VirtualMachineResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {

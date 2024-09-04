@@ -14,6 +14,12 @@ return (new PhpCsFixer\Config())
             'operators' => ['=>' => null],
         ],
         'multiline_whitespace_before_semicolons' => false,
+        'phpdoc_trim' => false,
+        'phpdoc_no_empty_return' => false,
+        'phpdoc_types_order' => [
+            'null_adjustment' => 'always_last',
+            'sort_algorithm' => 'none',
+        ],
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()

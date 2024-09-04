@@ -42,6 +42,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'Subdivision';
 
@@ -112,6 +113,7 @@ class Subdivision implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -197,6 +199,8 @@ class Subdivision implements ModelInterface, \ArrayAccess
 
     /**
      * Gets iso_code.
+     *
+     * @return ?string
      */
     public function getIsoCode(): ?string
     {
@@ -219,6 +223,8 @@ class Subdivision implements ModelInterface, \ArrayAccess
 
     /**
      * Gets name.
+     *
+     * @return ?string
      */
     public function getName(): ?string
     {

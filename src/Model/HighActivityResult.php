@@ -42,6 +42,7 @@ class HighActivityResult implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'HighActivityResult';
 
@@ -112,6 +113,7 @@ class HighActivityResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -225,6 +227,8 @@ class HighActivityResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets daily_requests.
+     *
+     * @return ?float
      */
     public function getDailyRequests(): ?float
     {

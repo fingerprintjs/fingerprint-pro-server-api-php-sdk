@@ -42,6 +42,7 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'VelocityIntervals';
 
@@ -106,6 +107,7 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -191,6 +193,8 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
 
     /**
      * Gets intervals.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\VelocityIntervalResult
      */
     public function getIntervals(): ?VelocityIntervalResult
     {

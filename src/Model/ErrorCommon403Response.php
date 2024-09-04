@@ -42,6 +42,7 @@ class ErrorCommon403Response implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'ErrorCommon403Response';
 
@@ -106,6 +107,7 @@ class ErrorCommon403Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -191,6 +193,8 @@ class ErrorCommon403Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\Common403ErrorResponse
      */
     public function getError(): ?Common403ErrorResponse
     {

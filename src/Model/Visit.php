@@ -42,6 +42,7 @@ class Visit implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'Visit';
 
@@ -184,6 +185,7 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
@@ -390,6 +392,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_location.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation
      */
     public function getIpLocation(): ?DeprecatedIPLocation
     {
@@ -502,6 +506,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
+     *
+     * @return ?string
      */
     public function getLinkedId(): ?string
     {
@@ -524,6 +530,8 @@ class Visit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets confidence.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\Confidence
      */
     public function getConfidence(): ?Confidence
     {

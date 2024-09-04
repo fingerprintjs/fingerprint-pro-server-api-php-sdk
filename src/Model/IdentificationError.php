@@ -45,6 +45,7 @@ class IdentificationError implements ModelInterface, \ArrayAccess
 
     /**
      * The original name of the model.
+     *
      */
     protected static string $swaggerModelName = 'IdentificationError';
 
@@ -115,6 +116,7 @@ class IdentificationError implements ModelInterface, \ArrayAccess
 
     /**
      * Gets the string presentation of the object.
+     *
      */
     public function __toString(): string
     {
