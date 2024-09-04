@@ -191,8 +191,6 @@ class ErrorCommon403Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\Common403ErrorResponse
      */
     public function getError(): ?Common403ErrorResponse
     {

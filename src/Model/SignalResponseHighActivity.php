@@ -197,8 +197,6 @@ class SignalResponseHighActivity implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\HighActivityResult
      */
     public function getData(): ?HighActivityResult
     {
@@ -221,8 +219,6 @@ class SignalResponseHighActivity implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

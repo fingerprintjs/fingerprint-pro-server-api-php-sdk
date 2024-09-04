@@ -197,8 +197,6 @@ class ProductsResponseBotd implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\BotdResult
      */
     public function getData(): ?BotdResult
     {
@@ -221,8 +219,6 @@ class ProductsResponseBotd implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

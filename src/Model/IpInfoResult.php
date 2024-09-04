@@ -199,8 +199,6 @@ class IpInfoResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets v4.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\IpInfoResultV4
      */
     public function getV4(): ?IpInfoResultV4
     {
@@ -223,8 +221,6 @@ class IpInfoResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets v6.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\IpInfoResultV6
      */
     public function getV6(): ?IpInfoResultV6
     {

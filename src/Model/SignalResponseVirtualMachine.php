@@ -197,8 +197,6 @@ class SignalResponseVirtualMachine implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\VirtualMachineResult
      */
     public function getData(): ?VirtualMachineResult
     {
@@ -221,8 +219,6 @@ class SignalResponseVirtualMachine implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

@@ -262,8 +262,6 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets asn.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ASN
      */
     public function getAsn(): ?ASN
     {
@@ -286,8 +284,6 @@ class IpInfoResultV6 implements ModelInterface, \ArrayAccess
 
     /**
      * Gets datacenter.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\DataCenter
      */
     public function getDatacenter(): ?DataCenter
     {

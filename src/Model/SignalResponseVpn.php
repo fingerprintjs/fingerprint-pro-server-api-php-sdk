@@ -197,8 +197,6 @@ class SignalResponseVpn implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\VpnResult
      */
     public function getData(): ?VpnResult
     {
@@ -221,8 +219,6 @@ class SignalResponseVpn implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

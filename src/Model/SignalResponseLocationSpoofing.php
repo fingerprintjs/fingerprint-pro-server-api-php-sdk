@@ -197,8 +197,6 @@ class SignalResponseLocationSpoofing implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\LocationSpoofingResult
      */
     public function getData(): ?LocationSpoofingResult
     {
@@ -221,8 +219,6 @@ class SignalResponseLocationSpoofing implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

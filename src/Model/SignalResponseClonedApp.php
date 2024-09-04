@@ -197,8 +197,6 @@ class SignalResponseClonedApp implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ClonedAppResult
      */
     public function getData(): ?ClonedAppResult
     {
@@ -221,8 +219,6 @@ class SignalResponseClonedApp implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {
