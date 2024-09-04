@@ -193,8 +193,6 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
 
     /**
      * Gets intervals.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\VelocityIntervalResult
      */
     public function getIntervals(): ?VelocityIntervalResult
     {

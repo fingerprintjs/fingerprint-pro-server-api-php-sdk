@@ -199,8 +199,6 @@ class SignalResponseFrida implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\FridaResult
      */
     public function getData(): ?FridaResult
     {
@@ -223,8 +221,6 @@ class SignalResponseFrida implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

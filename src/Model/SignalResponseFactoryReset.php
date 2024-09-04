@@ -199,8 +199,6 @@ class SignalResponseFactoryReset implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\FactoryResetResult
      */
     public function getData(): ?FactoryResetResult
     {
@@ -223,8 +221,6 @@ class SignalResponseFactoryReset implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

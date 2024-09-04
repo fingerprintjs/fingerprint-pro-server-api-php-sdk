@@ -1,3 +1,10 @@
+## [5.0.0-develop.3](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v5.0.0-develop.2...v5.0.0-develop.3) (2024-09-04)
+
+
+### Bug Fixes
+
+* php-cs-fixer keep nullable return annotations ([99011b7](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/99011b736a2782fc50f488d5e83d489540a860fb))
+
 ## [5.0.0-develop.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v5.0.0-develop.1...v5.0.0-develop.2) (2024-09-04)
 
 

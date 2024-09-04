@@ -395,8 +395,6 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_location.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation
      */
     public function getIpLocation(): ?DeprecatedIPLocation
     {
@@ -509,8 +507,6 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
-     *
-     * @return ?string
      */
     public function getLinkedId(): ?string
     {
@@ -533,8 +529,6 @@ class ResponseVisits implements ModelInterface, \ArrayAccess
 
     /**
      * Gets confidence.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\Confidence
      */
     public function getConfidence(): ?Confidence
     {

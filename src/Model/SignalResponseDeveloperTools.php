@@ -199,8 +199,6 @@ class SignalResponseDeveloperTools implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\DeveloperToolsResult
      */
     public function getData(): ?DeveloperToolsResult
     {
@@ -223,8 +221,6 @@ class SignalResponseDeveloperTools implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

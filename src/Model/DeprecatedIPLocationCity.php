@@ -193,8 +193,6 @@ class DeprecatedIPLocationCity implements ModelInterface, \ArrayAccess
 
     /**
      * Gets name.
-     *
-     * @return ?string
      */
     public function getName(): ?string
     {

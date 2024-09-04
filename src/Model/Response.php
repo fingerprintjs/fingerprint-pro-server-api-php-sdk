@@ -268,8 +268,6 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets last_timestamp.
-     *
-     * @return ?int
      */
     public function getLastTimestamp(): ?int
     {
@@ -292,8 +290,6 @@ class Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets pagination_key.
-     *
-     * @return ?string
      */
     public function getPaginationKey(): ?string
     {

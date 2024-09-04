@@ -199,8 +199,6 @@ class SignalResponseIncognito implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\IncognitoResult
      */
     public function getData(): ?IncognitoResult
     {
@@ -223,8 +221,6 @@ class SignalResponseIncognito implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\IdentificationError
      */
     public function getError(): ?IdentificationError
     {

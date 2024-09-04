@@ -199,8 +199,6 @@ class SignalResponseJailbroken implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\JailbrokenResult
      */
     public function getData(): ?JailbrokenResult
     {
@@ -223,8 +221,6 @@ class SignalResponseJailbroken implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

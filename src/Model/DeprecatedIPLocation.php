@@ -243,8 +243,6 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets accuracy_radius.
-     *
-     * @return ?int
      */
     public function getAccuracyRadius(): ?int
     {
@@ -315,8 +313,6 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets postal_code.
-     *
-     * @return ?string
      */
     public function getPostalCode(): ?string
     {
@@ -339,8 +335,6 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets timezone.
-     *
-     * @return ?string
      */
     public function getTimezone(): ?string
     {
@@ -363,8 +357,6 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets city.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocationCity
      */
     public function getCity(): ?DeprecatedIPLocationCity
     {
@@ -387,8 +379,6 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets country.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\Location
      */
     public function getCountry(): ?Location
     {
@@ -411,8 +401,6 @@ class DeprecatedIPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets continent.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\Location
      */
     public function getContinent(): ?Location
     {

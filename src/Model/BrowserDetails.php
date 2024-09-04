@@ -413,8 +413,6 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Gets bot_probability.
-     *
-     * @return ?int
      */
     public function getBotProbability(): ?int
     {

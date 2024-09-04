@@ -193,8 +193,6 @@ class ErrorEvent404Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ErrorEvent404ResponseError
      */
     public function getError(): ?ErrorEvent404ResponseError
     {
