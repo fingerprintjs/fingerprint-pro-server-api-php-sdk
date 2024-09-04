@@ -477,6 +477,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets client_referrer.
+     *
+     * @return ?string
      */
     public function getClientReferrer(): ?string
     {
@@ -499,6 +501,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets user_agent.
+     *
+     * @return ?string
      */
     public function getUserAgent(): ?string
     {
@@ -521,6 +525,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets bot.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\BotdDetectionResult
      */
     public function getBot(): ?BotdDetectionResult
     {
@@ -543,6 +549,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_info.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\IpInfoResult
      */
     public function getIpInfo(): ?IpInfoResult
     {
@@ -587,6 +595,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets root_apps.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\RootAppsResult
      */
     public function getRootApps(): ?RootAppsResult
     {
@@ -609,6 +619,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets emulator.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\EmulatorResult
      */
     public function getEmulator(): ?EmulatorResult
     {
@@ -631,6 +643,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets cloned_app.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ClonedAppResult
      */
     public function getClonedApp(): ?ClonedAppResult
     {
@@ -653,6 +667,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets factory_reset.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\FactoryResetResult
      */
     public function getFactoryReset(): ?FactoryResetResult
     {
@@ -675,6 +691,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets jailbroken.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\JailbrokenResult
      */
     public function getJailbroken(): ?JailbrokenResult
     {
@@ -697,6 +715,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets frida.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\FridaResult
      */
     public function getFrida(): ?FridaResult
     {
@@ -719,6 +739,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_blocklist.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\IpBlockListResult
      */
     public function getIpBlocklist(): ?IpBlockListResult
     {
@@ -741,6 +763,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets tor.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\TorResult
      */
     public function getTor(): ?TorResult
     {
@@ -763,6 +787,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets privacy_settings.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\PrivacySettingsResult
      */
     public function getPrivacySettings(): ?PrivacySettingsResult
     {
@@ -785,6 +811,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets virtual_machine.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\VirtualMachineResult
      */
     public function getVirtualMachine(): ?VirtualMachineResult
     {
@@ -807,6 +835,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets vpn.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\VpnResult
      */
     public function getVpn(): ?VpnResult
     {
@@ -829,6 +859,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets proxy.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProxyResult
      */
     public function getProxy(): ?ProxyResult
     {
@@ -851,6 +883,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets tampering.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\TamperingResult
      */
     public function getTampering(): ?TamperingResult
     {
@@ -873,6 +907,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets raw_device_attributes.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult
      */
     public function getRawDeviceAttributes(): ?RawDeviceAttributesResult
     {
@@ -895,6 +931,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets high_activity.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\HighActivityResult
      */
     public function getHighActivity(): ?HighActivityResult
     {
@@ -917,6 +955,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets location_spoofing.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\LocationSpoofingResult
      */
     public function getLocationSpoofing(): ?LocationSpoofingResult
     {
@@ -939,6 +979,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets suspect_score.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\SuspectScoreResult
      */
     public function getSuspectScore(): ?SuspectScoreResult
     {
@@ -961,6 +1003,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets remote_control.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\RemoteControlResult
      */
     public function getRemoteControl(): ?RemoteControlResult
     {
@@ -983,6 +1027,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets velocity.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\VelocityResult
      */
     public function getVelocity(): ?VelocityResult
     {
@@ -1005,6 +1051,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets developer_tools.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\DeveloperToolsResult
      */
     public function getDeveloperTools(): ?DeveloperToolsResult
     {
@@ -1093,6 +1141,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_location.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation
      */
     public function getIpLocation(): ?DeprecatedIPLocation
     {
@@ -1205,6 +1255,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
+     *
+     * @return ?string
      */
     public function getLinkedId(): ?string
     {
@@ -1227,6 +1279,8 @@ class WebhookVisit implements ModelInterface, \ArrayAccess
 
     /**
      * Gets confidence.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\Confidence
      */
     public function getConfidence(): ?Confidence
     {

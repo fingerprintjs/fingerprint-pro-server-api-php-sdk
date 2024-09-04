@@ -225,6 +225,8 @@ class HighActivityResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets daily_requests.
+     *
+     * @return ?float
      */
     public function getDailyRequests(): ?float
     {

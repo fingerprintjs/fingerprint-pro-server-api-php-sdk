@@ -197,6 +197,8 @@ class SignalResponseIpBlocklist implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\IpBlockListResult
      */
     public function getData(): ?IpBlockListResult
     {
@@ -219,6 +221,8 @@ class SignalResponseIpBlocklist implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

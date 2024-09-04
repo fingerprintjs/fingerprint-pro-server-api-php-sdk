@@ -191,6 +191,8 @@ class ErrorUpdateEvent400Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ErrorUpdateEvent400ResponseError
      */
     public function getError(): ?ErrorUpdateEvent400ResponseError
     {

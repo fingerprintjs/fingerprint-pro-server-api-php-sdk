@@ -197,6 +197,8 @@ class SignalResponseProxy implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProxyResult
      */
     public function getData(): ?ProxyResult
     {
@@ -219,6 +221,8 @@ class SignalResponseProxy implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

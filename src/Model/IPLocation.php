@@ -239,6 +239,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets accuracy_radius.
+     *
+     * @return ?int
      */
     public function getAccuracyRadius(): ?int
     {
@@ -309,6 +311,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets postal_code.
+     *
+     * @return ?string
      */
     public function getPostalCode(): ?string
     {
@@ -331,6 +335,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets timezone.
+     *
+     * @return ?string
      */
     public function getTimezone(): ?string
     {
@@ -353,6 +359,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets city.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\IPLocationCity
      */
     public function getCity(): ?IPLocationCity
     {
@@ -375,6 +383,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets country.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\Location
      */
     public function getCountry(): ?Location
     {
@@ -397,6 +407,8 @@ class IPLocation implements ModelInterface, \ArrayAccess
 
     /**
      * Gets continent.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\Location
      */
     public function getContinent(): ?Location
     {

@@ -197,6 +197,8 @@ class SignalResponseRawDeviceAttributes implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult
      */
     public function getData(): array
     {
@@ -219,6 +221,8 @@ class SignalResponseRawDeviceAttributes implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\IdentificationError
      */
     public function getError(): ?IdentificationError
     {

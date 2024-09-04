@@ -197,6 +197,8 @@ class SignalResponseTor implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\TorResult
      */
     public function getData(): ?TorResult
     {
@@ -219,6 +221,8 @@ class SignalResponseTor implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {
