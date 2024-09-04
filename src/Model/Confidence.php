@@ -225,6 +225,8 @@ class Confidence implements ModelInterface, \ArrayAccess
 
     /**
      * Gets revision.
+     *
+     * @return ?string
      */
     public function getRevision(): ?string
     {

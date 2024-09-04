@@ -197,6 +197,8 @@ class SignalResponseRemoteControl implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\RemoteControlResult
      */
     public function getData(): ?RemoteControlResult
     {
@@ -219,6 +221,8 @@ class SignalResponseRemoteControl implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

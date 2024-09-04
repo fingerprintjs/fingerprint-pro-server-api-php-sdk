@@ -197,6 +197,8 @@ class SignalResponseVelocity implements ModelInterface, \ArrayAccess
 
     /**
      * Gets data.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\VelocityResult
      */
     public function getData(): ?VelocityResult
     {
@@ -219,6 +221,8 @@ class SignalResponseVelocity implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ProductError
      */
     public function getError(): ?ProductError
     {

@@ -258,6 +258,8 @@ class VelocityIntervalResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets _24h.
+     *
+     * @return ?int
      */
     public function get24h(): ?int
     {

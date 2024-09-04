@@ -191,6 +191,8 @@ class ErrorCommon429Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\ErrorCommon429ResponseError
      */
     public function getError(): ?ErrorCommon429ResponseError
     {

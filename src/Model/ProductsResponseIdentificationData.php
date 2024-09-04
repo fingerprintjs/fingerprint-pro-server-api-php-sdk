@@ -402,6 +402,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets ip_location.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation
      */
     public function getIpLocation(): ?DeprecatedIPLocation
     {
@@ -514,6 +516,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets linked_id.
+     *
+     * @return ?string
      */
     public function getLinkedId(): ?string
     {
@@ -536,6 +540,8 @@ class ProductsResponseIdentificationData implements ModelInterface, \ArrayAccess
 
     /**
      * Gets confidence.
+     *
+     * @return ?\Fingerprint\ServerAPI\Model\Confidence
      */
     public function getConfidence(): ?Confidence
     {

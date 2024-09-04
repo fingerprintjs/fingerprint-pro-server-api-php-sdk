@@ -265,6 +265,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets origin_country.
+     *
+     * @return ?string
      */
     public function getOriginCountry(): ?string
     {
