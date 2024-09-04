@@ -1,16 +1,14 @@
 <?php
 /**
- * Visit.
+ * Visit
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API.
+ * Fingerprint Pro Server API
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -27,144 +25,197 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * Visit Class Doc Comment.
+ * Visit Class Doc Comment
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class Visit implements ModelInterface, \ArrayAccess
+class Visit implements ModelInterface, ArrayAccess
 {
     /**
-     * The original name of the model.
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'Visit';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'request_id' => 'string',
-        'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
-        'incognito' => 'bool',
-        'ip' => 'string',
-        'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedIPLocation',
-        'timestamp' => 'int',
-        'time' => '\DateTime',
-        'url' => 'string',
-        'tag' => 'map[string,object]',
-        'linked_id' => 'string',
-        'confidence' => '\Fingerprint\ServerAPI\Model\Confidence',
-        'visitor_found' => 'bool',
-        'first_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt',
-        'last_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt'];
+'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
+'incognito' => 'bool',
+'ip' => 'string',
+'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedIPLocation',
+'timestamp' => 'int',
+'time' => '\DateTime',
+'url' => 'string',
+'tag' => 'map[string,object]',
+'linked_id' => 'string',
+'confidence' => '\Fingerprint\ServerAPI\Model\Confidence',
+'visitor_found' => 'bool',
+'first_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt',
+'last_seen_at' => '\Fingerprint\ServerAPI\Model\SeenAt'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'request_id' => null,
-        'browser_details' => null,
-        'incognito' => null,
-        'ip' => 'ipv4',
-        'ip_location' => null,
-        'timestamp' => 'int64',
-        'time' => 'date-time',
-        'url' => null,
-        'tag' => null,
-        'linked_id' => null,
-        'confidence' => null,
-        'visitor_found' => null,
-        'first_seen_at' => null,
-        'last_seen_at' => null];
+'browser_details' => null,
+'incognito' => null,
+'ip' => 'ipv4',
+'ip_location' => null,
+'timestamp' => 'int64',
+'time' => 'date-time',
+'url' => null,
+'tag' => null,
+'linked_id' => null,
+'confidence' => null,
+'visitor_found' => null,
+'first_seen_at' => null,
+'last_seen_at' => null    ];
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization
+     */
+    public static function swaggerTypes(): array
+    {
+        return self::$swaggerTypes;
+    }
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization
+     */
+    public static function swaggerFormats(): array
+    {
+        return self::$swaggerFormats;
+    }
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
      *
      * @var string[]
      */
     protected static array $attributeMap = [
         'request_id' => 'requestId',
-        'browser_details' => 'browserDetails',
-        'incognito' => 'incognito',
-        'ip' => 'ip',
-        'ip_location' => 'ipLocation',
-        'timestamp' => 'timestamp',
-        'time' => 'time',
-        'url' => 'url',
-        'tag' => 'tag',
-        'linked_id' => 'linkedId',
-        'confidence' => 'confidence',
-        'visitor_found' => 'visitorFound',
-        'first_seen_at' => 'firstSeenAt',
-        'last_seen_at' => 'lastSeenAt'];
+'browser_details' => 'browserDetails',
+'incognito' => 'incognito',
+'ip' => 'ip',
+'ip_location' => 'ipLocation',
+'timestamp' => 'timestamp',
+'time' => 'time',
+'url' => 'url',
+'tag' => 'tag',
+'linked_id' => 'linkedId',
+'confidence' => 'confidence',
+'visitor_found' => 'visitorFound',
+'first_seen_at' => 'firstSeenAt',
+'last_seen_at' => 'lastSeenAt'    ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
     protected static array $setters = [
         'request_id' => 'setRequestId',
-        'browser_details' => 'setBrowserDetails',
-        'incognito' => 'setIncognito',
-        'ip' => 'setIp',
-        'ip_location' => 'setIpLocation',
-        'timestamp' => 'setTimestamp',
-        'time' => 'setTime',
-        'url' => 'setUrl',
-        'tag' => 'setTag',
-        'linked_id' => 'setLinkedId',
-        'confidence' => 'setConfidence',
-        'visitor_found' => 'setVisitorFound',
-        'first_seen_at' => 'setFirstSeenAt',
-        'last_seen_at' => 'setLastSeenAt'];
+'browser_details' => 'setBrowserDetails',
+'incognito' => 'setIncognito',
+'ip' => 'setIp',
+'ip_location' => 'setIpLocation',
+'timestamp' => 'setTimestamp',
+'time' => 'setTime',
+'url' => 'setUrl',
+'tag' => 'setTag',
+'linked_id' => 'setLinkedId',
+'confidence' => 'setConfidence',
+'visitor_found' => 'setVisitorFound',
+'first_seen_at' => 'setFirstSeenAt',
+'last_seen_at' => 'setLastSeenAt'    ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
     protected static array $getters = [
         'request_id' => 'getRequestId',
-        'browser_details' => 'getBrowserDetails',
-        'incognito' => 'getIncognito',
-        'ip' => 'getIp',
-        'ip_location' => 'getIpLocation',
-        'timestamp' => 'getTimestamp',
-        'time' => 'getTime',
-        'url' => 'getUrl',
-        'tag' => 'getTag',
-        'linked_id' => 'getLinkedId',
-        'confidence' => 'getConfidence',
-        'visitor_found' => 'getVisitorFound',
-        'first_seen_at' => 'getFirstSeenAt',
-        'last_seen_at' => 'getLastSeenAt'];
+'browser_details' => 'getBrowserDetails',
+'incognito' => 'getIncognito',
+'ip' => 'getIp',
+'ip_location' => 'getIpLocation',
+'timestamp' => 'getTimestamp',
+'time' => 'getTime',
+'url' => 'getUrl',
+'tag' => 'getTag',
+'linked_id' => 'getLinkedId',
+'confidence' => 'getConfidence',
+'visitor_found' => 'getVisitorFound',
+'first_seen_at' => 'getFirstSeenAt',
+'last_seen_at' => 'getLastSeenAt'    ];
 
     /**
-     * Associative array for storing property values.
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
+     */
+    public static function attributeMap(): array
+    {
+        return self::$attributeMap;
+    }
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     */
+    public static function setters(): array
+    {
+        return self::$setters;
+    }
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     */
+    public static function getters(): array
+    {
+        return self::$getters;
+    }
+
+    /**
+     * The original name of the model.
+     */
+    public function getModelName(): string
+    {
+        return self::$swaggerModelName;
+    }
+
+    
+
+    /**
+     * Associative array for storing property values
      *
      * @var mixed[]
      */
     protected array $container = [];
 
     /**
-     * Constructor.
+     * Constructor
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct(array $data = null)
     {
         $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $this->container['browser_details'] = isset($data['browser_details']) ? $data['browser_details'] : null;
@@ -183,70 +234,6 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets the string presentation of the object.
-     */
-    public function __toString(): string
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
-     */
-    public static function swaggerTypes(): array
-    {
-        return self::$swaggerTypes;
-    }
-
-    /**
-     * Array of property to format mappings. Used for (de)serialization.
-     */
-    public static function swaggerFormats(): array
-    {
-        return self::$swaggerFormats;
-    }
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     */
-    public static function attributeMap(): array
-    {
-        return self::$attributeMap;
-    }
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     */
-    public static function setters(): array
-    {
-        return self::$setters;
-    }
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     */
-    public static function getters(): array
-    {
-        return self::$getters;
-    }
-
-    /**
-     * The original name of the model.
-     */
-    public function getModelName(): string
-    {
-        return self::$swaggerModelName;
-    }
-
-    /**
      * Show all the invalid properties with reasons.
      *
      * @return array invalid properties with reasons
@@ -255,53 +242,54 @@ class Visit implements ModelInterface, \ArrayAccess
     {
         $invalidProperties = [];
 
-        if (null === $this->container['request_id']) {
+        if ($this->container['request_id'] === null) {
             $invalidProperties[] = "'request_id' can't be null";
         }
-        if (null === $this->container['browser_details']) {
+        if ($this->container['browser_details'] === null) {
             $invalidProperties[] = "'browser_details' can't be null";
         }
-        if (null === $this->container['incognito']) {
+        if ($this->container['incognito'] === null) {
             $invalidProperties[] = "'incognito' can't be null";
         }
-        if (null === $this->container['ip']) {
+        if ($this->container['ip'] === null) {
             $invalidProperties[] = "'ip' can't be null";
         }
-        if (null === $this->container['timestamp']) {
+        if ($this->container['timestamp'] === null) {
             $invalidProperties[] = "'timestamp' can't be null";
         }
-        if (null === $this->container['time']) {
+        if ($this->container['time'] === null) {
             $invalidProperties[] = "'time' can't be null";
         }
-        if (null === $this->container['url']) {
+        if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
-        if (null === $this->container['visitor_found']) {
+        if ($this->container['visitor_found'] === null) {
             $invalidProperties[] = "'visitor_found' can't be null";
         }
-        if (null === $this->container['first_seen_at']) {
+        if ($this->container['first_seen_at'] === null) {
             $invalidProperties[] = "'first_seen_at' can't be null";
         }
-        if (null === $this->container['last_seen_at']) {
+        if ($this->container['last_seen_at'] === null) {
             $invalidProperties[] = "'last_seen_at' can't be null";
         }
-
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets request_id.
+     * Gets request_id
+     * @return string
      */
     public function getRequestId(): string
     {
@@ -309,9 +297,9 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets request_id.
+     * Sets request_id
      *
-     * @param string $request_id unique identifier of the user's identification request
+     * @param string $request_id Unique identifier of the user's identification request.
      *
      * @return $this
      */
@@ -323,21 +311,22 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets browser_details.
+     * Gets browser_details
+     * @return \Fingerprint\ServerAPI\Model\BrowserDetails
      */
-    public function getBrowserDetails(): BrowserDetails
+    public function getBrowserDetails(): \Fingerprint\ServerAPI\Model\BrowserDetails
     {
         return $this->container['browser_details'];
     }
 
     /**
-     * Sets browser_details.
+     * Sets browser_details
      *
-     * @param BrowserDetails $browser_details browser_details
+     * @param \Fingerprint\ServerAPI\Model\BrowserDetails $browser_details browser_details
      *
      * @return $this
      */
-    public function setBrowserDetails(BrowserDetails $browser_details): self
+    public function setBrowserDetails(\Fingerprint\ServerAPI\Model\BrowserDetails $browser_details): self
     {
         $this->container['browser_details'] = $browser_details;
 
@@ -345,7 +334,8 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets incognito.
+     * Gets incognito
+     * @return bool
      */
     public function getIncognito(): bool
     {
@@ -353,9 +343,9 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets incognito.
+     * Sets incognito
      *
-     * @param bool $incognito flag if user used incognito session
+     * @param bool $incognito Flag if user used incognito session.
      *
      * @return $this
      */
@@ -367,7 +357,8 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets ip.
+     * Gets ip
+     * @return string
      */
     public function getIp(): string
     {
@@ -375,7 +366,7 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets ip.
+     * Sets ip
      *
      * @param string $ip ip
      *
@@ -389,23 +380,22 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets ip_location.
-     *
+     * Gets ip_location
      * @return ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation
      */
-    public function getIpLocation(): ?DeprecatedIPLocation
+    public function getIpLocation(): ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation
     {
         return $this->container['ip_location'];
     }
 
     /**
-     * Sets ip_location.
+     * Sets ip_location
      *
      * @param ?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation $ip_location ip_location
      *
      * @return $this
      */
-    public function setIpLocation(?DeprecatedIPLocation $ip_location): self
+    public function setIpLocation(?\Fingerprint\ServerAPI\Model\DeprecatedIPLocation $ip_location): self
     {
         $this->container['ip_location'] = $ip_location;
 
@@ -413,7 +403,8 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets timestamp.
+     * Gets timestamp
+     * @return int
      */
     public function getTimestamp(): int
     {
@@ -421,9 +412,9 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets timestamp.
+     * Sets timestamp
      *
-     * @param int $timestamp timestamp of the event with millisecond precision in Unix time
+     * @param int $timestamp Timestamp of the event with millisecond precision in Unix time.
      *
      * @return $this
      */
@@ -435,7 +426,8 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets time.
+     * Gets time
+     * @return \DateTime
      */
     public function getTime(): \DateTime
     {
@@ -443,9 +435,9 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets time.
+     * Sets time
      *
-     * @param \DateTime $time time expressed according to ISO 8601 in UTC format
+     * @param \DateTime $time Time expressed according to ISO 8601 in UTC format.
      *
      * @return $this
      */
@@ -457,7 +449,8 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets url.
+     * Gets url
+     * @return string
      */
     public function getUrl(): string
     {
@@ -465,9 +458,9 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets url.
+     * Sets url
      *
-     * @param string $url page URL from which the identification request was sent
+     * @param string $url Page URL from which the identification request was sent.
      *
      * @return $this
      */
@@ -479,8 +472,7 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets tag.
-     *
+     * Gets tag
      * @return ?map[string,object]
      */
     public function getTag(): ?array
@@ -489,9 +481,9 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets tag.
+     * Sets tag
      *
-     * @param ?map[string,object] $tag A customer-provided value or an object that was sent with identification request
+     * @param ?map[string,object] $tag A customer-provided value or an object that was sent with identification request.
      *
      * @return $this
      */
@@ -503,8 +495,7 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets linked_id.
-     *
+     * Gets linked_id
      * @return ?string
      */
     public function getLinkedId(): ?string
@@ -513,9 +504,9 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets linked_id.
+     * Sets linked_id
      *
-     * @param ?string $linked_id a customer-provided id that was sent with identification request
+     * @param ?string $linked_id A customer-provided id that was sent with identification request.
      *
      * @return $this
      */
@@ -527,23 +518,22 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets confidence.
-     *
+     * Gets confidence
      * @return ?\Fingerprint\ServerAPI\Model\Confidence
      */
-    public function getConfidence(): ?Confidence
+    public function getConfidence(): ?\Fingerprint\ServerAPI\Model\Confidence
     {
         return $this->container['confidence'];
     }
 
     /**
-     * Sets confidence.
+     * Sets confidence
      *
      * @param ?\Fingerprint\ServerAPI\Model\Confidence $confidence confidence
      *
      * @return $this
      */
-    public function setConfidence(?Confidence $confidence): self
+    public function setConfidence(?\Fingerprint\ServerAPI\Model\Confidence $confidence): self
     {
         $this->container['confidence'] = $confidence;
 
@@ -551,7 +541,8 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets visitor_found.
+     * Gets visitor_found
+     * @return bool
      */
     public function getVisitorFound(): bool
     {
@@ -559,9 +550,9 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets visitor_found.
+     * Sets visitor_found
      *
-     * @param bool $visitor_found attribute represents if a visitor had been identified before
+     * @param bool $visitor_found Attribute represents if a visitor had been identified before.
      *
      * @return $this
      */
@@ -573,21 +564,22 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets first_seen_at.
+     * Gets first_seen_at
+     * @return \Fingerprint\ServerAPI\Model\SeenAt
      */
-    public function getFirstSeenAt(): SeenAt
+    public function getFirstSeenAt(): \Fingerprint\ServerAPI\Model\SeenAt
     {
         return $this->container['first_seen_at'];
     }
 
     /**
-     * Sets first_seen_at.
+     * Sets first_seen_at
      *
-     * @param SeenAt $first_seen_at first_seen_at
+     * @param \Fingerprint\ServerAPI\Model\SeenAt $first_seen_at first_seen_at
      *
      * @return $this
      */
-    public function setFirstSeenAt(SeenAt $first_seen_at): self
+    public function setFirstSeenAt(\Fingerprint\ServerAPI\Model\SeenAt $first_seen_at): self
     {
         $this->container['first_seen_at'] = $first_seen_at;
 
@@ -595,31 +587,31 @@ class Visit implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets last_seen_at.
+     * Gets last_seen_at
+     * @return \Fingerprint\ServerAPI\Model\SeenAt
      */
-    public function getLastSeenAt(): SeenAt
+    public function getLastSeenAt(): \Fingerprint\ServerAPI\Model\SeenAt
     {
         return $this->container['last_seen_at'];
     }
 
     /**
-     * Sets last_seen_at.
+     * Sets last_seen_at
      *
-     * @param SeenAt $last_seen_at last_seen_at
+     * @param \Fingerprint\ServerAPI\Model\SeenAt $last_seen_at last_seen_at
      *
      * @return $this
      */
-    public function setLastSeenAt(SeenAt $last_seen_at): self
+    public function setLastSeenAt(\Fingerprint\ServerAPI\Model\SeenAt $last_seen_at): self
     {
         $this->container['last_seen_at'] = $last_seen_at;
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -629,7 +621,7 @@ class Visit implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -639,8 +631,8 @@ class Visit implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -654,10 +646,27 @@ class Visit implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
+    }
+
+    /**
+     * Gets the string presentation of the object
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

@@ -1,16 +1,14 @@
 <?php
 /**
- * ErrorUpdateEvent400ResponseError.
+ * ErrorUpdateEvent400ResponseError
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API.
+ * Fingerprint Pro Server API
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -27,109 +25,46 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ErrorUpdateEvent400ResponseError Class Doc Comment.
+ * ErrorUpdateEvent400ResponseError Class Doc Comment
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
+class ErrorUpdateEvent400ResponseError implements ModelInterface, ArrayAccess
 {
-    public const CODE_REQUEST_CANNOT_BE_PARSED = 'RequestCannotBeParsed';
-    public const CODE_FAILED = 'Failed';
-
     /**
-     * The original name of the model.
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'ErrorUpdateEvent400ResponseError';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'code' => 'string',
-        'message' => 'string'];
+'message' => 'string'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'code' => null,
-        'message' => null];
+'message' => null    ];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'code' => 'code',
-        'message' => 'message'];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'code' => 'setCode',
-        'message' => 'setMessage'];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'code' => 'getCode',
-        'message' => 'getMessage'];
-
-    /**
-     * Associative array for storing property values.
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor.
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(?array $data = null)
-    {
-        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
-        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
-    }
-
-    /**
-     * Gets the string presentation of the object.
-     */
-    public function __toString(): string
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
+     * Array of property to type mappings. Used for (de)serialization
      */
     public static function swaggerTypes(): array
     {
@@ -137,7 +72,7 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
+     * Array of property to format mappings. Used for (de)serialization
      */
     public static function swaggerFormats(): array
     {
@@ -146,7 +81,35 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'code' => 'code',
+'message' => 'message'    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'code' => 'setCode',
+'message' => 'setMessage'    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'code' => 'getCode',
+'message' => 'getMessage'    ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
      */
     public static function attributeMap(): array
     {
@@ -154,7 +117,7 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      */
     public static function setters(): array
     {
@@ -162,7 +125,7 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      */
     public static function getters(): array
     {
@@ -177,8 +140,11 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const CODE_REQUEST_CANNOT_BE_PARSED = 'RequestCannotBeParsed';
+const CODE_FAILED = 'Failed';
+
     /**
-     * Gets allowable values of the enum.
+     * Gets allowable values of the enum
      *
      * @return string[]
      */
@@ -186,7 +152,26 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     {
         return [
             self::CODE_REQUEST_CANNOT_BE_PARSED,
-            self::CODE_FAILED,        ];
+self::CODE_FAILED,        ];
+    }
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
     }
 
     /**
@@ -198,7 +183,7 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     {
         $invalidProperties = [];
 
-        if (null === $this->container['code']) {
+        if ($this->container['code'] === null) {
             $invalidProperties[] = "'code' can't be null";
         }
         $allowedValues = $this->getCodeAllowableValues();
@@ -209,26 +194,27 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
             );
         }
 
-        if (null === $this->container['message']) {
+        if ($this->container['message'] === null) {
             $invalidProperties[] = "'message' can't be null";
         }
-
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets code.
+     * Gets code
+     * @return string
      */
     public function getCode(): string
     {
@@ -236,7 +222,7 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets code.
+     * Sets code
      *
      * @param string $code Error code: * `RequestCannotBeParsed` - the JSON content of the request contains some errors that prevented us from parsing it (wrong type/surpassed limits) * `Failed` - the event is more than 10 days old and cannot be updated
      *
@@ -259,7 +245,8 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets message.
+     * Gets message
+     * @return string
      */
     public function getMessage(): string
     {
@@ -267,7 +254,7 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets message.
+     * Sets message
      *
      * @param string $message Details about the underlying issue with the input payload
      *
@@ -279,11 +266,10 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -293,7 +279,7 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -303,8 +289,8 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -318,10 +304,27 @@ class ErrorUpdateEvent400ResponseError implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
+    }
+
+    /**
+     * Gets the string presentation of the object
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
