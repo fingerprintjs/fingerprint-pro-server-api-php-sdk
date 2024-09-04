@@ -40,9 +40,7 @@ rm -f ./src/Model/*
 
 java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json
 
-if [ -z "$GITHUB_ACTIONS" ]; then
-  docker-compose run --rm lint
-fi
+docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:${FIXER_VERSION:-3-php8.3} fix
 
 # fix invalid code generated for structure with additionalProperties
 (

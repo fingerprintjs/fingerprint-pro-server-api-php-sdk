@@ -1,17 +1,18 @@
 <?php
 /**
- * ModelInterface
+ * ModelInterface.
  *
  * PHP version 5
  *
  * @category Class
- * @package  Fingerprint\ServerAPI\Model
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -31,7 +32,6 @@ namespace Fingerprint\ServerAPI\Model;
 /**
  * Interface abstracting model access.
  *
- * @package Fingerprint\ServerAPI\Model
  * @author  Swagger Codegen team
  */
 interface ModelInterface
@@ -44,35 +44,35 @@ interface ModelInterface
     public function getModelName();
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of property to type mappings. Used for (de)serialization.
      *
      * @return array
      */
     public static function swaggerTypes();
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      *
      * @return array
      */
     public static function swaggerFormats();
 
     /**
-     * Array of attributes where the key is the local name, and the value is the original name
+     * Array of attributes where the key is the local name, and the value is the original name.
      *
      * @return array
      */
     public static function attributeMap();
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      *
      * @return array
      */
     public static function setters();
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      *
      * @return array
      */
@@ -87,7 +87,7 @@ interface ModelInterface
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool
      */
