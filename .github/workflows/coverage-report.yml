@@ -33,6 +33,7 @@ jobs:
         with:
           source: cov/json/index.json
           output: cov/html/coverage.svg
+          jsonPath: total.statements.pct
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@920cbb300dcd3f0568dbc42700c61e2fd9e6139c
         with:
