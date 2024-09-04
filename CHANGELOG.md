@@ -1,3 +1,10 @@
+## [5.0.0-develop.2](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v5.0.0-develop.1...v5.0.0-develop.2) (2024-09-04)
+
+
+### Bug Fixes
+
+* use linter with current config via docker ([9613c34](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/9613c34535c8ef675a0d5e129ca4a23b1ee6fcc9))
+
 ## [5.0.0-develop.1](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/compare/v4.1.0...v5.0.0-develop.1) (2024-09-04)
 
 

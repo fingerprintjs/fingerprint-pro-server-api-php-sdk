@@ -260,8 +260,6 @@ class BotdDetectionResult implements ModelInterface, \ArrayAccess
 
     /**
      * Gets type.
-     *
-     * @return ?string
      */
     public function getType(): ?string
     {

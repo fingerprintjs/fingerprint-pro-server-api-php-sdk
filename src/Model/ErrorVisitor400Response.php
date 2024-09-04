@@ -191,8 +191,6 @@ class ErrorVisitor400Response implements ModelInterface, \ArrayAccess
 
     /**
      * Gets error.
-     *
-     * @return ?\Fingerprint\ServerAPI\Model\ErrorVisitor400ResponseError
      */
     public function getError(): ?ErrorVisitor400ResponseError
     {
