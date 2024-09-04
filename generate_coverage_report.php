@@ -1,43 +1,45 @@
 <?php
 
-# This script generates JSON report for coverage badge github action and generates markdown report for coverage-diff github action
+// This script generates JSON report for coverage badge github action and generates markdown report for coverage-diff github action
 
-$outputPath = __DIR__ . "/cov/json/";
-$markdownPath = __DIR__ . "/cov/markdown/";
+$outputPath = __DIR__.'/cov/json/';
+$markdownPath = __DIR__.'/cov/markdown/';
 
-$contents = file_get_contents(__DIR__ . "/cov/xml/clover.xml");
+$contents = file_get_contents(__DIR__.'/cov/xml/clover.xml');
 $xml = simplexml_load_string($contents);
 $arr = json_decode(json_encode($xml), true);
 
-$metrics = $arr["project"]["metrics"]["@attributes"];
+$metrics = $arr['project']['metrics']['@attributes'];
 
 // Calculate coverage metrics
-$statementsCovered = (int)$metrics["coveredstatements"];
-$statementsTotal = (int)$metrics["statements"];
+$statementsCovered = (int) $metrics['coveredstatements'];
+$statementsTotal = (int) $metrics['statements'];
 $statementsPct = $statementsTotal > 0 ? ($statementsCovered / $statementsTotal) * 100 : 0;
 
-$functionsCovered = (int)$metrics["coveredmethods"];
-$functionsTotal = (int)$metrics["methods"];
+$functionsCovered = (int) $metrics['coveredmethods'];
+$functionsTotal = (int) $metrics['methods'];
 $functionsPct = $functionsTotal > 0 ? ($functionsCovered / $functionsTotal) * 100 : 0;
 
 // Function to return color based on percentage
-function getCoverageStatus($percentage) {
+function getCoverageStatus($percentage)
+{
     if ($percentage >= 80) {
-        return ":green_circle:";
-    } elseif ($percentage >= 50) {
-        return ":yellow_circle:";
-    } else {
-        return ":red_circle:";
+        return ':green_circle:';
     }
+    if ($percentage >= 50) {
+        return ':yellow_circle:';
+    }
+
+    return ':red_circle:';
 }
 
 // Generate JSON report
 $map = [
-    "total" => [
-        "statements" => ["pct" => number_format($statementsPct, 2)],
-    ]
+    'total' => [
+        'statements' => ['pct' => number_format($statementsPct, 2)],
+    ],
 ];
-file_put_contents($outputPath . "index.json", json_encode($map));
+file_put_contents($outputPath.'index.json', json_encode($map));
 
 // Generate Markdown report
 $markdown = "# Code Coverage Report\n\n";
@@ -64,15 +66,15 @@ $markdown .= "<summary>Files Coverage</summary>\n\n";
 $markdown .= "| St. | File | Methods | Statements | Total Coverage |\n";
 $markdown .= "|-----|------|---------|------------|----------------|\n";
 
-foreach ($arr["project"]["file"] as $file) {
-    $filePath = 'src/' . explode('src/', $file["@attributes"]['name'])[1];
-    $fileMetrics = $file["metrics"]["@attributes"];
+foreach ($arr['project']['file'] as $file) {
+    $filePath = 'src/'.explode('src/', $file['@attributes']['name'])[1];
+    $fileMetrics = $file['metrics']['@attributes'];
 
-    $methodsPct = $fileMetrics["methods"] > 0 ? ($fileMetrics["coveredmethods"] / $fileMetrics["methods"]) * 100 : 0;
-    $statementsPct = $fileMetrics["statements"] > 0 ? ($fileMetrics["coveredstatements"] / $fileMetrics["statements"]) * 100 : 0;
+    $methodsPct = $fileMetrics['methods'] > 0 ? ($fileMetrics['coveredmethods'] / $fileMetrics['methods']) * 100 : 0;
+    $statementsPct = $fileMetrics['statements'] > 0 ? ($fileMetrics['coveredstatements'] / $fileMetrics['statements']) * 100 : 0;
 
-    $fileElements = (int)$fileMetrics["elements"];
-    $fileCoveredElements = (int)$fileMetrics["coveredelements"];
+    $fileElements = (int) $fileMetrics['elements'];
+    $fileCoveredElements = (int) $fileMetrics['coveredelements'];
     $totalCoveragePct = $fileElements > 0 ? ($fileCoveredElements / $fileElements) * 100 : 0;
 
     $markdown .= sprintf(
@@ -87,4 +89,4 @@ foreach ($arr["project"]["file"] as $file) {
 
 $markdown .= "\n</details>\n";
 
-file_put_contents($markdownPath . "coverage_report.md", $markdown);
+file_put_contents($markdownPath.'coverage_report.md', $markdown);
