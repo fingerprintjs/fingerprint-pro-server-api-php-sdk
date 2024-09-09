@@ -1,14 +1,16 @@
 <?php
 /**
- * VelocityResult
+ * VelocityResult.
  *
  * @category Class
+ *
  * @author   Swagger Codegen team
+ *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -25,51 +27,122 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * VelocityResult Class Doc Comment
+ * VelocityResult Class Doc Comment.
  *
  * @category Class
+ *
  * @description Sums key data points for a specific `visitorId` at three distinct time intervals: 5 minutes, 1 hour, and 24 hours as follows:  - Number of identification events attributed to the visitor ID - Number of distinct IP addresses associated to the visitor ID. - Number of distinct countries associated with the visitor ID. - Number of distinct `linkedId`s associated with the visitor ID. The `24h` interval of `distinctIp`, `distinctLinkedId`, and `distinctCountry` will be omitted if the number of `events` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class VelocityResult implements ModelInterface, ArrayAccess
+class VelocityResult implements ModelInterface, \ArrayAccess
 {
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     */
     protected static string $swaggerModelName = 'VelocityResult';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerTypes = [
         'distinct_ip' => '\Fingerprint\ServerAPI\Model\VelocityIntervals',
-'distinct_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityIntervals',
-'distinct_country' => '\Fingerprint\ServerAPI\Model\VelocityIntervals',
-'events' => '\Fingerprint\ServerAPI\Model\VelocityIntervals'    ];
+        'distinct_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityIntervals',
+        'distinct_country' => '\Fingerprint\ServerAPI\Model\VelocityIntervals',
+        'events' => '\Fingerprint\ServerAPI\Model\VelocityIntervals'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerFormats = [
         'distinct_ip' => null,
-'distinct_linked_id' => null,
-'distinct_country' => null,
-'events' => null    ];
+        'distinct_linked_id' => null,
+        'distinct_country' => null,
+        'events' => null];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'distinct_ip' => 'distinctIp',
+        'distinct_linked_id' => 'distinctLinkedId',
+        'distinct_country' => 'distinctCountry',
+        'events' => 'events'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'distinct_ip' => 'setDistinctIp',
+        'distinct_linked_id' => 'setDistinctLinkedId',
+        'distinct_country' => 'setDistinctCountry',
+        'events' => 'setEvents'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'distinct_ip' => 'getDistinctIp',
+        'distinct_linked_id' => 'getDistinctLinkedId',
+        'distinct_country' => 'getDistinctCountry',
+        'events' => 'getEvents'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['distinct_ip'] = isset($data['distinct_ip']) ? $data['distinct_ip'] : null;
+        $this->container['distinct_linked_id'] = isset($data['distinct_linked_id']) ? $data['distinct_linked_id'] : null;
+        $this->container['distinct_country'] = isset($data['distinct_country']) ? $data['distinct_country'] : null;
+        $this->container['events'] = isset($data['events']) ? $data['events'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     */
+    public function __toString(): string
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      */
     public static function swaggerTypes(): array
     {
@@ -77,7 +150,7 @@ class VelocityResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      */
     public static function swaggerFormats(): array
     {
@@ -86,41 +159,7 @@ class VelocityResult implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'distinct_ip' => 'distinctIp',
-'distinct_linked_id' => 'distinctLinkedId',
-'distinct_country' => 'distinctCountry',
-'events' => 'events'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'distinct_ip' => 'setDistinctIp',
-'distinct_linked_id' => 'setDistinctLinkedId',
-'distinct_country' => 'setDistinctCountry',
-'events' => 'setEvents'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'distinct_ip' => 'getDistinctIp',
-'distinct_linked_id' => 'getDistinctLinkedId',
-'distinct_country' => 'getDistinctCountry',
-'events' => 'getEvents'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      */
     public static function attributeMap(): array
     {
@@ -128,7 +167,7 @@ class VelocityResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      */
     public static function setters(): array
     {
@@ -136,7 +175,7 @@ class VelocityResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      */
     public static function getters(): array
     {
@@ -151,29 +190,6 @@ class VelocityResult implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['distinct_ip'] = isset($data['distinct_ip']) ? $data['distinct_ip'] : null;
-        $this->container['distinct_linked_id'] = isset($data['distinct_linked_id']) ? $data['distinct_linked_id'] : null;
-        $this->container['distinct_country'] = isset($data['distinct_country']) ? $data['distinct_country'] : null;
-        $this->container['events'] = isset($data['events']) ? $data['events'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -183,50 +199,49 @@ class VelocityResult implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['distinct_ip'] === null) {
+        if (null === $this->container['distinct_ip']) {
             $invalidProperties[] = "'distinct_ip' can't be null";
         }
-        if ($this->container['distinct_linked_id'] === null) {
+        if (null === $this->container['distinct_linked_id']) {
             $invalidProperties[] = "'distinct_linked_id' can't be null";
         }
-        if ($this->container['distinct_country'] === null) {
+        if (null === $this->container['distinct_country']) {
             $invalidProperties[] = "'distinct_country' can't be null";
         }
-        if ($this->container['events'] === null) {
+        if (null === $this->container['events']) {
             $invalidProperties[] = "'events' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets distinct_ip
-     * @return \Fingerprint\ServerAPI\Model\VelocityIntervals
+     * Gets distinct_ip.
      */
-    public function getDistinctIp(): \Fingerprint\ServerAPI\Model\VelocityIntervals
+    public function getDistinctIp(): VelocityIntervals
     {
         return $this->container['distinct_ip'];
     }
 
     /**
-     * Sets distinct_ip
+     * Sets distinct_ip.
      *
-     * @param \Fingerprint\ServerAPI\Model\VelocityIntervals $distinct_ip distinct_ip
+     * @param VelocityIntervals $distinct_ip distinct_ip
      *
      * @return $this
      */
-    public function setDistinctIp(\Fingerprint\ServerAPI\Model\VelocityIntervals $distinct_ip): self
+    public function setDistinctIp(VelocityIntervals $distinct_ip): self
     {
         $this->container['distinct_ip'] = $distinct_ip;
 
@@ -234,22 +249,21 @@ class VelocityResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets distinct_linked_id
-     * @return \Fingerprint\ServerAPI\Model\VelocityIntervals
+     * Gets distinct_linked_id.
      */
-    public function getDistinctLinkedId(): \Fingerprint\ServerAPI\Model\VelocityIntervals
+    public function getDistinctLinkedId(): VelocityIntervals
     {
         return $this->container['distinct_linked_id'];
     }
 
     /**
-     * Sets distinct_linked_id
+     * Sets distinct_linked_id.
      *
-     * @param \Fingerprint\ServerAPI\Model\VelocityIntervals $distinct_linked_id distinct_linked_id
+     * @param VelocityIntervals $distinct_linked_id distinct_linked_id
      *
      * @return $this
      */
-    public function setDistinctLinkedId(\Fingerprint\ServerAPI\Model\VelocityIntervals $distinct_linked_id): self
+    public function setDistinctLinkedId(VelocityIntervals $distinct_linked_id): self
     {
         $this->container['distinct_linked_id'] = $distinct_linked_id;
 
@@ -257,22 +271,21 @@ class VelocityResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets distinct_country
-     * @return \Fingerprint\ServerAPI\Model\VelocityIntervals
+     * Gets distinct_country.
      */
-    public function getDistinctCountry(): \Fingerprint\ServerAPI\Model\VelocityIntervals
+    public function getDistinctCountry(): VelocityIntervals
     {
         return $this->container['distinct_country'];
     }
 
     /**
-     * Sets distinct_country
+     * Sets distinct_country.
      *
-     * @param \Fingerprint\ServerAPI\Model\VelocityIntervals $distinct_country distinct_country
+     * @param VelocityIntervals $distinct_country distinct_country
      *
      * @return $this
      */
-    public function setDistinctCountry(\Fingerprint\ServerAPI\Model\VelocityIntervals $distinct_country): self
+    public function setDistinctCountry(VelocityIntervals $distinct_country): self
     {
         $this->container['distinct_country'] = $distinct_country;
 
@@ -280,31 +293,31 @@ class VelocityResult implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets events
-     * @return \Fingerprint\ServerAPI\Model\VelocityIntervals
+     * Gets events.
      */
-    public function getEvents(): \Fingerprint\ServerAPI\Model\VelocityIntervals
+    public function getEvents(): VelocityIntervals
     {
         return $this->container['events'];
     }
 
     /**
-     * Sets events
+     * Sets events.
      *
-     * @param \Fingerprint\ServerAPI\Model\VelocityIntervals $events events
+     * @param VelocityIntervals $events events
      *
      * @return $this
      */
-    public function setEvents(\Fingerprint\ServerAPI\Model\VelocityIntervals $events): self
+    public function setEvents(VelocityIntervals $events): self
     {
         $this->container['events'] = $events;
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -314,7 +327,7 @@ class VelocityResult implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -324,8 +337,8 @@ class VelocityResult implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -339,27 +352,10 @@ class VelocityResult implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
-    }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

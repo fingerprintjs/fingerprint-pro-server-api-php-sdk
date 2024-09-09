@@ -1,14 +1,16 @@
 <?php
 /**
- * BrowserDetails
+ * BrowserDetails.
  *
  * @category Class
+ *
  * @author   Swagger Codegen team
+ *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Fingerprint Pro Server API
+ * Fingerprint Pro Server API.
  *
  * Fingerprint Pro Server API allows you to get information about visitors and about individual events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
  *
@@ -25,58 +27,144 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * BrowserDetails Class Doc Comment
+ * BrowserDetails Class Doc Comment.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class BrowserDetails implements ModelInterface, ArrayAccess
+class BrowserDetails implements ModelInterface, \ArrayAccess
 {
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     */
     protected static string $swaggerModelName = 'BrowserDetails';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerTypes = [
         'browser_name' => 'string',
-'browser_major_version' => 'string',
-'browser_full_version' => 'string',
-'os' => 'string',
-'os_version' => 'string',
-'device' => 'string',
-'user_agent' => 'string',
-'bot_probability' => 'int'    ];
+        'browser_major_version' => 'string',
+        'browser_full_version' => 'string',
+        'os' => 'string',
+        'os_version' => 'string',
+        'device' => 'string',
+        'user_agent' => 'string',
+        'bot_probability' => 'int'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerFormats = [
         'browser_name' => null,
-'browser_major_version' => null,
-'browser_full_version' => null,
-'os' => null,
-'os_version' => null,
-'device' => null,
-'user_agent' => null,
-'bot_probability' => null    ];
+        'browser_major_version' => null,
+        'browser_full_version' => null,
+        'os' => null,
+        'os_version' => null,
+        'device' => null,
+        'user_agent' => null,
+        'bot_probability' => null];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'browser_name' => 'browserName',
+        'browser_major_version' => 'browserMajorVersion',
+        'browser_full_version' => 'browserFullVersion',
+        'os' => 'os',
+        'os_version' => 'osVersion',
+        'device' => 'device',
+        'user_agent' => 'userAgent',
+        'bot_probability' => 'botProbability'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'browser_name' => 'setBrowserName',
+        'browser_major_version' => 'setBrowserMajorVersion',
+        'browser_full_version' => 'setBrowserFullVersion',
+        'os' => 'setOs',
+        'os_version' => 'setOsVersion',
+        'device' => 'setDevice',
+        'user_agent' => 'setUserAgent',
+        'bot_probability' => 'setBotProbability'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'browser_name' => 'getBrowserName',
+        'browser_major_version' => 'getBrowserMajorVersion',
+        'browser_full_version' => 'getBrowserFullVersion',
+        'os' => 'getOs',
+        'os_version' => 'getOsVersion',
+        'device' => 'getDevice',
+        'user_agent' => 'getUserAgent',
+        'bot_probability' => 'getBotProbability'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['browser_name'] = isset($data['browser_name']) ? $data['browser_name'] : null;
+        $this->container['browser_major_version'] = isset($data['browser_major_version']) ? $data['browser_major_version'] : null;
+        $this->container['browser_full_version'] = isset($data['browser_full_version']) ? $data['browser_full_version'] : null;
+        $this->container['os'] = isset($data['os']) ? $data['os'] : null;
+        $this->container['os_version'] = isset($data['os_version']) ? $data['os_version'] : null;
+        $this->container['device'] = isset($data['device']) ? $data['device'] : null;
+        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
+        $this->container['bot_probability'] = isset($data['bot_probability']) ? $data['bot_probability'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     */
+    public function __toString(): string
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      */
     public static function swaggerTypes(): array
     {
@@ -84,7 +172,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      */
     public static function swaggerFormats(): array
     {
@@ -93,53 +181,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'browser_name' => 'browserName',
-'browser_major_version' => 'browserMajorVersion',
-'browser_full_version' => 'browserFullVersion',
-'os' => 'os',
-'os_version' => 'osVersion',
-'device' => 'device',
-'user_agent' => 'userAgent',
-'bot_probability' => 'botProbability'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'browser_name' => 'setBrowserName',
-'browser_major_version' => 'setBrowserMajorVersion',
-'browser_full_version' => 'setBrowserFullVersion',
-'os' => 'setOs',
-'os_version' => 'setOsVersion',
-'device' => 'setDevice',
-'user_agent' => 'setUserAgent',
-'bot_probability' => 'setBotProbability'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'browser_name' => 'getBrowserName',
-'browser_major_version' => 'getBrowserMajorVersion',
-'browser_full_version' => 'getBrowserFullVersion',
-'os' => 'getOs',
-'os_version' => 'getOsVersion',
-'device' => 'getDevice',
-'user_agent' => 'getUserAgent',
-'bot_probability' => 'getBotProbability'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      */
     public static function attributeMap(): array
     {
@@ -147,7 +189,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      */
     public static function setters(): array
     {
@@ -155,7 +197,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      */
     public static function getters(): array
     {
@@ -170,33 +212,6 @@ class BrowserDetails implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['browser_name'] = isset($data['browser_name']) ? $data['browser_name'] : null;
-        $this->container['browser_major_version'] = isset($data['browser_major_version']) ? $data['browser_major_version'] : null;
-        $this->container['browser_full_version'] = isset($data['browser_full_version']) ? $data['browser_full_version'] : null;
-        $this->container['os'] = isset($data['os']) ? $data['os'] : null;
-        $this->container['os_version'] = isset($data['os_version']) ? $data['os_version'] : null;
-        $this->container['device'] = isset($data['device']) ? $data['device'] : null;
-        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
-        $this->container['bot_probability'] = isset($data['bot_probability']) ? $data['bot_probability'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -206,45 +221,44 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['browser_name'] === null) {
+        if (null === $this->container['browser_name']) {
             $invalidProperties[] = "'browser_name' can't be null";
         }
-        if ($this->container['browser_major_version'] === null) {
+        if (null === $this->container['browser_major_version']) {
             $invalidProperties[] = "'browser_major_version' can't be null";
         }
-        if ($this->container['browser_full_version'] === null) {
+        if (null === $this->container['browser_full_version']) {
             $invalidProperties[] = "'browser_full_version' can't be null";
         }
-        if ($this->container['os'] === null) {
+        if (null === $this->container['os']) {
             $invalidProperties[] = "'os' can't be null";
         }
-        if ($this->container['os_version'] === null) {
+        if (null === $this->container['os_version']) {
             $invalidProperties[] = "'os_version' can't be null";
         }
-        if ($this->container['device'] === null) {
+        if (null === $this->container['device']) {
             $invalidProperties[] = "'device' can't be null";
         }
-        if ($this->container['user_agent'] === null) {
+        if (null === $this->container['user_agent']) {
             $invalidProperties[] = "'user_agent' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets browser_name
-     * @return string
+     * Gets browser_name.
      */
     public function getBrowserName(): string
     {
@@ -252,7 +266,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets browser_name
+     * Sets browser_name.
      *
      * @param string $browser_name browser_name
      *
@@ -266,8 +280,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets browser_major_version
-     * @return string
+     * Gets browser_major_version.
      */
     public function getBrowserMajorVersion(): string
     {
@@ -275,7 +288,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets browser_major_version
+     * Sets browser_major_version.
      *
      * @param string $browser_major_version browser_major_version
      *
@@ -289,8 +302,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets browser_full_version
-     * @return string
+     * Gets browser_full_version.
      */
     public function getBrowserFullVersion(): string
     {
@@ -298,7 +310,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets browser_full_version
+     * Sets browser_full_version.
      *
      * @param string $browser_full_version browser_full_version
      *
@@ -312,8 +324,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets os
-     * @return string
+     * Gets os.
      */
     public function getOs(): string
     {
@@ -321,7 +332,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets os
+     * Sets os.
      *
      * @param string $os os
      *
@@ -335,8 +346,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets os_version
-     * @return string
+     * Gets os_version.
      */
     public function getOsVersion(): string
     {
@@ -344,7 +354,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets os_version
+     * Sets os_version.
      *
      * @param string $os_version os_version
      *
@@ -358,8 +368,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets device
-     * @return string
+     * Gets device.
      */
     public function getDevice(): string
     {
@@ -367,7 +376,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets device
+     * Sets device.
      *
      * @param string $device device
      *
@@ -381,8 +390,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets user_agent
-     * @return string
+     * Gets user_agent.
      */
     public function getUserAgent(): string
     {
@@ -390,7 +398,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets user_agent
+     * Sets user_agent.
      *
      * @param string $user_agent user_agent
      *
@@ -404,8 +412,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets bot_probability
-     * @return ?int
+     * Gets bot_probability.
      */
     public function getBotProbability(): ?int
     {
@@ -413,7 +420,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets bot_probability
+     * Sets bot_probability.
      *
      * @param ?int $bot_probability bot_probability
      *
@@ -425,10 +432,11 @@ class BrowserDetails implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -438,7 +446,7 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -448,8 +456,8 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -463,27 +471,10 @@ class BrowserDetails implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
-    }
-
-    /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

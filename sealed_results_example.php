@@ -4,14 +4,13 @@ use Fingerprint\ServerAPI\Sealed\DecryptionAlgorithm;
 use Fingerprint\ServerAPI\Sealed\DecryptionKey;
 use Fingerprint\ServerAPI\Sealed\Sealed;
 
-require_once(__DIR__ . '/vendor/autoload.php');
+require_once __DIR__.'/vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
-$sealed_result = base64_decode($_ENV['BASE64_SEALED_RESULT'] ?? getenv('BASE64_SEALED_RESULT') ?? "");
-$sealed_key = base64_decode($_ENV['BASE64_KEY'] ?? getenv('BASE64_KEY') ?? "");
-
+$sealed_result = base64_decode($_ENV['BASE64_SEALED_RESULT'] ?? getenv('BASE64_SEALED_RESULT') ?? '');
+$sealed_key = base64_decode($_ENV['BASE64_KEY'] ?? getenv('BASE64_KEY') ?? '');
 
 // Temporarily suppress a million deprecated ArrayAccess return type warnings for readability
 // Our SDK generator does not yet support PHP's new attributes system
@@ -24,6 +23,7 @@ try {
     fwrite(STDOUT, sprintf("Unsealed event: %s \n", $data));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("Exception when unsealing event: %s\n", $e->getMessage()));
+
     exit(1);
 }
 
@@ -31,4 +31,5 @@ try {
 error_reporting(error_reporting() | E_DEPRECATED);
 
 fwrite(STDOUT, "Checks passed\n");
+
 exit(0);

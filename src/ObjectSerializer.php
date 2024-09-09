@@ -46,7 +46,7 @@ class ObjectSerializer
      * Serialize data.
      *
      * @param mixed       $data   the data to serialize
-     * @param null|string $format the format of the Swagger type of the data
+     * @param string|null $format the format of the Swagger type of the data
      *
      * @return array|object|string serialized form of $data
      */
@@ -117,7 +117,7 @@ class ObjectSerializer
      * later.
      *
      * @param \DateTime|string|string[] $object an object to be serialized to a string
-     * @param null|string               $format the format of the parameter
+     * @param string|null               $format the format of the parameter
      *
      * @return string the serialized object
      */
@@ -137,7 +137,7 @@ class ObjectSerializer
      * If it's a date, format it in Y-m-d.
      *
      * @param \DateTime|string $value  the value of the parameter
-     * @param null|string      $format the format of the parameter
+     * @param string|null      $format the format of the parameter
      *
      * @return string the header string
      */
