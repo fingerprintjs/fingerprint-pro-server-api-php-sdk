@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:${FIXER_VERSION:-3-php8.3} fix --config=/code/.php-cs-fixer.php /code/src
+docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:3.64-php8.3 fix --config=/code/.php-cs-fixer.php

@@ -22,11 +22,6 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @coversNothing
- */
 class FingerprintApiTest extends TestCase
 {
     public const MOCK_REQUEST_ID = '1708102555327.NLOjmg';
