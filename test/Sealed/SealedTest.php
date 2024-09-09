@@ -11,11 +11,6 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @coversNothing
- */
 class SealedTest extends TestCase
 {
     public const VALID_KEY = 'p2PA7MGy5tx56cnyJaFZMr96BCFwZeHjZV2EqMvTq53=';

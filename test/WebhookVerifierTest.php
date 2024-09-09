@@ -5,11 +5,6 @@ namespace Fingerprint\ServerAPI;
 use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @coversNothing
- */
 class WebhookVerifierTest extends TestCase
 {
     private $secret = 'secret';
