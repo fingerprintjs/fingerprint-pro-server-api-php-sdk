@@ -15,6 +15,7 @@
 
 ### Features
 
+* add [Confidence Score v1.1](https://dev.fingerprint.com/docs/understanding-your-confidence-score-v11)
 * add `remoteControl`, `velocity` and `developerTools` signals ([5bf9368](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/5bf9368fb1bb5abbfa72366fe6c66fe32352ad54))
 * add delete visitor data endpoint ([a00f325](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/a00f325706af38cc20e4c387db44dfa83c7a7a22))
 * add retry after policy to api exception ([64e0510](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/64e05100a2c20c8d1f8e5f9719ee5292c59761c2))
