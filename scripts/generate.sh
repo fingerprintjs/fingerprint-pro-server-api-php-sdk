@@ -48,7 +48,7 @@ fi
 echo "Using .php-cs-fixer.php configuration:"
 cat .php-cs-fixer.php
 
-docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:${FIXER_VERSION:-3-php8.3} fix --config=/code/.php-cs-fixer.php /code/src
+docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:${FIXER_VERSION:-3-php8.3} fix --config=/code/.php-cs-fixer.php
 
 # fix invalid code generated for structure with additionalProperties
 (
