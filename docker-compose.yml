@@ -22,7 +22,7 @@ services:
     env_file:
       - .env
   lint:
-    image: ghcr.io/php-cs-fixer/php-cs-fixer:${FIXER_VERSION:-3-php8.3}
+    image: ghcr.io/php-cs-fixer/php-cs-fixer:3.64-php8.3
     volumes:
       - .:/code
       - ./.php-cs-fixer.php:/code/.php-cs-fixer.php
