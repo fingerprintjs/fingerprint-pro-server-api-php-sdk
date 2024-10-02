@@ -10,3 +10,4 @@ release/node_modules
 .php-cs-fixer.cache
 cov/**/*.*
 !cov/**/.gitkeep
+**/node_modules

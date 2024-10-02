@@ -69,3 +69,6 @@ Project configuration is described in the `config.json` file. To read about avai
 java -jar ./bin/swagger-codegen-cli.jar config-help -l php
 ```
 
+### How to publish
+
+We use [changesets](https://github.com/changesets/changesets) for handling release notes. If there are relevant changes, please add them to changeset via `pnpm exec changeset`. You need to run `pnpm install` before doing so.
