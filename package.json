@@ -1,0 +1,9 @@
+{
+  "name": "fingerprint-pro-server-api-php-sdk",
+  "version": "5.0.0",
+  "private": true,
+  "devDependencies": {
+    "@changesets/cli": "^2.27.8",
+    "@fingerprintjs/changesets-changelog-format": "^0.2.0"
+  }
+}

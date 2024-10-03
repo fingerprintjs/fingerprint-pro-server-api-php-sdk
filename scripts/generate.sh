@@ -2,7 +2,7 @@
 
 shopt -s extglob
 
-VERSION='2.0.0'
+VERSION=$(jq -r '.version' package.json)
 
 while getopts "v:" arg; do
   case $arg in
@@ -28,8 +28,7 @@ platform=$(uname)
 (
   # Model file fix
   if [ "$platform" = "Darwin" ]; then
-    echo "Don't bump version in dev env"
-    # sed -i '' "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
+    sed -i '' "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
   else
     sed -i "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
   fi

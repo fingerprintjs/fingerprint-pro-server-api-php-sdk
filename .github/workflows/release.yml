@@ -2,18 +2,19 @@ name: 'Release'
 on:
   push:
     branches:
-      - develop
       - main
 
 jobs:
   release:
-    name: 'Publish new version'
-    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-server-sdk.yml@v1
+    name: 'Release project'
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-sdk-changesets.yml@v1
     with:
+      appId: ${{ vars.APP_ID }}
+      version-command: bash ./changeset-version.sh
+      publish-command: bash ./changeset-publish.sh
       language: php
       language-version: '8.3'
       prepare-command: |
         composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
-      appId: ${{ vars.APP_ID }}
     secrets:
       APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
