@@ -557,13 +557,13 @@ class FingerprintApiTest extends TestCase
                     break;
 
                 case self::MOCK_VISITOR_ID_400_ERROR:
-                    $mock_name = '400_error_incorrect_visitor_id.json';
+                    $mock_name = 'shared/400_error_incorrect_visitor_id.json';
                     $status = 400;
 
                     break;
 
                 case self::MOCK_VISITOR_ID_404_ERROR:
-                    $mock_name = '404_error_visitor_not_found.json';
+                    $mock_name = 'shared/404_error_visitor_not_found.json';
                     $status = 404;
 
                     break;
