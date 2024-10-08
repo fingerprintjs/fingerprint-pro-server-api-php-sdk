@@ -1,0 +1,8 @@
+{
+  "mode": "pre",
+  "tag": "develop",
+  "initialVersions": {
+    "fingerprint-pro-server-api-php-sdk": "5.0.0"
+  },
+  "changesets": []
+}
