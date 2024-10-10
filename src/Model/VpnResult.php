@@ -40,6 +40,10 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  */
 class VpnResult implements ModelInterface, \ArrayAccess
 {
+    public const CONFIDENCE_LOW = 'low';
+    public const CONFIDENCE_MEDIUM = 'medium';
+    public const CONFIDENCE_HIGH = 'high';
+
     /**
      * The original name of the model.
      *
@@ -55,7 +59,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
         'result' => 'bool',
         'origin_timezone' => 'string',
         'origin_country' => 'string',
-        'methods' => '\Fingerprint\ServerAPI\Model\VpnResultMethods'];
+        'methods' => '\Fingerprint\ServerAPI\Model\VpnResultMethods',
+        'confidence' => 'string'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -66,7 +71,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
         'result' => null,
         'origin_timezone' => null,
         'origin_country' => null,
-        'methods' => null];
+        'methods' => null,
+        'confidence' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -78,7 +84,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
         'result' => 'result',
         'origin_timezone' => 'originTimezone',
         'origin_country' => 'originCountry',
-        'methods' => 'methods'];
+        'methods' => 'methods',
+        'confidence' => 'confidence'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -89,7 +96,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
         'result' => 'setResult',
         'origin_timezone' => 'setOriginTimezone',
         'origin_country' => 'setOriginCountry',
-        'methods' => 'setMethods'];
+        'methods' => 'setMethods',
+        'confidence' => 'setConfidence'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -100,7 +108,8 @@ class VpnResult implements ModelInterface, \ArrayAccess
         'result' => 'getResult',
         'origin_timezone' => 'getOriginTimezone',
         'origin_country' => 'getOriginCountry',
-        'methods' => 'getMethods'];
+        'methods' => 'getMethods',
+        'confidence' => 'getConfidence'];
 
     /**
      * Associative array for storing property values.
@@ -121,6 +130,7 @@ class VpnResult implements ModelInterface, \ArrayAccess
         $this->container['origin_timezone'] = isset($data['origin_timezone']) ? $data['origin_timezone'] : null;
         $this->container['origin_country'] = isset($data['origin_country']) ? $data['origin_country'] : null;
         $this->container['methods'] = isset($data['methods']) ? $data['methods'] : null;
+        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
     }
 
     /**
@@ -189,6 +199,19 @@ class VpnResult implements ModelInterface, \ArrayAccess
     }
 
     /**
+     * Gets allowable values of the enum.
+     *
+     * @return string[]
+     */
+    public function getConfidenceAllowableValues(): array
+    {
+        return [
+            self::CONFIDENCE_LOW,
+            self::CONFIDENCE_MEDIUM,
+            self::CONFIDENCE_HIGH,        ];
+    }
+
+    /**
      * Show all the invalid properties with reasons.
      *
      * @return array invalid properties with reasons
@@ -205,6 +228,16 @@ class VpnResult implements ModelInterface, \ArrayAccess
         }
         if (null === $this->container['methods']) {
             $invalidProperties[] = "'methods' can't be null";
+        }
+        if (null === $this->container['confidence']) {
+            $invalidProperties[] = "'confidence' can't be null";
+        }
+        $allowedValues = $this->getConfidenceAllowableValues();
+        if (!is_null($this->container['confidence']) && !in_array($this->container['confidence'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'confidence', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
 
         return $invalidProperties;
@@ -305,6 +338,37 @@ class VpnResult implements ModelInterface, \ArrayAccess
     public function setMethods(VpnResultMethods $methods): self
     {
         $this->container['methods'] = $methods;
+
+        return $this;
+    }
+
+    /**
+     * Gets confidence.
+     */
+    public function getConfidence(): string
+    {
+        return $this->container['confidence'];
+    }
+
+    /**
+     * Sets confidence.
+     *
+     * @param string $confidence A confidence rating for the VPN detection result — \"low\", \"medium\", or \"high\". Depends on the combination of results returned from all VPN detection methods.
+     *
+     * @return $this
+     */
+    public function setConfidence(string $confidence): self
+    {
+        $allowedValues = $this->getConfidenceAllowableValues();
+        if (!in_array($confidence, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'confidence', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['confidence'] = $confidence;
 
         return $this;
     }

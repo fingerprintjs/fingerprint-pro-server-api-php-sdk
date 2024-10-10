@@ -125,7 +125,8 @@
       "publicVPN": false,
       "auxiliaryMobile": false,
       "osMismatch": false
-    }
+    },
+    "confidence": "high"
   },
   "proxy": {
     "result": false

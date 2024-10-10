@@ -328,7 +328,6 @@ Class | Method | HTTP request | Description
  - [VelocityIntervals](docs/Model/VelocityIntervals.md)
  - [VelocityResult](docs/Model/VelocityResult.md)
  - [VirtualMachineResult](docs/Model/VirtualMachineResult.md)
- - [Visit](docs/Model/Visit.md)
  - [VpnResult](docs/Model/VpnResult.md)
  - [VpnResultMethods](docs/Model/VpnResultMethods.md)
  - [WebhookVisit](docs/Model/WebhookVisit.md)
