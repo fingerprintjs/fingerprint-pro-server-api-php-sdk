@@ -5,6 +5,8 @@
     "fingerprint-pro-server-api-php-sdk": "5.0.0"
   },
   "changesets": [
-    "orange-taxis-fetch"
+    "nervous-sheep-attend",
+    "orange-taxis-fetch",
+    "rude-llamas-judge"
   ]
 }
