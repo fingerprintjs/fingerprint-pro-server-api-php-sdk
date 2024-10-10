@@ -139,13 +139,6 @@ class VpnResult implements ModelInterface, \ArrayAccess
      */
     public function __toString(): string
     {
-        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
-            return json_encode(
-                ObjectSerializer::sanitizeForSerialization($this),
-                JSON_PRETTY_PRINT
-            );
-        }
-
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 
@@ -416,5 +409,17 @@ class VpnResult implements ModelInterface, \ArrayAccess
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
+    }
+
+    /**
+     * Gets the string presentation of the object in a pretty JSON format.
+     *
+     */
+    public function toPrettyString(): string
+    {
+        return json_encode(
+            ObjectSerializer::sanitizeForSerialization($this),
+            JSON_PRETTY_PRINT
+        );
     }
 }
