@@ -4,5 +4,7 @@
   "initialVersions": {
     "fingerprint-pro-server-api-php-sdk": "5.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "orange-taxis-fetch"
+  ]
 }
