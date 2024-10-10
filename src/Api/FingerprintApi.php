@@ -31,6 +31,7 @@ namespace Fingerprint\ServerAPI\Api;
 use Fingerprint\ServerAPI\ApiException;
 use Fingerprint\ServerAPI\Configuration;
 use Fingerprint\ServerAPI\Model\EventUpdateRequest;
+use Fingerprint\ServerAPI\Model\ModelInterface;
 use Fingerprint\ServerAPI\ObjectSerializer;
 use Fingerprint\ServerAPI\SerializationException;
 use GuzzleHttp\Client;
@@ -1052,10 +1053,15 @@ class FingerprintApi
         if (isset($body)) {
             $_tempBody = $body;
         }
+
         // for model (json/xml)
         if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = json_encode($_tempBody);
+            if ($_tempBody instanceof ModelInterface) {
+                $httpBody = (string) $_tempBody;
+            } else {
+                // $_tempBody is the method argument, if present
+                $httpBody = json_encode($_tempBody);
+            }
         }
 
         // this endpoint requires API key authentication

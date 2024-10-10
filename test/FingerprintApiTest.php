@@ -400,6 +400,25 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    public function testUpdateEvent() {
+        $this->mockHandler->reset();
+        $this->mockHandler->append(new Response(200));
+        $body = new EventUpdateRequest();
+        $body->setLinkedId("test");
+        $tag = [
+            "test" => "true"
+        ];
+        $body->setTag((object)$tag);
+        $body->setSuspect(false);
+        [, $res] = $this->fingerprint_api->updateEvent($body, self::MOCK_REQUEST_ID);
+
+        $req = $this->mockHandler->getLastRequest();
+        $this->assertEquals($req->getBody()->getContents(), $body);
+        $this->assertEquals("PUT", $req->getMethod());
+
+        $this->assertEquals(200, $res->getStatusCode());
+    }
+
     public function testUpdateEvent400Error()
     {
         $this->mockHandler->reset();
