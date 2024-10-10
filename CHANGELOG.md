@@ -1,5 +1,15 @@
 # Fingerprint Pro Server PHP SDK
 
+## 5.1.0-develop.1
+
+### Minor Changes
+
+- Introduce `toPrettyString` in models that returns json encoded model in a pretty format ([2e5010b](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/2e5010ba106f7e37c0f804fa1844e293c8bd9189))
+
+### Patch Changes
+
+- Fix body in `updateEvent` method always being sent as empty json ([acdc56e](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/acdc56e17238ee5531ac35aef0507165d2e315ca))
+
 ## 5.1.0-develop.0
 
 ### Minor Changes
