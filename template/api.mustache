@@ -27,6 +27,7 @@ use {{invokerPackage}}\ApiException;
 use {{invokerPackage}}\Configuration;
 use {{invokerPackage}}\ObjectSerializer;
 use {{invokerPackage}}\SerializationException;
+use {{invokerPackage}}\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
 use \GuzzleHttp\Exception\GuzzleException;
 
@@ -338,10 +339,15 @@ use \GuzzleHttp\Exception\GuzzleException;
         if (isset(${{paramName}})) {
             $_tempBody = ${{paramName}};
         }
+
         // for model (json/xml)
         if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = json_encode($_tempBody);
+            if($_tempBody instanceof ModelInterface) {
+                $httpBody = (string)$_tempBody;
+            } else {
+                // $_tempBody is the method argument, if present
+                $httpBody = json_encode($_tempBody);
+            }
         }
         {{/bodyParams}}
 
