@@ -413,7 +413,13 @@ class FingerprintApiTest extends TestCase
         [, $res] = $this->fingerprint_api->updateEvent($body, self::MOCK_REQUEST_ID);
 
         $req = $this->mockHandler->getLastRequest();
-        $this->assertEquals($req->getBody()->getContents(), $body);
+        $this->assertEquals($req->getBody()->getContents(), json_encode([
+            "linkedId" => "test",
+            "tag" => [
+                "test" => "true"
+            ],
+            "suspect" => false
+        ]));
         $this->assertEquals("PUT", $req->getMethod());
 
         $this->assertEquals(200, $res->getStatusCode());
