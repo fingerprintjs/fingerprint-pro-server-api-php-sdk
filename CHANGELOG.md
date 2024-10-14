@@ -1,5 +1,17 @@
 # Fingerprint Pro Server PHP SDK
 
+## 5.1.0
+
+### Minor Changes
+
+- Introduce `toPrettyString` in models that returns json encoded model in a pretty format ([2e5010b](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/2e5010ba106f7e37c0f804fa1844e293c8bd9189))
+- **visitors**: Add the confidence field to the VPN Detection Smart Signal ([4f809a0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/4f809a06b522161edcc23c769f18771f2821f2ac))
+
+### Patch Changes
+
+- Correctly handle boolean values in `updateEvent` method request body ([d5a8d80](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/d5a8d808f8c20388b0492c660f486d9f3bc4b694))
+- Fix body in `updateEvent` method always being sent as empty json ([acdc56e](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/acdc56e17238ee5531ac35aef0507165d2e315ca))
+
 ## 5.1.0-develop.2
 
 ### Patch Changes
