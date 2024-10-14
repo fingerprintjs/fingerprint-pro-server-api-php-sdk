@@ -1,5 +1,11 @@
 # Fingerprint Pro Server PHP SDK
 
+## 5.1.0-develop.2
+
+### Patch Changes
+
+- Correctly handle boolean values in `updateEvent` method request body ([d5a8d80](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/d5a8d808f8c20388b0492c660f486d9f3bc4b694))
+
 ## 5.1.0-develop.1
 
 ### Minor Changes

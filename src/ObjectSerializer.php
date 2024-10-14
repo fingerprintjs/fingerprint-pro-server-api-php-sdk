@@ -50,7 +50,7 @@ class ObjectSerializer
      *
      * @return array|object|string serialized form of $data
      */
-    public static function sanitizeForSerialization(mixed $data, ?string $format = null): array|object|string|bool
+    public static function sanitizeForSerialization(mixed $data, ?string $format = null): array|bool|object|string
     {
         if (is_scalar($data) || null === $data) {
             return $data;
