@@ -1,6 +1,6 @@
 {
   "name": "fingerprint-pro-server-api-php-sdk",
-  "version": "5.1.0-develop.1",
+  "version": "5.1.0-develop.2",
   "private": true,
   "devDependencies": {
     "@changesets/cli": "^2.27.8",
