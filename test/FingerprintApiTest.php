@@ -198,6 +198,17 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals($mockedResult, \GuzzleHttp\json_decode($response->getBody()->getContents()));
     }
 
+    public function testGetEventNullableSeenAt()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_ID));
+
+        list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID);
+        $products = $event->getProducts();
+        $seenAt = $products->getIdentification()->getData()->getLastSeenAt();
+        $this->assertEquals(null, $seenAt->getGlobal());
+    }
+
     public function testGetVisitsRawResponse()
     {
         $this->mockHandler->reset();
