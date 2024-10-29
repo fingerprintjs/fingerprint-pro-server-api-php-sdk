@@ -248,7 +248,7 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
      * Gets {{name}}
      * @return {{^required}}?{{/required}}{{datatype}}
      */
-    public function {{getter}}(): {{^required}}?{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}}
+    public function {{getter}}(): {{^required}}?{{/required}}{{#required}}{{#nullable}}?{{/nullable}}{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}}
     {
         return $this->container['{{name}}'];
     }
@@ -260,7 +260,7 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
      *
      * @return $this
      */
-    public function {{setter}}({{^required}}?{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}} ${{name}}): self
+    public function {{setter}}({{^required}}?{{/required}}{{#required}}{{#nullable}}?{{/nullable}}{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}} ${{name}}): self
     {
         {{#isEnum}}
         $allowedValues = $this->{{getter}}AllowableValues();
