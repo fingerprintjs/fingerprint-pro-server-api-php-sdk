@@ -246,9 +246,9 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
 
     /**
      * Gets {{name}}
-     * @return {{^required}}?{{/required}}{{datatype}}
+     * @return {{^required}}{{#datatype}}?{{/datatype}}{{/required}}{{datatype}}{{^datatype}}mixed{{/datatype}}
      */
-    public function {{getter}}(): {{^required}}?{{/required}}{{#required}}{{#nullable}}?{{/nullable}}{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}}
+    public function {{getter}}(): {{^required}}{{#datatype}}?{{/datatype}}{{/required}}{{#required}}{{#nullable}}?{{/nullable}}{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}}{{^datatype}}mixed{{/datatype}}
     {
         return $this->container['{{name}}'];
     }
@@ -256,11 +256,11 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^pa
     /**
      * Sets {{name}}
      *
-     * @param {{^required}}?{{/required}}{{datatype}} ${{name}}{{#description}} {{{description}}}{{/description}}{{^description}} {{{name}}}{{/description}}
+     * @param {{^required}}{{#datatype}}?{{/datatype}}{{/required}}{{datatype}}{{^datatype}}mixed{{/datatype}} ${{name}}{{#description}} {{{description}}}{{/description}}{{^description}} {{{name}}}{{/description}}
      *
      * @return $this
      */
-    public function {{setter}}({{^required}}?{{/required}}{{#required}}{{#nullable}}?{{/nullable}}{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}} ${{name}}): self
+    public function {{setter}}({{^required}}{{#datatype}}?{{/datatype}}{{/required}}{{#required}}{{#nullable}}?{{/nullable}}{{/required}}{{^isListContainer}}{{^isMapContainer}}{{^isDouble}}{{datatype}}{{/isDouble}}{{/isMapContainer}}{{/isListContainer}}{{#isListContainer}}array{{/isListContainer}}{{#isMapContainer}}array{{/isMapContainer}}{{#isDouble}}float{{/isDouble}}{{^datatype}}mixed{{/datatype}} ${{name}}): self
     {
         {{#isEnum}}
         $allowedValues = $this->{{getter}}AllowableValues();
