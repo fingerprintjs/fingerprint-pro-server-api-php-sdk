@@ -1,5 +1,11 @@
 # Fingerprint Pro Server PHP SDK
 
+## 5.1.1
+
+### Patch Changes
+
+- Mark nullable types as an optional, will fix #123 ([9e8f44a](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/9e8f44a01cd78edbbbd8b480753a63673b723c30))
+
 ## 5.1.0
 
 ### Minor Changes
