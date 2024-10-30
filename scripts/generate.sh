@@ -86,5 +86,6 @@ docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:3.64-php8.3 fi
 
 mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
-find ./docs -type f ! -name "DecryptionKey.md" ! -name "Sealed.md" ! -name "Webhook.md" -exec rm {} +
+rm ./docs/Api/*
+rm ./docs/Model/*
 mv -f src/docs/* ./docs
