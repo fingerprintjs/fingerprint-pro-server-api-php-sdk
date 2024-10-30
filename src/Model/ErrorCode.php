@@ -38,43 +38,18 @@ namespace Fingerprint\ServerAPI\Model;
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ErrorCode
+enum ErrorCode: string
 {
-    /**
-     * Possible values of this enum.
-     */
-    public const REQUEST_CANNOT_BE_PARSED = 'RequestCannotBeParsed';
-    public const TOKEN_REQUIRED = 'TokenRequired';
-    public const TOKEN_NOT_FOUND = 'TokenNotFound';
-    public const SUBSCRIPTION_NOT_ACTIVE = 'SubscriptionNotActive';
-    public const WRONG_REGION = 'WrongRegion';
-    public const FEATURE_NOT_ENABLED = 'FeatureNotEnabled';
-    public const REQUEST_NOT_FOUND = 'RequestNotFound';
-    public const VISITOR_NOT_FOUND = 'VisitorNotFound';
-    public const TOO_MANY_REQUESTS = 'TooManyRequests';
-    public const _429_TOO_MANY_REQUESTS = '429 Too Many Requests';
-    public const STATE_NOT_READY = 'StateNotReady';
-    public const FAILED = 'Failed';
-
-    /**
-     * Gets allowable values of the enum.
-     *
-     * @return string[]
-     */
-    public static function getAllowableEnumValues()
-    {
-        return [
-            self::REQUEST_CANNOT_BE_PARSED,
-            self::TOKEN_REQUIRED,
-            self::TOKEN_NOT_FOUND,
-            self::SUBSCRIPTION_NOT_ACTIVE,
-            self::WRONG_REGION,
-            self::FEATURE_NOT_ENABLED,
-            self::REQUEST_NOT_FOUND,
-            self::VISITOR_NOT_FOUND,
-            self::TOO_MANY_REQUESTS,
-            self::_429_TOO_MANY_REQUESTS,
-            self::STATE_NOT_READY,
-            self::FAILED,        ];
-    }
+    case REQUEST_CANNOT_BE_PARSED = 'RequestCannotBeParsed';
+    case TOKEN_REQUIRED = 'TokenRequired';
+    case TOKEN_NOT_FOUND = 'TokenNotFound';
+    case SUBSCRIPTION_NOT_ACTIVE = 'SubscriptionNotActive';
+    case WRONG_REGION = 'WrongRegion';
+    case FEATURE_NOT_ENABLED = 'FeatureNotEnabled';
+    case REQUEST_NOT_FOUND = 'RequestNotFound';
+    case VISITOR_NOT_FOUND = 'VisitorNotFound';
+    case TOO_MANY_REQUESTS = 'TooManyRequests';
+    case _429_TOO_MANY_REQUESTS = '429 Too Many Requests';
+    case STATE_NOT_READY = 'StateNotReady';
+    case FAILED = 'Failed';
 }

@@ -38,25 +38,9 @@ namespace Fingerprint\ServerAPI\Model;
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class BotdBotResult
+enum BotdBotResult: string
 {
-    /**
-     * Possible values of this enum.
-     */
-    public const NOT_DETECTED = 'notDetected';
-    public const GOOD = 'good';
-    public const BAD = 'bad';
-
-    /**
-     * Gets allowable values of the enum.
-     *
-     * @return string[]
-     */
-    public static function getAllowableEnumValues()
-    {
-        return [
-            self::NOT_DETECTED,
-            self::GOOD,
-            self::BAD,        ];
-    }
+    case NOT_DETECTED = 'notDetected';
+    case GOOD = 'good';
+    case BAD = 'bad';
 }

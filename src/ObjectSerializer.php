@@ -260,11 +260,15 @@ class ObjectSerializer
             }
 
             throw new SerializationException($response);
-        } elseif (method_exists($class, 'getAllowableEnumValues')) {
-            if (!in_array($data, $class::getAllowableEnumValues())) {
-                $imploded = implode("', '", $class::getAllowableEnumValues());
+        } elseif (enum_exists($class)) {
+            try {
+                $enumInstance = $class::from($data);
+                return $enumInstance;
+            } catch (\ValueError $e) {
+                $allowedValues = array_map(fn($case) => $case->value, $class::cases());
+                $imploded = implode("', '", $allowedValues);
 
-                throw new \InvalidArgumentException("Invalid value for enum '{$class}', must be one of: '{$imploded}'");
+                throw new \InvalidArgumentException("Invalid value '{$data}' for enum '{$class}', must be one of: '{$imploded}'");
             }
 
             return $data;

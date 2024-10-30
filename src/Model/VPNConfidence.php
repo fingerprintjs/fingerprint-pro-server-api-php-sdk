@@ -38,25 +38,9 @@ namespace Fingerprint\ServerAPI\Model;
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class VPNConfidence
+enum VPNConfidence: string
 {
-    /**
-     * Possible values of this enum.
-     */
-    public const LOW = 'low';
-    public const MEDIUM = 'medium';
-    public const HIGH = 'high';
-
-    /**
-     * Gets allowable values of the enum.
-     *
-     * @return string[]
-     */
-    public static function getAllowableEnumValues()
-    {
-        return [
-            self::LOW,
-            self::MEDIUM,
-            self::HIGH,        ];
-    }
+    case LOW = 'low';
+    case MEDIUM = 'medium';
+    case HIGH = 'high';
 }
