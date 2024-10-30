@@ -173,6 +173,7 @@
     "vpn": {
       "data": {
         "result": false,
+        "confidence": "high",
         "originTimezone": "Europe/Berlin",
         "originCountry": "unknown",
         "methods": {
@@ -180,8 +181,7 @@
           "publicVPN": false,
           "auxiliaryMobile": false,
           "osMismatch": false
-        },
-        "confidence": "high"
+        }
       }
     },
     "proxy": {
@@ -197,7 +197,8 @@
     "tampering": {
       "data": {
         "result": false,
-        "anomalyScore": 0.1955
+        "anomalyScore": 0.1955,
+        "antiDetectBrowser": false
       }
     },
     "clonedApp": {
@@ -297,6 +298,27 @@
           }
         },
         "events": {
+          "intervals": {
+            "5m": 1,
+            "1h": 5,
+            "24h": 5
+          }
+        },
+        "ipEvents": {
+          "intervals": {
+            "5m": 1,
+            "1h": 5,
+            "24h": 5
+          }
+        },
+        "distinctIpByLinkedId": {
+          "intervals": {
+            "5m": 1,
+            "1h": 5,
+            "24h": 5
+          }
+        },
+        "distinctVisitorIdByLinkedId": {
           "intervals": {
             "5m": 1,
             "1h": 5,

@@ -36,7 +36,7 @@ $client = new FingerprintApi(
 $config
 );
 
-$visitor_id = "visitor_id_example"; // string | The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete.
+$visitor_id = "visitor_id_example"; // string | The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete.
 
 try {
     $client->deleteVisitorData($visitor_id);
@@ -50,7 +50,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **visitor_id** | **string**| The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete. |
+ **visitor_id** | **string**| The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete. |
 
 ### Return type
 
@@ -71,7 +71,7 @@ Array:
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getEvent**
->  [ \Fingerprint\ServerAPI\Model\EventResponse, \Psr\Http\Message\ResponseInterface ] getEvent($request_id)
+>  [ \Fingerprint\ServerAPI\Model\EventsGetResponse, \Psr\Http\Message\ResponseInterface ] getEvent($request_id)
 
 Get event by request ID
 
@@ -97,7 +97,7 @@ $client = new FingerprintApi(
 $config
 );
 
-$request_id = "request_id_example"; // string | The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each identification request.
+$request_id = "request_id_example"; // string | The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request.
 
 try {
     list($model, $httpResponse) = $client->getEvent($request_id);
@@ -112,12 +112,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request_id** | **string**| The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each identification request. |
+ **request_id** | **string**| The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request. |
 
 ### Return type
 
 Array:
-0. [**\Fingerprint\ServerAPI\Model\EventResponse**](../Model/EventResponse.md) | null,
+0. [**\Fingerprint\ServerAPI\Model\EventsGetResponse**](../Model/EventsGetResponse.md) | null,
 1. \Psr\Http\Message\ResponseInterface
 
 
@@ -133,7 +133,7 @@ Array:
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getVisits**
->  [ \Fingerprint\ServerAPI\Model\Response, \Psr\Http\Message\ResponseInterface ] getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before)
+>  [ \Fingerprint\ServerAPI\Model\VisitorsGetResponse, \Psr\Http\Message\ResponseInterface ] getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before)
 
 Get visits by visitor ID
 
@@ -159,9 +159,9 @@ $client = new FingerprintApi(
 $config
 );
 
-$visitor_id = "visitor_id_example"; // string | Unique [visitor identifier](https://dev.fingerprint.com/docs/js-agent#visitorid) issued by Fingerprint Pro.
-$request_id = "request_id_example"; // string | Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned.
-$linked_id = "linked_id_example"; // string | Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+$visitor_id = "visitor_id_example"; // string | Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro.
+$request_id = "request_id_example"; // string | Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/reference/get-function#requestid). When you filter visits by `requestId`, only one visit will be returned.
+$linked_id = "linked_id_example"; // string | Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
 $limit = 56; // int | Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500.
 $pagination_key = "pagination_key_example"; // string | Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
 $before = 789; // int | ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results.
@@ -179,9 +179,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **visitor_id** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/docs/js-agent#visitorid) issued by Fingerprint Pro. |
- **request_id** | **string**| Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned. | [optional]
- **linked_id** | **string**| Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. | [optional]
+ **visitor_id** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. |
+ **request_id** | **string**| Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/reference/get-function#requestid). When you filter visits by `requestId`, only one visit will be returned. | [optional]
+ **linked_id** | **string**| Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. | [optional]
  **limit** | **int**| Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. | [optional]
  **pagination_key** | **string**| Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. | [optional]
  **before** | **int**| ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. | [optional]
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 ### Return type
 
 Array:
-0. [**\Fingerprint\ServerAPI\Model\Response**](../Model/Response.md) | null,
+0. [**\Fingerprint\ServerAPI\Model\VisitorsGetResponse**](../Model/VisitorsGetResponse.md) | null,
 1. \Psr\Http\Message\ResponseInterface
 
 
@@ -231,8 +231,8 @@ $client = new FingerprintApi(
 $config
 );
 
-$body = new \Fingerprint\ServerAPI\Model\EventUpdateRequest(); // \Fingerprint\ServerAPI\Model\EventUpdateRequest | 
-$request_id = "request_id_example"; // string | The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid).
+$body = new \Fingerprint\ServerAPI\Model\EventsUpdateRequest(); // \Fingerprint\ServerAPI\Model\EventsUpdateRequest | 
+$request_id = "request_id_example"; // string | The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid).
 
 try {
     $client->updateEvent($body, $request_id);
@@ -246,8 +246,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**\Fingerprint\ServerAPI\Model\EventUpdateRequest**](../Model/EventUpdateRequest.md)|  |
- **request_id** | **string**| The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid). |
+ **body** | [**\Fingerprint\ServerAPI\Model\EventsUpdateRequest**](../Model/EventsUpdateRequest.md)|  |
+ **request_id** | **string**| The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid). |
 
 ### Return type
 

@@ -1,0 +1,33 @@
+---
+'fingerprint-pro-server-api-php-sdk': major
+---
+
+- Remove the `BrowserDetails` field `botProbability`.
+- Update the `IdentificationConfidence` field `score` type format: `float` -> `double`.
+- Make the `RawDeviceAttributeError` field `name` **optional** .
+- Make the `RawDeviceAttributeError` field `message` **optional** .
+- **events**: Remove the `EventsResponse` field `error`.
+  - [note]: The errors are represented by `ErrorResponse` model.
+- **events**: Update the `HighActivity` field `dailyRequests` type format: `number` -> `int64`.
+- **events**: Specify the `Tampering` field `anomalyScore` type format: `double`.
+- **webhook**: Make the `Webhook` fields **optional**: `visitorId`, `visitorFound`, `firstSeenAt`, `lastSeenAt`, `browserDetails`, `incognito`.
+- **webhook**: Make the `WebhookClonedApp` field `result` **optional**.
+- **webhook**: Make the `WebhookDeveloperTools` field `result` **optional**.
+- **webhook**: Make the `WebhookEmulator` field `result` **optional**.
+- **webhook**: Make the `WebhookFactoryReset` fields `time` and `timestamp` **optional**.
+- **webhook**: Make the `WebhookFrida` field `result` **optional**.
+- **webhook**: Update the `WebhookHighActivity` field `dailyRequests` type format: `number` -> `int64`.
+- **webhook**: Make the `WebhookIPBlocklist` fields `result` and `details` **optional**.
+- **webhook**: Make the `WebhookJailbroken` field `result` **optional**.
+- **webhook**: Make the `WebhookLocationSpoofing` field `result` **optional**.
+- **webhook**: Make the `WebhookPrivacySettings` field `result` **optional**.
+- **webhook**: Make the `WebhookProxy` field `result` **optional**.
+- **webhook**: Make the `WebhookRemoteControl` field `result` **optional**.
+- **webhook**: Make the `WebhookRootApps` field `result` **optional**.
+- **webhook**: Make the `WebhookSuspectScore` field `result` **optional**.
+- **webhook**: Make the `WebhookTampering` fields `result`, `anomalyScore` and `antiDetectBrowser` **optional**.
+- **webhook**: Specify the `WebhookTampering` field `anomalyScore` type format: `double`.
+- **webhook**: Make the `WebhookTor` field `result` **optional**.
+- **webhook**: Make the `WebhookVelocity` fields **optional**: `distinctIp`, `distinctLinkedId`, `distinctCountry`, `events`, `ipEvents`, `distinctIpByLinkedId`, `distinctVisitorIdByLinkedId`.
+- **webhook**: Make the `WebhookVirtualMachine` field `result` **optional**.
+- **webhook**: Make the `WebhookVPN` fields **optional**: `result`, `confidence`, `originTimezone`, `methods`.

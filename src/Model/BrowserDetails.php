@@ -58,8 +58,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
         'os' => 'string',
         'os_version' => 'string',
         'device' => 'string',
-        'user_agent' => 'string',
-        'bot_probability' => 'int'];
+        'user_agent' => 'string'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -73,8 +72,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
         'os' => null,
         'os_version' => null,
         'device' => null,
-        'user_agent' => null,
-        'bot_probability' => null];
+        'user_agent' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -89,8 +87,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
         'os' => 'os',
         'os_version' => 'osVersion',
         'device' => 'device',
-        'user_agent' => 'userAgent',
-        'bot_probability' => 'botProbability'];
+        'user_agent' => 'userAgent'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -104,8 +101,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
         'os' => 'setOs',
         'os_version' => 'setOsVersion',
         'device' => 'setDevice',
-        'user_agent' => 'setUserAgent',
-        'bot_probability' => 'setBotProbability'];
+        'user_agent' => 'setUserAgent'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -119,8 +115,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
         'os' => 'getOs',
         'os_version' => 'getOsVersion',
         'device' => 'getDevice',
-        'user_agent' => 'getUserAgent',
-        'bot_probability' => 'getBotProbability'];
+        'user_agent' => 'getUserAgent'];
 
     /**
      * Associative array for storing property values.
@@ -144,7 +139,6 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
         $this->container['os_version'] = isset($data['os_version']) ? $data['os_version'] : null;
         $this->container['device'] = isset($data['device']) ? $data['device'] : null;
         $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
-        $this->container['bot_probability'] = isset($data['bot_probability']) ? $data['bot_probability'] : null;
     }
 
     /**
@@ -400,28 +394,6 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     public function setUserAgent(string $user_agent): self
     {
         $this->container['user_agent'] = $user_agent;
-
-        return $this;
-    }
-
-    /**
-     * Gets bot_probability.
-     */
-    public function getBotProbability(): ?int
-    {
-        return $this->container['bot_probability'];
-    }
-
-    /**
-     * Sets bot_probability.
-     *
-     * @param ?int $bot_probability bot_probability
-     *
-     * @return $this
-     */
-    public function setBotProbability(?int $bot_probability): self
-    {
-        $this->container['bot_probability'] = $bot_probability;
 
         return $this;
     }

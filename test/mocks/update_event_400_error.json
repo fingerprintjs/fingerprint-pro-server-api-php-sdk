@@ -1,6 +1,0 @@
-{
-    "error": {
-        "code":"RequestCannotBeParsed",
-        "message":"request body is not valid"
-    }
-}

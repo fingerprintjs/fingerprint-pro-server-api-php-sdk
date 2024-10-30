@@ -1,18 +1,13 @@
 {
   "requestId": "Px6VxbRC6WBkA39yeNH3",
+  "url": "https://banking.example.com/signup",
+  "ip": "216.3.128.12",
   "tag": {
     "requestType": "signup",
     "yourCustomId": 45321
   },
-  "linkedId": "any-string",
-  "visitorId": "3HNey93AkBW6CRbxV6xP",
-  "visitorFound": true,
-  "timestamp": 1554910997788,
   "time": "2019-10-12T07:20:50.52Z",
-  "incognito": false,
-  "url": "https://banking.example.com/signup",
-  "clientReferrer": "https://google.com?search=banking+services",
-  "ip": "216.3.128.12",
+  "timestamp": 1554910997788,
   "ipLocation": {
     "accuracyRadius": 1,
     "city": {
@@ -37,15 +32,9 @@
     ],
     "timezone": "America/Chicago"
   },
-  "browserDetails": {
-    "browserName": "Chrome",
-    "browserFullVersion": "73.0.3683.86",
-    "browserMajorVersion": "73",
-    "os": "Mac OS X",
-    "osVersion": "10.14.3",
-    "device": "Other",
-    "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86"
-  },
+  "linkedId": "any-string",
+  "visitorId": "3HNey93AkBW6CRbxV6xP",
+  "visitorFound": true,
   "confidence": {
     "score": 0.97
   },
@@ -57,11 +46,28 @@
     "global": "2022-03-16T11:28:34.023Z",
     "subscription": null
   },
+  "browserDetails": {
+    "browserName": "Chrome",
+    "browserFullVersion": "73.0.3683.86",
+    "browserMajorVersion": "73",
+    "os": "Mac OS X",
+    "osVersion": "10.14.3",
+    "device": "Other",
+    "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86"
+  },
+  "incognito": false,
+  "clientReferrer": "https://google.com?search=banking+services",
   "bot": {
     "result": "bad",
     "type": "selenium"
   },
   "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
+  "rootApps": {
+    "result": false
+  },
+  "emulator": {
+    "result": false
+  },
   "ipInfo": {
     "v4": {
       "address": "94.142.239.124",
@@ -100,12 +106,6 @@
       }
     }
   },
-  "rootApps": {
-    "result": false
-  },
-  "emulator": {
-    "result": false
-  },
   "ipBlocklist": {
     "result": false,
     "details": {
@@ -118,6 +118,7 @@
   },
   "vpn": {
     "result": false,
+    "confidence": "high",
     "originTimezone": "Europe/Berlin",
     "originCountry": "unknown",
     "methods": {
@@ -125,15 +126,15 @@
       "publicVPN": false,
       "auxiliaryMobile": false,
       "osMismatch": false
-    },
-    "confidence": "high"
+    }
   },
   "proxy": {
     "result": false
   },
   "tampering": {
     "result": false,
-    "anomalyScore": 0
+    "anomalyScore": 0,
+    "antiDetectBrowser": false
   },
   "clonedApp": {
     "result": false
@@ -210,6 +211,27 @@
       }
     },
     "events": {
+      "intervals": {
+        "5m": 1,
+        "1h": 5,
+        "24h": 5
+      }
+    },
+    "ipEvents": {
+      "intervals": {
+        "5m": 1,
+        "1h": 5,
+        "24h": 5
+      }
+    },
+    "distinctIpByLinkedId": {
+      "intervals": {
+        "5m": 1,
+        "1h": 5,
+        "24h": 5
+      }
+    },
+    "distinctVisitorIdByLinkedId": {
       "intervals": {
         "5m": 1,
         "1h": 5,
