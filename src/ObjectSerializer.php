@@ -72,7 +72,12 @@ class ObjectSerializer
 
             return $data;
         }
+
         if (is_object($data)) {
+            $class = get_class($data);
+            if (enum_exists($class)) {
+                return $data->value;
+            }
             $values = [];
             $formats = $data::swaggerFormats();
             foreach ($data::swaggerTypes() as $property => $swaggerType) {
