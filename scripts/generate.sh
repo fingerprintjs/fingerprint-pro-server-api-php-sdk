@@ -68,6 +68,26 @@ docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:3.64-php8.3 fi
   fi
 )
 
+# cleanup replaced models from readme
+(
+  patterns=(
+  '\[RawDeviceAttribute\](docs\/Model\/RawDeviceAttribute\.md)'
+  '\[RawDeviceAttributeError\](docs\/Model\/RawDeviceAttributeError\.md)'
+  '\[RawDeviceAttributes\](docs\/Model\/RawDeviceAttributes\.md)'
+  '\[WebhookRawDeviceAttributes\](docs\/Model\/WebhookRawDeviceAttributes\.md)'
+  '\[Tag\](docs\/Model\/Tag\.md)'
+  )
+  if [ "$platform" = "Darwin" ]; then
+    for pattern in "${patterns[@]}"; do
+        sed -i '' "/$pattern/d" src/README.md
+    done
+  else
+    for pattern in "${patterns[@]}"; do
+        sed -i "/$pattern/d" src/README.md
+    done
+  fi
+)
+
 mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
 rm ./docs/Api/*

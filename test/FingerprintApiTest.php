@@ -4,11 +4,10 @@ namespace Fingerprint\ServerAPI;
 
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Model\BotdBotResult;
-use Fingerprint\ServerAPI\Model\ErrorResponse;
-use Fingerprint\ServerAPI\Model\ErrorPlainResponse;
 use Fingerprint\ServerAPI\Model\ErrorCode;
+use Fingerprint\ServerAPI\Model\ErrorPlainResponse;
+use Fingerprint\ServerAPI\Model\ErrorResponse;
 use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
-use Fingerprint\ServerAPI\Model\Tag;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
@@ -16,6 +15,11 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class FingerprintApiTest extends TestCase
 {
     public const MOCK_REQUEST_ID = '1708102555327.NLOjmg';
@@ -30,8 +34,8 @@ class FingerprintApiTest extends TestCase
     public const MOCK_VISITOR_ID_403_FEATURE_NOT_ENABLED = 'VISITOR_ID_403_FEATURE_NOT_ENABLED';
     public const MOCK_VISITOR_ID_403_TOKEN_NOT_FOUND = 'VISITOR_ID_403_TOKEN_NOT_FOUND';
     public const MOCK_VISITOR_ID_403_TOKEN_REQUIRED = 'VISITOR_ID_403_TOKEN_REQUIRED';
-    public const MOCK_VISITOR_ID_403_WRONG_REGION  = 'VISITOR_ID_403_WRONG_REGION';
-    public const MOCK_VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE  = 'VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE';
+    public const MOCK_VISITOR_ID_403_WRONG_REGION = 'VISITOR_ID_403_WRONG_REGION';
+    public const MOCK_VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE = 'VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE';
     public const MOCK_VISITOR_ID_429_ERROR = 'VISITOR_ID_429_ERROR';
     public const MOCK_VISITOR_ID_429_ERROR_DELETE = 'VISITOR_ID_429_ERROR_DELETE';
     public const MOCK_EVENT_ID_403_TOKEN_REQUIRED = 'EVENT_ID_403_ERROR_TOKEN_REQUIRED';
@@ -544,27 +548,28 @@ class FingerprintApiTest extends TestCase
         }
     }
 
-    public function testUpdateEvent() {
+    public function testUpdateEvent()
+    {
         $this->mockHandler->reset();
         $this->mockHandler->append(new Response(200));
-        $body = new EventsUpdateRequest();
-        $body->setLinkedId("test");
-        $tag = [
-            "test" => "true"
-        ];
-        $body->setTag($tag);
-        $body->setSuspect(false);
+        $body = new EventsUpdateRequest([
+            'linked_id' => 'test',
+            'tag' => [
+                'test' => 'true',
+            ],
+            'suspect' => false,
+        ]);
         [, $res] = $this->fingerprint_api->updateEvent($body, self::MOCK_REQUEST_ID);
 
         $req = $this->mockHandler->getLastRequest();
         $this->assertEquals($req->getBody()->getContents(), json_encode([
-            "linkedId" => "test",
-            "tag" => [
-                "test" => "true"
+            'linkedId' => 'test',
+            'tag' => [
+                'test' => 'true',
             ],
-            "suspect" => false
+            'suspect' => false,
         ]));
-        $this->assertEquals("PUT", $req->getMethod());
+        $this->assertEquals('PUT', $req->getMethod());
 
         $this->assertEquals(200, $res->getStatusCode());
     }

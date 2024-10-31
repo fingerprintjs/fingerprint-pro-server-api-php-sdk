@@ -7,6 +7,8 @@ $api_key = getenv('FP_PRIVATE_API_KEY');
 
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerAPI\Model\EventsGetResponse;
+use Fingerprint\ServerAPI\Model\VisitorsGetResponse;
 use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
 use GuzzleHttp\Client;
 
@@ -42,6 +44,7 @@ $client = new FingerprintApi(
 error_reporting(error_reporting() & ~E_DEPRECATED);
 
 try {
+    /** @var VisitorsGetResponse $result */
     list($result, $response) = $client->getVisits($visitor_id);
     if ($result->getVisitorId() !== $visitor_id) {
         throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
@@ -54,14 +57,14 @@ try {
 }
 
 try {
-    /** @var \Fingerprint\ServerAPI\Model\EventResponse $result */
+    /** @var EventsGetResponse $result */
     list($result, $response) = $client->getEvent($request_id);
     if ($result->getProducts()->getIdentification()->getData()->getRequestId() !== $request_id) {
         throw new Exception('Argument requestId is not equal to deserialized getRequestId');
     }
     fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
-    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getEvent: %s\n", $e->getMessage()));
 
     exit(1);
 }
@@ -87,7 +90,7 @@ $visitsPromise->then(function ($tuple) use ($visitor_id) {
     }
     fwrite(STDOUT, sprintf("\n\nGot async visits: %s \n", $response->getBody()->getContents()));
 }, function ($exception) {
-    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $exception->getMessage()));
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getEvent: %s\n", $exception->getMessage()));
 
     exit(1);
 })->wait();

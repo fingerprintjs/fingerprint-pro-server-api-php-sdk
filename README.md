@@ -85,7 +85,7 @@ const PAGINATION_KEY = "1683900801733.Ogvu1j";
 // Import Fingerprint Pro Classes and Guzzle Http Client
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Configuration;
-use Fingerprint\ServerAPI\Model\EventUpdateRequest;
+use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
 use GuzzleHttp\Client;
 
 // Create a new Configuration instance with your Fingerprint Pro Server API Key and your Fingerprint Pro Server API Region.
@@ -116,7 +116,7 @@ try {
 try {
     // Fetch all visits with a given visitorId, with a page limit
     list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, null, null, LIMIT);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
@@ -125,7 +125,7 @@ try {
 try {
     // Fetch all visits with a given visitorId, with a page limit, skipping the first visit
     list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, null, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
@@ -134,20 +134,20 @@ try {
 try {
     // Fetch the visitor's all visits with a given requestId and linkedId with a page limit while skipping the first visit
     list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
 
 // Update Event
 try {
-    $body = new EventUpdateRequest([
+    $body = new EventsUpdateRequest([
         'linked_id' => 'new linked id',
-        'tag' => json_encode(['new_property' => 'new value']),
+        'tag' => ['new_property' => 'new value'],
         'suspect' => true,
     ]);
     list($model, $response) = $client->updateEvent($body, FPJS_REQUEST_ID);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->updateEvent: ', $e->getMessage(), PHP_EOL;
 }
@@ -155,7 +155,7 @@ try {
 // Delete by visitor ID
 try {
     list($model, $response) = $client->deleteVisitorData(FPJS_VISITOR_ID);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->deleteVisitorData: ', $e->getMessage(), PHP_EOL;
 }
@@ -304,14 +304,10 @@ Class | Method | HTTP request | Description
  - [ProductVirtualMachine](docs/Model/ProductVirtualMachine.md)
  - [Products](docs/Model/Products.md)
  - [Proxy](docs/Model/Proxy.md)
- - [RawDeviceAttribute](docs/Model/RawDeviceAttribute.md)
- - [RawDeviceAttributeError](docs/Model/RawDeviceAttributeError.md)
- - [RawDeviceAttributes](docs/Model/RawDeviceAttributes.md)
  - [RelatedVisitor](docs/Model/RelatedVisitor.md)
  - [RemoteControl](docs/Model/RemoteControl.md)
  - [RootApps](docs/Model/RootApps.md)
  - [SuspectScore](docs/Model/SuspectScore.md)
- - [Tag](docs/Model/Tag.md)
  - [Tampering](docs/Model/Tampering.md)
  - [Tor](docs/Model/Tor.md)
  - [VPN](docs/Model/VPN.md)
@@ -336,7 +332,6 @@ Class | Method | HTTP request | Description
  - [WebhookLocationSpoofing](docs/Model/WebhookLocationSpoofing.md)
  - [WebhookPrivacySettings](docs/Model/WebhookPrivacySettings.md)
  - [WebhookProxy](docs/Model/WebhookProxy.md)
- - [WebhookRawDeviceAttributes](docs/Model/WebhookRawDeviceAttributes.md)
  - [WebhookRemoteControl](docs/Model/WebhookRemoteControl.md)
  - [WebhookRootApps](docs/Model/WebhookRootApps.md)
  - [WebhookSuspectScore](docs/Model/WebhookSuspectScore.md)
