@@ -61,12 +61,12 @@ class Visit implements ModelInterface, \ArrayAccess
         'timestamp' => 'int',
         'time' => '\DateTime',
         'url' => 'string',
-        'tag' => '\Fingerprint\ServerAPI\Model\Tag',
+        'tag' => 'mixed',
         'confidence' => '\Fingerprint\ServerAPI\Model\IdentificationConfidence',
         'visitor_found' => 'bool',
         'first_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
         'last_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
-        'components' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributes'];
+        'components' => 'array'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -505,7 +505,7 @@ class Visit implements ModelInterface, \ArrayAccess
     /**
      * Gets tag.
      */
-    public function getTag(): Tag
+    public function getTag(): mixed
     {
         return $this->container['tag'];
     }
@@ -513,11 +513,11 @@ class Visit implements ModelInterface, \ArrayAccess
     /**
      * Sets tag.
      *
-     * @param Tag $tag tag
+     * @param mixed $tag tag
      *
      * @return $this
      */
-    public function setTag(Tag $tag): self
+    public function setTag(mixed $tag): self
     {
         $this->container['tag'] = $tag;
 
@@ -615,7 +615,7 @@ class Visit implements ModelInterface, \ArrayAccess
     /**
      * Gets components.
      */
-    public function getComponents(): ?RawDeviceAttributes
+    public function getComponents(): ?array
     {
         return $this->container['components'];
     }
@@ -623,11 +623,11 @@ class Visit implements ModelInterface, \ArrayAccess
     /**
      * Sets components.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\RawDeviceAttributes $components components
+     * @param ?array $components components
      *
      * @return $this
      */
-    public function setComponents(?RawDeviceAttributes $components): self
+    public function setComponents(?array $components): self
     {
         $this->container['components'] = $components;
 

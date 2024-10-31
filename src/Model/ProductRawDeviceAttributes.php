@@ -52,7 +52,7 @@ class ProductRawDeviceAttributes implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributes',
+        'data' => 'array',
         'error' => '\Fingerprint\ServerAPI\Model\Error'];
 
     /**
@@ -193,7 +193,7 @@ class ProductRawDeviceAttributes implements ModelInterface, \ArrayAccess
     /**
      * Gets data.
      */
-    public function getData(): ?RawDeviceAttributes
+    public function getData(): ?array
     {
         return $this->container['data'];
     }
@@ -201,11 +201,11 @@ class ProductRawDeviceAttributes implements ModelInterface, \ArrayAccess
     /**
      * Sets data.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\RawDeviceAttributes $data data
+     * @param ?array $data data
      *
      * @return $this
      */
-    public function setData(?RawDeviceAttributes $data): self
+    public function setData(?array $data): self
     {
         $this->container['data'] = $data;
 

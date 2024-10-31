@@ -55,7 +55,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         'request_id' => 'string',
         'url' => 'string',
         'ip' => 'string',
-        'tag' => '\Fingerprint\ServerAPI\Model\Tag',
+        'tag' => 'mixed',
         'time' => '\DateTime',
         'timestamp' => 'int',
         'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedGeolocation',
@@ -68,7 +68,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
         'incognito' => 'bool',
         'client_referrer' => 'string',
-        'components' => '\Fingerprint\ServerAPI\Model\RawDeviceAttributes',
+        'components' => 'array',
         'bot' => '\Fingerprint\ServerAPI\Model\BotdBot',
         'user_agent' => 'string',
         'root_apps' => '\Fingerprint\ServerAPI\Model\WebhookRootApps',
@@ -85,7 +85,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         'frida' => '\Fingerprint\ServerAPI\Model\WebhookFrida',
         'privacy_settings' => '\Fingerprint\ServerAPI\Model\WebhookPrivacySettings',
         'virtual_machine' => '\Fingerprint\ServerAPI\Model\WebhookVirtualMachine',
-        'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\WebhookRawDeviceAttributes',
+        'raw_device_attributes' => 'array',
         'high_activity' => '\Fingerprint\ServerAPI\Model\WebhookHighActivity',
         'location_spoofing' => '\Fingerprint\ServerAPI\Model\WebhookLocationSpoofing',
         'suspect_score' => '\Fingerprint\ServerAPI\Model\WebhookSuspectScore',
@@ -505,7 +505,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Gets tag.
      */
-    public function getTag(): ?Tag
+    public function getTag(): mixed
     {
         return $this->container['tag'];
     }
@@ -513,11 +513,11 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets tag.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\Tag $tag tag
+     * @param mixed $tag tag
      *
      * @return $this
      */
-    public function setTag(?Tag $tag): self
+    public function setTag(mixed $tag): self
     {
         $this->container['tag'] = $tag;
 
@@ -791,7 +791,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Gets components.
      */
-    public function getComponents(): ?RawDeviceAttributes
+    public function getComponents(): ?array
     {
         return $this->container['components'];
     }
@@ -799,11 +799,11 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets components.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\RawDeviceAttributes $components components
+     * @param ?array $components components
      *
      * @return $this
      */
-    public function setComponents(?RawDeviceAttributes $components): self
+    public function setComponents(?array $components): self
     {
         $this->container['components'] = $components;
 
@@ -1165,7 +1165,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Gets raw_device_attributes.
      */
-    public function getRawDeviceAttributes(): ?WebhookRawDeviceAttributes
+    public function getRawDeviceAttributes(): ?array
     {
         return $this->container['raw_device_attributes'];
     }
@@ -1173,11 +1173,11 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets raw_device_attributes.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookRawDeviceAttributes $raw_device_attributes raw_device_attributes
+     * @param ?array $raw_device_attributes raw_device_attributes
      *
      * @return $this
      */
-    public function setRawDeviceAttributes(?WebhookRawDeviceAttributes $raw_device_attributes): self
+    public function setRawDeviceAttributes(?array $raw_device_attributes): self
     {
         $this->container['raw_device_attributes'] = $raw_device_attributes;
 

@@ -53,7 +53,7 @@ class EventsUpdateRequest implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'linked_id' => 'string',
-        'tag' => '\Fingerprint\ServerAPI\Model\Tag',
+        'tag' => 'mixed',
         'suspect' => 'bool'];
 
     /**
@@ -221,7 +221,7 @@ class EventsUpdateRequest implements ModelInterface, \ArrayAccess
     /**
      * Gets tag.
      */
-    public function getTag(): ?Tag
+    public function getTag(): mixed
     {
         return $this->container['tag'];
     }
@@ -229,11 +229,11 @@ class EventsUpdateRequest implements ModelInterface, \ArrayAccess
     /**
      * Sets tag.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\Tag $tag tag
+     * @param mixed $tag tag
      *
      * @return $this
      */
-    public function setTag(?Tag $tag): self
+    public function setTag(mixed $tag): self
     {
         $this->container['tag'] = $tag;
 

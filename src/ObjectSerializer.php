@@ -214,7 +214,18 @@ class ObjectSerializer
 
             return $values;
         }
-        if ('object' === $class || '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult' === $class) {
+        if ('mixed' === $class) {
+            if ($data instanceof \stdClass) {
+                if (empty(get_object_vars($data))) {
+                    return null;
+                }
+
+                return (array) $data;
+            }
+
+            return $data;
+        }
+        if ('object' === $class || 'array' === $class) {
             settype($data, 'array');
 
             return $data;
@@ -262,10 +273,9 @@ class ObjectSerializer
             throw new SerializationException($response);
         } elseif (enum_exists($class)) {
             try {
-                $enumInstance = $class::from($data);
-                return $enumInstance;
+                return $class::from($data);
             } catch (\ValueError $e) {
-                $allowedValues = array_map(fn($case) => $case->value, $class::cases());
+                $allowedValues = array_map(fn ($case) => $case->value, $class::cases());
                 $imploded = implode("', '", $allowedValues);
 
                 throw new \InvalidArgumentException("Invalid value '{$data}' for enum '{$class}', must be one of: '{$imploded}'");

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **request_id** | **string** | Unique identifier of the user's request. | 
 **url** | **string** | Page URL from which the request was sent. | 
 **ip** | **string** | IP address of the requesting browser or bot. | 
-**tag** | [**\Fingerprint\ServerAPI\Model\Tag**](Tag.md) |  | [optional] 
+**tag** | **mixed** |  | [optional] 
 **time** | [**\DateTime**](\DateTime.md) | Time expressed according to ISO 8601 in UTC format, when the request from the JS agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible. | 
 **timestamp** | **int** | Timestamp of the event with millisecond precision in Unix time. | 
 **ip_location** | [**\Fingerprint\ServerAPI\Model\DeprecatedGeolocation**](DeprecatedGeolocation.md) |  | [optional] 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **browser_details** | [**\Fingerprint\ServerAPI\Model\BrowserDetails**](BrowserDetails.md) |  | [optional] 
 **incognito** | **bool** | Flag if user used incognito session. | [optional] 
 **client_referrer** | **string** |  | [optional] 
-**components** | [**\Fingerprint\ServerAPI\Model\RawDeviceAttributes**](RawDeviceAttributes.md) |  | [optional] 
+**components** | array |  | [optional] 
 **bot** | [**\Fingerprint\ServerAPI\Model\BotdBot**](BotdBot.md) |  | [optional] 
 **user_agent** | **string** |  | [optional] 
 **root_apps** | [**\Fingerprint\ServerAPI\Model\WebhookRootApps**](WebhookRootApps.md) |  | [optional] 
@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **frida** | [**\Fingerprint\ServerAPI\Model\WebhookFrida**](WebhookFrida.md) |  | [optional] 
 **privacy_settings** | [**\Fingerprint\ServerAPI\Model\WebhookPrivacySettings**](WebhookPrivacySettings.md) |  | [optional] 
 **virtual_machine** | [**\Fingerprint\ServerAPI\Model\WebhookVirtualMachine**](WebhookVirtualMachine.md) |  | [optional] 
-**raw_device_attributes** | [**\Fingerprint\ServerAPI\Model\WebhookRawDeviceAttributes**](WebhookRawDeviceAttributes.md) |  | [optional] 
+**raw_device_attributes** | array |  | [optional] 
 **high_activity** | [**\Fingerprint\ServerAPI\Model\WebhookHighActivity**](WebhookHighActivity.md) |  | [optional] 
 **location_spoofing** | [**\Fingerprint\ServerAPI\Model\WebhookLocationSpoofing**](WebhookLocationSpoofing.md) |  | [optional] 
 **suspect_score** | [**\Fingerprint\ServerAPI\Model\WebhookSuspectScore**](WebhookSuspectScore.md) |  | [optional] 

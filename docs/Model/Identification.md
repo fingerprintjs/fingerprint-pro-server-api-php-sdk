@@ -13,12 +13,12 @@ Name | Type | Description | Notes
 **timestamp** | **int** | Timestamp of the event with millisecond precision in Unix time. | 
 **time** | [**\DateTime**](\DateTime.md) | Time expressed according to ISO 8601 in UTC format, when the request from the JS agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible. | 
 **url** | **string** | Page URL from which the request was sent. | 
-**tag** | [**\Fingerprint\ServerAPI\Model\Tag**](Tag.md) |  | 
+**tag** | **mixed** |  | 
 **confidence** | [**\Fingerprint\ServerAPI\Model\IdentificationConfidence**](IdentificationConfidence.md) |  | [optional] 
 **visitor_found** | **bool** | Attribute represents if a visitor had been identified before. | 
 **first_seen_at** | [**\Fingerprint\ServerAPI\Model\IdentificationSeenAt**](IdentificationSeenAt.md) |  | 
 **last_seen_at** | [**\Fingerprint\ServerAPI\Model\IdentificationSeenAt**](IdentificationSeenAt.md) |  | 
-**components** | [**\Fingerprint\ServerAPI\Model\RawDeviceAttributes**](RawDeviceAttributes.md) |  | [optional] 
+**components** | array |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

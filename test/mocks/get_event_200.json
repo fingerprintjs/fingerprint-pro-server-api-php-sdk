@@ -6,7 +6,7 @@
         "requestId": "1708102555327.NLOjmg",
         "incognito": true,
         "linkedId": "somelinkedId",
-        "tag": {},
+        "tag": {"a":  "s", "aa":  [1,3,5]},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
         "url": "https://www.example.com/login?hope{this{works[!",

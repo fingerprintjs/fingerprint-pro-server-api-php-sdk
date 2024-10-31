@@ -6,7 +6,7 @@ Contains all the information from Bot Detection product
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **bot** | [**\Fingerprint\ServerAPI\Model\BotdBot**](BotdBot.md) |  | 
-**meta** | [**\Fingerprint\ServerAPI\Model\Tag**](Tag.md) |  | [optional] 
+**meta** | **mixed** |  | [optional] 
 **linked_id** | **string** | A customer-provided id that was sent with the request. | [optional] 
 **url** | **string** | Page URL from which the request was sent. | 
 **ip** | **string** | IP address of the requesting browser or bot. | 
