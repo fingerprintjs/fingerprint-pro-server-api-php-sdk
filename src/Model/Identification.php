@@ -62,7 +62,7 @@ class Identification implements ModelInterface, \ArrayAccess
         'timestamp' => 'int',
         'time' => '\DateTime',
         'url' => 'string',
-        'tag' => 'mixed',
+        'tag' => 'array',
         'confidence' => '\Fingerprint\ServerAPI\Model\IdentificationConfidence',
         'visitor_found' => 'bool',
         'first_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
@@ -536,7 +536,7 @@ class Identification implements ModelInterface, \ArrayAccess
     /**
      * Gets tag.
      */
-    public function getTag(): mixed
+    public function getTag(): array
     {
         return $this->container['tag'];
     }
@@ -544,11 +544,11 @@ class Identification implements ModelInterface, \ArrayAccess
     /**
      * Sets tag.
      *
-     * @param mixed $tag tag
+     * @param array $tag tag
      *
      * @return $this
      */
-    public function setTag(mixed $tag): self
+    public function setTag(array $tag): self
     {
         $this->container['tag'] = $tag;
 

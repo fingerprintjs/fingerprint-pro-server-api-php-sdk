@@ -55,7 +55,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         'request_id' => 'string',
         'url' => 'string',
         'ip' => 'string',
-        'tag' => 'mixed',
+        'tag' => 'array',
         'time' => '\DateTime',
         'timestamp' => 'int',
         'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedGeolocation',
@@ -505,7 +505,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Gets tag.
      */
-    public function getTag(): mixed
+    public function getTag(): ?array
     {
         return $this->container['tag'];
     }
@@ -513,11 +513,11 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets tag.
      *
-     * @param mixed $tag tag
+     * @param ?array $tag tag
      *
      * @return $this
      */
-    public function setTag(mixed $tag): self
+    public function setTag(?array $tag): self
     {
         $this->container['tag'] = $tag;
 

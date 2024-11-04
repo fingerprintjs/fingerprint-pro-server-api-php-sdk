@@ -37,7 +37,7 @@ platform=$(uname)
 # clean models before generating
 rm -f ./src/Model/*
 
-java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=mixed
+java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array
 
 if [ ! -f .php-cs-fixer.php ]; then
   echo ".php-cs-fixer.php configuration file not found!"

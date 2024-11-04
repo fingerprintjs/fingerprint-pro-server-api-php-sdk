@@ -55,7 +55,7 @@ class Botd implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'bot' => '\Fingerprint\ServerAPI\Model\BotdBot',
-        'meta' => 'mixed',
+        'meta' => 'array',
         'linked_id' => 'string',
         'url' => 'string',
         'ip' => 'string',
@@ -274,7 +274,7 @@ class Botd implements ModelInterface, \ArrayAccess
     /**
      * Gets meta.
      */
-    public function getMeta(): mixed
+    public function getMeta(): ?array
     {
         return $this->container['meta'];
     }
@@ -282,11 +282,11 @@ class Botd implements ModelInterface, \ArrayAccess
     /**
      * Sets meta.
      *
-     * @param mixed $meta meta
+     * @param ?array $meta meta
      *
      * @return $this
      */
-    public function setMeta(mixed $meta): self
+    public function setMeta(?array $meta): self
     {
         $this->container['meta'] = $meta;
 

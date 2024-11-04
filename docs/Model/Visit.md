@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **timestamp** | **int** | Timestamp of the event with millisecond precision in Unix time. | 
 **time** | [**\DateTime**](\DateTime.md) | Time expressed according to ISO 8601 in UTC format, when the request from the client agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible. | 
 **url** | **string** | Page URL from which the request was sent. | 
-**tag** | **mixed** |  | 
+**tag** | array |  | 
 **confidence** | [**\Fingerprint\ServerAPI\Model\IdentificationConfidence**](IdentificationConfidence.md) |  | [optional] 
 **visitor_found** | **bool** | Attribute represents if a visitor had been identified before. | 
 **first_seen_at** | [**\Fingerprint\ServerAPI\Model\IdentificationSeenAt**](IdentificationSeenAt.md) |  | 

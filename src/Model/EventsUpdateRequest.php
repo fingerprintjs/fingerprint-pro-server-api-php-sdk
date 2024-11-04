@@ -53,7 +53,7 @@ class EventsUpdateRequest implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'linked_id' => 'string',
-        'tag' => 'mixed',
+        'tag' => 'array',
         'suspect' => 'bool'];
 
     /**
@@ -221,7 +221,7 @@ class EventsUpdateRequest implements ModelInterface, \ArrayAccess
     /**
      * Gets tag.
      */
-    public function getTag(): mixed
+    public function getTag(): ?array
     {
         return $this->container['tag'];
     }
@@ -229,11 +229,11 @@ class EventsUpdateRequest implements ModelInterface, \ArrayAccess
     /**
      * Sets tag.
      *
-     * @param mixed $tag tag
+     * @param ?array $tag tag
      *
      * @return $this
      */
-    public function setTag(mixed $tag): self
+    public function setTag(?array $tag): self
     {
         $this->container['tag'] = $tag;
 
