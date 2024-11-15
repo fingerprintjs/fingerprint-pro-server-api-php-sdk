@@ -4,5 +4,12 @@
   "initialVersions": {
     "fingerprint-pro-server-api-php-sdk": "5.1.1"
   },
-  "changesets": []
+  "changesets": [
+    "fuzzy-apes-talk",
+    "khaki-results-help",
+    "large-lights-push",
+    "quiet-parrots-stick",
+    "shy-worms-wish",
+    "three-files-kneel"
+  ]
 }

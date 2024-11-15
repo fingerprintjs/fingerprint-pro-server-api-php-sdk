@@ -1,5 +1,114 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.0.0-dev.0
+
+### Major Changes
+
+- - Remove the `BrowserDetails` field `botProbability`.
+  - Update the `IdentificationConfidence` field `score` type format: `float` -> `double`.
+  - Make the `RawDeviceAttributeError` field `name` **optional** .
+  - Make the `RawDeviceAttributeError` field `message` **optional** .
+  - **events**: Remove the `EventsResponse` field `error`.
+    - [note]: The errors are represented by `ErrorResponse` model.
+  - **events**: Update the `HighActivity` field `dailyRequests` type format: `number` -> `int64`.
+  - **events**: Specify the `Tampering` field `anomalyScore` type format: `double`.
+  - **webhook**: Make the `Webhook` fields **optional**: `visitorId`, `visitorFound`, `firstSeenAt`, `lastSeenAt`, `browserDetails`, `incognito`.
+  - **webhook**: Make the `WebhookClonedApp` field `result` **optional**.
+  - **webhook**: Make the `WebhookDeveloperTools` field `result` **optional**.
+  - **webhook**: Make the `WebhookEmulator` field `result` **optional**.
+  - **webhook**: Make the `WebhookFactoryReset` fields `time` and `timestamp` **optional**.
+  - **webhook**: Make the `WebhookFrida` field `result` **optional**.
+  - **webhook**: Update the `WebhookHighActivity` field `dailyRequests` type format: `number` -> `int64`.
+  - **webhook**: Make the `WebhookIPBlocklist` fields `result` and `details` **optional**.
+  - **webhook**: Make the `WebhookJailbroken` field `result` **optional**.
+  - **webhook**: Make the `WebhookLocationSpoofing` field `result` **optional**.
+  - **webhook**: Make the `WebhookPrivacySettings` field `result` **optional**.
+  - **webhook**: Make the `WebhookProxy` field `result` **optional**.
+  - **webhook**: Make the `WebhookRemoteControl` field `result` **optional**.
+  - **webhook**: Make the `WebhookRootApps` field `result` **optional**.
+  - **webhook**: Make the `WebhookSuspectScore` field `result` **optional**.
+  - **webhook**: Make the `WebhookTampering` fields `result`, `anomalyScore` and `antiDetectBrowser` **optional**.
+  - **webhook**: Specify the `WebhookTampering` field `anomalyScore` type format: `double`.
+  - **webhook**: Make the `WebhookTor` field `result` **optional**.
+  - **webhook**: Make the `WebhookVelocity` fields **optional**: `distinctIp`, `distinctLinkedId`, `distinctCountry`, `events`, `ipEvents`, `distinctIpByLinkedId`, `distinctVisitorIdByLinkedId`.
+  - **webhook**: Make the `WebhookVirtualMachine` field `result` **optional**.
+  - **webhook**: Make the `WebhookVPN` fields **optional**: `result`, `confidence`, `originTimezone`, `methods`. ([5645bf0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/5645bf0f738f673b5a4941c27c42c0468670fdd5))
+- - Rename `BotdResult` -> `Botd`.
+  - Rename `BotdDetectionResult` -> `BotdBot`:
+    - Extract `result` type as `BotdBotResult`.
+  - Rename `ClonedAppResult` -> `ClonedApp`.
+  - Rename `DeveloperToolsResult` -> `DeveloperTools`.
+  - Rename `EmulatorResult` -> `Emulator`.
+  - Refactor error models:
+    - Remove `ErrorCommon403Response`, `ErrorCommon429Response`, `ErrorEvent404Response`, `TooManyRequestsResponse`, `ErrorVisits403`, `ErrorUpdateEvent400Response`, `ErrorUpdateEvent409Response`, `ErrorVisitor400Response`, `ErrorVisitor404Response`, `IdentificationError`, `ProductError`.
+    - Introduce `ErrorResponse` and `ErrorPlainResponse`.
+      - [note]: `ErrorPlainResponse` has a different format `{ "error": string }` and it is used only in `GET /visitors`.
+    - Extract `error` type as `Error`.
+    - Extract `error.code` type as `ErrorCode`.
+  - Rename `EventResponse` -> `EventsGetResponse`.
+  - Rename `EventUpdateRequest` -> `EventsUpdateRequest`.
+  - Rename `FactoryResetResult` -> `FactoryReset`.
+  - Rename `FridaResult` -> `Frida`.
+  - Rename `IPLocation` -> `Geolocation`:
+    - Rename `IPLocationCity` -> `GeolocationCity`.
+    - Extract `subdivisions` type as `GeolocationSubdivisions`.
+    - Rename `Location` -> `GeolocationContinent`:
+    - Introduce a dedicated type `GeolocationCountry`.
+    - Rename `Subdivision` -> `GeolocationSubdivision`.
+  - Rename `HighActivityResult` -> `HighActivity`.
+  - Rename `Confidence` -> `IdentificationConfidence`.
+  - Rename `SeenAt` -> `IdentificationSeenAt`.
+  - Rename `IncognitoResult` -> `Incognito`.
+  - Rename `IpBlockListResult` -> `IPBlocklist`:
+    - Extract `details` type as `IPBlocklistDetails`.
+  - Rename `IpInfoResult` -> `IPInfo`:
+    - Rename `IpInfoResultV4` -> `IPInfoV4`.
+    - Rename `IpInfoResultV6` -> `IPInfoV6`.
+    - Rename `ASN` -> `IPInfoASN`.
+    - Rename `DataCenter` -> `IPInfoDataCenter`.
+  - Rename `JailbrokenResult` -> `Jailbroken`.
+  - Rename `LocationSpoofingResult` -> `LocationSpoofing`.
+  - Rename `PrivacySettingsResult` -> `PrivacySettings`.
+  - Rename `ProductsResponse` -> `Products`:
+    - Rename inner types: `ProductsResponseIdentification` -> `ProductIdentification`, `ProductsResponseIdentificationData` -> `Identification`, `ProductsResponseBotd` -> `ProductBotd`, `SignalResponseRootApps` -> `ProductRootApps`, `SignalResponseEmulator` -> `ProductEmulator`, `SignalResponseIpInfo` -> `ProductIPInfo`, `SignalResponseIpBlocklist` -> `ProductIPBlocklist`, `SignalResponseTor` -> `ProductTor`, `SignalResponseVpn` -> `ProductVPN`, `SignalResponseProxy` -> `ProductProxy`, `ProxyResult` -> `Proxy`, `SignalResponseIncognito` -> `ProductIncognito`, `SignalResponseTampering` -> `ProductTampering`, `SignalResponseClonedApp` -> `ProductClonedApp`, `SignalResponseFactoryReset` -> `ProductFactoryReset`, `SignalResponseJailbroken` -> `ProductJailbroken`, `SignalResponseFrida` -> `ProductFrida`, `SignalResponsePrivacySettings` -> `ProductPrivacySettings`, `SignalResponseVirtualMachine` -> `ProductVirtualMachine`, `SignalResponseRawDeviceAttributes` -> `ProductRawDeviceAttributes`, `RawDeviceAttributesResultValue` -> `RawDeviceAttributes`, `SignalResponseHighActivity` -> `ProductHighActivity`, `SignalResponseLocationSpoofing` -> `ProductLocationSpoofing`, `SignalResponseSuspectScore` -> `ProductSuspectScore`, `SignalResponseRemoteControl` -> `ProductRemoteControl`, `SignalResponseVelocity` -> `ProductVelocity`, `SignalResponseDeveloperTools` -> `ProductDeveloperTools`.
+    - Extract `identification.data` type as `Identification`.
+  - Use PHP `array` instead of `RawDeviceAttributesResult`
+  - Rename `RemoteControlResult` -> `RemoteControl`.
+  - Rename `RootAppsResult` -> `RootApps`.
+  - Rename `SuspectScoreResult` -> `SuspectScore`.
+  - Rename `TamperingResult` -> `Tampering`.
+  - Rename `TorResult` -> `Tor`.
+  - Rename `VelocityResult` -> `Velocity`:
+    - Rename `VelocityIntervals` -> `VelocityData`.
+    - Rename `VelocityIntervalResult` -> `VelocityIntervals`.
+  - Rename `VirtualMachineResult` -> `VirtualMachine`.
+  - Rename the `Visit` field `ipLocation` type `DeprecatedIPLocation` -> `DeprecatedGeolocation`.
+    - Instead of `DeprecatedIPLocationCity` use common `GeolocationCity`
+  - Rename `Response` -> `VisitorsGetResponse`.
+    - Omit extra inner type `ResponseVisits`
+  - Rename `VpnResult` -> `VPN`.
+    - Extract `confidence` type as `VPNConfidence`.
+    - Extract `methods` type as `VPNMethods`.
+  - Rename `WebhookVisit` -> `Webhook`.
+    - Introduce new inner types: `WebhookRootApps`, `WebhookEmulator`, `WebhookIPInfo`, `WebhookIPBlocklist`, `WebhookTor`, `WebhookVPN`, `WebhookProxy`, `WebhookTampering`, `WebhookClonedApp`, `WebhookFactoryReset`, `WebhookJailbroken`, `WebhookFrida`, `WebhookPrivacySettings`, `WebhookVirtualMachine`, `WebhookHighActivity`, `WebhookLocationSpoofing`, `WebhookSuspectScore`, `WebhookRemoteControl`, `WebhookVelocity`, `WebhookDeveloperTools`. ([5645bf0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/5645bf0f738f673b5a4941c27c42c0468670fdd5))
+
+### Minor Changes
+
+- Added new `ipEvents`, `distinctIpByLinkedId`, and `distinctVisitorIdByLinkedId` fields to the `velocity` Smart Signal. ([5645bf0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/5645bf0f738f673b5a4941c27c42c0468670fdd5))
+- - Make the `GeolocationCity` field `name` **required**.
+  - Make the `GeolocationSubdivision` field `isoCode` **required**.
+  - Make the `GeolocationSubdivision` field `name` **required**.
+  - Make the `IPInfoASN` field `name` **required** .
+  - Make the `IPInfoDataCenter` field `name` **required**.
+  - Add **optional** `IdentificationConfidence` field `comment`.
+  - **events**: Add **optional** `Botd` field `meta`.
+  - **events**: Add **optional** `Identification` field `components`.
+  - **events**: Make the `VPN` field `originCountry` **required**.
+  - **visitors**: Add **optional** `Visit` field `components`.
+  - **webhook**: Add **optional** `Webhook` field `components`. ([5645bf0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/5645bf0f738f673b5a4941c27c42c0468670fdd5))
+- Remove `ipv4` format from `ip` field in `Botd`, `Identification`, `Visit` and `Webhook` models. ([5645bf0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/5645bf0f738f673b5a4941c27c42c0468670fdd5))
+- **events**: Add `antiDetectBrowser` detection method to the `tampering` Smart Signal. ([5645bf0](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/5645bf0f738f673b5a4941c27c42c0468670fdd5))
+
 ## 5.1.1
 
 ### Patch Changes
