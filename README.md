@@ -85,7 +85,7 @@ const PAGINATION_KEY = "1683900801733.Ogvu1j";
 // Import Fingerprint Pro Classes and Guzzle Http Client
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Configuration;
-use Fingerprint\ServerAPI\Model\EventUpdateRequest;
+use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
 use GuzzleHttp\Client;
 
 // Create a new Configuration instance with your Fingerprint Pro Server API Key and your Fingerprint Pro Server API Region.
@@ -116,7 +116,7 @@ try {
 try {
     // Fetch all visits with a given visitorId, with a page limit
     list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, null, null, LIMIT);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
@@ -125,7 +125,7 @@ try {
 try {
     // Fetch all visits with a given visitorId, with a page limit, skipping the first visit
     list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, null, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
@@ -134,20 +134,20 @@ try {
 try {
     // Fetch the visitor's all visits with a given requestId and linkedId with a page limit while skipping the first visit
     list($model, $response) = $client->getVisits(FPJS_VISITOR_ID, FPJS_REQUEST_ID, FPJS_LINKED_ID, LIMIT, PAGINATION_KEY);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
 
 // Update Event
 try {
-    $body = new EventUpdateRequest([
+    $body = new EventsUpdateRequest([
         'linked_id' => 'new linked id',
-        'tag' => json_encode(['new_property' => 'new value']),
+        'tag' => ['new_property' => 'new value'],
         'suspect' => true,
     ]);
     list($model, $response) = $client->updateEvent($body, FPJS_REQUEST_ID);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->updateEvent: ', $e->getMessage(), PHP_EOL;
 }
@@ -155,7 +155,7 @@ try {
 // Delete by visitor ID
 try {
     list($model, $response) = $client->deleteVisitorData(FPJS_VISITOR_ID);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->deleteVisitorData: ', $e->getMessage(), PHP_EOL;
 }
@@ -241,96 +241,105 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [ASN](docs/Model/ASN.md)
- - [BotdDetectionResult](docs/Model/BotdDetectionResult.md)
- - [BotdResult](docs/Model/BotdResult.md)
+ - [Botd](docs/Model/Botd.md)
+ - [BotdBot](docs/Model/BotdBot.md)
+ - [BotdBotResult](docs/Model/BotdBotResult.md)
  - [BrowserDetails](docs/Model/BrowserDetails.md)
- - [ClonedAppResult](docs/Model/ClonedAppResult.md)
- - [Common403ErrorResponse](docs/Model/Common403ErrorResponse.md)
- - [Confidence](docs/Model/Confidence.md)
- - [DataCenter](docs/Model/DataCenter.md)
- - [DeprecatedIPLocation](docs/Model/DeprecatedIPLocation.md)
- - [DeprecatedIPLocationCity](docs/Model/DeprecatedIPLocationCity.md)
- - [DeveloperToolsResult](docs/Model/DeveloperToolsResult.md)
- - [EmulatorResult](docs/Model/EmulatorResult.md)
- - [ErrorCommon403Response](docs/Model/ErrorCommon403Response.md)
- - [ErrorCommon429Response](docs/Model/ErrorCommon429Response.md)
- - [ErrorCommon429ResponseError](docs/Model/ErrorCommon429ResponseError.md)
- - [ErrorEvent404Response](docs/Model/ErrorEvent404Response.md)
- - [ErrorEvent404ResponseError](docs/Model/ErrorEvent404ResponseError.md)
- - [ErrorUpdateEvent400Response](docs/Model/ErrorUpdateEvent400Response.md)
- - [ErrorUpdateEvent400ResponseError](docs/Model/ErrorUpdateEvent400ResponseError.md)
- - [ErrorUpdateEvent409Response](docs/Model/ErrorUpdateEvent409Response.md)
- - [ErrorUpdateEvent409ResponseError](docs/Model/ErrorUpdateEvent409ResponseError.md)
- - [ErrorVisitor400Response](docs/Model/ErrorVisitor400Response.md)
- - [ErrorVisitor400ResponseError](docs/Model/ErrorVisitor400ResponseError.md)
- - [ErrorVisitor404Response](docs/Model/ErrorVisitor404Response.md)
- - [ErrorVisitor404ResponseError](docs/Model/ErrorVisitor404ResponseError.md)
- - [ErrorVisits403](docs/Model/ErrorVisits403.md)
- - [EventResponse](docs/Model/EventResponse.md)
- - [EventUpdateRequest](docs/Model/EventUpdateRequest.md)
- - [FactoryResetResult](docs/Model/FactoryResetResult.md)
- - [FridaResult](docs/Model/FridaResult.md)
- - [HighActivityResult](docs/Model/HighActivityResult.md)
- - [IPLocation](docs/Model/IPLocation.md)
- - [IPLocationCity](docs/Model/IPLocationCity.md)
- - [IdentificationError](docs/Model/IdentificationError.md)
- - [IncognitoResult](docs/Model/IncognitoResult.md)
- - [IpBlockListResult](docs/Model/IpBlockListResult.md)
- - [IpBlockListResultDetails](docs/Model/IpBlockListResultDetails.md)
- - [IpInfoResult](docs/Model/IpInfoResult.md)
- - [IpInfoResultV4](docs/Model/IpInfoResultV4.md)
- - [IpInfoResultV6](docs/Model/IpInfoResultV6.md)
- - [JailbrokenResult](docs/Model/JailbrokenResult.md)
- - [Location](docs/Model/Location.md)
- - [LocationSpoofingResult](docs/Model/LocationSpoofingResult.md)
- - [PrivacySettingsResult](docs/Model/PrivacySettingsResult.md)
- - [ProductError](docs/Model/ProductError.md)
- - [ProductsResponse](docs/Model/ProductsResponse.md)
- - [ProductsResponseBotd](docs/Model/ProductsResponseBotd.md)
- - [ProductsResponseIdentification](docs/Model/ProductsResponseIdentification.md)
- - [ProductsResponseIdentificationData](docs/Model/ProductsResponseIdentificationData.md)
- - [ProxyResult](docs/Model/ProxyResult.md)
- - [RawDeviceAttributesResult](docs/Model/RawDeviceAttributesResult.md)
- - [RemoteControlResult](docs/Model/RemoteControlResult.md)
- - [Response](docs/Model/Response.md)
- - [ResponseVisits](docs/Model/ResponseVisits.md)
- - [RootAppsResult](docs/Model/RootAppsResult.md)
- - [SeenAt](docs/Model/SeenAt.md)
- - [SignalResponseClonedApp](docs/Model/SignalResponseClonedApp.md)
- - [SignalResponseDeveloperTools](docs/Model/SignalResponseDeveloperTools.md)
- - [SignalResponseEmulator](docs/Model/SignalResponseEmulator.md)
- - [SignalResponseFactoryReset](docs/Model/SignalResponseFactoryReset.md)
- - [SignalResponseFrida](docs/Model/SignalResponseFrida.md)
- - [SignalResponseHighActivity](docs/Model/SignalResponseHighActivity.md)
- - [SignalResponseIncognito](docs/Model/SignalResponseIncognito.md)
- - [SignalResponseIpBlocklist](docs/Model/SignalResponseIpBlocklist.md)
- - [SignalResponseIpInfo](docs/Model/SignalResponseIpInfo.md)
- - [SignalResponseJailbroken](docs/Model/SignalResponseJailbroken.md)
- - [SignalResponseLocationSpoofing](docs/Model/SignalResponseLocationSpoofing.md)
- - [SignalResponsePrivacySettings](docs/Model/SignalResponsePrivacySettings.md)
- - [SignalResponseProxy](docs/Model/SignalResponseProxy.md)
- - [SignalResponseRawDeviceAttributes](docs/Model/SignalResponseRawDeviceAttributes.md)
- - [SignalResponseRemoteControl](docs/Model/SignalResponseRemoteControl.md)
- - [SignalResponseRootApps](docs/Model/SignalResponseRootApps.md)
- - [SignalResponseSuspectScore](docs/Model/SignalResponseSuspectScore.md)
- - [SignalResponseTampering](docs/Model/SignalResponseTampering.md)
- - [SignalResponseTor](docs/Model/SignalResponseTor.md)
- - [SignalResponseVelocity](docs/Model/SignalResponseVelocity.md)
- - [SignalResponseVirtualMachine](docs/Model/SignalResponseVirtualMachine.md)
- - [SignalResponseVpn](docs/Model/SignalResponseVpn.md)
- - [Subdivision](docs/Model/Subdivision.md)
- - [SuspectScoreResult](docs/Model/SuspectScoreResult.md)
- - [TamperingResult](docs/Model/TamperingResult.md)
- - [TooManyRequestsResponse](docs/Model/TooManyRequestsResponse.md)
- - [TorResult](docs/Model/TorResult.md)
- - [VelocityIntervalResult](docs/Model/VelocityIntervalResult.md)
+ - [ClonedApp](docs/Model/ClonedApp.md)
+ - [DeprecatedGeolocation](docs/Model/DeprecatedGeolocation.md)
+ - [DeveloperTools](docs/Model/DeveloperTools.md)
+ - [Emulator](docs/Model/Emulator.md)
+ - [Error](docs/Model/Error.md)
+ - [ErrorCode](docs/Model/ErrorCode.md)
+ - [ErrorPlainResponse](docs/Model/ErrorPlainResponse.md)
+ - [ErrorResponse](docs/Model/ErrorResponse.md)
+ - [EventsGetResponse](docs/Model/EventsGetResponse.md)
+ - [EventsUpdateRequest](docs/Model/EventsUpdateRequest.md)
+ - [FactoryReset](docs/Model/FactoryReset.md)
+ - [Frida](docs/Model/Frida.md)
+ - [Geolocation](docs/Model/Geolocation.md)
+ - [GeolocationCity](docs/Model/GeolocationCity.md)
+ - [GeolocationContinent](docs/Model/GeolocationContinent.md)
+ - [GeolocationCountry](docs/Model/GeolocationCountry.md)
+ - [GeolocationSubdivision](docs/Model/GeolocationSubdivision.md)
+ - [GeolocationSubdivisions](docs/Model/GeolocationSubdivisions.md)
+ - [HighActivity](docs/Model/HighActivity.md)
+ - [IPBlocklist](docs/Model/IPBlocklist.md)
+ - [IPBlocklistDetails](docs/Model/IPBlocklistDetails.md)
+ - [IPInfo](docs/Model/IPInfo.md)
+ - [IPInfoASN](docs/Model/IPInfoASN.md)
+ - [IPInfoDataCenter](docs/Model/IPInfoDataCenter.md)
+ - [IPInfoV4](docs/Model/IPInfoV4.md)
+ - [IPInfoV6](docs/Model/IPInfoV6.md)
+ - [Identification](docs/Model/Identification.md)
+ - [IdentificationConfidence](docs/Model/IdentificationConfidence.md)
+ - [IdentificationSeenAt](docs/Model/IdentificationSeenAt.md)
+ - [Incognito](docs/Model/Incognito.md)
+ - [Jailbroken](docs/Model/Jailbroken.md)
+ - [LocationSpoofing](docs/Model/LocationSpoofing.md)
+ - [PrivacySettings](docs/Model/PrivacySettings.md)
+ - [ProductBotd](docs/Model/ProductBotd.md)
+ - [ProductClonedApp](docs/Model/ProductClonedApp.md)
+ - [ProductDeveloperTools](docs/Model/ProductDeveloperTools.md)
+ - [ProductEmulator](docs/Model/ProductEmulator.md)
+ - [ProductFactoryReset](docs/Model/ProductFactoryReset.md)
+ - [ProductFrida](docs/Model/ProductFrida.md)
+ - [ProductHighActivity](docs/Model/ProductHighActivity.md)
+ - [ProductIPBlocklist](docs/Model/ProductIPBlocklist.md)
+ - [ProductIPInfo](docs/Model/ProductIPInfo.md)
+ - [ProductIdentification](docs/Model/ProductIdentification.md)
+ - [ProductIncognito](docs/Model/ProductIncognito.md)
+ - [ProductJailbroken](docs/Model/ProductJailbroken.md)
+ - [ProductLocationSpoofing](docs/Model/ProductLocationSpoofing.md)
+ - [ProductPrivacySettings](docs/Model/ProductPrivacySettings.md)
+ - [ProductProxy](docs/Model/ProductProxy.md)
+ - [ProductRawDeviceAttributes](docs/Model/ProductRawDeviceAttributes.md)
+ - [ProductRemoteControl](docs/Model/ProductRemoteControl.md)
+ - [ProductRootApps](docs/Model/ProductRootApps.md)
+ - [ProductSuspectScore](docs/Model/ProductSuspectScore.md)
+ - [ProductTampering](docs/Model/ProductTampering.md)
+ - [ProductTor](docs/Model/ProductTor.md)
+ - [ProductVPN](docs/Model/ProductVPN.md)
+ - [ProductVelocity](docs/Model/ProductVelocity.md)
+ - [ProductVirtualMachine](docs/Model/ProductVirtualMachine.md)
+ - [Products](docs/Model/Products.md)
+ - [Proxy](docs/Model/Proxy.md)
+ - [RelatedVisitor](docs/Model/RelatedVisitor.md)
+ - [RemoteControl](docs/Model/RemoteControl.md)
+ - [RootApps](docs/Model/RootApps.md)
+ - [SuspectScore](docs/Model/SuspectScore.md)
+ - [Tampering](docs/Model/Tampering.md)
+ - [Tor](docs/Model/Tor.md)
+ - [VPN](docs/Model/VPN.md)
+ - [VPNConfidence](docs/Model/VPNConfidence.md)
+ - [VPNMethods](docs/Model/VPNMethods.md)
+ - [Velocity](docs/Model/Velocity.md)
+ - [VelocityData](docs/Model/VelocityData.md)
  - [VelocityIntervals](docs/Model/VelocityIntervals.md)
- - [VelocityResult](docs/Model/VelocityResult.md)
- - [VirtualMachineResult](docs/Model/VirtualMachineResult.md)
- - [VpnResult](docs/Model/VpnResult.md)
- - [VpnResultMethods](docs/Model/VpnResultMethods.md)
- - [WebhookVisit](docs/Model/WebhookVisit.md)
+ - [VirtualMachine](docs/Model/VirtualMachine.md)
+ - [Visit](docs/Model/Visit.md)
+ - [VisitorsGetResponse](docs/Model/VisitorsGetResponse.md)
+ - [Webhook](docs/Model/Webhook.md)
+ - [WebhookClonedApp](docs/Model/WebhookClonedApp.md)
+ - [WebhookDeveloperTools](docs/Model/WebhookDeveloperTools.md)
+ - [WebhookEmulator](docs/Model/WebhookEmulator.md)
+ - [WebhookFactoryReset](docs/Model/WebhookFactoryReset.md)
+ - [WebhookFrida](docs/Model/WebhookFrida.md)
+ - [WebhookHighActivity](docs/Model/WebhookHighActivity.md)
+ - [WebhookIPBlocklist](docs/Model/WebhookIPBlocklist.md)
+ - [WebhookIPInfo](docs/Model/WebhookIPInfo.md)
+ - [WebhookJailbroken](docs/Model/WebhookJailbroken.md)
+ - [WebhookLocationSpoofing](docs/Model/WebhookLocationSpoofing.md)
+ - [WebhookPrivacySettings](docs/Model/WebhookPrivacySettings.md)
+ - [WebhookProxy](docs/Model/WebhookProxy.md)
+ - [WebhookRemoteControl](docs/Model/WebhookRemoteControl.md)
+ - [WebhookRootApps](docs/Model/WebhookRootApps.md)
+ - [WebhookSuspectScore](docs/Model/WebhookSuspectScore.md)
+ - [WebhookTampering](docs/Model/WebhookTampering.md)
+ - [WebhookTor](docs/Model/WebhookTor.md)
+ - [WebhookVPN](docs/Model/WebhookVPN.md)
+ - [WebhookVelocity](docs/Model/WebhookVelocity.md)
+ - [WebhookVirtualMachine](docs/Model/WebhookVirtualMachine.md)
 
 ## Documentation for Authorization
 

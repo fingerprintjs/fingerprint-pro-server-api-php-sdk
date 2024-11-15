@@ -3,18 +3,11 @@
 namespace Fingerprint\ServerAPI;
 
 use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Model\ErrorCommon403Response;
-use Fingerprint\ServerAPI\Model\ErrorCommon429Response;
-use Fingerprint\ServerAPI\Model\ErrorEvent404Response;
-use Fingerprint\ServerAPI\Model\ErrorUpdateEvent400Response;
-use Fingerprint\ServerAPI\Model\ErrorUpdateEvent409Response;
-use Fingerprint\ServerAPI\Model\ErrorVisitor400Response;
-use Fingerprint\ServerAPI\Model\ErrorVisitor404Response;
-use Fingerprint\ServerAPI\Model\ErrorVisits403;
-use Fingerprint\ServerAPI\Model\EventUpdateRequest;
-use Fingerprint\ServerAPI\Model\IdentificationError;
-use Fingerprint\ServerAPI\Model\ProductError;
-use Fingerprint\ServerAPI\Model\TooManyRequestsResponse;
+use Fingerprint\ServerAPI\Model\BotdBotResult;
+use Fingerprint\ServerAPI\Model\ErrorCode;
+use Fingerprint\ServerAPI\Model\ErrorPlainResponse;
+use Fingerprint\ServerAPI\Model\ErrorResponse;
+use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
@@ -22,6 +15,11 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class FingerprintApiTest extends TestCase
 {
     public const MOCK_REQUEST_ID = '1708102555327.NLOjmg';
@@ -33,10 +31,19 @@ class FingerprintApiTest extends TestCase
     public const MOCK_VISITOR_ID = 'AcxioeQKffpXF8iGQK3P';
     public const MOCK_VISITOR_REQUEST_ID = '1655373780901.HhjRFX';
     public const MOCK_VISITOR_ID_403_ERROR = 'VISITOR_ID_403_ERROR';
+    public const MOCK_VISITOR_ID_403_FEATURE_NOT_ENABLED = 'VISITOR_ID_403_FEATURE_NOT_ENABLED';
+    public const MOCK_VISITOR_ID_403_TOKEN_NOT_FOUND = 'VISITOR_ID_403_TOKEN_NOT_FOUND';
+    public const MOCK_VISITOR_ID_403_TOKEN_REQUIRED = 'VISITOR_ID_403_TOKEN_REQUIRED';
+    public const MOCK_VISITOR_ID_403_WRONG_REGION = 'VISITOR_ID_403_WRONG_REGION';
+    public const MOCK_VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE = 'VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE';
     public const MOCK_VISITOR_ID_429_ERROR = 'VISITOR_ID_429_ERROR';
-    public const MOCK_EVENT_ID_403_ERROR = 'EVENT_ID_403_ERROR';
+    public const MOCK_VISITOR_ID_429_ERROR_DELETE = 'VISITOR_ID_429_ERROR_DELETE';
+    public const MOCK_EVENT_ID_403_TOKEN_REQUIRED = 'EVENT_ID_403_ERROR_TOKEN_REQUIRED';
+    public const MOCK_EVENT_ID_403_TOKEN_NOT_FOUND = 'EVENT_ID_403_ERROR_TOKEN_NOT_FOUND';
+    public const MOCK_EVENT_ID_403_WRONG_REGION = 'EVENT_ID_403_WRONG_REGION';
     public const MOCK_EVENT_ID_404_ERROR = 'EVENT_ID_404_ERROR';
-    public const MOCK_VISITOR_ID_400_ERROR = 'VISITOR_ID_400_ERROR';
+    public const MOCK_VISITOR_ID_400_EMPTY_VISITOR_ID = 'VISITOR_ID_400_EMPTY_VISITOR_ID';
+    public const MOCK_VISITOR_ID_400_INCORRECT_VISITOR_ID = 'VISITOR_ID_400_INCORRECT_VISITOR_ID';
     public const MOCK_VISITOR_ID_404_ERROR = 'VISITOR_ID_404_ERROR';
     public const MOCK_EVENT_ID_409_ERROR = 'EVENT_ID_409_ERROR';
     public const MOCK_EVENT_ID = 'MOCK_EVENT_ID';
@@ -74,7 +81,7 @@ class FingerprintApiTest extends TestCase
         $virtual_machine_product = $products->getVirtualMachine();
         $request_id = $identification_product->getData()->getRequestId();
         $this->assertEquals(self::MOCK_REQUEST_ID, $request_id);
-        $this->assertEquals('notDetected', $botd_product->getData()->getBot()->getResult());
+        $this->assertEquals(BotdBotResult::NOT_DETECTED, $botd_product->getData()->getBot()->getResult());
         $this->assertFalse($vpn_product->getData()->getMethods()->getPublicVpn());
         $this->assertEquals('94.142.239.124', $ip_info_product->getData()->getV4()->getAddress());
         $this->assertFalse($cloned_app_product->getData()->getResult());
@@ -134,23 +141,23 @@ class FingerprintApiTest extends TestCase
         $frida_error = $products->getFrida()->getError();
         $privacy_settings_error = $products->getPrivacySettings()->getError();
         $virtual_machine_error = $products->getVirtualMachine()->getError();
-        $this->assertEquals(IdentificationError::CODE_FAILED, $identification_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $botd_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $emulator_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $incognito_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $tor_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $ip_blocklist_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $ip_info_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $proxy_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $root_apps_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $tampering_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $vpn_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $cloned_app_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $factory_reset_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $jailbroken_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $frida_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $privacy_settings_error->getCode());
-        $this->assertEquals(ProductError::CODE_FAILED, $virtual_machine_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $identification_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $botd_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $emulator_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $incognito_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $tor_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $ip_blocklist_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $ip_info_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $proxy_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $root_apps_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $tampering_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $vpn_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $cloned_app_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $factory_reset_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $jailbroken_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $frida_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $privacy_settings_error->getCode());
+        $this->assertEquals(ErrorCode::FAILED, $virtual_machine_error->getCode());
 
         $raw_device_attributes = $products->getRawDeviceAttributes()->getData();
         $this->assertEquals('Error', $raw_device_attributes['audio']->error->name);
@@ -215,7 +222,7 @@ class FingerprintApiTest extends TestCase
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID));
 
         list($visits, $response) = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID);
-        $mockedResult = \GuzzleHttp\json_decode(file_get_contents(__DIR__.'/mocks/get_visits_200_limit_500.json'));
+        $mockedResult = \GuzzleHttp\json_decode(file_get_contents(__DIR__.'/mocks/get_visitors_200_limit_500.json'));
         $this->assertEquals($mockedResult, \GuzzleHttp\json_decode($response->getBody()->getContents()));
     }
 
@@ -279,7 +286,7 @@ class FingerprintApiTest extends TestCase
         try {
             $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID_403_ERROR);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorVisits403::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorPlainResponse::class, get_class($e->getErrorDetails()));
 
             throw $e;
         }
@@ -296,25 +303,62 @@ class FingerprintApiTest extends TestCase
         try {
             $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID_429_ERROR);
         } catch (ApiException $e) {
-            $this->assertEquals(TooManyRequestsResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorPlainResponse::class, get_class($e->getErrorDetails()));
             $this->assertEquals(30, $e->getRetryAfter());
 
             throw $e;
         }
     }
 
-    public function testGetEvent403Error()
+    public function testGetEvent403TokenRequired()
     {
         $this->mockHandler->reset();
-        $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_ERROR));
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_TOKEN_REQUIRED));
 
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(403);
 
         try {
-            $this->fingerprint_api->getEvent(self::MOCK_EVENT_ID_403_ERROR);
+            $this->fingerprint_api->getEvent(self::MOCK_EVENT_ID_403_TOKEN_REQUIRED);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorCommon403Response::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::TOKEN_REQUIRED, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testGetEvent403TokenNotFound()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
+
+        try {
+            $this->fingerprint_api->getEvent(self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::TOKEN_NOT_FOUND, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testGetEvent403WrongRegion()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_WRONG_REGION));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
+
+        try {
+            $this->fingerprint_api->getEvent(self::MOCK_EVENT_ID_403_WRONG_REGION);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::WRONG_REGION, $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
         }
@@ -331,45 +375,137 @@ class FingerprintApiTest extends TestCase
         try {
             $this->fingerprint_api->getEvent(self::MOCK_EVENT_ID_404_ERROR);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorEvent404Response::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
             $this->assertEquals('request id is not found', $e->getErrorDetails()->getError()->getMessage());
-            $this->assertEquals('RequestNotFound', $e->getErrorDetails()->getError()->getCode());
+            $this->assertEquals(ErrorCode::REQUEST_NOT_FOUND, $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
         }
     }
 
-    public function testDeleteVisitorData400Error()
+    public function testDeleteVisitorData400IncorrectVisitorId()
     {
         $this->mockHandler->reset();
-        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_400_ERROR, 'DELETE'));
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_400_INCORRECT_VISITOR_ID, 'DELETE'));
 
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(400);
 
         try {
-            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_400_ERROR);
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_400_INCORRECT_VISITOR_ID);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorVisitor400Response::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
             $this->assertEquals('invalid visitor id', $e->getErrorDetails()->getError()->getMessage());
-            $this->assertEquals('RequestCannotBeParsed', $e->getErrorDetails()->getError()->getCode());
+            $this->assertEquals(ErrorCode::REQUEST_CANNOT_BE_PARSED, $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
         }
     }
 
-    public function testDeleteVisitorData403Error()
+    public function testDeleteVisitorData400EmptyVisitorId()
     {
         $this->mockHandler->reset();
-        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_ERROR, 'DELETE'));
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_400_EMPTY_VISITOR_ID, 'DELETE'));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(400);
+
+        try {
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_400_EMPTY_VISITOR_ID);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals('visitor id is required', $e->getErrorDetails()->getError()->getMessage());
+            $this->assertEquals(ErrorCode::REQUEST_CANNOT_BE_PARSED, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testDeleteVisitorData403FeatureNotEnabled()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_FEATURE_NOT_ENABLED, 'DELETE'));
 
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(403);
 
         try {
-            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_403_ERROR);
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_403_FEATURE_NOT_ENABLED);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorCommon403Response::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::FEATURE_NOT_ENABLED, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testDeleteVisitorData403TokenNotFound()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_TOKEN_NOT_FOUND, 'DELETE'));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
+
+        try {
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_403_TOKEN_NOT_FOUND);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::TOKEN_NOT_FOUND, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testDeleteVisitorData403TokenRequired()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_TOKEN_REQUIRED, 'DELETE'));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
+
+        try {
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_403_TOKEN_REQUIRED);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::TOKEN_REQUIRED, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testDeleteVisitorData403WrongRegion()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_WRONG_REGION, 'DELETE'));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
+
+        try {
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_403_WRONG_REGION);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::WRONG_REGION, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testDeleteVisitorData403SubscriptionIsNotActive()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE, 'DELETE'));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
+
+        try {
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::SUBSCRIPTION_NOT_ACTIVE, $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
         }
@@ -386,8 +522,8 @@ class FingerprintApiTest extends TestCase
         try {
             $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_404_ERROR);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorVisitor404Response::class, get_class($e->getErrorDetails()));
-            $this->assertEquals('VisitorNotFound', $e->getErrorDetails()->getError()->getCode());
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::VISITOR_NOT_FOUND, $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
         }
@@ -396,42 +532,44 @@ class FingerprintApiTest extends TestCase
     public function testDeleteVisitorData429Error()
     {
         $this->mockHandler->reset();
-        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_429_ERROR, 'DELETE'));
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_429_ERROR_DELETE, 'DELETE'));
 
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(429);
 
         try {
-            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_429_ERROR);
+            $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID_429_ERROR_DELETE);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorCommon429Response::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::TOO_MANY_REQUESTS, $e->getErrorDetails()->getError()->getCode());
             $this->assertEquals(30, $e->getRetryAfter());
 
             throw $e;
         }
     }
 
-    public function testUpdateEvent() {
+    public function testUpdateEvent()
+    {
         $this->mockHandler->reset();
         $this->mockHandler->append(new Response(200));
-        $body = new EventUpdateRequest();
-        $body->setLinkedId("test");
-        $tag = [
-            "test" => "true"
-        ];
-        $body->setTag((object)$tag);
-        $body->setSuspect(false);
+        $body = new EventsUpdateRequest([
+            'linked_id' => 'test',
+            'tag' => [
+                'test' => 'true',
+            ],
+            'suspect' => false,
+        ]);
         [, $res] = $this->fingerprint_api->updateEvent($body, self::MOCK_REQUEST_ID);
 
         $req = $this->mockHandler->getLastRequest();
         $this->assertEquals($req->getBody()->getContents(), json_encode([
-            "linkedId" => "test",
-            "tag" => [
-                "test" => "true"
+            'linkedId' => 'test',
+            'tag' => [
+                'test' => 'true',
             ],
-            "suspect" => false
+            'suspect' => false,
         ]));
-        $this->assertEquals("PUT", $req->getMethod());
+        $this->assertEquals('PUT', $req->getMethod());
 
         $this->assertEquals(200, $res->getStatusCode());
     }
@@ -445,28 +583,64 @@ class FingerprintApiTest extends TestCase
         $this->expectExceptionCode(400);
 
         try {
-            $this->fingerprint_api->updateEvent(new EventUpdateRequest([]), self::MOCK_EVENT_ID_400_ERROR);
+            $this->fingerprint_api->updateEvent(new EventsUpdateRequest([]), self::MOCK_EVENT_ID_400_ERROR);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorUpdateEvent400Response::class, get_class($e->getErrorDetails()));
-            $this->assertEquals('RequestCannotBeParsed', $e->getErrorDetails()->getError()->getCode());
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::REQUEST_CANNOT_BE_PARSED, $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
         }
     }
 
-    public function testUpdateEvent403Error()
+    public function testUpdateEvent403WrongRegion()
     {
         $this->mockHandler->reset();
-        $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_ERROR, 'PUT'));
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_WRONG_REGION, 'PUT'));
 
         $this->expectException(ApiException::class);
         $this->expectExceptionCode(403);
 
         try {
-            $this->fingerprint_api->updateEvent(new EventUpdateRequest([]), self::MOCK_EVENT_ID_403_ERROR);
+            $this->fingerprint_api->updateEvent(new EventsUpdateRequest([]), self::MOCK_EVENT_ID_403_WRONG_REGION);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorCommon403Response::class, get_class($e->getErrorDetails()));
-            $this->assertEquals('TokenRequired', $e->getErrorDetails()->getError()->getCode());
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::WRONG_REGION, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testUpdateEvent403TokenRequired()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_TOKEN_REQUIRED, 'PUT'));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
+
+        try {
+            $this->fingerprint_api->updateEvent(new EventsUpdateRequest([]), self::MOCK_EVENT_ID_403_TOKEN_REQUIRED);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::TOKEN_REQUIRED, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testUpdateEvent403TokenNotFound()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND, 'PUT'));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
+
+        try {
+            $this->fingerprint_api->updateEvent(new EventsUpdateRequest([]), self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::TOKEN_NOT_FOUND, $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
         }
@@ -481,10 +655,10 @@ class FingerprintApiTest extends TestCase
         $this->expectExceptionCode(404);
 
         try {
-            $this->fingerprint_api->updateEvent(new EventUpdateRequest([]), self::MOCK_EVENT_ID_404_ERROR);
+            $this->fingerprint_api->updateEvent(new EventsUpdateRequest([]), self::MOCK_EVENT_ID_404_ERROR);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorEvent404Response::class, get_class($e->getErrorDetails()));
-            $this->assertEquals('RequestNotFound', $e->getErrorDetails()->getError()->getCode());
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::REQUEST_NOT_FOUND, $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
         }
@@ -499,10 +673,10 @@ class FingerprintApiTest extends TestCase
         $this->expectExceptionCode(409);
 
         try {
-            $this->fingerprint_api->updateEvent(new EventUpdateRequest([]), self::MOCK_EVENT_ID_409_ERROR);
+            $this->fingerprint_api->updateEvent(new EventsUpdateRequest([]), self::MOCK_EVENT_ID_409_ERROR);
         } catch (ApiException $e) {
-            $this->assertEquals(ErrorUpdateEvent409Response::class, get_class($e->getErrorDetails()));
-            $this->assertEquals('StateNotReady', $e->getErrorDetails()->getError()->getCode());
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::STATE_NOT_READY, $e->getErrorDetails()->getError()->getCode());
 
             throw $e;
         }
@@ -551,55 +725,110 @@ class FingerprintApiTest extends TestCase
 
                     break;
 
-                case self::MOCK_EVENT_ID_403_ERROR:
-                    $mock_name = 'get_event_403_error.json';
+                case self::MOCK_EVENT_ID_403_TOKEN_REQUIRED:
+                    $mock_name = 'errors/403_token_required.json';
+                    $status = 403;
+
+                    break;
+
+                case self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND:
+                    $mock_name = 'errors/403_token_not_found.json';
+                    $status = 403;
+
+                    break;
+
+                case self::MOCK_EVENT_ID_403_WRONG_REGION:
+                    $mock_name = 'errors/403_wrong_region.json';
                     $status = 403;
 
                     break;
 
                 case self::MOCK_EVENT_ID_404_ERROR:
-                    $mock_name = 'get_event_404_error.json';
+                    $mock_name = 'errors/404_request_not_found.json';
                     $status = 404;
 
                     break;
 
                 case self::MOCK_EVENT_ID_400_ERROR:
-                    $mock_name = 'update_event_400_error.json';
+                    $mock_name = 'errors/400_request_body_invalid.json';
                     $status = 400;
 
                     break;
 
                 case self::MOCK_VISITOR_ID:
-                    $mock_name = 'get_visits_200_limit_500.json';
+                    $mock_name = 'get_visitors_200_limit_500.json';
 
                     break;
 
                 case self::MOCK_VISITOR_REQUEST_ID:
-                    $mock_name = 'get_visits_200_limit_1.json';
+                    $mock_name = 'get_visitors_200_limit_1.json';
 
                     break;
 
                 case self::MOCK_VISITOR_ID_403_ERROR:
-                    $mock_name = 'get_visits_403_error.json';
+                    $mock_name = 'get_visitors_403_forbidden.json';
+                    $status = 403;
+
+                    break;
+
+                case self::MOCK_VISITOR_ID_403_FEATURE_NOT_ENABLED:
+                    $mock_name = 'errors/403_feature_not_enabled.json';
+                    $status = 403;
+
+                    break;
+
+                case self::MOCK_VISITOR_ID_403_TOKEN_NOT_FOUND:
+                    $mock_name = 'errors/403_token_not_found.json';
+                    $status = 403;
+
+                    break;
+
+                case self::MOCK_VISITOR_ID_403_TOKEN_REQUIRED:
+                    $mock_name = 'errors/403_token_required.json';
+                    $status = 403;
+
+                    break;
+
+                case self::MOCK_VISITOR_ID_403_WRONG_REGION:
+                    $mock_name = 'errors/403_wrong_region.json';
+                    $status = 403;
+
+                    break;
+
+                case self::MOCK_VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE:
+                    $mock_name = 'errors/403_subscription_not_active.json';
                     $status = 403;
 
                     break;
 
                 case self::MOCK_VISITOR_ID_429_ERROR:
-                    $mock_name = 'get_visits_429_too_many_requests_error.json';
+                    $mock_name = 'get_visitors_429_too_many_requests.json';
                     $status = 429;
                     $headers['retry-after'] = 30;
 
                     break;
 
-                case self::MOCK_VISITOR_ID_400_ERROR:
-                    $mock_name = 'shared/400_error_incorrect_visitor_id.json';
+                case self::MOCK_VISITOR_ID_429_ERROR_DELETE:
+                    $mock_name = 'errors/429_too_many_requests.json';
+                    $status = 429;
+                    $headers['retry-after'] = 30;
+
+                    break;
+
+                case self::MOCK_VISITOR_ID_400_INCORRECT_VISITOR_ID:
+                    $mock_name = 'errors/400_visitor_id_invalid.json';
+                    $status = 400;
+
+                    break;
+
+                case self::MOCK_VISITOR_ID_400_EMPTY_VISITOR_ID:
+                    $mock_name = 'errors/400_visitor_id_required.json';
                     $status = 400;
 
                     break;
 
                 case self::MOCK_VISITOR_ID_404_ERROR:
-                    $mock_name = 'shared/404_error_visitor_not_found.json';
+                    $mock_name = 'errors/404_visitor_not_found.json';
                     $status = 404;
 
                     break;
@@ -616,25 +845,37 @@ class FingerprintApiTest extends TestCase
 
                 case self::MOCK_EVENT_ID_409_ERROR:
                     $status = 409;
-                    $mock_name = 'update_event_409_error.json';
+                    $mock_name = 'errors/409_state_not_ready.json';
 
                     break;
 
                 case self::MOCK_EVENT_ID_404_ERROR:
                     $status = 404;
-                    $mock_name = 'update_event_404_error.json';
+                    $mock_name = 'errors/404_request_not_found.json';
 
                     break;
 
-                case self::MOCK_EVENT_ID_403_ERROR:
+                case self::MOCK_EVENT_ID_403_TOKEN_REQUIRED:
                     $status = 403;
-                    $mock_name = 'update_event_403_error.json';
+                    $mock_name = 'errors/403_token_required.json';
+
+                    break;
+
+                case self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND:
+                    $status = 403;
+                    $mock_name = 'errors/403_token_not_found.json';
+
+                    break;
+
+                case self::MOCK_EVENT_ID_403_WRONG_REGION:
+                    $status = 403;
+                    $mock_name = 'errors/403_wrong_region.json';
 
                     break;
 
                 case self::MOCK_EVENT_ID_400_ERROR:
                     $status = 400;
-                    $mock_name = 'update_event_400_error.json';
+                    $mock_name = 'errors/400_request_body_invalid.json';
 
                     break;
             }

@@ -72,7 +72,12 @@ class ObjectSerializer
 
             return $data;
         }
+
         if (is_object($data)) {
+            $class = get_class($data);
+            if (enum_exists($class)) {
+                return $data->value;
+            }
             $values = [];
             $formats = $data::swaggerFormats();
             foreach ($data::swaggerTypes() as $property => $swaggerType) {
@@ -214,7 +219,18 @@ class ObjectSerializer
 
             return $values;
         }
-        if ('object' === $class || '\Fingerprint\ServerAPI\Model\RawDeviceAttributesResult' === $class) {
+        if ('mixed' === $class) {
+            if ($data instanceof \stdClass) {
+                if (empty(get_object_vars($data))) {
+                    return null;
+                }
+
+                return (array) $data;
+            }
+
+            return $data;
+        }
+        if ('object' === $class || 'array' === $class) {
             settype($data, 'array');
 
             return $data;
@@ -260,11 +276,14 @@ class ObjectSerializer
             }
 
             throw new SerializationException($response);
-        } elseif (method_exists($class, 'getAllowableEnumValues')) {
-            if (!in_array($data, $class::getAllowableEnumValues())) {
-                $imploded = implode("', '", $class::getAllowableEnumValues());
+        } elseif (enum_exists($class)) {
+            try {
+                return $class::from($data);
+            } catch (\ValueError $e) {
+                $allowedValues = array_map(fn ($case) => $case->value, $class::cases());
+                $imploded = implode("', '", $allowedValues);
 
-                throw new \InvalidArgumentException("Invalid value for enum '{$class}', must be one of: '{$imploded}'");
+                throw new \InvalidArgumentException("Invalid value '{$data}' for enum '{$class}', must be one of: '{$imploded}'");
             }
 
             return $data;

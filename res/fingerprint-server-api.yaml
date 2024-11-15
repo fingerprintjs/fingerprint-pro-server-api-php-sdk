@@ -53,32 +53,34 @@ paths:
       parameters:
         - name: request_id
           in: path
-          description: >-
-            The unique
-            [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of
-            each identification request.
           required: true
           schema:
             type: string
+          description: >-
+            The unique
+            [identifier](https://dev.fingerprint.com/reference/get-function#requestid)
+            of each identification request.
       responses:
         '200':
-          description: OK
+          description: OK.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EventResponse'
+                $ref: '#/components/schemas/EventsGetResponse'
         '403':
-          description: Forbidden
+          description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorCommon403Response'
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Not found
+          description: >-
+            Not found. The request ID cannot be found in this application's
+            data.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorEvent404Response'
+                $ref: '#/components/schemas/ErrorResponse'
     put:
       tags:
         - Fingerprint
@@ -99,45 +101,47 @@ paths:
       parameters:
         - name: request_id
           in: path
-          description: >-
-            The unique event
-            [identifier](https://dev.fingerprint.com/docs/js-agent#requestid).
           required: true
           schema:
             type: string
+          description: >-
+            The unique event
+            [identifier](https://dev.fingerprint.com/reference/get-function#requestid).
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EventUpdateRequest'
+              $ref: '#/components/schemas/EventsUpdateRequest'
       responses:
         '200':
-          description: OK
+          description: OK.
         '400':
-          description: Bad request
+          description: Bad request. The request payload is not valid.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorUpdateEvent400Response'
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
-          description: Forbidden
+          description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorCommon403Response'
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Not found
+          description: >-
+            Not found. The request ID cannot be found in this application's
+            data.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorEvent404Response'
+                $ref: '#/components/schemas/ErrorResponse'
         '409':
-          description: Conflict
+          description: Conflict. The event is not mutable yet.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorUpdateEvent409Response'
+                $ref: '#/components/schemas/ErrorResponse'
   /visitors/{visitor_id}:
     get:
       tags:
@@ -160,16 +164,18 @@ paths:
         response is received.
       parameters:
         - name: visitor_id
-          description: >-
-            Unique [visitor
-            identifier](https://dev.fingerprint.com/docs/js-agent#visitorid)
-            issued by Fingerprint Pro.
           in: path
           required: true
           schema:
             type: string
-          example: uYIm7Ksp5rf00SllPhFp
+          description: >-
+            Unique [visitor
+            identifier](https://dev.fingerprint.com/reference/get-function#visitorid)
+            issued by Fingerprint Pro.
         - name: request_id
+          in: query
+          schema:
+            type: string
           description: >
             Filter visits by `requestId`. 
 
@@ -177,27 +183,29 @@ paths:
             Every identification request has a unique identifier associated with
             it called `requestId`. This identifier is returned to the client in
             the identification
-            [result](https://dev.fingerprint.com/docs/js-agent#requestid). When
-            you filter visits by `requestId`, only one visit will be returned.
+            [result](https://dev.fingerprint.com/reference/get-function#requestid).
+            When you filter visits by `requestId`, only one visit will be
+            returned.
+        - name: linked_id
           in: query
           schema:
             type: string
-        - name: linked_id
           description: >
             Filter visits by your custom identifier. 
 
 
             You can use
-            [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to
-            associate identification requests with your own identifier, for
+            [`linkedId`](https://dev.fingerprint.com/reference/get-function#linkedid)
+            to associate identification requests with your own identifier, for
             example: session ID, purchase ID, or transaction ID. You can then
             use this `linked_id` parameter to retrieve all events associated
             with your custom identifier.
+        - name: limit
           in: query
           schema:
-            type: string
-          required: false
-        - name: limit
+            type: integer
+            format: int32
+            minimum: 0
           description: >
             Limit scanned results. 
 
@@ -210,12 +218,10 @@ paths:
 
             By default, the most recent 100 visits are scanned, the maximum is
             500.
+        - name: paginationKey
           in: query
           schema:
-            type: integer
-            format: int32
-            minimum: 0
-        - name: paginationKey
+            type: string
           description: >
             Use `paginationKey` to get the next page of results. 
 
@@ -240,34 +246,39 @@ paths:
             get less visits than the `limit` you specified with more available
             on the next page. When there are no more results available for
             scanning, the `paginationKey` attribute is not returned.
-          in: query
-          schema:
-            type: string
-          required: false
         - name: before
-          description: >
-            ⚠️ Deprecated pagination method, please use `paginationKey` instead.
-            Timestamp (in milliseconds since epoch) used to paginate results.
           in: query
+          deprecated: true
           schema:
             type: integer
             format: int64
             minimum: 0
+          description: >
+            ⚠️ Deprecated pagination method, please use `paginationKey` instead.
+            Timestamp (in milliseconds since epoch) used to paginate results.
       responses:
         '200':
-          description: OK
+          description: OK.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Response'
+                $ref: '#/components/schemas/VisitorsGetResponse'
+        '400':
+          description: >-
+            Bad request. The visitor ID or query parameters are missing or in
+            the wrong format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorPlainResponse'
         '403':
-          description: Forbidden. The API Key is probably missing or incorrect.
+          description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVisits403'
+                $ref: '#/components/schemas/ErrorPlainResponse'
         '429':
-          description: Too Many Requests
+          description: Too Many Requests. The request is throttled.
           headers:
             Retry-After:
               description: >-
@@ -280,7 +291,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TooManyRequestsResponse'
+                $ref: '#/components/schemas/ErrorPlainResponse'
     delete:
       tags:
         - Fingerprint
@@ -345,13 +356,13 @@ paths:
       parameters:
         - name: visitor_id
           in: path
-          description: >-
-            The [visitor
-            ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to
-            delete.
           required: true
           schema:
             type: string
+          description: >-
+            The [visitor
+            ID](https://dev.fingerprint.com/reference/get-function#visitorid)
+            you want to delete.
       responses:
         '200':
           description: OK. The visitor ID is scheduled for deletion.
@@ -362,13 +373,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVisitor400Response'
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorCommon403Response'
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: >-
             Not found. The visitor ID cannot be found in this application's
@@ -376,13 +387,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVisitor404Response'
+                $ref: '#/components/schemas/ErrorResponse'
         '429':
           description: Too Many Requests. The request is throttled.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorCommon429Response'
+                $ref: '#/components/schemas/ErrorResponse'
   /webhook:
     trace:
       tags:
@@ -391,6 +402,11 @@ paths:
         Fake path to describe webhook format. More information about webhooks
         can be found in the
         [documentation](https://dev.fingerprint.com/docs/webhooks)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
       responses:
         default:
           description: Dummy for the schema
@@ -406,22 +422,17 @@ paths:
                 content:
                   application/json:
                     schema:
-                      $ref: '#/components/schemas/WebhookVisit'
+                      $ref: '#/components/schemas/Webhook'
                     example:
                       value:
                         requestId: Px6VxbRC6WBkA39yeNH3
+                        url: https://banking.example.com/signup
+                        ip: 216.3.128.12
                         tag:
                           requestType: signup
                           yourCustomId: 45321
-                        linkedId: any-string
-                        visitorId: 3HNey93AkBW6CRbxV6xP
-                        visitorFound: true
-                        timestamp: 1554910997788
                         time: '2019-10-12T07:20:50.52Z'
-                        incognito: false
-                        url: https://banking.example.com/signup
-                        clientReferrer: https://google.com?search=banking+services
-                        ip: 216.3.128.12
+                        timestamp: 1554910997788
                         ipLocation:
                           accuracyRadius: 1
                           city:
@@ -439,6 +450,17 @@ paths:
                             - isoCode: IL
                               name: Illinois
                           timezone: America/Chicago
+                        linkedId: any-string
+                        visitorId: 3HNey93AkBW6CRbxV6xP
+                        visitorFound: true
+                        confidence:
+                          score: 0.97
+                        firstSeenAt:
+                          global: '2022-03-16T11:26:45.362Z'
+                          subscription: '2022-03-16T11:31:01.101Z'
+                        lastSeenAt:
+                          global: '2022-03-16T11:28:34.023Z'
+                          subscription: null
                         browserDetails:
                           browserName: Chrome
                           browserFullVersion: 73.0.3683.86
@@ -449,20 +471,18 @@ paths:
                           userAgent: >-
                             (Macintosh; Intel Mac OS X 10_14_3)
                             Chrome/73.0.3683.86
-                        confidence:
-                          score: 0.97
-                        firstSeenAt:
-                          global: '2022-03-16T11:26:45.362Z'
-                          subscription: '2022-03-16T11:31:01.101Z'
-                        lastSeenAt:
-                          global: '2022-03-16T11:28:34.023Z'
-                          subscription: null
+                        incognito: false
+                        clientReferrer: https://google.com?search=banking+services
                         bot:
                           result: bad
                           type: selenium
                         userAgent: >-
                           (Macintosh; Intel Mac OS X 10_14_3)
                           Chrome/73.0.3683.86
+                        rootApps:
+                          result: false
+                        emulator:
+                          result: false
                         ipInfo:
                           v4:
                             address: 94.142.239.124
@@ -490,10 +510,6 @@ paths:
                             datacenter:
                               result: true
                               name: DediPath
-                        rootApps:
-                          result: false
-                        emulator:
-                          result: false
                         ipBlocklist:
                           result: false
                           details:
@@ -503,6 +519,7 @@ paths:
                           result: false
                         vpn:
                           result: false
+                          confidence: high
                           originTimezone: Europe/Berlin
                           originCountry: unknown
                           methods:
@@ -510,12 +527,12 @@ paths:
                             publicVPN: false
                             auxiliaryMobile: false
                             osMismatch: false
-                          confidence: high
                         proxy:
                           result: false
                         tampering:
                           result: false
                           anomalyScore: 0
+                          antiDetectBrowser: false
                         clonedApp:
                           result: false
                         factoryReset:
@@ -572,6 +589,21 @@ paths:
                               5m: 1
                               1h: 5
                               24h: 5
+                          ipEvents:
+                            intervals:
+                              5m: 1
+                              1h: 5
+                              24h: 5
+                          distinctIpByLinkedId:
+                            intervals:
+                              5m: 1
+                              1h: 5
+                              24h: 5
+                          distinctVisitorIdByLinkedId:
+                            intervals:
+                              5m: 1
+                              1h: 5
+                              24h: 5
                         developerTools:
                           result: false
               responses:
@@ -591,657 +623,178 @@ components:
     BrowserDetails:
       type: object
       additionalProperties: false
+      required:
+        - browserName
+        - browserFullVersion
+        - browserMajorVersion
+        - os
+        - osVersion
+        - device
+        - userAgent
       properties:
         browserName:
           type: string
-          example: Chrome
         browserMajorVersion:
           type: string
-          example: '101'
         browserFullVersion:
           type: string
-          example: 101.0.4951
         os:
           type: string
-          example: Windows
         osVersion:
           type: string
-          example: '10'
         device:
           type: string
-          example: Other
         userAgent:
           type: string
-          example: >-
-            Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
-            like Gecko) Chrome/101.0.4951.41 Safari/537.36
-        botProbability:
-          type: integer
-      required:
-        - browserFullVersion
-        - browserMajorVersion
-        - browserName
-        - device
-        - os
-        - osVersion
-        - userAgent
-      title: BrowserDetails
-    Location:
+    GeolocationCity:
       type: object
       additionalProperties: false
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    GeolocationCountry:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - name
       properties:
         code:
           type: string
           minLength: 2
           maxLength: 2
-          example: US
         name:
           type: string
-          example: United States
+    GeolocationContinent:
+      type: object
+      additionalProperties: false
       required:
         - code
         - name
-      title: Location
-    Subdivision:
+      properties:
+        code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        name:
+          type: string
+    GeolocationSubdivision:
       type: object
       additionalProperties: false
+      required:
+        - isoCode
+        - name
       properties:
         isoCode:
           type: string
-          example: '10'
         name:
           type: string
-          example: Hlavni mesto Praha
-    Confidence:
+    GeolocationSubdivisions:
+      type: array
+      items:
+        $ref: '#/components/schemas/GeolocationSubdivision'
+    DeprecatedGeolocation:
+      deprecated: true
       type: object
-      additionalProperties: false
-      properties:
-        score:
-          description: >-
-            The confidence score is a floating-point number between 0 and 1 that
-            represents the probability of accurate identification.
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-        revision:
-          description: >-
-            The revision name of the method used to calculate the Confidence
-            score. This field is only present for customers who opted in to an
-            alternative calculation method.
-          type: string
-      required:
-        - score
-      title: Confidence
-    SeenAt:
-      type: object
-      additionalProperties: false
-      properties:
-        global:
-          type: string
-          nullable: true
-          format: date-time
-          example: '2022-05-05T18:28:54.535Z'
-        subscription:
-          type: string
-          nullable: true
-          format: date-time
-          example: '2022-06-09T22:58:05.576Z'
-      required:
-        - global
-        - subscription
-      title: SeenAt
-      example:
-        global: '2022-05-05T18:28:54.535Z'
-        subscription: null
-    IdentificationError:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type: string
-          description: |
-            Error code:
-             * `429 Too Many Requests` - the limit on secret API key requests per second has been exceeded
-             * `Failed` - internal server error
-          enum:
-            - 429 Too Many Requests
-            - Failed
-          example: 429 Too Many Requests
-        message:
-          type: string
-          example: too many requests
-      required:
-        - code
-        - message
-    BotdDetectionResult:
-      type: object
-      additionalProperties: false
-      description: Stores bot detection result
-      properties:
-        result:
-          type: string
-          description: |
-            Bot detection result:
-             * `notDetected` - the visitor is not a bot
-             * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
-             * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
-          enum:
-            - notDetected
-            - good
-            - bad
-          example: bad
-        type:
-          type: string
-          example: selenium
-      required:
-        - result
-    BotdResult:
-      type: object
-      additionalProperties: false
-      description: Contains all the information from Bot Detection product
-      properties:
-        ip:
-          type: string
-          format: ipv4
-          example: 8.8.8.8
-          description: IP address of the requesting browser or bot.
-        time:
-          title: Time
-          description: >-
-            Time in UTC when the request from the JS agent was made. We
-            recommend to treat requests that are older than 2 minutes as
-            malicious. Otherwise, request replay attacks are possible
-          type: string
-          format: date-time
-          example: '2022-06-09T22:58:36Z'
-        url:
-          description: Page URL from which identification request was sent.
-          type: string
-          example: https://example.com/login
-        userAgent:
-          type: string
-          example: >-
-            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
-            (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36
-        requestId:
-          type: string
-          example: 1681392853693.lRiBBD
-        linkedId:
-          type: string
-          example: Automatic tests bot
-        bot:
-          $ref: '#/components/schemas/BotdDetectionResult'
-      required:
-        - bot
-        - url
-        - ip
-        - time
-        - userAgent
-        - requestId
-    ProductError:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type: string
-          description: |
-            Error code:
-             * `TooManyRequests` - the limit on secret API key requests per second has been exceeded
-             * `Failed` - internal server error
-          enum:
-            - TooManyRequests
-            - Failed
-          example: TooManyRequests
-        message:
-          type: string
-          example: too many requests
-      required:
-        - code
-        - message
-    IPLocation:
-      type: object
+      description: >-
+        This field is **deprecated** and will not return a result for
+        **applications created after January 23rd, 2024**.  Please use the [IP
+        Geolocation Smart
+        signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation)
+        for geolocation information.
       additionalProperties: false
       properties:
         accuracyRadius:
+          type: integer
+          minimum: 0
           description: >-
             The IP address is likely to be within this radius (in km) of the
             specified location.
-          type: integer
-          minimum: 0
-          example: 1000
         latitude:
           type: number
           format: double
           minimum: -90
           maximum: 90
-          example: 37.75
         longitude:
           type: number
           format: double
           minimum: -180
           maximum: 180
-          example: -97.82
         postalCode:
           type: string
-          example: 130 00
         timezone:
           type: string
           format: timezone
-          example: America/Chicago
         city:
-          type: object
-          additionalProperties: false
-          title: IPLocationCity
-          properties:
-            name:
-              type: string
-              example: Prague
+          $ref: '#/components/schemas/GeolocationCity'
         country:
-          $ref: '#/components/schemas/Location'
+          $ref: '#/components/schemas/GeolocationCountry'
         continent:
-          $ref: '#/components/schemas/Location'
+          $ref: '#/components/schemas/GeolocationContinent'
         subdivisions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subdivision'
-      title: IPLocation
-    ASN:
-      type: object
-      additionalProperties: false
-      properties:
-        asn:
-          type: string
-          example: '7922'
-        network:
-          type: string
-          example: 73.136.0.0/13
-        name:
-          type: string
-          example: COMCAST-7922
-      required:
-        - asn
-        - network
-      title: ASN
-    DataCenter:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-        name:
-          type: string
-          example: DediPath
-      required:
-        - result
-      title: DataCenter
-    IpInfoResult:
+          $ref: '#/components/schemas/GeolocationSubdivisions'
+    Tag:
       type: object
       description: >-
-        Details about the request IP address. Has separate fields for v4 and v6
-        IP address versions.
-      additionalProperties: false
-      properties:
-        v4:
-          type: object
-          additionalProperties: false
-          properties:
-            address:
-              type: string
-              format: ipv4
-              example: 94.142.239.124
-            geolocation:
-              $ref: '#/components/schemas/IPLocation'
-            asn:
-              $ref: '#/components/schemas/ASN'
-            datacenter:
-              $ref: '#/components/schemas/DataCenter'
-          required:
-            - address
-            - geolocation
-        v6:
-          type: object
-          additionalProperties: false
-          properties:
-            address:
-              type: string
-              format: ipv6
-              example: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
-            geolocation:
-              $ref: '#/components/schemas/IPLocation'
-            asn:
-              $ref: '#/components/schemas/ASN'
-            datacenter:
-              $ref: '#/components/schemas/DataCenter'
-          required:
-            - address
-            - geolocation
-    IncognitoResult:
+        A customer-provided value or an object that was sent with identification
+        request.
+      additionalProperties: true
+    IdentificationConfidence:
       type: object
       additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            `true` if we detected incognito mode used in the browser, `false`
-            otherwise.
-          example: false
       required:
-        - result
-    RootAppsResult:
-      type: object
-      additionalProperties: false
+        - score
       properties:
-        result:
-          type: boolean
-          description: >
-            Android specific root management apps detection. There are 2 values:
-            • `true` - Root Management Apps detected (e.g. Magisk) • `false` -
-            No Root Management Apps detected or the client isn't Android.
-          example: false
-      required:
-        - result
-    EmulatorResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            Android specific emulator detection. There are 2 values: • `true` -
-            Emulated environment detected (e.g. launch inside of AVD) • `false`
-            - No signs of emulated environment detected or the client is not
-            Android.
-          example: false
-      required:
-        - result
-    ClonedAppResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            Android specific cloned application detection. There are 2 values: •
-            `true` - Presence of app cloners work detected (e.g. fully cloned
-            application found or launch of it inside of a not main working
-            profile detected). • `false` - No signs of cloned application
-            detected or the client is not Android.
-          example: false
-      required:
-        - result
-    FactoryResetResult:
-      type: object
-      additionalProperties: false
-      properties:
-        time:
-          description: >
-            Indicates the time (in UTC) of the most recent factory reset that
-            happened on the **mobile device**. 
-
-            When a factory reset cannot be detected on the mobile device or when
-            the request is initiated from a browser, this field will correspond
-            to the *epoch* time (i.e 1 Jan 1970 UTC).
-
-            See [Factory Reset
-            Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection)
-            to learn more about this Smart Signal.
-          type: string
-          format: date-time
-          example: '2022-06-09T22:58:36Z'
-        timestamp:
-          description: >
-            This field is just another representation of the value in the `time`
-            field.
-
-            The time of the most recent factory reset that happened on the
-            **mobile device** is expressed as Unix epoch time.       
-          type: integer
-          format: int64
-          example: 1654815517198
-      required:
-        - time
-        - timestamp
-    JailbrokenResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            iOS specific jailbreak detection. There are 2 values: • `true` -
-            Jailbreak detected • `false` - No signs of jailbreak or the client
-            is not iOS.
-          example: false
-      required:
-        - result
-    FridaResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            [Frida](https://frida.re/docs/) detection for Android and iOS
-            devices. There are 2 values: • `true` - Frida detected • `false` -
-            No signs of Frida or the client is not a mobile device.
-          example: false
-      required:
-        - result
-    IpBlockListResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            `true` if request IP address is part of any database that we use to
-            search for known malicious actors, `false` otherwise.
-          example: false
-        details:
-          type: object
-          additionalProperties: false
-          properties:
-            emailSpam:
-              type: boolean
-              description: IP address was part of a known email spam attack (SMTP).
-              example: false
-            attackSource:
-              type: boolean
-              description: IP address was part of a known network attack (SSH/HTTPS).
-              example: false
-          required:
-            - emailSpam
-            - attackSource
-      required:
-        - result
-        - details
-    TorResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            `true` if the request IP address is a known tor exit node, `false`
-            otherwise.
-          example: false
-      required:
-        - result
-    PrivacySettingsResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            `true` if the request is from a privacy aware browser (e.g. Tor) or
-            from a browser in which fingerprinting is blocked. Otherwise
-            `false`.
-          example: false
-      required:
-        - result
-    VirtualMachineResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            `true` if the request came from a browser running inside a virtual
-            machine (e.g. VMWare), `false` otherwise.
-          example: false
-      required:
-        - result
-    VpnResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >-
-            VPN or other anonymizing service has been used when sending the
-            request.
-          example: false
-        originTimezone:
-          type: string
-          description: Local timezone which is used in timezoneMismatch method.
-          example: Europe/Berlin
-        originCountry:
-          type: string
-          description: >-
-            Country of the request (only for Android SDK version >= 2.4.0, ISO
-            3166 format or unknown).
-          example: unknown
-        methods:
-          type: object
-          additionalProperties: false
-          properties:
-            timezoneMismatch:
-              type: boolean
-              description: >-
-                The browser timezone doesn't match the timezone inferred from
-                the request IP address.
-              example: false
-            publicVPN:
-              type: boolean
-              description: >-
-                Request IP address is owned and used by a public VPN service
-                provider.
-              example: false
-            auxiliaryMobile:
-              type: boolean
-              description: >-
-                This method applies to mobile devices only. Indicates the result
-                of additional methods used to detect a VPN in mobile devices.
-              example: false
-            osMismatch:
-              type: boolean
-              description: >-
-                The browser runs on a different operating system than the
-                operating system inferred from the  request network signature.
-              example: false
-          required:
-            - timezoneMismatch
-            - publicVPN
-            - auxiliaryMobile
-            - osMismatch
-        confidence:
-          type: string
-          enum:
-            - low
-            - medium
-            - high
-          description: >-
-            A confidence rating for the VPN detection result — "low", "medium",
-            or "high". Depends on the combination of results returned from all
-            VPN detection methods.
-          example: low
-      required:
-        - result
-        - originTimezone
-        - methods
-        - confidence
-    ProxyResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >
-            `true` if the request IP address is used by a public proxy provider,
-            `false` otherwise.
-          example: false
-      required:
-        - result
-    TamperingResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
-          description: >-
-            Flag indicating whether browser tampering was detected according to
-            our internal thresholds.
-          example: false
-        anomalyScore:
+        score:
           type: number
-          description: >-
-            Confidence score (`0.0 - 1.0`) for the tampering detection. Values
-            above `0.5` suggest that we're reasonably sure there was a tampering
-            attempt. Values below `0.5` are genuine browsers.
-          example: 0
+          format: double
           minimum: 0
           maximum: 1
-      required:
-        - result
-        - anomalyScore
-    HighActivityResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
           description: >-
-            Flag indicating whether the request came from a high activity
-            visitor.
-          example: false
-        dailyRequests:
-          type: number
-          description: Number of requests from the same visitor in the previous day.
-          example: 10
-          minimum: 1
-      required:
-        - result
-    LocationSpoofingResult:
-      type: object
-      additionalProperties: false
-      properties:
-        result:
-          type: boolean
+            The confidence score is a floating-point number between 0 and 1 that
+            represents the probability of accurate identification.
+        revision:
+          type: string
           description: >-
-            Flag indicating whether the request came from a mobile device with
-            location spoofing enabled.
-          example: false
+            The revision name of the method used to calculate the Confidence
+            score. This field is only present for customers who opted in to an
+            alternative calculation method.
+        comment:
+          type: string
+    IdentificationSeenAt:
+      type: object
+      additionalProperties: false
       required:
-        - result
-    SuspectScoreResult:
+        - global
+        - subscription
+      properties:
+        global:
+          type: string
+          nullable: true
+          format: date-time
+        subscription:
+          type: string
+          nullable: true
+          format: date-time
+    RawDeviceAttributeError:
       type: object
       additionalProperties: false
       properties:
-        result:
-          type: integer
-          description: >
-            Suspect Score is an easy way to integrate Smart Signals into your
-            fraud protection work flow.  It is a weighted representation of all
-            Smart Signals present in the payload that helps identify suspicious
-            activity. The value range is [0; S] where S is sum of all Smart
-            Signals weights.  See more details here:
-            https://dev.fingerprint.com/docs/suspect-score
-          example: 0
-      required:
-        - result
-    RawDeviceAttributesResult:
+        name:
+          type: string
+        message:
+          type: string
+    RawDeviceAttribute:
+      type: object
+      additionalProperties: false
+      properties:
+        value:
+          title: value
+        error:
+          $ref: '#/components/schemas/RawDeviceAttributeError'
+    RawDeviceAttributes:
       type: object
       description: >
         It includes 35+ raw browser identification attributes to provide
@@ -1256,24 +809,1313 @@ components:
         Use this data with caution without assuming a specific structure beyond
         the generic type provided here.
       additionalProperties:
-        type: object
-        properties:
-          error:
-            properties:
-              name:
-                title: error.name
-                type: string
-              message:
-                title: error.message
-                type: string
-            required:
-              - name
-              - message
-            title: error
-            type: object
-          value:
-            title: value
-    RemoteControlResult:
+        $ref: '#/components/schemas/RawDeviceAttribute'
+    Identification:
+      type: object
+      additionalProperties: false
+      required:
+        - visitorId
+        - requestId
+        - browserDetails
+        - incognito
+        - ip
+        - timestamp
+        - time
+        - url
+        - tag
+        - visitorFound
+        - firstSeenAt
+        - lastSeenAt
+      properties:
+        visitorId:
+          type: string
+          description: >-
+            String of 20 characters that uniquely identifies the visitor's
+            browser.
+        requestId:
+          type: string
+          description: Unique identifier of the user's request.
+        browserDetails:
+          $ref: '#/components/schemas/BrowserDetails'
+        incognito:
+          description: Flag if user used incognito session.
+          type: boolean
+        ip:
+          type: string
+          description: IP address of the requesting browser or bot.
+        ipLocation:
+          $ref: '#/components/schemas/DeprecatedGeolocation'
+        linkedId:
+          type: string
+          description: A customer-provided id that was sent with the request.
+        timestamp:
+          description: Timestamp of the event with millisecond precision in Unix time.
+          type: integer
+          format: int64
+        time:
+          type: string
+          format: date-time
+          description: >-
+            Time expressed according to ISO 8601 in UTC format, when the request
+            from the JS agent was made. We recommend to treat requests that are
+            older than 2 minutes as malicious. Otherwise, request replay attacks
+            are possible.
+        url:
+          type: string
+          description: Page URL from which the request was sent.
+        tag:
+          $ref: '#/components/schemas/Tag'
+        confidence:
+          $ref: '#/components/schemas/IdentificationConfidence'
+        visitorFound:
+          type: boolean
+          description: Attribute represents if a visitor had been identified before.
+        firstSeenAt:
+          $ref: '#/components/schemas/IdentificationSeenAt'
+        lastSeenAt:
+          $ref: '#/components/schemas/IdentificationSeenAt'
+        components:
+          $ref: '#/components/schemas/RawDeviceAttributes'
+    ErrorCode:
+      type: string
+      enum:
+        - RequestCannotBeParsed
+        - TokenRequired
+        - TokenNotFound
+        - SubscriptionNotActive
+        - WrongRegion
+        - FeatureNotEnabled
+        - RequestNotFound
+        - VisitorNotFound
+        - TooManyRequests
+        - 429 Too Many Requests
+        - StateNotReady
+        - Failed
+      description: |
+        Error code:
+         * `RequestCannotBeParsed` - the query parameters or JSON payload contains some errors 
+                  that prevented us from parsing it (wrong type/surpassed limits).
+         * `TokenRequired` - `Auth-API-Key` header is missing or empty.
+         * `TokenNotFound` - no Fingerprint application found for specified secret key.
+         * `SubscriptionNotActive` - Fingerprint application is not active.
+         * `WrongRegion` - server and application region differ.
+         * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application.
+         * `RequestNotFound` - the specified request ID was not found. It never existed, expired, or it has been deleted.
+         * `VisitorNotFound` - The specified visitor ID was not found. It never existed or it may have already been deleted.
+         * `TooManyRequests` - the limit on secret API key requests per second has been exceeded.
+         * `429 Too Many Requests` - the limit on secret API key requests per second has been exceeded.
+         * `StateNotReady` - The event specified with request id is
+                  not ready for updates yet. Try again.
+                  This error happens in rare cases when update API is called immediately
+                  after receiving the request id on the client. In case you need to send
+                  information right away, we recommend using the JS agent API instead.
+         * `Failed` - internal server error.
+    Error:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - message
+      properties:
+        code:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          type: string
+    ProductIdentification:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Identification'
+        error:
+          $ref: '#/components/schemas/Error'
+    BotdBotResult:
+      type: string
+      enum:
+        - notDetected
+        - good
+        - bad
+      description: |
+        Bot detection result:
+         * `notDetected` - the visitor is not a bot
+         * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
+         * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
+    BotdBot:
+      type: object
+      description: Stores bot detection result
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          $ref: '#/components/schemas/BotdBotResult'
+        type:
+          type: string
+    Botd:
+      type: object
+      description: Contains all the information from Bot Detection product
+      additionalProperties: false
+      required:
+        - bot
+        - url
+        - ip
+        - time
+        - userAgent
+        - requestId
+      properties:
+        bot:
+          $ref: '#/components/schemas/BotdBot'
+        meta:
+          $ref: '#/components/schemas/Tag'
+        linkedId:
+          type: string
+          description: A customer-provided id that was sent with the request.
+        url:
+          type: string
+          description: Page URL from which the request was sent.
+        ip:
+          type: string
+          description: IP address of the requesting browser or bot.
+        time:
+          type: string
+          format: date-time
+          description: >-
+            Time in UTC when the request from the JS agent was made. We
+            recommend to treat requests that are older than 2 minutes as
+            malicious. Otherwise, request replay attacks are possible.
+        userAgent:
+          type: string
+        requestId:
+          type: string
+          description: Unique identifier of the user's request.
+    ProductBotd:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Botd'
+        error:
+          $ref: '#/components/schemas/Error'
+    RootApps:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            Android specific root management apps detection. There are 2
+            values: 
+              * `true` - Root Management Apps detected (e.g. Magisk).
+              * `false` - No Root Management Apps detected or the client isn't Android.
+    ProductRootApps:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/RootApps'
+        error:
+          $ref: '#/components/schemas/Error'
+    Emulator:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: |
+            Android specific emulator detection. There are 2 values: 
+              * `true` - Emulated environment detected (e.g. launch inside of AVD). 
+              * `false` - No signs of emulated environment detected or the client is not Android.
+    ProductEmulator:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Emulator'
+        error:
+          $ref: '#/components/schemas/Error'
+    Geolocation:
+      type: object
+      additionalProperties: false
+      properties:
+        accuracyRadius:
+          type: integer
+          minimum: 0
+          description: >-
+            The IP address is likely to be within this radius (in km) of the
+            specified location.
+        latitude:
+          type: number
+          format: double
+          minimum: -90
+          maximum: 90
+        longitude:
+          type: number
+          format: double
+          minimum: -180
+          maximum: 180
+        postalCode:
+          type: string
+        timezone:
+          type: string
+          format: timezone
+        city:
+          $ref: '#/components/schemas/GeolocationCity'
+        country:
+          $ref: '#/components/schemas/GeolocationCountry'
+        continent:
+          $ref: '#/components/schemas/GeolocationContinent'
+        subdivisions:
+          $ref: '#/components/schemas/GeolocationSubdivisions'
+    IPInfoASN:
+      type: object
+      additionalProperties: false
+      required:
+        - asn
+        - name
+        - network
+      properties:
+        asn:
+          type: string
+        name:
+          type: string
+        network:
+          type: string
+    IPInfoDataCenter:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+        - name
+      properties:
+        result:
+          type: boolean
+        name:
+          type: string
+    IPInfoV4:
+      type: object
+      additionalProperties: false
+      required:
+        - address
+        - geolocation
+      properties:
+        address:
+          type: string
+          format: ipv4
+        geolocation:
+          $ref: '#/components/schemas/Geolocation'
+        asn:
+          $ref: '#/components/schemas/IPInfoASN'
+        datacenter:
+          $ref: '#/components/schemas/IPInfoDataCenter'
+    IPInfoV6:
+      type: object
+      additionalProperties: false
+      required:
+        - address
+        - geolocation
+      properties:
+        address:
+          type: string
+          format: ipv6
+        geolocation:
+          $ref: '#/components/schemas/Geolocation'
+        asn:
+          $ref: '#/components/schemas/IPInfoASN'
+        datacenter:
+          $ref: '#/components/schemas/IPInfoDataCenter'
+    IPInfo:
+      type: object
+      description: >-
+        Details about the request IP address. Has separate fields for v4 and v6
+        IP address versions.
+      additionalProperties: false
+      properties:
+        v4:
+          $ref: '#/components/schemas/IPInfoV4'
+        v6:
+          $ref: '#/components/schemas/IPInfoV6'
+    ProductIPInfo:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/IPInfo'
+        error:
+          $ref: '#/components/schemas/Error'
+    IPBlocklistDetails:
+      type: object
+      additionalProperties: false
+      required:
+        - emailSpam
+        - attackSource
+      properties:
+        emailSpam:
+          type: boolean
+          description: IP address was part of a known email spam attack (SMTP).
+        attackSource:
+          type: boolean
+          description: IP address was part of a known network attack (SSH/HTTPS).
+    IPBlocklist:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+        - details
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if request IP address is part of any database that we use to
+            search for known malicious actors, `false` otherwise.
+        details:
+          $ref: '#/components/schemas/IPBlocklistDetails'
+    ProductIPBlocklist:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/IPBlocklist'
+        error:
+          $ref: '#/components/schemas/Error'
+    Tor:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request IP address is a known tor exit node, `false`
+            otherwise.
+    ProductTor:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Tor'
+        error:
+          $ref: '#/components/schemas/Error'
+    VPNConfidence:
+      type: string
+      enum:
+        - low
+        - medium
+        - high
+      description: >-
+        A confidence rating for the VPN detection result — "low", "medium", or
+        "high". Depends on the combination of results returned from all VPN
+        detection methods.
+    VPNMethods:
+      type: object
+      additionalProperties: false
+      required:
+        - timezoneMismatch
+        - publicVPN
+        - auxiliaryMobile
+        - osMismatch
+      properties:
+        timezoneMismatch:
+          type: boolean
+          description: >-
+            The browser timezone doesn't match the timezone inferred from the
+            request IP address.
+        publicVPN:
+          type: boolean
+          description: >-
+            Request IP address is owned and used by a public VPN service
+            provider.
+        auxiliaryMobile:
+          type: boolean
+          description: >-
+            This method applies to mobile devices only. Indicates the result of
+            additional methods used to detect a VPN in mobile devices.
+        osMismatch:
+          type: boolean
+          description: >-
+            The browser runs on a different operating system than the operating
+            system inferred from the request network signature.
+    VPN:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+        - confidence
+        - originTimezone
+        - originCountry
+        - methods
+      properties:
+        result:
+          type: boolean
+          description: >-
+            VPN or other anonymizing service has been used when sending the
+            request.
+        confidence:
+          $ref: '#/components/schemas/VPNConfidence'
+        originTimezone:
+          type: string
+          description: Local timezone which is used in timezoneMismatch method.
+        originCountry:
+          type: string
+          description: >-
+            Country of the request (only for Android SDK version >= 2.4.0, ISO
+            3166 format or unknown).
+        methods:
+          $ref: '#/components/schemas/VPNMethods'
+    ProductVPN:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/VPN'
+        error:
+          $ref: '#/components/schemas/Error'
+    Proxy:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request IP address is used by a public proxy provider,
+            `false` otherwise.
+    ProductProxy:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Proxy'
+        error:
+          $ref: '#/components/schemas/Error'
+    Incognito:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if we detected incognito mode used in the browser, `false`
+            otherwise.
+    ProductIncognito:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Incognito'
+        error:
+          $ref: '#/components/schemas/Error'
+    Tampering:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+        - anomalyScore
+        - antiDetectBrowser
+      properties:
+        result:
+          type: boolean
+          description: >
+            Flag indicating browser tampering was detected. This happens when
+            either of these conditions is true:
+              * There are inconsistencies in the browser configuration that cross our internal tampering thresholds (indicated by `anomalyScore`).
+              * The browser signature resembles one of "anti-detect" browsers specifically designed to evade identification and fingerprinting, for example, Incognition (indicated by `antiDetectBrowser`).
+        anomalyScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: |
+            Confidence score (`0.0 - 1.0`) for tampering detection:
+              * Values above `0.5` indicate that there was a tampering attempt. 
+              * Values below `0.5` indicate genuine browsers.
+        antiDetectBrowser:
+          type: boolean
+          description: >-
+            Is `true` if the identified browser resembles one of "anti-detect"
+            browsers, for example, Incognition.  Anti-detect browsers try to
+            evade identification by masking or manipulating their fingerprint to
+            imitate legitimate browser configurations.
+    ProductTampering:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Tampering'
+        error:
+          $ref: '#/components/schemas/Error'
+    ClonedApp:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: |
+            Android specific cloned application detection. There are 2 values: 
+              * `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected).
+              * `false` - No signs of cloned application detected or the client is not Android.
+    ProductClonedApp:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/ClonedApp'
+        error:
+          $ref: '#/components/schemas/Error'
+    FactoryReset:
+      type: object
+      additionalProperties: false
+      required:
+        - time
+        - timestamp
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: >
+            Indicates the time (in UTC) of the most recent factory reset that
+            happened on the **mobile device**. 
+
+            When a factory reset cannot be detected on the mobile device or when
+            the request is initiated from a browser,  this field will correspond
+            to the *epoch* time (i.e 1 Jan 1970 UTC).
+
+            See [Factory Reset
+            Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection)
+            to learn more about this Smart Signal.
+        timestamp:
+          type: integer
+          format: int64
+          description: >
+            This field is just another representation of the value in the `time`
+            field.
+
+            The time of the most recent factory reset that happened on the
+            **mobile device** is expressed as Unix epoch time.       
+    ProductFactoryReset:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/FactoryReset'
+        error:
+          $ref: '#/components/schemas/Error'
+    Jailbroken:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: |
+            iOS specific jailbreak detection. There are 2 values: 
+              * `true` - Jailbreak detected.
+              * `false` - No signs of jailbreak or the client is not iOS.
+    ProductJailbroken:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Jailbroken'
+        error:
+          $ref: '#/components/schemas/Error'
+    Frida:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            [Frida](https://frida.re/docs/) detection for Android and iOS
+            devices. There are 2 values:
+              * `true` - Frida detected
+              * `false` - No signs of Frida or the client is not a mobile device.
+    ProductFrida:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Frida'
+        error:
+          $ref: '#/components/schemas/Error'
+    PrivacySettings:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request is from a privacy aware browser (e.g. Tor) or
+            from a browser in which fingerprinting is blocked. Otherwise
+            `false`.
+    ProductPrivacySettings:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/PrivacySettings'
+        error:
+          $ref: '#/components/schemas/Error'
+    VirtualMachine:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request came from a browser running inside a virtual
+            machine (e.g. VMWare), `false` otherwise.
+    ProductVirtualMachine:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/VirtualMachine'
+        error:
+          $ref: '#/components/schemas/Error'
+    ProductRawDeviceAttributes:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/RawDeviceAttributes'
+        error:
+          $ref: '#/components/schemas/Error'
+    HighActivity:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: Flag indicating if the request came from a high-activity visitor.
+        dailyRequests:
+          type: integer
+          format: int64
+          minimum: 1
+          description: Number of requests from the same visitor in the previous day.
+    ProductHighActivity:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/HighActivity'
+        error:
+          $ref: '#/components/schemas/Error'
+    LocationSpoofing:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >-
+            Flag indicating whether the request came from a mobile device with
+            location spoofing enabled.
+    ProductLocationSpoofing:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/LocationSpoofing'
+        error:
+          $ref: '#/components/schemas/Error'
+    SuspectScore:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: integer
+          description: >
+            Suspect Score is an easy way to integrate Smart Signals into your
+            fraud protection work flow.  It is a weighted representation of all
+            Smart Signals present in the payload that helps identify suspicious
+            activity. The value range is [0; S] where S is sum of all Smart
+            Signals weights.  See more details here:
+            https://dev.fingerprint.com/docs/suspect-score
+    ProductSuspectScore:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/SuspectScore'
+        error:
+          $ref: '#/components/schemas/Error'
+    RemoteControl:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request came from a machine being remotely controlled
+            (e.g. TeamViewer), `false` otherwise.
+    ProductRemoteControl:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/RemoteControl'
+        error:
+          $ref: '#/components/schemas/Error'
+    VelocityIntervals:
+      type: object
+      description: >
+        Is absent if the velocity data could not be generated for the visitor
+        ID.
+      additionalProperties: false
+      required:
+        - 5m
+        - 1h
+      properties:
+        5m:
+          type: integer
+        1h:
+          type: integer
+        24h:
+          type: integer
+          description: >
+            The `24h` interval of `distinctIp`, `distinctLinkedId`,
+            `distinctCountry`, `distinctIpByLinkedId` and
+            `distinctVisitorIdByLinkedId` will be omitted if the number of
+            `events`` for the visitor ID in the last 24 hours
+            (`events.intervals.['24h']`) is higher than 20.000.
+    VelocityData:
+      type: object
+      additionalProperties: false
+      properties:
+        intervals:
+          $ref: '#/components/schemas/VelocityIntervals'
+    Velocity:
+      type: object
+      description: >
+        Sums key data points for a specific `visitorId`, `ipAddress` and
+        `linkedId` at three distinct time
+
+        intervals: 5 minutes, 1 hour, and 24 hours as follows: 
+
+
+        - Number of distinct IP addresses associated to the visitor ID.
+
+        - Number of distinct linked IDs associated with the visitor ID.
+
+        - Number of distinct countries associated with the visitor ID.
+
+        - Number of identification events associated with the visitor ID.
+
+        - Number of identification events associated with the detected IP
+        address.
+
+        - Number of distinct IP addresses associated with the provided linked
+        ID.
+
+        - Number of distinct visitor IDs associated with the provided linked ID.
+
+
+        The `24h` interval of `distinctIp`, `distinctLinkedId`,
+        `distinctCountry`,
+
+        `distinctIpByLinkedId` and `distinctVisitorIdByLinkedId` will be
+        omitted 
+
+        if the number of `events` for the visitor ID in the last 24
+
+        hours (`events.intervals.['24h']`) is higher than 20.000.
+      additionalProperties: false
+      required:
+        - distinctIp
+        - distinctLinkedId
+        - distinctCountry
+        - events
+        - ipEvents
+        - distinctIpByLinkedId
+        - distinctVisitorIdByLinkedId
+      properties:
+        distinctIp:
+          $ref: '#/components/schemas/VelocityData'
+        distinctLinkedId:
+          $ref: '#/components/schemas/VelocityData'
+        distinctCountry:
+          $ref: '#/components/schemas/VelocityData'
+        events:
+          $ref: '#/components/schemas/VelocityData'
+        ipEvents:
+          $ref: '#/components/schemas/VelocityData'
+        distinctIpByLinkedId:
+          $ref: '#/components/schemas/VelocityData'
+        distinctVisitorIdByLinkedId:
+          $ref: '#/components/schemas/VelocityData'
+    ProductVelocity:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Velocity'
+        error:
+          $ref: '#/components/schemas/Error'
+    DeveloperTools:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the browser is Chrome with DevTools open or Firefox with
+            Developer Tools open, `false` otherwise.
+    ProductDeveloperTools:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/DeveloperTools'
+        error:
+          $ref: '#/components/schemas/Error'
+    Products:
+      type: object
+      description: >-
+        Contains all information about the request identified by `requestId`,
+        depending on the pricing plan (Pro, Pro Plus, Enterprise)
+      additionalProperties: false
+      properties:
+        identification:
+          $ref: '#/components/schemas/ProductIdentification'
+        botd:
+          $ref: '#/components/schemas/ProductBotd'
+        rootApps:
+          $ref: '#/components/schemas/ProductRootApps'
+        emulator:
+          $ref: '#/components/schemas/ProductEmulator'
+        ipInfo:
+          $ref: '#/components/schemas/ProductIPInfo'
+        ipBlocklist:
+          $ref: '#/components/schemas/ProductIPBlocklist'
+        tor:
+          $ref: '#/components/schemas/ProductTor'
+        vpn:
+          $ref: '#/components/schemas/ProductVPN'
+        proxy:
+          $ref: '#/components/schemas/ProductProxy'
+        incognito:
+          $ref: '#/components/schemas/ProductIncognito'
+        tampering:
+          $ref: '#/components/schemas/ProductTampering'
+        clonedApp:
+          $ref: '#/components/schemas/ProductClonedApp'
+        factoryReset:
+          $ref: '#/components/schemas/ProductFactoryReset'
+        jailbroken:
+          $ref: '#/components/schemas/ProductJailbroken'
+        frida:
+          $ref: '#/components/schemas/ProductFrida'
+        privacySettings:
+          $ref: '#/components/schemas/ProductPrivacySettings'
+        virtualMachine:
+          $ref: '#/components/schemas/ProductVirtualMachine'
+        rawDeviceAttributes:
+          $ref: '#/components/schemas/ProductRawDeviceAttributes'
+        highActivity:
+          $ref: '#/components/schemas/ProductHighActivity'
+        locationSpoofing:
+          $ref: '#/components/schemas/ProductLocationSpoofing'
+        suspectScore:
+          $ref: '#/components/schemas/ProductSuspectScore'
+        remoteControl:
+          $ref: '#/components/schemas/ProductRemoteControl'
+        velocity:
+          $ref: '#/components/schemas/ProductVelocity'
+        developerTools:
+          $ref: '#/components/schemas/ProductDeveloperTools'
+    EventsGetResponse:
+      type: object
+      description: >-
+        Contains results from all activated products - Fingerprint Pro, Bot
+        Detection, and others.
+      additionalProperties: false
+      required:
+        - products
+      properties:
+        products:
+          $ref: '#/components/schemas/Products'
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    EventsUpdateRequest:
+      type: object
+      properties:
+        linkedId:
+          type: string
+          description: LinkedID value to assign to the existing event
+        tag:
+          $ref: '#/components/schemas/Tag'
+        suspect:
+          type: boolean
+          description: Suspect flag indicating observed suspicious or fraudulent event
+    Visit:
+      type: object
+      additionalProperties: false
+      required:
+        - requestId
+        - browserDetails
+        - incognito
+        - ip
+        - timestamp
+        - time
+        - url
+        - tag
+        - visitorFound
+        - firstSeenAt
+        - lastSeenAt
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the user's request.
+        browserDetails:
+          $ref: '#/components/schemas/BrowserDetails'
+        incognito:
+          type: boolean
+          description: Flag if user used incognito session.
+        ip:
+          type: string
+          description: IP address of the requesting browser or bot.
+        ipLocation:
+          $ref: '#/components/schemas/DeprecatedGeolocation'
+        linkedId:
+          type: string
+          description: A customer-provided id that was sent with the request.
+        timestamp:
+          type: integer
+          format: int64
+          description: Timestamp of the event with millisecond precision in Unix time.
+        time:
+          type: string
+          format: date-time
+          description: >-
+            Time expressed according to ISO 8601 in UTC format, when the request
+            from the client agent was made. We recommend to treat requests that
+            are older than 2 minutes as malicious. Otherwise, request replay
+            attacks are possible.
+        url:
+          type: string
+          description: Page URL from which the request was sent.
+        tag:
+          $ref: '#/components/schemas/Tag'
+        confidence:
+          $ref: '#/components/schemas/IdentificationConfidence'
+        visitorFound:
+          type: boolean
+          description: Attribute represents if a visitor had been identified before.
+        firstSeenAt:
+          $ref: '#/components/schemas/IdentificationSeenAt'
+        lastSeenAt:
+          $ref: '#/components/schemas/IdentificationSeenAt'
+        components:
+          $ref: '#/components/schemas/RawDeviceAttributes'
+    VisitorsGetResponse:
+      type: object
+      description: >-
+        Pagination-related fields `lastTimestamp` and `paginationKey` are
+        included if you use a pagination parameter like `limit` or `before` and
+        there is more data available on the next page.
+      additionalProperties: false
+      required:
+        - visitorId
+        - visits
+      properties:
+        visitorId:
+          type: string
+        visits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Visit'
+        lastTimestamp:
+          deprecated: true
+          type: integer
+          format: int64
+          description: >
+            ⚠️ Deprecated paging attribute, please use `paginationKey` instead.
+            Timestamp of the last visit in the current page of results.
+        paginationKey:
+          type: string
+          description: >-
+            Request ID of the last visit in the current page of results. Use
+            this value in the following request as the `paginationKey` parameter
+            to get the next page of results.
+    ErrorPlainResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - error
+      properties:
+        error:
+          type: string
+    WebhookRootApps:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            Android specific root management apps detection. There are 2
+            values: 
+              * `true` - Root Management Apps detected (e.g. Magisk).
+              * `false` - No Root Management Apps detected or the client isn't Android.
+    WebhookEmulator:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: |
+            Android specific emulator detection. There are 2 values: 
+              * `true` - Emulated environment detected (e.g. launch inside of AVD). 
+              * `false` - No signs of emulated environment detected or the client is not Android.
+    WebhookIPInfo:
+      type: object
+      description: >-
+        Details about the request IP address. Has separate fields for v4 and v6
+        IP address versions.
+      additionalProperties: false
+      properties:
+        v4:
+          $ref: '#/components/schemas/IPInfoV4'
+        v6:
+          $ref: '#/components/schemas/IPInfoV6'
+    WebhookIPBlocklist:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if request IP address is part of any database that we use to
+            search for known malicious actors, `false` otherwise.
+        details:
+          $ref: '#/components/schemas/IPBlocklistDetails'
+    WebhookTor:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request IP address is a known tor exit node, `false`
+            otherwise.
+    WebhookVPN:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >-
+            VPN or other anonymizing service has been used when sending the
+            request.
+        confidence:
+          $ref: '#/components/schemas/VPNConfidence'
+        originTimezone:
+          type: string
+          description: Local timezone which is used in timezoneMismatch method.
+        originCountry:
+          type: string
+          description: >-
+            Country of the request (only for Android SDK version >= 2.4.0, ISO
+            3166 format or unknown).
+        methods:
+          $ref: '#/components/schemas/VPNMethods'
+    WebhookProxy:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request IP address is used by a public proxy provider,
+            `false` otherwise.
+    WebhookTampering:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            Flag indicating browser tampering was detected. This happens when
+            either of these conditions is true:
+              * There are inconsistencies in the browser configuration that cross our internal tampering thresholds (indicated by `anomalyScore`).
+              * The browser signature resembles one of "anti-detect" browsers specifically designed to evade identification and fingerprinting, for example, Incognition (indicated by `antiDetectBrowser`).
+        anomalyScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: |
+            Confidence score (`0.0 - 1.0`) for tampering detection:
+              * Values above `0.5` indicate that there was a tampering attempt
+              * Values below `0.5` indicate genuine browsers.
+        antiDetectBrowser:
+          type: boolean
+          description: >-
+            Is `true` if the identified browser resembles one of "anti-detect"
+            browsers, for example, Incognition. Anti-detect browsers try to
+            evade identification by masking or manipulating their fingerprint to
+            imitate legitimate browser configurations.
+    WebhookClonedApp:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: |
+            Android specific cloned application detection. There are 2 values: 
+              * `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected).
+              * `false` - No signs of cloned application detected or the client is not Android.
+    WebhookFactoryReset:
+      type: object
+      additionalProperties: false
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: >
+            Indicates the time (in UTC) of the most recent factory reset that
+            happened on the **mobile device**. 
+
+            When a factory reset cannot be detected on the mobile device or when
+            the request is initiated from a browser,  this field will correspond
+            to the *epoch* time (i.e 1 Jan 1970 UTC).
+
+            See [Factory Reset
+            Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection)
+            to learn more about this Smart Signal.
+        timestamp:
+          type: integer
+          format: int64
+          description: >
+            This field is just another representation of the value in the `time`
+            field.
+
+            The time of the most recent factory reset that happened on the
+            **mobile device** is expressed as Unix epoch time.       
+    WebhookJailbroken:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: |
+            iOS specific jailbreak detection. There are 2 values: 
+              * `true` - Jailbreak detected.
+              * `false` - No signs of jailbreak or the client is not iOS.
+    WebhookFrida:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            [Frida](https://frida.re/docs/) detection for Android and iOS
+            devices. There are 2 values:
+              * `true` - Frida detected
+              * `false` - No signs of Frida or the client is not a mobile device.
+    WebhookPrivacySettings:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request is from a privacy aware browser (e.g. Tor) or
+            from a browser in which fingerprinting is blocked. Otherwise
+            `false`.
+    WebhookVirtualMachine:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request came from a browser running inside a virtual
+            machine (e.g. VMWare), `false` otherwise.
+    WebhookRawDeviceAttributes:
+      type: object
+      description: >
+        It includes 35+ raw browser identification attributes to provide
+        Fingerprint users with even more information than our standard visitor
+        ID provides. This enables Fingerprint users to not have to run our
+        open-source product in conjunction with Fingerprint Pro Plus and
+        Enterprise to get those additional attributes.
+
+        Warning: The raw signals data can change at any moment as we improve the
+        product. We cannot guarantee the internal shape of raw device attributes
+        to be stable, so typical semantic versioning rules do not apply here.
+        Use this data with caution without assuming a specific structure beyond
+        the generic type provided here.
+      additionalProperties:
+        $ref: '#/components/schemas/RawDeviceAttribute'
+    WebhookHighActivity:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: Flag indicating if the request came from a high-activity visitor.
+        dailyRequests:
+          type: integer
+          format: int64
+          minimum: 1
+          description: Number of requests from the same visitor in the previous day.
+    WebhookLocationSpoofing:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >-
+            Flag indicating whether the request came from a mobile device with
+            location spoofing enabled.
+    WebhookSuspectScore:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: integer
+          description: >
+            Suspect Score is an easy way to integrate Smart Signals into your
+            fraud protection work flow.  It is a weighted representation of all
+            Smart Signals present in the payload that helps identify suspicious
+            activity. The value range is [0; S] where S is sum of all Smart
+            Signals weights.  See more details here:
+            https://dev.fingerprint.com/docs/suspect-score
+    WebhookRemoteControl:
       type: object
       additionalProperties: false
       properties:
@@ -1282,70 +2124,58 @@ components:
           description: >
             `true` if the request came from a machine being remotely controlled
             (e.g. TeamViewer), `false` otherwise.
-          example: false
-      required:
-        - result
-    VelocityIntervalResult:
+    WebhookVelocity:
       type: object
       description: >
-        Is absent if the velocity data could not be generated for the visitor
-        ID.
-      additionalProperties: false
-      properties:
-        5m:
-          type: integer
-          example: 1
-        1h:
-          type: integer
-          example: 1
-        24h:
-          type: integer
-          description: >
-            The `24h` interval of `distinctIp`, `distinctLinkedId`, and
-            `distinctCountry` will be omitted if the number of `events`` for the
-            visitor ID in the last 24 hours (`events.intervals.['24h']`) is
-            higher than 20.000.
-          example: 1
-      required:
-        - 5m
-        - 1h
-    VelocityIntervals:
-      type: object
-      additionalProperties: false
-      properties:
-        intervals:
-          $ref: '#/components/schemas/VelocityIntervalResult'
-    VelocityResult:
-      type: object
-      description: >
-        Sums key data points for a specific `visitorId` at three distinct time
+        Sums key data points for a specific `visitorId`, `ipAddress` and
+        `linkedId` at three distinct time
+
         intervals: 5 minutes, 1 hour, and 24 hours as follows: 
 
-        - Number of identification events attributed to the visitor ID - Number
-        of distinct IP addresses associated to the visitor ID. - Number of
-        distinct countries associated with the visitor ID. - Number of distinct
-        `linkedId`s associated with the visitor ID.
 
-        The `24h` interval of `distinctIp`, `distinctLinkedId`, and
-        `distinctCountry` will be omitted if the number of `events` for the
-        visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher
-        than 20.000.
+        - Number of distinct IP addresses associated to the visitor ID.
+
+        - Number of distinct linked IDs associated with the visitor ID.
+
+        - Number of distinct countries associated with the visitor ID.
+
+        - Number of identification events associated with the visitor ID.
+
+        - Number of identification events associated with the detected IP
+        address.
+
+        - Number of distinct IP addresses associated with the provided linked
+        ID.
+
+        - Number of distinct visitor IDs associated with the provided linked ID.
+
+
+        The `24h` interval of `distinctIp`, `distinctLinkedId`,
+        `distinctCountry`,
+
+        `distinctIpByLinkedId` and `distinctVisitorIdByLinkedId` will be
+        omitted 
+
+        if the number of `events` for the visitor ID in the last 24
+
+        hours (`events.intervals.['24h']`) is higher than 20.000.
       additionalProperties: false
       properties:
         distinctIp:
-          $ref: '#/components/schemas/VelocityIntervals'
+          $ref: '#/components/schemas/VelocityData'
         distinctLinkedId:
-          $ref: '#/components/schemas/VelocityIntervals'
+          $ref: '#/components/schemas/VelocityData'
         distinctCountry:
-          $ref: '#/components/schemas/VelocityIntervals'
+          $ref: '#/components/schemas/VelocityData'
         events:
-          $ref: '#/components/schemas/VelocityIntervals'
-      required:
-        - distinctIp
-        - distinctLinkedId
-        - distinctCountry
-        - events
-    DeveloperToolsResult:
+          $ref: '#/components/schemas/VelocityData'
+        ipEvents:
+          $ref: '#/components/schemas/VelocityData'
+        distinctIpByLinkedId:
+          $ref: '#/components/schemas/VelocityData'
+        distinctVisitorIdByLinkedId:
+          $ref: '#/components/schemas/VelocityData'
+    WebhookDeveloperTools:
       type: object
       additionalProperties: false
       properties:
@@ -1354,886 +2184,120 @@ components:
           description: >
             `true` if the browser is Chrome with DevTools open or Firefox with
             Developer Tools open, `false` otherwise.
-          example: false
+    Webhook:
+      type: object
       required:
-        - result
-    ProductsResponse:
-      type: object
-      description: >-
-        Contains all information about the request identified by `requestId`,
-        depending on the pricing plan (Pro, Pro Plus, Enterprise)
-      additionalProperties: false
-      properties:
-        identification:
-          type: object
-          additionalProperties: false
-          title: ProductsResponseIdentification
-          properties:
-            data:
-              title: ProductsResponseIdentificationData
-              type: object
-              properties:
-                requestId:
-                  description: Unique identifier of the user's identification request.
-                  type: string
-                  example: 1654815516083.OX6kx8
-                browserDetails:
-                  $ref: '#/components/schemas/BrowserDetails'
-                incognito:
-                  description: Flag if user used incognito session.
-                  type: boolean
-                ip:
-                  type: string
-                  format: ipv4
-                  example: 8.8.8.8
-                ipLocation:
-                  type: object
-                  additionalProperties: false
-                  deprecated: true
-                  description: >-
-                    This field is **deprecated** and will not return a result
-                    for **applications created after January 23rd, 2024**.
-                    Please use the [IP Geolocation Smart
-                    signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation)
-                    for geolocation information.
-                  properties:
-                    accuracyRadius:
-                      description: >-
-                        The IP address is likely to be within this radius (in
-                        km) of the specified location.
-                      type: integer
-                      minimum: 0
-                    latitude:
-                      type: number
-                      format: double
-                      minimum: -90
-                      maximum: 90
-                    longitude:
-                      type: number
-                      format: double
-                      minimum: -180
-                      maximum: 180
-                    postalCode:
-                      type: string
-                    timezone:
-                      type: string
-                      format: timezone
-                    city:
-                      type: object
-                      additionalProperties: false
-                      title: DeprecatedIPLocationCity
-                      properties:
-                        name:
-                          type: string
-                    country:
-                      $ref: '#/components/schemas/Location'
-                    continent:
-                      $ref: '#/components/schemas/Location'
-                    subdivisions:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Subdivision'
-                  title: DeprecatedIPLocation
-                timestamp:
-                  description: >-
-                    Timestamp of the event with millisecond precision in Unix
-                    time.
-                  type: integer
-                  format: int64
-                  example: 1654815516086
-                time:
-                  title: Time
-                  description: Time expressed according to ISO 8601 in UTC format.
-                  type: string
-                  format: date-time
-                  example: '2022-06-09T22:58:36Z'
-                url:
-                  description: Page URL from which the identification request was sent.
-                  type: string
-                  example: https://some.website/path?query=params
-                tag:
-                  description: >-
-                    A customer-provided value or an object that was sent with
-                    identification request.
-                  type: object
-                  additionalProperties: true
-                linkedId:
-                  description: >-
-                    A customer-provided id that was sent with identification
-                    request.
-                  type: string
-                  example: someID
-                confidence:
-                  $ref: '#/components/schemas/Confidence'
-                visitorFound:
-                  description: >-
-                    Attribute represents if a visitor had been identified
-                    before.
-                  type: boolean
-                firstSeenAt:
-                  $ref: '#/components/schemas/SeenAt'
-                lastSeenAt:
-                  $ref: '#/components/schemas/SeenAt'
-                visitorId:
-                  type: string
-                  description: >
-                    String of 20 characters that uniquely identifies the
-                    visitor's browser.
-                  example:
-                    - Ibk1527CUFmcnjLwIs4A
-              additionalProperties: false
-              required:
-                - browserDetails
-                - firstSeenAt
-                - incognito
-                - ip
-                - lastSeenAt
-                - requestId
-                - time
-                - timestamp
-                - url
-                - visitorFound
-                - visitorId
-                - tag
-            error:
-              $ref: '#/components/schemas/IdentificationError'
-        botd:
-          title: ProductsResponseBotd
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/BotdResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        ipInfo:
-          title: SignalResponseIpInfo
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/IpInfoResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        incognito:
-          title: SignalResponseIncognito
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/IncognitoResult'
-            error:
-              $ref: '#/components/schemas/IdentificationError'
-        rootApps:
-          title: SignalResponseRootApps
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/RootAppsResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        emulator:
-          title: SignalResponseEmulator
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/EmulatorResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        clonedApp:
-          title: SignalResponseClonedApp
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/ClonedAppResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        factoryReset:
-          title: SignalResponseFactoryReset
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/FactoryResetResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        jailbroken:
-          title: SignalResponseJailbroken
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/JailbrokenResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        frida:
-          title: SignalResponseFrida
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/FridaResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        ipBlocklist:
-          title: SignalResponseIpBlocklist
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/IpBlockListResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        tor:
-          title: SignalResponseTor
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/TorResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        privacySettings:
-          title: SignalResponsePrivacySettings
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/PrivacySettingsResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        virtualMachine:
-          title: SignalResponseVirtualMachine
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/VirtualMachineResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        vpn:
-          title: SignalResponseVpn
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/VpnResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        proxy:
-          title: SignalResponseProxy
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/ProxyResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        tampering:
-          title: SignalResponseTampering
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/TamperingResult'
-            error:
-              $ref: '#/components/schemas/IdentificationError'
-        highActivity:
-          title: SignalResponseHighActivity
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/HighActivityResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        locationSpoofing:
-          title: SignalResponseLocationSpoofing
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/LocationSpoofingResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        suspectScore:
-          title: SignalResponseSuspectScore
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/SuspectScoreResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        rawDeviceAttributes:
-          title: SignalResponseRawDeviceAttributes
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/RawDeviceAttributesResult'
-            error:
-              $ref: '#/components/schemas/IdentificationError'
-        remoteControl:
-          title: SignalResponseRemoteControl
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/RemoteControlResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        velocity:
-          title: SignalResponseVelocity
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/VelocityResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-        developerTools:
-          title: SignalResponseDeveloperTools
-          type: object
-          additionalProperties: false
-          properties:
-            data:
-              $ref: '#/components/schemas/DeveloperToolsResult'
-            error:
-              $ref: '#/components/schemas/ProductError'
-    EventResponse:
-      description: >-
-        Contains results from all activated products - Fingerprint Pro, Bot
-        Detection, and others.
-      type: object
-      additionalProperties: false
-      properties:
-        products:
-          $ref: '#/components/schemas/ProductsResponse'
-        error:
-          $ref: '#/components/schemas/ProductError'
-      required:
-        - products
-    ErrorCommon403Response:
-      type: object
-      additionalProperties: false
-      properties:
-        error:
-          type: object
-          additionalProperties: false
-          title: Common403ErrorResponse
-          properties:
-            code:
-              type: string
-              description: |
-                Error code:
-                 * `TokenRequired` - `Auth-API-Key` header is missing or empty
-                 * `TokenNotFound` - No Fingerprint application found for specified secret key
-                 * `SubscriptionNotActive` - Fingerprint application is not active
-                 * `WrongRegion` - server and application region differ
-                 * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application
-              enum:
-                - TokenRequired
-                - TokenNotFound
-                - SubscriptionNotActive
-                - WrongRegion
-                - FeatureNotEnabled
-              example: TokenRequired
-            message:
-              type: string
-              example: secret key is required
-          required:
-            - code
-            - message
-    ErrorEvent404Response:
-      type: object
-      additionalProperties: false
-      properties:
-        error:
-          type: object
-          additionalProperties: false
-          title: ErrorEvent404ResponseError
-          properties:
-            code:
-              type: string
-              description: |
-                Error code:
-                 * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
-              enum:
-                - RequestNotFound
-              example: RequestNotFound
-            message:
-              type: string
-              example: request id is not found
-          required:
-            - code
-            - message
-    EventUpdateRequest:
-      type: object
-      properties:
-        linkedId:
-          type: string
-          description: LinkedID value to assign to the existing event
-        tag:
-          type: object
-          description: >-
-            Full `tag` value to be set to the existing event. Replaces any
-            existing `tag` payload completely.
-        suspect:
-          type: boolean
-          description: Suspect flag indicating observed suspicious or fraudulent event
-    ErrorUpdateEvent400Response:
-      type: object
-      additionalProperties: false
-      properties:
-        error:
-          type: object
-          additionalProperties: false
-          title: ErrorUpdateEvent400ResponseError
-          properties:
-            code:
-              type: string
-              description: >
-                Error code: * `RequestCannotBeParsed` - the JSON content of the
-                request contains some errors that prevented us from parsing it
-                (wrong type/surpassed limits) * `Failed` - the event is more
-                than 10 days old and cannot be updated
-              enum:
-                - RequestCannotBeParsed
-                - Failed
-              example: RequestCannotBeParsed
-            message:
-              type: string
-              description: Details about the underlying issue with the input payload
-              example: suspect flag must be a boolean
-          required:
-            - code
-            - message
-    ErrorUpdateEvent409Response:
-      type: object
-      additionalProperties: false
-      properties:
-        error:
-          type: object
-          additionalProperties: false
-          title: ErrorUpdateEvent409ResponseError
-          properties:
-            code:
-              type: string
-              description: >
-                Error code: * `StateNotReady` - The event specified with request
-                id is not ready for updates yet. Try again.
-
-                This error happens in rare cases when update API is called
-                immediately after receiving the request id on the client. In
-                case you need to send information right away, we recommend using
-                the JS agent API instead.
-              enum:
-                - StateNotReady
-              example: StateNotReady
-            message:
-              type: string
-              example: resource is not mutable yet, try again
-          required:
-            - code
-            - message
-    Response:
-      type: object
-      additionalProperties: false
-      properties:
-        visitorId:
-          type: string
-        visits:
-          type: array
-          items:
-            title: ResponseVisits
-            type: object
-            properties:
-              requestId:
-                description: Unique identifier of the user's identification request.
-                type: string
-                example: 1654815516083.OX6kx8
-              browserDetails:
-                $ref: '#/components/schemas/BrowserDetails'
-              incognito:
-                description: Flag if user used incognito session.
-                type: boolean
-              ip:
-                type: string
-                format: ipv4
-                example: 8.8.8.8
-              ipLocation:
-                type: object
-                additionalProperties: false
-                deprecated: true
-                description: >-
-                  This field is **deprecated** and will not return a result for
-                  **applications created after January 23rd, 2024**. Please use
-                  the [IP Geolocation Smart
-                  signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation)
-                  for geolocation information.
-                properties:
-                  accuracyRadius:
-                    description: >-
-                      The IP address is likely to be within this radius (in km)
-                      of the specified location.
-                    type: integer
-                    minimum: 0
-                  latitude:
-                    type: number
-                    format: double
-                    minimum: -90
-                    maximum: 90
-                  longitude:
-                    type: number
-                    format: double
-                    minimum: -180
-                    maximum: 180
-                  postalCode:
-                    type: string
-                  timezone:
-                    type: string
-                    format: timezone
-                  city:
-                    type: object
-                    additionalProperties: false
-                    title: DeprecatedIPLocationCity
-                    properties:
-                      name:
-                        type: string
-                  country:
-                    $ref: '#/components/schemas/Location'
-                  continent:
-                    $ref: '#/components/schemas/Location'
-                  subdivisions:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Subdivision'
-                title: DeprecatedIPLocation
-              timestamp:
-                description: >-
-                  Timestamp of the event with millisecond precision in Unix
-                  time.
-                type: integer
-                format: int64
-                example: 1654815516086
-              time:
-                title: Time
-                description: Time expressed according to ISO 8601 in UTC format.
-                type: string
-                format: date-time
-                example: '2022-06-09T22:58:36Z'
-              url:
-                description: Page URL from which the identification request was sent.
-                type: string
-                example: https://some.website/path?query=params
-              tag:
-                description: >-
-                  A customer-provided value or an object that was sent with
-                  identification request.
-                type: object
-                additionalProperties: true
-              linkedId:
-                description: >-
-                  A customer-provided id that was sent with identification
-                  request.
-                type: string
-                example: someID
-              confidence:
-                $ref: '#/components/schemas/Confidence'
-              visitorFound:
-                description: Attribute represents if a visitor had been identified before.
-                type: boolean
-              firstSeenAt:
-                $ref: '#/components/schemas/SeenAt'
-              lastSeenAt:
-                $ref: '#/components/schemas/SeenAt'
-            additionalProperties: false
-            required:
-              - browserDetails
-              - firstSeenAt
-              - incognito
-              - ip
-              - lastSeenAt
-              - requestId
-              - time
-              - timestamp
-              - url
-              - visitorFound
-              - tag
-        lastTimestamp:
-          description: >
-            ⚠️ Deprecated paging attribute, please use `paginationKey` instead.
-            Timestamp of the last visit in the current page of results.
-          type: integer
-          format: int64
-          example: 1654815517198
-        paginationKey:
-          description: >-
-            Request ID of the last visit in the current page of results. Use
-            this value in the following request as the `paginationKey` parameter
-            to get the next page of results.
-          type: string
-          example: 1654815517198.azN4IZ
-      required:
-        - visitorId
-        - visits
-      title: PaginatedResponse
-      description: >-
-        Fields `lastTimestamp` and `paginationKey` added when `limit` or
-        `before` parameter provided and there is more data to show
-    ErrorVisits403:
-      type: object
-      additionalProperties: false
-      properties:
-        error:
-          type: string
-          description: Error text.
-          example: Forbidden (HTTP 403)
-      required:
-        - error
-    TooManyRequestsResponse:
-      type: object
-      additionalProperties: false
-      properties:
-        error:
-          type: string
-          description: Error text.
-          example: request throttled
-      required:
-        - error
-    ErrorVisitor400Response:
-      type: object
-      additionalProperties: false
-      properties:
-        error:
-          type: object
-          additionalProperties: false
-          properties:
-            code:
-              type: string
-              description: >
-                Error code: * `RequestCannotBeParsed` - The visitor ID parameter
-                is missing or in the wrong format.
-              enum:
-                - RequestCannotBeParsed
-              example: RequestCannotBeParsed
-            message:
-              type: string
-              example: invalid visitor id
-          required:
-            - code
-            - message
-    ErrorVisitor404Response:
-      type: object
-      additionalProperties: false
-      properties:
-        error:
-          type: object
-          additionalProperties: false
-          title: ErrorVisitor404ResponseError
-          properties:
-            code:
-              type: string
-              description: >
-                Error code: * `VisitorNotFound` - The specified visitor ID was
-                not found. It never existed or it may have already been deleted.
-              enum:
-                - VisitorNotFound
-              example: VisitorNotFound
-            message:
-              type: string
-              example: visitor not found
-          required:
-            - code
-            - message
-    ErrorCommon429Response:
-      type: object
-      additionalProperties: false
-      properties:
-        error:
-          type: object
-          additionalProperties: false
-          properties:
-            code:
-              type: string
-              description: |
-                Error code: * `TooManyRequests` - The request is throttled.
-              enum:
-                - TooManyRequests
-              example: TooManyRequests
-            message:
-              type: string
-              example: request throttled
-          required:
-            - code
-            - message
-    WebhookVisit:
-      type: object
-      properties:
-        visitorId:
-          type: string
-          example: 3HNey93AkBW6CRbxV6xP
-        clientReferrer:
-          type: string
-          example: https://google.com?search=banking+services
-        userAgent:
-          type: string
-          example: >-
-            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
-            (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36
-        bot:
-          $ref: '#/components/schemas/BotdDetectionResult'
-        ipInfo:
-          $ref: '#/components/schemas/IpInfoResult'
-        incognito:
-          description: Flag if user used incognito session.
-          type: boolean
-        rootApps:
-          $ref: '#/components/schemas/RootAppsResult'
-        emulator:
-          $ref: '#/components/schemas/EmulatorResult'
-        clonedApp:
-          $ref: '#/components/schemas/ClonedAppResult'
-        factoryReset:
-          $ref: '#/components/schemas/FactoryResetResult'
-        jailbroken:
-          $ref: '#/components/schemas/JailbrokenResult'
-        frida:
-          $ref: '#/components/schemas/FridaResult'
-        ipBlocklist:
-          $ref: '#/components/schemas/IpBlockListResult'
-        tor:
-          $ref: '#/components/schemas/TorResult'
-        privacySettings:
-          $ref: '#/components/schemas/PrivacySettingsResult'
-        virtualMachine:
-          $ref: '#/components/schemas/VirtualMachineResult'
-        vpn:
-          $ref: '#/components/schemas/VpnResult'
-        proxy:
-          $ref: '#/components/schemas/ProxyResult'
-        tampering:
-          $ref: '#/components/schemas/TamperingResult'
-        rawDeviceAttributes:
-          $ref: '#/components/schemas/RawDeviceAttributesResult'
-        highActivity:
-          $ref: '#/components/schemas/HighActivityResult'
-        locationSpoofing:
-          $ref: '#/components/schemas/LocationSpoofingResult'
-        suspectScore:
-          $ref: '#/components/schemas/SuspectScoreResult'
-        remoteControl:
-          $ref: '#/components/schemas/RemoteControlResult'
-        velocity:
-          $ref: '#/components/schemas/VelocityResult'
-        developerTools:
-          $ref: '#/components/schemas/DeveloperToolsResult'
-        requestId:
-          description: Unique identifier of the user's identification request.
-          type: string
-          example: 1654815516083.OX6kx8
-        browserDetails:
-          $ref: '#/components/schemas/BrowserDetails'
-        ip:
-          type: string
-          format: ipv4
-          example: 8.8.8.8
-        ipLocation:
-          type: object
-          additionalProperties: false
-          deprecated: true
-          description: >-
-            This field is **deprecated** and will not return a result for
-            **applications created after January 23rd, 2024**. Please use the
-            [IP Geolocation Smart
-            signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation)
-            for geolocation information.
-          properties:
-            accuracyRadius:
-              description: >-
-                The IP address is likely to be within this radius (in km) of the
-                specified location.
-              type: integer
-              minimum: 0
-            latitude:
-              type: number
-              format: double
-              minimum: -90
-              maximum: 90
-            longitude:
-              type: number
-              format: double
-              minimum: -180
-              maximum: 180
-            postalCode:
-              type: string
-            timezone:
-              type: string
-              format: timezone
-            city:
-              type: object
-              additionalProperties: false
-              title: DeprecatedIPLocationCity
-              properties:
-                name:
-                  type: string
-            country:
-              $ref: '#/components/schemas/Location'
-            continent:
-              $ref: '#/components/schemas/Location'
-            subdivisions:
-              type: array
-              items:
-                $ref: '#/components/schemas/Subdivision'
-          title: DeprecatedIPLocation
-        timestamp:
-          description: Timestamp of the event with millisecond precision in Unix time.
-          type: integer
-          format: int64
-          example: 1654815516086
-        time:
-          title: Time
-          description: Time expressed according to ISO 8601 in UTC format.
-          type: string
-          format: date-time
-          example: '2022-06-09T22:58:36Z'
-        url:
-          description: Page URL from which the identification request was sent.
-          type: string
-          example: https://some.website/path?query=params
-        tag:
-          description: >-
-            A customer-provided value or an object that was sent with
-            identification request.
-          type: object
-          additionalProperties: true
-        linkedId:
-          description: A customer-provided id that was sent with identification request.
-          type: string
-          example: someID
-        confidence:
-          $ref: '#/components/schemas/Confidence'
-        visitorFound:
-          description: Attribute represents if a visitor had been identified before.
-          type: boolean
-        firstSeenAt:
-          $ref: '#/components/schemas/SeenAt'
-        lastSeenAt:
-          $ref: '#/components/schemas/SeenAt'
-      additionalProperties: false
-      required:
-        - visitorId
-        - browserDetails
-        - firstSeenAt
-        - incognito
-        - ip
-        - lastSeenAt
         - requestId
+        - url
+        - ip
         - time
         - timestamp
-        - url
-        - visitorFound
+      properties:
+        requestId:
+          type: string
+          description: Unique identifier of the user's request.
+        url:
+          type: string
+          description: Page URL from which the request was sent.
+        ip:
+          type: string
+          description: IP address of the requesting browser or bot.
+        tag:
+          $ref: '#/components/schemas/Tag'
+        time:
+          type: string
+          format: date-time
+          description: >-
+            Time expressed according to ISO 8601 in UTC format, when the request
+            from the JS agent was made. We recommend to treat requests that are
+            older than 2 minutes as malicious. Otherwise, request replay attacks
+            are possible.
+        timestamp:
+          type: integer
+          format: int64
+          description: Timestamp of the event with millisecond precision in Unix time.
+        ipLocation:
+          $ref: '#/components/schemas/DeprecatedGeolocation'
+        linkedId:
+          type: string
+          description: A customer-provided id that was sent with the request.
+        visitorId:
+          type: string
+          description: >-
+            String of 20 characters that uniquely identifies the visitor's
+            browser.
+        visitorFound:
+          type: boolean
+          description: Attribute represents if a visitor had been identified before.
+        confidence:
+          $ref: '#/components/schemas/IdentificationConfidence'
+        firstSeenAt:
+          $ref: '#/components/schemas/IdentificationSeenAt'
+        lastSeenAt:
+          $ref: '#/components/schemas/IdentificationSeenAt'
+        browserDetails:
+          $ref: '#/components/schemas/BrowserDetails'
+        incognito:
+          type: boolean
+          description: Flag if user used incognito session.
+        clientReferrer:
+          type: string
+        components:
+          $ref: '#/components/schemas/RawDeviceAttributes'
+        bot:
+          $ref: '#/components/schemas/BotdBot'
+        userAgent:
+          type: string
+        rootApps:
+          $ref: '#/components/schemas/WebhookRootApps'
+        emulator:
+          $ref: '#/components/schemas/WebhookEmulator'
+        ipInfo:
+          $ref: '#/components/schemas/WebhookIPInfo'
+        ipBlocklist:
+          $ref: '#/components/schemas/WebhookIPBlocklist'
+        tor:
+          $ref: '#/components/schemas/WebhookTor'
+        vpn:
+          $ref: '#/components/schemas/WebhookVPN'
+        proxy:
+          $ref: '#/components/schemas/WebhookProxy'
+        tampering:
+          $ref: '#/components/schemas/WebhookTampering'
+        clonedApp:
+          $ref: '#/components/schemas/WebhookClonedApp'
+        factoryReset:
+          $ref: '#/components/schemas/WebhookFactoryReset'
+        jailbroken:
+          $ref: '#/components/schemas/WebhookJailbroken'
+        frida:
+          $ref: '#/components/schemas/WebhookFrida'
+        privacySettings:
+          $ref: '#/components/schemas/WebhookPrivacySettings'
+        virtualMachine:
+          $ref: '#/components/schemas/WebhookVirtualMachine'
+        rawDeviceAttributes:
+          $ref: '#/components/schemas/WebhookRawDeviceAttributes'
+        highActivity:
+          $ref: '#/components/schemas/WebhookHighActivity'
+        locationSpoofing:
+          $ref: '#/components/schemas/WebhookLocationSpoofing'
+        suspectScore:
+          $ref: '#/components/schemas/WebhookSuspectScore'
+        remoteControl:
+          $ref: '#/components/schemas/WebhookRemoteControl'
+        velocity:
+          $ref: '#/components/schemas/WebhookVelocity'
+        developerTools:
+          $ref: '#/components/schemas/WebhookDeveloperTools'
+    RelatedVisitor:
+      type: object
+      additionalProperties: false
+      required:
+        - visitorId
+      properties:
+        visitorId:
+          type: string
+          description: >-
+            Visitor ID of a browser that originates from the same mobile device
+            as the input visitor ID.

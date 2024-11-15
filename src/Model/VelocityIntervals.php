@@ -34,6 +34,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  *
  * @category Class
  *
+ * @description Is absent if the velocity data could not be generated for the visitor ID.
+ *
  * @author   Swagger Codegen team
  *
  * @see     https://github.com/swagger-api/swagger-codegen
@@ -52,7 +54,9 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'intervals' => '\Fingerprint\ServerAPI\Model\VelocityIntervalResult'];
+        '_5m' => 'int',
+        '_1h' => 'int',
+        '_24h' => 'int'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -60,7 +64,9 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerFormats = [
-        'intervals' => null];
+        '_5m' => null,
+        '_1h' => null,
+        '_24h' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -69,7 +75,9 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $attributeMap = [
-        'intervals' => 'intervals'];
+        '_5m' => '5m',
+        '_1h' => '1h',
+        '_24h' => '24h'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -77,7 +85,9 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $setters = [
-        'intervals' => 'setIntervals'];
+        '_5m' => 'set5m',
+        '_1h' => 'set1h',
+        '_24h' => 'set24h'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -85,7 +95,9 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $getters = [
-        'intervals' => 'getIntervals'];
+        '_5m' => 'get5m',
+        '_1h' => 'get1h',
+        '_24h' => 'get24h'];
 
     /**
      * Associative array for storing property values.
@@ -102,7 +114,9 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
      */
     public function __construct(?array $data = null)
     {
-        $this->container['intervals'] = isset($data['intervals']) ? $data['intervals'] : null;
+        $this->container['_5m'] = isset($data['_5m']) ? $data['_5m'] : null;
+        $this->container['_1h'] = isset($data['_1h']) ? $data['_1h'] : null;
+        $this->container['_24h'] = isset($data['_24h']) ? $data['_24h'] : null;
     }
 
     /**
@@ -170,7 +184,16 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
      */
     public function listInvalidProperties(): array
     {
-        return [];
+        $invalidProperties = [];
+
+        if (null === $this->container['_5m']) {
+            $invalidProperties[] = "'_5m' can't be null";
+        }
+        if (null === $this->container['_1h']) {
+            $invalidProperties[] = "'_1h' can't be null";
+        }
+
+        return $invalidProperties;
     }
 
     /**
@@ -185,23 +208,67 @@ class VelocityIntervals implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets intervals.
+     * Gets _5m.
      */
-    public function getIntervals(): ?VelocityIntervalResult
+    public function get5m(): int
     {
-        return $this->container['intervals'];
+        return $this->container['_5m'];
     }
 
     /**
-     * Sets intervals.
+     * Sets _5m.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VelocityIntervalResult $intervals intervals
+     * @param int $_5m _5m
      *
      * @return $this
      */
-    public function setIntervals(?VelocityIntervalResult $intervals): self
+    public function set5m(int $_5m): self
     {
-        $this->container['intervals'] = $intervals;
+        $this->container['_5m'] = $_5m;
+
+        return $this;
+    }
+
+    /**
+     * Gets _1h.
+     */
+    public function get1h(): int
+    {
+        return $this->container['_1h'];
+    }
+
+    /**
+     * Sets _1h.
+     *
+     * @param int $_1h _1h
+     *
+     * @return $this
+     */
+    public function set1h(int $_1h): self
+    {
+        $this->container['_1h'] = $_1h;
+
+        return $this;
+    }
+
+    /**
+     * Gets _24h.
+     */
+    public function get24h(): ?int
+    {
+        return $this->container['_24h'];
+    }
+
+    /**
+     * Sets _24h.
+     *
+     * @param ?int $_24h The `24h` interval of `distinctIp`, `distinctLinkedId`, `distinctCountry`, `distinctIpByLinkedId` and `distinctVisitorIdByLinkedId` will be omitted if the number of `events`` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
+     *
+     * @return $this
+     */
+    public function set24h(?int $_24h): self
+    {
+        $this->container['_24h'] = $_24h;
 
         return $this;
     }

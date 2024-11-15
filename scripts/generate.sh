@@ -37,7 +37,7 @@ platform=$(uname)
 # clean models before generating
 rm -f ./src/Model/*
 
-java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json
+java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array
 
 if [ ! -f .php-cs-fixer.php ]; then
   echo ".php-cs-fixer.php configuration file not found!"
@@ -49,38 +49,42 @@ cat .php-cs-fixer.php
 
 docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:3.64-php8.3 fix --config=/code/.php-cs-fixer.php
 
-# fix invalid code generated for structure with additionalProperties
+# fix invalid code generated for Models and docs
 (
-  # Model file fix
+  # Model and docs files fix
   if [ "$platform" = "Darwin" ]; then
-    sed -i '' 's/$invalidProperties = parent::listInvalidProperties();/$invalidProperties = [];/' ./src/Model/RawDeviceAttributesResult.php
+    sed -i '' 's/\\Fingerprint\\ServerAPI\\Model\\array/array/' ./src/Model/*
+    sed -i '' 's/\\Fingerprint\\ServerAPI\\Model\\mixed/mixed/' ./src/Model/*
+    sed -i '' 's/?mixed/mixed/' ./src/Model/*
+    sed -i '' 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\array\*\*\](array\.md)/array/' ./src/docs/Model/*
+    sed -i '' 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\mixed\*\*\](mixed\.md)/mixed/' ./src/docs/Model/*
+
   else
-    sed -i 's/$invalidProperties = parent::listInvalidProperties();/$invalidProperties = [];/' ./src/Model/RawDeviceAttributesResult.php
+    sed -i 's/\\Fingerprint\\ServerAPI\\Model\\array/array/' ./src/Model/*
+    sed -i 's/\\Fingerprint\\ServerAPI\\Model\\mixed/mixed/' ./src/Model/*
+    sed -i 's/?mixed/mixed/' ./src/Model/*
+    sed -i 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\array\*\*\](array\.md)/array/' ./src/docs/Model/*
+    sed -i 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\mixed\*\*\](mixed\.md)/mixed/' ./src/docs/Model/*
   fi
 )
 
-# fix invalid code generated for SignalResponseRawDeviceAttributes
+# cleanup replaced models from readme
 (
-  # Model file fix
+  patterns=(
+  '\[RawDeviceAttribute\](docs\/Model\/RawDeviceAttribute\.md)'
+  '\[RawDeviceAttributeError\](docs\/Model\/RawDeviceAttributeError\.md)'
+  '\[RawDeviceAttributes\](docs\/Model\/RawDeviceAttributes\.md)'
+  '\[WebhookRawDeviceAttributes\](docs\/Model\/WebhookRawDeviceAttributes\.md)'
+  '\[Tag\](docs\/Model\/Tag\.md)'
+  )
   if [ "$platform" = "Darwin" ]; then
-    sed -i '' 's/public function setData(?RawDeviceAttributesResult $data): self/public function setData(?array $data): self/' ./src/Model/SignalResponseRawDeviceAttributes.php
-    sed -i '' 's/public function getData(): ?RawDeviceAttributesResult/public function getData(): array/' ./src/Model/SignalResponseRawDeviceAttributes.php
+    for pattern in "${patterns[@]}"; do
+        sed -i '' "/$pattern/d" src/README.md
+    done
   else
-    sed -i 's/public function setData(?RawDeviceAttributesResult $data): self/public function setData(?array $data): self/' ./src/Model/SignalResponseRawDeviceAttributes.php
-    sed -i 's/public function getData(): ?RawDeviceAttributesResult/public function getData(): array/' ./src/Model/SignalResponseRawDeviceAttributes.php
-  fi
-)
-
-(
-  # Readme file fix
-  replacement=$(printf 'The rawAttributes object follows this general shape: `{ value: any } | { error: { name: string; message: string; } }`\n')
-  readme_filename="./src/docs/Model/RawDeviceAttributesResult.md"
-  if [ "$platform" = "Darwin" ]; then
-    sed -i '' "s/^Name |.*/${replacement}/" "$readme_filename"
-    sed -i '' "/^------------ |/c\\" "$readme_filename"
-  else
-    sed -i "s/^Name |.*/${replacement}/" "$readme_filename"
-    sed -i "/^------------ |/c\\" "$readme_filename"
+    for pattern in "${patterns[@]}"; do
+        sed -i "/$pattern/d" src/README.md
+    done
   fi
 )
 

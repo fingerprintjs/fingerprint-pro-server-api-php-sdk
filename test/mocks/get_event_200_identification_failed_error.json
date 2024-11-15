@@ -3,7 +3,7 @@
     "identification": {
       "error": {
         "code": "Failed",
-        "message": "failed"
+        "message": "internal server error"
       }
     },
     "botd": {

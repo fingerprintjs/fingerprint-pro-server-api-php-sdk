@@ -6,3 +6,16 @@ src/git_push.sh
 src/test/**
 src/HeaderSelector.php
 src/ObjectSerializer.php
+
+# replaced by array and mixed types
+src/docs/Model/RawDeviceAttribute.md
+src/docs/Model/RawDeviceAttributeError.md
+src/docs/Model/RawDeviceAttributes.md
+src/docs/Model/Tag.md
+src/docs/Model/WebhookRawDeviceAttributes.md
+
+src/Model/RawDeviceAttribute.php
+src/Model/RawDeviceAttributeError.php
+src/Model/RawDeviceAttributes.php
+src/Model/Tag.php
+src/Model/WebhookRawDeviceAttributes.php

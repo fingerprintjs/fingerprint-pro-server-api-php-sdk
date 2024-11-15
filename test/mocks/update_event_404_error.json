@@ -1,6 +1,0 @@
-{
-  "error": {
-    "code": "RequestNotFound",
-    "message": "request id is not found"
-  }
-}
