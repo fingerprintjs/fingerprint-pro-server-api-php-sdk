@@ -117,7 +117,7 @@ $client = new FingerprintApi(
 try {
     // Fetch the event with a given requestId
     list($model, $response) = $client->getEvent(FPJS_REQUEST_ID);
-    echo "<pre>" . $response->__toString() . "</pre>";
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
 }
