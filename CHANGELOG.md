@@ -2,6 +2,9 @@
 
 ## 6.0.0
 
+The underlying Server API hasn’t changed, but we made SDK type and class generation more precise, resulting in small breaking changes for the SDK itself. This change should make the SDK API a lot more stable going forward
+
+
 ### Major Changes
 
 - - Remove the `BrowserDetails` field `botProbability`.
