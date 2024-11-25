@@ -2,6 +2,7 @@
 Is absent if the velocity data could not be generated for the visitor ID.
 
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

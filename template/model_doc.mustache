@@ -1,8 +1,9 @@
 {{#models}}{{#model}}# {{classname}}
-{{#description}}
+{{#unescapedDescription}}
 {{{.}}}
 
-{{/description}}
+{{/unescapedDescription}}
+{{^emptyVars}}
 
 ## Properties
 Name | Type | Description | Notes
@@ -12,4 +13,4 @@ Name | Type | Description | Notes
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 
-{{/model}}{{/models}}
+{{/emptyVars}}{{/model}}{{/models}}
