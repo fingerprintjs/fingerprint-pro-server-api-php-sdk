@@ -55,7 +55,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'timezone_mismatch' => 'bool',
         'public_vpn' => 'bool',
         'auxiliary_mobile' => 'bool',
-        'os_mismatch' => 'bool'];
+        'os_mismatch' => 'bool',
+        'relay' => 'bool'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -66,7 +67,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'timezone_mismatch' => null,
         'public_vpn' => null,
         'auxiliary_mobile' => null,
-        'os_mismatch' => null];
+        'os_mismatch' => null,
+        'relay' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -78,7 +80,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'timezone_mismatch' => 'timezoneMismatch',
         'public_vpn' => 'publicVPN',
         'auxiliary_mobile' => 'auxiliaryMobile',
-        'os_mismatch' => 'osMismatch'];
+        'os_mismatch' => 'osMismatch',
+        'relay' => 'relay'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -89,7 +92,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'timezone_mismatch' => 'setTimezoneMismatch',
         'public_vpn' => 'setPublicVpn',
         'auxiliary_mobile' => 'setAuxiliaryMobile',
-        'os_mismatch' => 'setOsMismatch'];
+        'os_mismatch' => 'setOsMismatch',
+        'relay' => 'setRelay'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -100,7 +104,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'timezone_mismatch' => 'getTimezoneMismatch',
         'public_vpn' => 'getPublicVpn',
         'auxiliary_mobile' => 'getAuxiliaryMobile',
-        'os_mismatch' => 'getOsMismatch'];
+        'os_mismatch' => 'getOsMismatch',
+        'relay' => 'getRelay'];
 
     /**
      * Associative array for storing property values.
@@ -121,6 +126,7 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         $this->container['public_vpn'] = isset($data['public_vpn']) ? $data['public_vpn'] : null;
         $this->container['auxiliary_mobile'] = isset($data['auxiliary_mobile']) ? $data['auxiliary_mobile'] : null;
         $this->container['os_mismatch'] = isset($data['os_mismatch']) ? $data['os_mismatch'] : null;
+        $this->container['relay'] = isset($data['relay']) ? $data['relay'] : null;
     }
 
     /**
@@ -201,6 +207,9 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         }
         if (null === $this->container['os_mismatch']) {
             $invalidProperties[] = "'os_mismatch' can't be null";
+        }
+        if (null === $this->container['relay']) {
+            $invalidProperties[] = "'relay' can't be null";
         }
 
         return $invalidProperties;
@@ -301,6 +310,28 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     public function setOsMismatch(bool $os_mismatch): self
     {
         $this->container['os_mismatch'] = $os_mismatch;
+
+        return $this;
+    }
+
+    /**
+     * Gets relay.
+     */
+    public function getRelay(): bool
+    {
+        return $this->container['relay'];
+    }
+
+    /**
+     * Sets relay.
+     *
+     * @param bool $relay Request IP address belongs to a relay service provider, indicating the use of relay services like [Apple Private relay](https://support.apple.com/en-us/102602) or [Cloudflare Warp](https://developers.cloudflare.com/warp-client/).   * Like VPNs, relay services anonymize the visitor's true IP address. * Unlike traditional VPNs, relay services don't let visitors spoof their location by choosing an exit node in a different country.  This field allows you to differentiate VPN users and relay service users in your fraud prevention logic.
+     *
+     * @return $this
+     */
+    public function setRelay(bool $relay): self
+    {
+        $this->container['relay'] = $relay;
 
         return $this;
     }

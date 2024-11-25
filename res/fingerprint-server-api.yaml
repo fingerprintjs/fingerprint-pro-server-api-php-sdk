@@ -527,6 +527,7 @@ paths:
                             publicVPN: false
                             auxiliaryMobile: false
                             osMismatch: false
+                            relay: false
                         proxy:
                           result: false
                         tampering:
@@ -848,6 +849,12 @@ components:
         linkedId:
           type: string
           description: A customer-provided id that was sent with the request.
+        suspect:
+          description: >-
+            Field is `true` if you have previously set the `suspect` flag for
+            this event using the [Server API Update event
+            endpoint](https://dev.fingerprint.com/reference/updateevent).
+          type: boolean
         timestamp:
           description: Timestamp of the event with millisecond precision in Unix time.
           type: integer
@@ -1218,6 +1225,7 @@ components:
         - publicVPN
         - auxiliaryMobile
         - osMismatch
+        - relay
       properties:
         timezoneMismatch:
           type: boolean
@@ -1239,6 +1247,23 @@ components:
           description: >-
             The browser runs on a different operating system than the operating
             system inferred from the request network signature.
+        relay:
+          type: boolean
+          description: >
+            Request IP address belongs to a relay service provider, indicating
+            the use of relay services like [Apple Private
+            relay](https://support.apple.com/en-us/102602) or [Cloudflare
+            Warp](https://developers.cloudflare.com/warp-client/). 
+
+
+            * Like VPNs, relay services anonymize the visitor's true IP address.
+
+            * Unlike traditional VPNs, relay services don't let visitors spoof
+            their location by choosing an exit node in a different country.
+
+
+            This field allows you to differentiate VPN users and relay service
+            users in your fraud prevention logic.
     VPN:
       type: object
       additionalProperties: false
@@ -2290,14 +2315,3 @@ components:
           $ref: '#/components/schemas/WebhookVelocity'
         developerTools:
           $ref: '#/components/schemas/WebhookDeveloperTools'
-    RelatedVisitor:
-      type: object
-      additionalProperties: false
-      required:
-        - visitorId
-      properties:
-        visitorId:
-          type: string
-          description: >-
-            Visitor ID of a browser that originates from the same mobile device
-            as the input visitor ID.

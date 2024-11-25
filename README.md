@@ -305,7 +305,6 @@ Class | Method | HTTP request | Description
  - [ProductVirtualMachine](docs/Model/ProductVirtualMachine.md)
  - [Products](docs/Model/Products.md)
  - [Proxy](docs/Model/Proxy.md)
- - [RelatedVisitor](docs/Model/RelatedVisitor.md)
  - [RemoteControl](docs/Model/RemoteControl.md)
  - [RootApps](docs/Model/RootApps.md)
  - [SuspectScore](docs/Model/SuspectScore.md)

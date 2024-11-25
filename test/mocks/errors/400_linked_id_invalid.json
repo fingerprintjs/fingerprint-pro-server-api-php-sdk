@@ -1,0 +1,6 @@
+{
+  "error": {
+    "code": "RequestCannotBeParsed",
+    "message": "linked_id can't be greater than 256 characters long"
+  }
+}
