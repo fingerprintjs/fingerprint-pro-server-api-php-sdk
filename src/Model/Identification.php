@@ -59,6 +59,7 @@ class Identification implements ModelInterface, \ArrayAccess
         'ip' => 'string',
         'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedGeolocation',
         'linked_id' => 'string',
+        'suspect' => 'bool',
         'timestamp' => 'int',
         'time' => '\DateTime',
         'url' => 'string',
@@ -82,6 +83,7 @@ class Identification implements ModelInterface, \ArrayAccess
         'ip' => null,
         'ip_location' => null,
         'linked_id' => null,
+        'suspect' => null,
         'timestamp' => 'int64',
         'time' => 'date-time',
         'url' => null,
@@ -106,6 +108,7 @@ class Identification implements ModelInterface, \ArrayAccess
         'ip' => 'ip',
         'ip_location' => 'ipLocation',
         'linked_id' => 'linkedId',
+        'suspect' => 'suspect',
         'timestamp' => 'timestamp',
         'time' => 'time',
         'url' => 'url',
@@ -129,6 +132,7 @@ class Identification implements ModelInterface, \ArrayAccess
         'ip' => 'setIp',
         'ip_location' => 'setIpLocation',
         'linked_id' => 'setLinkedId',
+        'suspect' => 'setSuspect',
         'timestamp' => 'setTimestamp',
         'time' => 'setTime',
         'url' => 'setUrl',
@@ -152,6 +156,7 @@ class Identification implements ModelInterface, \ArrayAccess
         'ip' => 'getIp',
         'ip_location' => 'getIpLocation',
         'linked_id' => 'getLinkedId',
+        'suspect' => 'getSuspect',
         'timestamp' => 'getTimestamp',
         'time' => 'getTime',
         'url' => 'getUrl',
@@ -184,6 +189,7 @@ class Identification implements ModelInterface, \ArrayAccess
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
         $this->container['ip_location'] = isset($data['ip_location']) ? $data['ip_location'] : null;
         $this->container['linked_id'] = isset($data['linked_id']) ? $data['linked_id'] : null;
+        $this->container['suspect'] = isset($data['suspect']) ? $data['suspect'] : null;
         $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
         $this->container['time'] = isset($data['time']) ? $data['time'] : null;
         $this->container['url'] = isset($data['url']) ? $data['url'] : null;
@@ -463,6 +469,28 @@ class Identification implements ModelInterface, \ArrayAccess
     public function setLinkedId(?string $linked_id): self
     {
         $this->container['linked_id'] = $linked_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets suspect.
+     */
+    public function getSuspect(): ?bool
+    {
+        return $this->container['suspect'];
+    }
+
+    /**
+     * Sets suspect.
+     *
+     * @param ?bool $suspect Field is `true` if you have previously set the `suspect` flag for this event using the [Server API Update event endpoint](https://dev.fingerprint.com/reference/updateevent).
+     *
+     * @return $this
+     */
+    public function setSuspect(?bool $suspect): self
+    {
+        $this->container['suspect'] = $suspect;
 
         return $this;
     }
