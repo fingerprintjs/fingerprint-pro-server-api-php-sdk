@@ -1,9 +1,15 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.1.0
+
+### Minor Changes
+
+- Add `relay` detection method to the VPN Detection Smart Signal ([afcf2e9](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/afcf2e9c018490e35c249688d4784fa856853b88))
+- **events**: Add a `suspect` field to the `identification` product schema ([afcf2e9](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/afcf2e9c018490e35c249688d4784fa856853b88))
+
 ## 6.0.0
 
 The underlying Server API hasn’t changed, but we made SDK type and class generation more precise, resulting in small breaking changes for the SDK itself. This change should make the SDK API a lot more stable going forward
-
 
 ### Major Changes
 
