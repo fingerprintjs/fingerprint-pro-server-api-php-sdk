@@ -1,0 +1,13 @@
+name: Check template consistency
+
+on:
+  pull_request:
+
+permissions:
+  pull-requests: write
+
+jobs:
+  check-template-consistency:
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/check-template-consistency.yml@v1
+    with:
+      generate-command: 'bash ./scripts/generate.sh'
