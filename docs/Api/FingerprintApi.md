@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteVisitorData**](FingerprintApi.md#deleteVisitorData) | **DELETE** /visitors/{visitor_id} | Delete data by visitor ID
 [**getEvent**](FingerprintApi.md#getEvent) | **GET** /events/{request_id} | Get event by request ID
+[**getRelatedVisitors**](FingerprintApi.md#getRelatedVisitors) | **GET** /related-visitors | Get Related Visitors
 [**getVisits**](FingerprintApi.md#getVisits) | **GET** /visitors/{visitor_id} | Get visits by visitor ID
 [**updateEvent**](FingerprintApi.md#updateEvent) | **PUT** /events/{request_id} | Update an event with a given request ID
 
@@ -118,6 +119,68 @@ Name | Type | Description  | Notes
 
 Array:
 0. [**\Fingerprint\ServerAPI\Model\EventsGetResponse**](../Model/EventsGetResponse.md) | null,
+1. \Psr\Http\Message\ResponseInterface
+
+
+### Authorization
+
+[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getRelatedVisitors**
+>  [ \Fingerprint\ServerAPI\Model\RelatedVisitorsResponse, \Psr\Http\Message\ResponseInterface ] getRelatedVisitors($visitor_id)
+
+Get Related Visitors
+
+Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device. It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.  ⚠️ Please note that this API is not enabled by default and is billable separately. ⚠️  If you would like to use Related visitors API, please contact our [support team](https://fingerprint.com/support). To learn more, see [Related visitors API reference](https://dev.fingerprint.com/reference/related-visitors-api).
+
+### Example
+```php
+<?php
+
+require_once(__DIR__ . '/vendor/autoload.php');
+
+const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
+
+// Import Fingerprint Classes and Guzzle HTTP Client
+use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Configuration;
+use GuzzleHttp\Client;
+
+// Create new Configuration instance with defaultValues, added our API Secret and our Region
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
+$client = new FingerprintApi(
+    new Client(),
+$config
+);
+
+$visitor_id = "visitor_id_example"; // string | The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device.
+
+try {
+    list($model, $httpResponse) = $client->getRelatedVisitors($visitor_id);
+    echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->getRelatedVisitors: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **visitor_id** | **string**| The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device. |
+
+### Return type
+
+Array:
+0. [**\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse**](../Model/RelatedVisitorsResponse.md) | null,
 1. \Psr\Http\Message\ResponseInterface
 
 

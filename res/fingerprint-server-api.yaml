@@ -394,6 +394,76 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /related-visitors:
+    get:
+      tags:
+        - Fingerprint
+      operationId: getRelatedVisitors
+      summary: Get Related Visitors
+      description: >
+        Related visitors API lets you link web visits and in-app browser visits
+        that originated from the same mobile device.
+
+        It searches the past 6 months of identification events to find the
+        visitor IDs that belong to the same mobile device as the given visitor
+        ID.
+
+
+        ⚠️ Please note that this API is not enabled by default and is billable
+        separately. ⚠️
+
+
+        If you would like to use Related visitors API, please contact our
+        [support team](https://fingerprint.com/support).
+
+        To learn more, see [Related visitors API
+        reference](https://dev.fingerprint.com/reference/related-visitors-api).
+      parameters:
+        - name: visitor_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: >-
+            The [visitor
+            ID](https://dev.fingerprint.com/reference/get-function#visitorid)
+            for which you want to find the other visitor IDs that originated
+            from the same mobile device.
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelatedVisitorsResponse'
+        '400':
+          description: >-
+            Bad request. The visitor ID parameter is missing or in the wrong
+            format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden. Access to this API is denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Not found. The visitor ID cannot be found in this application's
+            data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests. The request is throttled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /webhook:
     trace:
       tags:
@@ -1902,6 +1972,27 @@ components:
       properties:
         error:
           type: string
+    RelatedVisitor:
+      type: object
+      additionalProperties: false
+      required:
+        - visitorId
+      properties:
+        visitorId:
+          type: string
+          description: >-
+            Visitor ID of a browser that originates from the same mobile device
+            as the input visitor ID.
+    RelatedVisitorsResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - relatedVisitors
+      properties:
+        relatedVisitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedVisitor'
     WebhookRootApps:
       type: object
       additionalProperties: false
