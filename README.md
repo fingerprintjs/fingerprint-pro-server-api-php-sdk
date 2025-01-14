@@ -237,6 +237,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *FingerprintApi* | [**deleteVisitorData**](docs/Api/FingerprintApi.md#deletevisitordata) | **DELETE** /visitors/{visitor_id} | Delete data by visitor ID
 *FingerprintApi* | [**getEvent**](docs/Api/FingerprintApi.md#getevent) | **GET** /events/{request_id} | Get event by request ID
+*FingerprintApi* | [**getRelatedVisitors**](docs/Api/FingerprintApi.md#getrelatedvisitors) | **GET** /related-visitors | Get Related Visitors
 *FingerprintApi* | [**getVisits**](docs/Api/FingerprintApi.md#getvisits) | **GET** /visitors/{visitor_id} | Get visits by visitor ID
 *FingerprintApi* | [**updateEvent**](docs/Api/FingerprintApi.md#updateevent) | **PUT** /events/{request_id} | Update an event with a given request ID
 
@@ -305,6 +306,8 @@ Class | Method | HTTP request | Description
  - [ProductVirtualMachine](docs/Model/ProductVirtualMachine.md)
  - [Products](docs/Model/Products.md)
  - [Proxy](docs/Model/Proxy.md)
+ - [RelatedVisitor](docs/Model/RelatedVisitor.md)
+ - [RelatedVisitorsResponse](docs/Model/RelatedVisitorsResponse.md)
  - [RemoteControl](docs/Model/RemoteControl.md)
  - [RootApps](docs/Model/RootApps.md)
  - [SuspectScore](docs/Model/SuspectScore.md)

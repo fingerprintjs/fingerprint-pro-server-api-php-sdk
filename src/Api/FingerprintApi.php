@@ -425,6 +425,205 @@ class FingerprintApi
     }
 
     /**
+     * Operation getRelatedVisitors.
+     *
+     * Get Related Visitors
+     *
+     * @param string $visitor_id The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device. (required)
+     *
+     * @return array{ \Fingerprint\ServerAPI\Model\RelatedVisitorsResponse|null, \Psr\Http\Message\ResponseInterface }
+     *
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function getRelatedVisitors(string $visitor_id): array
+    {
+        $returnType = '\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse';
+        $request = $this->getRelatedVisitorsRequest($visitor_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                $apiException = new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode()
+                );
+                $apiException->setResponseObject($e->getResponse());
+
+                throw $apiException;
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                $apiException = new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode
+                );
+                $apiException->setResponseObject($response);
+
+                throw $apiException;
+            }
+
+            $serialized = ObjectSerializer::deserialize($response, $returnType);
+
+            return [$serialized, $response];
+        } catch (ApiException $e) {
+            /** @var ResponseInterface $response */
+            $response = $e->getResponseObject();
+
+            switch ($e->getCode()) {
+                case 200:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 400:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 403:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 404:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 429:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+            }
+
+            if (429 === $e->getCode()) {
+                $e->setRetryAfter(1);
+                if ($response->hasHeader('retry-after')) {
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                }
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getRelatedVisitorsAsync.
+     *
+     * Get Related Visitors
+     *
+     * @param string $visitor_id The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device. (required)
+     *
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function getRelatedVisitorsAsync(string $visitor_id): PromiseInterface
+    {
+        $returnType = '\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse';
+        $request = $this->getRelatedVisitorsRequest($visitor_id);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    $statusCode = $response->getStatusCode();
+
+                    if ($statusCode < 200 || $statusCode > 299) {
+                        $apiException = new ApiException(
+                            sprintf(
+                                '[%d] Error connecting to the API (%s)',
+                                $statusCode,
+                                $request->getUri()
+                            ),
+                            $statusCode
+                        );
+                        $apiException->setResponseObject($response);
+
+                        throw $apiException;
+                    }
+
+                    $serialized = ObjectSerializer::deserialize($response, $returnType);
+
+                    return [$serialized, $response];
+                },
+                function ($e) {
+                    /** @var ResponseInterface $response */
+                    $response = $e->getResponseObject();
+
+                    switch ($e->getCode()) {
+                        case 200:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 400:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 403:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 404:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 429:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+                    }
+
+                    if (429 === $e->getCode()) {
+                        $e->setRetryAfter(1);
+                        if ($response->hasHeader('retry-after')) {
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                        }
+                    }
+
+                    throw $e;
+                }
+            );
+    }
+
+    /**
      * Operation getVisits.
      *
      * Get visits by visitor ID
@@ -899,6 +1098,69 @@ class FingerprintApi
                 ObjectSerializer::toPathValue($request_id),
                 $resourcePath
             );
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Auth-API-Key');
+        if (null !== $apiKey) {
+            $headers['Auth-API-Key'] = $apiKey;
+        }
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('api_key');
+        if (null !== $apiKey) {
+            $queryParams['api_key'] = $apiKey;
+        }
+
+        $defaultHeaders = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = http_build_query($queryParams);
+
+        return new Request(
+            'GET',
+            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Create request for operation 'getRelatedVisitors'.
+     *
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    protected function getRelatedVisitorsRequest(string $visitor_id): Request
+    {
+        // verify the required parameter 'visitor_id' is set
+        if (null === $visitor_id || (is_array($visitor_id) && 0 === count($visitor_id))) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $visitor_id when calling getRelatedVisitors'
+            );
+        }
+
+        $resourcePath = '/related-visitors';
+        $headers = [];
+        $queryParams = ['ii' => $this->integration_info];
+        $headerParams = [];
+        $httpBody = '';
+
+        // query params
+        if (null !== $visitor_id) {
+            $queryParams['visitor_id'] = ObjectSerializer::toQueryValue($visitor_id, null);
         }
 
         // this endpoint requires API key authentication
