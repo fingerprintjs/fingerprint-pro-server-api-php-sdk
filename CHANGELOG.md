@@ -1,5 +1,11 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.2.0
+
+### Minor Changes
+
+- Add Related Visitors API ([4f3030b](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/4f3030b9f0e13333279d4fe38469a5d4a0867654))
+
 ## 6.1.0
 
 ### Minor Changes
