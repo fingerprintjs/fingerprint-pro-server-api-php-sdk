@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **city** | [**\Fingerprint\ServerAPI\Model\GeolocationCity**](GeolocationCity.md) |  | [optional] 
 **country** | [**\Fingerprint\ServerAPI\Model\GeolocationCountry**](GeolocationCountry.md) |  | [optional] 
 **continent** | [**\Fingerprint\ServerAPI\Model\GeolocationContinent**](GeolocationContinent.md) |  | [optional] 
-**subdivisions** | [**\Fingerprint\ServerAPI\Model\GeolocationSubdivisions**](GeolocationSubdivisions.md) |  | [optional] 
+**subdivisions** | array |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

@@ -85,6 +85,7 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals(BotdBotResult::NOT_DETECTED, $botd_product->getData()->getBot()->getResult());
         $this->assertFalse($vpn_product->getData()->getMethods()->getPublicVpn());
         $this->assertEquals('94.142.239.124', $ip_info_product->getData()->getV4()->getAddress());
+        $this->assertEquals($ip_info_product->getData()->getV4()->getGeolocation()->getSubdivisions()[0]->name, 'Hlavni mesto Praha');
         $this->assertFalse($cloned_app_product->getData()->getResult());
         $this->assertEquals(new \DateTime('1970-01-01T00:00:00Z'), $factory_reset_product->getData()->getTime());
         $this->assertFalse($jailbroken_product->getData()->getResult());
