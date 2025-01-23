@@ -1,5 +1,12 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.2.1
+
+### Patch Changes
+
+- Fix problem with empty `Sibdivisions` array in the `Geolocation` model ([ebd29b3](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/ebd29b384545d2261d0f6e7fa0eddd5689638ca2))
+- Fix scalar values serialization (affects `EventsUpdateRequest`) ([123ca07](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/123ca07e6e8fc65b2a1bf7e8b736761fcb900e9e))
+
 ## 6.2.0
 
 ### Minor Changes
