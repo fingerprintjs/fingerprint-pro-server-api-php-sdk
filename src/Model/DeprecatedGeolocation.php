@@ -62,7 +62,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
         'city' => '\Fingerprint\ServerAPI\Model\GeolocationCity',
         'country' => '\Fingerprint\ServerAPI\Model\GeolocationCountry',
         'continent' => '\Fingerprint\ServerAPI\Model\GeolocationContinent',
-        'subdivisions' => '\Fingerprint\ServerAPI\Model\GeolocationSubdivisions'];
+        'subdivisions' => 'array'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -417,7 +417,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     /**
      * Gets subdivisions.
      */
-    public function getSubdivisions(): ?GeolocationSubdivisions
+    public function getSubdivisions(): ?array
     {
         return $this->container['subdivisions'];
     }
@@ -425,11 +425,11 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     /**
      * Sets subdivisions.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\GeolocationSubdivisions $subdivisions subdivisions
+     * @param ?array $subdivisions subdivisions
      *
      * @return $this
      */
-    public function setSubdivisions(?GeolocationSubdivisions $subdivisions): self
+    public function setSubdivisions(?array $subdivisions): self
     {
         $this->container['subdivisions'] = $subdivisions;
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ObjectSerializer.
  *
@@ -60,14 +61,22 @@ class ObjectSerializer
         }
         if (is_array($data)) {
             foreach ($data as $property => $value) {
-                $data[$property] = self::sanitizeForSerialization($value);
+                if (is_scalar($value)) {
+                    $data[$property] = $value;
+                } else {
+                    $data[$property] = self::sanitizeForSerialization($value);
+                }
             }
 
             return $data;
         }
         if ($data instanceof \stdClass) {
             foreach ($data as $property => $value) {
-                $data->{$property} = self::sanitizeForSerialization($value);
+                if (is_scalar($value)) {
+                    $data->{$property} = $value;
+                } else {
+                    $data->{$property} = self::sanitizeForSerialization($value);
+                }
             }
 
             return $data;
@@ -92,7 +101,13 @@ class ObjectSerializer
                     throw new \InvalidArgumentException("Invalid value for enum '{$swaggerType}', must be one of: '{$imploded}'");
                 }
                 if (null !== $value) {
-                    $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $swaggerType, $formats[$property]);
+                    if (is_scalar($value)) {
+                        $values[$data::attributeMap()[$property]] = $value;
+                    } elseif ('tag' === $property && empty($value)) {
+                        $values[$data::attributeMap()[$property]] = new \stdClass();
+                    } else {
+                        $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $swaggerType, $formats[$property]);
+                    }
                 }
             }
 

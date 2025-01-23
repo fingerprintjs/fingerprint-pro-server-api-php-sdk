@@ -263,8 +263,6 @@ Class | Method | HTTP request | Description
  - [GeolocationCity](docs/Model/GeolocationCity.md)
  - [GeolocationContinent](docs/Model/GeolocationContinent.md)
  - [GeolocationCountry](docs/Model/GeolocationCountry.md)
- - [GeolocationSubdivision](docs/Model/GeolocationSubdivision.md)
- - [GeolocationSubdivisions](docs/Model/GeolocationSubdivisions.md)
  - [HighActivity](docs/Model/HighActivity.md)
  - [IPBlocklist](docs/Model/IPBlocklist.md)
  - [IPBlocklistDetails](docs/Model/IPBlocklistDetails.md)

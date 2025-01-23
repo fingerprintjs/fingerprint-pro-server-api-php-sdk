@@ -37,7 +37,7 @@ platform=$(uname)
 # clean models before generating
 rm -f ./src/Model/*
 
-java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array
+java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array,GeolocationSubdivisions=array
 
 if [ ! -f .php-cs-fixer.php ]; then
   echo ".php-cs-fixer.php configuration file not found!"
@@ -76,6 +76,8 @@ docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:3.64-php8.3 fi
   '\[RawDeviceAttributes\](docs\/Model\/RawDeviceAttributes\.md)'
   '\[WebhookRawDeviceAttributes\](docs\/Model\/WebhookRawDeviceAttributes\.md)'
   '\[Tag\](docs\/Model\/Tag\.md)'
+  '\[GeolocationSubdivisions\](docs\/Model\/GeolocationSubdivisions\.md)'
+  '\[GeolocationSubdivision\](docs\/Model\/GeolocationSubdivision\.md)'
   )
   if [ "$platform" = "Darwin" ]; then
     for pattern in "${patterns[@]}"; do
