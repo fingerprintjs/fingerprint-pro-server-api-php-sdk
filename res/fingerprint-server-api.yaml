@@ -142,6 +142,131 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /events/search:
+    get:
+      tags:
+        - Fingerprint
+      operationId: searchEvents
+      summary: Get events via search
+      description: >
+        Search for identification events, including Smart Signals, using
+        multiple filtering criteria. If you don't provide `start` or `end`
+        parameters, the default search range is the last 7 days.
+
+
+        Please note that events include mobile signals (e.g. `rootApps`) even if
+        the request originated from a non-mobile platform. We recommend you
+        **ignore** mobile signals for such requests.
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            example: 10
+          description: |
+            Limit the number of events returned.
+        - name: visitor_id
+          in: query
+          schema:
+            type: string
+          description: >
+            Unique [visitor
+            identifier](https://dev.fingerprint.com/reference/get-function#visitorid)
+            issued by Fingerprint Pro.
+
+            Filter for events matching this `visitor_id`.
+        - name: bot
+          in: query
+          schema:
+            type: string
+            enum:
+              - all
+              - good
+              - bad
+              - none
+          description: |
+            Filter events by the bot detection result, specifically: 
+              - events where any kind of bot was detected.
+              - events where a good bot was detected.
+              - events where a bad bot was detected.
+              - events where no bot was detected.
+        - name: ip_address
+          in: query
+          schema:
+            type: string
+          description: >
+            Filter events by IP address range. The range can be as specific as a
+            single IP (/32 for IPv4 or /128 for IPv6) 
+
+            All ip_address filters must use CIDR notation, for example,
+            10.0.0.0/24, 192.168.0.1/32
+        - name: linked_id
+          in: query
+          schema:
+            type: string
+          description: >
+            Filter events by your custom identifier. 
+
+
+            You can use [linked
+            IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to
+            associate identification requests with your own identifier, for
+            example, session ID, purchase ID, or transaction ID. You can then
+            use this `linked_id` parameter to retrieve all events associated
+            with your custom identifier.
+        - name: start
+          in: query
+          schema:
+            type: integer
+            format: int64
+          description: >
+            Filter events with a timestamp greater than the start time, in Unix
+            time (milliseconds).
+        - name: end
+          in: query
+          schema:
+            type: integer
+            format: int64
+          description: >
+            Filter events with a timestamp smaller than the end time, in Unix
+            time (milliseconds).
+        - name: reverse
+          in: query
+          schema:
+            type: boolean
+          description: |
+            Sort events in reverse timestamp order.
+        - name: suspect
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events previously tagged as suspicious via the [Update
+            API](https://dev.fingerprint.com/reference/updateevent).
+      responses:
+        '200':
+          description: Events matching the filter(s).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchEventsResponse'
+        '400':
+          description: >-
+            Bad request. One or more supplied search parameters are invalid, or
+            a required parameter is missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden. Access to this API is denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /visitors/{visitor_id}:
     get:
       tags:
@@ -1874,6 +1999,25 @@ components:
         suspect:
           type: boolean
           description: Suspect flag indicating observed suspicious or fraudulent event
+    SearchEventsResponse:
+      type: object
+      description: >-
+        Contains a list of all identification events matching the specified
+        search criteria.
+      additionalProperties: false
+      properties:
+        events:
+          type: array
+          items:
+            type: object
+            description: Device intelligence results for the identification event.
+            required:
+              - products
+            properties:
+              products:
+                $ref: '#/components/schemas/Products'
+        paginationKey:
+          type: string
     Visit:
       type: object
       additionalProperties: false

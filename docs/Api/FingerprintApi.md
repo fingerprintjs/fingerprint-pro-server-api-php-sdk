@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**getEvent**](FingerprintApi.md#getEvent) | **GET** /events/{request_id} | Get event by request ID
 [**getRelatedVisitors**](FingerprintApi.md#getRelatedVisitors) | **GET** /related-visitors | Get Related Visitors
 [**getVisits**](FingerprintApi.md#getVisits) | **GET** /visitors/{visitor_id} | Get visits by visitor ID
+[**searchEvents**](FingerprintApi.md#searchEvents) | **GET** /events/search | Get events via search
 [**updateEvent**](FingerprintApi.md#updateEvent) | **PUT** /events/{request_id} | Update an event with a given request ID
 
 # **deleteVisitorData**
@@ -253,6 +254,84 @@ Name | Type | Description  | Notes
 
 Array:
 0. [**\Fingerprint\ServerAPI\Model\VisitorsGetResponse**](../Model/VisitorsGetResponse.md) | null,
+1. \Psr\Http\Message\ResponseInterface
+
+
+### Authorization
+
+[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **searchEvents**
+>  [ \Fingerprint\ServerAPI\Model\SearchEventsResponse, \Psr\Http\Message\ResponseInterface ] searchEvents($limit, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect)
+
+Get events via search
+
+Search for identification events, including Smart Signals, using multiple filtering criteria. If you don't provide `start` or `end` parameters, the default search range is the last 7 days.  Please note that events include mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. We recommend you **ignore** mobile signals for such requests.
+
+### Example
+```php
+<?php
+
+require_once(__DIR__ . '/vendor/autoload.php');
+
+const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
+
+// Import Fingerprint Classes and Guzzle HTTP Client
+use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerAPI\Configuration;
+use GuzzleHttp\Client;
+
+// Create new Configuration instance with defaultValues, added our API Secret and our Region
+$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
+$client = new FingerprintApi(
+    new Client(),
+$config
+);
+
+$limit = 56; // int | Limit the number of events returned.
+$visitor_id = "visitor_id_example"; // string | Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.
+$bot = "bot_example"; // string | Filter events by the bot detection result, specifically:    - events where any kind of bot was detected.   - events where a good bot was detected.   - events where a bad bot was detected.   - events where no bot was detected.
+$ip_address = "ip_address_example"; // string | Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32
+$linked_id = "linked_id_example"; // string | Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+$start = 789; // int | Filter events with a timestamp greater than the start time, in Unix time (milliseconds).
+$end = 789; // int | Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).
+$reverse = true; // bool | Sort events in reverse timestamp order.
+$suspect = true; // bool | Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).
+
+try {
+    list($model, $httpResponse) = $client->searchEvents($limit, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
+    echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->searchEvents: ', $e->getMessage(), PHP_EOL;
+}
+?>
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**| Limit the number of events returned. |
+ **visitor_id** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. | [optional]
+ **bot** | **string**| Filter events by the bot detection result, specifically:    - events where any kind of bot was detected.   - events where a good bot was detected.   - events where a bad bot was detected.   - events where no bot was detected. | [optional]
+ **ip_address** | **string**| Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 | [optional]
+ **linked_id** | **string**| Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. | [optional]
+ **start** | **int**| Filter events with a timestamp greater than the start time, in Unix time (milliseconds). | [optional]
+ **end** | **int**| Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). | [optional]
+ **reverse** | **bool**| Sort events in reverse timestamp order. | [optional]
+ **suspect** | **bool**| Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent). | [optional]
+
+### Return type
+
+Array:
+0. [**\Fingerprint\ServerAPI\Model\SearchEventsResponse**](../Model/SearchEventsResponse.md) | null,
 1. \Psr\Http\Message\ResponseInterface
 
 
