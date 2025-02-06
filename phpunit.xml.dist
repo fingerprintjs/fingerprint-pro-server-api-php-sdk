@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="./vendor/autoload.php"
          colors="true"
-         convertDeprecationsToExceptions="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="false"
-         convertWarningsToExceptions="false"
+         beStrictAboutOutputDuringTests="true"
          stopOnFailure="false">
 
     <testsuites>
@@ -13,10 +10,12 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
+    <source>
         <include>
             <directory suffix=".php">./src</directory>
         </include>
+    </source>
+    <coverage>
         <report>
             <xml outputDirectory="cov/xml" />
             <clover outputFile="cov/xml/clover.xml" />
