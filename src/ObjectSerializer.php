@@ -141,10 +141,14 @@ class ObjectSerializer
      *
      * @return string the serialized object
      */
-    public static function toQueryValue(array|\DateTime|string $object, ?string $format = null): string
+    public static function toQueryValue(array|bool|\DateTime|string $object, ?string $format = null): string
     {
         if (is_array($object)) {
             return implode(',', $object);
+        }
+
+        if (is_bool($object)) {
+            return $object ? 'true' : 'false';
         }
 
         return self::toString($object, $format);
