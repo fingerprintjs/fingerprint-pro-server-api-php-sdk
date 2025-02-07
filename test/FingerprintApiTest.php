@@ -824,6 +824,7 @@ class FingerprintApiTest extends TestCase
             $this->assertEquals($end->getTimestamp(), $queryArray['end']);
             $this->assertEquals('true', $queryArray['suspect']);
             $this->assertEquals('good', $queryArray['bot']);
+            $this->assertEquals('127.0.0.1/16', $queryArray['ip_address']);
 
             return $this->returnMockResponse('get_event_search_200.json');
         });
