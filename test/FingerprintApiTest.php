@@ -21,7 +21,6 @@ use Psr\Http\Message\RequestInterface;
 /**
  * @internal
  *
- * @coversNothing
  */
 class FingerprintApiTest extends TestCase
 {
