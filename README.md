@@ -122,6 +122,15 @@ try {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
 }
 
+// Search for specific events
+try {
+    // Search events for given visitor id marked as suspicious and "bad" bot
+    list($model, $response) = $client->searchEvents(LIMIT, FPJS_VISITOR_ID, 'bad', null, null, null, null, null, true);
+    echo "<pre>" . $response->getBody()->getContents() . "</pre>";
+} catch (Exception $e) {
+    echo 'Exception when calling FingerprintApi->searchEvents: ', $e->getMessage(), PHP_EOL;
+}
+
 // Get a specific visitor's all visits with a linkedId
 try {
     // Fetch all visits with a given visitorId, with a page limit, skipping the first visit
