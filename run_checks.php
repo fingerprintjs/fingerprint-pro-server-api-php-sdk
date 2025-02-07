@@ -10,6 +10,7 @@ use Fingerprint\ServerAPI\Configuration;
 use Fingerprint\ServerAPI\Model\EventsGetResponse;
 use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
 use Fingerprint\ServerAPI\Model\VisitorsGetResponse;
+use Fingerprint\ServerAPI\Model\SearchEventsResponse;
 use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
 use GuzzleHttp\Client;
 
@@ -78,6 +79,19 @@ try {
     fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getEvent: %s\n", $e->getMessage()));
+
+    exit(1);
+}
+
+try {
+    /** @var SearchEventsResponse $result */
+    list($result, $response) = $client->searchEvents(10, $visitor_id);
+    if (count($result->getEvents()) > 0 && $result->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId() !== $visitor_id) {
+        throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
+    }
+    fwrite(STDOUT, sprintf("\n\nGot events: %s \n", $response->getBody()->getContents()));
+} catch (Exception $e) {
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents: %s\n", $e->getMessage()));
 
     exit(1);
 }
