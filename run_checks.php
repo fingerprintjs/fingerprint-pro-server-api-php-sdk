@@ -90,9 +90,6 @@ try {
 
     /** @var SearchEventsResponse $result */
     list($result, $response) = $client->searchEvents(10, null, null, null, null, $start->getTimestamp() * 1000, $end->getTimestamp() * 1000);
-    if (is_countable($result->getEvents()) && count($result->getEvents()) > 0 && $result->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId() !== $visitor_id) {
-        throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
-    }
     fwrite(STDOUT, sprintf("\n\nGot events: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents: %s\n", $e->getMessage()));
