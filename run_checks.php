@@ -84,8 +84,12 @@ try {
 }
 
 try {
+    // 2 years from now
+    $start = (new DateTime())->sub(new DateInterval('P2Y'));
+    $end = new DateTime();
+
     /** @var SearchEventsResponse $result */
-    list($result, $response) = $client->searchEvents(10, $visitor_id);
+    list($result, $response) = $client->searchEvents(10, $visitor_id, null, null, null, $start->getTimestamp() * 1000, $end->getTimestamp() * 1000);
     if (is_countable($result->getEvents()) && count($result->getEvents()) > 0 && $result->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId() !== $visitor_id) {
         throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
     }
