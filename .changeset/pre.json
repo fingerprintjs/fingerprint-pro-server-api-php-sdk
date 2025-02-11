@@ -4,5 +4,7 @@
   "initialVersions": {
     "fingerprint-pro-server-api-php-sdk": "6.2.1"
   },
-  "changesets": []
+  "changesets": [
+    "good-experts-watch"
+  ]
 }
