@@ -819,6 +819,193 @@ class FingerprintApi
     }
 
     /**
+     * Operation searchEvents.
+     *
+     * Get events via search
+     *
+     * @param int    $limit      Limit the number of events returned. (required)
+     * @param string $visitor_id Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
+     * @param string $bot        Filter events by the bot detection result, specifically:    - events where any kind of bot was detected.   - events where a good bot was detected.   - events where a bad bot was detected.   - events where no bot was detected. (optional)
+     * @param string $ip_address Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
+     * @param string $linked_id  Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param int    $start      Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
+     * @param int    $end        Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
+     * @param bool   $reverse    Sort events in reverse timestamp order. (optional)
+     * @param bool   $suspect    Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent). (optional)
+     *
+     * @return array{ \Fingerprint\ServerAPI\Model\SearchEventsResponse|null, \Psr\Http\Message\ResponseInterface }
+     *
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function searchEvents(int $limit, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): array
+    {
+        $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
+        $request = $this->searchEventsRequest($limit, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
+
+        try {
+            $options = $this->createHttpClientOption();
+
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                $apiException = new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode()
+                );
+                $apiException->setResponseObject($e->getResponse());
+
+                throw $apiException;
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                $apiException = new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode
+                );
+                $apiException->setResponseObject($response);
+
+                throw $apiException;
+            }
+
+            $serialized = ObjectSerializer::deserialize($response, $returnType);
+
+            return [$serialized, $response];
+        } catch (ApiException $e) {
+            /** @var ResponseInterface $response */
+            $response = $e->getResponseObject();
+
+            switch ($e->getCode()) {
+                case 200:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\SearchEventsResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 400:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 403:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+            }
+
+            if (429 === $e->getCode()) {
+                $e->setRetryAfter(1);
+                if ($response->hasHeader('retry-after')) {
+                    $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                }
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation searchEventsAsync.
+     *
+     * Get events via search
+     *
+     * @param int    $limit      Limit the number of events returned. (required)
+     * @param string $visitor_id Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
+     * @param string $bot        Filter events by the bot detection result, specifically:    - events where any kind of bot was detected.   - events where a good bot was detected.   - events where a bad bot was detected.   - events where no bot was detected. (optional)
+     * @param string $ip_address Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
+     * @param string $linked_id  Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param int    $start      Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
+     * @param int    $end        Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
+     * @param bool   $reverse    Sort events in reverse timestamp order. (optional)
+     * @param bool   $suspect    Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent). (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function searchEventsAsync(int $limit, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): PromiseInterface
+    {
+        $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
+        $request = $this->searchEventsRequest($limit, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $request) {
+                    $statusCode = $response->getStatusCode();
+
+                    if ($statusCode < 200 || $statusCode > 299) {
+                        $apiException = new ApiException(
+                            sprintf(
+                                '[%d] Error connecting to the API (%s)',
+                                $statusCode,
+                                $request->getUri()
+                            ),
+                            $statusCode
+                        );
+                        $apiException->setResponseObject($response);
+
+                        throw $apiException;
+                    }
+
+                    $serialized = ObjectSerializer::deserialize($response, $returnType);
+
+                    return [$serialized, $response];
+                },
+                function ($e) {
+                    /** @var ResponseInterface $response */
+                    $response = $e->getResponseObject();
+
+                    switch ($e->getCode()) {
+                        case 200:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\SearchEventsResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 400:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 403:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+                    }
+
+                    if (429 === $e->getCode()) {
+                        $e->setRetryAfter(1);
+                        if ($response->hasHeader('retry-after')) {
+                            $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
+                        }
+                    }
+
+                    throw $e;
+                }
+            );
+    }
+
+    /**
      * Operation updateEvent.
      *
      * Update an event with a given request ID
@@ -1249,6 +1436,101 @@ class FingerprintApi
                 ObjectSerializer::toPathValue($visitor_id),
                 $resourcePath
             );
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Auth-API-Key');
+        if (null !== $apiKey) {
+            $headers['Auth-API-Key'] = $apiKey;
+        }
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('api_key');
+        if (null !== $apiKey) {
+            $queryParams['api_key'] = $apiKey;
+        }
+
+        $defaultHeaders = [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = http_build_query($queryParams);
+
+        return new Request(
+            'GET',
+            $this->config->getHost().$resourcePath.($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Create request for operation 'searchEvents'.
+     *
+     * @throws \InvalidArgumentException
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    protected function searchEventsRequest(int $limit, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): Request
+    {
+        // verify the required parameter 'limit' is set
+        if (null === $limit || (is_array($limit) && 0 === count($limit))) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $limit when calling searchEvents'
+            );
+        }
+
+        $resourcePath = '/events/search';
+        $headers = [];
+        $queryParams = ['ii' => $this->integration_info];
+        $headerParams = [];
+        $httpBody = '';
+
+        // query params
+        if (null !== $limit) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($limit, 'int32');
+        }
+        // query params
+        if (null !== $visitor_id) {
+            $queryParams['visitor_id'] = ObjectSerializer::toQueryValue($visitor_id, null);
+        }
+        // query params
+        if (null !== $bot) {
+            $queryParams['bot'] = ObjectSerializer::toQueryValue($bot, null);
+        }
+        // query params
+        if (null !== $ip_address) {
+            $queryParams['ip_address'] = ObjectSerializer::toQueryValue($ip_address, null);
+        }
+        // query params
+        if (null !== $linked_id) {
+            $queryParams['linked_id'] = ObjectSerializer::toQueryValue($linked_id, null);
+        }
+        // query params
+        if (null !== $start) {
+            $queryParams['start'] = ObjectSerializer::toQueryValue($start, 'int64');
+        }
+        // query params
+        if (null !== $end) {
+            $queryParams['end'] = ObjectSerializer::toQueryValue($end, 'int64');
+        }
+        // query params
+        if (null !== $reverse) {
+            $queryParams['reverse'] = ObjectSerializer::toQueryValue($reverse, null);
+        }
+        // query params
+        if (null !== $suspect) {
+            $queryParams['suspect'] = ObjectSerializer::toQueryValue($suspect, null);
         }
 
         // this endpoint requires API key authentication

@@ -10,6 +10,7 @@ use Fingerprint\ServerAPI\Configuration;
 use Fingerprint\ServerAPI\Model\EventsGetResponse;
 use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
 use Fingerprint\ServerAPI\Model\VisitorsGetResponse;
+use Fingerprint\ServerAPI\Model\SearchEventsResponse;
 use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
 use GuzzleHttp\Client;
 
@@ -78,6 +79,23 @@ try {
     fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getEvent: %s\n", $e->getMessage()));
+
+    exit(1);
+}
+
+try {
+    // 2 years from now
+    $start = (new DateTime())->sub(new DateInterval('P2Y'));
+    $end = new DateTime();
+
+    /** @var SearchEventsResponse $result */
+    list($result, $response) = $client->searchEvents(10, null, null, null, null, $start->getTimestamp() * 1000, $end->getTimestamp() * 1000);
+    if (!is_countable($result->getEvents()) || count($result->getEvents()) === 0) {
+        throw new Exception('No events found');
+    }
+    fwrite(STDOUT, sprintf("\n\nGot events: %s \n", $response->getBody()->getContents()));
+} catch (Exception $e) {
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents: %s\n", $e->getMessage()));
 
     exit(1);
 }

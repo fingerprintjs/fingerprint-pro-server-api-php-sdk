@@ -2,6 +2,7 @@
 
 namespace Fingerprint\ServerAPI;
 
+use DateTime;
 use Fingerprint\ServerAPI\Api\FingerprintApi;
 use Fingerprint\ServerAPI\Model\BotdBotResult;
 use Fingerprint\ServerAPI\Model\ErrorCode;
@@ -15,11 +16,11 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @internal
  *
- * @coversNothing
  */
 class FingerprintApiTest extends TestCase
 {
@@ -768,6 +769,108 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    public function testSearchEventsWithOnlyLimit()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append(function (RequestInterface $request) {
+            $queryArray = [];
+            parse_str($request->getUri()->getQuery(), $queryArray);
+            $this->assertCount(2, $queryArray);
+            $this->assertEquals('10', $queryArray['limit']);
+
+            return $this->returnMockResponse("get_event_search_200.json");
+        });
+
+        list($events) = $this->fingerprint_api->searchEvents(10);
+
+        $this->assertCount(1, $events->getEvents());
+        $this->assertEquals("Ibk1527CUFmcnjLwIs4A9", $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
+    }
+
+    public function testSearchEventsWithPartialParams()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append(function (RequestInterface $request) {
+            $queryArray = [];
+            parse_str($request->getUri()->getQuery(), $queryArray);
+            $this->assertCount(5, $queryArray);
+            $this->assertEquals('10', $queryArray['limit']);
+            $this->assertEquals('true', $queryArray['reverse']);
+            $this->assertEquals('linked_id', $queryArray['linked_id']);
+
+            return $this->returnMockResponse("get_event_search_200.json");
+        });
+
+        list($events) = $this->fingerprint_api->searchEvents(10, self::MOCK_VISITOR_ID, null, null, "linked_id", null, null, true);
+
+        $this->assertCount(1, $events->getEvents());
+        $this->assertEquals("Ibk1527CUFmcnjLwIs4A9", $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
+    }
+
+    public function testSearchEventsWithAllParams()
+    {
+        $start = new DateTime('2020-01-01 00:00:00');
+        $end = new DateTime('2020-01-02 00:00:00');
+
+        $this->mockHandler->reset();
+        $this->mockHandler->append(function (RequestInterface $request) use ($end, $start) {
+            $queryArray = [];
+            parse_str($request->getUri()->getQuery(), $queryArray);
+            $this->assertCount(10, $queryArray);
+            $this->assertEquals('10', $queryArray['limit']);
+            $this->assertEquals('true', $queryArray['reverse']);
+            $this->assertEquals('linked_id', $queryArray['linked_id']);
+            $this->assertEquals($start->getTimestamp(), $queryArray['start']);
+            $this->assertEquals($end->getTimestamp(), $queryArray['end']);
+            $this->assertEquals('true', $queryArray['suspect']);
+            $this->assertEquals('good', $queryArray['bot']);
+            $this->assertEquals('127.0.0.1/16', $queryArray['ip_address']);
+
+            return $this->returnMockResponse('get_event_search_200.json');
+        });
+
+        list($events) = $this->fingerprint_api->searchEvents(10, self::MOCK_VISITOR_ID, 'good', '127.0.0.1/16', 'linked_id', $start->getTimestamp(), $end->getTimestamp(), true, true);
+
+        $this->assertCount(1, $events->getEvents());
+        $this->assertEquals('Ibk1527CUFmcnjLwIs4A9', $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
+    }
+
+    public function testSearchEvents400Error()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->returnMockResponse('errors/400_bot_type_invalid.json', 400));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(400);
+
+        try {
+            $this->fingerprint_api->searchEvents(10, self::MOCK_VISITOR_ID, 'invalid',);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::REQUEST_CANNOT_BE_PARSED, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
+    public function testSearchEvents403Error()
+    {
+        $this->mockHandler->reset();
+        $this->mockHandler->append($this->returnMockResponse('errors/403_subscription_not_active.json', 403));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
+
+        try {
+            $this->fingerprint_api->searchEvents(10);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+            $this->assertEquals(ErrorCode::SUBSCRIPTION_NOT_ACTIVE, $e->getErrorDetails()->getError()->getCode());
+
+            throw $e;
+        }
+    }
+
     protected function getVersion()
     {
         $config_file = file_get_contents(__DIR__ . '/../composer.json');
@@ -980,6 +1083,13 @@ class FingerprintApiTest extends TestCase
             });
             $contents = json_encode($visits_mock_data);
         }
+
+        return new Response($status, $headers, $contents);
+    }
+
+    protected function returnMockResponse(string $path, $status = 200, array $headers = []): Response
+    {
+        $contents = file_get_contents(__DIR__ . "/mocks/{$path}");
 
         return new Response($status, $headers, $contents);
     }
