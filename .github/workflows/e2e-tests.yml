@@ -23,7 +23,7 @@ jobs:
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/run-server-sdk-e2e-tests.yml@v1
     with:
       sdk: php
-      sdkVersion: ${{ needs.read-version.outputs.version }}
+      sdkVersion: ${{ contains(needs.read-version.outputs.version, 'develop') && 'dev-main' || needs.read-version.outputs.version }}
       appId: ${{ vars.RUNNER_APP_ID }}
       commitSha: ${{ github.event.pull_request.head.sha || github.sha }}
     secrets:
