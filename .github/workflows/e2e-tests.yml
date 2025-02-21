@@ -1,7 +1,5 @@
 name: E2E Tests
 on:
-  # TODO Remove
-  pull_request:
   release:
     types:
       - published
