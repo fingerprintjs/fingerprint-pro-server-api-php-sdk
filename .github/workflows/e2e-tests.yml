@@ -1,0 +1,29 @@
+name: E2E Tests
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  read-version:
+    name: 'Read package version'
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read version from config.json
+        id: version
+        run: echo version=$(node -p "require('./package.json').version") >> $GITHUB_OUTPUT
+  e2e-tests:
+    name: 'Run E2E tests'
+    needs: read-version
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/run-server-sdk-e2e-tests.yml@v1
+    with:
+      sdk: php
+      sdkVersion: ${{ contains(needs.read-version.outputs.version, 'develop') && 'dev-main' || needs.read-version.outputs.version }}
+      appId: ${{ vars.RUNNER_APP_ID }}
+      commitSha: ${{ github.event.pull_request.head.sha || github.sha }}
+    secrets:
+      APP_PRIVATE_KEY: ${{ secrets.RUNNER_APP_PRIVATE_KEY }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
