@@ -189,10 +189,10 @@ paths:
               - none
           description: |
             Filter events by the bot detection result, specifically: 
-              - events where any kind of bot was detected.
-              - events where a good bot was detected.
-              - events where a bad bot was detected.
-              - events where no bot was detected.
+              `all` - events where any kind of bot was detected.
+              `good` - events where a good bot was detected.
+              `bad` - events where a bad bot was detected.
+              `none` - events where no bot was detected.
         - name: ip_address
           in: query
           schema:
@@ -245,7 +245,11 @@ paths:
             type: boolean
           description: >
             Filter events previously tagged as suspicious via the [Update
-            API](https://dev.fingerprint.com/reference/updateevent).
+            API](https://dev.fingerprint.com/reference/updateevent). 
+
+            > Note: When using this parameter, only events with the `suspect`
+            property explicitly set to `true` or `false` are returned. Events
+            with undefined `suspect` property are left out of the response.
       responses:
         '200':
           description: Events matching the filter(s).
@@ -1999,6 +2003,7 @@ components:
         suspect:
           type: boolean
           description: Suspect flag indicating observed suspicious or fraudulent event
+          x-go-skip-omitempty: true
     SearchEventsResponse:
       type: object
       description: >-
