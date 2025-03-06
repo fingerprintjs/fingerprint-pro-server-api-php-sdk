@@ -125,7 +125,7 @@ try {
 // Search for specific events
 try {
     // Search events for given visitor id marked as suspicious and "bad" bot
-    list($model, $response) = $client->searchEvents(LIMIT, FPJS_VISITOR_ID, 'bad', null, null, null, null, null, true);
+    list($model, $response) = $client->searchEvents(LIMIT, null, FPJS_VISITOR_ID, 'bad', null, null, null, null, null, true);
     echo "<pre>" . $response->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->searchEvents: ', $e->getMessage(), PHP_EOL;
