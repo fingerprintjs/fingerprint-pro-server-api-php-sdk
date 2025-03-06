@@ -823,15 +823,16 @@ class FingerprintApi
      *
      * Get events via search
      *
-     * @param int    $limit      Limit the number of events returned. (required)
-     * @param string $visitor_id Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
-     * @param string $bot        Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. (optional)
-     * @param string $ip_address Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
-     * @param string $linked_id  Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
-     * @param int    $start      Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
-     * @param int    $end        Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
-     * @param bool   $reverse    Sort events in reverse timestamp order. (optional)
-     * @param bool   $suspect    Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
+     * @param int    $limit          Limit the number of events returned. (required)
+     * @param string $pagination_key Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085` (optional)
+     * @param string $visitor_id     Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
+     * @param string $bot            Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. (optional)
+     * @param string $ip_address     Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
+     * @param string $linked_id      Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param int    $start          Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
+     * @param int    $end            Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
+     * @param bool   $reverse        Sort events in reverse timestamp order. (optional)
+     * @param bool   $suspect        Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
      *
      * @return array{ \Fingerprint\ServerAPI\Model\SearchEventsResponse|null, \Psr\Http\Message\ResponseInterface }
      *
@@ -840,10 +841,10 @@ class FingerprintApi
      * @throws GuzzleException
      * @throws ApiException
      */
-    public function searchEvents(int $limit, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): array
+    public function searchEvents(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): array
     {
         $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
-        $request = $this->searchEventsRequest($limit, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
+        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
 
         try {
             $options = $this->createHttpClientOption();
@@ -922,25 +923,26 @@ class FingerprintApi
      *
      * Get events via search
      *
-     * @param int    $limit      Limit the number of events returned. (required)
-     * @param string $visitor_id Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
-     * @param string $bot        Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. (optional)
-     * @param string $ip_address Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
-     * @param string $linked_id  Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
-     * @param int    $start      Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
-     * @param int    $end        Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
-     * @param bool   $reverse    Sort events in reverse timestamp order. (optional)
-     * @param bool   $suspect    Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
+     * @param int    $limit          Limit the number of events returned. (required)
+     * @param string $pagination_key Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085` (optional)
+     * @param string $visitor_id     Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
+     * @param string $bot            Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. (optional)
+     * @param string $ip_address     Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
+     * @param string $linked_id      Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param int    $start          Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
+     * @param int    $end            Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
+     * @param bool   $reverse        Sort events in reverse timestamp order. (optional)
+     * @param bool   $suspect        Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
      * @throws ApiException
      */
-    public function searchEventsAsync(int $limit, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): PromiseInterface
+    public function searchEventsAsync(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): PromiseInterface
     {
         $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
-        $request = $this->searchEventsRequest($limit, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
+        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1481,7 +1483,7 @@ class FingerprintApi
      * @throws GuzzleException
      * @throws ApiException
      */
-    protected function searchEventsRequest(int $limit, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): Request
+    protected function searchEventsRequest(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): Request
     {
         // verify the required parameter 'limit' is set
         if (null === $limit || (is_array($limit) && 0 === count($limit))) {
@@ -1499,6 +1501,10 @@ class FingerprintApi
         // query params
         if (null !== $limit) {
             $queryParams['limit'] = ObjectSerializer::toQueryValue($limit, 'int32');
+        }
+        // query params
+        if (null !== $pagination_key) {
+            $queryParams['pagination_key'] = ObjectSerializer::toQueryValue($pagination_key, null);
         }
         // query params
         if (null !== $visitor_id) {

@@ -227,7 +227,7 @@ class SearchEventsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets pagination_key.
      *
-     * @param ?string $pagination_key pagination_key
+     * @param ?string $pagination_key use this value in the `pagination_key` parameter to request the next page of search results
      *
      * @return $this
      */
