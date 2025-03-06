@@ -269,7 +269,7 @@ Array:
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **searchEvents**
->  [ \Fingerprint\ServerAPI\Model\SearchEventsResponse, \Psr\Http\Message\ResponseInterface ] searchEvents($limit, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect)
+>  [ \Fingerprint\ServerAPI\Model\SearchEventsResponse, \Psr\Http\Message\ResponseInterface ] searchEvents($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect)
 
 Get events via search
 
@@ -296,6 +296,7 @@ $config
 );
 
 $limit = 56; // int | Limit the number of events returned.
+$pagination_key = "pagination_key_example"; // string | Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085`
 $visitor_id = "visitor_id_example"; // string | Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.
 $bot = "bot_example"; // string | Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected.
 $ip_address = "ip_address_example"; // string | Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32
@@ -306,7 +307,7 @@ $reverse = true; // bool | Sort events in reverse timestamp order.
 $suspect = true; // bool | Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response.
 
 try {
-    list($model, $httpResponse) = $client->searchEvents($limit, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
+    list($model, $httpResponse) = $client->searchEvents($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
     echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->searchEvents: ', $e->getMessage(), PHP_EOL;
@@ -319,6 +320,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int**| Limit the number of events returned. |
+ **pagination_key** | **string**| Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085` | [optional]
  **visitor_id** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. | [optional]
  **bot** | **string**| Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. | [optional]
  **ip_address** | **string**| Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 | [optional]
