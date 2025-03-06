@@ -1,5 +1,15 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.3.0-develop.1
+
+### Minor Changes
+
+- **events-search**: Add 'pagination_key' parameter ([35d2807](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/35d28071197aad1ef5c3e53250350d70c1a8184b))
+
+### Patch Changes
+
+- **events-search**: Improve parameter descriptions for `bot`, `suspect` ([99481d8](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/99481d89e2eac9f840abff463785d6d1738d4e13))
+
 ## 6.3.0-develop.0
 
 ### Minor Changes
