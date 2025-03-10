@@ -41,7 +41,7 @@ $config
 {{/allParams}}
 
 try {
-    {{#returnType}}list($model, $httpResponse) = {{/returnType}}$client->{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});{{#returnType}}
+    {{#returnType}}list($model, $httpResponse) = {{/returnType}}$client->{{{operationId}}}({{#allParams}}{{^required}}{{paramName}}: {{/required}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});{{#returnType}}
     echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";{{/returnType}}
 } catch (Exception $e) {
     echo 'Exception when calling {{classname}}->{{operationId}}: ', $e->getMessage(), PHP_EOL;

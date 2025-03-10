@@ -231,7 +231,7 @@ $pagination_key = "pagination_key_example"; // string | Use `paginationKey` to g
 $before = 789; // int | ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results.
 
 try {
-    list($model, $httpResponse) = $client->getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before);
+    list($model, $httpResponse) = $client->getVisits($visitor_id, request_id: $request_id, linked_id: $linked_id, limit: $limit, pagination_key: $pagination_key, before: $before);
     echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
@@ -307,7 +307,7 @@ $reverse = true; // bool | Sort events in reverse timestamp order.
 $suspect = true; // bool | Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response.
 
 try {
-    list($model, $httpResponse) = $client->searchEvents($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
+    list($model, $httpResponse) = $client->searchEvents($limit, pagination_key: $pagination_key, visitor_id: $visitor_id, bot: $bot, ip_address: $ip_address, linked_id: $linked_id, start: $start, end: $end, reverse: $reverse, suspect: $suspect);
     echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->searchEvents: ', $e->getMessage(), PHP_EOL;
