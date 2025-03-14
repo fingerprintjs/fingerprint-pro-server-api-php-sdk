@@ -802,7 +802,7 @@ class FingerprintApiTest extends TestCase
             return $this->returnMockResponse("get_event_search_200.json");
         });
 
-        list($events) = $this->fingerprint_api->searchEvents(10, null, self::MOCK_VISITOR_ID, null, null, "linked_id", null, null, true);
+        list($events) = $this->fingerprint_api->searchEvents(10, visitor_id: self::MOCK_VISITOR_ID, linked_id: "linked_id", reverse: true);
 
         $this->assertCount(1, $events->getEvents());
         $this->assertEquals("Ibk1527CUFmcnjLwIs4A9", $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
@@ -831,7 +831,7 @@ class FingerprintApiTest extends TestCase
             return $this->returnMockResponse('get_event_search_200.json');
         });
 
-        list($events) = $this->fingerprint_api->searchEvents(10, 'pagination', self::MOCK_VISITOR_ID, 'good', '127.0.0.1/16', 'linked_id', $start->getTimestamp(), $end->getTimestamp(), true, true);
+        list($events) = $this->fingerprint_api->searchEvents(10, pagination_key: 'pagination', visitor_id: self::MOCK_VISITOR_ID, bot: 'good', ip_address: '127.0.0.1/16', linked_id: 'linked_id', start: $start->getTimestamp(), end: $end->getTimestamp(), reverse: true, suspect: true);
 
         $this->assertCount(1, $events->getEvents());
         $this->assertEquals('Ibk1527CUFmcnjLwIs4A9', $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
@@ -846,7 +846,7 @@ class FingerprintApiTest extends TestCase
         $this->expectExceptionCode(400);
 
         try {
-            $this->fingerprint_api->searchEvents(10, 'pagination', self::MOCK_VISITOR_ID, 'invalid',);
+            $this->fingerprint_api->searchEvents(10, pagination_key: 'pagination', visitor_id: self::MOCK_VISITOR_ID, bot: 'invalid');
         } catch (ApiException $e) {
             $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
             $this->assertEquals(ErrorCode::REQUEST_CANNOT_BE_PARSED, $e->getErrorDetails()->getError()->getCode());
