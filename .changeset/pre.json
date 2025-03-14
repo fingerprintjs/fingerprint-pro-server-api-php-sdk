@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "develop",
   "initialVersions": {
     "fingerprint-pro-server-api-php-sdk": "6.2.1"
