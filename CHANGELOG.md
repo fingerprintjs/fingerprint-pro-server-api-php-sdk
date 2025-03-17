@@ -1,5 +1,11 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.3.0
+
+### Minor Changes
+
+- **events-search**: Add a new `events/search` API endpoint. Allow users to search for identification events matching one or more search criteria, for example, visitor ID, IP address, bot detection result, etc. ([3a45444](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/3a4544423f6307973560710181f0d47d4c9261f5))
+
 ## 6.3.0-develop.1
 
 ### Minor Changes
