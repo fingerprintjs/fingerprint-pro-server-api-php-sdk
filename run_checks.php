@@ -66,6 +66,7 @@ try {
     exit(1);
 }
 
+// FingerprintApi->getVisits usage example
 try {
     /** @var VisitorsGetResponse $result */
     list($result, $response) = $client->getVisits($visitor_id);
@@ -79,6 +80,7 @@ try {
     exit(1);
 }
 
+// FingerprintApi->deleteVisitorData usage example
 if ($visitor_id_to_delete) {
     try {
         list($model, $response) = $client->deleteVisitorData($visitor_id_to_delete);
@@ -89,6 +91,7 @@ if ($visitor_id_to_delete) {
     }
 }
 
+// FingerprintApi->getEvent usage example
 try {
     /** @var EventsGetResponse $result */
     list($result, $response) = $client->getEvent($request_id);
@@ -102,6 +105,7 @@ try {
     exit(1);
 }
 
+// FingerprintApi->updateEvent usage example
 if ($request_id_to_update) {
     try {
         $body = new EventsUpdateRequest([
@@ -115,6 +119,7 @@ if ($request_id_to_update) {
     }
 }
 
+// Call API asynchronously examples
 $eventPromise = $client->getEventAsync($request_id);
 $eventPromise->then(function ($tuple) use ($request_id) {
     list($result, $response) = $tuple;
@@ -141,6 +146,7 @@ $visitsPromise->then(function ($tuple) use ($visitor_id) {
     exit(1);
 })->wait();
 
+// Webhook verification example
 $webhookSecret = 'secret';
 $webhookData = 'data';
 $webhookHeader = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db';
@@ -153,6 +159,7 @@ if ($isValidWebhookSign) {
     exit(1);
 }
 
+// Check that old events are still match expected format
 try {
     list($result_old) = $client->searchEvents(1, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000, reverse: true);
     $identification_data_old = $result_old->getEvents()[0]->getProducts()->getIdentification()->getData();
