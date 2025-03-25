@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **remote_control** | [**\Fingerprint\ServerAPI\Model\ProductRemoteControl**](ProductRemoteControl.md) |  | [optional] 
 **velocity** | [**\Fingerprint\ServerAPI\Model\ProductVelocity**](ProductVelocity.md) |  | [optional] 
 **developer_tools** | [**\Fingerprint\ServerAPI\Model\ProductDeveloperTools**](ProductDeveloperTools.md) |  | [optional] 
+**mitm_attack** | [**\Fingerprint\ServerAPI\Model\ProductMitMAttack**](ProductMitMAttack.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 
