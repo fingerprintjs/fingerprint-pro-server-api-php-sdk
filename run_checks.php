@@ -19,9 +19,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
 $api_key = $_ENV['FP_PRIVATE_API_KEY'] ?? getenv('FP_PRIVATE_API_KEY') ?? 'Private API Key not defined';
-$visitor_id = $_ENV['FP_VISITOR_ID'] ?? getenv('FP_VISITOR_ID') ?? 'Visitor ID not defined';
 $visitor_id_to_delete = $_ENV['FP_VISITOR_ID_TO_DELETE'] ?? getenv('FP_VISITOR_ID_TO_DELETE') ?? false;
-$request_id = $_ENV['FP_REQUEST_ID'] ?? getenv('FP_REQUEST_ID') ?? 'Request ID not defined';
 $request_id_to_update = $_ENV['FP_REQUEST_ID_TO_UPDATE'] ?? getenv('FP_REQUEST_ID_TO_UPDATE') ?? false;
 $region_env = $_ENV['FP_REGION'] ?? getenv('FP_REGION') ?? 'us';
 
@@ -46,6 +44,27 @@ $client = new FingerprintApi(
 // Our SDK generator does not yet support PHP's new attributes system
 // https://github.com/swagger-api/swagger-codegen/issues/11820
 error_reporting(error_reporting() & ~E_DEPRECATED);
+
+// FingerprintApi->searchEvents usage example
+try {
+    // 3 month from now
+    $start = (new DateTime())->sub(new DateInterval('P3M'));
+    $end = new DateTime();
+
+    /** @var SearchEventsResponse $result */
+    list($result, $response) = $client->searchEvents(10, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000);
+    if (!is_countable($result->getEvents()) || count($result->getEvents()) === 0) {
+        throw new Exception('No events found');
+    }
+    $identification_data = $result->getEvents()[0]->getProducts()->getIdentification()->getData();
+    $visitor_id = $identification_data->getVisitorId();
+    $request_id = $identification_data->getRequestId();
+    fwrite(STDOUT, sprintf("\n\nGot events: %s \n", $response->getBody()->getContents()));
+} catch (Exception $e) {
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents: %s\n", $e->getMessage()));
+
+    exit(1);
+}
 
 try {
     /** @var VisitorsGetResponse $result */
@@ -79,23 +98,6 @@ try {
     fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
     fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getEvent: %s\n", $e->getMessage()));
-
-    exit(1);
-}
-
-try {
-    // 2 years from now
-    $start = (new DateTime())->sub(new DateInterval('P2Y'));
-    $end = new DateTime();
-
-    /** @var SearchEventsResponse $result */
-    list($result, $response) = $client->searchEvents(10, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000);
-    if (!is_countable($result->getEvents()) || count($result->getEvents()) === 0) {
-        throw new Exception('No events found');
-    }
-    fwrite(STDOUT, sprintf("\n\nGot events: %s \n", $response->getBody()->getContents()));
-} catch (Exception $e) {
-    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents: %s\n", $e->getMessage()));
 
     exit(1);
 }
@@ -149,6 +151,19 @@ if ($isValidWebhookSign) {
     fwrite(STDERR, sprintf("\n\nWebhook signature verification failed\n"));
 
     exit(1);
+}
+
+try {
+    list($result_old) = $client->searchEvents(1, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000, reverse: true);
+    $identification_data_old = $result_old->getEvents()[0]->getProducts()->getIdentification()->getData();
+    $visitor_id_old = $identification_data_old->getVisitorId();
+    $request_id_old = $identification_data_old->getRequestId();
+
+    list($result, $response) = $client->getEvent($request_id_old);
+    list($result, $response) = $client->getVisits($visitor_id_old);
+    fwrite(STDERR, sprintf("\n\nOld events are good\n"));
+}  catch (Exception $e) {
+    fwrite(STDERR, sprintf("\n\nException when trying to read old data: %s\n", $e->getMessage()));
 }
 
 // Enable the deprecated ArrayAccess return type warning again if needed
