@@ -314,6 +314,7 @@ paths:
         how long you should wait before making a follow-up request. The value is
         non-negative decimal integer indicating the seconds to delay after the
         response is received.
+      x-flatten-optional-params: true
       parameters:
         - name: visitor_id
           in: path
@@ -338,6 +339,7 @@ paths:
             [result](https://dev.fingerprint.com/reference/get-function#requestid).
             When you filter visits by `requestId`, only one visit will be
             returned.
+          x-go-skip-pointer: true
         - name: linked_id
           in: query
           schema:
@@ -352,6 +354,7 @@ paths:
             example: session ID, purchase ID, or transaction ID. You can then
             use this `linked_id` parameter to retrieve all events associated
             with your custom identifier.
+          x-go-skip-pointer: true
         - name: limit
           in: query
           schema:
@@ -370,6 +373,7 @@ paths:
 
             By default, the most recent 100 visits are scanned, the maximum is
             500.
+          x-go-skip-pointer: true
         - name: paginationKey
           in: query
           schema:
@@ -398,6 +402,7 @@ paths:
             get less visits than the `limit` you specified with more available
             on the next page. When there are no more results available for
             scanning, the `paginationKey` attribute is not returned.
+          x-go-skip-pointer: true
         - name: before
           in: query
           deprecated: true
@@ -408,6 +413,7 @@ paths:
           description: >
             ⚠️ Deprecated pagination method, please use `paginationKey` instead.
             Timestamp (in milliseconds since epoch) used to paginate results.
+          x-go-skip-pointer: true
       responses:
         '200':
           description: OK.
@@ -640,6 +646,7 @@ paths:
                 You can use HTTP basic authentication and set up credentials in
                 your [Fingerprint
                 account](https://dashboard.fingerprint.com/login)
+              x-flatten-optional-params: true
               requestBody:
                 content:
                   application/json:
@@ -828,6 +835,8 @@ paths:
                               1h: 5
                               24h: 5
                         developerTools:
+                          result: false
+                        mitmAttack:
                           result: false
               responses:
                 default:
@@ -1941,6 +1950,31 @@ components:
           $ref: '#/components/schemas/DeveloperTools'
         error:
           $ref: '#/components/schemas/Error'
+    MitMAttack:
+      type: object
+      additionalProperties: false
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          description: >
+            * `true` - When requests made from your users' mobile devices to
+            Fingerprint servers have been intercepted and potentially modified. 
+
+            * `false` - Otherwise or when the request originated from a browser.
+
+            See [MitM Attack
+            Detection](https://dev.fingerprint.com/docs/smart-signals-reference#mitm-attack-detection)
+            to learn more about this Smart Signal.
+    ProductMitMAttack:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/MitMAttack'
+        error:
+          $ref: '#/components/schemas/Error'
     Products:
       type: object
       description: >-
@@ -1996,6 +2030,8 @@ components:
           $ref: '#/components/schemas/ProductVelocity'
         developerTools:
           $ref: '#/components/schemas/ProductDeveloperTools'
+        mitmAttack:
+          $ref: '#/components/schemas/ProductMitMAttack'
     EventsGetResponse:
       type: object
       description: >-
@@ -2026,7 +2062,7 @@ components:
         suspect:
           type: boolean
           description: Suspect flag indicating observed suspicious or fraudulent event
-          x-go-skip-omitempty: true
+          x-go-force-pointer: true
     SearchEventsResponse:
       type: object
       description: >-
@@ -2475,6 +2511,21 @@ components:
           description: >
             `true` if the browser is Chrome with DevTools open or Firefox with
             Developer Tools open, `false` otherwise.
+    WebhookMitMAttack:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            * `true` - When requests made from your users' mobile devices to
+            Fingerprint servers have been intercepted and potentially modified. 
+
+            * `false` - Otherwise or when the request originated from a browser.
+
+            See [MitM Attack
+            Detection](https://dev.fingerprint.com/docs/smart-signals-overview#mitm-attack-detection)
+            to learn more about this Smart Signal.
     Webhook:
       type: object
       required:
@@ -2581,3 +2632,5 @@ components:
           $ref: '#/components/schemas/WebhookVelocity'
         developerTools:
           $ref: '#/components/schemas/WebhookDeveloperTools'
+        mitmAttack:
+          $ref: '#/components/schemas/WebhookMitMAttack'

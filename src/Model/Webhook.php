@@ -91,7 +91,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'suspect_score' => '\Fingerprint\ServerAPI\Model\WebhookSuspectScore',
         'remote_control' => '\Fingerprint\ServerAPI\Model\WebhookRemoteControl',
         'velocity' => '\Fingerprint\ServerAPI\Model\WebhookVelocity',
-        'developer_tools' => '\Fingerprint\ServerAPI\Model\WebhookDeveloperTools'];
+        'developer_tools' => '\Fingerprint\ServerAPI\Model\WebhookDeveloperTools',
+        'mitm_attack' => '\Fingerprint\ServerAPI\Model\WebhookMitMAttack'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -138,7 +139,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'suspect_score' => null,
         'remote_control' => null,
         'velocity' => null,
-        'developer_tools' => null];
+        'developer_tools' => null,
+        'mitm_attack' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -186,7 +188,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'suspect_score' => 'suspectScore',
         'remote_control' => 'remoteControl',
         'velocity' => 'velocity',
-        'developer_tools' => 'developerTools'];
+        'developer_tools' => 'developerTools',
+        'mitm_attack' => 'mitmAttack'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -233,7 +236,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'suspect_score' => 'setSuspectScore',
         'remote_control' => 'setRemoteControl',
         'velocity' => 'setVelocity',
-        'developer_tools' => 'setDeveloperTools'];
+        'developer_tools' => 'setDeveloperTools',
+        'mitm_attack' => 'setMitmAttack'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -280,7 +284,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'suspect_score' => 'getSuspectScore',
         'remote_control' => 'getRemoteControl',
         'velocity' => 'getVelocity',
-        'developer_tools' => 'getDeveloperTools'];
+        'developer_tools' => 'getDeveloperTools',
+        'mitm_attack' => 'getMitmAttack'];
 
     /**
      * Associative array for storing property values.
@@ -337,6 +342,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         $this->container['remote_control'] = isset($data['remote_control']) ? $data['remote_control'] : null;
         $this->container['velocity'] = isset($data['velocity']) ? $data['velocity'] : null;
         $this->container['developer_tools'] = isset($data['developer_tools']) ? $data['developer_tools'] : null;
+        $this->container['mitm_attack'] = isset($data['mitm_attack']) ? $data['mitm_attack'] : null;
     }
 
     /**
@@ -1312,6 +1318,28 @@ class Webhook implements ModelInterface, \ArrayAccess
     public function setDeveloperTools(?WebhookDeveloperTools $developer_tools): self
     {
         $this->container['developer_tools'] = $developer_tools;
+
+        return $this;
+    }
+
+    /**
+     * Gets mitm_attack.
+     */
+    public function getMitmAttack(): ?WebhookMitMAttack
+    {
+        return $this->container['mitm_attack'];
+    }
+
+    /**
+     * Sets mitm_attack.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\WebhookMitMAttack $mitm_attack mitm_attack
+     *
+     * @return $this
+     */
+    public function setMitmAttack(?WebhookMitMAttack $mitm_attack): self
+    {
+        $this->container['mitm_attack'] = $mitm_attack;
 
         return $this;
     }

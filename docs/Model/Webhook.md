@@ -43,6 +43,7 @@ Name | Type | Description | Notes
 **remote_control** | [**\Fingerprint\ServerAPI\Model\WebhookRemoteControl**](WebhookRemoteControl.md) |  | [optional] 
 **velocity** | [**\Fingerprint\ServerAPI\Model\WebhookVelocity**](WebhookVelocity.md) |  | [optional] 
 **developer_tools** | [**\Fingerprint\ServerAPI\Model\WebhookDeveloperTools**](WebhookDeveloperTools.md) |  | [optional] 
+**mitm_attack** | [**\Fingerprint\ServerAPI\Model\WebhookMitMAttack**](WebhookMitMAttack.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 
