@@ -324,7 +324,7 @@ paths:
           description: >-
             Unique [visitor
             identifier](https://dev.fingerprint.com/reference/get-function#visitorid)
-            issued by Fingerprint Pro.\
+            issued by Fingerprint Pro.
         - name: request_id
           in: query
           schema:
