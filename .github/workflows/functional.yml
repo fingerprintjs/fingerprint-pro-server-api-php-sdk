@@ -1,9 +1,9 @@
 name: Functional tests
 
 on:
-  pull_request_target:
-    branches:
-      - '*'
+  push:
+    branches-ignore:
+      - main
   workflow_dispatch:
   schedule:
     - cron: '0 5 * * *'
