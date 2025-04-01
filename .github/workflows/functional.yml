@@ -34,8 +34,6 @@ jobs:
         env:
           FP_PRIVATE_API_KEY: "${{ secrets.FP_PRIVATE_API_KEY }}"
           FP_API_HOST: "${{ secrets.FP_API_HOST }}"
-          FP_VISITOR_ID: "${{ secrets.FP_VISITOR_ID }}"
-          FP_REQUEST_ID: "${{ secrets.FP_REQUEST_ID }}"
 
   report-status:
     needs: functional_tests

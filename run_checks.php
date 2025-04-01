@@ -162,9 +162,16 @@ if ($isValidWebhookSign) {
 // Check that old events are still match expected format
 try {
     list($result_old) = $client->searchEvents(1, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000, reverse: true);
+    if (!is_countable($result_old->getEvents()) || count($result_old->getEvents()) === 0) {
+        throw new Exception('No old events found');
+    }
     $identification_data_old = $result_old->getEvents()[0]->getProducts()->getIdentification()->getData();
     $visitor_id_old = $identification_data_old->getVisitorId();
     $request_id_old = $identification_data_old->getRequestId();
+
+    if ($visitor_id === $visitor_id_old || $request_id === $request_id_old) {
+        throw new Exception('Old events are identical to new');
+    }
 
     list($result, $response) = $client->getEvent($request_id_old);
     list($result, $response) = $client->getVisits($visitor_id_old);
