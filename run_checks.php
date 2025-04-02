@@ -159,7 +159,7 @@ if ($isValidWebhookSign) {
     exit(1);
 }
 
-// Check that old events are still match expected format
+// Check that old events still match expected format
 try {
     list($result_old) = $client->searchEvents(1, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000, reverse: true);
     if (!is_countable($result_old->getEvents()) || count($result_old->getEvents()) === 0) {
