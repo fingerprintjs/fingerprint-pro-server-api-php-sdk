@@ -1,5 +1,11 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.4.0
+
+### Minor Changes
+
+- Add `mitmAttack` (man-in-the-middle attack) Smart Signal. ([ac79de9](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/ac79de9c5d4b521dc47bc2acb891d2fa8bce98bb))
+
 ## 6.3.0
 
 ### Minor Changes
