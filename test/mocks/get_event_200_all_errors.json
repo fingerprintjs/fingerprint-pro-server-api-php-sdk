@@ -153,6 +153,12 @@
         "code": "Failed",
         "message": "internal server error"
       }
+    },
+    "mitmAttack": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error"
+      }
     }
   }
 }

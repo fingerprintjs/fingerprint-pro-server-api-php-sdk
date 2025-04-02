@@ -242,5 +242,8 @@
   },
   "developerTools": {
     "result": false
+  },
+  "mitmAttack": {
+    "result": false
   }
 }
