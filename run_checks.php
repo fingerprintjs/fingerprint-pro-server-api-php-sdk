@@ -19,9 +19,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
 $api_key = $_ENV['FP_PRIVATE_API_KEY'] ?? getenv('FP_PRIVATE_API_KEY') ?? 'Private API Key not defined';
-$visitor_id = $_ENV['FP_VISITOR_ID'] ?? getenv('FP_VISITOR_ID') ?? 'Visitor ID not defined';
 $visitor_id_to_delete = $_ENV['FP_VISITOR_ID_TO_DELETE'] ?? getenv('FP_VISITOR_ID_TO_DELETE') ?? false;
-$request_id = $_ENV['FP_REQUEST_ID'] ?? getenv('FP_REQUEST_ID') ?? 'Request ID not defined';
 $request_id_to_update = $_ENV['FP_REQUEST_ID_TO_UPDATE'] ?? getenv('FP_REQUEST_ID_TO_UPDATE') ?? false;
 $region_env = $_ENV['FP_REGION'] ?? getenv('FP_REGION') ?? 'us';
 
@@ -47,6 +45,28 @@ $client = new FingerprintApi(
 // https://github.com/swagger-api/swagger-codegen/issues/11820
 error_reporting(error_reporting() & ~E_DEPRECATED);
 
+// FingerprintApi->searchEvents usage example
+try {
+    // 3 month from now
+    $start = (new DateTime())->sub(new DateInterval('P3M'));
+    $end = new DateTime();
+
+    /** @var SearchEventsResponse $result */
+    list($result, $response) = $client->searchEvents(10, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000);
+    if (!is_countable($result->getEvents()) || count($result->getEvents()) === 0) {
+        throw new Exception('No events found');
+    }
+    $identification_data = $result->getEvents()[0]->getProducts()->getIdentification()->getData();
+    $visitor_id = $identification_data->getVisitorId();
+    $request_id = $identification_data->getRequestId();
+    fwrite(STDOUT, sprintf("\n\nGot events: %s \n", $response->getBody()->getContents()));
+} catch (Exception $e) {
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents: %s\n", $e->getMessage()));
+
+    exit(1);
+}
+
+// FingerprintApi->getVisits usage example
 try {
     /** @var VisitorsGetResponse $result */
     list($result, $response) = $client->getVisits($visitor_id);
@@ -60,6 +80,7 @@ try {
     exit(1);
 }
 
+// FingerprintApi->deleteVisitorData usage example
 if ($visitor_id_to_delete) {
     try {
         list($model, $response) = $client->deleteVisitorData($visitor_id_to_delete);
@@ -70,6 +91,7 @@ if ($visitor_id_to_delete) {
     }
 }
 
+// FingerprintApi->getEvent usage example
 try {
     /** @var EventsGetResponse $result */
     list($result, $response) = $client->getEvent($request_id);
@@ -83,23 +105,7 @@ try {
     exit(1);
 }
 
-try {
-    // 2 years from now
-    $start = (new DateTime())->sub(new DateInterval('P2Y'));
-    $end = new DateTime();
-
-    /** @var SearchEventsResponse $result */
-    list($result, $response) = $client->searchEvents(10, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000);
-    if (!is_countable($result->getEvents()) || count($result->getEvents()) === 0) {
-        throw new Exception('No events found');
-    }
-    fwrite(STDOUT, sprintf("\n\nGot events: %s \n", $response->getBody()->getContents()));
-} catch (Exception $e) {
-    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents: %s\n", $e->getMessage()));
-
-    exit(1);
-}
-
+// FingerprintApi->updateEvent usage example
 if ($request_id_to_update) {
     try {
         $body = new EventsUpdateRequest([
@@ -113,6 +119,7 @@ if ($request_id_to_update) {
     }
 }
 
+// Call API asynchronously examples
 $eventPromise = $client->getEventAsync($request_id);
 $eventPromise->then(function ($tuple) use ($request_id) {
     list($result, $response) = $tuple;
@@ -139,6 +146,7 @@ $visitsPromise->then(function ($tuple) use ($visitor_id) {
     exit(1);
 })->wait();
 
+// Webhook verification example
 $webhookSecret = 'secret';
 $webhookData = 'data';
 $webhookHeader = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db';
@@ -149,6 +157,27 @@ if ($isValidWebhookSign) {
     fwrite(STDERR, sprintf("\n\nWebhook signature verification failed\n"));
 
     exit(1);
+}
+
+// Check that old events still match expected format
+try {
+    list($result_old) = $client->searchEvents(1, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000, reverse: true);
+    if (!is_countable($result_old->getEvents()) || count($result_old->getEvents()) === 0) {
+        throw new Exception('No old events found');
+    }
+    $identification_data_old = $result_old->getEvents()[0]->getProducts()->getIdentification()->getData();
+    $visitor_id_old = $identification_data_old->getVisitorId();
+    $request_id_old = $identification_data_old->getRequestId();
+
+    if ($visitor_id === $visitor_id_old || $request_id === $request_id_old) {
+        throw new Exception('Old events are identical to new');
+    }
+
+    list($result, $response) = $client->getEvent($request_id_old);
+    list($result, $response) = $client->getVisits($visitor_id_old);
+    fwrite(STDERR, sprintf("\n\nOld events are good\n"));
+}  catch (Exception $e) {
+    fwrite(STDERR, sprintf("\n\nException when trying to read old data: %s\n", $e->getMessage()));
 }
 
 // Enable the deprecated ArrayAccess return type warning again if needed
