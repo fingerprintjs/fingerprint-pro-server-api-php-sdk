@@ -817,7 +817,7 @@ class FingerprintApiTest extends TestCase
         $this->mockHandler->append(function (RequestInterface $request) use ($end, $start) {
             $queryArray = [];
             parse_str($request->getUri()->getQuery(), $queryArray);
-            $this->assertCount(11, $queryArray);
+            $this->assertCount(25, $queryArray);
             $this->assertEquals('10', $queryArray['limit']);
             $this->assertEquals('pagination', $queryArray['pagination_key']);
             $this->assertEquals('true', $queryArray['reverse']);
@@ -827,11 +827,50 @@ class FingerprintApiTest extends TestCase
             $this->assertEquals('true', $queryArray['suspect']);
             $this->assertEquals('good', $queryArray['bot']);
             $this->assertEquals('127.0.0.1/16', $queryArray['ip_address']);
+            $this->assertEquals('true', $queryArray['vpn']);
+            $this->assertEquals('true', $queryArray['virtual_machine']);
+            $this->assertEquals('true', $queryArray['tampering']);
+            $this->assertEquals('true', $queryArray['anti_detect_browser']);
+            $this->assertEquals('true', $queryArray['incognito']);
+            $this->assertEquals('true', $queryArray['privacy_settings']);
+            $this->assertEquals('true', $queryArray['jailbroken']);
+            $this->assertEquals('true', $queryArray['frida']);
+            $this->assertEquals('true', $queryArray['factory_reset']);
+            $this->assertEquals('true', $queryArray['cloned_app']);
+            $this->assertEquals('true', $queryArray['emulator']);
+            $this->assertEquals('true', $queryArray['root_apps']);
+            $this->assertEquals('medium', $queryArray['vpn_confidence']);
+            $this->assertEquals('0.5', $queryArray['min_suspect_score']);
 
             return $this->returnMockResponse('get_event_search_200.json');
         });
 
-        list($events) = $this->fingerprint_api->searchEvents(10, pagination_key: 'pagination', visitor_id: self::MOCK_VISITOR_ID, bot: 'good', ip_address: '127.0.0.1/16', linked_id: 'linked_id', start: $start->getTimestamp(), end: $end->getTimestamp(), reverse: true, suspect: true);
+        list($events) = $this->fingerprint_api->searchEvents(
+            10,
+            pagination_key: 'pagination',
+            visitor_id: self::MOCK_VISITOR_ID,
+            bot: 'good',
+            ip_address: '127.0.0.1/16',
+            linked_id: 'linked_id',
+            start: $start->getTimestamp(),
+            end: $end->getTimestamp(),
+            reverse: true,
+            suspect: true,
+            vpn: true,
+            virtual_machine: true,
+            tampering: true,
+            anti_detect_browser: true,
+            incognito: true,
+            privacy_settings: true,
+            jailbroken: true,
+            frida: true,
+            factory_reset: true,
+            cloned_app: true,
+            emulator: true,
+            root_apps: true,
+            vpn_confidence: 'medium',
+            min_suspect_score: 0.5,
+        );
 
         $this->assertCount(1, $events->getEvents());
         $this->assertEquals('Ibk1527CUFmcnjLwIs4A9', $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
