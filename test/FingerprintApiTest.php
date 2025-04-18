@@ -817,30 +817,40 @@ class FingerprintApiTest extends TestCase
         $this->mockHandler->append(function (RequestInterface $request) use ($end, $start) {
             $queryArray = [];
             parse_str($request->getUri()->getQuery(), $queryArray);
-            $this->assertCount(25, $queryArray);
-            $this->assertEquals('10', $queryArray['limit']);
-            $this->assertEquals('pagination', $queryArray['pagination_key']);
-            $this->assertEquals('true', $queryArray['reverse']);
-            $this->assertEquals('linked_id', $queryArray['linked_id']);
-            $this->assertEquals($start->getTimestamp(), $queryArray['start']);
-            $this->assertEquals($end->getTimestamp(), $queryArray['end']);
-            $this->assertEquals('true', $queryArray['suspect']);
-            $this->assertEquals('good', $queryArray['bot']);
-            $this->assertEquals('127.0.0.1/16', $queryArray['ip_address']);
-            $this->assertEquals('true', $queryArray['vpn']);
-            $this->assertEquals('true', $queryArray['virtual_machine']);
-            $this->assertEquals('true', $queryArray['tampering']);
-            $this->assertEquals('true', $queryArray['anti_detect_browser']);
-            $this->assertEquals('true', $queryArray['incognito']);
-            $this->assertEquals('true', $queryArray['privacy_settings']);
-            $this->assertEquals('true', $queryArray['jailbroken']);
-            $this->assertEquals('true', $queryArray['frida']);
-            $this->assertEquals('true', $queryArray['factory_reset']);
-            $this->assertEquals('true', $queryArray['cloned_app']);
-            $this->assertEquals('true', $queryArray['emulator']);
-            $this->assertEquals('true', $queryArray['root_apps']);
-            $this->assertEquals('medium', $queryArray['vpn_confidence']);
-            $this->assertEquals('0.5', $queryArray['min_suspect_score']);
+
+            $expected = [
+                'limit' => '10',
+                'pagination_key' => 'pagination',
+                'reverse' => 'true',
+                'linked_id' => 'linked_id',
+                'start' => $start->getTimestamp(),
+                'end' => $end->getTimestamp(),
+                'suspect' => 'true',
+                'bot' => 'good',
+                'ip_address' => '127.0.0.1/16',
+                'vpn' => 'true',
+                'virtual_machine' => 'true',
+                'tampering' => 'true',
+                'anti_detect_browser' => 'true',
+                'incognito' => 'true',
+                'privacy_settings' => 'true',
+                'jailbroken' => 'true',
+                'frida' => 'true',
+                'factory_reset' => 'true',
+                'cloned_app' => 'true',
+                'emulator' => 'true',
+                'root_apps' => 'true',
+                'vpn_confidence' => 'medium',
+                'min_suspect_score' => '0.5',
+            ];
+
+            $extraKeys = ['ii', 'visitor_id'];
+
+            $this->assertCount(count($expected) + count($extraKeys), $queryArray);
+            foreach ($expected as $query => $value) {
+                $this->assertArrayHasKey($query, $queryArray, "Missing query parameter: $query");
+                $this->assertEquals($value, $queryArray[$query]);
+            }
 
             return $this->returnMockResponse('get_event_search_200.json');
         });
