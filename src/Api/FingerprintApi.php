@@ -823,16 +823,30 @@ class FingerprintApi
      *
      * Get events via search
      *
-     * @param int    $limit          Limit the number of events returned. (required)
-     * @param string $pagination_key Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085` (optional)
-     * @param string $visitor_id     Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
-     * @param string $bot            Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. (optional)
-     * @param string $ip_address     Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
-     * @param string $linked_id      Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
-     * @param int    $start          Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
-     * @param int    $end            Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
-     * @param bool   $reverse        Sort events in reverse timestamp order. (optional)
-     * @param bool   $suspect        Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
+     * @param int    $limit               Limit the number of events returned. (required)
+     * @param string $pagination_key      Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085` (optional)
+     * @param string $visitor_id          Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
+     * @param string $bot                 Filter events by the Bot Detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. > Note: When using this parameter, only events with the `products.botd.data.bot.result` property set to a valid value are returned. Events without a `products.botd` Smart Signal result are left out of the response. (optional)
+     * @param string $ip_address          Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
+     * @param string $linked_id           Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param int    $start               Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
+     * @param int    $end                 Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
+     * @param bool   $reverse             Sort events in reverse timestamp order. (optional)
+     * @param bool   $suspect             Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
+     * @param bool   $vpn                 Filter events by VPN Detection result.   > Note: When using this parameter, only events with the `products.vpn.data.result` property set to `true` or `false` are returned. Events without a `products.vpn` Smart Signal result are left out of the response. (optional)
+     * @param bool   $virtual_machine     Filter events by Virtual Machine Detection result.   > Note: When using this parameter, only events with the `products.virtualMachine.data.result` property set to `true` or `false` are returned. Events without a `products.virtualMachine` Smart Signal result are left out of the response. (optional)
+     * @param bool   $tampering           Filter events by Tampering Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.result` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response. (optional)
+     * @param bool   $anti_detect_browser Filter events by Anti-detect Browser Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.antiDetectBrowser` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response. (optional)
+     * @param bool   $incognito           Filter events by Browser Incognito Detection result.   > Note: When using this parameter, only events with the `products.incognito.data.result` property set to `true` or `false` are returned. Events without a `products.incognito` Smart Signal result are left out of the response. (optional)
+     * @param bool   $privacy_settings    Filter events by Privacy Settings Detection result.   > Note: When using this parameter, only events with the `products.privacySettings.data.result` property set to `true` or `false` are returned. Events without a `products.privacySettings` Smart Signal result are left out of the response. (optional)
+     * @param bool   $jailbroken          Filter events by Jailbroken Device Detection result.   > Note: When using this parameter, only events with the `products.jailbroken.data.result` property set to `true` or `false` are returned. Events without a `products.jailbroken` Smart Signal result are left out of the response. (optional)
+     * @param bool   $frida               Filter events by Frida Detection result.   > Note: When using this parameter, only events with the `products.frida.data.result` property set to `true` or `false` are returned. Events without a `products.frida` Smart Signal result are left out of the response. (optional)
+     * @param bool   $factory_reset       Filter events by Factory Reset Detection result.   > Note: When using this parameter, only events with the `products.factoryReset.data.result` property set to `true` or `false` are returned. Events without a `products.factoryReset` Smart Signal result are left out of the response. (optional)
+     * @param bool   $cloned_app          Filter events by Cloned App Detection result.   > Note: When using this parameter, only events with the `products.clonedApp.data.result` property set to `true` or `false` are returned. Events without a `products.clonedApp` Smart Signal result are left out of the response. (optional)
+     * @param bool   $emulator            Filter events by Android Emulator Detection result.   > Note: When using this parameter, only events with the `products.emulator.data.result` property set to `true` or `false` are returned. Events without a `products.emulator` Smart Signal result are left out of the response. (optional)
+     * @param bool   $root_apps           Filter events by Rooted Device Detection result.   > Note: When using this parameter, only events with the `products.rootApps.data.result` property set to `true` or `false` are returned. Events without a `products.rootApps` Smart Signal result are left out of the response. (optional)
+     * @param string $vpn_confidence      Filter events by VPN Detection result confidence level.   `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `products.vpn.data.confidence` property set to a valid value are returned. Events without a `products.vpn` Smart Signal result are left out of the response. (optional)
+     * @param float  $min_suspect_score   Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response. (optional)
      *
      * @return array{ \Fingerprint\ServerAPI\Model\SearchEventsResponse|null, \Psr\Http\Message\ResponseInterface }
      *
@@ -841,10 +855,10 @@ class FingerprintApi
      * @throws GuzzleException
      * @throws ApiException
      */
-    public function searchEvents(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): array
+    public function searchEvents(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?string $vpn_confidence = null, ?float $min_suspect_score = null): array
     {
         $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
-        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
+        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score);
 
         try {
             $options = $this->createHttpClientOption();
@@ -923,26 +937,40 @@ class FingerprintApi
      *
      * Get events via search
      *
-     * @param int    $limit          Limit the number of events returned. (required)
-     * @param string $pagination_key Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085` (optional)
-     * @param string $visitor_id     Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
-     * @param string $bot            Filter events by the bot detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. (optional)
-     * @param string $ip_address     Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
-     * @param string $linked_id      Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
-     * @param int    $start          Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
-     * @param int    $end            Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
-     * @param bool   $reverse        Sort events in reverse timestamp order. (optional)
-     * @param bool   $suspect        Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
+     * @param int    $limit               Limit the number of events returned. (required)
+     * @param string $pagination_key      Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085` (optional)
+     * @param string $visitor_id          Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. (optional)
+     * @param string $bot                 Filter events by the Bot Detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. > Note: When using this parameter, only events with the `products.botd.data.bot.result` property set to a valid value are returned. Events without a `products.botd` Smart Signal result are left out of the response. (optional)
+     * @param string $ip_address          Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 (optional)
+     * @param string $linked_id           Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
+     * @param int    $start               Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
+     * @param int    $end                 Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
+     * @param bool   $reverse             Sort events in reverse timestamp order. (optional)
+     * @param bool   $suspect             Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
+     * @param bool   $vpn                 Filter events by VPN Detection result.   > Note: When using this parameter, only events with the `products.vpn.data.result` property set to `true` or `false` are returned. Events without a `products.vpn` Smart Signal result are left out of the response. (optional)
+     * @param bool   $virtual_machine     Filter events by Virtual Machine Detection result.   > Note: When using this parameter, only events with the `products.virtualMachine.data.result` property set to `true` or `false` are returned. Events without a `products.virtualMachine` Smart Signal result are left out of the response. (optional)
+     * @param bool   $tampering           Filter events by Tampering Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.result` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response. (optional)
+     * @param bool   $anti_detect_browser Filter events by Anti-detect Browser Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.antiDetectBrowser` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response. (optional)
+     * @param bool   $incognito           Filter events by Browser Incognito Detection result.   > Note: When using this parameter, only events with the `products.incognito.data.result` property set to `true` or `false` are returned. Events without a `products.incognito` Smart Signal result are left out of the response. (optional)
+     * @param bool   $privacy_settings    Filter events by Privacy Settings Detection result.   > Note: When using this parameter, only events with the `products.privacySettings.data.result` property set to `true` or `false` are returned. Events without a `products.privacySettings` Smart Signal result are left out of the response. (optional)
+     * @param bool   $jailbroken          Filter events by Jailbroken Device Detection result.   > Note: When using this parameter, only events with the `products.jailbroken.data.result` property set to `true` or `false` are returned. Events without a `products.jailbroken` Smart Signal result are left out of the response. (optional)
+     * @param bool   $frida               Filter events by Frida Detection result.   > Note: When using this parameter, only events with the `products.frida.data.result` property set to `true` or `false` are returned. Events without a `products.frida` Smart Signal result are left out of the response. (optional)
+     * @param bool   $factory_reset       Filter events by Factory Reset Detection result.   > Note: When using this parameter, only events with the `products.factoryReset.data.result` property set to `true` or `false` are returned. Events without a `products.factoryReset` Smart Signal result are left out of the response. (optional)
+     * @param bool   $cloned_app          Filter events by Cloned App Detection result.   > Note: When using this parameter, only events with the `products.clonedApp.data.result` property set to `true` or `false` are returned. Events without a `products.clonedApp` Smart Signal result are left out of the response. (optional)
+     * @param bool   $emulator            Filter events by Android Emulator Detection result.   > Note: When using this parameter, only events with the `products.emulator.data.result` property set to `true` or `false` are returned. Events without a `products.emulator` Smart Signal result are left out of the response. (optional)
+     * @param bool   $root_apps           Filter events by Rooted Device Detection result.   > Note: When using this parameter, only events with the `products.rootApps.data.result` property set to `true` or `false` are returned. Events without a `products.rootApps` Smart Signal result are left out of the response. (optional)
+     * @param string $vpn_confidence      Filter events by VPN Detection result confidence level.   `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `products.vpn.data.confidence` property set to a valid value are returned. Events without a `products.vpn` Smart Signal result are left out of the response. (optional)
+     * @param float  $min_suspect_score   Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
      * @throws ApiException
      */
-    public function searchEventsAsync(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): PromiseInterface
+    public function searchEventsAsync(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?string $vpn_confidence = null, ?float $min_suspect_score = null): PromiseInterface
     {
         $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
-        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect);
+        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1483,7 +1511,7 @@ class FingerprintApi
      * @throws GuzzleException
      * @throws ApiException
      */
-    protected function searchEventsRequest(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null): Request
+    protected function searchEventsRequest(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?string $vpn_confidence = null, ?float $min_suspect_score = null): Request
     {
         // verify the required parameter 'limit' is set
         if (null === $limit || (is_array($limit) && 0 === count($limit))) {
@@ -1537,6 +1565,62 @@ class FingerprintApi
         // query params
         if (null !== $suspect) {
             $queryParams['suspect'] = ObjectSerializer::toQueryValue($suspect, null);
+        }
+        // query params
+        if (null !== $vpn) {
+            $queryParams['vpn'] = ObjectSerializer::toQueryValue($vpn, null);
+        }
+        // query params
+        if (null !== $virtual_machine) {
+            $queryParams['virtual_machine'] = ObjectSerializer::toQueryValue($virtual_machine, null);
+        }
+        // query params
+        if (null !== $tampering) {
+            $queryParams['tampering'] = ObjectSerializer::toQueryValue($tampering, null);
+        }
+        // query params
+        if (null !== $anti_detect_browser) {
+            $queryParams['anti_detect_browser'] = ObjectSerializer::toQueryValue($anti_detect_browser, null);
+        }
+        // query params
+        if (null !== $incognito) {
+            $queryParams['incognito'] = ObjectSerializer::toQueryValue($incognito, null);
+        }
+        // query params
+        if (null !== $privacy_settings) {
+            $queryParams['privacy_settings'] = ObjectSerializer::toQueryValue($privacy_settings, null);
+        }
+        // query params
+        if (null !== $jailbroken) {
+            $queryParams['jailbroken'] = ObjectSerializer::toQueryValue($jailbroken, null);
+        }
+        // query params
+        if (null !== $frida) {
+            $queryParams['frida'] = ObjectSerializer::toQueryValue($frida, null);
+        }
+        // query params
+        if (null !== $factory_reset) {
+            $queryParams['factory_reset'] = ObjectSerializer::toQueryValue($factory_reset, null);
+        }
+        // query params
+        if (null !== $cloned_app) {
+            $queryParams['cloned_app'] = ObjectSerializer::toQueryValue($cloned_app, null);
+        }
+        // query params
+        if (null !== $emulator) {
+            $queryParams['emulator'] = ObjectSerializer::toQueryValue($emulator, null);
+        }
+        // query params
+        if (null !== $root_apps) {
+            $queryParams['root_apps'] = ObjectSerializer::toQueryValue($root_apps, null);
+        }
+        // query params
+        if (null !== $vpn_confidence) {
+            $queryParams['vpn_confidence'] = ObjectSerializer::toQueryValue($vpn_confidence, null);
+        }
+        // query params
+        if (null !== $min_suspect_score) {
+            $queryParams['min_suspect_score'] = ObjectSerializer::toQueryValue($min_suspect_score, 'float');
         }
 
         // this endpoint requires API key authentication

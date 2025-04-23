@@ -210,12 +210,16 @@ paths:
               - good
               - bad
               - none
-          description: |
-            Filter events by the bot detection result, specifically: 
+          description: >
+            Filter events by the Bot Detection result, specifically: 
               `all` - events where any kind of bot was detected.
               `good` - events where a good bot was detected.
               `bad` - events where a bad bot was detected.
               `none` - events where no bot was detected.
+            > Note: When using this parameter, only events with the
+            `products.botd.data.bot.result` property set to a valid value are
+            returned. Events without a `products.botd` Smart Signal result are
+            left out of the response.
         - name: ip_address
           in: query
           schema:
@@ -273,6 +277,173 @@ paths:
             > Note: When using this parameter, only events with the `suspect`
             property explicitly set to `true` or `false` are returned. Events
             with undefined `suspect` property are left out of the response.
+        - name: vpn
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by VPN Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.vpn.data.result` property set to `true` or `false` are
+            returned. Events without a `products.vpn` Smart Signal result are
+            left out of the response.
+        - name: virtual_machine
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Virtual Machine Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.virtualMachine.data.result` property set to `true` or
+            `false` are returned. Events without a `products.virtualMachine`
+            Smart Signal result are left out of the response.
+        - name: tampering
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Tampering Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.tampering.data.result` property set to `true` or `false`
+            are returned. Events without a `products.tampering` Smart Signal
+            result are left out of the response.
+        - name: anti_detect_browser
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Anti-detect Browser Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.tampering.data.antiDetectBrowser` property set to `true`
+            or `false` are returned. Events without a `products.tampering` Smart
+            Signal result are left out of the response.
+        - name: incognito
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Browser Incognito Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.incognito.data.result` property set to `true` or `false`
+            are returned. Events without a `products.incognito` Smart Signal
+            result are left out of the response.
+        - name: privacy_settings
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Privacy Settings Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.privacySettings.data.result` property set to `true` or
+            `false` are returned. Events without a `products.privacySettings`
+            Smart Signal result are left out of the response.
+        - name: jailbroken
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Jailbroken Device Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.jailbroken.data.result` property set to `true` or `false`
+            are returned. Events without a `products.jailbroken` Smart Signal
+            result are left out of the response.
+        - name: frida
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Frida Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.frida.data.result` property set to `true` or `false` are
+            returned. Events without a `products.frida` Smart Signal result are
+            left out of the response.
+        - name: factory_reset
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Factory Reset Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.factoryReset.data.result` property set to `true` or
+            `false` are returned. Events without a `products.factoryReset` Smart
+            Signal result are left out of the response.
+        - name: cloned_app
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Cloned App Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.clonedApp.data.result` property set to `true` or `false`
+            are returned. Events without a `products.clonedApp` Smart Signal
+            result are left out of the response.
+        - name: emulator
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Android Emulator Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.emulator.data.result` property set to `true` or `false`
+            are returned. Events without a `products.emulator` Smart Signal
+            result are left out of the response.
+        - name: root_apps
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Rooted Device Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.rootApps.data.result` property set to `true` or `false`
+            are returned. Events without a `products.rootApps` Smart Signal
+            result are left out of the response.
+        - name: vpn_confidence
+          in: query
+          schema:
+            type: string
+            enum:
+              - high,
+              - medium
+              - low
+          description: >
+            Filter events by VPN Detection result confidence level.  
+
+            `high` - events with high VPN Detection confidence.
+
+            `medium` - events with medium VPN Detection confidence.
+
+            `low` - events with low VPN Detection confidence.
+
+            > Note: When using this parameter, only events with the
+            `products.vpn.data.confidence` property set to a valid value are
+            returned. Events without a `products.vpn` Smart Signal result are
+            left out of the response.
+        - name: min_suspect_score
+          in: query
+          schema:
+            type: number
+            format: float
+          description: >
+            Filter events with Suspect Score result above a provided minimum
+            threshold.
+
+            > Note: When using this parameter, only events where the
+            `products.suspectScore.data.result` property set to a value
+            exceeding your threshold are returned. Events without a
+            `products.suspectScore` Smart Signal result are left out of the
+            response.
       responses:
         '200':
           description: Events matching the filter(s).
@@ -474,7 +645,7 @@ paths:
         - Upon request to delete, this data is deleted asynchronously (typically
         within a few minutes) and it will no longer be used to identify this
         browser (or device) for your [Fingerprint
-        Application](https://dev.fingerprint.com/docs/glossary#fingerprint-application).
+        Workspace](https://dev.fingerprint.com/docs/glossary#fingerprint-workspace).
 
 
         #### Identification requests made from this browser (or device)
@@ -630,6 +801,7 @@ paths:
         Fake path to describe webhook format. More information about webhooks
         can be found in the
         [documentation](https://dev.fingerprint.com/docs/webhooks)
+      x-flatten-optional-params: true
       requestBody:
         content:
           application/json:
@@ -646,7 +818,6 @@ paths:
                 You can use HTTP basic authentication and set up credentials in
                 your [Fingerprint
                 account](https://dashboard.fingerprint.com/login)
-              x-flatten-optional-params: true
               requestBody:
                 content:
                   application/json:
@@ -1579,26 +1750,33 @@ components:
         result:
           type: boolean
           description: >
-            Flag indicating browser tampering was detected. This happens when
-            either of these conditions is true:
-              * There are inconsistencies in the browser configuration that cross our internal tampering thresholds (indicated by `anomalyScore`).
-              * The browser signature resembles one of "anti-detect" browsers specifically designed to evade identification and fingerprinting, for example, Incognition (indicated by `antiDetectBrowser`).
+            Indicates if an identification request from a browser or an Android
+            SDK has been tampered with. Not supported in the iOS SDK, is always
+            `false` for iOS requests.
+              * `true` - If the request meets either of the following conditions:
+                * Contains anomalous browser or device attributes that could not have been legitimately produced by the JavaScript agent or the Android SDK (see `anomalyScore`).
+                * Originated from an anti-detect browser like Incognition (see `antiDetectBrowser`).
+              * `false` - If the request is considered genuine or was generated by the iOS SDK.
         anomalyScore:
           type: number
           format: double
           minimum: 0
           maximum: 1
-          description: |
-            Confidence score (`0.0 - 1.0`) for tampering detection:
-              * Values above `0.5` indicate that there was a tampering attempt. 
-              * Values below `0.5` indicate genuine browsers.
+          description: >
+            A score that indicates the extent of anomalous data in the request.
+            This field applies to requests originating from **both** browsers
+            and Android SDKs. 
+              * Values above `0.5` indicate that the request has been tampered with.
+              * Values below `0.5` indicate that the request is genuine.
         antiDetectBrowser:
           type: boolean
-          description: >-
-            Is `true` if the identified browser resembles one of "anti-detect"
-            browsers, for example, Incognition.  Anti-detect browsers try to
-            evade identification by masking or manipulating their fingerprint to
-            imitate legitimate browser configurations.
+          description: >
+            Anti-detect browsers try to evade identification by masking or
+            manipulating their fingerprint to imitate legitimate browser
+            configurations. This field does not apply to requests originating
+            from mobile SDKs.
+              * `true` - The browser resembles a known anti-detect browser, for example, Incognition.
+              * `false` - The browser does not resemble an anti-detect browser or the request originates from a mobile SDK.
     ProductTampering:
       type: object
       additionalProperties: false
@@ -2293,26 +2471,33 @@ components:
         result:
           type: boolean
           description: >
-            Flag indicating browser tampering was detected. This happens when
-            either of these conditions is true:
-              * There are inconsistencies in the browser configuration that cross our internal tampering thresholds (indicated by `anomalyScore`).
-              * The browser signature resembles one of "anti-detect" browsers specifically designed to evade identification and fingerprinting, for example, Incognition (indicated by `antiDetectBrowser`).
+            Indicates if an identification request from a browser or an Android
+            SDK has been tampered with. Not supported in the iOS SDK, is always
+            `false` for iOS requests.
+              * `true` - If the request meets either of the following conditions:
+                * Contains anomalous browser or device attributes that could not have been legitimately produced by the JavaScript agent or the Android SDK (see `anomalyScore`).
+                * Originated from an anti-detect browser like Incognition (see `antiDetectBrowser`).
+              * `false` - If the request is considered genuine or was generated by the iOS SDK.
         anomalyScore:
           type: number
           format: double
           minimum: 0
           maximum: 1
-          description: |
-            Confidence score (`0.0 - 1.0`) for tampering detection:
-              * Values above `0.5` indicate that there was a tampering attempt
-              * Values below `0.5` indicate genuine browsers.
+          description: >
+            A score that indicates the extent of anomalous data in the request.
+            This field applies to requests originating from **both** browsers
+            and Android SDKs. 
+              * Values above `0.5` indicate that the request has been tampered with.
+              * Values below `0.5` indicate that the request is genuine.
         antiDetectBrowser:
           type: boolean
-          description: >-
-            Is `true` if the identified browser resembles one of "anti-detect"
-            browsers, for example, Incognition. Anti-detect browsers try to
-            evade identification by masking or manipulating their fingerprint to
-            imitate legitimate browser configurations.
+          description: >
+            Anti-detect browsers try to evade identification by masking or
+            manipulating their fingerprint to imitate legitimate browser
+            configurations. This field does not apply to requests originating
+            from mobile SDKs.
+              * `true` - The browser resembles a known anti-detect browser, for example, Incognition.
+              * `false` - The browser does not resemble an anti-detect browser or the request originates from a mobile SDK.
     WebhookClonedApp:
       type: object
       additionalProperties: false
@@ -2544,6 +2729,9 @@ components:
         ip:
           type: string
           description: IP address of the requesting browser or bot.
+        environmentId:
+          type: string
+          description: Environment ID of the event.
         tag:
           $ref: '#/components/schemas/Tag'
         time:

@@ -55,6 +55,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         'request_id' => 'string',
         'url' => 'string',
         'ip' => 'string',
+        'environment_id' => 'string',
         'tag' => 'array',
         'time' => '\DateTime',
         'timestamp' => 'int',
@@ -103,6 +104,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         'request_id' => null,
         'url' => null,
         'ip' => null,
+        'environment_id' => null,
         'tag' => null,
         'time' => 'date-time',
         'timestamp' => 'int64',
@@ -152,6 +154,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         'request_id' => 'requestId',
         'url' => 'url',
         'ip' => 'ip',
+        'environment_id' => 'environmentId',
         'tag' => 'tag',
         'time' => 'time',
         'timestamp' => 'timestamp',
@@ -200,6 +203,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         'request_id' => 'setRequestId',
         'url' => 'setUrl',
         'ip' => 'setIp',
+        'environment_id' => 'setEnvironmentId',
         'tag' => 'setTag',
         'time' => 'setTime',
         'timestamp' => 'setTimestamp',
@@ -248,6 +252,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         'request_id' => 'getRequestId',
         'url' => 'getUrl',
         'ip' => 'getIp',
+        'environment_id' => 'getEnvironmentId',
         'tag' => 'getTag',
         'time' => 'getTime',
         'timestamp' => 'getTimestamp',
@@ -305,6 +310,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
         $this->container['url'] = isset($data['url']) ? $data['url'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
+        $this->container['environment_id'] = isset($data['environment_id']) ? $data['environment_id'] : null;
         $this->container['tag'] = isset($data['tag']) ? $data['tag'] : null;
         $this->container['time'] = isset($data['time']) ? $data['time'] : null;
         $this->container['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : null;
@@ -504,6 +510,28 @@ class Webhook implements ModelInterface, \ArrayAccess
     public function setIp(string $ip): self
     {
         $this->container['ip'] = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Gets environment_id.
+     */
+    public function getEnvironmentId(): ?string
+    {
+        return $this->container['environment_id'];
+    }
+
+    /**
+     * Sets environment_id.
+     *
+     * @param ?string $environment_id environment ID of the event
+     *
+     * @return $this
+     */
+    public function setEnvironmentId(?string $environment_id): self
+    {
+        $this->container['environment_id'] = $environment_id;
 
         return $this;
     }
