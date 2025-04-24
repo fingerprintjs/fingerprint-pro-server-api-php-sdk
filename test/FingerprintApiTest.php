@@ -842,6 +842,8 @@ class FingerprintApiTest extends TestCase
                 'root_apps' => 'true',
                 'vpn_confidence' => 'medium',
                 'min_suspect_score' => '0.5',
+                'ip_blocklist' => 'true',
+                'datacenter' => 'true',
             ];
 
             $extraKeys = ['ii', 'visitor_id'];
@@ -880,6 +882,8 @@ class FingerprintApiTest extends TestCase
             root_apps: true,
             vpn_confidence: 'medium',
             min_suspect_score: 0.5,
+            ip_blocklist: true,
+            datacenter: true,
         );
 
         $this->assertCount(1, $events->getEvents());
