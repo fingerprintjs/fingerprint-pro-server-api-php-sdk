@@ -847,6 +847,8 @@ class FingerprintApi
      * @param bool   $root_apps           Filter events by Rooted Device Detection result.   > Note: When using this parameter, only events with the `products.rootApps.data.result` property set to `true` or `false` are returned. Events without a `products.rootApps` Smart Signal result are left out of the response. (optional)
      * @param string $vpn_confidence      Filter events by VPN Detection result confidence level.   `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `products.vpn.data.confidence` property set to a valid value are returned. Events without a `products.vpn` Smart Signal result are left out of the response. (optional)
      * @param float  $min_suspect_score   Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response. (optional)
+     * @param bool   $ip_blocklist        Filter events by IP Blocklist Detection result.   > Note: When using this parameter, only events with the `products.ipBlocklist.data.result` property set to `true` or `false` are returned. Events without a `products.ipBlocklist` Smart Signal result are left out of the response. (optional)
+     * @param bool   $datacenter          Filter events by Datacenter Detection result.   > Note: When using this parameter, only events with the `products.ipInfo.data.v4.datacenter.result` or `products.ipInfo.data.v6.datacenter.result` property set to `true` or `false` are returned. Events without a `products.ipInfo` Smart Signal result are left out of the response. (optional)
      *
      * @return array{ \Fingerprint\ServerAPI\Model\SearchEventsResponse|null, \Psr\Http\Message\ResponseInterface }
      *
@@ -855,10 +857,10 @@ class FingerprintApi
      * @throws GuzzleException
      * @throws ApiException
      */
-    public function searchEvents(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?string $vpn_confidence = null, ?float $min_suspect_score = null): array
+    public function searchEvents(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?string $vpn_confidence = null, ?float $min_suspect_score = null, ?bool $ip_blocklist = null, ?bool $datacenter = null): array
     {
         $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
-        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score);
+        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $ip_blocklist, $datacenter);
 
         try {
             $options = $this->createHttpClientOption();
@@ -961,16 +963,18 @@ class FingerprintApi
      * @param bool   $root_apps           Filter events by Rooted Device Detection result.   > Note: When using this parameter, only events with the `products.rootApps.data.result` property set to `true` or `false` are returned. Events without a `products.rootApps` Smart Signal result are left out of the response. (optional)
      * @param string $vpn_confidence      Filter events by VPN Detection result confidence level.   `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `products.vpn.data.confidence` property set to a valid value are returned. Events without a `products.vpn` Smart Signal result are left out of the response. (optional)
      * @param float  $min_suspect_score   Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response. (optional)
+     * @param bool   $ip_blocklist        Filter events by IP Blocklist Detection result.   > Note: When using this parameter, only events with the `products.ipBlocklist.data.result` property set to `true` or `false` are returned. Events without a `products.ipBlocklist` Smart Signal result are left out of the response. (optional)
+     * @param bool   $datacenter          Filter events by Datacenter Detection result.   > Note: When using this parameter, only events with the `products.ipInfo.data.v4.datacenter.result` or `products.ipInfo.data.v6.datacenter.result` property set to `true` or `false` are returned. Events without a `products.ipInfo` Smart Signal result are left out of the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
      * @throws ApiException
      */
-    public function searchEventsAsync(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?string $vpn_confidence = null, ?float $min_suspect_score = null): PromiseInterface
+    public function searchEventsAsync(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?string $vpn_confidence = null, ?float $min_suspect_score = null, ?bool $ip_blocklist = null, ?bool $datacenter = null): PromiseInterface
     {
         $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
-        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score);
+        $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $ip_blocklist, $datacenter);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1511,7 +1515,7 @@ class FingerprintApi
      * @throws GuzzleException
      * @throws ApiException
      */
-    protected function searchEventsRequest(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?string $vpn_confidence = null, ?float $min_suspect_score = null): Request
+    protected function searchEventsRequest(int $limit, ?string $pagination_key = null, ?string $visitor_id = null, ?string $bot = null, ?string $ip_address = null, ?string $linked_id = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?string $vpn_confidence = null, ?float $min_suspect_score = null, ?bool $ip_blocklist = null, ?bool $datacenter = null): Request
     {
         // verify the required parameter 'limit' is set
         if (null === $limit || (is_array($limit) && 0 === count($limit))) {
@@ -1621,6 +1625,14 @@ class FingerprintApi
         // query params
         if (null !== $min_suspect_score) {
             $queryParams['min_suspect_score'] = ObjectSerializer::toQueryValue($min_suspect_score, 'float');
+        }
+        // query params
+        if (null !== $ip_blocklist) {
+            $queryParams['ip_blocklist'] = ObjectSerializer::toQueryValue($ip_blocklist, null);
+        }
+        // query params
+        if (null !== $datacenter) {
+            $queryParams['datacenter'] = ObjectSerializer::toQueryValue($datacenter, null);
         }
 
         // this endpoint requires API key authentication
