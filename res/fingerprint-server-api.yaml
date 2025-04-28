@@ -414,7 +414,7 @@ paths:
           schema:
             type: string
             enum:
-              - high,
+              - high
               - medium
               - low
           description: >
@@ -444,6 +444,29 @@ paths:
             exceeding your threshold are returned. Events without a
             `products.suspectScore` Smart Signal result are left out of the
             response.
+        - name: ip_blocklist
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by IP Blocklist Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.ipBlocklist.data.result` property set to `true` or `false`
+            are returned. Events without a `products.ipBlocklist` Smart Signal
+            result are left out of the response.
+        - name: datacenter
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Datacenter Detection result.  
+
+            > Note: When using this parameter, only events with the
+            `products.ipInfo.data.v4.datacenter.result` or
+            `products.ipInfo.data.v6.datacenter.result` property set to `true`
+            or `false` are returned. Events without a `products.ipInfo` Smart
+            Signal result are left out of the response.
       responses:
         '200':
           description: Events matching the filter(s).
