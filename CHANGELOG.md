@@ -1,5 +1,18 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.5.0-develop.0
+
+### Minor Changes
+
+- **events-search**: Event search now supports a new set of filter parameters: `vpn`, `virtual_machine`, `tampering`, `anti_detect_browser`, `incognito`, `privacy_settings`, `jailbroken`, `frida`, `factory_reset`, `cloned_app`, `emulator`, `root_apps`, `vpn_confidence`, `min_suspect_score`. ([9ec63ea](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/9ec63ea694ecb71ce002e9243513947e131bc27c))
+- **events-search**: Event search now supports two new filter parameters: `ip_blocklist`, `datacenter` ([e2b6aba](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/e2b6aba413642c18526a4f0cf06f07de38353c35))
+
+### Patch Changes
+
+- **webhook**: Apply x-flatten-optional-params: true in correct place in the webhook.yaml ([9ec63ea](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/9ec63ea694ecb71ce002e9243513947e131bc27c))
+- **events**: Update Tampering descriptions to reflect Android support. ([9ec63ea](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/9ec63ea694ecb71ce002e9243513947e131bc27c))
+- **webhook**: Add `environmentId` property ([9ec63ea](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/9ec63ea694ecb71ce002e9243513947e131bc27c))
+
 ## 6.4.0
 
 ### Minor Changes

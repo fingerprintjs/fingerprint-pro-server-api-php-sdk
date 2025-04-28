@@ -4,5 +4,11 @@
   "initialVersions": {
     "fingerprint-pro-server-api-php-sdk": "6.4.0"
   },
-  "changesets": []
+  "changesets": [
+    "fuzzy-pumas-end",
+    "shaky-goats-beam",
+    "sharp-chicken-yawn",
+    "shiny-ghosts-sin",
+    "thick-clouds-ring"
+  ]
 }
