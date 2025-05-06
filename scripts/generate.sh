@@ -17,12 +17,12 @@ done
 VERSION=${VERSION//develop/dev}
 
 if [[ $VERSION =~ ^dev[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)$ ]]; then
-    VERSION="dev-${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}.${BASH_REMATCH[4]}"
+    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-dev.${BASH_REMATCH[4]}"
 elif [[ $VERSION =~ ^([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]dev[.-]([0-9]+)$ ]]; then
-    VERSION="dev-${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}.${BASH_REMATCH[4]}"
+    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-dev.${BASH_REMATCH[4]}"
 elif [[ $VERSION == dev-* ]]; then
     _temp_part=${VERSION#dev-}
-    VERSION="dev-${_temp_part//-/.}"
+    VERSION="${_temp_part//-/.}-dev"
 elif [[ $VERSION == *-dev* ]]; then
     _temp_part=${VERSION#*-dev}
     _temp_part=${_temp_part//-/.}
