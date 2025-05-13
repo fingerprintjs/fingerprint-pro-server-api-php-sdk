@@ -17,16 +17,16 @@ done
 VERSION=${VERSION//develop/dev}
 
 if [[ $VERSION =~ ^dev[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)$ ]]; then
-    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-dev.${BASH_REMATCH[4]}"
+    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
 elif [[ $VERSION =~ ^([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]dev[.-]([0-9]+)$ ]]; then
-    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-dev.${BASH_REMATCH[4]}"
+    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
 elif [[ $VERSION == dev-* ]]; then
     _temp_part=${VERSION#dev-}
-    VERSION="${_temp_part//-/.}-dev"
+    VERSION="${_temp_part//-/.}-beta"
 elif [[ $VERSION == *-dev* ]]; then
     _temp_part=${VERSION#*-dev}
     _temp_part=${_temp_part//-/.}
-    VERSION="${VERSION%%-dev*}-dev$_temp_part"
+    VERSION="${VERSION%%-dev*}-beta$_temp_part"
 fi
 
 echo "VERSION: $VERSION"
