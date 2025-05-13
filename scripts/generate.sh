@@ -16,14 +16,19 @@ done
 
 VERSION=${VERSION//develop/dev}
 
-# Example for the regex below:
-# dev.1.0.0.0
-# dev-1.0.0-0
-# dev.1.0.0-0
-# dev-1.0.0.0
 if [[ $VERSION =~ ^dev[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)$ ]]; then
+    # Example for the regex above:
+    # dev.1.0.0.0
+    # dev-1.0.0-0
+    # dev.1.0.0-0
+    # dev-1.0.0.0
     VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
 elif [[ $VERSION =~ ^([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]dev[.-]([0-9]+)$ ]]; then
+    # Example for the regex above:
+    # 1.0.0.dev.0
+    # 1.0.0.dev-0
+    # 1.0.0-dev-0
+    # 1.0.0-dev.0
     VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
 elif [[ $VERSION == dev-* ]]; then
     _temp_part=${VERSION#dev-}
