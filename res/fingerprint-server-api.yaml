@@ -1,9 +1,9 @@
 openapi: 3.0.3
 info:
-  title: Fingerprint Pro Server API
+  title: Fingerprint Server API
   description: >
-    Fingerprint Pro Server API allows you to get information about visitors and
-    about individual events in a server environment. It can be used for data
+    Fingerprint Server API allows you to search, update, and delete
+    identification events in a server environment. It can be used for data
     exports, decision-making, and data analysis scenarios.
 
     Server API is intended for server-side usage, it's not intended to be used
