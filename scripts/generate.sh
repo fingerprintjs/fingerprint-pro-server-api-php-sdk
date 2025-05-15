@@ -14,11 +14,29 @@ done
 
 # jar was downloaded from here https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.34/
 
-if [[ $VERSION == *"develop"* ]]; then
-  SANITIZED_VERSION=$(sed 's/-develop//g' <<< $VERSION)
-  SANITIZED_VERSION=$(sed 's/\.[0-9]*$//g' <<< $SANITIZED_VERSION)
-  BUILD_VERSION=$(grep -o '[0-9]*$' <<< $VERSION)
-  VERSION="dev-$SANITIZED_VERSION-$BUILD_VERSION"
+VERSION=${VERSION//develop/dev}
+
+if [[ $VERSION =~ ^dev[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)$ ]]; then
+    # Example for the regex above:
+    # dev.1.0.0.0
+    # dev-1.0.0-0
+    # dev.1.0.0-0
+    # dev-1.0.0.0
+    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
+elif [[ $VERSION =~ ^([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]dev[.-]([0-9]+)$ ]]; then
+    # Example for the regex above:
+    # 1.0.0.dev.0
+    # 1.0.0.dev-0
+    # 1.0.0-dev-0
+    # 1.0.0-dev.0
+    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
+elif [[ $VERSION == dev-* ]]; then
+    _temp_part=${VERSION#dev-}
+    VERSION="${_temp_part//-/.}-beta"
+elif [[ $VERSION == *-dev* ]]; then
+    _temp_part=${VERSION#*-dev}
+    _temp_part=${_temp_part//-/.}
+    VERSION="${VERSION%%-dev*}-beta$_temp_part"
 fi
 
 echo "VERSION: $VERSION"
