@@ -953,6 +953,7 @@ paths:
                             relay: false
                         proxy:
                           result: false
+                          confidence: high
                         tampering:
                           result: false
                           anomalyScore: 0
@@ -1724,17 +1725,30 @@ components:
           $ref: '#/components/schemas/VPN'
         error:
           $ref: '#/components/schemas/Error'
+    ProxyConfidence:
+      type: string
+      enum:
+        - low
+        - medium
+        - high
+      description: |
+        Confidence level of the proxy detection.
+        If a proxy is not detected, confidence is "high".
+        If it's detected, can be "low", "medium", or "high".
     Proxy:
       type: object
       additionalProperties: false
       required:
         - result
+        - confidence
       properties:
         result:
           type: boolean
           description: >
-            `true` if the request IP address is used by a public proxy provider,
-            `false` otherwise.
+            IP address was used by a public proxy provider or belonged to a
+            known recent residential proxy
+        confidence:
+          $ref: '#/components/schemas/ProxyConfidence'
     ProductProxy:
       type: object
       additionalProperties: false
@@ -2485,8 +2499,10 @@ components:
         result:
           type: boolean
           description: >
-            `true` if the request IP address is used by a public proxy provider,
-            `false` otherwise.
+            IP address was used by a public proxy provider or belonged to a
+            known recent residential proxy
+        confidence:
+          $ref: '#/components/schemas/ProxyConfidence'
     WebhookTampering:
       type: object
       additionalProperties: false

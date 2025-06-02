@@ -187,7 +187,8 @@
     },
     "proxy": {
       "data": {
-        "result": false
+        "result": false,
+        "confidence": "high"
       }
     },
     "incognito": {

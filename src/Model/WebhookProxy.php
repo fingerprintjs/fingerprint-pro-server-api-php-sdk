@@ -52,7 +52,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'result' => 'bool'];
+        'result' => 'bool',
+        'confidence' => '\Fingerprint\ServerAPI\Model\ProxyConfidence'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -60,7 +61,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerFormats = [
-        'result' => null];
+        'result' => null,
+        'confidence' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -69,7 +71,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $attributeMap = [
-        'result' => 'result'];
+        'result' => 'result',
+        'confidence' => 'confidence'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -77,7 +80,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $setters = [
-        'result' => 'setResult'];
+        'result' => 'setResult',
+        'confidence' => 'setConfidence'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -85,7 +89,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $getters = [
-        'result' => 'getResult'];
+        'result' => 'getResult',
+        'confidence' => 'getConfidence'];
 
     /**
      * Associative array for storing property values.
@@ -103,6 +108,7 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
     public function __construct(?array $data = null)
     {
         $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
     }
 
     /**
@@ -195,13 +201,35 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
     /**
      * Sets result.
      *
-     * @param ?bool $result `true` if the request IP address is used by a public proxy provider, `false` otherwise
+     * @param ?bool $result IP address was used by a public proxy provider or belonged to a known recent residential proxy
      *
      * @return $this
      */
     public function setResult(?bool $result): self
     {
         $this->container['result'] = $result;
+
+        return $this;
+    }
+
+    /**
+     * Gets confidence.
+     */
+    public function getConfidence(): ?ProxyConfidence
+    {
+        return $this->container['confidence'];
+    }
+
+    /**
+     * Sets confidence.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\ProxyConfidence $confidence confidence
+     *
+     * @return $this
+     */
+    public function setConfidence(?ProxyConfidence $confidence): self
+    {
+        $this->container['confidence'] = $confidence;
 
         return $this;
     }
