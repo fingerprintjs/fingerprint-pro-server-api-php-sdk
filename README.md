@@ -318,6 +318,7 @@ Class | Method | HTTP request | Description
  - [ProductVirtualMachine](docs/Model/ProductVirtualMachine.md)
  - [Products](docs/Model/Products.md)
  - [Proxy](docs/Model/Proxy.md)
+ - [ProxyConfidence](docs/Model/ProxyConfidence.md)
  - [RelatedVisitor](docs/Model/RelatedVisitor.md)
  - [RelatedVisitorsResponse](docs/Model/RelatedVisitorsResponse.md)
  - [RemoteControl](docs/Model/RemoteControl.md)

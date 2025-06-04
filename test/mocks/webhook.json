@@ -130,7 +130,8 @@
     }
   },
   "proxy": {
-    "result": false
+    "result": false,
+    "confidence": "high"
   },
   "tampering": {
     "result": false,
