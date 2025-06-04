@@ -1,5 +1,11 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.6.0
+
+### Minor Changes
+
+- Add `confidence` property to the Proxy detection Smart Signal, which now supports both residential and public web proxies. ([c370f3c](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/c370f3c832e01b0b518cebc021f3d518c3d6fa13))
+
 ## 6.5.0
 
 ### Minor Changes
