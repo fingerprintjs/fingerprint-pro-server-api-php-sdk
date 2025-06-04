@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Code Coverage for /app/src/Model/VPNConfidence.php</title>
+  <title>Code Coverage for /app/src/Model/ProxyConfidence.php</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../_css/bootstrap.min.css?v=11.0.8" rel="stylesheet" type="text/css">
   <link href="../_css/octicons.css?v=11.0.8" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../index.html">/app/src</a></li>
          <li class="breadcrumb-item"><a href="index.html">Model</a></li>
-         <li class="breadcrumb-item active">VPNConfidence.php</li>
+         <li class="breadcrumb-item active">ProxyConfidence.php</li>
 
        </ol>
       </nav>
@@ -64,7 +64,7 @@
 <tbody>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="1" href="#1">1</a></td><td class="col-11 codeLine"><span class="default">&lt;?php</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="2" href="#2">2</a></td><td class="col-11 codeLine"><span class="comment">/**</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="3" href="#3">3</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;VPNConfidence.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="3" href="#3">3</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;ProxyConfidence.</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="4" href="#4">4</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="5" href="#5">5</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@category&nbsp;Class</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="6" href="#6">6</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
@@ -92,17 +92,17 @@
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="28" href="#28">28</a></td><td class="col-11 codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span class="default">Fingerprint\ServerAPI\Model</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="29" href="#29">29</a></td><td class="col-11 codeLine"></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="30" href="#30">30</a></td><td class="col-11 codeLine"><span class="comment">/**</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="31" href="#31">31</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;VPNConfidence&nbsp;Class&nbsp;Doc&nbsp;Comment.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="31" href="#31">31</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;ProxyConfidence&nbsp;Class&nbsp;Doc&nbsp;Comment.</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="32" href="#32">32</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="33" href="#33">33</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@category&nbsp;Class</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="34" href="#34">34</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="35" href="#35">35</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@description&nbsp;A&nbsp;confidence&nbsp;rating&nbsp;for&nbsp;the&nbsp;VPN&nbsp;detection&nbsp;result&nbsp;—&nbsp;\&quot;low\&quot;,&nbsp;\&quot;medium\&quot;,&nbsp;or&nbsp;\&quot;high\&quot;.&nbsp;Depends&nbsp;on&nbsp;the&nbsp;combination&nbsp;of&nbsp;results&nbsp;returned&nbsp;from&nbsp;all&nbsp;VPN&nbsp;detection&nbsp;methods.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="35" href="#35">35</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@description&nbsp;Confidence&nbsp;level&nbsp;of&nbsp;the&nbsp;proxy&nbsp;detection.&nbsp;If&nbsp;a&nbsp;proxy&nbsp;is&nbsp;not&nbsp;detected,&nbsp;confidence&nbsp;is&nbsp;\&quot;high\&quot;.&nbsp;If&nbsp;it's&nbsp;detected,&nbsp;can&nbsp;be&nbsp;\&quot;low\&quot;,&nbsp;\&quot;medium\&quot;,&nbsp;or&nbsp;\&quot;high\&quot;.</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="36" href="#36">36</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="37" href="#37">37</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@author&nbsp;&nbsp;&nbsp;Swagger&nbsp;Codegen&nbsp;team</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="38" href="#38">38</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="39" href="#39">39</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@see&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://github.com/swagger-api/swagger-codegen</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="40" href="#40">40</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*/</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="41" href="#41">41</a></td><td class="col-11 codeLine"><span class="keyword">enum</span><span class="default">&nbsp;</span><span class="default">VPNConfidence</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="default">string</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="41" href="#41">41</a></td><td class="col-11 codeLine"><span class="keyword">enum</span><span class="default">&nbsp;</span><span class="default">ProxyConfidence</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="default">string</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="42" href="#42">42</a></td><td class="col-11 codeLine"><span class="keyword">{</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="43" href="#43">43</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">LOW</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'low'</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="44" href="#44">44</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">MEDIUM</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'medium'</span><span class="keyword">;</span></td></tr>
