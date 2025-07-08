@@ -93,7 +93,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'remote_control' => '\Fingerprint\ServerAPI\Model\WebhookRemoteControl',
         'velocity' => '\Fingerprint\ServerAPI\Model\WebhookVelocity',
         'developer_tools' => '\Fingerprint\ServerAPI\Model\WebhookDeveloperTools',
-        'mitm_attack' => '\Fingerprint\ServerAPI\Model\WebhookMitMAttack'];
+        'mitm_attack' => '\Fingerprint\ServerAPI\Model\WebhookMitMAttack',
+        'replayed' => 'bool'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -142,7 +143,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'remote_control' => null,
         'velocity' => null,
         'developer_tools' => null,
-        'mitm_attack' => null];
+        'mitm_attack' => null,
+        'replayed' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -192,7 +194,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'remote_control' => 'remoteControl',
         'velocity' => 'velocity',
         'developer_tools' => 'developerTools',
-        'mitm_attack' => 'mitmAttack'];
+        'mitm_attack' => 'mitmAttack',
+        'replayed' => 'replayed'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -241,7 +244,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'remote_control' => 'setRemoteControl',
         'velocity' => 'setVelocity',
         'developer_tools' => 'setDeveloperTools',
-        'mitm_attack' => 'setMitmAttack'];
+        'mitm_attack' => 'setMitmAttack',
+        'replayed' => 'setReplayed'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -290,7 +294,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'remote_control' => 'getRemoteControl',
         'velocity' => 'getVelocity',
         'developer_tools' => 'getDeveloperTools',
-        'mitm_attack' => 'getMitmAttack'];
+        'mitm_attack' => 'getMitmAttack',
+        'replayed' => 'getReplayed'];
 
     /**
      * Associative array for storing property values.
@@ -349,6 +354,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         $this->container['velocity'] = isset($data['velocity']) ? $data['velocity'] : null;
         $this->container['developer_tools'] = isset($data['developer_tools']) ? $data['developer_tools'] : null;
         $this->container['mitm_attack'] = isset($data['mitm_attack']) ? $data['mitm_attack'] : null;
+        $this->container['replayed'] = isset($data['replayed']) ? $data['replayed'] : null;
     }
 
     /**
@@ -1368,6 +1374,28 @@ class Webhook implements ModelInterface, \ArrayAccess
     public function setMitmAttack(?WebhookMitMAttack $mitm_attack): self
     {
         $this->container['mitm_attack'] = $mitm_attack;
+
+        return $this;
+    }
+
+    /**
+     * Gets replayed.
+     */
+    public function getReplayed(): ?bool
+    {
+        return $this->container['replayed'];
+    }
+
+    /**
+     * Sets replayed.
+     *
+     * @param ?bool $replayed `true` if we determined that this payload was replayed, `false` otherwise
+     *
+     * @return $this
+     */
+    public function setReplayed(?bool $replayed): self
+    {
+        $this->container['replayed'] = $replayed;
 
         return $this;
     }

@@ -68,7 +68,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'visitor_found' => 'bool',
         'first_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
         'last_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
-        'components' => 'array'];
+        'components' => 'array',
+        'replayed' => 'bool'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -92,7 +93,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'visitor_found' => null,
         'first_seen_at' => null,
         'last_seen_at' => null,
-        'components' => null];
+        'components' => null,
+        'replayed' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -117,7 +119,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'visitor_found' => 'visitorFound',
         'first_seen_at' => 'firstSeenAt',
         'last_seen_at' => 'lastSeenAt',
-        'components' => 'components'];
+        'components' => 'components',
+        'replayed' => 'replayed'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -141,7 +144,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'visitor_found' => 'setVisitorFound',
         'first_seen_at' => 'setFirstSeenAt',
         'last_seen_at' => 'setLastSeenAt',
-        'components' => 'setComponents'];
+        'components' => 'setComponents',
+        'replayed' => 'setReplayed'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -165,7 +169,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'visitor_found' => 'getVisitorFound',
         'first_seen_at' => 'getFirstSeenAt',
         'last_seen_at' => 'getLastSeenAt',
-        'components' => 'getComponents'];
+        'components' => 'getComponents',
+        'replayed' => 'getReplayed'];
 
     /**
      * Associative array for storing property values.
@@ -199,6 +204,7 @@ class Identification implements ModelInterface, \ArrayAccess
         $this->container['first_seen_at'] = isset($data['first_seen_at']) ? $data['first_seen_at'] : null;
         $this->container['last_seen_at'] = isset($data['last_seen_at']) ? $data['last_seen_at'] : null;
         $this->container['components'] = isset($data['components']) ? $data['components'] : null;
+        $this->container['replayed'] = isset($data['replayed']) ? $data['replayed'] : null;
     }
 
     /**
@@ -689,6 +695,28 @@ class Identification implements ModelInterface, \ArrayAccess
     public function setComponents(?array $components): self
     {
         $this->container['components'] = $components;
+
+        return $this;
+    }
+
+    /**
+     * Gets replayed.
+     */
+    public function getReplayed(): ?bool
+    {
+        return $this->container['replayed'];
+    }
+
+    /**
+     * Sets replayed.
+     *
+     * @param ?bool $replayed `true` if we determined that this payload was replayed, `false` otherwise
+     *
+     * @return $this
+     */
+    public function setReplayed(?bool $replayed): self
+    {
+        $this->container['replayed'] = $replayed;
 
         return $this;
     }

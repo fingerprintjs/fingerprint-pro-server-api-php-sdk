@@ -12,6 +12,10 @@ info:
   contact:
     name: Fingerprint Support
     email: support@fingerprint.com
+  license:
+    name: MIT
+    url: >-
+      https://github.com/fingerprintjs/fingerprint-pro-server-api-openapi/blob/main/LICENSE
 tags:
   - name: Fingerprint
     description: >-
@@ -818,6 +822,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /webhook:
     trace:
+      summary: Dummy path to describe webhook format.
       tags:
         - Fingerprint
       description: >-
@@ -837,6 +842,7 @@ paths:
         webhook:
           webhook:
             post:
+              summary: Webhook example
               description: >-
                 You can use HTTP basic authentication and set up credentials in
                 your [Fingerprint
@@ -846,193 +852,6 @@ paths:
                   application/json:
                     schema:
                       $ref: '#/components/schemas/Webhook'
-                    example:
-                      value:
-                        requestId: Px6VxbRC6WBkA39yeNH3
-                        url: https://banking.example.com/signup
-                        ip: 216.3.128.12
-                        tag:
-                          requestType: signup
-                          yourCustomId: 45321
-                        time: '2019-10-12T07:20:50.52Z'
-                        timestamp: 1554910997788
-                        ipLocation:
-                          accuracyRadius: 1
-                          city:
-                            name: Bolingbrook
-                          continent:
-                            code: NA
-                            name: North America
-                          country:
-                            code: US
-                            name: United States
-                          latitude: 41.12933
-                          longitude: -88.9954
-                          postalCode: '60547'
-                          subdivisions:
-                            - isoCode: IL
-                              name: Illinois
-                          timezone: America/Chicago
-                        linkedId: any-string
-                        visitorId: 3HNey93AkBW6CRbxV6xP
-                        visitorFound: true
-                        confidence:
-                          score: 0.97
-                        firstSeenAt:
-                          global: '2022-03-16T11:26:45.362Z'
-                          subscription: '2022-03-16T11:31:01.101Z'
-                        lastSeenAt:
-                          global: '2022-03-16T11:28:34.023Z'
-                          subscription: null
-                        browserDetails:
-                          browserName: Chrome
-                          browserFullVersion: 73.0.3683.86
-                          browserMajorVersion: '73'
-                          os: Mac OS X
-                          osVersion: 10.14.3
-                          device: Other
-                          userAgent: >-
-                            (Macintosh; Intel Mac OS X 10_14_3)
-                            Chrome/73.0.3683.86
-                        incognito: false
-                        clientReferrer: https://google.com?search=banking+services
-                        bot:
-                          result: bad
-                          type: selenium
-                        userAgent: >-
-                          (Macintosh; Intel Mac OS X 10_14_3)
-                          Chrome/73.0.3683.86
-                        rootApps:
-                          result: false
-                        emulator:
-                          result: false
-                        ipInfo:
-                          v4:
-                            address: 94.142.239.124
-                            geolocation:
-                              accuracyRadius: 20
-                              latitude: 50.05
-                              longitude: 14.4
-                              postalCode: 150 00
-                              timezone: Europe/Prague
-                              city:
-                                name: Prague
-                              country:
-                                code: CZ
-                                name: Czechia
-                              continent:
-                                code: EU
-                                name: Europe
-                              subdivisions:
-                                - isoCode: '10'
-                                  name: Hlavni mesto Praha
-                            asn:
-                              asn: '7922'
-                              name: COMCAST-7922
-                              network: 73.136.0.0/13
-                            datacenter:
-                              result: true
-                              name: DediPath
-                        ipBlocklist:
-                          result: false
-                          details:
-                            emailSpam: false
-                            attackSource: false
-                        tor:
-                          result: false
-                        vpn:
-                          result: false
-                          confidence: high
-                          originTimezone: Europe/Berlin
-                          originCountry: unknown
-                          methods:
-                            timezoneMismatch: false
-                            publicVPN: false
-                            auxiliaryMobile: false
-                            osMismatch: false
-                            relay: false
-                        proxy:
-                          result: false
-                          confidence: high
-                        tampering:
-                          result: false
-                          anomalyScore: 0
-                          antiDetectBrowser: false
-                        clonedApp:
-                          result: false
-                        factoryReset:
-                          time: '1970-01-01T00:00:00Z'
-                          timestamp: 0
-                        jailbroken:
-                          result: false
-                        frida:
-                          result: false
-                        privacySettings:
-                          result: false
-                        virtualMachine:
-                          result: false
-                        rawDeviceAttributes:
-                          architecture:
-                            value: 127
-                          audio:
-                            value: 35.73832903057337
-                          canvas:
-                            value:
-                              Winding: true
-                              Geometry: 4dce9d6017c3e0c052a77252f29f2b1c
-                              Text: dd2474a56ff78c1de3e7a07070ba3b7d
-                          colorDepth:
-                            value: 30
-                          colorGamut:
-                            value: srgb
-                          contrast:
-                            value: 0
-                          cookiesEnabled:
-                            value: true
-                        highActivity:
-                          result: false
-                        locationSpoofing:
-                          result: true
-                        suspectScore:
-                          result: 0
-                        remoteControl:
-                          result: false
-                        velocity:
-                          distinctIp:
-                            intervals:
-                              5m: 1
-                              1h: 1
-                              24h: 1
-                          distinctLinkedId: {}
-                          distinctCountry:
-                            intervals:
-                              5m: 1
-                              1h: 2
-                              24h: 2
-                          events:
-                            intervals:
-                              5m: 1
-                              1h: 5
-                              24h: 5
-                          ipEvents:
-                            intervals:
-                              5m: 1
-                              1h: 5
-                              24h: 5
-                          distinctIpByLinkedId:
-                            intervals:
-                              5m: 1
-                              1h: 5
-                              24h: 5
-                          distinctVisitorIdByLinkedId:
-                            intervals:
-                              5m: 1
-                              1h: 5
-                              24h: 5
-                        developerTools:
-                          result: false
-                        mitmAttack:
-                          result: false
               responses:
                 default:
                   description: The server doesn't validate the answer.
@@ -1201,10 +1020,12 @@ components:
           type: string
           nullable: true
           format: date-time
+          x-ogen-time-format: 2006-01-02T15:04:05.999Z07:00
         subscription:
           type: string
           nullable: true
           format: date-time
+          x-ogen-time-format: 2006-01-02T15:04:05.999Z07:00
     RawDeviceAttributeError:
       type: object
       additionalProperties: false
@@ -1288,6 +1109,7 @@ components:
         time:
           type: string
           format: date-time
+          x-ogen-time-format: 2006-01-02T15:04:05Z07:00
           description: >-
             Time expressed according to ISO 8601 in UTC format, when the request
             from the JS agent was made. We recommend to treat requests that are
@@ -1309,6 +1131,11 @@ components:
           $ref: '#/components/schemas/IdentificationSeenAt'
         components:
           $ref: '#/components/schemas/RawDeviceAttributes'
+        replayed:
+          type: boolean
+          description: >
+            `true` if we determined that this payload was replayed, `false`
+            otherwise.
     ErrorCode:
       type: string
       enum:
@@ -1412,6 +1239,7 @@ components:
         time:
           type: string
           format: date-time
+          x-ogen-time-format: 2006-01-02T15:04:05.999Z07:00
           description: >-
             Time in UTC when the request from the JS agent was made. We
             recommend to treat requests that are older than 2 minutes as
@@ -2339,6 +2167,7 @@ components:
         time:
           type: string
           format: date-time
+          x-ogen-time-format: 2006-01-02T15:04:05Z07:00
           description: >-
             Time expressed according to ISO 8601 in UTC format, when the request
             from the client agent was made. We recommend to treat requests that
@@ -2776,6 +2605,7 @@ components:
         time:
           type: string
           format: date-time
+          x-ogen-time-format: 2006-01-02T15:04:05.999Z07:00
           description: >-
             Time expressed according to ISO 8601 in UTC format, when the request
             from the JS agent was made. We recommend to treat requests that are
@@ -2861,3 +2691,8 @@ components:
           $ref: '#/components/schemas/WebhookDeveloperTools'
         mitmAttack:
           $ref: '#/components/schemas/WebhookMitMAttack'
+        replayed:
+          type: boolean
+          description: >
+            `true` if we determined that this payload was replayed, `false`
+            otherwise.

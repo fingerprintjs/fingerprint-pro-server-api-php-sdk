@@ -246,5 +246,6 @@
   },
   "mitmAttack": {
     "result": false
-  }
+  },
+  "replayed": false
 }
