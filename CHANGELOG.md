@@ -1,5 +1,11 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.7.0
+
+### Minor Changes
+
+- add `replayed` field to `identification` in Events and Webhooks ([098df62](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/098df620ddab449988e3ff9e1b5fc787ba0d622f))
+
 ## 6.6.0
 
 ### Minor Changes
