@@ -9,6 +9,12 @@ on:
     - cron: '0 5 * * *'
 
 jobs:
+  set_datadog_team:
+    name: 'Set Datadog team'
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/set-datadog-team.yml@v1
+    secrets:
+      DD_API_KEY: ${{ secrets.INTEGRATIONS_DATADOG_API_KEY }}
+
   functional_tests:
     name: "Functional Tests PHP ${{ matrix.php_version }}"
     runs-on: "ubuntu-latest"
@@ -35,12 +41,3 @@ jobs:
           FP_PRIVATE_API_KEY: "${{ secrets.FP_PRIVATE_API_KEY }}"
           FP_API_HOST: "${{ secrets.FP_API_HOST }}"
 
-  report-status:
-    needs: functional_tests
-    if: always()
-    uses: fingerprintjs/dx-team-toolkit/.github/workflows/report-workflow-status.yml@v1
-    with:
-      notification_title: 'PHP SDK Tests has {status_message}'
-      job_status: ${{ needs.functional_tests.result }}
-    secrets:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
