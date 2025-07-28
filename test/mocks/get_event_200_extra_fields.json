@@ -56,7 +56,8 @@
         "lastSeenAt": {
           "global": "2022-03-16T11:28:34.023Z",
           "subscription": null
-        }
+        },
+        "replayed": false
       }
     },
     "botd": {

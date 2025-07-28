@@ -1058,6 +1058,20 @@ components:
         the generic type provided here.
       additionalProperties:
         $ref: '#/components/schemas/RawDeviceAttribute'
+    SDK:
+      type: object
+      description: Contains information about the SDK used to perform the request.
+      additionalProperties: false
+      required:
+        - platform
+        - version
+      properties:
+        platform:
+          type: string
+          description: Platform of the SDK.
+        version:
+          type: string
+          description: SDK version string.
     Identification:
       type: object
       additionalProperties: false
@@ -1074,6 +1088,7 @@ components:
         - visitorFound
         - firstSeenAt
         - lastSeenAt
+        - replayed
       properties:
         visitorId:
           type: string
@@ -1136,6 +1151,8 @@ components:
           description: >
             `true` if we determined that this payload was replayed, `false`
             otherwise.
+        sdk:
+          $ref: '#/components/schemas/SDK'
     ErrorCode:
       type: string
       enum:
@@ -1862,6 +1879,9 @@ components:
           $ref: '#/components/schemas/Error'
     RemoteControl:
       type: object
+      deprecated: true
+      description: |
+        This signal is deprecated.
       additionalProperties: false
       required:
         - result
@@ -1873,6 +1893,9 @@ components:
             (e.g. TeamViewer), `false` otherwise.
     ProductRemoteControl:
       type: object
+      deprecated: true
+      description: |
+        This product is deprecated.
       additionalProperties: false
       properties:
         data:
@@ -2497,6 +2520,9 @@ components:
             https://dev.fingerprint.com/docs/suspect-score
     WebhookRemoteControl:
       type: object
+      deprecated: true
+      description: |
+        This signal is deprecated.
       additionalProperties: false
       properties:
         result:
@@ -2587,6 +2613,7 @@ components:
         - ip
         - time
         - timestamp
+        - sdk
       properties:
         requestId:
           type: string
@@ -2696,3 +2723,5 @@ components:
           description: >
             `true` if we determined that this payload was replayed, `false`
             otherwise.
+        sdk:
+          $ref: '#/components/schemas/SDK'

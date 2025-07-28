@@ -69,7 +69,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'first_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
         'last_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
         'components' => 'array',
-        'replayed' => 'bool'];
+        'replayed' => 'bool',
+        'sdk' => '\Fingerprint\ServerAPI\Model\SDK'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -94,7 +95,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'first_seen_at' => null,
         'last_seen_at' => null,
         'components' => null,
-        'replayed' => null];
+        'replayed' => null,
+        'sdk' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -120,7 +122,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'first_seen_at' => 'firstSeenAt',
         'last_seen_at' => 'lastSeenAt',
         'components' => 'components',
-        'replayed' => 'replayed'];
+        'replayed' => 'replayed',
+        'sdk' => 'sdk'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -145,7 +148,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'first_seen_at' => 'setFirstSeenAt',
         'last_seen_at' => 'setLastSeenAt',
         'components' => 'setComponents',
-        'replayed' => 'setReplayed'];
+        'replayed' => 'setReplayed',
+        'sdk' => 'setSdk'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -170,7 +174,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'first_seen_at' => 'getFirstSeenAt',
         'last_seen_at' => 'getLastSeenAt',
         'components' => 'getComponents',
-        'replayed' => 'getReplayed'];
+        'replayed' => 'getReplayed',
+        'sdk' => 'getSdk'];
 
     /**
      * Associative array for storing property values.
@@ -205,6 +210,7 @@ class Identification implements ModelInterface, \ArrayAccess
         $this->container['last_seen_at'] = isset($data['last_seen_at']) ? $data['last_seen_at'] : null;
         $this->container['components'] = isset($data['components']) ? $data['components'] : null;
         $this->container['replayed'] = isset($data['replayed']) ? $data['replayed'] : null;
+        $this->container['sdk'] = isset($data['sdk']) ? $data['sdk'] : null;
     }
 
     /**
@@ -309,6 +315,9 @@ class Identification implements ModelInterface, \ArrayAccess
         }
         if (null === $this->container['last_seen_at']) {
             $invalidProperties[] = "'last_seen_at' can't be null";
+        }
+        if (null === $this->container['replayed']) {
+            $invalidProperties[] = "'replayed' can't be null";
         }
 
         return $invalidProperties;
@@ -702,7 +711,7 @@ class Identification implements ModelInterface, \ArrayAccess
     /**
      * Gets replayed.
      */
-    public function getReplayed(): ?bool
+    public function getReplayed(): bool
     {
         return $this->container['replayed'];
     }
@@ -710,13 +719,35 @@ class Identification implements ModelInterface, \ArrayAccess
     /**
      * Sets replayed.
      *
-     * @param ?bool $replayed `true` if we determined that this payload was replayed, `false` otherwise
+     * @param bool $replayed `true` if we determined that this payload was replayed, `false` otherwise
      *
      * @return $this
      */
-    public function setReplayed(?bool $replayed): self
+    public function setReplayed(bool $replayed): self
     {
         $this->container['replayed'] = $replayed;
+
+        return $this;
+    }
+
+    /**
+     * Gets sdk.
+     */
+    public function getSdk(): ?SDK
+    {
+        return $this->container['sdk'];
+    }
+
+    /**
+     * Sets sdk.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\SDK $sdk sdk
+     *
+     * @return $this
+     */
+    public function setSdk(?SDK $sdk): self
+    {
+        $this->container['sdk'] = $sdk;
 
         return $this;
     }

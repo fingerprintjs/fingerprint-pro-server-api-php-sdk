@@ -1,4 +1,7 @@
 # WebhookRemoteControl
+This signal is deprecated.
+
+
 
 ## Properties
 Name | Type | Description | Notes

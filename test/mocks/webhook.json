@@ -193,9 +193,6 @@
   "suspectScore": {
     "result": 0
   },
-  "remoteControl": {
-    "result": false
-  },
   "velocity": {
     "distinctIp": {
       "intervals": {
@@ -246,6 +243,10 @@
   },
   "mitmAttack": {
     "result": false
+  },
+  "sdk": {
+    "platform": "js",
+    "version": "3.11.10"
   },
   "replayed": false
 }

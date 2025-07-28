@@ -34,6 +34,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  *
  * @category Class
  *
+ * @description This signal is deprecated.
+ *
  * @author   Swagger Codegen team
  *
  * @see     https://github.com/swagger-api/swagger-codegen

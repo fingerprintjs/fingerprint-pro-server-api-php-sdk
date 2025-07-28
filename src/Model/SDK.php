@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookRemoteControl.
+ * SDK.
  *
  * @category Class
  *
@@ -30,23 +30,23 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookRemoteControl Class Doc Comment.
+ * SDK Class Doc Comment.
  *
  * @category Class
  *
- * @description This signal is deprecated.
+ * @description Contains information about the SDK used to perform the request.
  *
  * @author   Swagger Codegen team
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookRemoteControl implements ModelInterface, \ArrayAccess
+class SDK implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
      *
      */
-    protected static string $swaggerModelName = 'WebhookRemoteControl';
+    protected static string $swaggerModelName = 'SDK';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -54,7 +54,8 @@ class WebhookRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'result' => 'bool'];
+        'platform' => 'string',
+        'version' => 'string'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -62,7 +63,8 @@ class WebhookRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerFormats = [
-        'result' => null];
+        'platform' => null,
+        'version' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -71,7 +73,8 @@ class WebhookRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $attributeMap = [
-        'result' => 'result'];
+        'platform' => 'platform',
+        'version' => 'version'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -79,7 +82,8 @@ class WebhookRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $setters = [
-        'result' => 'setResult'];
+        'platform' => 'setPlatform',
+        'version' => 'setVersion'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -87,7 +91,8 @@ class WebhookRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $getters = [
-        'result' => 'getResult'];
+        'platform' => 'getPlatform',
+        'version' => 'getVersion'];
 
     /**
      * Associative array for storing property values.
@@ -104,7 +109,8 @@ class WebhookRemoteControl implements ModelInterface, \ArrayAccess
      */
     public function __construct(?array $data = null)
     {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['platform'] = isset($data['platform']) ? $data['platform'] : null;
+        $this->container['version'] = isset($data['version']) ? $data['version'] : null;
     }
 
     /**
@@ -172,7 +178,16 @@ class WebhookRemoteControl implements ModelInterface, \ArrayAccess
      */
     public function listInvalidProperties(): array
     {
-        return [];
+        $invalidProperties = [];
+
+        if (null === $this->container['platform']) {
+            $invalidProperties[] = "'platform' can't be null";
+        }
+        if (null === $this->container['version']) {
+            $invalidProperties[] = "'version' can't be null";
+        }
+
+        return $invalidProperties;
     }
 
     /**
@@ -187,23 +202,45 @@ class WebhookRemoteControl implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets result.
+     * Gets platform.
      */
-    public function getResult(): ?bool
+    public function getPlatform(): string
     {
-        return $this->container['result'];
+        return $this->container['platform'];
     }
 
     /**
-     * Sets result.
+     * Sets platform.
      *
-     * @param ?bool $result `true` if the request came from a machine being remotely controlled (e.g. TeamViewer), `false` otherwise.
+     * @param string $platform platform of the SDK
      *
      * @return $this
      */
-    public function setResult(?bool $result): self
+    public function setPlatform(string $platform): self
     {
-        $this->container['result'] = $result;
+        $this->container['platform'] = $platform;
+
+        return $this;
+    }
+
+    /**
+     * Gets version.
+     */
+    public function getVersion(): string
+    {
+        return $this->container['version'];
+    }
+
+    /**
+     * Sets version.
+     *
+     * @param string $version SDK version string
+     *
+     * @return $this
+     */
+    public function setVersion(string $version): self
+    {
+        $this->container['version'] = $version;
 
         return $this;
     }
