@@ -1,5 +1,16 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.8.0-develop.0
+
+### Minor Changes
+
+- Mark `replayed` field required in the `identification` product schema. This field will always be present. ([b12c11e](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/b12c11e1b2fb63cb474f8167c4478f3bda13257a))
+- Add `sdk` field with platform metadata to `identification` ([b12c11e](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/b12c11e1b2fb63cb474f8167c4478f3bda13257a))
+
+### Patch Changes
+
+- Deprecate the Remote Control Detection Smart Signal. This signal is no longer available. ([b12c11e](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/b12c11e1b2fb63cb474f8167c4478f3bda13257a))
+
 ## 6.7.0
 
 ### Minor Changes
