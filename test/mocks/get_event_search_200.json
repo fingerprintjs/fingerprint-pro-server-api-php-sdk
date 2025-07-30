@@ -57,7 +57,8 @@
           "lastSeenAt": {
             "global": null,
             "subscription": null
-          }
+          },
+          "replayed": false
         }
       },
       "botd": {
@@ -275,11 +276,6 @@
         }
       },
       "locationSpoofing": {
-        "data": {
-          "result": false
-        }
-      },
-      "remoteControl": {
         "data": {
           "result": false
         }

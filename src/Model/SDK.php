@@ -1,6 +1,6 @@
 <?php
 /**
- * ProductRemoteControl.
+ * SDK.
  *
  * @category Class
  *
@@ -30,25 +30,23 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * @deprecated
- *
- * ProductRemoteControl Class Doc Comment
+ * SDK Class Doc Comment.
  *
  * @category Class
  *
- * @description This product is deprecated.
+ * @description Contains information about the SDK used to perform the request.
  *
  * @author   Swagger Codegen team
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ProductRemoteControl implements ModelInterface, \ArrayAccess
+class SDK implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
      *
      */
-    protected static string $swaggerModelName = 'ProductRemoteControl';
+    protected static string $swaggerModelName = 'SDK';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -56,8 +54,8 @@ class ProductRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\RemoteControl',
-        'error' => '\Fingerprint\ServerAPI\Model\Error'];
+        'platform' => 'string',
+        'version' => 'string'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -65,8 +63,8 @@ class ProductRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerFormats = [
-        'data' => null,
-        'error' => null];
+        'platform' => null,
+        'version' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -75,8 +73,8 @@ class ProductRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $attributeMap = [
-        'data' => 'data',
-        'error' => 'error'];
+        'platform' => 'platform',
+        'version' => 'version'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -84,8 +82,8 @@ class ProductRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $setters = [
-        'data' => 'setData',
-        'error' => 'setError'];
+        'platform' => 'setPlatform',
+        'version' => 'setVersion'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -93,8 +91,8 @@ class ProductRemoteControl implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $getters = [
-        'data' => 'getData',
-        'error' => 'getError'];
+        'platform' => 'getPlatform',
+        'version' => 'getVersion'];
 
     /**
      * Associative array for storing property values.
@@ -111,8 +109,8 @@ class ProductRemoteControl implements ModelInterface, \ArrayAccess
      */
     public function __construct(?array $data = null)
     {
-        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
-        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
+        $this->container['platform'] = isset($data['platform']) ? $data['platform'] : null;
+        $this->container['version'] = isset($data['version']) ? $data['version'] : null;
     }
 
     /**
@@ -180,7 +178,16 @@ class ProductRemoteControl implements ModelInterface, \ArrayAccess
      */
     public function listInvalidProperties(): array
     {
-        return [];
+        $invalidProperties = [];
+
+        if (null === $this->container['platform']) {
+            $invalidProperties[] = "'platform' can't be null";
+        }
+        if (null === $this->container['version']) {
+            $invalidProperties[] = "'version' can't be null";
+        }
+
+        return $invalidProperties;
     }
 
     /**
@@ -195,45 +202,45 @@ class ProductRemoteControl implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets data.
+     * Gets platform.
      */
-    public function getData(): ?RemoteControl
+    public function getPlatform(): string
     {
-        return $this->container['data'];
+        return $this->container['platform'];
     }
 
     /**
-     * Sets data.
+     * Sets platform.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\RemoteControl $data data
+     * @param string $platform platform of the SDK
      *
      * @return $this
      */
-    public function setData(?RemoteControl $data): self
+    public function setPlatform(string $platform): self
     {
-        $this->container['data'] = $data;
+        $this->container['platform'] = $platform;
 
         return $this;
     }
 
     /**
-     * Gets error.
+     * Gets version.
      */
-    public function getError(): ?Error
+    public function getVersion(): string
     {
-        return $this->container['error'];
+        return $this->container['version'];
     }
 
     /**
-     * Sets error.
+     * Sets version.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\Error $error error
+     * @param string $version SDK version string
      *
      * @return $this
      */
-    public function setError(?Error $error): self
+    public function setVersion(string $version): self
     {
-        $this->container['error'] = $error;
+        $this->container['version'] = $version;
 
         return $this;
     }

@@ -30,9 +30,13 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * RemoteControl Class Doc Comment.
+ * @deprecated
+ *
+ * RemoteControl Class Doc Comment
  *
  * @category Class
+ *
+ * @description This signal is deprecated.
  *
  * @author   Swagger Codegen team
  *

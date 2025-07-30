@@ -46,6 +46,7 @@ Name | Type | Description | Notes
 **developer_tools** | [**\Fingerprint\ServerAPI\Model\WebhookDeveloperTools**](WebhookDeveloperTools.md) |  | [optional] 
 **mitm_attack** | [**\Fingerprint\ServerAPI\Model\WebhookMitMAttack**](WebhookMitMAttack.md) |  | [optional] 
 **replayed** | **bool** | `true` if we determined that this payload was replayed, `false` otherwise. | [optional] 
+**sdk** | [**\Fingerprint\ServerAPI\Model\SDK**](SDK.md) |  | 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

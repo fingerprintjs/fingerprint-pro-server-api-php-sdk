@@ -20,7 +20,8 @@ Name | Type | Description | Notes
 **first_seen_at** | [**\Fingerprint\ServerAPI\Model\IdentificationSeenAt**](IdentificationSeenAt.md) |  | 
 **last_seen_at** | [**\Fingerprint\ServerAPI\Model\IdentificationSeenAt**](IdentificationSeenAt.md) |  | 
 **components** | array |  | [optional] 
-**replayed** | **bool** | `true` if we determined that this payload was replayed, `false` otherwise. | [optional] 
+**replayed** | **bool** | `true` if we determined that this payload was replayed, `false` otherwise. | 
+**sdk** | [**\Fingerprint\ServerAPI\Model\SDK**](SDK.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

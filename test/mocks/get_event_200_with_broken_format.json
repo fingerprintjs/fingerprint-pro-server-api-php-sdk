@@ -57,7 +57,8 @@
         "lastSeenAt": {
           "global": null,
           "subscription": null
-        }
+        },
+        "replayed": false
       }
     },
     "botd": {
