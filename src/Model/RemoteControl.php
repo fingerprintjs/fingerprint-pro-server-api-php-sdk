@@ -30,7 +30,9 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * RemoteControl Class Doc Comment.
+ * @deprecated
+ *
+ * RemoteControl Class Doc Comment
  *
  * @category Class
  *
