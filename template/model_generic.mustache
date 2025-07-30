@@ -1,3 +1,6 @@
+{{#schema.deprecated}}/*
+* @deprecated
+*/{{/schema.deprecated}}
 class {{classname}} {{#parentSchema}}extends {{{parent}}} {{/parentSchema}}{{^parentSchema}}implements ModelInterface, ArrayAccess{{/parentSchema}}
 {
     /**
