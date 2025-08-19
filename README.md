@@ -319,6 +319,7 @@ Class | Method | HTTP request | Description
  - [Products](docs/Model/Products.md)
  - [Proxy](docs/Model/Proxy.md)
  - [ProxyConfidence](docs/Model/ProxyConfidence.md)
+ - [ProxyDetails](docs/Model/ProxyDetails.md)
  - [RelatedVisitor](docs/Model/RelatedVisitor.md)
  - [RelatedVisitorsResponse](docs/Model/RelatedVisitorsResponse.md)
  - [RemoteControl](docs/Model/RemoteControl.md)
