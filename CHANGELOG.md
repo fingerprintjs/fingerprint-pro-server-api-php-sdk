@@ -1,5 +1,11 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.9.0
+
+### Minor Changes
+
+- Add `details` object to the `proxy` signal. This field includes the `type` of the detected proxy (`residential` or `data_center`) and the `lastSeenAt` timestamp of when an IP was last observed to show proxy-like behavior. ([e7f492e](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/e7f492e1b5e13607f154300e0468c30a753f96c4))
+
 ## 6.8.0
 
 ### Minor Changes
