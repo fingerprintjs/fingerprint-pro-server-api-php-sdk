@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookProxy.
+ * ProxyDetails.
  *
  * @category Class
  *
@@ -30,21 +30,26 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookProxy Class Doc Comment.
+ * ProxyDetails Class Doc Comment.
  *
  * @category Class
+ *
+ * @description Proxy detection details (present if proxy is detected)
  *
  * @author   Swagger Codegen team
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookProxy implements ModelInterface, \ArrayAccess
+class ProxyDetails implements ModelInterface, \ArrayAccess
 {
+    public const PROXY_TYPE_RESIDENTIAL = 'residential';
+    public const PROXY_TYPE_DATA_CENTER = 'data_center';
+
     /**
      * The original name of the model.
      *
      */
-    protected static string $swaggerModelName = 'WebhookProxy';
+    protected static string $swaggerModelName = 'ProxyDetails';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -52,9 +57,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'result' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\ProxyConfidence',
-        'details' => '\Fingerprint\ServerAPI\Model\ProxyDetails'];
+        'proxy_type' => 'string',
+        'last_seen_at' => '\DateTime'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -62,9 +66,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerFormats = [
-        'result' => null,
-        'confidence' => null,
-        'details' => null];
+        'proxy_type' => null,
+        'last_seen_at' => 'date-time'];
 
     /**
      * Array of attributes where the key is the local name,
@@ -73,9 +76,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $attributeMap = [
-        'result' => 'result',
-        'confidence' => 'confidence',
-        'details' => 'details'];
+        'proxy_type' => 'proxyType',
+        'last_seen_at' => 'lastSeenAt'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -83,9 +85,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $setters = [
-        'result' => 'setResult',
-        'confidence' => 'setConfidence',
-        'details' => 'setDetails'];
+        'proxy_type' => 'setProxyType',
+        'last_seen_at' => 'setLastSeenAt'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -93,9 +94,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $getters = [
-        'result' => 'getResult',
-        'confidence' => 'getConfidence',
-        'details' => 'getDetails'];
+        'proxy_type' => 'getProxyType',
+        'last_seen_at' => 'getLastSeenAt'];
 
     /**
      * Associative array for storing property values.
@@ -112,9 +112,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      */
     public function __construct(?array $data = null)
     {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
-        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
-        $this->container['details'] = isset($data['details']) ? $data['details'] : null;
+        $this->container['proxy_type'] = isset($data['proxy_type']) ? $data['proxy_type'] : null;
+        $this->container['last_seen_at'] = isset($data['last_seen_at']) ? $data['last_seen_at'] : null;
     }
 
     /**
@@ -176,13 +175,38 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
     }
 
     /**
+     * Gets allowable values of the enum.
+     *
+     * @return string[]
+     */
+    public function getProxyTypeAllowableValues(): array
+    {
+        return [
+            self::PROXY_TYPE_RESIDENTIAL,
+            self::PROXY_TYPE_DATA_CENTER,        ];
+    }
+
+    /**
      * Show all the invalid properties with reasons.
      *
      * @return array invalid properties with reasons
      */
     public function listInvalidProperties(): array
     {
-        return [];
+        $invalidProperties = [];
+
+        if (null === $this->container['proxy_type']) {
+            $invalidProperties[] = "'proxy_type' can't be null";
+        }
+        $allowedValues = $this->getProxyTypeAllowableValues();
+        if (!is_null($this->container['proxy_type']) && !in_array($this->container['proxy_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'proxy_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
+        }
+
+        return $invalidProperties;
     }
 
     /**
@@ -197,67 +221,54 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets result.
+     * Gets proxy_type.
      */
-    public function getResult(): ?bool
+    public function getProxyType(): string
     {
-        return $this->container['result'];
+        return $this->container['proxy_type'];
     }
 
     /**
-     * Sets result.
+     * Sets proxy_type.
      *
-     * @param ?bool $result IP address was used by a public proxy provider or belonged to a known recent residential proxy
+     * @param string $proxy_type Residential proxies use real user IP addresses to appear as legitimate traffic,  while data center proxies are public proxies hosted in data centers
      *
      * @return $this
      */
-    public function setResult(?bool $result): self
+    public function setProxyType(string $proxy_type): self
     {
-        $this->container['result'] = $result;
+        $allowedValues = $this->getProxyTypeAllowableValues();
+        if (!in_array($proxy_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'proxy_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['proxy_type'] = $proxy_type;
 
         return $this;
     }
 
     /**
-     * Gets confidence.
+     * Gets last_seen_at.
      */
-    public function getConfidence(): ?ProxyConfidence
+    public function getLastSeenAt(): ?\DateTime
     {
-        return $this->container['confidence'];
+        return $this->container['last_seen_at'];
     }
 
     /**
-     * Sets confidence.
+     * Sets last_seen_at.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProxyConfidence $confidence confidence
+     * @param ?\DateTime $last_seen_at ISO 8601 formatted timestamp in UTC with hourly resolution of when this IP was last seen as a proxy when available
      *
      * @return $this
      */
-    public function setConfidence(?ProxyConfidence $confidence): self
+    public function setLastSeenAt(?\DateTime $last_seen_at): self
     {
-        $this->container['confidence'] = $confidence;
-
-        return $this;
-    }
-
-    /**
-     * Gets details.
-     */
-    public function getDetails(): ?ProxyDetails
-    {
-        return $this->container['details'];
-    }
-
-    /**
-     * Sets details.
-     *
-     * @param ?\Fingerprint\ServerAPI\Model\ProxyDetails $details details
-     *
-     * @return $this
-     */
-    public function setDetails(?ProxyDetails $details): self
-    {
-        $this->container['details'] = $details;
+        $this->container['last_seen_at'] = $last_seen_at;
 
         return $this;
     }

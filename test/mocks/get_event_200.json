@@ -192,8 +192,12 @@
     },
     "proxy": {
       "data": {
-        "result": false,
-        "confidence": "high"
+        "result": true,
+        "confidence": "high",
+        "details": {
+          "proxyType": "residential",
+          "lastSeenAt": "2025-08-12T13:00:00Z"
+        }
       }
     },
     "incognito": {

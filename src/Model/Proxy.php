@@ -53,7 +53,8 @@ class Proxy implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'result' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\ProxyConfidence'];
+        'confidence' => '\Fingerprint\ServerAPI\Model\ProxyConfidence',
+        'details' => '\Fingerprint\ServerAPI\Model\ProxyDetails'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -62,7 +63,8 @@ class Proxy implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerFormats = [
         'result' => null,
-        'confidence' => null];
+        'confidence' => null,
+        'details' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -72,7 +74,8 @@ class Proxy implements ModelInterface, \ArrayAccess
      */
     protected static array $attributeMap = [
         'result' => 'result',
-        'confidence' => 'confidence'];
+        'confidence' => 'confidence',
+        'details' => 'details'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -81,7 +84,8 @@ class Proxy implements ModelInterface, \ArrayAccess
      */
     protected static array $setters = [
         'result' => 'setResult',
-        'confidence' => 'setConfidence'];
+        'confidence' => 'setConfidence',
+        'details' => 'setDetails'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -90,7 +94,8 @@ class Proxy implements ModelInterface, \ArrayAccess
      */
     protected static array $getters = [
         'result' => 'getResult',
-        'confidence' => 'getConfidence'];
+        'confidence' => 'getConfidence',
+        'details' => 'getDetails'];
 
     /**
      * Associative array for storing property values.
@@ -109,6 +114,7 @@ class Proxy implements ModelInterface, \ArrayAccess
     {
         $this->container['result'] = isset($data['result']) ? $data['result'] : null;
         $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
+        $this->container['details'] = isset($data['details']) ? $data['details'] : null;
     }
 
     /**
@@ -239,6 +245,28 @@ class Proxy implements ModelInterface, \ArrayAccess
     public function setConfidence(ProxyConfidence $confidence): self
     {
         $this->container['confidence'] = $confidence;
+
+        return $this;
+    }
+
+    /**
+     * Gets details.
+     */
+    public function getDetails(): ?ProxyDetails
+    {
+        return $this->container['details'];
+    }
+
+    /**
+     * Sets details.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\ProxyDetails $details details
+     *
+     * @return $this
+     */
+    public function setDetails(?ProxyDetails $details): self
+    {
+        $this->container['details'] = $details;
 
         return $this;
     }
