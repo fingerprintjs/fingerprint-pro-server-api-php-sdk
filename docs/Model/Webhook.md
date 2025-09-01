@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **timestamp** | **int** | Timestamp of the event with millisecond precision in Unix time. | 
 **ip_location** | [**\Fingerprint\ServerAPI\Model\DeprecatedGeolocation**](DeprecatedGeolocation.md) |  | [optional] 
 **linked_id** | **string** | A customer-provided id that was sent with the request. | [optional] 
-**visitor_id** | **string** | String of 20 characters that uniquely identifies the visitor's browser. | [optional] 
+**visitor_id** | **string** | String of 20 characters that uniquely identifies the visitor's browser or mobile device. | [optional] 
 **visitor_found** | **bool** | Attribute represents if a visitor had been identified before. | [optional] 
 **confidence** | [**\Fingerprint\ServerAPI\Model\IdentificationConfidence**](IdentificationConfidence.md) |  | [optional] 
 **first_seen_at** | [**\Fingerprint\ServerAPI\Model\IdentificationSeenAt**](IdentificationSeenAt.md) |  | [optional] 
@@ -47,6 +47,7 @@ Name | Type | Description | Notes
 **mitm_attack** | [**\Fingerprint\ServerAPI\Model\WebhookMitMAttack**](WebhookMitMAttack.md) |  | [optional] 
 **replayed** | **bool** | `true` if we determined that this payload was replayed, `false` otherwise. | [optional] 
 **sdk** | [**\Fingerprint\ServerAPI\Model\SDK**](SDK.md) |  | 
+**supplementary_ids** | [**\Fingerprint\ServerAPI\Model\WebhookSupplementaryIDs**](WebhookSupplementaryIDs.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

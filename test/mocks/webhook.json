@@ -252,5 +252,37 @@
     "platform": "js",
     "version": "3.11.10"
   },
-  "replayed": false
+  "replayed": false,
+  "supplementaryIds": {
+    "standard": {
+      "visitorId": "3HNey93AkBW6CRbxV6xP",
+      "visitorFound": true,
+      "confidence": {
+        "score": 0.97
+      },
+      "firstSeenAt": {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z"
+      },
+      "lastSeenAt": {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": "2022-03-16T11:28:34.023Z"
+      }
+    },
+    "highRecall": {
+      "visitorId": "3HNey93AkBW6CRbxV6xP",
+      "visitorFound": true,
+      "confidence": {
+        "score": 0.97
+      },
+      "firstSeenAt": {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z"
+      },
+      "lastSeenAt": {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": "2022-03-16T11:28:34.023Z"
+      }
+    }
+  }
 }

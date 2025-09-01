@@ -471,6 +471,85 @@ paths:
             `products.ipInfo.data.v6.datacenter.result` property set to `true`
             or `false` are returned. Events without a `products.ipInfo` Smart
             Signal result are left out of the response.
+        - name: developer_tools
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Developer Tools detection result.
+
+            > Note: When using this parameter, only events with the
+            `products.developerTools.data.result` property set to `true` or
+            `false` are returned. Events without a `products.developerTools`
+            Smart Signal result are left out of the response.
+        - name: location_spoofing
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Location Spoofing detection result.
+
+            > Note: When using this parameter, only events with the
+            `products.locationSpoofing.data.result` property set to `true` or
+            `false` are returned. Events without a `products.locationSpoofing`
+            Smart Signal result are left out of the response.
+        - name: mitm_attack
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by MITM (Man-in-the-Middle) Attack detection result.
+
+            > Note: When using this parameter, only events with the
+            `products.mitmAttack.data.result` property set to `true` or `false`
+            are returned. Events without a `products.mitmAttack` Smart Signal
+            result are left out of the response.
+        - name: proxy
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Proxy detection result.
+
+            > Note: When using this parameter, only events with the
+            `products.proxy.data.result` property set to `true` or `false` are
+            returned. Events without a `products.proxy` Smart Signal result are
+            left out of the response.
+        - name: sdk_version
+          in: query
+          schema:
+            type: string
+          description: >
+            Filter events by a specific SDK version associated with the
+            identification event. Example: `3.11.14`
+        - name: sdk_platform
+          in: query
+          schema:
+            type: string
+            enum:
+              - js
+              - android
+              - ios
+          description: >
+            Filter events by the SDK Platform associated with the identification
+            event.
+
+            `js` - JavaScript agent (Web).
+
+            `ios` - Apple iOS based devices.
+
+            `android` - Android based devices.
+        - name: environment
+          in: query
+          description: |
+            Filter for events by providing one or more environment IDs.
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
       responses:
         '200':
           description: Events matching the filter(s).
@@ -1094,7 +1173,7 @@ components:
           type: string
           description: >-
             String of 20 characters that uniquely identifies the visitor's
-            browser.
+            browser or mobile device.
         requestId:
           type: string
           description: Unique identifier of the user's request.
@@ -1153,6 +1232,9 @@ components:
             otherwise.
         sdk:
           $ref: '#/components/schemas/SDK'
+        environmentId:
+          type: string
+          description: Environment ID associated with the event
     ErrorCode:
       type: string
       enum:
@@ -2634,6 +2716,35 @@ components:
             See [MitM Attack
             Detection](https://dev.fingerprint.com/docs/smart-signals-overview#mitm-attack-detection)
             to learn more about this Smart Signal.
+    SupplementaryID:
+      type: object
+      additionalProperties: false
+      properties:
+        visitorId:
+          type: string
+          description: >-
+            String of 20 characters that uniquely identifies the visitor's
+            browser or mobile device.
+        visitorFound:
+          type: boolean
+          description: Attribute represents if a visitor had been identified before.
+        confidence:
+          $ref: '#/components/schemas/IdentificationConfidence'
+        firstSeenAt:
+          $ref: '#/components/schemas/IdentificationSeenAt'
+        lastSeenAt:
+          $ref: '#/components/schemas/IdentificationSeenAt'
+    WebhookSupplementaryIDs:
+      type: object
+      description: Other identities that have been established for a given Visitor.
+      required:
+        - standard
+        - highRecall
+      properties:
+        standard:
+          $ref: '#/components/schemas/SupplementaryID'
+        highRecall:
+          $ref: '#/components/schemas/SupplementaryID'
     Webhook:
       type: object
       required:
@@ -2680,7 +2791,7 @@ components:
           type: string
           description: >-
             String of 20 characters that uniquely identifies the visitor's
-            browser.
+            browser or mobile device.
         visitorFound:
           type: boolean
           description: Attribute represents if a visitor had been identified before.
@@ -2754,3 +2865,5 @@ components:
             otherwise.
         sdk:
           $ref: '#/components/schemas/SDK'
+        supplementaryIds:
+          $ref: '#/components/schemas/WebhookSupplementaryIDs'

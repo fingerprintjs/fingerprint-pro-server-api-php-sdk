@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**visitor_id** | **string** | String of 20 characters that uniquely identifies the visitor's browser. | 
+**visitor_id** | **string** | String of 20 characters that uniquely identifies the visitor's browser or mobile device. | 
 **request_id** | **string** | Unique identifier of the user's request. | 
 **browser_details** | [**\Fingerprint\ServerAPI\Model\BrowserDetails**](BrowserDetails.md) |  | 
 **incognito** | **bool** | Flag if user used incognito session. | 
@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **components** | array |  | [optional] 
 **replayed** | **bool** | `true` if we determined that this payload was replayed, `false` otherwise. | 
 **sdk** | [**\Fingerprint\ServerAPI\Model\SDK**](SDK.md) |  | [optional] 
+**environment_id** | **string** | Environment ID associated with the event | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

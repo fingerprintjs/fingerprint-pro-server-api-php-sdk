@@ -95,7 +95,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'developer_tools' => '\Fingerprint\ServerAPI\Model\WebhookDeveloperTools',
         'mitm_attack' => '\Fingerprint\ServerAPI\Model\WebhookMitMAttack',
         'replayed' => 'bool',
-        'sdk' => '\Fingerprint\ServerAPI\Model\SDK'];
+        'sdk' => '\Fingerprint\ServerAPI\Model\SDK',
+        'supplementary_ids' => '\Fingerprint\ServerAPI\Model\WebhookSupplementaryIDs'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -146,7 +147,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'developer_tools' => null,
         'mitm_attack' => null,
         'replayed' => null,
-        'sdk' => null];
+        'sdk' => null,
+        'supplementary_ids' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -198,7 +200,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'developer_tools' => 'developerTools',
         'mitm_attack' => 'mitmAttack',
         'replayed' => 'replayed',
-        'sdk' => 'sdk'];
+        'sdk' => 'sdk',
+        'supplementary_ids' => 'supplementaryIds'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -249,7 +252,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'developer_tools' => 'setDeveloperTools',
         'mitm_attack' => 'setMitmAttack',
         'replayed' => 'setReplayed',
-        'sdk' => 'setSdk'];
+        'sdk' => 'setSdk',
+        'supplementary_ids' => 'setSupplementaryIds'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -300,7 +304,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'developer_tools' => 'getDeveloperTools',
         'mitm_attack' => 'getMitmAttack',
         'replayed' => 'getReplayed',
-        'sdk' => 'getSdk'];
+        'sdk' => 'getSdk',
+        'supplementary_ids' => 'getSupplementaryIds'];
 
     /**
      * Associative array for storing property values.
@@ -361,6 +366,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         $this->container['mitm_attack'] = isset($data['mitm_attack']) ? $data['mitm_attack'] : null;
         $this->container['replayed'] = isset($data['replayed']) ? $data['replayed'] : null;
         $this->container['sdk'] = isset($data['sdk']) ? $data['sdk'] : null;
+        $this->container['supplementary_ids'] = isset($data['supplementary_ids']) ? $data['supplementary_ids'] : null;
     }
 
     /**
@@ -672,7 +678,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets visitor_id.
      *
-     * @param ?string $visitor_id string of 20 characters that uniquely identifies the visitor's browser
+     * @param ?string $visitor_id string of 20 characters that uniquely identifies the visitor's browser or mobile device
      *
      * @return $this
      */
@@ -1427,6 +1433,28 @@ class Webhook implements ModelInterface, \ArrayAccess
     public function setSdk(SDK $sdk): self
     {
         $this->container['sdk'] = $sdk;
+
+        return $this;
+    }
+
+    /**
+     * Gets supplementary_ids.
+     */
+    public function getSupplementaryIds(): ?WebhookSupplementaryIDs
+    {
+        return $this->container['supplementary_ids'];
+    }
+
+    /**
+     * Sets supplementary_ids.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\WebhookSupplementaryIDs $supplementary_ids supplementary_ids
+     *
+     * @return $this
+     */
+    public function setSupplementaryIds(?WebhookSupplementaryIDs $supplementary_ids): self
+    {
+        $this->container['supplementary_ids'] = $supplementary_ids;
 
         return $this;
     }
