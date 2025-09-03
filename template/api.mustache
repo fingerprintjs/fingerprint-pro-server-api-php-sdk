@@ -82,7 +82,11 @@ use \GuzzleHttp\Exception\GuzzleException;
      * @throws ApiException
      * @return array{ {{#returnType}}{{{returnType}}}|null{{/returnType}}{{^returnType}}null{{/returnType}}, \Psr\Http\Message\ResponseInterface }
      */
-    public function {{operationId}}({{#parameters}}{{dataType}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): array
+    public function {{operationId}}(
+    {{#parameters}}
+        {{#isContainer}}array{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}
+    {{/parameters}}
+    ): array
     {
         $returnType = '{{returnType}}';
         $request = $this->{{operationId}}Request({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}});
@@ -168,7 +172,11 @@ use \GuzzleHttp\Exception\GuzzleException;
     * @throws GuzzleException
     * @throws ApiException
     */
-    public function {{operationId}}Async({{#parameters}}{{dataType}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Promise\PromiseInterface
+    public function {{operationId}}Async(
+    {{#parameters}}
+        {{#isContainer}}array{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}
+    {{/parameters}}
+    ): \GuzzleHttp\Promise\PromiseInterface
     {
         $returnType = '{{returnType}}';
         $request = $this->{{operationId}}Request({{#parameters}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/parameters}});
@@ -237,7 +245,11 @@ use \GuzzleHttp\Exception\GuzzleException;
      * @throws GuzzleException
      * @throws ApiException
      */
-    protected function {{operationId}}Request({{#parameters}}{{dataType}}{{^required}}|null{{/required}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/parameters}}): \GuzzleHttp\Psr7\Request
+    protected function {{operationId}}Request(
+    {{#parameters}}
+        {{#isContainer}}array{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}}{{^required}}|null{{/required}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}
+    {{/parameters}}
+    ): \GuzzleHttp\Psr7\Request
     {
         {{#parameters}}
         {{#required}}
@@ -295,15 +307,13 @@ use \GuzzleHttp\Exception\GuzzleException;
         $httpBody = '';
 
         {{#queryParams}}
-        // query params
-        {{#collectionFormat}}
-        if (is_array(${{paramName}})) {
-            ${{paramName}} = ObjectSerializer::serializeCollection(${{paramName}}, '{{collectionFormat}}', true);
-        }
-        {{/collectionFormat}}
-        if (${{paramName}} !== null) {
-            $queryParams['{{baseName}}'] = ObjectSerializer::toQueryValue(${{paramName}}, {{#dataFormat}}'{{{dataFormat}}}'{{/dataFormat}}{{^dataFormat}}null{{/dataFormat}});
-        }
+            // query params
+            if (${{paramName}} !== null) {
+            $queryParams['{{baseName}}'] = ObjectSerializer::toQueryValue(
+            ${{paramName}},
+            {{#collectionFormat}}'{{collectionFormat}}'{{/collectionFormat}}{{^collectionFormat}}null{{/collectionFormat}}
+            );
+            }
         {{/queryParams}}
         {{#headerParams}}
         // header params
@@ -393,7 +403,7 @@ use \GuzzleHttp\Exception\GuzzleException;
             $headers
         );
 
-        $query = http_build_query($queryParams);
+        $query = $this->buildQuery($queryParams);
         return new Request(
             '{{httpMethod}}',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -404,6 +414,40 @@ use \GuzzleHttp\Exception\GuzzleException;
 
     {{/contents}}
     {{/operation}}
+
+    /**
+    * Build query string while normalizing indexed arrays to bracket notation: key[]=a&key[]=b
+    */
+    protected function buildQuery(array $params): string
+    {
+        $sanitizedParams = $params;
+
+        foreach ($sanitizedParams as &$value) {
+            if (is_array($value)) {
+                array_walk_recursive($value, function (&$item) {
+                    if (null === $item) {
+                        $item = '';
+                    }
+                });
+            }
+        }
+        unset($value);
+
+        $qs = http_build_query($sanitizedParams, '', '&', PHP_QUERY_RFC3986);
+
+        if ('' === $qs || false === strpos($qs, '%5B')) {
+            return $qs;
+        }
+
+        $parts = explode('&', $qs);
+
+        foreach ($parts as $index => $part) {
+            $parts[$index] = preg_replace('/([^%5B]+)%5B\d+%5D/', '$1%5B%5D', $part, 1);
+        }
+
+        return implode('&', $parts);
+    }
+
     /**
      * Create http client option
      *

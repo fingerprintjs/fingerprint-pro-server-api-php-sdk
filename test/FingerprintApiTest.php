@@ -844,15 +844,25 @@ class FingerprintApiTest extends TestCase
                 'min_suspect_score' => '0.5',
                 'ip_blocklist' => 'true',
                 'datacenter' => 'true',
+                'developer_tools' => 'true',
+                'location_spoofing' => 'true',
+                'mitm_attack' => 'true',
+                'proxy' => 'true',
+                'sdk_version' => 'testSdkVersion',
+                'sdk_platform' => 'testSdkPlatform',
             ];
 
             $extraKeys = ['ii', 'visitor_id'];
 
-            $this->assertCount(count($expected) + count($extraKeys), $queryArray);
+            // Plus 1 for environment query
+            $this->assertCount(count($expected) + count($extraKeys) + 1, $queryArray);
             foreach ($expected as $query => $value) {
                 $this->assertArrayHasKey($query, $queryArray, "Missing query parameter: $query");
                 $this->assertEquals($value, $queryArray[$query]);
             }
+
+            $envs = $queryArray['environment'];
+            $this->assertEquals(['env1', 'env2'], $envs);
 
             return $this->returnMockResponse('get_event_search_200.json');
         });
@@ -884,6 +894,13 @@ class FingerprintApiTest extends TestCase
             min_suspect_score: 0.5,
             ip_blocklist: true,
             datacenter: true,
+            developer_tools: true,
+            location_spoofing: true,
+            mitm_attack: true,
+            proxy: true,
+            sdk_version: 'testSdkVersion',
+            sdk_platform: 'testSdkPlatform',
+            environment: ['env1', 'env2']
         );
 
         $this->assertCount(1, $events->getEvents());

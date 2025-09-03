@@ -139,12 +139,28 @@ class ObjectSerializer
      * @param \DateTime|string|string[] $object an object to be serialized to a string
      * @param string|null               $format the format of the parameter
      *
-     * @return string the serialized object
+     * @return array|string the serialized object
      */
-    public static function toQueryValue(array|bool|\DateTime|string $object, ?string $format = null): string
+    public static function toQueryValue(array|bool|\DateTime|string $object, ?string $format = null): array|string
     {
         if (is_array($object)) {
-            return implode(',', $object);
+            switch ($format) {
+                case 'multi':
+                    return $object;
+
+                case 'ssv':
+                    return implode(' ', $object);
+
+                case 'tsv':
+                    return implode("\t", $object);
+
+                case 'pipes':
+                    return implode('|', $object);
+
+                case 'csv':
+                default:
+                    return implode(',', $object);
+            }
         }
 
         if (is_bool($object)) {

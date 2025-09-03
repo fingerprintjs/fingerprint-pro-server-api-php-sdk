@@ -70,7 +70,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'last_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
         'components' => 'array',
         'replayed' => 'bool',
-        'sdk' => '\Fingerprint\ServerAPI\Model\SDK'];
+        'sdk' => '\Fingerprint\ServerAPI\Model\SDK',
+        'environment_id' => 'string'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -96,7 +97,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'last_seen_at' => null,
         'components' => null,
         'replayed' => null,
-        'sdk' => null];
+        'sdk' => null,
+        'environment_id' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -123,7 +125,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'last_seen_at' => 'lastSeenAt',
         'components' => 'components',
         'replayed' => 'replayed',
-        'sdk' => 'sdk'];
+        'sdk' => 'sdk',
+        'environment_id' => 'environmentId'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -149,7 +152,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'last_seen_at' => 'setLastSeenAt',
         'components' => 'setComponents',
         'replayed' => 'setReplayed',
-        'sdk' => 'setSdk'];
+        'sdk' => 'setSdk',
+        'environment_id' => 'setEnvironmentId'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -175,7 +179,8 @@ class Identification implements ModelInterface, \ArrayAccess
         'last_seen_at' => 'getLastSeenAt',
         'components' => 'getComponents',
         'replayed' => 'getReplayed',
-        'sdk' => 'getSdk'];
+        'sdk' => 'getSdk',
+        'environment_id' => 'getEnvironmentId'];
 
     /**
      * Associative array for storing property values.
@@ -211,6 +216,7 @@ class Identification implements ModelInterface, \ArrayAccess
         $this->container['components'] = isset($data['components']) ? $data['components'] : null;
         $this->container['replayed'] = isset($data['replayed']) ? $data['replayed'] : null;
         $this->container['sdk'] = isset($data['sdk']) ? $data['sdk'] : null;
+        $this->container['environment_id'] = isset($data['environment_id']) ? $data['environment_id'] : null;
     }
 
     /**
@@ -345,7 +351,7 @@ class Identification implements ModelInterface, \ArrayAccess
     /**
      * Sets visitor_id.
      *
-     * @param string $visitor_id string of 20 characters that uniquely identifies the visitor's browser
+     * @param string $visitor_id string of 20 characters that uniquely identifies the visitor's browser or mobile device
      *
      * @return $this
      */
@@ -748,6 +754,28 @@ class Identification implements ModelInterface, \ArrayAccess
     public function setSdk(?SDK $sdk): self
     {
         $this->container['sdk'] = $sdk;
+
+        return $this;
+    }
+
+    /**
+     * Gets environment_id.
+     */
+    public function getEnvironmentId(): ?string
+    {
+        return $this->container['environment_id'];
+    }
+
+    /**
+     * Sets environment_id.
+     *
+     * @param ?string $environment_id Environment ID associated with the event
+     *
+     * @return $this
+     */
+    public function setEnvironmentId(?string $environment_id): self
+    {
+        $this->container['environment_id'] = $environment_id;
 
         return $this;
     }
