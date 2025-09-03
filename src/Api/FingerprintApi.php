@@ -2060,7 +2060,7 @@ class FingerprintApi
         foreach ($sanitizedParams as &$value) {
             if (is_array($value)) {
                 array_walk_recursive($value, function (&$item) {
-                    if ($item === null) {
+                    if (null === $item) {
                         $item = '';
                     }
                 });
@@ -2070,7 +2070,7 @@ class FingerprintApi
 
         $qs = http_build_query($sanitizedParams, '', '&', PHP_QUERY_RFC3986);
 
-        if ($qs === '' || strpos($qs, '%5B') === false) {
+        if ('' === $qs || false === strpos($qs, '%5B')) {
             return $qs;
         }
 
