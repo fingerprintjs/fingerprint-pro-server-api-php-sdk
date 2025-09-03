@@ -4,5 +4,9 @@
   "initialVersions": {
     "fingerprint-pro-server-api-php-sdk": "6.9.0"
   },
-  "changesets": []
+  "changesets": [
+    "cute-buses-attend",
+    "fast-hotels-hunt",
+    "quick-kiwis-visit"
+  ]
 }
