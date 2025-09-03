@@ -2055,12 +2055,32 @@ class FingerprintApi
      */
     protected function buildQuery(array $params): string
     {
-        // Let http_build_query do the heavy lifting:
-        $qs = http_build_query($params, '', '&', PHP_QUERY_RFC3986);
+        $sanitizedParams = $params;
 
-        // Normalize numeric indices to empty brackets: %5B0%5D= → %5B%5D=
-        // (i.e., environment%5B0%5D=env1 → environment%5B%5D=env1)
-        return preg_replace('/%5B\d+%5D=/', '%5B%5D=', $qs);
+        foreach ($sanitizedParams as &$value) {
+            if (is_array($value)) {
+                array_walk_recursive($value, function (&$item) {
+                    if ($item === null) {
+                        $item = '';
+                    }
+                });
+            }
+        }
+        unset($value);
+
+        $qs = http_build_query($sanitizedParams, '', '&', PHP_QUERY_RFC3986);
+
+        if ($qs === '' || strpos($qs, '%5B') === false) {
+            return $qs;
+        }
+
+        $parts = explode('&', $qs);
+
+        foreach ($parts as $index => $part) {
+            $parts[$index] = preg_replace('/([^%5B]+)%5B\d+%5D/', '$1%5B%5D', $part, 1);
+        }
+
+        return implode('&', $parts);
     }
 
     /**
