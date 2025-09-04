@@ -269,7 +269,7 @@ Array:
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **searchEvents**
->  [ \Fingerprint\ServerAPI\Model\SearchEventsResponse, \Psr\Http\Message\ResponseInterface ] searchEvents($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $ip_blocklist, $datacenter, $developer_tools, $location_spoofing, $mitm_attack, $proxy, $sdk_version, $sdk_platform, $environment)
+>  [ \Fingerprint\ServerAPI\Model\SearchEventsResponse, \Psr\Http\Message\ResponseInterface ] searchEvents($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $ip_blocklist, $datacenter, $developer_tools, $location_spoofing, $mitm_attack, $proxy, $sdk_version, $sdk_platform, $environment, $proximity_id, $proximity_precision_radius)
 
 Get events via search
 
@@ -328,9 +328,11 @@ $proxy = true; // bool | Filter events by Proxy detection result. > Note: When u
 $sdk_version = "sdk_version_example"; // string | Filter events by a specific SDK version associated with the identification event. Example: `3.11.14`
 $sdk_platform = "sdk_platform_example"; // string | Filter events by the SDK Platform associated with the identification event. `js` - JavaScript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices.
 $environment = array("environment_example"); // string[] | Filter for events by providing one or more environment IDs.
+$proximity_id = "proximity_id_example"; // string | Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response.
+$proximity_precision_radius = 56; // int | Filter events by Proximity Radius. > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response.
 
 try {
-    list($model, $httpResponse) = $client->searchEvents($limit, pagination_key: $pagination_key, visitor_id: $visitor_id, bot: $bot, ip_address: $ip_address, linked_id: $linked_id, start: $start, end: $end, reverse: $reverse, suspect: $suspect, vpn: $vpn, virtual_machine: $virtual_machine, tampering: $tampering, anti_detect_browser: $anti_detect_browser, incognito: $incognito, privacy_settings: $privacy_settings, jailbroken: $jailbroken, frida: $frida, factory_reset: $factory_reset, cloned_app: $cloned_app, emulator: $emulator, root_apps: $root_apps, vpn_confidence: $vpn_confidence, min_suspect_score: $min_suspect_score, ip_blocklist: $ip_blocklist, datacenter: $datacenter, developer_tools: $developer_tools, location_spoofing: $location_spoofing, mitm_attack: $mitm_attack, proxy: $proxy, sdk_version: $sdk_version, sdk_platform: $sdk_platform, environment: $environment);
+    list($model, $httpResponse) = $client->searchEvents($limit, pagination_key: $pagination_key, visitor_id: $visitor_id, bot: $bot, ip_address: $ip_address, linked_id: $linked_id, start: $start, end: $end, reverse: $reverse, suspect: $suspect, vpn: $vpn, virtual_machine: $virtual_machine, tampering: $tampering, anti_detect_browser: $anti_detect_browser, incognito: $incognito, privacy_settings: $privacy_settings, jailbroken: $jailbroken, frida: $frida, factory_reset: $factory_reset, cloned_app: $cloned_app, emulator: $emulator, root_apps: $root_apps, vpn_confidence: $vpn_confidence, min_suspect_score: $min_suspect_score, ip_blocklist: $ip_blocklist, datacenter: $datacenter, developer_tools: $developer_tools, location_spoofing: $location_spoofing, mitm_attack: $mitm_attack, proxy: $proxy, sdk_version: $sdk_version, sdk_platform: $sdk_platform, environment: $environment, proximity_id: $proximity_id, proximity_precision_radius: $proximity_precision_radius);
     echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->searchEvents: ', $e->getMessage(), PHP_EOL;
@@ -375,6 +377,8 @@ Name | Type | Description  | Notes
  **sdk_version** | **string**| Filter events by a specific SDK version associated with the identification event. Example: `3.11.14` | [optional]
  **sdk_platform** | **string**| Filter events by the SDK Platform associated with the identification event. `js` - JavaScript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices. | [optional]
  **environment** | [**string[]**](../Model/string.md)| Filter for events by providing one or more environment IDs. | [optional]
+ **proximity_id** | **string**| Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response. | [optional]
+ **proximity_precision_radius** | **int**| Filter events by Proximity Radius. > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response. | [optional]
 
 ### Return type
 
