@@ -284,5 +284,10 @@
         "subscription": "2022-03-16T11:28:34.023Z"
       }
     }
+  },
+  "proximity": {
+    "id": "w1aTfd4MCvl",
+    "precisionRadius": 10,
+    "confidence": 0.95
   }
 }

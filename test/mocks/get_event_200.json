@@ -342,6 +342,13 @@
       "data": {
         "result": false
       }
+    },
+    "proximity": {
+      "data": {
+        "id": "w1aTfd4MCvl",
+        "precisionRadius": 10,
+        "confidence": 0.95
+      }
     }
   }
 }

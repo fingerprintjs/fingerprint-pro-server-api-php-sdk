@@ -550,6 +550,39 @@ paths:
               type: string
           style: form
           explode: true
+        - name: proximity_id
+          in: query
+          schema:
+            type: string
+          description: >
+            Filter events by the most precise Proximity ID provided by default.
+
+            > Note: When using this parameter, only events with the
+            `products.proximity.id` property matching the provided ID are
+            returned. Events without a `products.proximity` result are left out
+            of the response.
+        - name: proximity_precision_radius
+          in: query
+          schema:
+            type: integer
+            format: int32
+            enum:
+              - 10
+              - 25
+              - 65
+              - 175
+              - 450
+              - 1200
+              - 3300
+              - 8500
+              - 22500
+          description: >
+            Filter events by Proximity Radius.
+
+            > Note: When using this parameter, only events with the
+            `products.proximity.precisionRadius` property set to a valid value
+            are returned. Events without a `products.proximity` result are left
+            out of the response.
       responses:
         '200':
           description: Events matching the filter(s).
@@ -2150,6 +2183,54 @@ components:
           $ref: '#/components/schemas/MitMAttack'
         error:
           $ref: '#/components/schemas/Error'
+    Proximity:
+      type: object
+      description: >
+        Proximity ID represents a fixed geographical zone in a discrete global
+        grid within which the device is observed.
+      additionalProperties: false
+      required:
+        - id
+        - precisionRadius
+        - confidence
+      properties:
+        id:
+          type: string
+          description: |
+            A stable privacy-preserving identifier for a given proximity zone.
+        precisionRadius:
+          type: integer
+          format: int32
+          enum:
+            - 10
+            - 25
+            - 65
+            - 175
+            - 450
+            - 1200
+            - 3300
+            - 8500
+            - 22500
+          description: |
+            The radius of the proximity zone’s precision level, in meters.
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: >
+            A value between `0` and `1` representing the likelihood that the
+            true device location lies within the mapped proximity zone.
+              * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.
+              * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
+    ProductProximity:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Proximity'
+        error:
+          $ref: '#/components/schemas/Error'
     Products:
       type: object
       description: >-
@@ -2207,6 +2288,8 @@ components:
           $ref: '#/components/schemas/ProductDeveloperTools'
         mitmAttack:
           $ref: '#/components/schemas/ProductMitMAttack'
+        proximity:
+          $ref: '#/components/schemas/ProductProximity'
     EventsGetResponse:
       type: object
       description: >-
@@ -2745,6 +2828,46 @@ components:
           $ref: '#/components/schemas/SupplementaryID'
         highRecall:
           $ref: '#/components/schemas/SupplementaryID'
+    WebhookProximity:
+      type: object
+      description: >
+        Proximity ID represents a fixed geographical zone in a discrete global
+        grid within which the device is observed.
+      additionalProperties: false
+      required:
+        - id
+        - precisionRadius
+        - confidence
+      properties:
+        id:
+          type: string
+          description: |
+            A stable privacy-preserving identifier for a given proximity zone.
+        precisionRadius:
+          type: integer
+          format: int32
+          enum:
+            - 10
+            - 25
+            - 65
+            - 175
+            - 450
+            - 1200
+            - 3300
+            - 8500
+            - 22500
+          description: |
+            The radius of the proximity zone’s precision level, in meters.
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: >
+            A value between `0` and `1` representing the likelihood that the
+            true device location lies within the mapped proximity zone.
+              * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.
+              * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
     Webhook:
       type: object
       required:
@@ -2867,3 +2990,5 @@ components:
           $ref: '#/components/schemas/SDK'
         supplementaryIds:
           $ref: '#/components/schemas/WebhookSupplementaryIDs'
+        proximity:
+          $ref: '#/components/schemas/WebhookProximity'

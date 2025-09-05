@@ -30,6 +30,7 @@ Name | Type | Description | Notes
 **velocity** | [**\Fingerprint\ServerAPI\Model\ProductVelocity**](ProductVelocity.md) |  | [optional] 
 **developer_tools** | [**\Fingerprint\ServerAPI\Model\ProductDeveloperTools**](ProductDeveloperTools.md) |  | [optional] 
 **mitm_attack** | [**\Fingerprint\ServerAPI\Model\ProductMitMAttack**](ProductMitMAttack.md) |  | [optional] 
+**proximity** | [**\Fingerprint\ServerAPI\Model\ProductProximity**](ProductProximity.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

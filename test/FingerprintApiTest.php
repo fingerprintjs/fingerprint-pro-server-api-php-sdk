@@ -850,6 +850,8 @@ class FingerprintApiTest extends TestCase
                 'proxy' => 'true',
                 'sdk_version' => 'testSdkVersion',
                 'sdk_platform' => 'testSdkPlatform',
+                'proximity_id' => 'testProximityId',
+                'proximity_precision_radius' => 10,
             ];
 
             $extraKeys = ['ii', 'visitor_id'];
@@ -900,7 +902,9 @@ class FingerprintApiTest extends TestCase
             proxy: true,
             sdk_version: 'testSdkVersion',
             sdk_platform: 'testSdkPlatform',
-            environment: ['env1', 'env2']
+            environment: ['env1', 'env2'],
+            proximity_id: "testProximityId",
+            proximity_precision_radius: 10
         );
 
         $this->assertCount(1, $events->getEvents());
