@@ -96,7 +96,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'mitm_attack' => '\Fingerprint\ServerAPI\Model\WebhookMitMAttack',
         'replayed' => 'bool',
         'sdk' => '\Fingerprint\ServerAPI\Model\SDK',
-        'supplementary_ids' => '\Fingerprint\ServerAPI\Model\WebhookSupplementaryIDs'];
+        'supplementary_ids' => '\Fingerprint\ServerAPI\Model\WebhookSupplementaryIDs',
+        'proximity' => '\Fingerprint\ServerAPI\Model\WebhookProximity'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -148,7 +149,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'mitm_attack' => null,
         'replayed' => null,
         'sdk' => null,
-        'supplementary_ids' => null];
+        'supplementary_ids' => null,
+        'proximity' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -201,7 +203,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'mitm_attack' => 'mitmAttack',
         'replayed' => 'replayed',
         'sdk' => 'sdk',
-        'supplementary_ids' => 'supplementaryIds'];
+        'supplementary_ids' => 'supplementaryIds',
+        'proximity' => 'proximity'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -253,7 +256,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'mitm_attack' => 'setMitmAttack',
         'replayed' => 'setReplayed',
         'sdk' => 'setSdk',
-        'supplementary_ids' => 'setSupplementaryIds'];
+        'supplementary_ids' => 'setSupplementaryIds',
+        'proximity' => 'setProximity'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -305,7 +309,8 @@ class Webhook implements ModelInterface, \ArrayAccess
         'mitm_attack' => 'getMitmAttack',
         'replayed' => 'getReplayed',
         'sdk' => 'getSdk',
-        'supplementary_ids' => 'getSupplementaryIds'];
+        'supplementary_ids' => 'getSupplementaryIds',
+        'proximity' => 'getProximity'];
 
     /**
      * Associative array for storing property values.
@@ -367,6 +372,7 @@ class Webhook implements ModelInterface, \ArrayAccess
         $this->container['replayed'] = isset($data['replayed']) ? $data['replayed'] : null;
         $this->container['sdk'] = isset($data['sdk']) ? $data['sdk'] : null;
         $this->container['supplementary_ids'] = isset($data['supplementary_ids']) ? $data['supplementary_ids'] : null;
+        $this->container['proximity'] = isset($data['proximity']) ? $data['proximity'] : null;
     }
 
     /**
@@ -1455,6 +1461,28 @@ class Webhook implements ModelInterface, \ArrayAccess
     public function setSupplementaryIds(?WebhookSupplementaryIDs $supplementary_ids): self
     {
         $this->container['supplementary_ids'] = $supplementary_ids;
+
+        return $this;
+    }
+
+    /**
+     * Gets proximity.
+     */
+    public function getProximity(): ?WebhookProximity
+    {
+        return $this->container['proximity'];
+    }
+
+    /**
+     * Sets proximity.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\WebhookProximity $proximity proximity
+     *
+     * @return $this
+     */
+    public function setProximity(?WebhookProximity $proximity): self
+    {
+        $this->container['proximity'] = $proximity;
 
         return $this;
     }
