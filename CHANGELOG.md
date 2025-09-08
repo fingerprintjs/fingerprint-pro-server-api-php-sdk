@@ -1,5 +1,11 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.10.0-develop.1
+
+### Minor Changes
+
+- Add `proximity` signal that represents a fixed geographical zone in a discrete global grid within which the device is observed. ([47a43dc](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/47a43dc76489ab186c0d10b3b85c8b840a6861c8))
+
 ## 6.10.0-develop.0
 
 ### Minor Changes
