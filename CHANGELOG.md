@@ -1,5 +1,14 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.10.0
+
+### Minor Changes
+
+- **events-search**: Event search now supports a new set of filter parameters: `developer_tools`, `location_spoofing`, `mitm_attack`, `proxy`, `sdk_version`, `sdk_platform`, `environment` ([f385bfa](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/f385bfa2a4423f7c665959a43e444a394d2a3883))
+- **webhook**: Add `supplementaryIds` property to the Webhooks schema. ([f385bfa](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/f385bfa2a4423f7c665959a43e444a394d2a3883))
+- Add `proximity` signal that represents a fixed geographical zone in a discrete global grid within which the device is observed. ([47a43dc](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/47a43dc76489ab186c0d10b3b85c8b840a6861c8))
+- Add `environmentId` property to `identification` ([f385bfa](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/f385bfa2a4423f7c665959a43e444a394d2a3883))
+
 ## 6.10.0-develop.1
 
 ### Minor Changes
