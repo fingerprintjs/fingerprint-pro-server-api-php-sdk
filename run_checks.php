@@ -40,11 +40,6 @@ $client = new FingerprintApi(
     $config
 );
 
-// Temporarily suppress a million deprecated ArrayAccess return type warnings for readability
-// Our SDK generator does not yet support PHP's new attributes system
-// https://github.com/swagger-api/swagger-codegen/issues/11820
-error_reporting(error_reporting() & ~E_DEPRECATED);
-
 // FingerprintApi->searchEvents usage example
 try {
     // 3 month from now
