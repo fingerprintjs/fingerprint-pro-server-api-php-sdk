@@ -179,7 +179,7 @@ try {
 
     list($result, $response) = $client->getEvent($requestIdOld);
     list($result, $response) = $client->getVisits($visitorIdOld);
-    fwrite(STDERR, "\n\nOld events are good\n");
+    fwrite(STDOUT, "\n\nOld events are good\n");
 }  catch (Exception $e) {
     fwrite(STDERR, sprintf("\n\nException when trying to read old data: %s\n", $e->getMessage()));
 }
