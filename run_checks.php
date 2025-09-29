@@ -14,9 +14,6 @@ use Fingerprint\ServerAPI\Model\SearchEventsResponse;
 use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
 use GuzzleHttp\Client;
 
-$host = getenv('FP_API_HOST');
-$api_key = getenv('FP_PRIVATE_API_KEY');
-
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
