@@ -2,8 +2,18 @@
 
 namespace Fingerprint\ServerAPI\Webhook;
 
+/**
+ * Verifies Fingerprint webhook signature.
+ */
 final class WebhookVerifier
 {
+    /**
+     * Checks whether the webhook signature header is valid for the given data and secret.
+     *
+     * @param string $header comma-separated list of versioned signatures
+     * @param string $data   raw webhook request body
+     * @param string $secret webhook signing secret
+     */
     public static function IsValidWebhookSignature(string $header, string $data, string $secret): bool
     {
         $signatures = explode(',', $header);
@@ -20,6 +30,9 @@ final class WebhookVerifier
         return false;
     }
 
+    /**
+     * Compares the given signature against an HMAC-SHA256 hash of the data.
+     */
     private static function checkSignature(string $signature, string $data, string $secret): bool
     {
         $hash = hash_hmac('sha256', $data, $secret);
