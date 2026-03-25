@@ -2,22 +2,37 @@
 
 namespace Fingerprint\ServerAPI\Sealed;
 
+use Exception;
 use Fingerprint\ServerAPI\Model\EventsGetResponse;
 use Fingerprint\ServerAPI\ObjectSerializer;
-use Fingerprint\ServerAPI\SerializationException;
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
 
+/**
+ * Provides methods to decrypt and deserialize sealed results.
+ *
+ * Sealed results are encrypted and compressed payloads.
+ */
 class Sealed
 {
+    /** @var int AES-256-GCM nonce length in bytes. */
     private const NONCE_LENGTH = 12;
+
+    /** @var int AES-256-GCM authentication tag length in bytes. */
     private const AUTH_TAG_LENGTH = 16;
-    private static $SEAL_HEADER = "\x9E\x85\xDC\xED";
+
+    /** @var string Magic bytes that prefix every sealed payload. */
+    private const SEAL_HEADER = "\x9E\x85\xDC\xED";
 
     /**
-     * @param DecryptionKey[] $keys
+     * Unseals and deserializes a sealed response into an EventsGetResponse.
      *
-     * @throws UnsealAggregateException
-     * @throws SerializationException
+     * @param string          $sealed raw sealed payload
+     * @param DecryptionKey[] $keys   decryption keys to try in order
+     *
+     * @throws UnsealAggregateException   when decryption fails with every provided key
+     * @throws InvalidSealedDataException when decrypted payload is not a valid event response
+     * @throws Exception
      */
     public static function unsealEventResponse(string $sealed, array $keys): EventsGetResponse
     {
@@ -37,14 +52,17 @@ class Sealed
     /**
      * Decrypts the sealed response with the provided keys.
      *
-     * @param string          $sealed Base64 encoded sealed data
-     * @param DecryptionKey[] $keys   Decryption keys. The SDK will try to decrypt the result with each key until it succeeds.
+     * Tries each key in order; returns the decrypted plaintext on the first
+     * successful decryption. If all keys fail, throws an aggregate exception.
      *
-     * @throws UnsealAggregateException
+     * @param string          $sealed raw sealed payload
+     * @param DecryptionKey[] $keys   decryption keys to try in order
+     *
+     * @throws UnsealAggregateException when decryption fails with every provided key
      */
     public static function unseal(string $sealed, array $keys): string
     {
-        if (substr($sealed, 0, strlen(self::$SEAL_HEADER)) !== self::$SEAL_HEADER) {
+        if (!str_starts_with($sealed, self::SEAL_HEADER)) {
             throw new InvalidSealedDataHeaderException();
         }
 
@@ -54,10 +72,10 @@ class Sealed
             switch ($key->getAlgorithm()) {
                 case DecryptionAlgorithm::AES_256_GCM:
                     try {
-                        $data = substr($sealed, strlen(self::$SEAL_HEADER));
+                        $data = substr($sealed, strlen(self::SEAL_HEADER));
 
                         return self::decryptAes256Gcm($data, $key->getKey());
-                    } catch (\Exception $exception) {
+                    } catch (Exception $exception) {
                         $aggregateException->addException(new UnsealException(
                             'Failed to decrypt',
                             $exception,
@@ -68,7 +86,7 @@ class Sealed
                     break;
 
                 default:
-                    throw new \InvalidArgumentException('Invalid decryption algorithm');
+                    throw new InvalidArgumentException('Invalid decryption algorithm');
             }
         }
 
@@ -76,12 +94,16 @@ class Sealed
     }
 
     /**
-     * @param mixed $sealedData
-     * @param mixed $decryptionKey
+     * Decrypts an AES-256-GCM payload and decompresses the result.
      *
-     * @throws \Exception
+     * @param string $sealedData    nonce + ciphertext + auth tag
+     * @param string $decryptionKey raw 256-bit key
+     *
+     * @return string decompressed plaintext
+     *
+     * @throws Exception on decryption failure
      */
-    private static function decryptAes256Gcm($sealedData, $decryptionKey): string
+    private static function decryptAes256Gcm(string $sealedData, string $decryptionKey): string
     {
         $nonce = substr($sealedData, 0, self::NONCE_LENGTH);
         $ciphertext = substr($sealedData, self::NONCE_LENGTH);
@@ -92,23 +114,29 @@ class Sealed
         $decryptedData = openssl_decrypt($ciphertext, 'aes-256-gcm', $decryptionKey, OPENSSL_RAW_DATA, $nonce, $tag);
 
         if (false === $decryptedData) {
-            throw new \Exception('Decryption failed');
+            throw new Exception('Decryption failed');
         }
 
         return self::decompress($decryptedData);
     }
 
     /**
-     * @param mixed $data
+     * Decompresses raw-deflated data.
      *
-     * @throws \Exception
+     * @param bool|string $data raw deflate-compressed data
+     *
+     * @return string decompressed data
+     *
+     * @throws DecompressionException when decompression fails or input is empty
      */
-    private static function decompress($data): string
+    private static function decompress(bool|string $data): string
     {
         if (false === $data || 0 === strlen($data)) {
             throw new DecompressionException();
         }
-        $inflated = @gzinflate($data); // Ignore warnings, because we check the decompressed data's validity and throw error if necessary
+
+        // Ignore warnings, because we check the decompressed data's validity and throw error if necessary
+        $inflated = @gzinflate($data);
 
         if (false === $inflated) {
             throw new DecompressionException();

@@ -2,23 +2,38 @@
 
 namespace Fingerprint\ServerAPI\Sealed;
 
+/**
+ * Holds a decryption key and its algorithm for unsealing sealed results.
+ */
 class DecryptionKey
 {
-    private $key;
-    private $algorithm;
+    private readonly string $key;
+    private readonly string $algorithm;
 
-    public function __construct($key, $algorithm)
+    /**
+     * Creates a new DecryptionKey instance.
+     *
+     * @param string $key       raw binary decryption key
+     * @param string $algorithm algorithm identifier ({@see DecryptionAlgorithm})
+     */
+    public function __construct(string $key, string $algorithm)
     {
         $this->key = $key;
         $this->algorithm = $algorithm;
     }
 
-    public function getKey()
+    /**
+     * Returns the raw binary decryption key.
+     */
+    public function getKey(): string
     {
         return $this->key;
     }
 
-    public function getAlgorithm()
+    /**
+     * Returns the algorithm identifier ({@see DecryptionAlgorithm}).
+     */
+    public function getAlgorithm(): string
     {
         return $this->algorithm;
     }

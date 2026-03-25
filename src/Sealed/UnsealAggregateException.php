@@ -2,24 +2,40 @@
 
 namespace Fingerprint\ServerAPI\Sealed;
 
-class UnsealAggregateException extends \Exception
-{
-    /**
-     * @var \Exception[]
-     */
-    private $exceptions;
+use Exception;
 
+/**
+ * Thrown when unsealing fails with all provided decryption keys.
+ *
+ * Contains the individual {@see UnsealException} for each key that was tried.
+ */
+class UnsealAggregateException extends Exception
+{
+    /** @var Exception[] */
+    private array $exceptions = [];
+
+    /**
+     * Creates a new UnsealAggregateException instance.
+     */
     public function __construct()
     {
         parent::__construct('Failed to unseal with all decryption keys');
     }
 
-    public function addException(\Exception $exception)
+    /**
+     * Adds a decryption failure to this aggregate.
+     */
+    public function addException(Exception $exception): void
     {
         $this->exceptions[] = $exception;
     }
 
-    public function getExceptions()
+    /**
+     * Returns all collected decryption exceptions.
+     *
+     * @return Exception[]
+     */
+    public function getExceptions(): array
     {
         return $this->exceptions;
     }
