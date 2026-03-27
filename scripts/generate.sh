@@ -26,22 +26,27 @@ done
 VERSION=${VERSION//develop/dev}
 
 # Convert development version strings into PHP-semver-compatible beta versions.
-#
-# dev.1.0.0.0 / dev-1.0.0-0 -> 1.0.0-beta.0
-# 1.0.0.dev.0 / 1.0.0-dev-0 -> 1.0.0-beta.0
-# dev-some-branch -> some.branch-beta
-# 1.0.0-dev-suffix -> 1.0.0-beta.suffix
 if [[ $VERSION =~ ^dev[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)$ ]]; then
-    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
+  # Example for the regex above:
+  # dev.1.0.0.0
+  # dev-1.0.0-0
+  # dev.1.0.0-0
+  # dev-1.0.0.0
+  VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
 elif [[ $VERSION =~ ^([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]dev[.-]([0-9]+)$ ]]; then
-    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
+  # Example for the regex above:
+  # 1.0.0.dev.0
+  # 1.0.0.dev-0
+  # 1.0.0-dev-0
+  # 1.0.0-dev.0
+  VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
 elif [[ $VERSION == dev-* ]]; then
-    _temp_part=${VERSION#dev-}
-    VERSION="${_temp_part//-/.}-beta"
+  _temp_part=${VERSION#dev-}
+  VERSION="${_temp_part//-/.}-beta"
 elif [[ $VERSION == *-dev* ]]; then
-    _temp_part=${VERSION#*-dev}
-    _temp_part=${_temp_part//-/.}
-    VERSION="${VERSION%%-dev*}-beta$_temp_part"
+  _temp_part=${VERSION#*-dev}
+  _temp_part=${_temp_part//-/.}
+  VERSION="${VERSION%%-dev*}-beta$_temp_part"
 fi
 
 echo "VERSION: $VERSION"
@@ -93,7 +98,7 @@ patterns=(
   '\[GeolocationSubdivision\](docs\/Model\/GeolocationSubdivision\.md)'
 )
 for pattern in "${patterns[@]}"; do
-    sed_in_place "/$pattern/d" src/README.md
+  sed_in_place "/$pattern/d" src/README.md
 done
 
 # Move generated files
