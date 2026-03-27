@@ -9,15 +9,16 @@ use Fingerprint\ServerAPI\Model\ErrorCode;
 use Fingerprint\ServerAPI\Model\ErrorPlainResponse;
 use Fingerprint\ServerAPI\Model\ErrorResponse;
 use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
-use Fingerprint\ServerAPI\Model\RelatedVisitorsResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Utils;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
-use function PHPUnit\Framework\assertEquals;
+use RuntimeException;
 
 /**
  * @internal
@@ -25,12 +26,15 @@ use function PHPUnit\Framework\assertEquals;
  */
 class FingerprintApiTest extends TestCase
 {
+    /** @noinspection SpellCheckingInspection */
     public const MOCK_REQUEST_ID = '1708102555327.NLOjmg';
     public const MOCK_REQUEST_ID_WITH_UNKNOWN = 'UNKNOWN_FIELD_REQUEST_ID';
     public const MOCK_REQUEST_ID_WITH_BROKEN = 'BROKEN_FIELD_REQUEST_ID';
+    /** @noinspection SpellCheckingInspection */
     public const MOCK_EXTRA_FIELDS_REQUEST_ID = '0KSh65EnVoB85JBmloQK';
     public const MOCK_REQUEST_ALL_ERRORS = 'ALL_ERRORS';
     public const MOCK_REQUEST_EXTRA_FIELDS = 'EXTRA_FIELDS';
+    /** @noinspection SpellCheckingInspection */
     public const MOCK_VISITOR_ID = 'AcxioeQKffpXF8iGQK3P';
     public const MOCK_VISITOR_REQUEST_ID = '1655373780901.HhjRFX';
     public const MOCK_VISITOR_ID_403_ERROR_FORBIDDEN = 'VISITOR_ID_403_ERROR';
@@ -65,12 +69,18 @@ class FingerprintApiTest extends TestCase
         $this->fingerprint_api = new FingerprintApi($this->client);
     }
 
+    /**
+     * Verifies getEvent deserializes all product data correctly.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testGetEvent()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_ID));
 
-        list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID);
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID)[0];
         $products = $event->getProducts();
         $identification_product = $products->getIdentification();
         $botd_product = $products->getBotd();
@@ -87,9 +97,10 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals(BotdBotResult::NOT_DETECTED, $botd_product->getData()->getBot()->getResult());
         $this->assertFalse($vpn_product->getData()->getMethods()->getPublicVpn());
         $this->assertEquals('94.142.239.124', $ip_info_product->getData()->getV4()->getAddress());
-        $this->assertEquals($ip_info_product->getData()->getV4()->getGeolocation()->getSubdivisions()[0]->name, 'Hlavni mesto Praha');
+        /** @noinspection SpellCheckingInspection */
+        $this->assertEquals('Hlavni mesto Praha', $ip_info_product->getData()->getV4()->getGeolocation()->getSubdivisions()[0]->name);
         $this->assertFalse($cloned_app_product->getData()->getResult());
-        $this->assertEquals(new \DateTime('1970-01-01T00:00:00Z'), $factory_reset_product->getData()->getTime());
+        $this->assertEquals(new DateTime('1970-01-01T00:00:00Z'), $factory_reset_product->getData()->getTime());
         $this->assertFalse($jailbroken_product->getData()->getResult());
         $this->assertFalse($frida_product->getData()->getResult());
         $this->assertFalse($privacy_settings_product->getData()->getResult());
@@ -109,24 +120,36 @@ class FingerprintApiTest extends TestCase
         $this->assertFalse($high_activity->getResult());
     }
 
+    /**
+     * Verifies getEvent handles extra fields in response without errors.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testGetEventWithExtraFields()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_EXTRA_FIELDS));
 
-        list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_EXTRA_FIELDS);
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_EXTRA_FIELDS)[0];
         $products = $event->getProducts();
         $identification_product = $products->getIdentification();
         $request_id = $identification_product->getData()->getRequestId();
         $this->assertEquals(self::MOCK_EXTRA_FIELDS_REQUEST_ID, $request_id);
     }
 
+    /**
+     * Verifies getEvent deserializes error responses for all products.
+     *
+     * @throws ApiException
+     * @throws SerializationException
+     * @throws GuzzleException
+     */
     public function testGetEventWithAllErrors()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_ALL_ERRORS));
 
-        list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ALL_ERRORS);
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ALL_ERRORS)[0];
         $products = $event->getProducts();
         $identification_error = $products->getIdentification()->getError();
         $botd_error = $products->getBotd()->getError();
@@ -168,94 +191,147 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals('Error', $raw_device_attributes['canvas']->error->name);
     }
 
+    /**
+     * Verifies getVisits returns correct visitor ID.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testGetVisits()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID));
 
-        list($visits, $response) = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID);
-        $this->assertEquals($visits->getVisitorId(), self::MOCK_VISITOR_ID);
+        $visits = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID)[0];
+        $this->assertEquals(self::MOCK_VISITOR_ID, $visits->getVisitorId());
     }
 
+    /**
+     * Verifies getVisits filters visits by request ID.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testGetVisitsByRequestId()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID, 'GET', self::MOCK_VISITOR_REQUEST_ID));
 
-        list($visits, $response) = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID, self::MOCK_VISITOR_REQUEST_ID);
+        $visits = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID, self::MOCK_VISITOR_REQUEST_ID)[0];
         foreach ($visits->getVisits() as $visit) {
-            $this->assertEquals($visit->getRequestId(), self::MOCK_VISITOR_REQUEST_ID);
+            $this->assertEquals(self::MOCK_VISITOR_REQUEST_ID, $visit->getRequestId());
         }
     }
 
+    /**
+     * Verifies getVisits respects the limit parameter.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testGetVisitsWithLimit()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID));
 
         $limit = 100;
-        list($visits, $response) = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID, null, $limit);
+        $visits = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID, null, $limit)[0];
         $count = count($visits->getVisits());
         $this->assertLessThanOrEqual($limit, $count);
     }
 
+    /**
+     * Verifies getEvent raw response matches the mock JSON.
+     *
+     * @throws ApiException
+     * @throws SerializationException
+     * @throws GuzzleException
+     */
     public function testGetEventRawResponse()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_ID));
 
-        list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID);
-        $mockedResult = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . '/mocks/get_event_200.json'));
-        $this->assertEquals($mockedResult, \GuzzleHttp\json_decode($response->getBody()->getContents()));
+        $response = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID)[1];
+        $mockedResult = Utils::jsonDecode(file_get_contents(__DIR__ . '/mocks/get_event_200.json'));
+        $this->assertEquals($mockedResult, Utils::jsonDecode($response->getBody()->getContents()));
     }
 
+    /**
+     * Verifies nullable seenAt field is deserialized as null.
+     *
+     * @throws ApiException
+     * @throws SerializationException
+     * @throws GuzzleException
+     */
     public function testGetEventNullableSeenAt()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_ID));
 
-        list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID);
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID)[0];
         $products = $event->getProducts();
         $seenAt = $products->getIdentification()->getData()->getLastSeenAt();
         $this->assertEquals(null, $seenAt->getGlobal());
     }
 
+    /**
+     * Verifies getVisits raw response matches the mock JSON.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testGetVisitsRawResponse()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID));
 
-        list($visits, $response) = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID);
-        $mockedResult = \GuzzleHttp\json_decode(file_get_contents(__DIR__ . '/mocks/get_visitors_200_limit_500.json'));
-        $this->assertEquals($mockedResult, \GuzzleHttp\json_decode($response->getBody()->getContents()));
+        $response = $this->fingerprint_api->getVisits(self::MOCK_VISITOR_ID)[1];
+        $mockedResult = Utils::jsonDecode(file_get_contents(__DIR__ . '/mocks/get_visitors_200_limit_500.json'));
+        $this->assertEquals($mockedResult, Utils::jsonDecode($response->getBody()->getContents()));
     }
 
+    /**
+     * Verifies unknown fields don't break model deserialization.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testGetEventParsedModelWithUnknownField()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_ID_WITH_UNKNOWN));
 
-        list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_UNKNOWN);
-        $this->assertEquals(false, $event->getProducts()->getIncognito()->getData()->getResult());
+        $event = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_UNKNOWN)[0];
+        $this->assertFalse($event->getProducts()->getIncognito()->getData()->getResult());
     }
 
+    /**
+     * Verifies unknown fields are preserved in the raw response.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testGetUnknownFieldFromEvent()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_ID_WITH_UNKNOWN));
 
-        list($event, $response) = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_UNKNOWN);
-        $responseBody = \GuzzleHttp\json_decode($response->getBody()->getContents());
+        $response = $this->fingerprint_api->getEvent(self::MOCK_REQUEST_ID_WITH_UNKNOWN)[1];
+        $responseBody = Utils::jsonDecode($response->getBody()->getContents());
         $this->assertEquals('field', $responseBody->unknown);
         $this->assertEquals('field', $responseBody->products->unknown);
         $this->assertEquals('field', $responseBody->products->identification->unknown);
         $this->assertEquals('field', $responseBody->products->identification->data->unknown);
     }
 
+    /**
+     * Verifies broken format throws SerializationException with accessible response.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     */
     public function testGetBrokenFormatEvent()
     {
         $event = null;
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_REQUEST_ID_WITH_BROKEN));
 
         try {
@@ -263,25 +339,36 @@ class FingerprintApiTest extends TestCase
         } catch (SerializationException $exception) {
             $response = $exception->getResponse();
         }
-        $responseBody = \GuzzleHttp\json_decode($response->getBody()->getContents());
+        $responseBody = Utils::jsonDecode($response->getBody()->getContents());
 
         $this->assertNull($event);
         $this->assertNotNull($responseBody);
         $this->assertEquals('format', $responseBody->products->identification->data->linkedId->broken);
     }
 
+    /**
+     * Verifies deleteVisitorData returns 200 on success.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testDeleteVisitorData()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID, 'DELETE'));
 
-        list($result, $response) = $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID);
+        $response = $this->fingerprint_api->deleteVisitorData(self::MOCK_VISITOR_ID)[1];
         $this->assertEquals(200, $response->getStatusCode());
     }
 
+    /**
+     * Verifies getVisits throws 403 ApiException for forbidden access.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     */
     public function testGetVisits403Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_ERROR_FORBIDDEN));
 
         $this->expectException(ApiException::class);
@@ -296,9 +383,14 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies getVisits throws 429 ApiException with retry-after header.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     */
     public function testGetVisits429Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_429_ERROR));
 
         $this->expectException(ApiException::class);
@@ -314,9 +406,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies getEvent throws 403 for token required error.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testGetEvent403TokenRequired()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_TOKEN_REQUIRED));
 
         $this->expectException(ApiException::class);
@@ -332,9 +430,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies getEvent throws 403 for token not found error.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testGetEvent403TokenNotFound()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND));
 
         $this->expectException(ApiException::class);
@@ -350,9 +454,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies getEvent throws 403 for wrong region error.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testGetEvent403WrongRegion()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_WRONG_REGION));
 
         $this->expectException(ApiException::class);
@@ -368,9 +478,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies getEvent throws 404 for request not found error.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testGetEvent404Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_404_ERROR));
 
         $this->expectException(ApiException::class);
@@ -387,9 +503,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies deleteVisitorData throws 400 for incorrect visitor ID.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testDeleteVisitorData400IncorrectVisitorId()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_400_INCORRECT_VISITOR_ID, 'DELETE'));
 
         $this->expectException(ApiException::class);
@@ -406,9 +528,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies deleteVisitorData throws 400 for empty visitor ID.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testDeleteVisitorData400EmptyVisitorId()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_400_EMPTY_VISITOR_ID, 'DELETE'));
 
         $this->expectException(ApiException::class);
@@ -425,9 +553,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies deleteVisitorData throws 403 for feature not enabled.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testDeleteVisitorData403FeatureNotEnabled()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_FEATURE_NOT_ENABLED, 'DELETE'));
 
         $this->expectException(ApiException::class);
@@ -443,9 +577,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies deleteVisitorData throws 403 for token not found.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testDeleteVisitorData403TokenNotFound()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_TOKEN_NOT_FOUND, 'DELETE'));
 
         $this->expectException(ApiException::class);
@@ -461,9 +601,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies deleteVisitorData throws 403 for token required.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testDeleteVisitorData403TokenRequired()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_TOKEN_REQUIRED, 'DELETE'));
 
         $this->expectException(ApiException::class);
@@ -479,9 +625,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies deleteVisitorData throws 403 for wrong region.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testDeleteVisitorData403WrongRegion()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_WRONG_REGION, 'DELETE'));
 
         $this->expectException(ApiException::class);
@@ -497,9 +649,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies deleteVisitorData throws 403 for inactive subscription.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testDeleteVisitorData403SubscriptionIsNotActive()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE, 'DELETE'));
 
         $this->expectException(ApiException::class);
@@ -515,9 +673,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies deleteVisitorData throws 404 for visitor not found.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testDeleteVisitorData404Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_404_ERROR, 'DELETE'));
 
         $this->expectException(ApiException::class);
@@ -533,9 +697,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies deleteVisitorData throws 429 with retry-after header.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testDeleteVisitorData429Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_ERROR_429_TOO_MANY_REQUESTS, 'DELETE'));
 
         $this->expectException(ApiException::class);
@@ -552,9 +722,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies updateEvent sends correct request body and method.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testUpdateEvent()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append(new Response(200));
         $body = new EventsUpdateRequest([
             'linked_id' => 'test',
@@ -578,9 +754,15 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals(200, $res->getStatusCode());
     }
 
+    /**
+     * Verifies updateEvent throws 400 for invalid request body.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testUpdateEvent400Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_400_ERROR, 'PUT'));
 
         $this->expectException(ApiException::class);
@@ -596,9 +778,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies updateEvent throws 403 for wrong region.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testUpdateEvent403WrongRegion()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_WRONG_REGION, 'PUT'));
 
         $this->expectException(ApiException::class);
@@ -614,9 +802,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies updateEvent throws 403 for token required.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testUpdateEvent403TokenRequired()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_TOKEN_REQUIRED, 'PUT'));
 
         $this->expectException(ApiException::class);
@@ -632,9 +826,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies updateEvent throws 403 for token not found.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testUpdateEvent403TokenNotFound()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND, 'PUT'));
 
         $this->expectException(ApiException::class);
@@ -650,9 +850,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies updateEvent throws 404 for request not found.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testUpdateEvent404Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_404_ERROR, 'PUT'));
 
         $this->expectException(ApiException::class);
@@ -668,9 +874,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies updateEvent throws 409 for state not ready.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testUpdateEvent409Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_EVENT_ID_409_ERROR, 'PUT'));
 
         $this->expectException(ApiException::class);
@@ -686,20 +898,35 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies getRelatedVisitors returns correct visitor IDs.
+     *
+     * @throws ApiException
+     * @throws SerializationException
+     * @throws GuzzleException
+     */
     public function testGetRelatedVisitors()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_RELATED_VISITORS));
 
         list($relatedVisitors) = $this->fingerprint_api->getRelatedVisitors(self::MOCK_VISITOR_ID);
 
-        $this->assertEquals($relatedVisitors->getRelatedVisitors()[0]->getVisitorId(), 'NtCUJGceWX9RpvSbhvOm');
-        $this->assertEquals($relatedVisitors->getRelatedVisitors()[1]->getVisitorId(), '25ee02iZwGxeyT0jMNkZ');
+        /** @noinspection SpellCheckingInspection */
+        $this->assertEquals('NtCUJGceWX9RpvSbhvOm', $relatedVisitors->getRelatedVisitors()[0]->getVisitorId());
+
+        /** @noinspection SpellCheckingInspection */
+        $this->assertEquals('25ee02iZwGxeyT0jMNkZ', $relatedVisitors->getRelatedVisitors()[1]->getVisitorId());
     }
 
+    /**
+     * Verifies getRelatedVisitors throws 400 for invalid request.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testGetRelatedVisitors400Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_400_EMPTY_VISITOR_ID));
 
         $this->expectException(ApiException::class);
@@ -715,9 +942,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies getRelatedVisitors throws 403 for feature not enabled.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testGetRelatedVisitors403Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_403_FEATURE_NOT_ENABLED));
 
         $this->expectException(ApiException::class);
@@ -733,9 +966,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies getRelatedVisitors throws 404 for visitor not found.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testGetRelatedVisitors404Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_VISITOR_ID_404_ERROR));
 
         $this->expectException(ApiException::class);
@@ -751,9 +990,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies getRelatedVisitors throws 429 with retry-after header.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testGetRelatedVisitors429Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->getMockResponse(self::MOCK_ERROR_429_TOO_MANY_REQUESTS));
 
         $this->expectException(ApiException::class);
@@ -764,15 +1009,21 @@ class FingerprintApiTest extends TestCase
         } catch (ApiException $e) {
             $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
             $this->assertEquals(ErrorCode::TOO_MANY_REQUESTS, $e->getErrorDetails()->getError()->getCode());
-            $this->assertEquals($e->getRetryAfter(), 30);
+            $this->assertEquals(30, $e->getRetryAfter());
 
             throw $e;
         }
     }
 
+    /**
+     * Verifies searchEvents sends only limit query parameter.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testSearchEventsWithOnlyLimit()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append(function (RequestInterface $request) {
             $queryArray = [];
             parse_str($request->getUri()->getQuery(), $queryArray);
@@ -785,12 +1036,19 @@ class FingerprintApiTest extends TestCase
         list($events) = $this->fingerprint_api->searchEvents(10);
 
         $this->assertCount(1, $events->getEvents());
+        /** @noinspection SpellCheckingInspection */
         $this->assertEquals("Ibk1527CUFmcnjLwIs4A9", $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
     }
 
+    /**
+     * Verifies searchEvents sends subset of query parameters.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testSearchEventsWithPartialParams()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append(function (RequestInterface $request) {
             $queryArray = [];
             parse_str($request->getUri()->getQuery(), $queryArray);
@@ -805,15 +1063,22 @@ class FingerprintApiTest extends TestCase
         list($events) = $this->fingerprint_api->searchEvents(10, visitor_id: self::MOCK_VISITOR_ID, linked_id: "linked_id", reverse: true);
 
         $this->assertCount(1, $events->getEvents());
+        /** @noinspection SpellCheckingInspection */
         $this->assertEquals("Ibk1527CUFmcnjLwIs4A9", $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
     }
 
+    /**
+     * Verifies searchEvents sends all query parameters correctly.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
     public function testSearchEventsWithAllParams()
     {
         $start = new DateTime('2020-01-01 00:00:00');
         $end = new DateTime('2020-01-02 00:00:00');
 
-        $this->mockHandler->reset();
         $this->mockHandler->append(function (RequestInterface $request) use ($end, $start) {
             $queryArray = [];
             parse_str($request->getUri()->getQuery(), $queryArray);
@@ -908,12 +1173,19 @@ class FingerprintApiTest extends TestCase
         );
 
         $this->assertCount(1, $events->getEvents());
+        /** @noinspection SpellCheckingInspection */
         $this->assertEquals('Ibk1527CUFmcnjLwIs4A9', $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
     }
 
+    /**
+     * Verifies searchEvents throws 400 for invalid bot type.
+     *
+     * @throws SerializationException
+     * @throws GuzzleException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testSearchEvents400Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->returnMockResponse('errors/400_bot_type_invalid.json', 400));
 
         $this->expectException(ApiException::class);
@@ -929,9 +1201,15 @@ class FingerprintApiTest extends TestCase
         }
     }
 
+    /**
+     * Verifies searchEvents throws 403 for inactive subscription.
+     *
+     * @throws GuzzleException
+     * @throws SerializationException
+     * @noinspection PhpPossiblePolymorphicInvocationInspection
+     */
     public function testSearchEvents403Error()
     {
-        $this->mockHandler->reset();
         $this->mockHandler->append($this->returnMockResponse('errors/403_subscription_not_active.json', 403));
 
         $this->expectException(ApiException::class);
@@ -955,203 +1233,64 @@ class FingerprintApiTest extends TestCase
         return $config['version'];
     }
 
+    /**
+     * Mock response map: method => mockId => [file, status, extra_headers].
+     */
+    private const MOCK_RESPONSE_MAP = [
+        'GET' => [
+            self::MOCK_REQUEST_ID => ['get_event_200.json', 200],
+            self::MOCK_REQUEST_ALL_ERRORS => ['get_event_200_all_errors.json', 200],
+            self::MOCK_REQUEST_EXTRA_FIELDS => ['get_event_200_extra_fields.json', 200],
+            self::MOCK_REQUEST_ID_WITH_UNKNOWN => ['get_event_200_with_unknown_field.json', 200],
+            self::MOCK_REQUEST_ID_WITH_BROKEN => ['get_event_200_with_broken_format.json', 200],
+            self::MOCK_EVENT_ID_403_TOKEN_REQUIRED => ['errors/403_token_required.json', 403],
+            self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND => ['errors/403_token_not_found.json', 403],
+            self::MOCK_EVENT_ID_403_WRONG_REGION => ['errors/403_wrong_region.json', 403],
+            self::MOCK_EVENT_ID_404_ERROR => ['errors/404_request_not_found.json', 404],
+            self::MOCK_EVENT_ID_400_ERROR => ['errors/400_request_body_invalid.json', 400],
+            self::MOCK_VISITOR_ID => ['get_visitors_200_limit_500.json', 200],
+            self::MOCK_VISITOR_REQUEST_ID => ['get_visitors_200_limit_1.json', 200],
+            self::MOCK_VISITOR_ID_403_ERROR_FORBIDDEN => ['get_visitors_403_forbidden.json', 403],
+            self::MOCK_VISITOR_ID_403_FEATURE_NOT_ENABLED => ['errors/403_feature_not_enabled.json', 403],
+            self::MOCK_VISITOR_ID_403_TOKEN_NOT_FOUND => ['errors/403_token_not_found.json', 403],
+            self::MOCK_VISITOR_ID_403_TOKEN_REQUIRED => ['errors/403_token_required.json', 403],
+            self::MOCK_VISITOR_ID_403_WRONG_REGION => ['errors/403_wrong_region.json', 403],
+            self::MOCK_VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE => ['errors/403_subscription_not_active.json', 403],
+            self::MOCK_VISITOR_ID_429_ERROR => ['get_visitors_429_too_many_requests.json', 429, ['retry-after' => 30]],
+            self::MOCK_ERROR_429_TOO_MANY_REQUESTS => ['errors/429_too_many_requests.json', 429, ['retry-after' => 30]],
+            self::MOCK_VISITOR_ID_400_INCORRECT_VISITOR_ID => ['errors/400_visitor_id_invalid.json', 400],
+            self::MOCK_VISITOR_ID_400_EMPTY_VISITOR_ID => ['errors/400_visitor_id_required.json', 400],
+            self::MOCK_VISITOR_ID_404_ERROR => ['errors/404_visitor_not_found.json', 404],
+            self::MOCK_RELATED_VISITORS => ['related-visitors/get_related_visitors_200.json', 200],
+        ],
+        'PUT' => [
+            self::MOCK_EVENT_ID => ['update_event.json', 200],
+            self::MOCK_EVENT_ID_409_ERROR => ['errors/409_state_not_ready.json', 409],
+            self::MOCK_EVENT_ID_404_ERROR => ['errors/404_request_not_found.json', 404],
+            self::MOCK_EVENT_ID_403_TOKEN_REQUIRED => ['errors/403_token_required.json', 403],
+            self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND => ['errors/403_token_not_found.json', 403],
+            self::MOCK_EVENT_ID_403_WRONG_REGION => ['errors/403_wrong_region.json', 403],
+            self::MOCK_EVENT_ID_400_ERROR => ['errors/400_request_body_invalid.json', 400],
+        ],
+    ];
+
     protected function getMockResponse(string $mockId, string $method = 'GET', ?string $operationId = null): Response
     {
-        $mock_name = '';
-        $status = 200;
-        $headers = [
-            'Content-Type' => 'application/json',
-        ];
+        $headers = ['Content-Type' => 'application/json'];
+        $methodKey = ('PUT' === $method) ? 'PUT' : 'GET';
+        $map = self::MOCK_RESPONSE_MAP[$methodKey] ?? [];
 
-        if ('GET' === $method || 'DELETE' === $method) {
-            switch ($mockId) {
-                case self::MOCK_REQUEST_ID:
-                    $mock_name = 'get_event_200.json';
-
-                    break;
-
-                case self::MOCK_REQUEST_ALL_ERRORS:
-                    $mock_name = 'get_event_200_all_errors.json';
-
-                    break;
-
-                case self::MOCK_REQUEST_EXTRA_FIELDS:
-                    $mock_name = 'get_event_200_extra_fields.json';
-
-                    break;
-
-                case self::MOCK_REQUEST_ID_WITH_UNKNOWN:
-                    $mock_name = 'get_event_200_with_unknown_field.json';
-
-                    break;
-
-                case self::MOCK_REQUEST_ID_WITH_BROKEN:
-                    $mock_name = 'get_event_200_with_broken_format.json';
-
-                    break;
-
-                case self::MOCK_EVENT_ID_403_TOKEN_REQUIRED:
-                    $mock_name = 'errors/403_token_required.json';
-                    $status = 403;
-
-                    break;
-
-                case self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND:
-                    $mock_name = 'errors/403_token_not_found.json';
-                    $status = 403;
-
-                    break;
-
-                case self::MOCK_EVENT_ID_403_WRONG_REGION:
-                    $mock_name = 'errors/403_wrong_region.json';
-                    $status = 403;
-
-                    break;
-
-                case self::MOCK_EVENT_ID_404_ERROR:
-                    $mock_name = 'errors/404_request_not_found.json';
-                    $status = 404;
-
-                    break;
-
-                case self::MOCK_EVENT_ID_400_ERROR:
-                    $mock_name = 'errors/400_request_body_invalid.json';
-                    $status = 400;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID:
-                    $mock_name = 'get_visitors_200_limit_500.json';
-
-                    break;
-
-                case self::MOCK_VISITOR_REQUEST_ID:
-                    $mock_name = 'get_visitors_200_limit_1.json';
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_403_ERROR_FORBIDDEN:
-                    $mock_name = 'get_visitors_403_forbidden.json';
-                    $status = 403;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_403_FEATURE_NOT_ENABLED:
-                    $mock_name = 'errors/403_feature_not_enabled.json';
-                    $status = 403;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_403_TOKEN_NOT_FOUND:
-                    $mock_name = 'errors/403_token_not_found.json';
-                    $status = 403;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_403_TOKEN_REQUIRED:
-                    $mock_name = 'errors/403_token_required.json';
-                    $status = 403;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_403_WRONG_REGION:
-                    $mock_name = 'errors/403_wrong_region.json';
-                    $status = 403;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_403_SUBSCRIPTION_NOT_ACTIVE:
-                    $mock_name = 'errors/403_subscription_not_active.json';
-                    $status = 403;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_429_ERROR:
-                    $mock_name = 'get_visitors_429_too_many_requests.json';
-                    $status = 429;
-                    $headers['retry-after'] = 30;
-
-                    break;
-
-                case self::MOCK_ERROR_429_TOO_MANY_REQUESTS:
-                    $mock_name = 'errors/429_too_many_requests.json';
-                    $status = 429;
-                    $headers['retry-after'] = 30;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_400_INCORRECT_VISITOR_ID:
-                    $mock_name = 'errors/400_visitor_id_invalid.json';
-                    $status = 400;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_400_EMPTY_VISITOR_ID:
-                    $mock_name = 'errors/400_visitor_id_required.json';
-                    $status = 400;
-
-                    break;
-
-                case self::MOCK_VISITOR_ID_404_ERROR:
-                    $mock_name = 'errors/404_visitor_not_found.json';
-                    $status = 404;
-
-                    break;
-
-                case self::MOCK_RELATED_VISITORS:
-                    $mock_name = 'related-visitors/get_related_visitors_200.json';
-
-                    break;
-            }
+        if (isset($map[$mockId])) {
+            [$file, $status] = $map[$mockId];
+            $headers = array_merge($headers, $map[$mockId][2] ?? []);
+        } elseif ('PUT' === $methodKey) {
+            $file = 'update_event.json';
+            $status = 200;
+        } else {
+            throw new RuntimeException("Unknown mock ID: $mockId for method: $method");
         }
 
-        if ('PUT' === $method) {
-            switch ($mockId) {
-                case self::MOCK_EVENT_ID:
-                default:
-                    $mock_name = 'update_event.json';
-
-                    break;
-
-                case self::MOCK_EVENT_ID_409_ERROR:
-                    $status = 409;
-                    $mock_name = 'errors/409_state_not_ready.json';
-
-                    break;
-
-                case self::MOCK_EVENT_ID_404_ERROR:
-                    $status = 404;
-                    $mock_name = 'errors/404_request_not_found.json';
-
-                    break;
-
-                case self::MOCK_EVENT_ID_403_TOKEN_REQUIRED:
-                    $status = 403;
-                    $mock_name = 'errors/403_token_required.json';
-
-                    break;
-
-                case self::MOCK_EVENT_ID_403_TOKEN_NOT_FOUND:
-                    $status = 403;
-                    $mock_name = 'errors/403_token_not_found.json';
-
-                    break;
-
-                case self::MOCK_EVENT_ID_403_WRONG_REGION:
-                    $status = 403;
-                    $mock_name = 'errors/403_wrong_region.json';
-
-                    break;
-
-                case self::MOCK_EVENT_ID_400_ERROR:
-                    $status = 400;
-                    $mock_name = 'errors/400_request_body_invalid.json';
-
-                    break;
-            }
-        }
-
-        $contents = file_get_contents(__DIR__ . "/mocks/{$mock_name}");
+        $contents = file_get_contents(__DIR__ . "/mocks/$file");
         if ($operationId) {
             $visits_mock_data = json_decode($contents);
             $visits_mock_data->visits = array_filter($visits_mock_data->visits, function ($item) use ($operationId) {
@@ -1165,7 +1304,7 @@ class FingerprintApiTest extends TestCase
 
     protected function returnMockResponse(string $path, $status = 200, array $headers = []): Response
     {
-        $contents = file_get_contents(__DIR__ . "/mocks/{$path}");
+        $contents = file_get_contents(__DIR__ . "/mocks/$path");
 
         return new Response($status, $headers, $contents);
     }
