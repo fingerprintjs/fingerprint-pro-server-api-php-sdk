@@ -1,0 +1,6 @@
+{
+  "error": {
+    "code": "event_not_found",
+    "message": "event id not found"
+  }
+}

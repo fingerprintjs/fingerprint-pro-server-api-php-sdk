@@ -1,6 +1,6 @@
 {
   "error": {
-    "code": "StateNotReady",
+    "code": "state_not_ready",
     "message": "resource is not mutable yet, try again"
   }
 }

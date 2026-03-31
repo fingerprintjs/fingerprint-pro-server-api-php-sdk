@@ -1,6 +1,6 @@
 {
   "error": {
-    "code": "FeatureNotEnabled",
+    "code": "feature_not_enabled",
     "message": "feature not enabled"
   }
 }
