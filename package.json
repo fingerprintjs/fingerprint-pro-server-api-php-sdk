@@ -1,5 +1,5 @@
 {
-  "name": "fingerprint-pro-server-api-php-sdk",
+  "name": "@fingerprint/php-sdk",
   "version": "6.10.0",
   "private": true,
   "devDependencies": {

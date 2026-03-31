@@ -1,4 +1,4 @@
-# Contributing to Fingerprint Pro Server API SDK
+# Contributing to Fingerprint Server PHP SDK
 
 ## Structure
 

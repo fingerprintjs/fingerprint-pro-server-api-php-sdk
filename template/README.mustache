@@ -18,7 +18,7 @@
 <a href="https://discord.gg/39EpE2neBg"><img src="https://img.shields.io/discord/852099967190433792?style=logo&label=Discord&logo=Discord&logoColor=white" alt="Discord server"></a>
 </p>
 
-# Fingerprint Server API PHP SDK
+# Fingerprint Server PHP SDK
 {{#appDescription}}
 **{{appDescription}}**
 {{/appDescription}}
@@ -79,8 +79,8 @@ Please follow the [installation procedure](#installation--usage) and then run th
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-// Fingerprint Pro Secret API Key
-const FPJS_API_SECRET = "Fingerprint Pro Secret API Key";
+// Fingerprint Secret API Key
+const FPJS_API_SECRET = "Fingerprint Secret API Key";
 // A mandatory visitorId of a specific visitor
 const FPJS_VISITOR_ID = "visitorId";
 // An optional requestId made by a specific visitor
@@ -93,7 +93,7 @@ const LIMIT = 10;
 // An optional parameter used to paginate results, see lastTimestamp
 const PAGINATION_KEY = "1683900801733.Ogvu1j";
 
-// Import Fingerprint Pro Classes and Guzzle Http Client
+// Import Fingerprint Server PHP SDK Classes and Guzzle Http Client
 use Fingerprint\ServerSdk\Api\FingerprintApi;
 use Fingerprint\ServerSdk\Configuration;
 use Fingerprint\ServerSdk\Model\EventsUpdateRequest;

@@ -1,4 +1,4 @@
-# Fingerprint Pro Server PHP SDK
+# Fingerprint Server PHP SDK
 
 ## 6.10.0
 
