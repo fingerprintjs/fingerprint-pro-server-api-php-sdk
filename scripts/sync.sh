@@ -1,6 +1,22 @@
 #!/bin/bash
 
-curl -o ./res/fingerprint-server-api.yaml https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/schemas/fingerprint-server-api-compact.yaml
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
+
+defaultBaseUrl="https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi"
+schemaUrl="${1:-$defaultBaseUrl/schemas/fingerprint-server-api-compact.yaml}"
+examplesBaseUrl="${2:-$defaultBaseUrl/examples}"
+
+mkdir -p ./res
+
+CURL_OPTS=(-fSL --retry 3)
+if [[ "${TRACE:-}" != "true" && "${ACTIONS_STEP_DEBUG:-}" != "true" ]]; then
+  CURL_OPTS+=(-s)
+fi
+
+require_cmd curl
+
+echo "Downloading \`$schemaUrl\`..."
+curl "${CURL_OPTS[@]}" -o ./res/fingerprint-server-api.yaml "$schemaUrl"
 
 examplesList=(
   'get_visits_200_limit_1.json'
@@ -34,14 +50,23 @@ sharedExamplesList=(
   '429_error_too_many_requests.json'
 )
 
-for example in ${examplesList[*]}; do
-  curl -o ./test/mocks/"$example" https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/examples/"$example"
-done
+examplesBaseDestination="./test/mocks"
+mkdir -p "$examplesBaseDestination"
 
-for example in ${sharedExamplesList[*]}; do
-  curl -o ./test/mocks/"$example" https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/examples/shared/"$example"
-done
+download_example() {
+  local subPath="$1"
+  shift
+  local examples=("$@")
 
-sed -i '' '/IpInfoResult:/,/IpBlockListResult:/ { /dataCenter:/ { N; d; }; }' ./res/fingerprint-server-api.yaml
+  for example in "${examples[@]}"; do
+    echo "Downloading \`$examplesBaseUrl/$example\` to \`$examplesBaseDestination/$example\`..."
+    curl "${CURL_OPTS[@]}" -o "$examplesBaseDestination/$example" "$examplesBaseUrl/$subPath$example"
+  done
+}
+
+download_example "" "${examplesList[@]}"
+download_example "shared/" "${sharedExamplesList[@]}"
+
+sed_in_place '/IpInfoResult:/,/IpBlockListResult:/ { /dataCenter:/ { N; d; }; }' ./res/fingerprint-server-api.yaml
 
 ./scripts/generate.sh

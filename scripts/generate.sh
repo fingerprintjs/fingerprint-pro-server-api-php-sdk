@@ -1,10 +1,21 @@
 #!/bin/bash
 
-shopt -s extglob
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
+#############
+# Constants #
+#############
+SWAGGER_CODEGEN_IMAGE_VERSION="3.0.78"
+PHP_CS_FIXER_IMAGE_VERSION="3.64-php8.3"
+
+######################
+# Version Resolution #
+######################
+require_cmd jq
 VERSION=$(jq -r '.version' package.json)
 
 while getopts "v:" arg; do
+  # shellcheck disable=SC2220
   case $arg in
     v)
       VERSION=$OPTARG
@@ -12,83 +23,72 @@ while getopts "v:" arg; do
   esac
 done
 
-# jar was downloaded from here https://repo1.maven.org/maven2/io/swagger/codegen/v3/swagger-codegen-cli/3.0.34/
-
 VERSION=${VERSION//develop/dev}
 
+# Convert development version strings into PHP-semver-compatible beta versions.
 if [[ $VERSION =~ ^dev[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]([0-9]+)$ ]]; then
-    # Example for the regex above:
-    # dev.1.0.0.0
-    # dev-1.0.0-0
-    # dev.1.0.0-0
-    # dev-1.0.0.0
-    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
+  # Example for the regex above:
+  # dev.1.0.0.0
+  # dev-1.0.0-0
+  # dev.1.0.0-0
+  # dev-1.0.0.0
+  VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
 elif [[ $VERSION =~ ^([0-9]+)[.-]([0-9]+)[.-]([0-9]+)[.-]dev[.-]([0-9]+)$ ]]; then
-    # Example for the regex above:
-    # 1.0.0.dev.0
-    # 1.0.0.dev-0
-    # 1.0.0-dev-0
-    # 1.0.0-dev.0
-    VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
+  # Example for the regex above:
+  # 1.0.0.dev.0
+  # 1.0.0.dev-0
+  # 1.0.0-dev-0
+  # 1.0.0-dev.0
+  VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}-beta.${BASH_REMATCH[4]}"
 elif [[ $VERSION == dev-* ]]; then
-    _temp_part=${VERSION#dev-}
-    VERSION="${_temp_part//-/.}-beta"
+  _temp_part=${VERSION#dev-}
+  VERSION="${_temp_part//-/.}-beta"
 elif [[ $VERSION == *-dev* ]]; then
-    _temp_part=${VERSION#*-dev}
-    _temp_part=${_temp_part//-/.}
-    VERSION="${VERSION%%-dev*}-beta$_temp_part"
+  _temp_part=${VERSION#*-dev}
+  _temp_part=${_temp_part//-/.}
+  VERSION="${VERSION%%-dev*}-beta$_temp_part"
 fi
 
 echo "VERSION: $VERSION"
 
-# Platform check
-platform=$(uname)
-(
-  # Model file fix
-  if [ "$platform" = "Darwin" ]; then
-    sed -i '' "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
-  else
-    sed -i "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
-  fi
-)
+# Update `config.json` version
+sed_in_place "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g" config.json
 
-# clean models before generating
+################
+# Generate SDK #
+################
+require_cmd docker
+
 rm -f ./src/Model/*
 
-java -jar ./bin/swagger-codegen-cli.jar generate -t ./template -l php -i ./res/fingerprint-server-api.yaml -o ./ -c config.json --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array,GeolocationSubdivisions=array
+docker run --rm -u "$(id -u):$(id -g)" -v "${PWD}:/local" -w /local \
+  "swaggerapi/swagger-codegen-cli-v3:${SWAGGER_CODEGEN_IMAGE_VERSION}" generate \
+  -t ./template \
+  -l php \
+  -i ./res/fingerprint-server-api.yaml \
+  -o ./ \
+  -c ./config.json \
+  --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array,GeolocationSubdivisions=array
 
+# Format generated code
 if [ ! -f .php-cs-fixer.php ]; then
   echo ".php-cs-fixer.php configuration file not found!"
   exit 1
 fi
 
-echo "Using .php-cs-fixer.php configuration:"
-cat .php-cs-fixer.php
+docker run --rm -u "$(id -u):$(id -g)" -v "${PWD}:/code" \
+  "ghcr.io/php-cs-fixer/php-cs-fixer:${PHP_CS_FIXER_IMAGE_VERSION}" fix \
+  --config=/code/.php-cs-fixer.php
 
-docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:3.64-php8.3 fix --config=/code/.php-cs-fixer.php
+# Fix generated code
+sed_in_place_glob 's/\\Fingerprint\\ServerAPI\\Model\\array/array/' ./src/Model/*
+sed_in_place_glob 's/\\Fingerprint\\ServerAPI\\Model\\mixed/mixed/' ./src/Model/*
+sed_in_place_glob 's/?mixed/mixed/' ./src/Model/*
+sed_in_place_glob 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\array\*\*\](array\.md)/array/' ./src/docs/Model/*
+sed_in_place_glob 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\mixed\*\*\](mixed\.md)/mixed/' ./src/docs/Model/*
 
-# fix invalid code generated for Models and docs
-(
-  # Model and docs files fix
-  if [ "$platform" = "Darwin" ]; then
-    sed -i '' 's/\\Fingerprint\\ServerAPI\\Model\\array/array/' ./src/Model/*
-    sed -i '' 's/\\Fingerprint\\ServerAPI\\Model\\mixed/mixed/' ./src/Model/*
-    sed -i '' 's/?mixed/mixed/' ./src/Model/*
-    sed -i '' 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\array\*\*\](array\.md)/array/' ./src/docs/Model/*
-    sed -i '' 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\mixed\*\*\](mixed\.md)/mixed/' ./src/docs/Model/*
-
-  else
-    sed -i 's/\\Fingerprint\\ServerAPI\\Model\\array/array/' ./src/Model/*
-    sed -i 's/\\Fingerprint\\ServerAPI\\Model\\mixed/mixed/' ./src/Model/*
-    sed -i 's/?mixed/mixed/' ./src/Model/*
-    sed -i 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\array\*\*\](array\.md)/array/' ./src/docs/Model/*
-    sed -i 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\mixed\*\*\](mixed\.md)/mixed/' ./src/docs/Model/*
-  fi
-)
-
-# cleanup replaced models from readme
-(
-  patterns=(
+# Cleanup documentation
+patterns=(
   '\[RawDeviceAttribute\](docs\/Model\/RawDeviceAttribute\.md)'
   '\[RawDeviceAttributeError\](docs\/Model\/RawDeviceAttributeError\.md)'
   '\[RawDeviceAttributes\](docs\/Model\/RawDeviceAttributes\.md)'
@@ -96,18 +96,12 @@ docker run --rm -v $(pwd):/code ghcr.io/php-cs-fixer/php-cs-fixer:3.64-php8.3 fi
   '\[Tag\](docs\/Model\/Tag\.md)'
   '\[GeolocationSubdivisions\](docs\/Model\/GeolocationSubdivisions\.md)'
   '\[GeolocationSubdivision\](docs\/Model\/GeolocationSubdivision\.md)'
-  )
-  if [ "$platform" = "Darwin" ]; then
-    for pattern in "${patterns[@]}"; do
-        sed -i '' "/$pattern/d" src/README.md
-    done
-  else
-    for pattern in "${patterns[@]}"; do
-        sed -i "/$pattern/d" src/README.md
-    done
-  fi
 )
+for pattern in "${patterns[@]}"; do
+  sed_in_place "/$pattern/d" src/README.md
+done
 
+# Move generated files
 mv -f src/README.md ./README.md
 mv -f src/composer.json composer.json
 rm ./docs/Api/*
