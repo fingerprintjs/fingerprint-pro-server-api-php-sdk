@@ -26,14 +26,14 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Api;
+namespace Fingerprint\ServerSdk\Api;
 
-use Fingerprint\ServerAPI\ApiException;
-use Fingerprint\ServerAPI\Configuration;
-use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
-use Fingerprint\ServerAPI\Model\ModelInterface;
-use Fingerprint\ServerAPI\ObjectSerializer;
-use Fingerprint\ServerAPI\SerializationException;
+use Fingerprint\ServerSdk\ApiException;
+use Fingerprint\ServerSdk\Configuration;
+use Fingerprint\ServerSdk\Model\EventsUpdateRequest;
+use Fingerprint\ServerSdk\Model\ModelInterface;
+use Fingerprint\ServerSdk\ObjectSerializer;
+use Fingerprint\ServerSdk\SerializationException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
@@ -130,28 +130,28 @@ class FingerprintApi
 
             switch ($e->getCode()) {
                 case 400:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 403:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 404:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 429:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
@@ -215,28 +215,28 @@ class FingerprintApi
 
                     switch ($e->getCode()) {
                         case 400:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 403:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 404:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 429:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
@@ -262,7 +262,7 @@ class FingerprintApi
      *
      * @param string $request_id The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request. (required)
      *
-     * @return array{ \Fingerprint\ServerAPI\Model\EventsGetResponse|null, \Psr\Http\Message\ResponseInterface }
+     * @return array{ \Fingerprint\ServerSdk\Model\EventsGetResponse|null, \Psr\Http\Message\ResponseInterface }
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
@@ -272,7 +272,7 @@ class FingerprintApi
     public function getEvent(
         string $request_id
     ): array {
-        $returnType = '\Fingerprint\ServerAPI\Model\EventsGetResponse';
+        $returnType = '\Fingerprint\ServerSdk\Model\EventsGetResponse';
         $request = $this->getEventRequest($request_id);
 
         try {
@@ -315,21 +315,21 @@ class FingerprintApi
 
             switch ($e->getCode()) {
                 case 200:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\EventsGetResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\EventsGetResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 403:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 404:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
@@ -362,7 +362,7 @@ class FingerprintApi
     public function getEventAsync(
         string $request_id
     ): PromiseInterface {
-        $returnType = '\Fingerprint\ServerAPI\Model\EventsGetResponse';
+        $returnType = '\Fingerprint\ServerSdk\Model\EventsGetResponse';
         $request = $this->getEventRequest($request_id);
 
         return $this->client
@@ -395,21 +395,21 @@ class FingerprintApi
 
                     switch ($e->getCode()) {
                         case 200:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\EventsGetResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\EventsGetResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 403:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 404:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
@@ -435,7 +435,7 @@ class FingerprintApi
      *
      * @param string $visitor_id The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device. (required)
      *
-     * @return array{ \Fingerprint\ServerAPI\Model\RelatedVisitorsResponse|null, \Psr\Http\Message\ResponseInterface }
+     * @return array{ \Fingerprint\ServerSdk\Model\RelatedVisitorsResponse|null, \Psr\Http\Message\ResponseInterface }
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
@@ -445,7 +445,7 @@ class FingerprintApi
     public function getRelatedVisitors(
         string $visitor_id
     ): array {
-        $returnType = '\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse';
+        $returnType = '\Fingerprint\ServerSdk\Model\RelatedVisitorsResponse';
         $request = $this->getRelatedVisitorsRequest($visitor_id);
 
         try {
@@ -488,35 +488,35 @@ class FingerprintApi
 
             switch ($e->getCode()) {
                 case 200:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\RelatedVisitorsResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 400:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 403:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 404:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 429:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
@@ -549,7 +549,7 @@ class FingerprintApi
     public function getRelatedVisitorsAsync(
         string $visitor_id
     ): PromiseInterface {
-        $returnType = '\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse';
+        $returnType = '\Fingerprint\ServerSdk\Model\RelatedVisitorsResponse';
         $request = $this->getRelatedVisitorsRequest($visitor_id);
 
         return $this->client
@@ -582,35 +582,35 @@ class FingerprintApi
 
                     switch ($e->getCode()) {
                         case 200:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\RelatedVisitorsResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 400:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 403:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 404:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 429:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
@@ -641,7 +641,7 @@ class FingerprintApi
      * @param string $pagination_key Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. (optional)
      * @param int    $before         ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
      *
-     * @return array{ \Fingerprint\ServerAPI\Model\VisitorsGetResponse|null, \Psr\Http\Message\ResponseInterface }
+     * @return array{ \Fingerprint\ServerSdk\Model\VisitorsGetResponse|null, \Psr\Http\Message\ResponseInterface }
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
@@ -656,7 +656,7 @@ class FingerprintApi
         ?string $pagination_key = null,
         ?int $before = null
     ): array {
-        $returnType = '\Fingerprint\ServerAPI\Model\VisitorsGetResponse';
+        $returnType = '\Fingerprint\ServerSdk\Model\VisitorsGetResponse';
         $request = $this->getVisitsRequest($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before);
 
         try {
@@ -699,28 +699,28 @@ class FingerprintApi
 
             switch ($e->getCode()) {
                 case 200:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\VisitorsGetResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\VisitorsGetResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 400:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorPlainResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 403:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorPlainResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 429:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorPlainResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
@@ -763,7 +763,7 @@ class FingerprintApi
         ?string $pagination_key = null,
         ?int $before = null
     ): PromiseInterface {
-        $returnType = '\Fingerprint\ServerAPI\Model\VisitorsGetResponse';
+        $returnType = '\Fingerprint\ServerSdk\Model\VisitorsGetResponse';
         $request = $this->getVisitsRequest($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before);
 
         return $this->client
@@ -796,28 +796,28 @@ class FingerprintApi
 
                     switch ($e->getCode()) {
                         case 200:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\VisitorsGetResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\VisitorsGetResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 400:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorPlainResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 403:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorPlainResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 429:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorPlainResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
@@ -877,7 +877,7 @@ class FingerprintApi
      * @param string   $proximity_id               Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response. (optional)
      * @param int      $proximity_precision_radius Filter events by Proximity Radius. > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response. (optional)
      *
-     * @return array{ \Fingerprint\ServerAPI\Model\SearchEventsResponse|null, \Psr\Http\Message\ResponseInterface }
+     * @return array{ \Fingerprint\ServerSdk\Model\SearchEventsResponse|null, \Psr\Http\Message\ResponseInterface }
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
@@ -921,7 +921,7 @@ class FingerprintApi
         ?string $proximity_id = null,
         ?int $proximity_precision_radius = null
     ): array {
-        $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
+        $returnType = '\Fingerprint\ServerSdk\Model\SearchEventsResponse';
         $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $ip_blocklist, $datacenter, $developer_tools, $location_spoofing, $mitm_attack, $proxy, $sdk_version, $sdk_platform, $environment, $proximity_id, $proximity_precision_radius);
 
         try {
@@ -964,21 +964,21 @@ class FingerprintApi
 
             switch ($e->getCode()) {
                 case 200:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\SearchEventsResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\SearchEventsResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 400:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 403:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
@@ -1079,7 +1079,7 @@ class FingerprintApi
         ?string $proximity_id = null,
         ?int $proximity_precision_radius = null
     ): PromiseInterface {
-        $returnType = '\Fingerprint\ServerAPI\Model\SearchEventsResponse';
+        $returnType = '\Fingerprint\ServerSdk\Model\SearchEventsResponse';
         $request = $this->searchEventsRequest($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $ip_blocklist, $datacenter, $developer_tools, $location_spoofing, $mitm_attack, $proxy, $sdk_version, $sdk_platform, $environment, $proximity_id, $proximity_precision_radius);
 
         return $this->client
@@ -1112,21 +1112,21 @@ class FingerprintApi
 
                     switch ($e->getCode()) {
                         case 200:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\SearchEventsResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\SearchEventsResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 400:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 403:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
@@ -1205,28 +1205,28 @@ class FingerprintApi
 
             switch ($e->getCode()) {
                 case 400:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 403:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 404:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
                     break;
 
                 case 409:
-                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
@@ -1292,28 +1292,28 @@ class FingerprintApi
 
                     switch ($e->getCode()) {
                         case 400:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 403:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 404:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
                             break;
 
                         case 409:
-                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerSdk\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 

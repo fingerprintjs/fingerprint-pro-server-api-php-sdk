@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * IPInfoV6 Class Doc Comment.
@@ -53,9 +53,9 @@ class IPInfoV6 implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'address' => 'string',
-        'geolocation' => '\Fingerprint\ServerAPI\Model\Geolocation',
-        'asn' => '\Fingerprint\ServerAPI\Model\IPInfoASN',
-        'datacenter' => '\Fingerprint\ServerAPI\Model\IPInfoDataCenter'];
+        'geolocation' => '\Fingerprint\ServerSdk\Model\Geolocation',
+        'asn' => '\Fingerprint\ServerSdk\Model\IPInfoASN',
+        'datacenter' => '\Fingerprint\ServerSdk\Model\IPInfoDataCenter'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -266,7 +266,7 @@ class IPInfoV6 implements ModelInterface, \ArrayAccess
     /**
      * Sets asn.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IPInfoASN $asn asn
+     * @param ?\Fingerprint\ServerSdk\Model\IPInfoASN $asn asn
      *
      * @return $this
      */
@@ -288,7 +288,7 @@ class IPInfoV6 implements ModelInterface, \ArrayAccess
     /**
      * Sets datacenter.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IPInfoDataCenter $datacenter datacenter
+     * @param ?\Fingerprint\ServerSdk\Model\IPInfoDataCenter $datacenter datacenter
      *
      * @return $this
      */

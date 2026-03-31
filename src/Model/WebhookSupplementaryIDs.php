@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * WebhookSupplementaryIDs Class Doc Comment.
@@ -54,8 +54,8 @@ class WebhookSupplementaryIDs implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'standard' => '\Fingerprint\ServerAPI\Model\SupplementaryID',
-        'high_recall' => '\Fingerprint\ServerAPI\Model\SupplementaryID'];
+        'standard' => '\Fingerprint\ServerSdk\Model\SupplementaryID',
+        'high_recall' => '\Fingerprint\ServerSdk\Model\SupplementaryID'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.

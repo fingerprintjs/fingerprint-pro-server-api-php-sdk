@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * ProductVirtualMachine Class Doc Comment.
@@ -52,8 +52,8 @@ class ProductVirtualMachine implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\VirtualMachine',
-        'error' => '\Fingerprint\ServerAPI\Model\Error'];
+        'data' => '\Fingerprint\ServerSdk\Model\VirtualMachine',
+        'error' => '\Fingerprint\ServerSdk\Model\Error'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -201,7 +201,7 @@ class ProductVirtualMachine implements ModelInterface, \ArrayAccess
     /**
      * Sets data.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VirtualMachine $data data
+     * @param ?\Fingerprint\ServerSdk\Model\VirtualMachine $data data
      *
      * @return $this
      */
@@ -223,7 +223,7 @@ class ProductVirtualMachine implements ModelInterface, \ArrayAccess
     /**
      * Sets error.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\Error $error error
+     * @param ?\Fingerprint\ServerSdk\Model\Error $error error
      *
      * @return $this
      */

@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * WebhookVPN Class Doc Comment.
@@ -53,10 +53,10 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'result' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\VPNConfidence',
+        'confidence' => '\Fingerprint\ServerSdk\Model\VPNConfidence',
         'origin_timezone' => 'string',
         'origin_country' => 'string',
-        'methods' => '\Fingerprint\ServerAPI\Model\VPNMethods'];
+        'methods' => '\Fingerprint\ServerSdk\Model\VPNMethods'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -241,7 +241,7 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
     /**
      * Sets confidence.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VPNConfidence $confidence confidence
+     * @param ?\Fingerprint\ServerSdk\Model\VPNConfidence $confidence confidence
      *
      * @return $this
      */
@@ -307,7 +307,7 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
     /**
      * Sets methods.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VPNMethods $methods methods
+     * @param ?\Fingerprint\ServerSdk\Model\VPNMethods $methods methods
      *
      * @return $this
      */

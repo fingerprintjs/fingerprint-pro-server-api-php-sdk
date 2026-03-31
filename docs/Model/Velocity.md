@@ -20,13 +20,13 @@ hours (`events.intervals.['24h']`) is higher than 20.000.
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**distinct_ip** | [**\Fingerprint\ServerAPI\Model\VelocityData**](VelocityData.md) |  | 
-**distinct_linked_id** | [**\Fingerprint\ServerAPI\Model\VelocityData**](VelocityData.md) |  | 
-**distinct_country** | [**\Fingerprint\ServerAPI\Model\VelocityData**](VelocityData.md) |  | 
-**events** | [**\Fingerprint\ServerAPI\Model\VelocityData**](VelocityData.md) |  | 
-**ip_events** | [**\Fingerprint\ServerAPI\Model\VelocityData**](VelocityData.md) |  | 
-**distinct_ip_by_linked_id** | [**\Fingerprint\ServerAPI\Model\VelocityData**](VelocityData.md) |  | 
-**distinct_visitor_id_by_linked_id** | [**\Fingerprint\ServerAPI\Model\VelocityData**](VelocityData.md) |  | 
+**distinct_ip** | [**\Fingerprint\ServerSdk\Model\VelocityData**](VelocityData.md) |  | 
+**distinct_linked_id** | [**\Fingerprint\ServerSdk\Model\VelocityData**](VelocityData.md) |  | 
+**distinct_country** | [**\Fingerprint\ServerSdk\Model\VelocityData**](VelocityData.md) |  | 
+**events** | [**\Fingerprint\ServerSdk\Model\VelocityData**](VelocityData.md) |  | 
+**ip_events** | [**\Fingerprint\ServerSdk\Model\VelocityData**](VelocityData.md) |  | 
+**distinct_ip_by_linked_id** | [**\Fingerprint\ServerSdk\Model\VelocityData**](VelocityData.md) |  | 
+**distinct_visitor_id_by_linked_id** | [**\Fingerprint\ServerSdk\Model\VelocityData**](VelocityData.md) |  | 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

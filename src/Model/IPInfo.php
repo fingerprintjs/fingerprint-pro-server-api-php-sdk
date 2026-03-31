@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * IPInfo Class Doc Comment.
@@ -54,8 +54,8 @@ class IPInfo implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'v4' => '\Fingerprint\ServerAPI\Model\IPInfoV4',
-        'v6' => '\Fingerprint\ServerAPI\Model\IPInfoV6'];
+        'v4' => '\Fingerprint\ServerSdk\Model\IPInfoV4',
+        'v6' => '\Fingerprint\ServerSdk\Model\IPInfoV6'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -203,7 +203,7 @@ class IPInfo implements ModelInterface, \ArrayAccess
     /**
      * Sets v4.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IPInfoV4 $v4 v4
+     * @param ?\Fingerprint\ServerSdk\Model\IPInfoV4 $v4 v4
      *
      * @return $this
      */
@@ -225,7 +225,7 @@ class IPInfo implements ModelInterface, \ArrayAccess
     /**
      * Sets v6.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IPInfoV6 $v6 v6
+     * @param ?\Fingerprint\ServerSdk\Model\IPInfoV6 $v6 v6
      *
      * @return $this
      */

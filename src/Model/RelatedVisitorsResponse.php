@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * RelatedVisitorsResponse Class Doc Comment.
@@ -52,7 +52,7 @@ class RelatedVisitorsResponse implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'related_visitors' => '\Fingerprint\ServerAPI\Model\RelatedVisitor[]'];
+        'related_visitors' => '\Fingerprint\ServerSdk\Model\RelatedVisitor[]'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -193,7 +193,7 @@ class RelatedVisitorsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets related_visitors.
      *
-     * @return \Fingerprint\ServerAPI\Model\RelatedVisitor[]
+     * @return \Fingerprint\ServerSdk\Model\RelatedVisitor[]
      */
     public function getRelatedVisitors(): array
     {
@@ -203,7 +203,7 @@ class RelatedVisitorsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets related_visitors.
      *
-     * @param \Fingerprint\ServerAPI\Model\RelatedVisitor[] $related_visitors related_visitors
+     * @param \Fingerprint\ServerSdk\Model\RelatedVisitor[] $related_visitors related_visitors
      *
      * @return $this
      */

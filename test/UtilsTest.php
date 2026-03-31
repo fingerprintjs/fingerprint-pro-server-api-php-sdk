@@ -1,8 +1,8 @@
 <?php
 
-namespace Fingerprint\ServerAPI;
+namespace Fingerprint\ServerSdk;
 
-use Fingerprint\ServerAPI\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 use ReflectionMethod;

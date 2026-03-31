@@ -26,8 +26,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
 
 // Import Fingerprint Classes and Guzzle HTTP Client
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region

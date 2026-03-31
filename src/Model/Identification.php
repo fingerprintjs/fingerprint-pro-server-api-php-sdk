@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * Identification Class Doc Comment.
@@ -54,23 +54,23 @@ class Identification implements ModelInterface, \ArrayAccess
     protected static array $swaggerTypes = [
         'visitor_id' => 'string',
         'request_id' => 'string',
-        'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
+        'browser_details' => '\Fingerprint\ServerSdk\Model\BrowserDetails',
         'incognito' => 'bool',
         'ip' => 'string',
-        'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedGeolocation',
+        'ip_location' => '\Fingerprint\ServerSdk\Model\DeprecatedGeolocation',
         'linked_id' => 'string',
         'suspect' => 'bool',
         'timestamp' => 'int',
         'time' => '\DateTime',
         'url' => 'string',
         'tag' => 'array',
-        'confidence' => '\Fingerprint\ServerAPI\Model\IdentificationConfidence',
+        'confidence' => '\Fingerprint\ServerSdk\Model\IdentificationConfidence',
         'visitor_found' => 'bool',
-        'first_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
-        'last_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
+        'first_seen_at' => '\Fingerprint\ServerSdk\Model\IdentificationSeenAt',
+        'last_seen_at' => '\Fingerprint\ServerSdk\Model\IdentificationSeenAt',
         'components' => 'array',
         'replayed' => 'bool',
-        'sdk' => '\Fingerprint\ServerAPI\Model\SDK',
+        'sdk' => '\Fingerprint\ServerSdk\Model\SDK',
         'environment_id' => 'string'];
 
     /**
@@ -461,7 +461,7 @@ class Identification implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_location.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\DeprecatedGeolocation $ip_location ip_location
+     * @param ?\Fingerprint\ServerSdk\Model\DeprecatedGeolocation $ip_location ip_location
      *
      * @return $this
      */
@@ -615,7 +615,7 @@ class Identification implements ModelInterface, \ArrayAccess
     /**
      * Sets confidence.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IdentificationConfidence $confidence confidence
+     * @param ?\Fingerprint\ServerSdk\Model\IdentificationConfidence $confidence confidence
      *
      * @return $this
      */
@@ -747,7 +747,7 @@ class Identification implements ModelInterface, \ArrayAccess
     /**
      * Sets sdk.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\SDK $sdk sdk
+     * @param ?\Fingerprint\ServerSdk\Model\SDK $sdk sdk
      *
      * @return $this
      */

@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * SupplementaryID Class Doc Comment.
@@ -54,9 +54,9 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     protected static array $swaggerTypes = [
         'visitor_id' => 'string',
         'visitor_found' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\IdentificationConfidence',
-        'first_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
-        'last_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt'];
+        'confidence' => '\Fingerprint\ServerSdk\Model\IdentificationConfidence',
+        'first_seen_at' => '\Fingerprint\ServerSdk\Model\IdentificationSeenAt',
+        'last_seen_at' => '\Fingerprint\ServerSdk\Model\IdentificationSeenAt'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -263,7 +263,7 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     /**
      * Sets confidence.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IdentificationConfidence $confidence confidence
+     * @param ?\Fingerprint\ServerSdk\Model\IdentificationConfidence $confidence confidence
      *
      * @return $this
      */
@@ -285,7 +285,7 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     /**
      * Sets first_seen_at.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt $first_seen_at first_seen_at
+     * @param ?\Fingerprint\ServerSdk\Model\IdentificationSeenAt $first_seen_at first_seen_at
      *
      * @return $this
      */
@@ -307,7 +307,7 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     /**
      * Sets last_seen_at.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt $last_seen_at last_seen_at
+     * @param ?\Fingerprint\ServerSdk\Model\IdentificationSeenAt $last_seen_at last_seen_at
      *
      * @return $this
      */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fingerprint\ServerAPI\Sealed;
+namespace Fingerprint\ServerSdk\Sealed;
 
 class UnsealAggregateException extends \Exception
 {

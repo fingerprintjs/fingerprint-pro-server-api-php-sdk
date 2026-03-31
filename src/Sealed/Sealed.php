@@ -1,10 +1,10 @@
 <?php
 
-namespace Fingerprint\ServerAPI\Sealed;
+namespace Fingerprint\ServerSdk\Sealed;
 
-use Fingerprint\ServerAPI\Model\EventsGetResponse;
-use Fingerprint\ServerAPI\ObjectSerializer;
-use Fingerprint\ServerAPI\SerializationException;
+use Fingerprint\ServerSdk\Model\EventsGetResponse;
+use Fingerprint\ServerSdk\ObjectSerializer;
+use Fingerprint\ServerSdk\SerializationException;
 use GuzzleHttp\Psr7\Response;
 
 class Sealed

@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * WebhookIPBlocklist Class Doc Comment.
@@ -53,7 +53,7 @@ class WebhookIPBlocklist implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'result' => 'bool',
-        'details' => '\Fingerprint\ServerAPI\Model\IPBlocklistDetails'];
+        'details' => '\Fingerprint\ServerSdk\Model\IPBlocklistDetails'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -223,7 +223,7 @@ class WebhookIPBlocklist implements ModelInterface, \ArrayAccess
     /**
      * Sets details.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IPBlocklistDetails $details details
+     * @param ?\Fingerprint\ServerSdk\Model\IPBlocklistDetails $details details
      *
      * @return $this
      */

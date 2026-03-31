@@ -5,7 +5,7 @@ Contains all the information from Bot Detection product
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**bot** | [**\Fingerprint\ServerAPI\Model\BotdBot**](BotdBot.md) |  | 
+**bot** | [**\Fingerprint\ServerSdk\Model\BotdBot**](BotdBot.md) |  | 
 **meta** | array |  | [optional] 
 **linked_id** | **string** | A customer-provided id that was sent with the request. | [optional] 
 **url** | **string** | Page URL from which the request was sent. | 

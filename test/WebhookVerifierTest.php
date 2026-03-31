@@ -1,8 +1,8 @@
 <?php
 
-namespace Fingerprint\ServerAPI;
+namespace Fingerprint\ServerSdk;
 
-use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
+use Fingerprint\ServerSdk\Webhook\WebhookVerifier;
 use PHPUnit\Framework\TestCase;
 
 /**

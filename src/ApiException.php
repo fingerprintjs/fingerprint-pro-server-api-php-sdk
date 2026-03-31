@@ -26,9 +26,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI;
+namespace Fingerprint\ServerSdk;
 
-use Fingerprint\ServerAPI\Model\ModelInterface;
+use Fingerprint\ServerSdk\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**

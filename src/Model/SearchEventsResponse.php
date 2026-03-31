@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * SearchEventsResponse Class Doc Comment.
@@ -54,7 +54,7 @@ class SearchEventsResponse implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'events' => '\Fingerprint\ServerAPI\Model\SearchEventsResponseEvents[]',
+        'events' => '\Fingerprint\ServerSdk\Model\SearchEventsResponseEvents[]',
         'pagination_key' => 'string'];
 
     /**
@@ -195,7 +195,7 @@ class SearchEventsResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets events.
      *
-     * @return ?\Fingerprint\ServerAPI\Model\SearchEventsResponseEvents[]
+     * @return ?\Fingerprint\ServerSdk\Model\SearchEventsResponseEvents[]
      */
     public function getEvents(): ?array
     {
@@ -205,7 +205,7 @@ class SearchEventsResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets events.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\SearchEventsResponseEvents[] $events events
+     * @param ?\Fingerprint\ServerSdk\Model\SearchEventsResponseEvents[] $events events
      *
      * @return $this
      */

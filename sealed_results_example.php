@@ -1,8 +1,8 @@
 <?php
 
-use Fingerprint\ServerAPI\Sealed\DecryptionAlgorithm;
-use Fingerprint\ServerAPI\Sealed\DecryptionKey;
-use Fingerprint\ServerAPI\Sealed\Sealed;
+use Fingerprint\ServerSdk\Sealed\DecryptionAlgorithm;
+use Fingerprint\ServerSdk\Sealed\DecryptionKey;
+use Fingerprint\ServerSdk\Sealed\Sealed;
 
 require_once __DIR__.'/vendor/autoload.php';
 

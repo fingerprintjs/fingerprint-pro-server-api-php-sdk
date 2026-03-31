@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * Geolocation Class Doc Comment.
@@ -57,9 +57,9 @@ class Geolocation implements ModelInterface, \ArrayAccess
         'longitude' => 'double',
         'postal_code' => 'string',
         'timezone' => 'string',
-        'city' => '\Fingerprint\ServerAPI\Model\GeolocationCity',
-        'country' => '\Fingerprint\ServerAPI\Model\GeolocationCountry',
-        'continent' => '\Fingerprint\ServerAPI\Model\GeolocationContinent',
+        'city' => '\Fingerprint\ServerSdk\Model\GeolocationCity',
+        'country' => '\Fingerprint\ServerSdk\Model\GeolocationCountry',
+        'continent' => '\Fingerprint\ServerSdk\Model\GeolocationContinent',
         'subdivisions' => 'array'];
 
     /**
@@ -357,7 +357,7 @@ class Geolocation implements ModelInterface, \ArrayAccess
     /**
      * Sets city.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\GeolocationCity $city city
+     * @param ?\Fingerprint\ServerSdk\Model\GeolocationCity $city city
      *
      * @return $this
      */
@@ -379,7 +379,7 @@ class Geolocation implements ModelInterface, \ArrayAccess
     /**
      * Sets country.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\GeolocationCountry $country country
+     * @param ?\Fingerprint\ServerSdk\Model\GeolocationCountry $country country
      *
      * @return $this
      */
@@ -401,7 +401,7 @@ class Geolocation implements ModelInterface, \ArrayAccess
     /**
      * Sets continent.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\GeolocationContinent $continent continent
+     * @param ?\Fingerprint\ServerSdk\Model\GeolocationContinent $continent continent
      *
      * @return $this
      */

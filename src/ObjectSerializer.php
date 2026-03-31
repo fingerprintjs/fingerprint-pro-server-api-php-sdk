@@ -28,7 +28,7 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI;
+namespace Fingerprint\ServerSdk;
 
 use Psr\Http\Message\ResponseInterface;
 
