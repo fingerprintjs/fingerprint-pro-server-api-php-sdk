@@ -1,8 +1,7 @@
 <?php
 
 /**
- * ApiException
- * PHP version 8.1.
+ * ApiException.
  *
  * @category Class
  *

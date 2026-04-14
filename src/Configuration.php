@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Configuration
- * PHP version 8.1.
+ * Configuration.
  *
  * @category Class
  *
@@ -31,8 +30,7 @@
 namespace Fingerprint\ServerSdk;
 
 /**
- * Configuration Class Doc Comment
- * PHP version 8.1.
+ * Configuration Class Doc Comment.
  *
  * @category Class
  *
