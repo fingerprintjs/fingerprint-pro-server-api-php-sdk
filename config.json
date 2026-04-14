@@ -4,9 +4,9 @@
   "invokerPackage": "Fingerprint\\ServerSdk",
   "composerVendorName": "fingerprint",
   "composerProjectName": "server-sdk",
-  "packageUrl": "https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk",
+  "packageUrl": "https://github.com/fingerprintjs/php-sdk",
   "gitUserId": "fingerprintjs",
-  "gitRepoId": "fingerprint-pro-server-api-php-sdk",
+  "gitRepoId": "php-sdk",
   "description": "Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.",
   "artifactVersion": "6.10.0"
 }
