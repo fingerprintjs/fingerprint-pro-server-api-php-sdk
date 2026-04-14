@@ -3,7 +3,7 @@
   "changelog": [
     "@fingerprintjs/changesets-changelog-format",
     {
-      "repo": "fingerprintjs/fingerprint-pro-server-api-php-sdk"
+      "repo": "fingerprintjs/php-sdk"
     }
   ],
   "commit": false,
