@@ -176,52 +176,7 @@ class FingerprintApi
 
             return [null, $response];
         } catch (ApiException $e) {
-            /** @var ResponseInterface $response */
-            $response = $e->getResponseObject();
-            $errorCode = $e->getCode();
-
-            $content = (string) $response->getBody();
-            $response->getBody()->rewind();
-
-            switch ($errorCode) {
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-            }
-
-            throw $e;
+            $this->handleDeleteVisitorDataError($e);
         }
     }
 
@@ -260,8 +215,6 @@ class FingerprintApi
      * @return PromiseInterface promise resolving to an array of deserialized data and the HTTP response
      *
      * @throws \InvalidArgumentException
-     *
-     * @noinspection PhpDuplicateSwitchCaseBodyInspection
      */
     public function deleteVisitorDataAsyncWithHttpInfo(string $visitor_id): PromiseInterface
     {
@@ -274,49 +227,7 @@ class FingerprintApi
                     return [null, $response];
                 },
                 function ($e) {
-                    /** @var ResponseInterface $response */
-                    $response = $e->getResponseObject();
-                    $errorCode = $e->getCode();
-
-                    switch ($e->getCode()) {
-                        case 400:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 403:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 404:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 429:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-                    }
-
-                    throw $e;
+                    $this->handleDeleteVisitorDataError($e);
                 }
             );
     }
@@ -450,70 +361,7 @@ class FingerprintApi
                 $response
             );
         } catch (ApiException $e) {
-            /** @var ResponseInterface $response */
-            $response = $e->getResponseObject();
-            $errorCode = $e->getCode();
-
-            $content = (string) $response->getBody();
-            $response->getBody()->rewind();
-
-            switch ($errorCode) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\Event'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 429:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-            }
-
-            throw $e;
+            $this->handleGetEventError($e);
         }
     }
 
@@ -554,8 +402,6 @@ class FingerprintApi
      * @return PromiseInterface promise resolving to an array of deserialized data and the HTTP response
      *
      * @throws \InvalidArgumentException
-     *
-     * @noinspection PhpDuplicateSwitchCaseBodyInspection
      */
     public function getEventAsyncWithHttpInfo(string $event_id, ?string $ruleset_id = null): PromiseInterface
     {
@@ -574,67 +420,7 @@ class FingerprintApi
                     ];
                 },
                 function ($e) {
-                    /** @var ResponseInterface $response */
-                    $response = $e->getResponseObject();
-                    $errorCode = $e->getCode();
-
-                    switch ($e->getCode()) {
-                        case 200:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\Event'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 400:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 403:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 404:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 429:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 500:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-                    }
-
-                    throw $e;
+                    $this->handleGetEventError($e);
                 }
             );
     }
@@ -859,52 +645,7 @@ class FingerprintApi
                 $response
             );
         } catch (ApiException $e) {
-            /** @var ResponseInterface $response */
-            $response = $e->getResponseObject();
-            $errorCode = $e->getCode();
-
-            $content = (string) $response->getBody();
-            $response->getBody()->rewind();
-
-            switch ($errorCode) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\EventSearch'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-            }
-
-            throw $e;
+            $this->handleSearchEventsError($e);
         }
     }
 
@@ -1025,8 +766,6 @@ class FingerprintApi
      * @return PromiseInterface promise resolving to an array of deserialized data and the HTTP response
      *
      * @throws \InvalidArgumentException
-     *
-     * @noinspection PhpDuplicateSwitchCaseBodyInspection
      */
     public function searchEventsAsyncWithHttpInfo(int $limit = 10, ?string $pagination_key = null, ?string $visitor_id = null, ?string $high_recall_id = null, ?SearchEventsBot $bot = null, ?string $ip_address = null, ?string $asn = null, ?string $linked_id = null, ?string $url = null, ?string $bundle_id = null, ?string $package_name = null, ?string $origin = null, ?int $start = null, ?int $end = null, ?bool $reverse = null, ?bool $suspect = null, ?bool $vpn = null, ?bool $virtual_machine = null, ?bool $tampering = null, ?bool $anti_detect_browser = null, ?bool $incognito = null, ?bool $privacy_settings = null, ?bool $jailbroken = null, ?bool $frida = null, ?bool $factory_reset = null, ?bool $cloned_app = null, ?bool $emulator = null, ?bool $root_apps = null, ?SearchEventsVpnConfidence $vpn_confidence = null, ?float $min_suspect_score = null, ?bool $developer_tools = null, ?bool $location_spoofing = null, ?bool $mitm_attack = null, ?bool $proxy = null, ?string $sdk_version = null, ?SearchEventsSdkPlatform $sdk_platform = null, ?array $environment = null, ?string $proximity_id = null, ?int $total_hits = null, ?bool $tor_node = null, ?SearchEventsIncrementalIdentificationStatus $incremental_identification_status = null, ?bool $simulator = null): PromiseInterface
     {
@@ -1045,49 +784,7 @@ class FingerprintApi
                     ];
                 },
                 function ($e) {
-                    /** @var ResponseInterface $response */
-                    $response = $e->getResponseObject();
-                    $errorCode = $e->getCode();
-
-                    switch ($e->getCode()) {
-                        case 200:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\EventSearch'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 400:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 403:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 500:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-                    }
-
-                    throw $e;
+                    $this->handleSearchEventsError($e);
                 }
             );
     }
@@ -1641,52 +1338,7 @@ class FingerprintApi
 
             return [null, $response];
         } catch (ApiException $e) {
-            /** @var ResponseInterface $response */
-            $response = $e->getResponseObject();
-            $errorCode = $e->getCode();
-
-            $content = (string) $response->getBody();
-            $response->getBody()->rewind();
-
-            switch ($errorCode) {
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-
-                case 409:
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                    );
-                    $e->setErrorDetails($data);
-
-                    throw $e;
-            }
-
-            throw $e;
+            $this->handleUpdateEventError($e);
         }
     }
 
@@ -1727,8 +1379,6 @@ class FingerprintApi
      * @return PromiseInterface promise resolving to an array of deserialized data and the HTTP response
      *
      * @throws \InvalidArgumentException
-     *
-     * @noinspection PhpDuplicateSwitchCaseBodyInspection
      */
     public function updateEventAsyncWithHttpInfo(string $event_id, EventUpdate $event_update): PromiseInterface
     {
@@ -1741,49 +1391,7 @@ class FingerprintApi
                     return [null, $response];
                 },
                 function ($e) {
-                    /** @var ResponseInterface $response */
-                    $response = $e->getResponseObject();
-                    $errorCode = $e->getCode();
-
-                    switch ($e->getCode()) {
-                        case 400:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 403:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 404:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-
-                        case 409:
-                            $data = ObjectSerializer::deserialize(
-                                $response,
-                                '\Fingerprint\ServerSdk\Model\ErrorResponse'
-                            );
-                            $e->setErrorDetails($data);
-
-                            break;
-                    }
-
-                    throw $e;
+                    $this->handleUpdateEventError($e);
                 }
             );
     }
@@ -1863,6 +1471,276 @@ class FingerprintApi
         }
 
         return $options;
+    }
+
+    /**
+     * Handle error responses for operation 'deleteVisitorData'.
+     *
+     * @param ApiException $e the API exception to handle
+     *
+     * @throws ApiException                  always rethrown after setting error details
+     * @throws \DateMalformedStringException
+     *
+     * @noinspection PhpDuplicateSwitchCaseBodyInspection
+     * @noinspection RedundantSuppression
+     */
+    private function handleDeleteVisitorDataError(ApiException $e): never
+    {
+        $response = $e->getResponseObject();
+
+        if (null !== $response) {
+            $errorCode = $e->getCode();
+
+            $content = (string) $response->getBody();
+            $response->getBody()->rewind();
+
+            switch ($errorCode) {
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+            }
+        }
+
+        throw $e;
+    }
+
+    /**
+     * Handle error responses for operation 'getEvent'.
+     *
+     * @param ApiException $e the API exception to handle
+     *
+     * @throws ApiException                  always rethrown after setting error details
+     * @throws \DateMalformedStringException
+     *
+     * @noinspection PhpDuplicateSwitchCaseBodyInspection
+     * @noinspection RedundantSuppression
+     */
+    private function handleGetEventError(ApiException $e): never
+    {
+        $response = $e->getResponseObject();
+
+        if (null !== $response) {
+            $errorCode = $e->getCode();
+
+            $content = (string) $response->getBody();
+            $response->getBody()->rewind();
+
+            switch ($errorCode) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\Event'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+            }
+        }
+
+        throw $e;
+    }
+
+    /**
+     * Handle error responses for operation 'searchEvents'.
+     *
+     * @param ApiException $e the API exception to handle
+     *
+     * @throws ApiException                  always rethrown after setting error details
+     * @throws \DateMalformedStringException
+     *
+     * @noinspection PhpDuplicateSwitchCaseBodyInspection
+     * @noinspection RedundantSuppression
+     */
+    private function handleSearchEventsError(ApiException $e): never
+    {
+        $response = $e->getResponseObject();
+
+        if (null !== $response) {
+            $errorCode = $e->getCode();
+
+            $content = (string) $response->getBody();
+            $response->getBody()->rewind();
+
+            switch ($errorCode) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\EventSearch'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+            }
+        }
+
+        throw $e;
+    }
+
+    /**
+     * Handle error responses for operation 'updateEvent'.
+     *
+     * @param ApiException $e the API exception to handle
+     *
+     * @throws ApiException                  always rethrown after setting error details
+     * @throws \DateMalformedStringException
+     *
+     * @noinspection PhpDuplicateSwitchCaseBodyInspection
+     * @noinspection RedundantSuppression
+     */
+    private function handleUpdateEventError(ApiException $e): never
+    {
+        $response = $e->getResponseObject();
+
+        if (null !== $response) {
+            $errorCode = $e->getCode();
+
+            $content = (string) $response->getBody();
+            $response->getBody()->rewind();
+
+            switch ($errorCode) {
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '\Fingerprint\ServerSdk\Model\ErrorResponse'
+                    );
+                    $e->setErrorDetails($data);
+
+                    throw $e;
+            }
+        }
+
+        throw $e;
     }
 
     /**

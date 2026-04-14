@@ -18,7 +18,6 @@
 
 namespace {{apiPackage}};
 
-use Exception;
 use RuntimeException;
 use JsonException;
 use InvalidArgumentException;
@@ -192,28 +191,7 @@ use {{invokerPackage}}\ObjectSerializer;
             return [null, $response];
             {{/returnType}}
         } catch (ApiException $e) {
-            /** @var ResponseInterface $response */
-            $response = $e->getResponseObject();
-            $errorCode = $e->getCode();
-
-            $content = (string) $response->getBody();
-            $response->getBody()->rewind();
-
-            switch ($errorCode) {
-        {{#responses}}
-            {{#dataType}}
-                {{^isRange}}{{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
-                    $data = ObjectSerializer::deserialize(
-                        $content,
-                        '{{{dataType}}}'
-                    );
-                    $e->setErrorDetails($data);
-                    throw $e;{{/isRange}}
-            {{/dataType}}
-        {{/responses}}
-            }
-
-            throw $e;
+            $this->handle{{#lambda.pascalcase}}{{operationId}}{{/lambda.pascalcase}}Error($e);
         }
     }
 
@@ -271,8 +249,6 @@ use {{invokerPackage}}\ObjectSerializer;
      * @throws InvalidArgumentException
      *
      * @return PromiseInterface promise resolving to an array of deserialized data and the HTTP response
-     *
-     * @noinspection PhpDuplicateSwitchCaseBodyInspection
     {{#isDeprecated}}
      * @deprecated
     {{/isDeprecated}}
@@ -299,25 +275,7 @@ use {{invokerPackage}}\ObjectSerializer;
                     {{/returnType}}
                 },
                 function ($e) {
-                    /** @var ResponseInterface $response */
-                    $response = $e->getResponseObject();
-                    $errorCode = $e->getCode();
-
-                    switch ($e->getCode()) {
-                    {{#responses}}
-                        {{#dataType}}
-                            {{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
-                                $data = ObjectSerializer::deserialize(
-                                    $response,
-                                    '{{{dataType}}}'
-                                );
-                                $e->setErrorDetails($data);
-                                break;
-                        {{/dataType}}
-                    {{/responses}}
-                    }
-
-                    throw $e;
+                    $this->handle{{#lambda.pascalcase}}{{operationId}}{{/lambda.pascalcase}}Error($e);
                 }
             );
     }
@@ -444,6 +402,45 @@ use {{invokerPackage}}\ObjectSerializer;
             $headers,
             {{#bodyParams}}$httpBody{{/bodyParams}}
         );
+    }
+
+    /**
+     * Handle error responses for operation '{{{operationId}}}'.
+     *
+     * @param ApiException $e the API exception to handle
+     *
+     * @throws ApiException always rethrown after setting error details
+     * @throws \DateMalformedStringException
+     *
+     * @noinspection PhpDuplicateSwitchCaseBodyInspection
+     * @noinspection RedundantSuppression
+     */
+    private function handle{{#lambda.pascalcase}}{{operationId}}{{/lambda.pascalcase}}Error(ApiException $e): never
+    {
+        $response = $e->getResponseObject();
+
+        if ($response !== null) {
+            $errorCode = $e->getCode();
+
+            $content = (string) $response->getBody();
+            $response->getBody()->rewind();
+
+            switch ($errorCode) {
+        {{#responses}}
+            {{#dataType}}
+                {{^isRange}}{{^isWildcard}}case {{code}}:{{/isWildcard}}{{#isWildcard}}default:{{/isWildcard}}
+                    $data = ObjectSerializer::deserialize(
+                        $content,
+                        '{{{dataType}}}'
+                    );
+                    $e->setErrorDetails($data);
+                    throw $e;{{/isRange}}
+            {{/dataType}}
+        {{/responses}}
+            }
+        }
+
+        throw $e;
     }
 
     {{/operation}}
