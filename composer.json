@@ -1,5 +1,5 @@
 {
-    "name": "fingerprint/fingerprint-pro-server-api-sdk",
+    "name": "fingerprint/server-sdk",
     "version": "6.10.0",
     "description": "Fingerprint Server API provides a way for validating visitors’ data issued by Fingerprint Pro.",
     "keywords": [
@@ -43,9 +43,9 @@
         "vlucas/phpdotenv": "^5.6"
     },
     "autoload": {
-        "psr-4": { "Fingerprint\\ServerAPI\\" : "./src" }
+        "psr-4": { "Fingerprint\\ServerSdk\\" : "./src" }
     },
     "autoload-dev": {
-        "psr-4": { "Fingerprint\\ServerAPI\\" : "test/" }
+        "psr-4": { "Fingerprint\\ServerSdk\\" : "test/" }
     }
 }

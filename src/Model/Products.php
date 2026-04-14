@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * Products Class Doc Comment.
@@ -54,32 +54,32 @@ class Products implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'identification' => '\Fingerprint\ServerAPI\Model\ProductIdentification',
-        'botd' => '\Fingerprint\ServerAPI\Model\ProductBotd',
-        'root_apps' => '\Fingerprint\ServerAPI\Model\ProductRootApps',
-        'emulator' => '\Fingerprint\ServerAPI\Model\ProductEmulator',
-        'ip_info' => '\Fingerprint\ServerAPI\Model\ProductIPInfo',
-        'ip_blocklist' => '\Fingerprint\ServerAPI\Model\ProductIPBlocklist',
-        'tor' => '\Fingerprint\ServerAPI\Model\ProductTor',
-        'vpn' => '\Fingerprint\ServerAPI\Model\ProductVPN',
-        'proxy' => '\Fingerprint\ServerAPI\Model\ProductProxy',
-        'incognito' => '\Fingerprint\ServerAPI\Model\ProductIncognito',
-        'tampering' => '\Fingerprint\ServerAPI\Model\ProductTampering',
-        'cloned_app' => '\Fingerprint\ServerAPI\Model\ProductClonedApp',
-        'factory_reset' => '\Fingerprint\ServerAPI\Model\ProductFactoryReset',
-        'jailbroken' => '\Fingerprint\ServerAPI\Model\ProductJailbroken',
-        'frida' => '\Fingerprint\ServerAPI\Model\ProductFrida',
-        'privacy_settings' => '\Fingerprint\ServerAPI\Model\ProductPrivacySettings',
-        'virtual_machine' => '\Fingerprint\ServerAPI\Model\ProductVirtualMachine',
-        'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\ProductRawDeviceAttributes',
-        'high_activity' => '\Fingerprint\ServerAPI\Model\ProductHighActivity',
-        'location_spoofing' => '\Fingerprint\ServerAPI\Model\ProductLocationSpoofing',
-        'suspect_score' => '\Fingerprint\ServerAPI\Model\ProductSuspectScore',
-        'remote_control' => '\Fingerprint\ServerAPI\Model\ProductRemoteControl',
-        'velocity' => '\Fingerprint\ServerAPI\Model\ProductVelocity',
-        'developer_tools' => '\Fingerprint\ServerAPI\Model\ProductDeveloperTools',
-        'mitm_attack' => '\Fingerprint\ServerAPI\Model\ProductMitMAttack',
-        'proximity' => '\Fingerprint\ServerAPI\Model\ProductProximity'];
+        'identification' => '\Fingerprint\ServerSdk\Model\ProductIdentification',
+        'botd' => '\Fingerprint\ServerSdk\Model\ProductBotd',
+        'root_apps' => '\Fingerprint\ServerSdk\Model\ProductRootApps',
+        'emulator' => '\Fingerprint\ServerSdk\Model\ProductEmulator',
+        'ip_info' => '\Fingerprint\ServerSdk\Model\ProductIPInfo',
+        'ip_blocklist' => '\Fingerprint\ServerSdk\Model\ProductIPBlocklist',
+        'tor' => '\Fingerprint\ServerSdk\Model\ProductTor',
+        'vpn' => '\Fingerprint\ServerSdk\Model\ProductVPN',
+        'proxy' => '\Fingerprint\ServerSdk\Model\ProductProxy',
+        'incognito' => '\Fingerprint\ServerSdk\Model\ProductIncognito',
+        'tampering' => '\Fingerprint\ServerSdk\Model\ProductTampering',
+        'cloned_app' => '\Fingerprint\ServerSdk\Model\ProductClonedApp',
+        'factory_reset' => '\Fingerprint\ServerSdk\Model\ProductFactoryReset',
+        'jailbroken' => '\Fingerprint\ServerSdk\Model\ProductJailbroken',
+        'frida' => '\Fingerprint\ServerSdk\Model\ProductFrida',
+        'privacy_settings' => '\Fingerprint\ServerSdk\Model\ProductPrivacySettings',
+        'virtual_machine' => '\Fingerprint\ServerSdk\Model\ProductVirtualMachine',
+        'raw_device_attributes' => '\Fingerprint\ServerSdk\Model\ProductRawDeviceAttributes',
+        'high_activity' => '\Fingerprint\ServerSdk\Model\ProductHighActivity',
+        'location_spoofing' => '\Fingerprint\ServerSdk\Model\ProductLocationSpoofing',
+        'suspect_score' => '\Fingerprint\ServerSdk\Model\ProductSuspectScore',
+        'remote_control' => '\Fingerprint\ServerSdk\Model\ProductRemoteControl',
+        'velocity' => '\Fingerprint\ServerSdk\Model\ProductVelocity',
+        'developer_tools' => '\Fingerprint\ServerSdk\Model\ProductDeveloperTools',
+        'mitm_attack' => '\Fingerprint\ServerSdk\Model\ProductMitMAttack',
+        'proximity' => '\Fingerprint\ServerSdk\Model\ProductProximity'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -347,7 +347,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets identification.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductIdentification $identification identification
+     * @param ?\Fingerprint\ServerSdk\Model\ProductIdentification $identification identification
      *
      * @return $this
      */
@@ -369,7 +369,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets botd.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductBotd $botd botd
+     * @param ?\Fingerprint\ServerSdk\Model\ProductBotd $botd botd
      *
      * @return $this
      */
@@ -391,7 +391,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets root_apps.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductRootApps $root_apps root_apps
+     * @param ?\Fingerprint\ServerSdk\Model\ProductRootApps $root_apps root_apps
      *
      * @return $this
      */
@@ -413,7 +413,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets emulator.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductEmulator $emulator emulator
+     * @param ?\Fingerprint\ServerSdk\Model\ProductEmulator $emulator emulator
      *
      * @return $this
      */
@@ -435,7 +435,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_info.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductIPInfo $ip_info ip_info
+     * @param ?\Fingerprint\ServerSdk\Model\ProductIPInfo $ip_info ip_info
      *
      * @return $this
      */
@@ -457,7 +457,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_blocklist.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductIPBlocklist $ip_blocklist ip_blocklist
+     * @param ?\Fingerprint\ServerSdk\Model\ProductIPBlocklist $ip_blocklist ip_blocklist
      *
      * @return $this
      */
@@ -479,7 +479,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets tor.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductTor $tor tor
+     * @param ?\Fingerprint\ServerSdk\Model\ProductTor $tor tor
      *
      * @return $this
      */
@@ -501,7 +501,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets vpn.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductVPN $vpn vpn
+     * @param ?\Fingerprint\ServerSdk\Model\ProductVPN $vpn vpn
      *
      * @return $this
      */
@@ -523,7 +523,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets proxy.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductProxy $proxy proxy
+     * @param ?\Fingerprint\ServerSdk\Model\ProductProxy $proxy proxy
      *
      * @return $this
      */
@@ -545,7 +545,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets incognito.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductIncognito $incognito incognito
+     * @param ?\Fingerprint\ServerSdk\Model\ProductIncognito $incognito incognito
      *
      * @return $this
      */
@@ -567,7 +567,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets tampering.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductTampering $tampering tampering
+     * @param ?\Fingerprint\ServerSdk\Model\ProductTampering $tampering tampering
      *
      * @return $this
      */
@@ -589,7 +589,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets cloned_app.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductClonedApp $cloned_app cloned_app
+     * @param ?\Fingerprint\ServerSdk\Model\ProductClonedApp $cloned_app cloned_app
      *
      * @return $this
      */
@@ -611,7 +611,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets factory_reset.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductFactoryReset $factory_reset factory_reset
+     * @param ?\Fingerprint\ServerSdk\Model\ProductFactoryReset $factory_reset factory_reset
      *
      * @return $this
      */
@@ -633,7 +633,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets jailbroken.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductJailbroken $jailbroken jailbroken
+     * @param ?\Fingerprint\ServerSdk\Model\ProductJailbroken $jailbroken jailbroken
      *
      * @return $this
      */
@@ -655,7 +655,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets frida.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductFrida $frida frida
+     * @param ?\Fingerprint\ServerSdk\Model\ProductFrida $frida frida
      *
      * @return $this
      */
@@ -677,7 +677,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets privacy_settings.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductPrivacySettings $privacy_settings privacy_settings
+     * @param ?\Fingerprint\ServerSdk\Model\ProductPrivacySettings $privacy_settings privacy_settings
      *
      * @return $this
      */
@@ -699,7 +699,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets virtual_machine.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductVirtualMachine $virtual_machine virtual_machine
+     * @param ?\Fingerprint\ServerSdk\Model\ProductVirtualMachine $virtual_machine virtual_machine
      *
      * @return $this
      */
@@ -721,7 +721,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets raw_device_attributes.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductRawDeviceAttributes $raw_device_attributes raw_device_attributes
+     * @param ?\Fingerprint\ServerSdk\Model\ProductRawDeviceAttributes $raw_device_attributes raw_device_attributes
      *
      * @return $this
      */
@@ -743,7 +743,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets high_activity.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductHighActivity $high_activity high_activity
+     * @param ?\Fingerprint\ServerSdk\Model\ProductHighActivity $high_activity high_activity
      *
      * @return $this
      */
@@ -765,7 +765,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets location_spoofing.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductLocationSpoofing $location_spoofing location_spoofing
+     * @param ?\Fingerprint\ServerSdk\Model\ProductLocationSpoofing $location_spoofing location_spoofing
      *
      * @return $this
      */
@@ -787,7 +787,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets suspect_score.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductSuspectScore $suspect_score suspect_score
+     * @param ?\Fingerprint\ServerSdk\Model\ProductSuspectScore $suspect_score suspect_score
      *
      * @return $this
      */
@@ -809,7 +809,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets remote_control.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductRemoteControl $remote_control remote_control
+     * @param ?\Fingerprint\ServerSdk\Model\ProductRemoteControl $remote_control remote_control
      *
      * @return $this
      */
@@ -831,7 +831,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets velocity.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductVelocity $velocity velocity
+     * @param ?\Fingerprint\ServerSdk\Model\ProductVelocity $velocity velocity
      *
      * @return $this
      */
@@ -853,7 +853,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets developer_tools.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductDeveloperTools $developer_tools developer_tools
+     * @param ?\Fingerprint\ServerSdk\Model\ProductDeveloperTools $developer_tools developer_tools
      *
      * @return $this
      */
@@ -875,7 +875,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets mitm_attack.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductMitMAttack $mitm_attack mitm_attack
+     * @param ?\Fingerprint\ServerSdk\Model\ProductMitMAttack $mitm_attack mitm_attack
      *
      * @return $this
      */
@@ -897,7 +897,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets proximity.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProductProximity $proximity proximity
+     * @param ?\Fingerprint\ServerSdk\Model\ProductProximity $proximity proximity
      *
      * @return $this
      */

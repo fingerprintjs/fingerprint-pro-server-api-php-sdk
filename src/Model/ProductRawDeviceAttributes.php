@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * ProductRawDeviceAttributes Class Doc Comment.
@@ -53,7 +53,7 @@ class ProductRawDeviceAttributes implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'data' => 'array',
-        'error' => '\Fingerprint\ServerAPI\Model\Error'];
+        'error' => '\Fingerprint\ServerSdk\Model\Error'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -223,7 +223,7 @@ class ProductRawDeviceAttributes implements ModelInterface, \ArrayAccess
     /**
      * Sets error.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\Error $error error
+     * @param ?\Fingerprint\ServerSdk\Model\Error $error error
      *
      * @return $this
      */

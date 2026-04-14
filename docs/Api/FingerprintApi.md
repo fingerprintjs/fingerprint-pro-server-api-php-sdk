@@ -1,4 +1,4 @@
-# Fingerprint\ServerAPI\FingerprintApi
+# Fingerprint\ServerSdk\FingerprintApi
 
 All URIs are relative to *https://api.fpjs.io*
 
@@ -27,8 +27,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
 
 // Import Fingerprint Classes and Guzzle HTTP Client
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
@@ -73,7 +73,7 @@ Array:
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getEvent**
->  [ \Fingerprint\ServerAPI\Model\EventsGetResponse, \Psr\Http\Message\ResponseInterface ] getEvent($request_id)
+>  [ \Fingerprint\ServerSdk\Model\EventsGetResponse, \Psr\Http\Message\ResponseInterface ] getEvent($request_id)
 
 Get event by request ID
 
@@ -88,8 +88,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
 
 // Import Fingerprint Classes and Guzzle HTTP Client
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 ### Return type
 
 Array:
-0. [**\Fingerprint\ServerAPI\Model\EventsGetResponse**](../Model/EventsGetResponse.md) | null,
+0. [**\Fingerprint\ServerSdk\Model\EventsGetResponse**](../Model/EventsGetResponse.md) | null,
 1. \Psr\Http\Message\ResponseInterface
 
 
@@ -135,7 +135,7 @@ Array:
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getRelatedVisitors**
->  [ \Fingerprint\ServerAPI\Model\RelatedVisitorsResponse, \Psr\Http\Message\ResponseInterface ] getRelatedVisitors($visitor_id)
+>  [ \Fingerprint\ServerSdk\Model\RelatedVisitorsResponse, \Psr\Http\Message\ResponseInterface ] getRelatedVisitors($visitor_id)
 
 Get Related Visitors
 
@@ -150,8 +150,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
 
 // Import Fingerprint Classes and Guzzle HTTP Client
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
 ### Return type
 
 Array:
-0. [**\Fingerprint\ServerAPI\Model\RelatedVisitorsResponse**](../Model/RelatedVisitorsResponse.md) | null,
+0. [**\Fingerprint\ServerSdk\Model\RelatedVisitorsResponse**](../Model/RelatedVisitorsResponse.md) | null,
 1. \Psr\Http\Message\ResponseInterface
 
 
@@ -197,7 +197,7 @@ Array:
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getVisits**
->  [ \Fingerprint\ServerAPI\Model\VisitorsGetResponse, \Psr\Http\Message\ResponseInterface ] getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before)
+>  [ \Fingerprint\ServerSdk\Model\VisitorsGetResponse, \Psr\Http\Message\ResponseInterface ] getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before)
 
 Get visits by visitor ID
 
@@ -212,8 +212,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
 
 // Import Fingerprint Classes and Guzzle HTTP Client
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
@@ -253,7 +253,7 @@ Name | Type | Description  | Notes
 ### Return type
 
 Array:
-0. [**\Fingerprint\ServerAPI\Model\VisitorsGetResponse**](../Model/VisitorsGetResponse.md) | null,
+0. [**\Fingerprint\ServerSdk\Model\VisitorsGetResponse**](../Model/VisitorsGetResponse.md) | null,
 1. \Psr\Http\Message\ResponseInterface
 
 
@@ -269,7 +269,7 @@ Array:
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **searchEvents**
->  [ \Fingerprint\ServerAPI\Model\SearchEventsResponse, \Psr\Http\Message\ResponseInterface ] searchEvents($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $ip_blocklist, $datacenter, $developer_tools, $location_spoofing, $mitm_attack, $proxy, $sdk_version, $sdk_platform, $environment, $proximity_id, $proximity_precision_radius)
+>  [ \Fingerprint\ServerSdk\Model\SearchEventsResponse, \Psr\Http\Message\ResponseInterface ] searchEvents($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $ip_blocklist, $datacenter, $developer_tools, $location_spoofing, $mitm_attack, $proxy, $sdk_version, $sdk_platform, $environment, $proximity_id, $proximity_precision_radius)
 
 Get events via search
 
@@ -284,8 +284,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
 
 // Import Fingerprint Classes and Guzzle HTTP Client
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
@@ -383,7 +383,7 @@ Name | Type | Description  | Notes
 ### Return type
 
 Array:
-0. [**\Fingerprint\ServerAPI\Model\SearchEventsResponse**](../Model/SearchEventsResponse.md) | null,
+0. [**\Fingerprint\ServerSdk\Model\SearchEventsResponse**](../Model/SearchEventsResponse.md) | null,
 1. \Psr\Http\Message\ResponseInterface
 
 
@@ -414,8 +414,8 @@ require_once(__DIR__ . '/vendor/autoload.php');
 const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
 
 // Import Fingerprint Classes and Guzzle HTTP Client
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Configuration;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Configuration;
 use GuzzleHttp\Client;
 
 // Create new Configuration instance with defaultValues, added our API Secret and our Region
@@ -425,7 +425,7 @@ $client = new FingerprintApi(
 $config
 );
 
-$body = new \Fingerprint\ServerAPI\Model\EventsUpdateRequest(); // \Fingerprint\ServerAPI\Model\EventsUpdateRequest | 
+$body = new \Fingerprint\ServerSdk\Model\EventsUpdateRequest(); // \Fingerprint\ServerSdk\Model\EventsUpdateRequest | 
 $request_id = "request_id_example"; // string | The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid).
 
 try {
@@ -440,7 +440,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**\Fingerprint\ServerAPI\Model\EventsUpdateRequest**](../Model/EventsUpdateRequest.md)|  |
+ **body** | [**\Fingerprint\ServerSdk\Model\EventsUpdateRequest**](../Model/EventsUpdateRequest.md)|  |
  **request_id** | **string**| The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid). |
 
 ### Return type

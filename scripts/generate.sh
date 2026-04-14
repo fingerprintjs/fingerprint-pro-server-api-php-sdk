@@ -81,11 +81,11 @@ docker run --rm -u "$(id -u):$(id -g)" -v "${PWD}:/code" \
   --config=/code/.php-cs-fixer.php
 
 # Fix generated code
-sed_in_place_glob 's/\\Fingerprint\\ServerAPI\\Model\\array/array/' ./src/Model/*
-sed_in_place_glob 's/\\Fingerprint\\ServerAPI\\Model\\mixed/mixed/' ./src/Model/*
+sed_in_place_glob 's/\\Fingerprint\\ServerSdk\\Model\\array/array/' ./src/Model/*
+sed_in_place_glob 's/\\Fingerprint\\ServerSdk\\Model\\mixed/mixed/' ./src/Model/*
 sed_in_place_glob 's/?mixed/mixed/' ./src/Model/*
-sed_in_place_glob 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\array\*\*\](array\.md)/array/' ./src/docs/Model/*
-sed_in_place_glob 's/\[\*\*\\Fingerprint\\ServerAPI\\Model\\mixed\*\*\](mixed\.md)/mixed/' ./src/docs/Model/*
+sed_in_place_glob 's/\[\*\*\\Fingerprint\\ServerSdk\\Model\\array\*\*\](array\.md)/array/' ./src/docs/Model/*
+sed_in_place_glob 's/\[\*\*\\Fingerprint\\ServerSdk\\Model\\mixed\*\*\](mixed\.md)/mixed/' ./src/docs/Model/*
 
 # Cleanup documentation
 patterns=(

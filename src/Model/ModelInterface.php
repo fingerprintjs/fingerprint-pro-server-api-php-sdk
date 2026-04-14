@@ -27,7 +27,7 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
 /**
  * Interface abstracting model access.

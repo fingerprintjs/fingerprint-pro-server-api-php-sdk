@@ -1,6 +1,6 @@
 <?php
 
-namespace Fingerprint\ServerAPI\Webhook;
+namespace Fingerprint\ServerSdk\Webhook;
 
 /**
  * Verifies Fingerprint webhook signature.

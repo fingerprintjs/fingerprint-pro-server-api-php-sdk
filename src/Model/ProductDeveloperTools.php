@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * ProductDeveloperTools Class Doc Comment.
@@ -52,8 +52,8 @@ class ProductDeveloperTools implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'data' => '\Fingerprint\ServerAPI\Model\DeveloperTools',
-        'error' => '\Fingerprint\ServerAPI\Model\Error'];
+        'data' => '\Fingerprint\ServerSdk\Model\DeveloperTools',
+        'error' => '\Fingerprint\ServerSdk\Model\Error'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -201,7 +201,7 @@ class ProductDeveloperTools implements ModelInterface, \ArrayAccess
     /**
      * Sets data.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\DeveloperTools $data data
+     * @param ?\Fingerprint\ServerSdk\Model\DeveloperTools $data data
      *
      * @return $this
      */
@@ -223,7 +223,7 @@ class ProductDeveloperTools implements ModelInterface, \ArrayAccess
     /**
      * Sets error.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\Error $error error
+     * @param ?\Fingerprint\ServerSdk\Model\Error $error error
      *
      * @return $this
      */

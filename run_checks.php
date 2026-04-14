@@ -5,13 +5,13 @@ declare(strict_types=1);
 require_once __DIR__.'/vendor/autoload.php';
 
 use Dotenv\Dotenv;
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Configuration;
-use Fingerprint\ServerAPI\Model\EventsGetResponse;
-use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
-use Fingerprint\ServerAPI\Model\VisitorsGetResponse;
-use Fingerprint\ServerAPI\Model\SearchEventsResponse;
-use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Configuration;
+use Fingerprint\ServerSdk\Model\EventsGetResponse;
+use Fingerprint\ServerSdk\Model\EventsUpdateRequest;
+use Fingerprint\ServerSdk\Model\VisitorsGetResponse;
+use Fingerprint\ServerSdk\Model\SearchEventsResponse;
+use Fingerprint\ServerSdk\Webhook\WebhookVerifier;
 use GuzzleHttp\Client;
 
 $dotenv = Dotenv::createImmutable(__DIR__);

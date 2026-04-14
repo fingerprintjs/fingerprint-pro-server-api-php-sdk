@@ -1,6 +1,6 @@
 <?php
 
-namespace Fingerprint\ServerAPI;
+namespace Fingerprint\ServerSdk;
 
 use Psr\Http\Message\ResponseInterface;
 

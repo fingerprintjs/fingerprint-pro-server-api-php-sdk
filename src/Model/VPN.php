@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * VPN Class Doc Comment.
@@ -53,10 +53,10 @@ class VPN implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'result' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\VPNConfidence',
+        'confidence' => '\Fingerprint\ServerSdk\Model\VPNConfidence',
         'origin_timezone' => 'string',
         'origin_country' => 'string',
-        'methods' => '\Fingerprint\ServerAPI\Model\VPNMethods'];
+        'methods' => '\Fingerprint\ServerSdk\Model\VPNMethods'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.

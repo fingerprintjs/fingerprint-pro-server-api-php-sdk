@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * Velocity Class Doc Comment.
@@ -54,13 +54,13 @@ class Velocity implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'distinct_ip' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'distinct_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'distinct_country' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'events' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'ip_events' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'distinct_ip_by_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'distinct_visitor_id_by_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData'];
+        'distinct_ip' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'distinct_linked_id' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'distinct_country' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'events' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'ip_events' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'distinct_ip_by_linked_id' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'distinct_visitor_id_by_linked_id' => '\Fingerprint\ServerSdk\Model\VelocityData'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.

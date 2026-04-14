@@ -1,13 +1,13 @@
 <?php
 
-namespace Fingerprint\ServerAPI\Sealed;
+namespace Fingerprint\ServerSdk\Sealed;
 
-use Fingerprint\ServerAPI\Model\BotdBot;
-use Fingerprint\ServerAPI\Model\BrowserDetails;
-use Fingerprint\ServerAPI\Model\IdentificationConfidence;
-use Fingerprint\ServerAPI\Model\DeprecatedGeolocation;
-use Fingerprint\ServerAPI\Model\EventsGetResponse;
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\Model\BotdBot;
+use Fingerprint\ServerSdk\Model\BrowserDetails;
+use Fingerprint\ServerSdk\Model\IdentificationConfidence;
+use Fingerprint\ServerSdk\Model\DeprecatedGeolocation;
+use Fingerprint\ServerSdk\Model\EventsGetResponse;
+use Fingerprint\ServerSdk\ObjectSerializer;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 

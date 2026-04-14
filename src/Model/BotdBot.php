@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * BotdBot Class Doc Comment.
@@ -54,7 +54,7 @@ class BotdBot implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'result' => '\Fingerprint\ServerAPI\Model\BotdBotResult',
+        'result' => '\Fingerprint\ServerSdk\Model\BotdBotResult',
         'type' => 'string'];
 
     /**

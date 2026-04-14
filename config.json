@@ -1,12 +1,12 @@
 {
   "srcBasePath": ".",
   "packagePath": "src",
-  "invokerPackage": "Fingerprint\\ServerAPI",
+  "invokerPackage": "Fingerprint\\ServerSdk",
   "composerVendorName": "fingerprint",
-  "composerProjectName": "fingerprint-pro-server-api-sdk",
+  "composerProjectName": "server-sdk",
   "packageUrl": "https://github.com/fingerprintjs/php-sdk",
   "gitUserId": "fingerprintjs",
   "gitRepoId": "php-sdk",
-  "description": "Fingerprint Pro Server API provides a way for validating visitors’ data issued by Fingerprint Pro.",
+  "description": "Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.",
   "artifactVersion": "6.10.0"
 }

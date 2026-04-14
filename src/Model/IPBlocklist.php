@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * IPBlocklist Class Doc Comment.
@@ -53,7 +53,7 @@ class IPBlocklist implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'result' => 'bool',
-        'details' => '\Fingerprint\ServerAPI\Model\IPBlocklistDetails'];
+        'details' => '\Fingerprint\ServerSdk\Model\IPBlocklistDetails'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.

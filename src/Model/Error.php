@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * Error Class Doc Comment.
@@ -52,7 +52,7 @@ class Error implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'code' => '\Fingerprint\ServerAPI\Model\ErrorCode',
+        'code' => '\Fingerprint\ServerSdk\Model\ErrorCode',
         'message' => 'string'];
 
     /**

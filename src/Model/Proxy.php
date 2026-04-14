@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * Proxy Class Doc Comment.
@@ -53,8 +53,8 @@ class Proxy implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'result' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\ProxyConfidence',
-        'details' => '\Fingerprint\ServerAPI\Model\ProxyDetails'];
+        'confidence' => '\Fingerprint\ServerSdk\Model\ProxyConfidence',
+        'details' => '\Fingerprint\ServerSdk\Model\ProxyDetails'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -260,7 +260,7 @@ class Proxy implements ModelInterface, \ArrayAccess
     /**
      * Sets details.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProxyDetails $details details
+     * @param ?\Fingerprint\ServerSdk\Model\ProxyDetails $details details
      *
      * @return $this
      */

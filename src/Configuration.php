@@ -26,7 +26,7 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI;
+namespace Fingerprint\ServerSdk;
 
 /**
  * Configuration Class Doc Comment
@@ -418,7 +418,7 @@ class Configuration
      */
     public static function toDebugReport(): string
     {
-        $report = 'PHP SDK (Fingerprint\ServerAPI) Debug Report:'.PHP_EOL;
+        $report = 'PHP SDK (Fingerprint\ServerSdk) Debug Report:'.PHP_EOL;
         $report .= '    OS: '.php_uname().PHP_EOL;
         $report .= '    PHP Version: '.PHP_VERSION.PHP_EOL;
         $report .= '    OpenAPI Spec Version: 3'.PHP_EOL;

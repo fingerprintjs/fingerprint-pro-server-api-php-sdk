@@ -1,14 +1,14 @@
 <?php
 
-namespace Fingerprint\ServerAPI;
+namespace Fingerprint\ServerSdk;
 
 use DateTime;
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Model\BotdBotResult;
-use Fingerprint\ServerAPI\Model\ErrorCode;
-use Fingerprint\ServerAPI\Model\ErrorPlainResponse;
-use Fingerprint\ServerAPI\Model\ErrorResponse;
-use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Model\BotdBotResult;
+use Fingerprint\ServerSdk\Model\ErrorCode;
+use Fingerprint\ServerSdk\Model\ErrorPlainResponse;
+use Fingerprint\ServerSdk\Model\ErrorResponse;
+use Fingerprint\ServerSdk\Model\EventsUpdateRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;

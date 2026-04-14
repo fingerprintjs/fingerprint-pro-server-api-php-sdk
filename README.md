@@ -12,8 +12,8 @@
 <a href="https://github.com/fingerprintjs/php-sdk/actions/workflows/test.yml"><img src="https://github.com/fingerprintjs/php-sdk/actions/workflows/test.yml/badge.svg" alt="CI badge" /></a>
 <a href="https://fingerprintjs.github.io/php-sdk"><img src="https://fingerprintjs.github.io/php-sdk/coverage.svg" alt="Unit Test Coverage" /></a>
 <a href="https://github.com/fingerprintjs/php-sdk/actions/workflows/functional.yml"><img src="https://github.com/fingerprintjs/php-sdk/actions/workflows/functional.yml/badge.svg" alt="CI badge" /></a>
-<a href="https://packagist.org/packages/fingerprint/fingerprint-pro-server-api-sdk"><img src="https://poser.pugx.org/fingerprint/fingerprint-pro-server-api-sdk/v" alt="Latest Stable Version on Packagist"></a>
-<a href="https://packagist.org/packages/fingerprint/fingerprint-pro-server-api-sdk"><img src="https://poser.pugx.org/fingerprint/fingerprint-pro-server-api-sdk/require/php?style=flat-square" alt="PHP Version Require"></a>
+<a href="https://packagist.org/packages/fingerprint/server-sdk"><img src="https://poser.pugx.org/fingerprint/server-sdk/v" alt="Latest Stable Version on Packagist"></a>
+<a href="https://packagist.org/packages/fingerprint/server-sdk"><img src="https://poser.pugx.org/fingerprint/server-sdk/require/php?style=flat-square" alt="PHP Version Require"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/:license-mit-blue.svg?style=flat"/></a>
 <a href="https://discord.gg/39EpE2neBg"><img src="https://img.shields.io/discord/852099967190433792?style=logo&label=Discord&logo=Discord&logoColor=white" alt="Discord server"></a>
 </p>
@@ -49,7 +49,7 @@ To install the bindings via [Composer](https://getcomposer.org/), add the follow
 ```
 {
     "require": {
-        "fingerprint/fingerprint-pro-server-api-sdk": "dev-main"
+        "fingerprint/server-sdk": "^6.10.0"
     }
 }
 ```
@@ -58,7 +58,7 @@ Then run `composer install`.
 
 Or you can just run this command on your terminal:
 
-`composer require fingerprint/fingerprint-pro-server-api-sdk`
+`composer require fingerprint/server-sdk`
 
 ## Getting Started
 
@@ -84,9 +84,9 @@ const LIMIT = 10;
 const PAGINATION_KEY = "1683900801733.Ogvu1j";
 
 // Import Fingerprint Pro Classes and Guzzle Http Client
-use Fingerprint\ServerAPI\Api\FingerprintApi;
-use Fingerprint\ServerAPI\Configuration;
-use Fingerprint\ServerAPI\Model\EventsUpdateRequest;
+use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\Configuration;
+use Fingerprint\ServerSdk\Model\EventsUpdateRequest;
 use GuzzleHttp\Client;
 
 // Create a new Configuration instance with your Fingerprint Server API Key and your Fingerprint Server API Region.
@@ -183,9 +183,9 @@ This SDK provides utility methods for decoding [sealed results](https://dev.fing
 ```php
 <?php
 
-use Fingerprint\ServerAPI\Sealed\DecryptionAlgorithm;
-use Fingerprint\ServerAPI\Sealed\DecryptionKey;
-use Fingerprint\ServerAPI\Sealed\Sealed;
+use Fingerprint\ServerSdk\Sealed\DecryptionAlgorithm;
+use Fingerprint\ServerSdk\Sealed\DecryptionKey;
+use Fingerprint\ServerSdk\Sealed\Sealed;
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
@@ -221,7 +221,7 @@ You can use below code to verify signature:
 ```php
 <?php
 
-use Fingerprint\ServerAPI\Webhook\WebhookVerifier;
+use Fingerprint\ServerSdk\Webhook\WebhookVerifier;
 
 // Your webhook signing secret.
 $webhookSecret = "secret";

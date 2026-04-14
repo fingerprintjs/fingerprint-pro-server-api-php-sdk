@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * WebhookVelocity Class Doc Comment.
@@ -54,13 +54,13 @@ class WebhookVelocity implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'distinct_ip' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'distinct_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'distinct_country' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'events' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'ip_events' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'distinct_ip_by_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData',
-        'distinct_visitor_id_by_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData'];
+        'distinct_ip' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'distinct_linked_id' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'distinct_country' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'events' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'ip_events' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'distinct_ip_by_linked_id' => '\Fingerprint\ServerSdk\Model\VelocityData',
+        'distinct_visitor_id_by_linked_id' => '\Fingerprint\ServerSdk\Model\VelocityData'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -233,7 +233,7 @@ class WebhookVelocity implements ModelInterface, \ArrayAccess
     /**
      * Sets distinct_ip.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_ip distinct_ip
+     * @param ?\Fingerprint\ServerSdk\Model\VelocityData $distinct_ip distinct_ip
      *
      * @return $this
      */
@@ -255,7 +255,7 @@ class WebhookVelocity implements ModelInterface, \ArrayAccess
     /**
      * Sets distinct_linked_id.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_linked_id distinct_linked_id
+     * @param ?\Fingerprint\ServerSdk\Model\VelocityData $distinct_linked_id distinct_linked_id
      *
      * @return $this
      */
@@ -277,7 +277,7 @@ class WebhookVelocity implements ModelInterface, \ArrayAccess
     /**
      * Sets distinct_country.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_country distinct_country
+     * @param ?\Fingerprint\ServerSdk\Model\VelocityData $distinct_country distinct_country
      *
      * @return $this
      */
@@ -299,7 +299,7 @@ class WebhookVelocity implements ModelInterface, \ArrayAccess
     /**
      * Sets events.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VelocityData $events events
+     * @param ?\Fingerprint\ServerSdk\Model\VelocityData $events events
      *
      * @return $this
      */
@@ -321,7 +321,7 @@ class WebhookVelocity implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_events.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VelocityData $ip_events ip_events
+     * @param ?\Fingerprint\ServerSdk\Model\VelocityData $ip_events ip_events
      *
      * @return $this
      */
@@ -343,7 +343,7 @@ class WebhookVelocity implements ModelInterface, \ArrayAccess
     /**
      * Sets distinct_ip_by_linked_id.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_ip_by_linked_id distinct_ip_by_linked_id
+     * @param ?\Fingerprint\ServerSdk\Model\VelocityData $distinct_ip_by_linked_id distinct_ip_by_linked_id
      *
      * @return $this
      */
@@ -365,7 +365,7 @@ class WebhookVelocity implements ModelInterface, \ArrayAccess
     /**
      * Sets distinct_visitor_id_by_linked_id.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_visitor_id_by_linked_id distinct_visitor_id_by_linked_id
+     * @param ?\Fingerprint\ServerSdk\Model\VelocityData $distinct_visitor_id_by_linked_id distinct_visitor_id_by_linked_id
      *
      * @return $this
      */

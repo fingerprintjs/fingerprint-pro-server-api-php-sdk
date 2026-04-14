@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * Webhook Class Doc Comment.
@@ -59,45 +59,45 @@ class Webhook implements ModelInterface, \ArrayAccess
         'tag' => 'array',
         'time' => '\DateTime',
         'timestamp' => 'int',
-        'ip_location' => '\Fingerprint\ServerAPI\Model\DeprecatedGeolocation',
+        'ip_location' => '\Fingerprint\ServerSdk\Model\DeprecatedGeolocation',
         'linked_id' => 'string',
         'visitor_id' => 'string',
         'visitor_found' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\IdentificationConfidence',
-        'first_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
-        'last_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
-        'browser_details' => '\Fingerprint\ServerAPI\Model\BrowserDetails',
+        'confidence' => '\Fingerprint\ServerSdk\Model\IdentificationConfidence',
+        'first_seen_at' => '\Fingerprint\ServerSdk\Model\IdentificationSeenAt',
+        'last_seen_at' => '\Fingerprint\ServerSdk\Model\IdentificationSeenAt',
+        'browser_details' => '\Fingerprint\ServerSdk\Model\BrowserDetails',
         'incognito' => 'bool',
         'client_referrer' => 'string',
         'components' => 'array',
-        'bot' => '\Fingerprint\ServerAPI\Model\BotdBot',
+        'bot' => '\Fingerprint\ServerSdk\Model\BotdBot',
         'user_agent' => 'string',
-        'root_apps' => '\Fingerprint\ServerAPI\Model\WebhookRootApps',
-        'emulator' => '\Fingerprint\ServerAPI\Model\WebhookEmulator',
-        'ip_info' => '\Fingerprint\ServerAPI\Model\WebhookIPInfo',
-        'ip_blocklist' => '\Fingerprint\ServerAPI\Model\WebhookIPBlocklist',
-        'tor' => '\Fingerprint\ServerAPI\Model\WebhookTor',
-        'vpn' => '\Fingerprint\ServerAPI\Model\WebhookVPN',
-        'proxy' => '\Fingerprint\ServerAPI\Model\WebhookProxy',
-        'tampering' => '\Fingerprint\ServerAPI\Model\WebhookTampering',
-        'cloned_app' => '\Fingerprint\ServerAPI\Model\WebhookClonedApp',
-        'factory_reset' => '\Fingerprint\ServerAPI\Model\WebhookFactoryReset',
-        'jailbroken' => '\Fingerprint\ServerAPI\Model\WebhookJailbroken',
-        'frida' => '\Fingerprint\ServerAPI\Model\WebhookFrida',
-        'privacy_settings' => '\Fingerprint\ServerAPI\Model\WebhookPrivacySettings',
-        'virtual_machine' => '\Fingerprint\ServerAPI\Model\WebhookVirtualMachine',
+        'root_apps' => '\Fingerprint\ServerSdk\Model\WebhookRootApps',
+        'emulator' => '\Fingerprint\ServerSdk\Model\WebhookEmulator',
+        'ip_info' => '\Fingerprint\ServerSdk\Model\WebhookIPInfo',
+        'ip_blocklist' => '\Fingerprint\ServerSdk\Model\WebhookIPBlocklist',
+        'tor' => '\Fingerprint\ServerSdk\Model\WebhookTor',
+        'vpn' => '\Fingerprint\ServerSdk\Model\WebhookVPN',
+        'proxy' => '\Fingerprint\ServerSdk\Model\WebhookProxy',
+        'tampering' => '\Fingerprint\ServerSdk\Model\WebhookTampering',
+        'cloned_app' => '\Fingerprint\ServerSdk\Model\WebhookClonedApp',
+        'factory_reset' => '\Fingerprint\ServerSdk\Model\WebhookFactoryReset',
+        'jailbroken' => '\Fingerprint\ServerSdk\Model\WebhookJailbroken',
+        'frida' => '\Fingerprint\ServerSdk\Model\WebhookFrida',
+        'privacy_settings' => '\Fingerprint\ServerSdk\Model\WebhookPrivacySettings',
+        'virtual_machine' => '\Fingerprint\ServerSdk\Model\WebhookVirtualMachine',
         'raw_device_attributes' => 'array',
-        'high_activity' => '\Fingerprint\ServerAPI\Model\WebhookHighActivity',
-        'location_spoofing' => '\Fingerprint\ServerAPI\Model\WebhookLocationSpoofing',
-        'suspect_score' => '\Fingerprint\ServerAPI\Model\WebhookSuspectScore',
-        'remote_control' => '\Fingerprint\ServerAPI\Model\WebhookRemoteControl',
-        'velocity' => '\Fingerprint\ServerAPI\Model\WebhookVelocity',
-        'developer_tools' => '\Fingerprint\ServerAPI\Model\WebhookDeveloperTools',
-        'mitm_attack' => '\Fingerprint\ServerAPI\Model\WebhookMitMAttack',
+        'high_activity' => '\Fingerprint\ServerSdk\Model\WebhookHighActivity',
+        'location_spoofing' => '\Fingerprint\ServerSdk\Model\WebhookLocationSpoofing',
+        'suspect_score' => '\Fingerprint\ServerSdk\Model\WebhookSuspectScore',
+        'remote_control' => '\Fingerprint\ServerSdk\Model\WebhookRemoteControl',
+        'velocity' => '\Fingerprint\ServerSdk\Model\WebhookVelocity',
+        'developer_tools' => '\Fingerprint\ServerSdk\Model\WebhookDeveloperTools',
+        'mitm_attack' => '\Fingerprint\ServerSdk\Model\WebhookMitMAttack',
         'replayed' => 'bool',
-        'sdk' => '\Fingerprint\ServerAPI\Model\SDK',
-        'supplementary_ids' => '\Fingerprint\ServerAPI\Model\WebhookSupplementaryIDs',
-        'proximity' => '\Fingerprint\ServerAPI\Model\WebhookProximity'];
+        'sdk' => '\Fingerprint\ServerSdk\Model\SDK',
+        'supplementary_ids' => '\Fingerprint\ServerSdk\Model\WebhookSupplementaryIDs',
+        'proximity' => '\Fingerprint\ServerSdk\Model\WebhookProximity'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -640,7 +640,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_location.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\DeprecatedGeolocation $ip_location ip_location
+     * @param ?\Fingerprint\ServerSdk\Model\DeprecatedGeolocation $ip_location ip_location
      *
      * @return $this
      */
@@ -728,7 +728,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets confidence.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IdentificationConfidence $confidence confidence
+     * @param ?\Fingerprint\ServerSdk\Model\IdentificationConfidence $confidence confidence
      *
      * @return $this
      */
@@ -750,7 +750,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets first_seen_at.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt $first_seen_at first_seen_at
+     * @param ?\Fingerprint\ServerSdk\Model\IdentificationSeenAt $first_seen_at first_seen_at
      *
      * @return $this
      */
@@ -772,7 +772,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets last_seen_at.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt $last_seen_at last_seen_at
+     * @param ?\Fingerprint\ServerSdk\Model\IdentificationSeenAt $last_seen_at last_seen_at
      *
      * @return $this
      */
@@ -794,7 +794,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets browser_details.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\BrowserDetails $browser_details browser_details
+     * @param ?\Fingerprint\ServerSdk\Model\BrowserDetails $browser_details browser_details
      *
      * @return $this
      */
@@ -882,7 +882,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets bot.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\BotdBot $bot bot
+     * @param ?\Fingerprint\ServerSdk\Model\BotdBot $bot bot
      *
      * @return $this
      */
@@ -926,7 +926,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets root_apps.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookRootApps $root_apps root_apps
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookRootApps $root_apps root_apps
      *
      * @return $this
      */
@@ -948,7 +948,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets emulator.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookEmulator $emulator emulator
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookEmulator $emulator emulator
      *
      * @return $this
      */
@@ -970,7 +970,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_info.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookIPInfo $ip_info ip_info
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookIPInfo $ip_info ip_info
      *
      * @return $this
      */
@@ -992,7 +992,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets ip_blocklist.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookIPBlocklist $ip_blocklist ip_blocklist
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookIPBlocklist $ip_blocklist ip_blocklist
      *
      * @return $this
      */
@@ -1014,7 +1014,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets tor.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookTor $tor tor
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookTor $tor tor
      *
      * @return $this
      */
@@ -1036,7 +1036,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets vpn.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookVPN $vpn vpn
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookVPN $vpn vpn
      *
      * @return $this
      */
@@ -1058,7 +1058,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets proxy.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookProxy $proxy proxy
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookProxy $proxy proxy
      *
      * @return $this
      */
@@ -1080,7 +1080,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets tampering.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookTampering $tampering tampering
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookTampering $tampering tampering
      *
      * @return $this
      */
@@ -1102,7 +1102,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets cloned_app.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookClonedApp $cloned_app cloned_app
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookClonedApp $cloned_app cloned_app
      *
      * @return $this
      */
@@ -1124,7 +1124,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets factory_reset.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookFactoryReset $factory_reset factory_reset
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookFactoryReset $factory_reset factory_reset
      *
      * @return $this
      */
@@ -1146,7 +1146,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets jailbroken.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookJailbroken $jailbroken jailbroken
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookJailbroken $jailbroken jailbroken
      *
      * @return $this
      */
@@ -1168,7 +1168,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets frida.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookFrida $frida frida
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookFrida $frida frida
      *
      * @return $this
      */
@@ -1190,7 +1190,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets privacy_settings.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookPrivacySettings $privacy_settings privacy_settings
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookPrivacySettings $privacy_settings privacy_settings
      *
      * @return $this
      */
@@ -1212,7 +1212,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets virtual_machine.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookVirtualMachine $virtual_machine virtual_machine
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookVirtualMachine $virtual_machine virtual_machine
      *
      * @return $this
      */
@@ -1256,7 +1256,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets high_activity.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookHighActivity $high_activity high_activity
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookHighActivity $high_activity high_activity
      *
      * @return $this
      */
@@ -1278,7 +1278,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets location_spoofing.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookLocationSpoofing $location_spoofing location_spoofing
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookLocationSpoofing $location_spoofing location_spoofing
      *
      * @return $this
      */
@@ -1300,7 +1300,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets suspect_score.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookSuspectScore $suspect_score suspect_score
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookSuspectScore $suspect_score suspect_score
      *
      * @return $this
      */
@@ -1322,7 +1322,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets remote_control.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookRemoteControl $remote_control remote_control
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookRemoteControl $remote_control remote_control
      *
      * @return $this
      */
@@ -1344,7 +1344,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets velocity.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookVelocity $velocity velocity
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookVelocity $velocity velocity
      *
      * @return $this
      */
@@ -1366,7 +1366,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets developer_tools.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookDeveloperTools $developer_tools developer_tools
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookDeveloperTools $developer_tools developer_tools
      *
      * @return $this
      */
@@ -1388,7 +1388,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets mitm_attack.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookMitMAttack $mitm_attack mitm_attack
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookMitMAttack $mitm_attack mitm_attack
      *
      * @return $this
      */
@@ -1454,7 +1454,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets supplementary_ids.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookSupplementaryIDs $supplementary_ids supplementary_ids
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookSupplementaryIDs $supplementary_ids supplementary_ids
      *
      * @return $this
      */
@@ -1476,7 +1476,7 @@ class Webhook implements ModelInterface, \ArrayAccess
     /**
      * Sets proximity.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\WebhookProximity $proximity proximity
+     * @param ?\Fingerprint\ServerSdk\Model\WebhookProximity $proximity proximity
      *
      * @return $this
      */

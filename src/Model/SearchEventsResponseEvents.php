@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * SearchEventsResponseEvents Class Doc Comment.
@@ -54,7 +54,7 @@ class SearchEventsResponseEvents implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'products' => '\Fingerprint\ServerAPI\Model\Products'];
+        'products' => '\Fingerprint\ServerSdk\Model\Products'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.

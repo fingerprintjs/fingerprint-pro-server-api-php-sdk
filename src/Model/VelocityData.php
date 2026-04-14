@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * VelocityData Class Doc Comment.
@@ -52,7 +52,7 @@ class VelocityData implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'intervals' => '\Fingerprint\ServerAPI\Model\VelocityIntervals'];
+        'intervals' => '\Fingerprint\ServerSdk\Model\VelocityIntervals'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -195,7 +195,7 @@ class VelocityData implements ModelInterface, \ArrayAccess
     /**
      * Sets intervals.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\VelocityIntervals $intervals intervals
+     * @param ?\Fingerprint\ServerSdk\Model\VelocityIntervals $intervals intervals
      *
      * @return $this
      */

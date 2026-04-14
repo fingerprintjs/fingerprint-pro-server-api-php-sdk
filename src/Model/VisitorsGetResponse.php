@@ -25,9 +25,9 @@
  * Do not edit the class manually.
  */
 
-namespace Fingerprint\ServerAPI\Model;
+namespace Fingerprint\ServerSdk\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
  * VisitorsGetResponse Class Doc Comment.
@@ -55,7 +55,7 @@ class VisitorsGetResponse implements ModelInterface, \ArrayAccess
      */
     protected static array $swaggerTypes = [
         'visitor_id' => 'string',
-        'visits' => '\Fingerprint\ServerAPI\Model\Visit[]',
+        'visits' => '\Fingerprint\ServerSdk\Model\Visit[]',
         'last_timestamp' => 'int',
         'pagination_key' => 'string'];
 
@@ -238,7 +238,7 @@ class VisitorsGetResponse implements ModelInterface, \ArrayAccess
     /**
      * Gets visits.
      *
-     * @return \Fingerprint\ServerAPI\Model\Visit[]
+     * @return \Fingerprint\ServerSdk\Model\Visit[]
      */
     public function getVisits(): array
     {
@@ -248,7 +248,7 @@ class VisitorsGetResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets visits.
      *
-     * @param \Fingerprint\ServerAPI\Model\Visit[] $visits visits
+     * @param \Fingerprint\ServerSdk\Model\Visit[] $visits visits
      *
      * @return $this
      */
