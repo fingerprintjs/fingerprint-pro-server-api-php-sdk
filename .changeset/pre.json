@@ -1,12 +1,8 @@
 {
   "mode": "pre",
-  "tag": "develop",
+  "tag": "beta",
   "initialVersions": {
     "@fingerprint/php-sdk": "6.10.0"
   },
-  "changesets": [
-    "fifty-wolves-sort",
-    "pink-numbers-cover",
-    "wild-bats-fly"
-  ]
+  "changesets": []
 }
