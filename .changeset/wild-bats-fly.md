@@ -1,5 +1,5 @@
 ---
-"fingerprint-pro-server-api-php-sdk": major
+"@fingerprint/php-sdk": major
 ---
 
 Changed package name to `fingerprint/server-sdk`
