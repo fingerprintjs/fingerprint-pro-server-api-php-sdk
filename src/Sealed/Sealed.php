@@ -16,6 +16,7 @@ class Sealed
      *
      * @throws UnsealAggregateException
      * @throws \DateMalformedStringException
+     * @throws InvalidSealedDataException
      */
     public static function unsealEventResponse(string $sealed, array $keys): Event
     {
@@ -40,6 +41,8 @@ class Sealed
      * @param DecryptionKey[] $keys   Decryption keys. The SDK will try to decrypt the result with each key until it succeeds.
      *
      * @throws UnsealAggregateException
+     * @throws InvalidSealedDataHeaderException
+     * @throws \InvalidArgumentException
      *
      * @noinspection PhpUnusedSwitchBranchInspection
      */
@@ -99,7 +102,7 @@ class Sealed
     /**
      * @param bool|string $data
      *
-     * @throws \Exception
+     * @throws DecompressionException
      */
     private static function decompress(mixed $data): string
     {
