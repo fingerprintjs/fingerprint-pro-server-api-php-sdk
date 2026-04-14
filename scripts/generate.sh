@@ -85,4 +85,4 @@ API_FILE="src/Api/FingerprintApi.php"
 sed_in_place 's/@param  int|null \$limit/@param  int \$limit/' "$API_FILE"
 
 # Format generated code
-"$(dirname "${BASH_SOURCE[0]}")/php-cs-fixer.sh" -vvv
+"$(dirname "${BASH_SOURCE[0]}")/php-cs-fixer.sh"
