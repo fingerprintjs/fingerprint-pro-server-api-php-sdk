@@ -178,11 +178,7 @@ class FingerprintApi
         } catch (ApiException $e) {
             /** @var ResponseInterface $response */
             $response = $e->getResponseObject();
-
             $errorCode = $e->getCode();
-            if (429 === $errorCode && $response->hasHeader('retry-after')) {
-                $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-            }
 
             $content = (string) $response->getBody();
             $response->getBody()->rewind();
@@ -280,11 +276,7 @@ class FingerprintApi
                 function ($e) {
                     /** @var ResponseInterface $response */
                     $response = $e->getResponseObject();
-
                     $errorCode = $e->getCode();
-                    if (429 === $errorCode && $response->hasHeader('retry-after')) {
-                        $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-                    }
 
                     switch ($e->getCode()) {
                         case 400:
@@ -460,11 +452,7 @@ class FingerprintApi
         } catch (ApiException $e) {
             /** @var ResponseInterface $response */
             $response = $e->getResponseObject();
-
             $errorCode = $e->getCode();
-            if (429 === $errorCode && $response->hasHeader('retry-after')) {
-                $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-            }
 
             $content = (string) $response->getBody();
             $response->getBody()->rewind();
@@ -588,11 +576,7 @@ class FingerprintApi
                 function ($e) {
                     /** @var ResponseInterface $response */
                     $response = $e->getResponseObject();
-
                     $errorCode = $e->getCode();
-                    if (429 === $errorCode && $response->hasHeader('retry-after')) {
-                        $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-                    }
 
                     switch ($e->getCode()) {
                         case 200:
@@ -877,11 +861,7 @@ class FingerprintApi
         } catch (ApiException $e) {
             /** @var ResponseInterface $response */
             $response = $e->getResponseObject();
-
             $errorCode = $e->getCode();
-            if (429 === $errorCode && $response->hasHeader('retry-after')) {
-                $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-            }
 
             $content = (string) $response->getBody();
             $response->getBody()->rewind();
@@ -1067,11 +1047,7 @@ class FingerprintApi
                 function ($e) {
                     /** @var ResponseInterface $response */
                     $response = $e->getResponseObject();
-
                     $errorCode = $e->getCode();
-                    if (429 === $errorCode && $response->hasHeader('retry-after')) {
-                        $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-                    }
 
                     switch ($e->getCode()) {
                         case 200:
@@ -1667,11 +1643,7 @@ class FingerprintApi
         } catch (ApiException $e) {
             /** @var ResponseInterface $response */
             $response = $e->getResponseObject();
-
             $errorCode = $e->getCode();
-            if (429 === $errorCode && $response->hasHeader('retry-after')) {
-                $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-            }
 
             $content = (string) $response->getBody();
             $response->getBody()->rewind();
@@ -1771,11 +1743,7 @@ class FingerprintApi
                 function ($e) {
                     /** @var ResponseInterface $response */
                     $response = $e->getResponseObject();
-
                     $errorCode = $e->getCode();
-                    if (429 === $errorCode && $response->hasHeader('retry-after')) {
-                        $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-                    }
 
                     switch ($e->getCode()) {
                         case 400:

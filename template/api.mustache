@@ -194,11 +194,7 @@ use {{invokerPackage}}\ObjectSerializer;
         } catch (ApiException $e) {
             /** @var ResponseInterface $response */
             $response = $e->getResponseObject();
-
             $errorCode = $e->getCode();
-            if ($errorCode === 429 && $response->hasHeader('retry-after')) {
-                $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-            }
 
             $content = (string) $response->getBody();
             $response->getBody()->rewind();
@@ -305,11 +301,7 @@ use {{invokerPackage}}\ObjectSerializer;
                 function ($e) {
                     /** @var ResponseInterface $response */
                     $response = $e->getResponseObject();
-
                     $errorCode = $e->getCode();
-                    if (429 === $errorCode && $response->hasHeader('retry-after')) {
-                        $e->setRetryAfter((int) $response->getHeader('retry-after')[0]);
-                    }
 
                     switch ($e->getCode()) {
                     {{#responses}}

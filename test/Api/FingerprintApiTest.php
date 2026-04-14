@@ -337,7 +337,6 @@ class FingerprintApiTest extends TestCase
             $errorDetails = $e->getErrorDetails();
             $this->assertEquals(ErrorCode::TOO_MANY_REQUESTS, $errorDetails->getError()->getCode());
             $this->assertEquals('too many requests', $errorDetails->getError()->getMessage());
-            $this->assertEquals(MockHelper::MOCK_RETRY_AFTER, $e->getRetryAfter());
 
             throw $e;
         }
@@ -1186,35 +1185,6 @@ class FingerprintApiTest extends TestCase
             $errorDetails = $e->getErrorDetails();
             $this->assertEquals(ErrorCode::TOO_MANY_REQUESTS, $errorDetails->getError()->getCode());
             $this->assertEquals('too many requests', $errorDetails->getError()->getMessage());
-            $this->assertEquals(MockHelper::MOCK_RETRY_AFTER, $e->getRetryAfter());
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Verifies deleteVisitorData throws 429 for too many requests error.
-     *
-     * @throws GuzzleException
-     * @throws \DateMalformedStringException
-     */
-    public function testDeleteVisitorData429TooManyRequestsErrorWithoutRetryAfterHeader()
-    {
-        $this->mockHandler->append(MockHelper::getMockResponse(MockHelper::OPERATION_ERROR_429_TOO_MANY_REQUESTS_WITHOUT_RETRY_AFTER));
-
-        $this->expectException(ApiException::class);
-        $this->expectExceptionCode(429);
-
-        try {
-            $this->api->deleteVisitorData(MockHelper::MOCK_VISITOR_ID);
-        } catch (ApiException $e) {
-            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
-
-            /** @var ErrorResponse $errorDetails */
-            $errorDetails = $e->getErrorDetails();
-            $this->assertEquals(ErrorCode::TOO_MANY_REQUESTS, $errorDetails->getError()->getCode());
-            $this->assertEquals('too many requests', $errorDetails->getError()->getMessage());
-            $this->assertEquals(null, $e->getRetryAfter());
 
             throw $e;
         }

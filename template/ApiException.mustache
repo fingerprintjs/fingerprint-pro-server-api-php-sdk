@@ -38,8 +38,6 @@ class ApiException extends Exception
 
     protected ?ModelInterface $errorDetails = null;
 
-    protected ?int $retryAfter = null;
-
     public function __construct(?string $message = "", ?int $code = 0, ?ResponseInterface $response = null, ?Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
@@ -64,15 +62,5 @@ class ApiException extends Exception
     public function setErrorDetails(ModelInterface $errorDetails): void
     {
         $this->errorDetails = $errorDetails;
-    }
-
-    public function getRetryAfter(): ?int
-    {
-        return $this->retryAfter;
-    }
-
-    public function setRetryAfter(?int $retryAfter): void
-    {
-        $this->retryAfter = $retryAfter;
     }
 }

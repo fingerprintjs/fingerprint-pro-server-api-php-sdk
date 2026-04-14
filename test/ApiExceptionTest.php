@@ -77,31 +77,6 @@ class ApiExceptionTest extends TestCase
     }
 
     /**
-     * retryAfter should default to null and be settable.
-     */
-    public function testSetAndGetRetryAfter(): void
-    {
-        $exception = new ApiException('Too many requests', 429);
-
-        $this->assertNull($exception->getRetryAfter());
-
-        $exception->setRetryAfter(60);
-        $this->assertEquals(60, $exception->getRetryAfter());
-    }
-
-    /**
-     * setRetryAfter with null should reset the retry-after value.
-     */
-    public function testSetRetryAfterNull(): void
-    {
-        $exception = new ApiException('Too many requests', 429);
-        $exception->setRetryAfter(30);
-        $exception->setRetryAfter(null);
-
-        $this->assertNull($exception->getRetryAfter());
-    }
-
-    /**
      * ApiException should be an instance of Exception.
      */
     public function testIsException(): void

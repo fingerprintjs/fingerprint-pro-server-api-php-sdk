@@ -52,8 +52,6 @@ final class MockHelper
 
     public const OPERATION_ERROR_429_TOO_MANY_REQUESTS = 'OPERATION_ERROR_429_TOO_MANY_REQUESTS';
 
-    public const OPERATION_ERROR_429_TOO_MANY_REQUESTS_WITHOUT_RETRY_AFTER = 'OPERATION_ERROR_429_TOO_MANY_REQUESTS_WITHOUT_RETRY_AFTER';
-
     public const OPERATION_ERROR_500_INTERNAL_SERVER_ERROR = 'OPERATION_ERROR_500_INTERNAL_SERVER_ERROR';
 
     /**
@@ -127,11 +125,6 @@ final class MockHelper
         self::OPERATION_ERROR_429_TOO_MANY_REQUESTS => [
             'file' => ['errors', '429_too_many_requests.json'],
             'status' => 429,
-            'headers' => ['retry-after' => self::MOCK_RETRY_AFTER],
-        ],
-        self::OPERATION_ERROR_429_TOO_MANY_REQUESTS_WITHOUT_RETRY_AFTER => [
-            'file' => ['errors', '429_too_many_requests.json'],
-            'status' => 429,
         ],
         self::OPERATION_ERROR_500_INTERNAL_SERVER_ERROR => [
             'file' => ['errors', '500_internal_server_error.json'],
@@ -141,11 +134,11 @@ final class MockHelper
 
     public static function getMockResponse(string $operationId): Response
     {
-        $defaultHeaders = ['Content-Type' => 'application/json'];
         $mockData = self::getMockData($operationId);
-        $headers = array_merge($defaultHeaders, $mockData['headers']);
 
-        return new Response($mockData['status'], $headers, $mockData['contents']);
+        return new Response($mockData['status'], [
+            'Content-Type' => 'application/json',
+        ], $mockData['contents']);
     }
 
     public static function getMockData(string $operationId): array
@@ -159,7 +152,6 @@ final class MockHelper
         return [
             'contents' => file_get_contents(self::getMockFilePath($data['file'])),
             'status' => $data['status'] ?? 200,
-            'headers' => $data['headers'] ?? [],
         ];
     }
 
