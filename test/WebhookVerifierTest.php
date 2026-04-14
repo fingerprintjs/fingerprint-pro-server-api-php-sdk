@@ -1,13 +1,17 @@
 <?php
 
-namespace Fingerprint\ServerSdk;
+namespace Fingerprint\ServerSdk\Test;
 
 use Fingerprint\ServerSdk\Webhook\WebhookVerifier;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests for webhook signature verification.
+ *
+ * @internal
  */
+#[CoversClass(WebhookVerifier::class)]
 class WebhookVerifierTest extends TestCase
 {
     private string $secret = 'secret';

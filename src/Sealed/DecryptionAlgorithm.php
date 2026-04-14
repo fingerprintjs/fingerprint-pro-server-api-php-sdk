@@ -2,7 +2,7 @@
 
 namespace Fingerprint\ServerSdk\Sealed;
 
-class DecryptionAlgorithm
+enum DecryptionAlgorithm: string
 {
-    public const AES_256_GCM = 'aes-256-gcm';
+    case AES_256_GCM = 'aes-256-gcm';
 }

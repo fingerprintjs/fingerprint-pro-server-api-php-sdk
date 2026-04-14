@@ -34,6 +34,7 @@ examples=(
   'errors/403_secret_api_key_not_found.json'
   'errors/403_secret_api_key_required.json'
   'errors/403_wrong_region.json'
+  'errors/403_subscription_not_active.json'
   'errors/404_event_not_found.json'
   'errors/404_visitor_not_found.json'
   'errors/409_state_not_ready.json'

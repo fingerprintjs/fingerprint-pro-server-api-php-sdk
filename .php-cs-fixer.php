@@ -1,6 +1,9 @@
 <?php
 
-return (new PhpCsFixer\Config())
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+return (new Config())
     ->setRules([
         '@PSR12' => true,
         '@PhpCsFixer' => true,
@@ -20,8 +23,13 @@ return (new PhpCsFixer\Config())
             'null_adjustment' => 'always_last',
             'sort_algorithm' => 'none',
         ],
+        'single_line_comment_style' => false,
+        'explicit_string_variable' => false,
+        'return_assignment' => [
+            'skip_named_var_tags' => true,
+        ],
     ])
     ->setFinder(
-        PhpCsFixer\Finder::create()
-            ->in(__DIR__ . "/src")
+        Finder::create()
+            ->in([__DIR__.'/src', __DIR__.'/test'])
     );

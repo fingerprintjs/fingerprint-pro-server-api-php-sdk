@@ -1,0 +1,6 @@
+{
+  "error": {
+    "code": "ruleset_not_found",
+    "message": "ruleset not found"
+  }
+}

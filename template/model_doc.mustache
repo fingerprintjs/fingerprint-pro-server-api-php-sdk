@@ -1,16 +1,25 @@
-{{#models}}{{#model}}# {{classname}}
+# {{#models}}{{#model}}{{classname}} {{#isEnum}}Enum{{/isEnum}}{{^isEnum}}Class{{/isEnum}}
+
 {{#unescapedDescription}}
 {{{.}}}
 
 {{/unescapedDescription}}
-{{^emptyVars}}
+{{#isEnum}}
+## Values
 
+| Name | Value | Description |
+| --- | --- | --- |{{#allowableValues}}{{#enumVars}}
+{{{name}}} | {{{value}}} | {{{enumDescription}}} |{{/enumVars}}{{/allowableValues}}
+{{/isEnum}}
+{{^isEnum}}
+{{^emptyVars}}
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-{{#vars}}**{{name}}** | {{#isPrimitiveType}}**{{datatype}}**{{/isPrimitiveType}}{{^isPrimitiveType}}[**{{datatype}}**]({{complexType}}.md){{/isPrimitiveType}} | {{{description}}} | {{^required}}[optional] {{/required}}{{#readOnly}}[readonly] {{/readOnly}}{{#defaultValue}}[default to {{{.}}}]{{/defaultValue}}
+{{#vars}}**{{name}}** | {{#isPrimitiveType}}**{{{dataType}}}**{{/isPrimitiveType}}{{^isPrimitiveType}}[**{{{dataType}}}**]({{complexType}}.md){{/isPrimitiveType}} | {{description}} |{{^required}} [optional]{{/required}}{{#isReadOnly}} [readonly]{{/isReadOnly}}{{#defaultValue}} [default to {{{.}}}]{{/defaultValue}}
 {{/vars}}
+{{/emptyVars}}
+{{/isEnum}}
 
-[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
-
-{{/emptyVars}}{{/model}}{{/models}}
+[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md){{/model}}{{/models}}

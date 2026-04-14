@@ -1,10 +1,11 @@
-# IPBlocklist
+# IPBlockList Class
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**result** | **bool** | `true` if request IP address is part of any database that we use to search for known malicious actors, `false` otherwise. | 
-**details** | [**\Fingerprint\ServerSdk\Model\IPBlocklistDetails**](IPBlocklistDetails.md) |  | 
+**email_spam** | **bool** | IP address was part of a known email spam attack (SMTP). | [optional]
+**attack_source** | **bool** | IP address was part of a known network attack (SSH/HTTPS). | [optional]
+**tor_node** | **bool** | IP address was part of known TOR network activity. | [optional]
 
-[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
-
+[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)
