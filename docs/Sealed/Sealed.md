@@ -1,7 +1,8 @@
 # Sealed
 
 ## **UnsealEventsResponse**
-> unsealEventResponse(sealed string, keys DecryptionKey[]): EventsGetResponse
+
+> Fingerprint\ServerSdk\Sealed\Sealed::unsealEventResponse(string $sealed, DecryptionKey[] $keys): Event
 
 Decrypts the sealed response with provided keys.
 ### Required Parameters

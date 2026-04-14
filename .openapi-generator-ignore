@@ -1,0 +1,21 @@
+.gitignore
+.travis.yml
+.php-cs-fixer.dist.php
+git_push.sh
+
+# Prevent OAG from generating unused files
+src/HeaderSelector.php
+src/FormDataProcessor.php
+
+# Ignore enum test files
+test/Model/BotResultTest.php
+test/Model/ErrorCodeTest.php
+test/Model/IncrementalIdentificationStatusTest.php
+test/Model/ProxyConfidence.php
+test/Model/RuleActionType.php
+test/Model/SearchEventsBot.php
+test/Model/SearchEventsIncrementalIdentificationStatus.php
+test/Model/SearchEventsSdkPlatform.php
+test/Model/SearchEventsVpnConfidence.php
+test/Model/TamperingConfidence.php
+test/Model/VpnConfidence.php

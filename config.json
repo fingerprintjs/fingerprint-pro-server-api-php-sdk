@@ -1,12 +1,52 @@
 {
-  "srcBasePath": ".",
-  "packagePath": "src",
+  "srcBasePath": "src",
   "invokerPackage": "Fingerprint\\ServerSdk",
   "composerVendorName": "fingerprint",
   "composerProjectName": "server-sdk",
   "packageUrl": "https://github.com/fingerprintjs/php-sdk",
+  "gitRepoBaseURL": "https://github.com",
   "gitUserId": "fingerprintjs",
   "gitRepoId": "php-sdk",
-  "description": "Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.",
-  "artifactVersion": "6.10.0"
+  "artifactVersion": "6.10.0",
+  "organizationName": "Fingerprint",
+  "organizationUrl": "https://fingerprint.com",
+  "licenseName": "MIT",
+  "files": {
+    "Sealed/Sealed.mustache": {
+      "destinationFilename": "src/Sealed/Sealed.php"
+    },
+    "Sealed/DecryptionAlgorithm.mustache": {
+      "destinationFilename": "src/Sealed/DecryptionAlgorithm.php"
+    },
+    "Sealed/DecryptionKey.mustache": {
+      "destinationFilename": "src/Sealed/DecryptionKey.php"
+    },
+    "Sealed/DecompressionException.mustache": {
+      "destinationFilename": "src/Sealed/DecompressionException.php"
+    },
+    "Sealed/InvalidSealedDataException.mustache": {
+      "destinationFilename": "src/Sealed/InvalidSealedDataException.php"
+    },
+    "Sealed/InvalidSealedDataHeaderException.mustache": {
+      "destinationFilename": "src/Sealed/InvalidSealedDataHeaderException.php"
+    },
+    "Sealed/UnsealAggregateException.mustache": {
+      "destinationFilename": "src/Sealed/UnsealAggregateException.php"
+    },
+    "Sealed/UnsealException.mustache": {
+      "destinationFilename": "src/Sealed/UnsealException.php"
+    },
+    "Webhook/WebhookVerifier.mustache": {
+      "destinationFilename": "src/Webhook/WebhookVerifier.php"
+    },
+    "Webhook/Webhook.md.mustache": {
+      "destinationFilename": "docs/Webhook.md"
+    },
+    "Sealed/Sealed.md.mustache": {
+      "destinationFilename": "docs/Sealed/Sealed.md"
+    },
+    "Sealed/DecryptionKey.md": {
+      "destinationFilename": "docs/Sealed/DecryptionKey.md"
+    }
+  }
 }

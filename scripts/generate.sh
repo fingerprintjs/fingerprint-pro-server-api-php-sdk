@@ -5,8 +5,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 #############
 # Constants #
 #############
-SWAGGER_CODEGEN_IMAGE_VERSION="3.0.78"
-PHP_CS_FIXER_IMAGE_VERSION="3.64-php8.3"
+OPENAPI_GENERATOR_IMAGE_VERSION="7.21.0"
 
 ######################
 # Version Resolution #
@@ -59,51 +58,31 @@ sed_in_place "s/\"artifactVersion\": \".*\"/\"artifactVersion\": \"$VERSION\"/g"
 ################
 require_cmd docker
 
-rm -f ./src/Model/*
+rm -Rf ./src/**
+rm -Rf ./docs/**
+rm -f README.md
+rm -f composer.json
 
 docker run --rm -u "$(id -u):$(id -g)" -v "${PWD}:/local" -w /local \
-  "swaggerapi/swagger-codegen-cli-v3:${SWAGGER_CODEGEN_IMAGE_VERSION}" generate \
+  "openapitools/openapi-generator-cli:v${OPENAPI_GENERATOR_IMAGE_VERSION}" generate \
   -t ./template \
-  -l php \
+  -g php \
   -i ./res/fingerprint-server-api.yaml \
   -o ./ \
-  -c ./config.json \
-  --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array,GeolocationSubdivisions=array
+  -c ./config.json
+
+# Fix documentation file enum usage
+DOC_FILE="docs/Api/FingerprintApi.md"
+NS="\\\\Fingerprint\\\\ServerSdk\\\\Model\\\\"
+
+sed_in_place "s|new ${NS}${NS}SearchEventsBot()|${NS}SearchEventsBot::GOOD|g" "$DOC_FILE"
+sed_in_place "s|new ${NS}${NS}SearchEventsSdkPlatform()|${NS}SearchEventsSdkPlatform::JS|g" "$DOC_FILE"
+sed_in_place "s|new ${NS}${NS}SearchEventsIncrementalIdentificationStatus|${NS}SearchEventsIncrementalIdentificationStatus::COMPLETED|g" "$DOC_FILE"
+sed_in_place "s|new ${NS}${NS}SearchEventsVpnConfidence()|${NS}SearchEventsVpnConfidence::MEDIUM|g" "$DOC_FILE"
+
+# Fix phpDoc type issue for `searchEvents`
+API_FILE="src/Api/FingerprintApi.php"
+sed_in_place 's/@param  int|null \$limit/@param  int \$limit/' "$API_FILE"
 
 # Format generated code
-if [ ! -f .php-cs-fixer.php ]; then
-  echo ".php-cs-fixer.php configuration file not found!"
-  exit 1
-fi
-
-docker run --rm -u "$(id -u):$(id -g)" -v "${PWD}:/code" \
-  "ghcr.io/php-cs-fixer/php-cs-fixer:${PHP_CS_FIXER_IMAGE_VERSION}" fix \
-  --config=/code/.php-cs-fixer.php
-
-# Fix generated code
-sed_in_place_glob 's/\\Fingerprint\\ServerSdk\\Model\\array/array/' ./src/Model/*
-sed_in_place_glob 's/\\Fingerprint\\ServerSdk\\Model\\mixed/mixed/' ./src/Model/*
-sed_in_place_glob 's/?mixed/mixed/' ./src/Model/*
-sed_in_place_glob 's/\[\*\*\\Fingerprint\\ServerSdk\\Model\\array\*\*\](array\.md)/array/' ./src/docs/Model/*
-sed_in_place_glob 's/\[\*\*\\Fingerprint\\ServerSdk\\Model\\mixed\*\*\](mixed\.md)/mixed/' ./src/docs/Model/*
-
-# Cleanup documentation
-patterns=(
-  '\[RawDeviceAttribute\](docs\/Model\/RawDeviceAttribute\.md)'
-  '\[RawDeviceAttributeError\](docs\/Model\/RawDeviceAttributeError\.md)'
-  '\[RawDeviceAttributes\](docs\/Model\/RawDeviceAttributes\.md)'
-  '\[WebhookRawDeviceAttributes\](docs\/Model\/WebhookRawDeviceAttributes\.md)'
-  '\[Tag\](docs\/Model\/Tag\.md)'
-  '\[GeolocationSubdivisions\](docs\/Model\/GeolocationSubdivisions\.md)'
-  '\[GeolocationSubdivision\](docs\/Model\/GeolocationSubdivision\.md)'
-)
-for pattern in "${patterns[@]}"; do
-  sed_in_place "/$pattern/d" src/README.md
-done
-
-# Move generated files
-mv -f src/README.md ./README.md
-mv -f src/composer.json composer.json
-rm ./docs/Api/*
-rm ./docs/Model/*
-mv -f src/docs/* ./docs
+"$(dirname "${BASH_SOURCE[0]}")/php-cs-fixer.sh"

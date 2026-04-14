@@ -1,6 +1,0 @@
-{
-  "error": {
-    "code": "TokenRequired",
-    "message": "secret key is required"
-  }
-}

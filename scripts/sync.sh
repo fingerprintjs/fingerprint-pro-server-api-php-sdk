@@ -3,7 +3,7 @@
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 defaultBaseUrl="https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi"
-schemaUrl="${1:-$defaultBaseUrl/schemas/fingerprint-server-api-compact.yaml}"
+schemaUrl="${1:-$defaultBaseUrl/schemas/fingerprint-server-api-v4.yaml}"
 examplesBaseUrl="${2:-$defaultBaseUrl/examples}"
 
 mkdir -p ./res
@@ -18,55 +18,38 @@ require_cmd curl
 echo "Downloading \`$schemaUrl\`..."
 curl "${CURL_OPTS[@]}" -o ./res/fingerprint-server-api.yaml "$schemaUrl"
 
-examplesList=(
-  'get_visits_200_limit_1.json'
-  'get_visits_200_limit_500.json'
-  'get_visits_403_error.json'
-  'get_visits_429_too_many_requests_error.json'
-  'webhook.json'
-  'get_event_200.json'
-  'get_event_200_all_errors.json'
-  'get_event_200_extra_fields.json'
-  'get_event_403_error.json'
-  'get_event_404_error.json'
-  'get_event_200_botd_failed_error.json'
-  'get_event_200_botd_too_many_requests_error.json'
-  'get_event_200_identification_failed_error.json'
-  'get_event_200_identification_too_many_requests_error.json'
-  'update_event_400_error.json'
-  'update_event_403_error.json'
-  'update_event_404_error.json'
-  'update_event_409_error.json'
+examples=(
+  'events/get_event_200.json'
+  'events/get_event_ruleset_200.json'
+  'events/search/get_event_search_200.json'
+  'webhook/webhook_event.json'
+  'errors/400_event_id_invalid.json'
+  'errors/400_request_body_invalid.json'
+  'errors/400_ruleset_not_found.json'
+  'errors/400_visitor_id_invalid.json'
+  'errors/400_visitor_id_required.json'
+  'errors/403_feature_not_enabled.json'
+  'errors/403_secret_api_key_not_found.json'
+  'errors/403_secret_api_key_required.json'
+  'errors/403_subscription_not_active.json'
+  'errors/403_wrong_region.json'
+  'errors/404_event_not_found.json'
+  'errors/404_visitor_not_found.json'
+  'errors/409_state_not_ready.json'
+  'errors/429_too_many_requests.json'
+  'errors/500_internal_server_error.json'
 )
 
-sharedExamplesList=(
-  '400_error_empty_visitor_id.json'
-  '400_error_incorrect_visitor_id.json'
-  '403_error_feature_not_enabled.json'
-  '403_error_token_not_found.json'
-  '403_error_token_required.json'
-  '403_error_wrong_region.json'
-  '404_error_visitor_not_found.json'
-  '429_error_too_many_requests.json'
-)
+baseDestination="./test/mocks"
 
-examplesBaseDestination="./test/mocks"
-mkdir -p "$examplesBaseDestination"
+for example in "${examples[@]}"; do
+  destinationPath="$baseDestination/$example"
+  destinationDir="$(dirname "$destinationPath")"
+  mkdir -p "$destinationDir"
 
-download_example() {
-  local subPath="$1"
-  shift
-  local examples=("$@")
-
-  for example in "${examples[@]}"; do
-    echo "Downloading \`$examplesBaseUrl/$example\` to \`$examplesBaseDestination/$example\`..."
-    curl "${CURL_OPTS[@]}" -o "$examplesBaseDestination/$example" "$examplesBaseUrl/$subPath$example"
-  done
-}
-
-download_example "" "${examplesList[@]}"
-download_example "shared/" "${sharedExamplesList[@]}"
-
-sed_in_place '/IpInfoResult:/,/IpBlockListResult:/ { /dataCenter:/ { N; d; }; }' ./res/fingerprint-server-api.yaml
+  exampleUrl="$examplesBaseUrl/$example"
+  echo "Downloading \`$exampleUrl\` to \`$destinationPath\`..."
+  curl "${CURL_OPTS[@]}" -o "$destinationPath" "$exampleUrl"
+done
 
 ./scripts/generate.sh

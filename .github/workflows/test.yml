@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        php_version: [ "8.1", "8.2", "8.3", "8.4" ]
+        php_version: [ "8.2", "8.3", "8.4" ]
 
     steps:
       - uses: actions/checkout@v4
@@ -20,14 +20,16 @@ jobs:
         uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231
         with:
           php-version: "${{ matrix.php_version }}"
-          coverage: none
+          coverage: xdebug
           tools: composer:v2
       - name: Install Dependencies
         run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
-      - uses: php-actions/phpunit@aed47a6852905dbd05b7c1a47c526b38fcc4bc17
+      - uses: php-actions/phpunit@1789d1964b1bfda259b1cb42a72b65299c2cae35
+        env:
+          XDEBUG_MODE: "coverage"
         with:
           php_version: "${{ matrix.php_version }}"
+          php_extensions: "xdebug"
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml.dist
           args: --coverage-text
-          version: "8.5.33"

@@ -6,11 +6,11 @@ require_once __DIR__.'/vendor/autoload.php';
 
 use Dotenv\Dotenv;
 use Fingerprint\ServerSdk\Api\FingerprintApi;
+use Fingerprint\ServerSdk\ApiException;
 use Fingerprint\ServerSdk\Configuration;
-use Fingerprint\ServerSdk\Model\EventsGetResponse;
-use Fingerprint\ServerSdk\Model\EventsUpdateRequest;
-use Fingerprint\ServerSdk\Model\VisitorsGetResponse;
-use Fingerprint\ServerSdk\Model\SearchEventsResponse;
+use Fingerprint\ServerSdk\Model\ErrorResponse;
+use Fingerprint\ServerSdk\Model\Event;
+use Fingerprint\ServerSdk\Model\EventUpdate;
 use Fingerprint\ServerSdk\Webhook\WebhookVerifier;
 use GuzzleHttp\Client;
 
@@ -29,7 +29,7 @@ if (!$apiKey) {
 
 $regionEnv = env('FP_REGION', 'us');
 $visitorIdToDelete = env('FP_VISITOR_ID_TO_DELETE');
-$requestIdToUpdate = env('FP_REQUEST_ID_TO_UPDATE');
+$eventIdToUpdate = env('FP_EVENT_ID_TO_UPDATE');
 
 $region = match(strtolower(trim($regionEnv))) {
     'eu' => Configuration::REGION_EUROPE,
@@ -37,14 +37,14 @@ $region = match(strtolower(trim($regionEnv))) {
     default => Configuration::REGION_GLOBAL,
 };
 
-$config = Configuration::getDefaultConfiguration(
+$config = new Configuration(
     $apiKey,
     $region,
 );
 
 $client = new FingerprintApi(
-    new Client(),
-    $config
+    $config,
+    new Client()
 );
 
 $start = (new DateTime())->sub(new DateInterval('P3M'));
@@ -52,31 +52,28 @@ $end = new DateTime();
 
 // FingerprintApi->searchEvents usage example
 try {
-    /** @var SearchEventsResponse $result */
-    list($result, $response) = $client->searchEvents(10, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000);
-    if (!is_countable($result->getEvents()) || count($result->getEvents()) === 0) {
+    list($events, $response) = $client->searchEventsWithHttpInfo(2, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000);
+    if (!is_countable($events->getEvents()) || count($events->getEvents()) === 0) {
         throw new Exception('No events found');
     }
-    $identificationData = $result->getEvents()[0]->getProducts()->getIdentification()->getData();
-    $visitorId = $identificationData->getVisitorId();
-    $requestId = $identificationData->getRequestId();
+    $event = $events->getEvents()[0];
+    $eventId = $event->getEventId();
     fwrite(STDOUT, sprintf("\n\nGot events: %s \n", $response->getBody()->getContents()));
-} catch (Exception $e) {
-    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents: %s\n", $e->getMessage()));
+
+    // Test pagination
+    $secondPageEvents = $client->searchEvents(2, pagination_key: $events->getPaginationKey(), start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000);
+    if (!is_countable($secondPageEvents->getEvents()) || count($secondPageEvents->getEvents()) === 0) {
+        throw new Exception('Second page of searchEvents is empty');
+    }
+} catch (ApiException $e) {
+    /** @var ErrorResponse $errorDetails */
+    $errorDetails = $e->getErrorDetails();
+    $error = $errorDetails->getError();
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents or FingerprintApi->searchEventsWithHttpInfo: [%s] %s\n", $error->getCode()->name, $error->getMessage()));
 
     exit(1);
-}
-
-// FingerprintApi->getVisits usage example
-try {
-    /** @var VisitorsGetResponse $result */
-    list($result, $response) = $client->getVisits($visitorId);
-    if ($result->getVisitorId() !== $visitorId) {
-        throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
-    }
-    fwrite(STDOUT, sprintf("Got visits: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
-    fwrite(STDERR, sprintf("Exception when calling FingerprintApi->getVisits: %s\n", $e->getMessage()));
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->searchEvents or FingerprintApi->searchEventsWithHttpInfo: %s\n", $e->getMessage()));
 
     exit(1);
 }
@@ -84,8 +81,8 @@ try {
 // FingerprintApi->deleteVisitorData usage example
 if ($visitorIdToDelete) {
     try {
-        list($model, $response) = $client->deleteVisitorData($visitorIdToDelete);
-        fwrite(STDOUT, sprintf("Visitor data deleted: %s \n", $response->getBody()->getContents()));
+        $client->deleteVisitorData($visitorIdToDelete);
+        fwrite(STDOUT, "Visitor data deleted");
     } catch (Exception $e) {
         fwrite(STDERR, sprintf("Exception when calling FingerprintApi->deleteVisitorData: %s\n", $e->getMessage()));
         exit(1);
@@ -94,10 +91,10 @@ if ($visitorIdToDelete) {
 
 // FingerprintApi->getEvent usage example
 try {
-    /** @var EventsGetResponse $result */
-    list($result, $response) = $client->getEvent($requestId);
-    if ($result->getProducts()->getIdentification()->getData()->getRequestId() !== $requestId) {
-        throw new Exception('Argument requestId is not equal to deserialized getRequestId');
+    /** @var Event $result */
+    $event = $client->getEvent($eventId);
+    if ($event->getEventId() !== $eventId) {
+        throw new Exception('Argument eventId is not equal to deserialized getEventId');
     }
     fwrite(STDOUT, sprintf("\n\nGot event: %s \n", $response->getBody()->getContents()));
 } catch (Exception $e) {
@@ -107,42 +104,29 @@ try {
 }
 
 // FingerprintApi->updateEvent usage example
-if ($requestIdToUpdate) {
+if ($eventIdToUpdate) {
     try {
-        $body = new EventsUpdateRequest([
+        $body = new EventUpdate([
             'linked_id' => date('Y-m-d H:i:s'),
         ]);
-        list($model, $response) = $client->updateEvent($body, $requestIdToUpdate);
-        fwrite(STDOUT, sprintf("\n\nEvent updated: %s \n", $response->getBody()->getContents()));
+        $client->updateEvent($eventIdToUpdate, $body);
+        fwrite(STDOUT, "Event updated");
     } catch (Exception $e) {
         fwrite(STDOUT, sprintf("\n\nException when calling FingerprintApi->updateEvent: %s\n", $e->getMessage()));
         exit(1);
     }
 }
 
-// Call API asynchronously examples
-$eventPromise = $client->getEventAsync($requestId);
-$eventPromise->then(function ($tuple) use ($requestId) {
-    list($result, $response) = $tuple;
-    if ($result->getProducts()->getIdentification()->getData()->getRequestId() !== $requestId) {
-        throw new Exception('Argument requestId is not equal to deserialized getRequestId');
+// Call API asynchronously example
+$eventPromise = $client->getEventAsyncWithHttpInfo($eventId);
+$eventPromise->then(function ($promiseResult) use ($eventId) {
+    list($event, $response) = $promiseResult;
+    if ($event->getEventId() !== $eventId) {
+        throw new Exception('Argument eventId is not equal to deserialized getEventId');
     }
     fwrite(STDOUT, sprintf("\n\nGot async event: %s \n", $response->getBody()->getContents()));
 }, function ($exception) {
-    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getVisits: %s\n", $exception->getMessage()));
-
-    exit(1);
-})->wait();
-
-$visitsPromise = $client->getVisitsAsync($visitorId);
-$visitsPromise->then(function ($tuple) use ($visitorId) {
-    list($result, $response) = $tuple;
-    if ($result->getVisitorId() !== $visitorId) {
-        throw new Exception('Argument visitorId is not equal to deserialized getVisitorId');
-    }
-    fwrite(STDOUT, sprintf("\n\nGot async visits: %s \n", $response->getBody()->getContents()));
-}, function ($exception) {
-    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getEvent: %s\n", $exception->getMessage()));
+    fwrite(STDERR, sprintf("\n\nException when calling FingerprintApi->getEventAsync: %s\n", $exception->getMessage()));
 
     exit(1);
 })->wait();
@@ -162,22 +146,20 @@ if ($isValidWebhookSign) {
 
 // Check that old events still match expected format
 try {
-    list($resultOld) = $client->searchEvents(1, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000, reverse: true);
-    if (!is_countable($resultOld->getEvents()) || count($resultOld->getEvents()) === 0) {
+    $oldEvents = $client->searchEvents(1, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000, reverse: true);
+    if (!is_countable($oldEvents->getEvents()) || count($oldEvents->getEvents()) === 0) {
         throw new Exception('No old events found');
     }
-    $identificationDataOld = $resultOld->getEvents()[0]->getProducts()->getIdentification()->getData();
-    $visitorIdOld = $identificationDataOld->getVisitorId();
-    $requestIdOld = $identificationDataOld->getRequestId();
+    $oldEvent = $oldEvents->getEvents()[0];
+    $eventIdOld = $oldEvent->getEventId();
 
-    if ($requestId === $requestIdOld) {
+    if ($eventId === $eventIdOld) {
         throw new Exception('Old events are identical to new');
     }
 
-    list($result, $response) = $client->getEvent($requestIdOld);
-    list($result, $response) = $client->getVisits($visitorIdOld);
+    $client->getEvent($eventIdOld);
     fwrite(STDOUT, "\n\nOld events are good\n");
-}  catch (Exception $e) {
+} catch (Exception $e) {
     fwrite(STDERR, sprintf("\n\nException when trying to read old data: %s\n", $e->getMessage()));
 }
 

@@ -1,6 +1,0 @@
-{
-  "error": {
-    "code": "TokenNotFound",
-    "message": "secret key is not found"
-  }
-}

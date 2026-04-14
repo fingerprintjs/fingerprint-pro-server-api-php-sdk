@@ -1,6 +1,6 @@
 {
   "error": {
-    "code": "SubscriptionNotActive",
+    "code": "subscription_not_active",
     "message": "forbidden"
   }
 }

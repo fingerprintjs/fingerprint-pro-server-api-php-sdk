@@ -1,463 +1,409 @@
-# Fingerprint\ServerSdk\FingerprintApi
+# Fingerprint\ServerSdk\Api\FingerprintApi
 
-All URIs are relative to *https://api.fpjs.io*
+Using the Server API you can retrieve information about individual analysis events or event history of individual visitors.
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**deleteVisitorData**](FingerprintApi.md#deleteVisitorData) | **DELETE** /visitors/{visitor_id} | Delete data by visitor ID
-[**getEvent**](FingerprintApi.md#getEvent) | **GET** /events/{request_id} | Get event by request ID
-[**getRelatedVisitors**](FingerprintApi.md#getRelatedVisitors) | **GET** /related-visitors | Get Related Visitors
-[**getVisits**](FingerprintApi.md#getVisits) | **GET** /visitors/{visitor_id} | Get visits by visitor ID
-[**searchEvents**](FingerprintApi.md#searchEvents) | **GET** /events/search | Get events via search
-[**updateEvent**](FingerprintApi.md#updateEvent) | **PUT** /events/{request_id} | Update an event with a given request ID
+All URIs are relative to *https://api.fpjs.io/v4*
+
+| Method | HTTP request | Description |
+| ------------- | ------------- | ------------- |
+| [**deleteVisitorData()**](FingerprintApi.md#deleteVisitorData) | **DELETE** /visitors/{visitor_id} | Delete data by visitor ID |
+| [**getEvent()**](FingerprintApi.md#getEvent) | **GET** /events/{event_id} | Get an event by event ID |
+| [**searchEvents()**](FingerprintApi.md#searchEvents) | **GET** /events | Search events |
+| [**updateEvent()**](FingerprintApi.md#updateEvent) | **PATCH** /events/{event_id} | Update an event |
+
 
 # **deleteVisitorData**
 > deleteVisitorData($visitor_id)
 
 Delete data by visitor ID
 
-Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. ### Which data is deleted? - Browser (or device) properties - Identification requests made from this browser (or device)  #### Browser (or device) properties - Represents the data that Fingerprint collected from this specific browser (or device) and everything inferred and derived from it. - Upon request to delete, this data is deleted asynchronously (typically within a few minutes) and it will no longer be used to identify this browser (or device) for your [Fingerprint Workspace](https://dev.fingerprint.com/docs/glossary#fingerprint-workspace).  #### Identification requests made from this browser (or device) - Fingerprint stores the identification requests made from a browser (or device) for up to 30 (or 90) days depending on your plan. To learn more, see [Data Retention](https://dev.fingerprint.com/docs/regions#data-retention). - Upon request to delete, the identification requests that were made by this browser   - Within the past 10 days are deleted within 24 hrs.   - Outside of 10 days are allowed to purge as per your data retention period.  ### Corollary After requesting to delete a visitor ID, - If the same browser (or device) requests to identify, it will receive a different visitor ID. - If you request [`/events` API](https://dev.fingerprint.com/reference/getevent) with a `request_id` that was made outside of the 10 days, you will still receive a valid response. - If you request [`/visitors` API](https://dev.fingerprint.com/reference/getvisits) for the deleted visitor ID, the response will include identification requests that were made outside of those 10 days.  ### Interested? Please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
+Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
+
+### Which data is deleted?
+- Browser (or device) properties
+- Identification requests made from this browser (or device)
+
+#### Browser (or device) properties
+- Represents the data that Fingerprint collected from this specific browser (or device) and everything inferred and derived from it.
+- Upon request to delete, this data is deleted asynchronously (typically within a few minutes) and it will no longer be used to identify this browser (or device) for your [Fingerprint Workspace](https://docs.fingerprint.com/docs/glossary#fingerprint-workspace).
+
+#### Identification requests made from this browser (or device)
+- Fingerprint stores the identification requests made from a browser (or device) for up to 30 (or 90) days depending on your plan. To learn more, see [Data Retention](https://docs.fingerprint.com/docs/regions#data-retention).
+- Upon request to delete, the identification requests that were made by this browser
+  - Within the past 10 days are deleted within 24 hrs.
+  - Outside of 10 days are allowed to purge as per your data retention period.
+
+### Corollary
+After requesting to delete a visitor ID,
+- If the same browser (or device) requests to identify, it will receive a different visitor ID.
+- If you request [`/v4/events` API](https://docs.fingerprint.com/reference/server-api-v4-get-event) with an `event_id` that was made outside of the 10 days, you will still receive a valid response.
+
+### Interested?
+Please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
+
 
 ### Example
+
 ```php
 <?php
-
 require_once(__DIR__ . '/vendor/autoload.php');
 
-const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
-
-// Import Fingerprint Classes and Guzzle HTTP Client
 use Fingerprint\ServerSdk\Api\FingerprintApi;
 use Fingerprint\ServerSdk\Configuration;
-use GuzzleHttp\Client;
+use Fingerprint\ServerSdk\ApiException;
 
-// Create new Configuration instance with defaultValues, added our API Secret and our Region
-$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
-$client = new FingerprintApi(
-    new Client(),
-$config
+const API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
+
+// Create new Configuration instance with API Secret and the Region
+$config = new Configuration(API_SECRET, Configuration::REGION_EUROPE);
+$apiInstance = new FingerprintApi(
+    $config,
+    // If you want to use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
 );
 
-$visitor_id = "visitor_id_example"; // string | The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete.
+$visitor_id = 'visitor_id_example'; // string | The [visitor ID](https://docs.fingerprint.com/reference/js-agent-v4-get-function#visitor_id) you want to delete.
 
 try {
-    $client->deleteVisitorData($visitor_id);
+    $apiInstance->deleteVisitorData($visitor_id);
+} catch (ApiException $e) {
+    $errorDetails = $e->getErrorDetails()->getErrorDetails();
+    echo "[{$errorDetails->getCode()}] Exception when calling FingerprintApi->deleteVisitorData: {$errorDetails->getMessage()}" . PHP_EOL;
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->deleteVisitorData: ', $e->getMessage(), PHP_EOL;
 }
-?>
 ```
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **visitor_id** | **string**| The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete. |
+| Name | Type | Description | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **visitor_id** | **string** | The [visitor ID](https://docs.fingerprint.com/reference/js-agent-v4-get-function#visitor_id) you want to delete. | |
 
 ### Return type
 
-Array:
-0. null,
-1. \Psr\Http\Message\ResponseInterface
-
+void (empty response body)
 
 ### Authorization
 
-[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
+[bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: `application/json`
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#documentation-for-models)
+[[Back to README]](../../README.md)
 
 # **getEvent**
->  [ \Fingerprint\ServerSdk\Model\EventsGetResponse, \Psr\Http\Message\ResponseInterface ] getEvent($request_id)
+>  \Fingerprint\ServerSdk\Model\Event getEvent($event_id, $ruleset_id)
 
-Get event by request ID
+Get an event by event ID
 
-Get a detailed analysis of an individual identification event, including Smart Signals.  Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. It is highly recommended that you **ignore** the mobile signals for such requests.   Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
+Get a detailed analysis of an individual identification event, including Smart Signals.
+
+Use `event_id` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `event_id`.
+
 
 ### Example
+
 ```php
 <?php
-
 require_once(__DIR__ . '/vendor/autoload.php');
 
-const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
-
-// Import Fingerprint Classes and Guzzle HTTP Client
 use Fingerprint\ServerSdk\Api\FingerprintApi;
 use Fingerprint\ServerSdk\Configuration;
-use GuzzleHttp\Client;
+use Fingerprint\ServerSdk\ApiException;
 
-// Create new Configuration instance with defaultValues, added our API Secret and our Region
-$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
-$client = new FingerprintApi(
-    new Client(),
-$config
+const API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
+
+// Create new Configuration instance with API Secret and the Region
+$config = new Configuration(API_SECRET, Configuration::REGION_EUROPE);
+$apiInstance = new FingerprintApi(
+    $config,
+    // If you want to use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
 );
 
-$request_id = "request_id_example"; // string | The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request.
+$event_id = 'event_id_example'; // string | The unique [identifier](https://docs.fingerprint.com/reference/js-agent-v4-get-function#event_id) of each identification request (`requestId` can be used in its place).
+$ruleset_id = 'ruleset_id_example'; // string | The ID of the ruleset to evaluate against the event, producing the action to take for this event. The resulting action is returned in the `rule_action` attribute of the response.
 
 try {
-    list($model, $httpResponse) = $client->getEvent($request_id);
-    echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
+    $result = $apiInstance->getEvent($event_id, $ruleset_id);
+    var_dump($result);
+} catch (ApiException $e) {
+    $errorDetails = $e->getErrorDetails()->getErrorDetails();
+    echo "[{$errorDetails->getCode()}] Exception when calling FingerprintApi->getEvent: {$errorDetails->getMessage()}" . PHP_EOL;
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->getEvent: ', $e->getMessage(), PHP_EOL;
 }
-?>
 ```
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **request_id** | **string**| The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request. |
+| Name | Type | Description | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **event_id** | **string** | The unique [identifier](https://docs.fingerprint.com/reference/js-agent-v4-get-function#event_id) of each identification request (`requestId` can be used in its place). | |
+| **ruleset_id** | **string** | The ID of the ruleset to evaluate against the event, producing the action to take for this event. The resulting action is returned in the `rule_action` attribute of the response. | [optional] |
 
 ### Return type
 
-Array:
-0. [**\Fingerprint\ServerSdk\Model\EventsGetResponse**](../Model/EventsGetResponse.md) | null,
-1. \Psr\Http\Message\ResponseInterface
-
+[**\Fingerprint\ServerSdk\Model\Event**](../Model/Event.md)
 
 ### Authorization
 
-[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
+[bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: `application/json`
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **getRelatedVisitors**
->  [ \Fingerprint\ServerSdk\Model\RelatedVisitorsResponse, \Psr\Http\Message\ResponseInterface ] getRelatedVisitors($visitor_id)
-
-Get Related Visitors
-
-Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device. It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.  ⚠️ Please note that this API is not enabled by default and is billable separately. ⚠️  If you would like to use Related visitors API, please contact our [support team](https://fingerprint.com/support). To learn more, see [Related visitors API reference](https://dev.fingerprint.com/reference/related-visitors-api).
-
-### Example
-```php
-<?php
-
-require_once(__DIR__ . '/vendor/autoload.php');
-
-const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
-
-// Import Fingerprint Classes and Guzzle HTTP Client
-use Fingerprint\ServerSdk\Api\FingerprintApi;
-use Fingerprint\ServerSdk\Configuration;
-use GuzzleHttp\Client;
-
-// Create new Configuration instance with defaultValues, added our API Secret and our Region
-$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
-$client = new FingerprintApi(
-    new Client(),
-$config
-);
-
-$visitor_id = "visitor_id_example"; // string | The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device.
-
-try {
-    list($model, $httpResponse) = $client->getRelatedVisitors($visitor_id);
-    echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
-} catch (Exception $e) {
-    echo 'Exception when calling FingerprintApi->getRelatedVisitors: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **visitor_id** | **string**| The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device. |
-
-### Return type
-
-Array:
-0. [**\Fingerprint\ServerSdk\Model\RelatedVisitorsResponse**](../Model/RelatedVisitorsResponse.md) | null,
-1. \Psr\Http\Message\ResponseInterface
-
-
-### Authorization
-
-[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **getVisits**
->  [ \Fingerprint\ServerSdk\Model\VisitorsGetResponse, \Psr\Http\Message\ResponseInterface ] getVisits($visitor_id, $request_id, $linked_id, $limit, $pagination_key, $before)
-
-Get visits by visitor ID
-
-Get a history of visits (identification events) for a specific `visitorId`. Use the `visitorId` as a URL path parameter. Only information from the _Identification_ product is returned.  #### Headers  * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
-
-### Example
-```php
-<?php
-
-require_once(__DIR__ . '/vendor/autoload.php');
-
-const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
-
-// Import Fingerprint Classes and Guzzle HTTP Client
-use Fingerprint\ServerSdk\Api\FingerprintApi;
-use Fingerprint\ServerSdk\Configuration;
-use GuzzleHttp\Client;
-
-// Create new Configuration instance with defaultValues, added our API Secret and our Region
-$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
-$client = new FingerprintApi(
-    new Client(),
-$config
-);
-
-$visitor_id = "visitor_id_example"; // string | Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro.
-$request_id = "request_id_example"; // string | Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/reference/get-function#requestid). When you filter visits by `requestId`, only one visit will be returned.
-$linked_id = "linked_id_example"; // string | Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
-$limit = 56; // int | Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500.
-$pagination_key = "pagination_key_example"; // string | Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
-$before = 789; // int | ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results.
-
-try {
-    list($model, $httpResponse) = $client->getVisits($visitor_id, request_id: $request_id, linked_id: $linked_id, limit: $limit, pagination_key: $pagination_key, before: $before);
-    echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
-} catch (Exception $e) {
-    echo 'Exception when calling FingerprintApi->getVisits: ', $e->getMessage(), PHP_EOL;
-}
-?>
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **visitor_id** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. |
- **request_id** | **string**| Filter visits by `requestId`.   Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/reference/get-function#requestid). When you filter visits by `requestId`, only one visit will be returned. | [optional]
- **linked_id** | **string**| Filter visits by your custom identifier.   You can use [`linkedId`](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. | [optional]
- **limit** | **int**| Limit scanned results.   For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. | [optional]
- **pagination_key** | **string**| Use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. | [optional]
- **before** | **int**| ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. | [optional]
-
-### Return type
-
-Array:
-0. [**\Fingerprint\ServerSdk\Model\VisitorsGetResponse**](../Model/VisitorsGetResponse.md) | null,
-1. \Psr\Http\Message\ResponseInterface
-
-
-### Authorization
-
-[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#documentation-for-models)
+[[Back to README]](../../README.md)
 
 # **searchEvents**
->  [ \Fingerprint\ServerSdk\Model\SearchEventsResponse, \Psr\Http\Message\ResponseInterface ] searchEvents($limit, $pagination_key, $visitor_id, $bot, $ip_address, $linked_id, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $ip_blocklist, $datacenter, $developer_tools, $location_spoofing, $mitm_attack, $proxy, $sdk_version, $sdk_platform, $environment, $proximity_id, $proximity_precision_radius)
+>  \Fingerprint\ServerSdk\Model\EventSearch searchEvents($limit, $pagination_key, $visitor_id, $high_recall_id, $bot, $ip_address, $asn, $linked_id, $url, $bundle_id, $package_name, $origin, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $developer_tools, $location_spoofing, $mitm_attack, $proxy, $sdk_version, $sdk_platform, $environment, $proximity_id, $total_hits, $tor_node, $incremental_identification_status, $simulator)
 
-Get events via search
+Search events
 
-Search for identification events, including Smart Signals, using multiple filtering criteria. If you don't provide `start` or `end` parameters, the default search range is the last 7 days.  Please note that events include mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. We recommend you **ignore** mobile signals for such requests.
+## Search
+
+The `/v4/events` endpoint provides a convenient way to search for past events based on specific parameters. Typical use cases and queries include:
+
+- Searching for events associated with a single `visitor_id` within a time range to get historical behavior of a visitor.
+- Searching for events associated with a single `linked_id` within a time range to get all events associated with your internal account identifier.
+- Excluding all bot traffic from the query (`good` and `bad` bots)
+
+If you don't provide `start` or `end` parameters, the default search range is the **last 7 days**.
+
+### Filtering events with the `suspect` flag
+
+The `/v4/events` endpoint unlocks a powerful method for fraud protection analytics. The `suspect` flag is exposed in all events where it was previously set by the update API.
+
+You can also apply the `suspect` query parameter as a filter to find all potentially fraudulent activity that you previously marked as `suspect`. This helps identify patterns of fraudulent behavior.
+
+### Environment scoping
+
+If you use a secret key that is scoped to an environment, you will only get events associated with the same environment. With a workspace-scoped environment, you will get events from all environments.
+
+Smart Signals not activated for your workspace or are not included in the response.
+
 
 ### Example
+
 ```php
 <?php
-
 require_once(__DIR__ . '/vendor/autoload.php');
 
-const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
-
-// Import Fingerprint Classes and Guzzle HTTP Client
 use Fingerprint\ServerSdk\Api\FingerprintApi;
 use Fingerprint\ServerSdk\Configuration;
-use GuzzleHttp\Client;
+use Fingerprint\ServerSdk\ApiException;
 
-// Create new Configuration instance with defaultValues, added our API Secret and our Region
-$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
-$client = new FingerprintApi(
-    new Client(),
-$config
+const API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
+
+// Create new Configuration instance with API Secret and the Region
+$config = new Configuration(API_SECRET, Configuration::REGION_EUROPE);
+$apiInstance = new FingerprintApi(
+    $config,
+    // If you want to use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
 );
 
-$limit = 56; // int | Limit the number of events returned.
-$pagination_key = "pagination_key_example"; // string | Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085`
-$visitor_id = "visitor_id_example"; // string | Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.
-$bot = "bot_example"; // string | Filter events by the Bot Detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. > Note: When using this parameter, only events with the `products.botd.data.bot.result` property set to a valid value are returned. Events without a `products.botd` Smart Signal result are left out of the response.
-$ip_address = "ip_address_example"; // string | Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32
-$linked_id = "linked_id_example"; // string | Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
-$start = 789; // int | Filter events with a timestamp greater than the start time, in Unix time (milliseconds).
-$end = 789; // int | Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).
-$reverse = true; // bool | Sort events in reverse timestamp order.
-$suspect = true; // bool | Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response.
-$vpn = true; // bool | Filter events by VPN Detection result.   > Note: When using this parameter, only events with the `products.vpn.data.result` property set to `true` or `false` are returned. Events without a `products.vpn` Smart Signal result are left out of the response.
-$virtual_machine = true; // bool | Filter events by Virtual Machine Detection result.   > Note: When using this parameter, only events with the `products.virtualMachine.data.result` property set to `true` or `false` are returned. Events without a `products.virtualMachine` Smart Signal result are left out of the response.
-$tampering = true; // bool | Filter events by Tampering Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.result` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response.
-$anti_detect_browser = true; // bool | Filter events by Anti-detect Browser Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.antiDetectBrowser` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response.
-$incognito = true; // bool | Filter events by Browser Incognito Detection result.   > Note: When using this parameter, only events with the `products.incognito.data.result` property set to `true` or `false` are returned. Events without a `products.incognito` Smart Signal result are left out of the response.
-$privacy_settings = true; // bool | Filter events by Privacy Settings Detection result.   > Note: When using this parameter, only events with the `products.privacySettings.data.result` property set to `true` or `false` are returned. Events without a `products.privacySettings` Smart Signal result are left out of the response.
-$jailbroken = true; // bool | Filter events by Jailbroken Device Detection result.   > Note: When using this parameter, only events with the `products.jailbroken.data.result` property set to `true` or `false` are returned. Events without a `products.jailbroken` Smart Signal result are left out of the response.
-$frida = true; // bool | Filter events by Frida Detection result.   > Note: When using this parameter, only events with the `products.frida.data.result` property set to `true` or `false` are returned. Events without a `products.frida` Smart Signal result are left out of the response.
-$factory_reset = true; // bool | Filter events by Factory Reset Detection result.   > Note: When using this parameter, only events with the `products.factoryReset.data.result` property set to `true` or `false` are returned. Events without a `products.factoryReset` Smart Signal result are left out of the response.
-$cloned_app = true; // bool | Filter events by Cloned App Detection result.   > Note: When using this parameter, only events with the `products.clonedApp.data.result` property set to `true` or `false` are returned. Events without a `products.clonedApp` Smart Signal result are left out of the response.
-$emulator = true; // bool | Filter events by Android Emulator Detection result.   > Note: When using this parameter, only events with the `products.emulator.data.result` property set to `true` or `false` are returned. Events without a `products.emulator` Smart Signal result are left out of the response.
-$root_apps = true; // bool | Filter events by Rooted Device Detection result.   > Note: When using this parameter, only events with the `products.rootApps.data.result` property set to `true` or `false` are returned. Events without a `products.rootApps` Smart Signal result are left out of the response.
-$vpn_confidence = "vpn_confidence_example"; // string | Filter events by VPN Detection result confidence level.   `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `products.vpn.data.confidence` property set to a valid value are returned. Events without a `products.vpn` Smart Signal result are left out of the response.
-$min_suspect_score = 3.4; // float | Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response.
-$ip_blocklist = true; // bool | Filter events by IP Blocklist Detection result.   > Note: When using this parameter, only events with the `products.ipBlocklist.data.result` property set to `true` or `false` are returned. Events without a `products.ipBlocklist` Smart Signal result are left out of the response.
-$datacenter = true; // bool | Filter events by Datacenter Detection result.   > Note: When using this parameter, only events with the `products.ipInfo.data.v4.datacenter.result` or `products.ipInfo.data.v6.datacenter.result` property set to `true` or `false` are returned. Events without a `products.ipInfo` Smart Signal result are left out of the response.
-$developer_tools = true; // bool | Filter events by Developer Tools detection result. > Note: When using this parameter, only events with the `products.developerTools.data.result` property set to `true` or `false` are returned. Events without a `products.developerTools` Smart Signal result are left out of the response.
-$location_spoofing = true; // bool | Filter events by Location Spoofing detection result. > Note: When using this parameter, only events with the `products.locationSpoofing.data.result` property set to `true` or `false` are returned. Events without a `products.locationSpoofing` Smart Signal result are left out of the response.
-$mitm_attack = true; // bool | Filter events by MITM (Man-in-the-Middle) Attack detection result. > Note: When using this parameter, only events with the `products.mitmAttack.data.result` property set to `true` or `false` are returned. Events without a `products.mitmAttack` Smart Signal result are left out of the response.
-$proxy = true; // bool | Filter events by Proxy detection result. > Note: When using this parameter, only events with the `products.proxy.data.result` property set to `true` or `false` are returned. Events without a `products.proxy` Smart Signal result are left out of the response.
-$sdk_version = "sdk_version_example"; // string | Filter events by a specific SDK version associated with the identification event. Example: `3.11.14`
-$sdk_platform = "sdk_platform_example"; // string | Filter events by the SDK Platform associated with the identification event. `js` - JavaScript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices.
-$environment = array("environment_example"); // string[] | Filter for events by providing one or more environment IDs.
-$proximity_id = "proximity_id_example"; // string | Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response.
-$proximity_precision_radius = 56; // int | Filter events by Proximity Radius. > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response.
+$limit = 10; // int | Limit the number of events returned.
+$pagination_key = 'pagination_key_example'; // string | Use `pagination_key` to get the next page of results.  When more results are available (e.g., you requested up to 100 results for your query using `limit`, but there are more than 100 events total matching your request), the `pagination_key` field is added to the response. The pagination key is an arbitrary string that should not be interpreted in any way and should be passed as-is. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events?limit=100` 2. Use `response.pagination_key` to get the next page of results: `GET api-base-url/events?limit=100&pagination_key=1740815825085`
+$visitor_id = 'visitor_id_example'; // string | Unique [visitor identifier](https://docs.fingerprint.com/reference/js-agent-v4-get-function#visitor_id) issued by Fingerprint Identification and all active Smart Signals.  Filter events by matching Visitor ID (`identification.visitor_id` property).
+$high_recall_id = 'high_recall_id_example'; // string | The High Recall ID is a supplementary browser identifier designed for use cases that require wider coverage over precision. Compared to the standard visitor ID, the High Recall ID strives to match incoming browsers more generously (rather than precisely) with existing browsers and thus identifies fewer browsers as new. The High Recall ID is best suited for use cases that are sensitive to browsers being identified as new and where mismatched browsers are not detrimental.  Filter events by matching High Recall ID (`supplementary_id_high_recall.visitor_id` property).
+$bot = \Fingerprint\ServerSdk\Model\SearchEventsBot::GOOD; // \Fingerprint\ServerSdk\Model\SearchEventsBot | Filter events by the Bot Detection result, specifically:   `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. > Note: When using this parameter, only events with the `bot` property set to a valid value are returned. Events without a `bot` Smart Signal result are left out of the response.
+$ip_address = 'ip_address_example'; // string | Filter events by IP address or IP range (if CIDR notation is used). If CIDR notation is not used, a /32 for IPv4 or /128 for IPv6 is assumed. Examples of range based queries: 10.0.0.0/24, 192.168.0.1/32
+$asn = 'asn_example'; // string | Filter events by the ASN associated with the event's IP address. This corresponds to the `ip_info.(v4|v6).asn` property in the response.
+$linked_id = 'linked_id_example'; // string | Filter events by your custom identifier.  You can use [linked Ids](https://docs.fingerprint.com/reference/js-agent-v4-get-function#linkedid) to associate identification requests with your own identifier, for example, session Id, purchase Id, or transaction Id. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+$url = 'url_example'; // string | Filter events by the URL (`url` property) associated with the event.
+$bundle_id = 'bundle_id_example'; // string | Filter events by the Bundle ID (iOS) associated with the event.
+$package_name = 'package_name_example'; // string | Filter events by the Package Name (Android) associated with the event.
+$origin = 'origin_example'; // string | Filter events by the origin field of the event. This is applicable to web events only (e.g., https://example.com)
+$start = 56; // int | Filter events with a timestamp greater than the start time, in Unix time (milliseconds).
+$end = 56; // int | Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).
+$reverse = True; // bool | Sort events in reverse timestamp order.
+$suspect = True; // bool | Filter events previously tagged as suspicious via the [Update API](https://docs.fingerprint.com/reference/server-api-v4-update-event). > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response.
+$vpn = True; // bool | Filter events by VPN Detection result. > Note: When using this parameter, only events with the `vpn` property set to `true` or `false` are returned. Events without a `vpn` Smart Signal result are left out of the response.
+$virtual_machine = True; // bool | Filter events by Virtual Machine Detection result. > Note: When using this parameter, only events with the `virtual_machine` property set to `true` or `false` are returned. Events without a `virtual_machine` Smart Signal result are left out of the response.
+$tampering = True; // bool | Filter events by Browser Tampering Detection result. > Note: When using this parameter, only events with the `tampering.result` property set to `true` or `false` are returned. Events without a `tampering` Smart Signal result are left out of the response.
+$anti_detect_browser = True; // bool | Filter events by Anti-detect Browser Detection result. > Note: When using this parameter, only events with the `tampering.anti_detect_browser` property set to `true` or `false` are returned. Events without a `tampering` Smart Signal result are left out of the response.
+$incognito = True; // bool | Filter events by Browser Incognito Detection result. > Note: When using this parameter, only events with the `incognito` property set to `true` or `false` are returned. Events without an `incognito` Smart Signal result are left out of the response.
+$privacy_settings = True; // bool | Filter events by Privacy Settings Detection result. > Note: When using this parameter, only events with the `privacy_settings` property set to `true` or `false` are returned. Events without a `privacy_settings` Smart Signal result are left out of the response.
+$jailbroken = True; // bool | Filter events by Jailbroken Device Detection result. > Note: When using this parameter, only events with the `jailbroken` property set to `true` or `false` are returned. Events without a `jailbroken` Smart Signal result are left out of the response.
+$frida = True; // bool | Filter events by Frida Detection result. > Note: When using this parameter, only events with the `frida` property set to `true` or `false` are returned. Events without a `frida` Smart Signal result are left out of the response.
+$factory_reset = True; // bool | Filter events by Factory Reset Detection result. > Note: When using this parameter, only events with a `factory_reset` time. Events without a `factory_reset` Smart Signal result are left out of the response.
+$cloned_app = True; // bool | Filter events by Cloned App Detection result. > Note: When using this parameter, only events with the `cloned_app` property set to `true` or `false` are returned. Events without a `cloned_app` Smart Signal result are left out of the response.
+$emulator = True; // bool | Filter events by Android Emulator Detection result. > Note: When using this parameter, only events with the `emulator` property set to `true` or `false` are returned. Events without an `emulator` Smart Signal result are left out of the response.
+$root_apps = True; // bool | Filter events by Rooted Device Detection result. > Note: When using this parameter, only events with the `root_apps` property set to `true` or `false` are returned. Events without a `root_apps` Smart Signal result are left out of the response.
+$vpn_confidence = \Fingerprint\ServerSdk\Model\SearchEventsVpnConfidence::MEDIUM; // \Fingerprint\ServerSdk\Model\SearchEventsVpnConfidence | Filter events by VPN Detection result confidence level. `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `vpn.confidence` property set to a valid value are returned. Events without a `vpn` Smart Signal result are left out of the response.
+$min_suspect_score = 3.4; // float | Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `suspect_score` property set to a value exceeding your threshold are returned. Events without a `suspect_score` Smart Signal result are left out of the response.
+$developer_tools = True; // bool | Filter events by Developer Tools detection result. > Note: When using this parameter, only events with the `developer_tools` property set to `true` or `false` are returned. Events without a `developer_tools` Smart Signal result are left out of the response.
+$location_spoofing = True; // bool | Filter events by Location Spoofing detection result. > Note: When using this parameter, only events with the `location_spoofing` property set to `true` or `false` are returned. Events without a `location_spoofing` Smart Signal result are left out of the response.
+$mitm_attack = True; // bool | Filter events by MITM (Man-in-the-Middle) Attack detection result. > Note: When using this parameter, only events with the `mitm_attack` property set to `true` or `false` are returned. Events without a `mitm_attack` Smart Signal result are left out of the response.
+$proxy = True; // bool | Filter events by Proxy detection result. > Note: When using this parameter, only events with the `proxy` property set to `true` or `false` are returned. Events without a `proxy` Smart Signal result are left out of the response.
+$sdk_version = 'sdk_version_example'; // string | Filter events by a specific SDK version associated with the identification event (`sdk.version` property). Example: `3.11.14`
+$sdk_platform = \Fingerprint\ServerSdk\Model\SearchEventsSdkPlatform::JS; // \Fingerprint\ServerSdk\Model\SearchEventsSdkPlatform | Filter events by the SDK Platform associated with the identification event (`sdk.platform` property) . `js` - Javascript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices.
+$environment = array('environment_example'); // string[] | Filter for events by providing one or more environment IDs (`environment_id` property).  ### Array syntax To provide multiple environment IDs, use the repeated keys syntax (`environment=env1&environment=env2`). Other notations like comma-separated (`environment=env1,env2`) or bracket notation (`environment[]=env1&environment[]=env2`) are not supported.
+$proximity_id = 'proximity_id_example'; // string | Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `proximity.id` property matching the provided ID are returned. Events without a `proximity` result are left out of the response.
+$total_hits = 56; // int | When set, the response will include a `total_hits` property with a count of total query matches across all pages, up to the specified limit.
+$tor_node = True; // bool | Filter events by Tor Node detection result. > Note: When using this parameter, only events with the `tor_node` property set to `true` or `false` are returned. Events without a `tor_node` detection result are left out of the response.
+$incremental_identification_status = \Fingerprint\ServerSdk\Model\SearchEventsIncrementalIdentificationStatus::COMPLETED(); // \Fingerprint\ServerSdk\Model\SearchEventsIncrementalIdentificationStatus | Filter events by their incremental identification status (`incremental_identification_status` property). Non incremental identification events are left out of the response.
+$simulator = True; // bool | Filter events by iOS Simulator Detection result.  > Note: When using this parameter, only events with the `simulator` property set to `true` or `false` are returned. Events without a `simulator` Smart Signal result are left out of the response.
 
 try {
-    list($model, $httpResponse) = $client->searchEvents($limit, pagination_key: $pagination_key, visitor_id: $visitor_id, bot: $bot, ip_address: $ip_address, linked_id: $linked_id, start: $start, end: $end, reverse: $reverse, suspect: $suspect, vpn: $vpn, virtual_machine: $virtual_machine, tampering: $tampering, anti_detect_browser: $anti_detect_browser, incognito: $incognito, privacy_settings: $privacy_settings, jailbroken: $jailbroken, frida: $frida, factory_reset: $factory_reset, cloned_app: $cloned_app, emulator: $emulator, root_apps: $root_apps, vpn_confidence: $vpn_confidence, min_suspect_score: $min_suspect_score, ip_blocklist: $ip_blocklist, datacenter: $datacenter, developer_tools: $developer_tools, location_spoofing: $location_spoofing, mitm_attack: $mitm_attack, proxy: $proxy, sdk_version: $sdk_version, sdk_platform: $sdk_platform, environment: $environment, proximity_id: $proximity_id, proximity_precision_radius: $proximity_precision_radius);
-    echo "<pre>" . $httpResponse->getBody()->getContents() . "</pre>";
+    $result = $apiInstance->searchEvents($limit, $pagination_key, $visitor_id, $high_recall_id, $bot, $ip_address, $asn, $linked_id, $url, $bundle_id, $package_name, $origin, $start, $end, $reverse, $suspect, $vpn, $virtual_machine, $tampering, $anti_detect_browser, $incognito, $privacy_settings, $jailbroken, $frida, $factory_reset, $cloned_app, $emulator, $root_apps, $vpn_confidence, $min_suspect_score, $developer_tools, $location_spoofing, $mitm_attack, $proxy, $sdk_version, $sdk_platform, $environment, $proximity_id, $total_hits, $tor_node, $incremental_identification_status, $simulator);
+    var_dump($result);
+} catch (ApiException $e) {
+    $errorDetails = $e->getErrorDetails()->getErrorDetails();
+    echo "[{$errorDetails->getCode()}] Exception when calling FingerprintApi->searchEvents: {$errorDetails->getMessage()}" . PHP_EOL;
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->searchEvents: ', $e->getMessage(), PHP_EOL;
 }
-?>
 ```
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **int**| Limit the number of events returned. |
- **pagination_key** | **string**| Use `pagination_key` to get the next page of results.   When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085` | [optional]
- **visitor_id** | **string**| Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`. | [optional]
- **bot** | **string**| Filter events by the Bot Detection result, specifically:    `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. > Note: When using this parameter, only events with the `products.botd.data.bot.result` property set to a valid value are returned. Events without a `products.botd` Smart Signal result are left out of the response. | [optional]
- **ip_address** | **string**| Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)  All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32 | [optional]
- **linked_id** | **string**| Filter events by your custom identifier.   You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. | [optional]
- **start** | **int**| Filter events with a timestamp greater than the start time, in Unix time (milliseconds). | [optional]
- **end** | **int**| Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). | [optional]
- **reverse** | **bool**| Sort events in reverse timestamp order. | [optional]
- **suspect** | **bool**| Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).  > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. | [optional]
- **vpn** | **bool**| Filter events by VPN Detection result.   > Note: When using this parameter, only events with the `products.vpn.data.result` property set to `true` or `false` are returned. Events without a `products.vpn` Smart Signal result are left out of the response. | [optional]
- **virtual_machine** | **bool**| Filter events by Virtual Machine Detection result.   > Note: When using this parameter, only events with the `products.virtualMachine.data.result` property set to `true` or `false` are returned. Events without a `products.virtualMachine` Smart Signal result are left out of the response. | [optional]
- **tampering** | **bool**| Filter events by Tampering Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.result` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response. | [optional]
- **anti_detect_browser** | **bool**| Filter events by Anti-detect Browser Detection result.   > Note: When using this parameter, only events with the `products.tampering.data.antiDetectBrowser` property set to `true` or `false` are returned. Events without a `products.tampering` Smart Signal result are left out of the response. | [optional]
- **incognito** | **bool**| Filter events by Browser Incognito Detection result.   > Note: When using this parameter, only events with the `products.incognito.data.result` property set to `true` or `false` are returned. Events without a `products.incognito` Smart Signal result are left out of the response. | [optional]
- **privacy_settings** | **bool**| Filter events by Privacy Settings Detection result.   > Note: When using this parameter, only events with the `products.privacySettings.data.result` property set to `true` or `false` are returned. Events without a `products.privacySettings` Smart Signal result are left out of the response. | [optional]
- **jailbroken** | **bool**| Filter events by Jailbroken Device Detection result.   > Note: When using this parameter, only events with the `products.jailbroken.data.result` property set to `true` or `false` are returned. Events without a `products.jailbroken` Smart Signal result are left out of the response. | [optional]
- **frida** | **bool**| Filter events by Frida Detection result.   > Note: When using this parameter, only events with the `products.frida.data.result` property set to `true` or `false` are returned. Events without a `products.frida` Smart Signal result are left out of the response. | [optional]
- **factory_reset** | **bool**| Filter events by Factory Reset Detection result.   > Note: When using this parameter, only events with the `products.factoryReset.data.result` property set to `true` or `false` are returned. Events without a `products.factoryReset` Smart Signal result are left out of the response. | [optional]
- **cloned_app** | **bool**| Filter events by Cloned App Detection result.   > Note: When using this parameter, only events with the `products.clonedApp.data.result` property set to `true` or `false` are returned. Events without a `products.clonedApp` Smart Signal result are left out of the response. | [optional]
- **emulator** | **bool**| Filter events by Android Emulator Detection result.   > Note: When using this parameter, only events with the `products.emulator.data.result` property set to `true` or `false` are returned. Events without a `products.emulator` Smart Signal result are left out of the response. | [optional]
- **root_apps** | **bool**| Filter events by Rooted Device Detection result.   > Note: When using this parameter, only events with the `products.rootApps.data.result` property set to `true` or `false` are returned. Events without a `products.rootApps` Smart Signal result are left out of the response. | [optional]
- **vpn_confidence** | **string**| Filter events by VPN Detection result confidence level.   `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `products.vpn.data.confidence` property set to a valid value are returned. Events without a `products.vpn` Smart Signal result are left out of the response. | [optional]
- **min_suspect_score** | **float**| Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response. | [optional]
- **ip_blocklist** | **bool**| Filter events by IP Blocklist Detection result.   > Note: When using this parameter, only events with the `products.ipBlocklist.data.result` property set to `true` or `false` are returned. Events without a `products.ipBlocklist` Smart Signal result are left out of the response. | [optional]
- **datacenter** | **bool**| Filter events by Datacenter Detection result.   > Note: When using this parameter, only events with the `products.ipInfo.data.v4.datacenter.result` or `products.ipInfo.data.v6.datacenter.result` property set to `true` or `false` are returned. Events without a `products.ipInfo` Smart Signal result are left out of the response. | [optional]
- **developer_tools** | **bool**| Filter events by Developer Tools detection result. > Note: When using this parameter, only events with the `products.developerTools.data.result` property set to `true` or `false` are returned. Events without a `products.developerTools` Smart Signal result are left out of the response. | [optional]
- **location_spoofing** | **bool**| Filter events by Location Spoofing detection result. > Note: When using this parameter, only events with the `products.locationSpoofing.data.result` property set to `true` or `false` are returned. Events without a `products.locationSpoofing` Smart Signal result are left out of the response. | [optional]
- **mitm_attack** | **bool**| Filter events by MITM (Man-in-the-Middle) Attack detection result. > Note: When using this parameter, only events with the `products.mitmAttack.data.result` property set to `true` or `false` are returned. Events without a `products.mitmAttack` Smart Signal result are left out of the response. | [optional]
- **proxy** | **bool**| Filter events by Proxy detection result. > Note: When using this parameter, only events with the `products.proxy.data.result` property set to `true` or `false` are returned. Events without a `products.proxy` Smart Signal result are left out of the response. | [optional]
- **sdk_version** | **string**| Filter events by a specific SDK version associated with the identification event. Example: `3.11.14` | [optional]
- **sdk_platform** | **string**| Filter events by the SDK Platform associated with the identification event. `js` - JavaScript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices. | [optional]
- **environment** | [**string[]**](../Model/string.md)| Filter for events by providing one or more environment IDs. | [optional]
- **proximity_id** | **string**| Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response. | [optional]
- **proximity_precision_radius** | **int**| Filter events by Proximity Radius. > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response. | [optional]
+| Name | Type | Description | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **limit** | **int** | Limit the number of events returned. | [optional] [default to 10] |
+| **pagination_key** | **string** | Use `pagination_key` to get the next page of results.  When more results are available (e.g., you requested up to 100 results for your query using `limit`, but there are more than 100 events total matching your request), the `pagination_key` field is added to the response. The pagination key is an arbitrary string that should not be interpreted in any way and should be passed as-is. In the following request, use that value in the `pagination_key` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/events?limit=100` 2. Use `response.pagination_key` to get the next page of results: `GET api-base-url/events?limit=100&pagination_key=1740815825085` | [optional] |
+| **visitor_id** | **string** | Unique [visitor identifier](https://docs.fingerprint.com/reference/js-agent-v4-get-function#visitor_id) issued by Fingerprint Identification and all active Smart Signals.  Filter events by matching Visitor ID (`identification.visitor_id` property). | [optional] |
+| **high_recall_id** | **string** | The High Recall ID is a supplementary browser identifier designed for use cases that require wider coverage over precision. Compared to the standard visitor ID, the High Recall ID strives to match incoming browsers more generously (rather than precisely) with existing browsers and thus identifies fewer browsers as new. The High Recall ID is best suited for use cases that are sensitive to browsers being identified as new and where mismatched browsers are not detrimental.  Filter events by matching High Recall ID (`supplementary_id_high_recall.visitor_id` property). | [optional] |
+| **bot** | [**\Fingerprint\ServerSdk\Model\SearchEventsBot**](../Model/.md) | Filter events by the Bot Detection result, specifically:   `all` - events where any kind of bot was detected.   `good` - events where a good bot was detected.   `bad` - events where a bad bot was detected.   `none` - events where no bot was detected. > Note: When using this parameter, only events with the `bot` property set to a valid value are returned. Events without a `bot` Smart Signal result are left out of the response. | [optional] |
+| **ip_address** | **string** | Filter events by IP address or IP range (if CIDR notation is used). If CIDR notation is not used, a /32 for IPv4 or /128 for IPv6 is assumed. Examples of range based queries: 10.0.0.0/24, 192.168.0.1/32 | [optional] |
+| **asn** | **string** | Filter events by the ASN associated with the event's IP address. This corresponds to the `ip_info.(v4|v6).asn` property in the response. | [optional] |
+| **linked_id** | **string** | Filter events by your custom identifier.  You can use [linked Ids](https://docs.fingerprint.com/reference/js-agent-v4-get-function#linkedid) to associate identification requests with your own identifier, for example, session Id, purchase Id, or transaction Id. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. | [optional] |
+| **url** | **string** | Filter events by the URL (`url` property) associated with the event. | [optional] |
+| **bundle_id** | **string** | Filter events by the Bundle ID (iOS) associated with the event. | [optional] |
+| **package_name** | **string** | Filter events by the Package Name (Android) associated with the event. | [optional] |
+| **origin** | **string** | Filter events by the origin field of the event. This is applicable to web events only (e.g., https://example.com) | [optional] |
+| **start** | **int** | Filter events with a timestamp greater than the start time, in Unix time (milliseconds). | [optional] |
+| **end** | **int** | Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). | [optional] |
+| **reverse** | **bool** | Sort events in reverse timestamp order. | [optional] |
+| **suspect** | **bool** | Filter events previously tagged as suspicious via the [Update API](https://docs.fingerprint.com/reference/server-api-v4-update-event). > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. | [optional] |
+| **vpn** | **bool** | Filter events by VPN Detection result. > Note: When using this parameter, only events with the `vpn` property set to `true` or `false` are returned. Events without a `vpn` Smart Signal result are left out of the response. | [optional] |
+| **virtual_machine** | **bool** | Filter events by Virtual Machine Detection result. > Note: When using this parameter, only events with the `virtual_machine` property set to `true` or `false` are returned. Events without a `virtual_machine` Smart Signal result are left out of the response. | [optional] |
+| **tampering** | **bool** | Filter events by Browser Tampering Detection result. > Note: When using this parameter, only events with the `tampering.result` property set to `true` or `false` are returned. Events without a `tampering` Smart Signal result are left out of the response. | [optional] |
+| **anti_detect_browser** | **bool** | Filter events by Anti-detect Browser Detection result. > Note: When using this parameter, only events with the `tampering.anti_detect_browser` property set to `true` or `false` are returned. Events without a `tampering` Smart Signal result are left out of the response. | [optional] |
+| **incognito** | **bool** | Filter events by Browser Incognito Detection result. > Note: When using this parameter, only events with the `incognito` property set to `true` or `false` are returned. Events without an `incognito` Smart Signal result are left out of the response. | [optional] |
+| **privacy_settings** | **bool** | Filter events by Privacy Settings Detection result. > Note: When using this parameter, only events with the `privacy_settings` property set to `true` or `false` are returned. Events without a `privacy_settings` Smart Signal result are left out of the response. | [optional] |
+| **jailbroken** | **bool** | Filter events by Jailbroken Device Detection result. > Note: When using this parameter, only events with the `jailbroken` property set to `true` or `false` are returned. Events without a `jailbroken` Smart Signal result are left out of the response. | [optional] |
+| **frida** | **bool** | Filter events by Frida Detection result. > Note: When using this parameter, only events with the `frida` property set to `true` or `false` are returned. Events without a `frida` Smart Signal result are left out of the response. | [optional] |
+| **factory_reset** | **bool** | Filter events by Factory Reset Detection result. > Note: When using this parameter, only events with a `factory_reset` time. Events without a `factory_reset` Smart Signal result are left out of the response. | [optional] |
+| **cloned_app** | **bool** | Filter events by Cloned App Detection result. > Note: When using this parameter, only events with the `cloned_app` property set to `true` or `false` are returned. Events without a `cloned_app` Smart Signal result are left out of the response. | [optional] |
+| **emulator** | **bool** | Filter events by Android Emulator Detection result. > Note: When using this parameter, only events with the `emulator` property set to `true` or `false` are returned. Events without an `emulator` Smart Signal result are left out of the response. | [optional] |
+| **root_apps** | **bool** | Filter events by Rooted Device Detection result. > Note: When using this parameter, only events with the `root_apps` property set to `true` or `false` are returned. Events without a `root_apps` Smart Signal result are left out of the response. | [optional] |
+| **vpn_confidence** | [**\Fingerprint\ServerSdk\Model\SearchEventsVpnConfidence**](../Model/.md) | Filter events by VPN Detection result confidence level. `high` - events with high VPN Detection confidence. `medium` - events with medium VPN Detection confidence. `low` - events with low VPN Detection confidence. > Note: When using this parameter, only events with the `vpn.confidence` property set to a valid value are returned. Events without a `vpn` Smart Signal result are left out of the response. | [optional] |
+| **min_suspect_score** | **float** | Filter events with Suspect Score result above a provided minimum threshold. > Note: When using this parameter, only events where the `suspect_score` property set to a value exceeding your threshold are returned. Events without a `suspect_score` Smart Signal result are left out of the response. | [optional] |
+| **developer_tools** | **bool** | Filter events by Developer Tools detection result. > Note: When using this parameter, only events with the `developer_tools` property set to `true` or `false` are returned. Events without a `developer_tools` Smart Signal result are left out of the response. | [optional] |
+| **location_spoofing** | **bool** | Filter events by Location Spoofing detection result. > Note: When using this parameter, only events with the `location_spoofing` property set to `true` or `false` are returned. Events without a `location_spoofing` Smart Signal result are left out of the response. | [optional] |
+| **mitm_attack** | **bool** | Filter events by MITM (Man-in-the-Middle) Attack detection result. > Note: When using this parameter, only events with the `mitm_attack` property set to `true` or `false` are returned. Events without a `mitm_attack` Smart Signal result are left out of the response. | [optional] |
+| **proxy** | **bool** | Filter events by Proxy detection result. > Note: When using this parameter, only events with the `proxy` property set to `true` or `false` are returned. Events without a `proxy` Smart Signal result are left out of the response. | [optional] |
+| **sdk_version** | **string** | Filter events by a specific SDK version associated with the identification event (`sdk.version` property). Example: `3.11.14` | [optional] |
+| **sdk_platform** | [**\Fingerprint\ServerSdk\Model\SearchEventsSdkPlatform**](../Model/.md) | Filter events by the SDK Platform associated with the identification event (`sdk.platform` property) . `js` - Javascript agent (Web). `ios` - Apple iOS based devices. `android` - Android based devices. | [optional] |
+| **environment** | [**string[]**](../Model/string.md) | Filter for events by providing one or more environment IDs (`environment_id` property).  ### Array syntax To provide multiple environment IDs, use the repeated keys syntax (`environment=env1&environment=env2`). Other notations like comma-separated (`environment=env1,env2`) or bracket notation (`environment[]=env1&environment[]=env2`) are not supported. | [optional] |
+| **proximity_id** | **string** | Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `proximity.id` property matching the provided ID are returned. Events without a `proximity` result are left out of the response. | [optional] |
+| **total_hits** | **int** | When set, the response will include a `total_hits` property with a count of total query matches across all pages, up to the specified limit. | [optional] |
+| **tor_node** | **bool** | Filter events by Tor Node detection result. > Note: When using this parameter, only events with the `tor_node` property set to `true` or `false` are returned. Events without a `tor_node` detection result are left out of the response. | [optional] |
+| **incremental_identification_status** | [**\Fingerprint\ServerSdk\Model\SearchEventsIncrementalIdentificationStatus**](../Model/.md) | Filter events by their incremental identification status (`incremental_identification_status` property). Non incremental identification events are left out of the response. | [optional] |
+| **simulator** | **bool** | Filter events by iOS Simulator Detection result.  > Note: When using this parameter, only events with the `simulator` property set to `true` or `false` are returned. Events without a `simulator` Smart Signal result are left out of the response. | [optional] |
 
 ### Return type
 
-Array:
-0. [**\Fingerprint\ServerSdk\Model\SearchEventsResponse**](../Model/SearchEventsResponse.md) | null,
-1. \Psr\Http\Message\ResponseInterface
-
+[**\Fingerprint\ServerSdk\Model\EventSearch**](../Model/EventSearch.md)
 
 ### Authorization
 
-[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
+[bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: `application/json`
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#documentation-for-models)
+[[Back to README]](../../README.md)
 
 # **updateEvent**
-> updateEvent($body, $request_id)
+> updateEvent($event_id, $event_update)
 
-Update an event with a given request ID
+Update an event
 
-Change information in existing events specified by `requestId` or *flag suspicious events*.  When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.  **Warning** It's not possible to update events older than 10 days.
+Change information in existing events specified by `event_id` or *flag suspicious events*.
+
+When an event is created, it can be assigned `linked_id` and `tags` submitted through the JS agent parameters. 
+This information might not have been available on the client initially, so the Server API permits updating these attributes after the fact.
+
+**Warning** It's not possible to update events older than one month. 
+
+**Warning** Trying to update an event immediately after creation may temporarily result in an 
+error (HTTP 409 Conflict. The event is not mutable yet.) as the event is fully propagated across our systems. In such a case, simply retry the request.
+
 
 ### Example
+
 ```php
 <?php
-
 require_once(__DIR__ . '/vendor/autoload.php');
 
-const FPJS_API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
-
-// Import Fingerprint Classes and Guzzle HTTP Client
 use Fingerprint\ServerSdk\Api\FingerprintApi;
 use Fingerprint\ServerSdk\Configuration;
-use GuzzleHttp\Client;
+use Fingerprint\ServerSdk\ApiException;
 
-// Create new Configuration instance with defaultValues, added our API Secret and our Region
-$config = Configuration::getDefaultConfiguration(FPJS_API_SECRET, Configuration::REGION_EUROPE);
-$client = new FingerprintApi(
-    new Client(),
-$config
+const API_SECRET = "Your Fingerprint Secret API Key"; // Fingerprint Secret API Key
+
+// Create new Configuration instance with API Secret and the Region
+$config = new Configuration(API_SECRET, Configuration::REGION_EUROPE);
+$apiInstance = new FingerprintApi(
+    $config,
+    // If you want to use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
 );
 
-$body = new \Fingerprint\ServerSdk\Model\EventsUpdateRequest(); // \Fingerprint\ServerSdk\Model\EventsUpdateRequest | 
-$request_id = "request_id_example"; // string | The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid).
+$event_id = 'event_id_example'; // string | The unique event [identifier](https://docs.fingerprint.com/reference/js-agent-v4-get-function#event_id).
+$event_update = new \Fingerprint\ServerSdk\Model\EventUpdate(); // \Fingerprint\ServerSdk\Model\EventUpdate
 
 try {
-    $client->updateEvent($body, $request_id);
+    $apiInstance->updateEvent($event_id, $event_update);
+} catch (ApiException $e) {
+    $errorDetails = $e->getErrorDetails()->getErrorDetails();
+    echo "[{$errorDetails->getCode()}] Exception when calling FingerprintApi->updateEvent: {$errorDetails->getMessage()}" . PHP_EOL;
 } catch (Exception $e) {
     echo 'Exception when calling FingerprintApi->updateEvent: ', $e->getMessage(), PHP_EOL;
 }
-?>
 ```
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**\Fingerprint\ServerSdk\Model\EventsUpdateRequest**](../Model/EventsUpdateRequest.md)|  |
- **request_id** | **string**| The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid). |
+| Name | Type | Description | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **event_id** | **string** | The unique event [identifier](https://docs.fingerprint.com/reference/js-agent-v4-get-function#event_id). | |
+| **event_update** | [**\Fingerprint\ServerSdk\Model\EventUpdate**](../Model/EventUpdate.md) |  | |
 
 ### Return type
 
-Array:
-0. null,
-1. \Psr\Http\Message\ResponseInterface
-
+void (empty response body)
 
 ### Authorization
 
-[ApiKeyHeader](../../README.md#ApiKeyHeader), [ApiKeyQuery](../../README.md#ApiKeyQuery)
+[bearerAuth](../../README.md#bearerAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: application/json
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
 
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#documentation-for-models)
+[[Back to README]](../../README.md)

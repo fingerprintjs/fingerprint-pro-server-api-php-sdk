@@ -2,36 +2,36 @@
 
 namespace Fingerprint\ServerSdk\Sealed;
 
-use Fingerprint\ServerSdk\Model\EventsGetResponse;
+use Fingerprint\ServerSdk\Model\Event;
 use Fingerprint\ServerSdk\ObjectSerializer;
-use Fingerprint\ServerSdk\SerializationException;
-use GuzzleHttp\Psr7\Response;
 
 class Sealed
 {
     private const NONCE_LENGTH = 12;
     private const AUTH_TAG_LENGTH = 16;
-    private static $SEAL_HEADER = "\x9E\x85\xDC\xED";
+    private static string $SEAL_HEADER = "\x9E\x85\xDC\xED";
 
     /**
      * @param DecryptionKey[] $keys
      *
      * @throws UnsealAggregateException
-     * @throws SerializationException
+     * @throws \DateMalformedStringException
+     * @throws InvalidSealedDataException
      */
-    public static function unsealEventResponse(string $sealed, array $keys): EventsGetResponse
+    public static function unsealEventResponse(string $sealed, array $keys): Event
     {
         $unsealed = self::unseal($sealed, $keys);
 
         $data = json_decode($unsealed, true);
 
-        if (!isset($data['products'])) {
+        if (!isset($data['event_id']) || !isset($data['timestamp'])) {
             throw new InvalidSealedDataException();
         }
 
-        $response = new Response(200, [], $unsealed);
+        /** @var Event $event */
+        $event = ObjectSerializer::deserialize($unsealed, Event::class);
 
-        return ObjectSerializer::deserialize($response, EventsGetResponse::class);
+        return $event;
     }
 
     /**
@@ -41,10 +41,14 @@ class Sealed
      * @param DecryptionKey[] $keys   Decryption keys. The SDK will try to decrypt the result with each key until it succeeds.
      *
      * @throws UnsealAggregateException
+     * @throws InvalidSealedDataHeaderException
+     * @throws \InvalidArgumentException
+     *
+     * @noinspection PhpUnusedSwitchBranchInspection
      */
     public static function unseal(string $sealed, array $keys): string
     {
-        if (substr($sealed, 0, strlen(self::$SEAL_HEADER)) !== self::$SEAL_HEADER) {
+        if (!str_starts_with($sealed, self::$SEAL_HEADER)) {
             throw new InvalidSealedDataHeaderException();
         }
 
@@ -76,12 +80,9 @@ class Sealed
     }
 
     /**
-     * @param mixed $sealedData
-     * @param mixed $decryptionKey
-     *
      * @throws \Exception
      */
-    private static function decryptAes256Gcm($sealedData, $decryptionKey): string
+    private static function decryptAes256Gcm(string $sealedData, string $decryptionKey): string
     {
         $nonce = substr($sealedData, 0, self::NONCE_LENGTH);
         $ciphertext = substr($sealedData, self::NONCE_LENGTH);
@@ -99,11 +100,11 @@ class Sealed
     }
 
     /**
-     * @param mixed $data
+     * @param bool|string $data
      *
-     * @throws \Exception
+     * @throws DecompressionException
      */
-    private static function decompress($data): string
+    private static function decompress(mixed $data): string
     {
         if (false === $data || 0 === strlen($data)) {
             throw new DecompressionException();

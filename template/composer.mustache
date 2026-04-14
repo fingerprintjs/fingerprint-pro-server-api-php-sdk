@@ -1,11 +1,10 @@
 {
     "name": "{{composerVendorName}}/{{composerProjectName}}",
     {{#artifactVersion}}
-    "version": "{{artifactVersion}}",
+    "version": "{{{.}}}",
     {{/artifactVersion}}
-    "description": "Fingerprint Server API provides a way for validating visitors’ data issued by Fingerprint Pro.",
+    "description": "{{{appDescription}}}",
     "keywords": [
-        "swagger",
         "php",
         "sdk",
         "api",
@@ -23,31 +22,37 @@
         "visitor-identification",
         "fingerprintjs-pro"
     ],
-    "homepage": "https://www.fingerprint.com",
-    "license": "MIT",
+    "homepage": "{{{organizationUrl}}}",
+    "license": "{{{licenseName}}}",
     "authors": [
         {
-            "name": "{{composerVendorName}}",
+            "name": "{{{composerVendorName}}}",
             "homepage": "{{gitRepoBaseURL}}/{{gitUserId}}/{{gitRepoId}}"
         }
     ],
     "require": {
-        "php": ">=8.1",
+        "php": "^8.1",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "guzzlehttp/guzzle": "~7.2",
+        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/psr7": "^1.7 || ^2.0",
         "ext-zlib": "*",
         "ext-openssl": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.5",
+        "friendsofphp/php-cs-fixer": "^3.5",
         "vlucas/phpdotenv": "^5.6"
     },
     "autoload": {
-        "psr-4": { "{{escapedInvokerPackage}}\\" : "{{srcBasePath}}/src" }
+        "psr-4": { "{{{escapedInvokerPackage}}}\\" : "{{{srcBasePath}}}/" }
     },
     "autoload-dev": {
-        "psr-4": { "{{escapedInvokerPackage}}\\" : "{{testBasePath}}/" }
+        "psr-4": { "{{{escapedInvokerPackage}}}\\Test\\" : "{{{testBasePath}}}/" }
+    },
+    "replace": {
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*"
     }
 }

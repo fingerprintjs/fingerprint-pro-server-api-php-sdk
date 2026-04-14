@@ -4,20 +4,21 @@ namespace Fingerprint\ServerSdk\Sealed;
 
 class UnsealException extends \Exception
 {
-    public $decryptionKeyDescription;
+    public string $decryptionKeyDescription;
 
-    public function __construct($message, $cause, $decryptionKey)
+    public function __construct($message, $cause, DecryptionKey $decryptionKey)
     {
         parent::__construct($message, 0, $cause);
-        $this->decryptionKeyDescription = $decryptionKey;
+        $key = $decryptionKey->getKey();
+        $this->decryptionKeyDescription = substr($key, 0, 3).'***'.substr($key, -3);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return 'UnsealException{'.
-            'decryptionKey='.$this->decryptionKeyDescription.
-            ', message='.$this->getMessage().
-            ', cause='.$this->getPrevious().
-            '}';
+        return 'UnsealException{'
+            .'decryptionKey='.$this->decryptionKeyDescription
+            .', message='.$this->getMessage()
+            .', cause='.$this->getPrevious()
+            .'}';
     }
 }
