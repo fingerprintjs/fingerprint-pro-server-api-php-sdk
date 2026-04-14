@@ -4,5 +4,9 @@
   "initialVersions": {
     "@fingerprint/php-sdk": "6.10.0"
   },
-  "changesets": []
+  "changesets": [
+    "fifty-wolves-sort",
+    "pink-numbers-cover",
+    "wild-bats-fly"
+  ]
 }
