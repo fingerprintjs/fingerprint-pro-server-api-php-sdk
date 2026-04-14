@@ -3,8 +3,6 @@
 /**
  * TamperingDetails.
  *
- * PHP version 8.1
- *
  * @category Class
  *
  * @author   Fingerprint

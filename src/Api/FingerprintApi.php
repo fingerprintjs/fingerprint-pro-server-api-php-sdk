@@ -1,8 +1,7 @@
 <?php
 
 /**
- * FingerprintApi
- * PHP version 8.1.
+ * FingerprintApi.
  *
  * @category Class
  *

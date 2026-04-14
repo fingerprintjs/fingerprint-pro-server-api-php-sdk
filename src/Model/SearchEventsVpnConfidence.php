@@ -3,8 +3,6 @@
 /**
  * SearchEventsVpnConfidence.
  *
- * PHP version 8.1
- *
  * @category Enum
  *
  * @author   Fingerprint
