@@ -164,19 +164,6 @@ final class ConfigurationTest extends TestCase
     }
 
     /**
-     * Temp folder path should default to the system temp dir and be overridable.
-     */
-    public function testSetAndGetTempFolderPath(): void
-    {
-        $config = new Configuration('test-api-key');
-
-        $this->assertEquals(sys_get_temp_dir(), $config->getTempFolderPath());
-
-        $config->setTempFolderPath('/tmp/custom');
-        $this->assertEquals('/tmp/custom', $config->getTempFolderPath());
-    }
-
-    /**
      * mTLS certificate file should default to null and be overridable.
      */
     public function testSetAndGetCertFile(): void
@@ -218,7 +205,6 @@ final class ConfigurationTest extends TestCase
         $this->assertSame($config, $config->setUserAgent('agent'));
         $this->assertSame($config, $config->setDebug(true));
         $this->assertSame($config, $config->setDebugFile('php://stderr'));
-        $this->assertSame($config, $config->setTempFolderPath('/tmp'));
         $this->assertSame($config, $config->setCertFile('/cert'));
         $this->assertSame($config, $config->setKeyFile('/key'));
     }
