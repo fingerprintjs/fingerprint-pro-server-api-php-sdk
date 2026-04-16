@@ -49,7 +49,7 @@ To install the bindings via [Composer](https://getcomposer.org/), add the follow
 ```
 {
     "require": {
-        "fingerprint/fingerprint-pro-server-api-sdk": "dev-main"
+        "fingerprint/fingerprint-pro-server-api-sdk": "^6.10"
     }
 }
 ```
