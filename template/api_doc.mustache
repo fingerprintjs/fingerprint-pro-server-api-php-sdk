@@ -13,9 +13,9 @@ Method | HTTP request | Description
 # **{{{operationId}}}**
 > {{#returnType}} [ {{{returnType}}}, \Psr\Http\Message\ResponseInterface ] {{/returnType}}{{{operationId}}}({{#allParams}}${{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}})
 
-{{{summary}}}{{#notes}}
+{{{summary}}}{{#unescapedNotes}}
 
-{{{notes}}}{{/notes}}
+{{{.}}}{{/unescapedNotes}}
 
 ### Example
 ```php

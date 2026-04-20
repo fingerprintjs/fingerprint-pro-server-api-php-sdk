@@ -45,6 +45,7 @@ Name | Type | Description | Notes
 **velocity** | [**\Fingerprint\ServerAPI\Model\WebhookVelocity**](WebhookVelocity.md) |  | [optional] 
 **developer_tools** | [**\Fingerprint\ServerAPI\Model\WebhookDeveloperTools**](WebhookDeveloperTools.md) |  | [optional] 
 **mitm_attack** | [**\Fingerprint\ServerAPI\Model\WebhookMitMAttack**](WebhookMitMAttack.md) |  | [optional] 
+**rare_device** | [**\Fingerprint\ServerAPI\Model\WebhookRareDevice**](WebhookRareDevice.md) |  | [optional] 
 **replayed** | **bool** | `true` if we determined that this payload was replayed, `false` otherwise. | [optional] 
 **sdk** | [**\Fingerprint\ServerAPI\Model\SDK**](SDK.md) |  | 
 **supplementary_ids** | [**\Fingerprint\ServerAPI\Model\WebhookSupplementaryIDs**](WebhookSupplementaryIDs.md) |  | [optional] 

@@ -1,7 +1,20 @@
 openapi: 3.0.3
 info:
-  title: Fingerprint Server API
+  title: Server API v3 (deprecated)
   description: >
+    > 🚧 Deprecation Notice
+
+    >
+
+    > This version of Server API is marked as deprecated starting on **Jan 7th
+    2026** and will be fully defunct on **Jan 7th 2027** according to our [API
+    Deprecation
+    Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If
+    you still use this version, please follow our [migration
+    guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4)
+    to migrate from this deprecated version to the new one.
+
+
     Fingerprint Server API allows you to search, update, and delete
     identification events in a server environment. It can be used for data
     exports, decision-making, and data analysis scenarios.
@@ -42,6 +55,19 @@ paths:
       operationId: getEvent
       summary: Get event by request ID
       description: >
+        > 🚧 Deprecation Notice
+
+        >
+
+        > This version of Server API is marked as deprecated starting on **Jan
+        7th 2026** and will be fully removed on **Jan 7th 2027** according to
+        our [API Deprecation
+        Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
+        If you still use this version, please follow our [migration
+        guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-events)
+        to migrate from this deprecated version to the new one.
+
+
         Get a detailed analysis of an individual identification event, including
         Smart Signals. 
 
@@ -91,6 +117,19 @@ paths:
       operationId: updateEvent
       summary: Update an event with a given request ID
       description: >
+        > 🚧 Deprecation Notice
+
+        >
+
+        > This version of Server API is marked as deprecated starting on **Jan
+        7th 2026** and will be fully removed on **Jan 7th 2027** according to
+        our [API Deprecation
+        Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
+        If you still use this version, please follow our [migration
+        guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-update-events)
+        to migrate from this deprecated version to the new one.
+
+
         Change information in existing events specified by `requestId` or *flag
         suspicious events*.
 
@@ -153,6 +192,19 @@ paths:
       operationId: searchEvents
       summary: Get events via search
       description: >
+        > 🚧 Deprecation Notice
+
+        >
+
+        > This version of Server API is marked as deprecated starting on **Jan
+        7th 2026** and will be fully removed on **Jan 7th 2027** according to
+        our [API Deprecation
+        Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
+        If you still use this version, please follow our [migration
+        guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-eventssearch)
+        to migrate from this deprecated version to the new one.
+
+
         Search for identification events, including Smart Signals, using
         multiple filtering criteria. If you don't provide `start` or `end`
         parameters, the default search range is the last 7 days.
@@ -177,7 +229,7 @@ paths:
           schema:
             type: string
           description: >
-            Use `pagination_key` to get the next page of results. 
+            Use `pagination_key` to get the next page of results.
 
 
             When more results are available (e.g., you requested up to 200
@@ -202,7 +254,7 @@ paths:
           description: >
             Unique [visitor
             identifier](https://dev.fingerprint.com/reference/get-function#visitorid)
-            issued by Fingerprint Pro.
+            issued by Fingerprint Identification and all active Smart Signals.
 
             Filter for events matching this `visitor_id`.
         - name: bot
@@ -215,7 +267,7 @@ paths:
               - bad
               - none
           description: >
-            Filter events by the Bot Detection result, specifically: 
+            Filter events by the Bot Detection result, specifically:
               `all` - events where any kind of bot was detected.
               `good` - events where a good bot was detected.
               `bad` - events where a bad bot was detected.
@@ -230,7 +282,7 @@ paths:
             type: string
           description: >
             Filter events by IP address range. The range can be as specific as a
-            single IP (/32 for IPv4 or /128 for IPv6) 
+            single IP (/32 for IPv4 or /128 for IPv6)
 
             All ip_address filters must use CIDR notation, for example,
             10.0.0.0/24, 192.168.0.1/32
@@ -239,7 +291,7 @@ paths:
           schema:
             type: string
           description: >
-            Filter events by your custom identifier. 
+            Filter events by your custom identifier.
 
 
             You can use [linked
@@ -276,7 +328,7 @@ paths:
             type: boolean
           description: >
             Filter events previously tagged as suspicious via the [Update
-            API](https://dev.fingerprint.com/reference/updateevent). 
+            API](https://dev.fingerprint.com/reference/updateevent).
 
             > Note: When using this parameter, only events with the `suspect`
             property explicitly set to `true` or `false` are returned. Events
@@ -286,7 +338,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by VPN Detection result.  
+            Filter events by VPN Detection result.
 
             > Note: When using this parameter, only events with the
             `products.vpn.data.result` property set to `true` or `false` are
@@ -297,7 +349,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Virtual Machine Detection result.  
+            Filter events by Virtual Machine Detection result.
 
             > Note: When using this parameter, only events with the
             `products.virtualMachine.data.result` property set to `true` or
@@ -308,7 +360,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Tampering Detection result.  
+            Filter events by Tampering Detection result.
 
             > Note: When using this parameter, only events with the
             `products.tampering.data.result` property set to `true` or `false`
@@ -319,7 +371,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Anti-detect Browser Detection result.  
+            Filter events by Anti-detect Browser Detection result.
 
             > Note: When using this parameter, only events with the
             `products.tampering.data.antiDetectBrowser` property set to `true`
@@ -330,7 +382,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Browser Incognito Detection result.  
+            Filter events by Browser Incognito Detection result.
 
             > Note: When using this parameter, only events with the
             `products.incognito.data.result` property set to `true` or `false`
@@ -341,7 +393,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Privacy Settings Detection result.  
+            Filter events by Privacy Settings Detection result.
 
             > Note: When using this parameter, only events with the
             `products.privacySettings.data.result` property set to `true` or
@@ -352,7 +404,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Jailbroken Device Detection result.  
+            Filter events by Jailbroken Device Detection result.
 
             > Note: When using this parameter, only events with the
             `products.jailbroken.data.result` property set to `true` or `false`
@@ -363,7 +415,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Frida Detection result.  
+            Filter events by Frida Detection result.
 
             > Note: When using this parameter, only events with the
             `products.frida.data.result` property set to `true` or `false` are
@@ -374,7 +426,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Factory Reset Detection result.  
+            Filter events by Factory Reset Detection result.
 
             > Note: When using this parameter, only events with the
             `products.factoryReset.data.result` property set to `true` or
@@ -385,7 +437,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Cloned App Detection result.  
+            Filter events by Cloned App Detection result.
 
             > Note: When using this parameter, only events with the
             `products.clonedApp.data.result` property set to `true` or `false`
@@ -396,7 +448,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Android Emulator Detection result.  
+            Filter events by Android Emulator Detection result.
 
             > Note: When using this parameter, only events with the
             `products.emulator.data.result` property set to `true` or `false`
@@ -407,7 +459,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Rooted Device Detection result.  
+            Filter events by Rooted Device Detection result.
 
             > Note: When using this parameter, only events with the
             `products.rootApps.data.result` property set to `true` or `false`
@@ -422,7 +474,7 @@ paths:
               - medium
               - low
           description: >
-            Filter events by VPN Detection result confidence level.  
+            Filter events by VPN Detection result confidence level.
 
             `high` - events with high VPN Detection confidence.
 
@@ -453,7 +505,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by IP Blocklist Detection result.  
+            Filter events by IP Blocklist Detection result.
 
             > Note: When using this parameter, only events with the
             `products.ipBlocklist.data.result` property set to `true` or `false`
@@ -464,7 +516,7 @@ paths:
           schema:
             type: boolean
           description: >
-            Filter events by Datacenter Detection result.  
+            Filter events by Datacenter Detection result.
 
             > Note: When using this parameter, only events with the
             `products.ipInfo.data.v4.datacenter.result` or
@@ -504,6 +556,35 @@ paths:
             `products.mitmAttack.data.result` property set to `true` or `false`
             are returned. Events without a `products.mitmAttack` Smart Signal
             result are left out of the response.
+        - name: rare_device
+          in: query
+          schema:
+            type: boolean
+          description: >
+            Filter events by Rare Device detection result.
+
+            > Note: When using this parameter, only events with the
+            `products.rareDevice.data.result` property set to `true` or `false`
+            are returned. Events without a `products.rareDevice` Smart Signal
+            result are left out of the response.
+        - name: rare_device_percentile_bucket
+          in: query
+          schema:
+            type: string
+            enum:
+              - <p95
+              - p95-p99
+              - p99-p99.5
+              - p99.5-p99.9
+              - p99.9+
+              - not_seen
+          description: >
+            Filter events by Rare Device percentile bucket. `<p95` - device
+            configuration is in the bottom 95% (most common). `p95-p99` - device
+            is in the 95th to 99th percentile. `p99-p99.5` - device is in the
+            99th to 99.5th percentile. `p99.5-p99.9` - device is in the 99.5th
+            to 99.9th percentile. `p99.9+` - device is in the top 0.1% (rarest).
+            `not_seen` - device configuration has never been observed before.
         - name: proxy
           in: query
           schema:
@@ -611,6 +692,19 @@ paths:
       operationId: getVisits
       summary: Get visits by visitor ID
       description: >
+        > 🚧 Deprecation Notice
+
+        >
+
+        > This version of Server API is marked as deprecated starting on **Jan
+        7th 2026** and will be fully removed on **Jan 7th 2027** according to
+        our [API Deprecation
+        Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
+        If you still use this version, please follow our [migration
+        guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-visitors)
+        to migrate from this deprecated version to the new one.
+
+
         Get a history of visits (identification events) for a specific
         `visitorId`. Use the `visitorId` as a URL path parameter.
 
@@ -634,13 +728,13 @@ paths:
           description: >-
             Unique [visitor
             identifier](https://dev.fingerprint.com/reference/get-function#visitorid)
-            issued by Fingerprint Pro.
+            issued by Fingerprint Identification and all active Smart Signals.
         - name: request_id
           in: query
           schema:
             type: string
           description: >
-            Filter visits by `requestId`. 
+            Filter visits by `requestId`.
 
 
             Every identification request has a unique identifier associated with
@@ -655,7 +749,7 @@ paths:
           schema:
             type: string
           description: >
-            Filter visits by your custom identifier. 
+            Filter visits by your custom identifier.
 
 
             You can use
@@ -672,7 +766,7 @@ paths:
             format: int32
             minimum: 0
           description: >
-            Limit scanned results. 
+            Limit scanned results.
 
 
             For performance reasons, the API first scans some number of events
@@ -689,7 +783,7 @@ paths:
           schema:
             type: string
           description: >
-            Use `paginationKey` to get the next page of results. 
+            Use `paginationKey` to get the next page of results.
 
 
             When more results are available (e.g., you requested 200 results
@@ -766,6 +860,19 @@ paths:
       operationId: deleteVisitorData
       summary: Delete data by visitor ID
       description: >
+        > 🚧 Deprecation Notice
+
+        >
+
+        > This version of Server API is marked as deprecated starting on **Jan
+        7th 2026** and will be fully removed on **Jan 7th 2027** according to
+        our [API Deprecation
+        Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
+        If you still use this version, please follow our [migration
+        guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4)
+        to migrate from this deprecated version to the new one.
+
+
         Request deleting all data associated with the specified visitor ID. This
         API is useful for compliance with privacy regulations.
 
@@ -869,6 +976,16 @@ paths:
       operationId: getRelatedVisitors
       summary: Get Related Visitors
       description: >
+        > 🚧 Deprecation Notice
+
+        >
+
+        > This version of Server API is marked as deprecated starting on **Jan
+        7th 2026** and will be fully removed on **Jan 7th 2027** according to
+        our [API Deprecation
+        Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
+
+
         Related visitors API lets you link web visits and in-app browser visits
         that originated from the same mobile device.
 
@@ -1170,6 +1287,26 @@ components:
         the generic type provided here.
       additionalProperties:
         $ref: '#/components/schemas/RawDeviceAttribute'
+    Integration:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          description: The name of the specific integration, e.g. "fingerprint-pro-react".
+        version:
+          type: string
+          description: The version of the specific integration, e.g. "3.11.10".
+        subintegration:
+          type: object
+          additionalProperties: false
+          properties:
+            name:
+              type: string
+              description: The name of the specific subintegration, e.g. "preact".
+            version:
+              type: string
+              description: The version of the specific subintegration, e.g. "10.21.0".
     SDK:
       type: object
       description: Contains information about the SDK used to perform the request.
@@ -1184,6 +1321,10 @@ components:
         version:
           type: string
           description: SDK version string.
+        integrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Integration'
     Identification:
       type: object
       additionalProperties: false
@@ -1277,6 +1418,7 @@ components:
         - SubscriptionNotActive
         - WrongRegion
         - FeatureNotEnabled
+        - WorkspaceScopedSecretKeyRequired
         - RequestNotFound
         - VisitorNotFound
         - TooManyRequests
@@ -1292,6 +1434,7 @@ components:
          * `SubscriptionNotActive` - Fingerprint application is not active.
          * `WrongRegion` - server and application region differ.
          * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application.
+         * `WorkspaceScopedSecretKeyRequired` - The provided secret API key is scoped to an environment, but this operation requires a workspace-scoped secret API key.
          * `RequestNotFound` - the specified request ID was not found. It never existed, expired, or it has been deleted.
          * `VisitorNotFound` - The specified visitor ID was not found. It never existed or it may have already been deleted.
          * `TooManyRequests` - the limit on secret API key requests per second has been exceeded.
@@ -1476,6 +1619,8 @@ components:
         name:
           type: string
         network:
+          type: string
+        type:
           type: string
     IPInfoDataCenter:
       type: object
@@ -1768,7 +1913,9 @@ components:
       additionalProperties: false
       required:
         - result
+        - confidence
         - anomalyScore
+        - mlScore
         - antiDetectBrowser
       properties:
         result:
@@ -1781,6 +1928,16 @@ components:
                 * Contains anomalous browser or device attributes that could not have been legitimately produced by the JavaScript agent or the Android SDK (see `anomalyScore`).
                 * Originated from an anti-detect browser like Incognition (see `antiDetectBrowser`).
               * `false` - If the request is considered genuine or was generated by the iOS SDK.
+        confidence:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+          description: |
+            Confidence level of the tampering detection.
+            If a tampering is not detected, confidence is "high".
+            If it's detected, can be "low", "medium", or "high".
         anomalyScore:
           type: number
           format: double
@@ -1792,6 +1949,16 @@ components:
             and Android SDKs. 
               * Values above `0.5` indicate that the request has been tampered with.
               * Values below `0.5` indicate that the request is genuine.
+        mlScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: >
+            A score that indicates the models calculated probability that an
+            event is coming from an anti detect browser.
+              * Values above `0.8` indicate that the request is an anti detect browser based on the ml model
+              * Values below `0.8` indicate that the request is not an anti detect browser based on the ml model
         antiDetectBrowser:
           type: boolean
           description: >
@@ -1858,7 +2025,7 @@ components:
             field.
 
             The time of the most recent factory reset that happened on the
-            **mobile device** is expressed as Unix epoch time.       
+            **mobile device** is expressed as Unix epoch time.
     ProductFactoryReset:
       type: object
       additionalProperties: false
@@ -1939,6 +2106,16 @@ components:
           description: >
             `true` if the request came from a browser running inside a virtual
             machine (e.g. VMWare), `false` otherwise.
+        mlScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: >
+            Machine learning-based virtual machine score,  represented as a
+            floating-point value between 0 and 1 (inclusive), with up to three
+            decimal places of precision. A higher score means a higher
+            confidence in the positive `virtual_machine` detection result    
     ProductVirtualMachine:
       type: object
       additionalProperties: false
@@ -1975,6 +2152,44 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/HighActivity'
+        error:
+          $ref: '#/components/schemas/Error'
+    RareDevice:
+      type: object
+      additionalProperties: false
+      description: >
+        Rare device details (present if the device is considered rare)
+
+        > This Smart Signal is currently in beta and only available to select
+        customers. If you are interested, please [contact our support
+        team](https://fingerprint.com/support/).
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the device is considered rare based on its combination of
+            hardware and software attributes. A device is classified as rare if
+            it falls within the top 99.9 percentile (lowest-frequency segment)
+            of observed traffic, or if its configuration has not been previously
+            seen (`not_seen`).
+        percentileBucket:
+          type: string
+          description: >
+            The rarity percentile bucket of the device, indicating how uncommon
+            the device configuration is compared to all observed devices.
+          enum:
+            - <p95
+            - p95-p99
+            - p99-p99.5
+            - p99.5-p99.9
+            - p99.9+
+            - not_seen
+    ProductRareDevice:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/RareDevice'
         error:
           $ref: '#/components/schemas/Error'
     LocationSpoofing:
@@ -2288,13 +2503,15 @@ components:
           $ref: '#/components/schemas/ProductDeveloperTools'
         mitmAttack:
           $ref: '#/components/schemas/ProductMitMAttack'
+        rareDevice:
+          $ref: '#/components/schemas/ProductRareDevice'
         proximity:
           $ref: '#/components/schemas/ProductProximity'
     EventsGetResponse:
       type: object
       description: >-
-        Contains results from all activated products - Fingerprint Pro, Bot
-        Detection, and others.
+        Contains results from Fingerprint Identification and all active Smart
+        Signals.
       additionalProperties: false
       required:
         - products
@@ -2563,6 +2780,16 @@ components:
                 * Contains anomalous browser or device attributes that could not have been legitimately produced by the JavaScript agent or the Android SDK (see `anomalyScore`).
                 * Originated from an anti-detect browser like Incognition (see `antiDetectBrowser`).
               * `false` - If the request is considered genuine or was generated by the iOS SDK.
+        confidence:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+          description: |
+            Confidence level of the tampering detection.
+            If a tampering is not detected, confidence is "high".
+            If it's detected, can be "low", "medium", or "high".
         anomalyScore:
           type: number
           format: double
@@ -2574,6 +2801,16 @@ components:
             and Android SDKs. 
               * Values above `0.5` indicate that the request has been tampered with.
               * Values below `0.5` indicate that the request is genuine.
+        mlScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: >
+            A score that indicates the models calculated probability that an
+            event is coming from an anti detect browser.
+              * Values above `0.8` indicate that the request is an anti detect browser based on the ml model
+              * Values below `0.8` indicate that the request is not an anti detect browser based on the ml model
         antiDetectBrowser:
           type: boolean
           description: >
@@ -2619,7 +2856,7 @@ components:
             field.
 
             The time of the most recent factory reset that happened on the
-            **mobile device** is expressed as Unix epoch time.       
+            **mobile device** is expressed as Unix epoch time.
     WebhookJailbroken:
       type: object
       additionalProperties: false
@@ -2627,7 +2864,7 @@ components:
         result:
           type: boolean
           description: |
-            iOS specific jailbreak detection. There are 2 values: 
+            iOS specific jailbreak detection. There are 2 values:
               * `true` - Jailbreak detected.
               * `false` - No signs of jailbreak or the client is not iOS.
     WebhookFrida:
@@ -2660,6 +2897,16 @@ components:
           description: >
             `true` if the request came from a browser running inside a virtual
             machine (e.g. VMWare), `false` otherwise.
+        mlScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: >
+            Machine learning–based virtual machine score,  represented as a
+            floating-point value between 0 and 1 (inclusive), with up to three
+            decimal places of precision. A higher score means a higher
+            confidence in the positive `virtual_machine` detection result
     WebhookRawDeviceAttributes:
       type: object
       description: >
@@ -2799,6 +3046,34 @@ components:
             See [MitM Attack
             Detection](https://dev.fingerprint.com/docs/smart-signals-overview#mitm-attack-detection)
             to learn more about this Smart Signal.
+    WebhookRareDevice:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the device is considered rare based on its combination of
+            hardware and software attributes.  A device is classified as rare if
+            it falls within the top 99.9 percentile (lowest-frequency segment)
+            of observed traffic,  or if its configuration has not been
+            previously seen (`not_seen`).
+
+            > This Smart Signal is currently in beta and only available to
+            select customers. If you are interested, please [contact our support
+            team](https://fingerprint.com/support/).
+        percentileBucket:
+          type: string
+          description: >
+            The rarity percentile bucket of the device, indicating how uncommon
+            the device configuration is compared to all observed devices.
+          enum:
+            - <p95
+            - p95-p99
+            - p99-p99.5
+            - p99.5-p99.9
+            - p99.9+
+            - not_seen
     SupplementaryID:
       type: object
       additionalProperties: false
@@ -2981,6 +3256,8 @@ components:
           $ref: '#/components/schemas/WebhookDeveloperTools'
         mitmAttack:
           $ref: '#/components/schemas/WebhookMitMAttack'
+        rareDevice:
+          $ref: '#/components/schemas/WebhookRareDevice'
         replayed:
           type: boolean
           description: >
