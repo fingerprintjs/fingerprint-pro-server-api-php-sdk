@@ -1,3 +1,6 @@
+> [!WARNING]
+> This version is deprecated. Please upgrade to the [latest PHP SDK version](https://github.com/fingerprintjs/php-sdk).
+
 <p align="center">
 <a href="https://fingerprint.com">
 <picture>
@@ -19,6 +22,12 @@
 </p>
 
 # Fingerprint Server API PHP SDK
+
+> [!IMPORTANT]
+> **This SDK package is deprecated.** This package (`fingerprint/fingerprint-pro-server-api-sdk`) uses Server API v3.
+>
+> Please migrate to the new [`fingerprint/server-sdk`](https://github.com/fingerprintjs/php-sdk) package, which uses Server API v4. Follow the [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) for details.
+
 > 🚧 Deprecation Notice
 >
 > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
