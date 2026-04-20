@@ -1,7 +1,6 @@
 <?php
 /**
- * Configuration
- * PHP version 5.
+ * Configuration.
  *
  * @category Class
  *
@@ -36,8 +35,7 @@
 namespace Fingerprint\ServerAPI;
 
 /**
- * Configuration Class Doc Comment
- * PHP version 5.
+ * Configuration Class Doc Comment.
  *
  * @category Class
  *

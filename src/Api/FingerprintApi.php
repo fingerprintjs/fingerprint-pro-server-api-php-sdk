@@ -1,7 +1,6 @@
 <?php
 /**
- * FingerprintApi
- * PHP version 5.
+ * FingerprintApi.
  *
  * @category Class
  *
