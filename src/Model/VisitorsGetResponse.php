@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * VisitorsGetResponse Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Pagination-related fields `lastTimestamp` and `paginationKey` are included if you use a pagination parameter like `limit` or `before` and there is more data available on the next page.

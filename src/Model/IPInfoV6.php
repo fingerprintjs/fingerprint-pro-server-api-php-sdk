@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * IPInfoV6 Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @author   Swagger Codegen team

@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * Botd Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Contains all the information from Bot Detection product

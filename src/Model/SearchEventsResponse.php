@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * SearchEventsResponse Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Contains a list of all identification events matching the specified search criteria.

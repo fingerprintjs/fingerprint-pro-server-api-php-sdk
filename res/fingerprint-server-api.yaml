@@ -1121,6 +1121,7 @@ components:
           type: string
         userAgent:
           type: string
+      deprecated: true
     GeolocationCity:
       type: object
       additionalProperties: false
@@ -1129,6 +1130,7 @@ components:
       properties:
         name:
           type: string
+      deprecated: true
     GeolocationCountry:
       type: object
       additionalProperties: false
@@ -1142,6 +1144,7 @@ components:
           maxLength: 2
         name:
           type: string
+      deprecated: true
     GeolocationContinent:
       type: object
       additionalProperties: false
@@ -1155,6 +1158,7 @@ components:
           maxLength: 2
         name:
           type: string
+      deprecated: true
     GeolocationSubdivision:
       type: object
       additionalProperties: false
@@ -1166,10 +1170,12 @@ components:
           type: string
         name:
           type: string
+      deprecated: true
     GeolocationSubdivisions:
       type: array
       items:
         $ref: '#/components/schemas/GeolocationSubdivision'
+      deprecated: true
     DeprecatedGeolocation:
       deprecated: true
       type: object
@@ -1216,6 +1222,7 @@ components:
         A customer-provided value or an object that was sent with identification
         request.
       additionalProperties: true
+      deprecated: true
     IdentificationConfidence:
       type: object
       additionalProperties: false
@@ -1238,6 +1245,7 @@ components:
             alternative calculation method.
         comment:
           type: string
+      deprecated: true
     IdentificationSeenAt:
       type: object
       additionalProperties: false
@@ -1255,6 +1263,7 @@ components:
           nullable: true
           format: date-time
           x-ogen-time-format: 2006-01-02T15:04:05.999Z07:00
+      deprecated: true
     RawDeviceAttributeError:
       type: object
       additionalProperties: false
@@ -1263,6 +1272,7 @@ components:
           type: string
         message:
           type: string
+      deprecated: true
     RawDeviceAttribute:
       type: object
       additionalProperties: false
@@ -1271,6 +1281,7 @@ components:
           title: value
         error:
           $ref: '#/components/schemas/RawDeviceAttributeError'
+      deprecated: true
     RawDeviceAttributes:
       type: object
       description: >
@@ -1287,6 +1298,7 @@ components:
         the generic type provided here.
       additionalProperties:
         $ref: '#/components/schemas/RawDeviceAttribute'
+      deprecated: true
     Integration:
       type: object
       additionalProperties: false
@@ -1307,6 +1319,8 @@ components:
             version:
               type: string
               description: The version of the specific subintegration, e.g. "10.21.0".
+          deprecated: true
+      deprecated: true
     SDK:
       type: object
       description: Contains information about the SDK used to perform the request.
@@ -1325,6 +1339,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Integration'
+      deprecated: true
     Identification:
       type: object
       additionalProperties: false
@@ -1409,6 +1424,7 @@ components:
         environmentId:
           type: string
           description: Environment ID associated with the event
+      deprecated: true
     ErrorCode:
       type: string
       enum:
@@ -1445,6 +1461,7 @@ components:
                   after receiving the request id on the client. In case you need to send
                   information right away, we recommend using the JS agent API instead.
          * `Failed` - internal server error.
+      deprecated: true
     Error:
       type: object
       additionalProperties: false
@@ -1456,6 +1473,7 @@ components:
           $ref: '#/components/schemas/ErrorCode'
         message:
           type: string
+      deprecated: true
     ProductIdentification:
       type: object
       additionalProperties: false
@@ -1464,6 +1482,7 @@ components:
           $ref: '#/components/schemas/Identification'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     BotdBotResult:
       type: string
       enum:
@@ -1475,6 +1494,7 @@ components:
          * `notDetected` - the visitor is not a bot
          * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
          * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
+      deprecated: true
     BotdBot:
       type: object
       description: Stores bot detection result
@@ -1486,6 +1506,7 @@ components:
           $ref: '#/components/schemas/BotdBotResult'
         type:
           type: string
+      deprecated: true
     Botd:
       type: object
       description: Contains all the information from Bot Detection product
@@ -1524,6 +1545,7 @@ components:
         requestId:
           type: string
           description: Unique identifier of the user's request.
+      deprecated: true
     ProductBotd:
       type: object
       additionalProperties: false
@@ -1532,6 +1554,7 @@ components:
           $ref: '#/components/schemas/Botd'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     RootApps:
       type: object
       additionalProperties: false
@@ -1545,6 +1568,7 @@ components:
             values: 
               * `true` - Root Management Apps detected (e.g. Magisk).
               * `false` - No Root Management Apps detected or the client isn't Android.
+      deprecated: true
     ProductRootApps:
       type: object
       additionalProperties: false
@@ -1553,6 +1577,7 @@ components:
           $ref: '#/components/schemas/RootApps'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     Emulator:
       type: object
       additionalProperties: false
@@ -1565,6 +1590,7 @@ components:
             Android specific emulator detection. There are 2 values: 
               * `true` - Emulated environment detected (e.g. launch inside of AVD). 
               * `false` - No signs of emulated environment detected or the client is not Android.
+      deprecated: true
     ProductEmulator:
       type: object
       additionalProperties: false
@@ -1573,6 +1599,7 @@ components:
           $ref: '#/components/schemas/Emulator'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     Geolocation:
       type: object
       additionalProperties: false
@@ -1606,6 +1633,7 @@ components:
           $ref: '#/components/schemas/GeolocationContinent'
         subdivisions:
           $ref: '#/components/schemas/GeolocationSubdivisions'
+      deprecated: true
     IPInfoASN:
       type: object
       additionalProperties: false
@@ -1622,6 +1650,7 @@ components:
           type: string
         type:
           type: string
+      deprecated: true
     IPInfoDataCenter:
       type: object
       additionalProperties: false
@@ -1633,6 +1662,7 @@ components:
           type: boolean
         name:
           type: string
+      deprecated: true
     IPInfoV4:
       type: object
       additionalProperties: false
@@ -1649,6 +1679,7 @@ components:
           $ref: '#/components/schemas/IPInfoASN'
         datacenter:
           $ref: '#/components/schemas/IPInfoDataCenter'
+      deprecated: true
     IPInfoV6:
       type: object
       additionalProperties: false
@@ -1665,6 +1696,7 @@ components:
           $ref: '#/components/schemas/IPInfoASN'
         datacenter:
           $ref: '#/components/schemas/IPInfoDataCenter'
+      deprecated: true
     IPInfo:
       type: object
       description: >-
@@ -1676,6 +1708,7 @@ components:
           $ref: '#/components/schemas/IPInfoV4'
         v6:
           $ref: '#/components/schemas/IPInfoV6'
+      deprecated: true
     ProductIPInfo:
       type: object
       additionalProperties: false
@@ -1684,6 +1717,7 @@ components:
           $ref: '#/components/schemas/IPInfo'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     IPBlocklistDetails:
       type: object
       additionalProperties: false
@@ -1697,6 +1731,7 @@ components:
         attackSource:
           type: boolean
           description: IP address was part of a known network attack (SSH/HTTPS).
+      deprecated: true
     IPBlocklist:
       type: object
       additionalProperties: false
@@ -1711,6 +1746,7 @@ components:
             search for known malicious actors, `false` otherwise.
         details:
           $ref: '#/components/schemas/IPBlocklistDetails'
+      deprecated: true
     ProductIPBlocklist:
       type: object
       additionalProperties: false
@@ -1719,6 +1755,7 @@ components:
           $ref: '#/components/schemas/IPBlocklist'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     Tor:
       type: object
       additionalProperties: false
@@ -1730,6 +1767,7 @@ components:
           description: >
             `true` if the request IP address is a known tor exit node, `false`
             otherwise.
+      deprecated: true
     ProductTor:
       type: object
       additionalProperties: false
@@ -1738,6 +1776,7 @@ components:
           $ref: '#/components/schemas/Tor'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     VPNConfidence:
       type: string
       enum:
@@ -1748,6 +1787,7 @@ components:
         A confidence rating for the VPN detection result — "low", "medium", or
         "high". Depends on the combination of results returned from all VPN
         detection methods.
+      deprecated: true
     VPNMethods:
       type: object
       additionalProperties: false
@@ -1795,6 +1835,7 @@ components:
 
             This field allows you to differentiate VPN users and relay service
             users in your fraud prevention logic.
+      deprecated: true
     VPN:
       type: object
       additionalProperties: false
@@ -1822,6 +1863,7 @@ components:
             3166 format or unknown).
         methods:
           $ref: '#/components/schemas/VPNMethods'
+      deprecated: true
     ProductVPN:
       type: object
       additionalProperties: false
@@ -1830,6 +1872,7 @@ components:
           $ref: '#/components/schemas/VPN'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     ProxyConfidence:
       type: string
       enum:
@@ -1840,6 +1883,7 @@ components:
         Confidence level of the proxy detection.
         If a proxy is not detected, confidence is "high".
         If it's detected, can be "low", "medium", or "high".
+      deprecated: true
     ProxyDetails:
       type: object
       nullable: true
@@ -1861,10 +1905,11 @@ components:
         lastSeenAt:
           type: string
           format: date-time
-          x-ogen-time-format: 2006-01-02T15:00:00.000Z
+          x-ogen-time-format: 2006-01-02T15:00:00Z
           description: |
             ISO 8601 formatted timestamp in UTC with hourly resolution
             of when this IP was last seen as a proxy when available.
+      deprecated: true
     Proxy:
       type: object
       additionalProperties: false
@@ -1881,6 +1926,7 @@ components:
           $ref: '#/components/schemas/ProxyConfidence'
         details:
           $ref: '#/components/schemas/ProxyDetails'
+      deprecated: true
     ProductProxy:
       type: object
       additionalProperties: false
@@ -1889,6 +1935,7 @@ components:
           $ref: '#/components/schemas/Proxy'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     Incognito:
       type: object
       additionalProperties: false
@@ -1900,6 +1947,7 @@ components:
           description: >
             `true` if we detected incognito mode used in the browser, `false`
             otherwise.
+      deprecated: true
     ProductIncognito:
       type: object
       additionalProperties: false
@@ -1908,6 +1956,7 @@ components:
           $ref: '#/components/schemas/Incognito'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     Tampering:
       type: object
       additionalProperties: false
@@ -1968,6 +2017,7 @@ components:
             from mobile SDKs.
               * `true` - The browser resembles a known anti-detect browser, for example, Incognition.
               * `false` - The browser does not resemble an anti-detect browser or the request originates from a mobile SDK.
+      deprecated: true
     ProductTampering:
       type: object
       additionalProperties: false
@@ -1976,6 +2026,7 @@ components:
           $ref: '#/components/schemas/Tampering'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     ClonedApp:
       type: object
       additionalProperties: false
@@ -1988,6 +2039,7 @@ components:
             Android specific cloned application detection. There are 2 values: 
               * `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected).
               * `false` - No signs of cloned application detected or the client is not Android.
+      deprecated: true
     ProductClonedApp:
       type: object
       additionalProperties: false
@@ -1996,6 +2048,7 @@ components:
           $ref: '#/components/schemas/ClonedApp'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     FactoryReset:
       type: object
       additionalProperties: false
@@ -2026,6 +2079,7 @@ components:
 
             The time of the most recent factory reset that happened on the
             **mobile device** is expressed as Unix epoch time.
+      deprecated: true
     ProductFactoryReset:
       type: object
       additionalProperties: false
@@ -2034,6 +2088,7 @@ components:
           $ref: '#/components/schemas/FactoryReset'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     Jailbroken:
       type: object
       additionalProperties: false
@@ -2046,6 +2101,7 @@ components:
             iOS specific jailbreak detection. There are 2 values: 
               * `true` - Jailbreak detected.
               * `false` - No signs of jailbreak or the client is not iOS.
+      deprecated: true
     ProductJailbroken:
       type: object
       additionalProperties: false
@@ -2054,6 +2110,7 @@ components:
           $ref: '#/components/schemas/Jailbroken'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     Frida:
       type: object
       additionalProperties: false
@@ -2067,6 +2124,7 @@ components:
             devices. There are 2 values:
               * `true` - Frida detected
               * `false` - No signs of Frida or the client is not a mobile device.
+      deprecated: true
     ProductFrida:
       type: object
       additionalProperties: false
@@ -2075,6 +2133,7 @@ components:
           $ref: '#/components/schemas/Frida'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     PrivacySettings:
       type: object
       additionalProperties: false
@@ -2087,6 +2146,7 @@ components:
             `true` if the request is from a privacy aware browser (e.g. Tor) or
             from a browser in which fingerprinting is blocked. Otherwise
             `false`.
+      deprecated: true
     ProductPrivacySettings:
       type: object
       additionalProperties: false
@@ -2095,6 +2155,7 @@ components:
           $ref: '#/components/schemas/PrivacySettings'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     VirtualMachine:
       type: object
       additionalProperties: false
@@ -2116,6 +2177,7 @@ components:
             floating-point value between 0 and 1 (inclusive), with up to three
             decimal places of precision. A higher score means a higher
             confidence in the positive `virtual_machine` detection result    
+      deprecated: true
     ProductVirtualMachine:
       type: object
       additionalProperties: false
@@ -2124,6 +2186,7 @@ components:
           $ref: '#/components/schemas/VirtualMachine'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     ProductRawDeviceAttributes:
       type: object
       additionalProperties: false
@@ -2132,6 +2195,7 @@ components:
           $ref: '#/components/schemas/RawDeviceAttributes'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     HighActivity:
       type: object
       additionalProperties: false
@@ -2146,6 +2210,7 @@ components:
           format: int64
           minimum: 1
           description: Number of requests from the same visitor in the previous day.
+      deprecated: true
     ProductHighActivity:
       type: object
       additionalProperties: false
@@ -2154,6 +2219,7 @@ components:
           $ref: '#/components/schemas/HighActivity'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     RareDevice:
       type: object
       additionalProperties: false
@@ -2184,6 +2250,7 @@ components:
             - p99.5-p99.9
             - p99.9+
             - not_seen
+      deprecated: true
     ProductRareDevice:
       type: object
       additionalProperties: false
@@ -2192,6 +2259,7 @@ components:
           $ref: '#/components/schemas/RareDevice'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     LocationSpoofing:
       type: object
       additionalProperties: false
@@ -2203,6 +2271,7 @@ components:
           description: >-
             Flag indicating whether the request came from a mobile device with
             location spoofing enabled.
+      deprecated: true
     ProductLocationSpoofing:
       type: object
       additionalProperties: false
@@ -2211,6 +2280,7 @@ components:
           $ref: '#/components/schemas/LocationSpoofing'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     SuspectScore:
       type: object
       additionalProperties: false
@@ -2226,6 +2296,7 @@ components:
             activity. The value range is [0; S] where S is sum of all Smart
             Signals weights.  See more details here:
             https://dev.fingerprint.com/docs/suspect-score
+      deprecated: true
     ProductSuspectScore:
       type: object
       additionalProperties: false
@@ -2234,6 +2305,7 @@ components:
           $ref: '#/components/schemas/SuspectScore'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     RemoteControl:
       type: object
       deprecated: true
@@ -2281,12 +2353,14 @@ components:
             `distinctVisitorIdByLinkedId` will be omitted if the number of
             `events`` for the visitor ID in the last 24 hours
             (`events.intervals.['24h']`) is higher than 20.000.
+      deprecated: true
     VelocityData:
       type: object
       additionalProperties: false
       properties:
         intervals:
           $ref: '#/components/schemas/VelocityIntervals'
+      deprecated: true
     Velocity:
       type: object
       description: >
@@ -2346,6 +2420,7 @@ components:
           $ref: '#/components/schemas/VelocityData'
         distinctVisitorIdByLinkedId:
           $ref: '#/components/schemas/VelocityData'
+      deprecated: true
     ProductVelocity:
       type: object
       additionalProperties: false
@@ -2354,6 +2429,7 @@ components:
           $ref: '#/components/schemas/Velocity'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     DeveloperTools:
       type: object
       additionalProperties: false
@@ -2365,6 +2441,7 @@ components:
           description: >
             `true` if the browser is Chrome with DevTools open or Firefox with
             Developer Tools open, `false` otherwise.
+      deprecated: true
     ProductDeveloperTools:
       type: object
       additionalProperties: false
@@ -2373,6 +2450,7 @@ components:
           $ref: '#/components/schemas/DeveloperTools'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     MitMAttack:
       type: object
       additionalProperties: false
@@ -2390,6 +2468,7 @@ components:
             See [MitM Attack
             Detection](https://dev.fingerprint.com/docs/smart-signals-reference#mitm-attack-detection)
             to learn more about this Smart Signal.
+      deprecated: true
     ProductMitMAttack:
       type: object
       additionalProperties: false
@@ -2398,6 +2477,7 @@ components:
           $ref: '#/components/schemas/MitMAttack'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     Proximity:
       type: object
       description: >
@@ -2438,6 +2518,7 @@ components:
             true device location lies within the mapped proximity zone.
               * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.
               * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
+      deprecated: true
     ProductProximity:
       type: object
       additionalProperties: false
@@ -2446,6 +2527,7 @@ components:
           $ref: '#/components/schemas/Proximity'
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     Products:
       type: object
       description: >-
@@ -2507,6 +2589,7 @@ components:
           $ref: '#/components/schemas/ProductRareDevice'
         proximity:
           $ref: '#/components/schemas/ProductProximity'
+      deprecated: true
     EventsGetResponse:
       type: object
       description: >-
@@ -2518,6 +2601,7 @@ components:
       properties:
         products:
           $ref: '#/components/schemas/Products'
+      deprecated: true
     ErrorResponse:
       type: object
       additionalProperties: false
@@ -2526,6 +2610,7 @@ components:
       properties:
         error:
           $ref: '#/components/schemas/Error'
+      deprecated: true
     EventsUpdateRequest:
       type: object
       properties:
@@ -2538,6 +2623,7 @@ components:
           type: boolean
           description: Suspect flag indicating observed suspicious or fraudulent event
           x-go-force-pointer: true
+      deprecated: true
     SearchEventsResponse:
       type: object
       description: >-
@@ -2560,6 +2646,7 @@ components:
           description: >-
             Use this value in the `pagination_key` parameter to request the next
             page of search results.
+      deprecated: true
     Visit:
       type: object
       additionalProperties: false
@@ -2621,6 +2708,7 @@ components:
           $ref: '#/components/schemas/IdentificationSeenAt'
         components:
           $ref: '#/components/schemas/RawDeviceAttributes'
+      deprecated: true
     VisitorsGetResponse:
       type: object
       description: >-
@@ -2651,6 +2739,7 @@ components:
             Request ID of the last visit in the current page of results. Use
             this value in the following request as the `paginationKey` parameter
             to get the next page of results.
+      deprecated: true
     ErrorPlainResponse:
       type: object
       additionalProperties: false
@@ -2659,6 +2748,7 @@ components:
       properties:
         error:
           type: string
+      deprecated: true
     RelatedVisitor:
       type: object
       additionalProperties: false
@@ -2670,6 +2760,7 @@ components:
           description: >-
             Visitor ID of a browser that originates from the same mobile device
             as the input visitor ID.
+      deprecated: true
     RelatedVisitorsResponse:
       type: object
       additionalProperties: false
@@ -2680,6 +2771,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RelatedVisitor'
+      deprecated: true
     WebhookRootApps:
       type: object
       additionalProperties: false
@@ -2691,6 +2783,7 @@ components:
             values: 
               * `true` - Root Management Apps detected (e.g. Magisk).
               * `false` - No Root Management Apps detected or the client isn't Android.
+      deprecated: true
     WebhookEmulator:
       type: object
       additionalProperties: false
@@ -2701,6 +2794,7 @@ components:
             Android specific emulator detection. There are 2 values: 
               * `true` - Emulated environment detected (e.g. launch inside of AVD). 
               * `false` - No signs of emulated environment detected or the client is not Android.
+      deprecated: true
     WebhookIPInfo:
       type: object
       description: >-
@@ -2712,6 +2806,7 @@ components:
           $ref: '#/components/schemas/IPInfoV4'
         v6:
           $ref: '#/components/schemas/IPInfoV6'
+      deprecated: true
     WebhookIPBlocklist:
       type: object
       additionalProperties: false
@@ -2723,6 +2818,7 @@ components:
             search for known malicious actors, `false` otherwise.
         details:
           $ref: '#/components/schemas/IPBlocklistDetails'
+      deprecated: true
     WebhookTor:
       type: object
       additionalProperties: false
@@ -2732,6 +2828,7 @@ components:
           description: >
             `true` if the request IP address is a known tor exit node, `false`
             otherwise.
+      deprecated: true
     WebhookVPN:
       type: object
       additionalProperties: false
@@ -2753,6 +2850,7 @@ components:
             3166 format or unknown).
         methods:
           $ref: '#/components/schemas/VPNMethods'
+      deprecated: true
     WebhookProxy:
       type: object
       additionalProperties: false
@@ -2766,6 +2864,7 @@ components:
           $ref: '#/components/schemas/ProxyConfidence'
         details:
           $ref: '#/components/schemas/ProxyDetails'
+      deprecated: true
     WebhookTampering:
       type: object
       additionalProperties: false
@@ -2820,6 +2919,7 @@ components:
             from mobile SDKs.
               * `true` - The browser resembles a known anti-detect browser, for example, Incognition.
               * `false` - The browser does not resemble an anti-detect browser or the request originates from a mobile SDK.
+      deprecated: true
     WebhookClonedApp:
       type: object
       additionalProperties: false
@@ -2830,6 +2930,7 @@ components:
             Android specific cloned application detection. There are 2 values: 
               * `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected).
               * `false` - No signs of cloned application detected or the client is not Android.
+      deprecated: true
     WebhookFactoryReset:
       type: object
       additionalProperties: false
@@ -2857,6 +2958,7 @@ components:
 
             The time of the most recent factory reset that happened on the
             **mobile device** is expressed as Unix epoch time.
+      deprecated: true
     WebhookJailbroken:
       type: object
       additionalProperties: false
@@ -2867,6 +2969,7 @@ components:
             iOS specific jailbreak detection. There are 2 values:
               * `true` - Jailbreak detected.
               * `false` - No signs of jailbreak or the client is not iOS.
+      deprecated: true
     WebhookFrida:
       type: object
       additionalProperties: false
@@ -2878,6 +2981,7 @@ components:
             devices. There are 2 values:
               * `true` - Frida detected
               * `false` - No signs of Frida or the client is not a mobile device.
+      deprecated: true
     WebhookPrivacySettings:
       type: object
       additionalProperties: false
@@ -2888,6 +2992,7 @@ components:
             `true` if the request is from a privacy aware browser (e.g. Tor) or
             from a browser in which fingerprinting is blocked. Otherwise
             `false`.
+      deprecated: true
     WebhookVirtualMachine:
       type: object
       additionalProperties: false
@@ -2907,6 +3012,7 @@ components:
             floating-point value between 0 and 1 (inclusive), with up to three
             decimal places of precision. A higher score means a higher
             confidence in the positive `virtual_machine` detection result
+      deprecated: true
     WebhookRawDeviceAttributes:
       type: object
       description: >
@@ -2923,6 +3029,7 @@ components:
         the generic type provided here.
       additionalProperties:
         $ref: '#/components/schemas/RawDeviceAttribute'
+      deprecated: true
     WebhookHighActivity:
       type: object
       additionalProperties: false
@@ -2937,6 +3044,7 @@ components:
           format: int64
           minimum: 1
           description: Number of requests from the same visitor in the previous day.
+      deprecated: true
     WebhookLocationSpoofing:
       type: object
       additionalProperties: false
@@ -2946,6 +3054,7 @@ components:
           description: >-
             Flag indicating whether the request came from a mobile device with
             location spoofing enabled.
+      deprecated: true
     WebhookSuspectScore:
       type: object
       additionalProperties: false
@@ -2959,6 +3068,7 @@ components:
             activity. The value range is [0; S] where S is sum of all Smart
             Signals weights.  See more details here:
             https://dev.fingerprint.com/docs/suspect-score
+      deprecated: true
     WebhookRemoteControl:
       type: object
       deprecated: true
@@ -3022,6 +3132,7 @@ components:
           $ref: '#/components/schemas/VelocityData'
         distinctVisitorIdByLinkedId:
           $ref: '#/components/schemas/VelocityData'
+      deprecated: true
     WebhookDeveloperTools:
       type: object
       additionalProperties: false
@@ -3031,6 +3142,7 @@ components:
           description: >
             `true` if the browser is Chrome with DevTools open or Firefox with
             Developer Tools open, `false` otherwise.
+      deprecated: true
     WebhookMitMAttack:
       type: object
       additionalProperties: false
@@ -3046,6 +3158,7 @@ components:
             See [MitM Attack
             Detection](https://dev.fingerprint.com/docs/smart-signals-overview#mitm-attack-detection)
             to learn more about this Smart Signal.
+      deprecated: true
     WebhookRareDevice:
       type: object
       additionalProperties: false
@@ -3074,6 +3187,7 @@ components:
             - p99.5-p99.9
             - p99.9+
             - not_seen
+      deprecated: true
     SupplementaryID:
       type: object
       additionalProperties: false
@@ -3092,6 +3206,7 @@ components:
           $ref: '#/components/schemas/IdentificationSeenAt'
         lastSeenAt:
           $ref: '#/components/schemas/IdentificationSeenAt'
+      deprecated: true
     WebhookSupplementaryIDs:
       type: object
       description: Other identities that have been established for a given Visitor.
@@ -3103,6 +3218,7 @@ components:
           $ref: '#/components/schemas/SupplementaryID'
         highRecall:
           $ref: '#/components/schemas/SupplementaryID'
+      deprecated: true
     WebhookProximity:
       type: object
       description: >
@@ -3143,6 +3259,7 @@ components:
             true device location lies within the mapped proximity zone.
               * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.
               * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
+      deprecated: true
     Webhook:
       type: object
       required:
@@ -3269,3 +3386,4 @@ components:
           $ref: '#/components/schemas/WebhookSupplementaryIDs'
         proximity:
           $ref: '#/components/schemas/WebhookProximity'
+      deprecated: true

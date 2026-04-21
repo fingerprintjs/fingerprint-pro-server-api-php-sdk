@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * ProductVirtualMachine Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @author   Swagger Codegen team

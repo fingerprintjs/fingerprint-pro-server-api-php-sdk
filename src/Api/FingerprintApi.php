@@ -54,6 +54,8 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @category Class
  *
+ * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
+ *
  * @author   Swagger Codegen team
  *
  * @see     https://github.com/swagger-api/swagger-codegen
@@ -84,6 +86,8 @@ class FingerprintApi
      * Delete data by visitor ID
      *
      * @param string $visitor_id The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete. (required)
+     *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::deleteVisitorDataWithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
      *
      * @return array{ null, \Psr\Http\Message\ResponseInterface }
      *
@@ -182,6 +186,8 @@ class FingerprintApi
      *
      * @param string $visitor_id The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) you want to delete. (required)
      *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::deleteVisitorDataAsyncWithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
+     *
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
@@ -267,6 +273,8 @@ class FingerprintApi
      * Get event by request ID
      *
      * @param string $request_id The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request. (required)
+     *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::getEventWithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
      *
      * @return array{ \Fingerprint\ServerAPI\Model\EventsGetResponse|null, \Psr\Http\Message\ResponseInterface }
      *
@@ -360,6 +368,8 @@ class FingerprintApi
      *
      * @param string $request_id The unique [identifier](https://dev.fingerprint.com/reference/get-function#requestid) of each identification request. (required)
      *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::getEventAsyncWithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
+     *
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
@@ -440,6 +450,8 @@ class FingerprintApi
      * Get Related Visitors
      *
      * @param string $visitor_id The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device. (required)
+     *
+     * @deprecated
      *
      * @return array{ \Fingerprint\ServerAPI\Model\RelatedVisitorsResponse|null, \Psr\Http\Message\ResponseInterface }
      *
@@ -547,6 +559,8 @@ class FingerprintApi
      *
      * @param string $visitor_id The [visitor ID](https://dev.fingerprint.com/reference/get-function#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device. (required)
      *
+     * @deprecated
+     *
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
@@ -646,6 +660,8 @@ class FingerprintApi
      * @param int    $limit          Limit scanned results.  For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
      * @param string $pagination_key Use `paginationKey` to get the next page of results.  When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. (optional)
      * @param int    $before         ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
+     *
+     * @deprecated
      *
      * @return array{ \Fingerprint\ServerAPI\Model\VisitorsGetResponse|null, \Psr\Http\Message\ResponseInterface }
      *
@@ -755,6 +771,8 @@ class FingerprintApi
      * @param int    $limit          Limit scanned results.  For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
      * @param string $pagination_key Use `paginationKey` to get the next page of results.  When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. (optional)
      * @param int    $before         ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
+     *
+     * @deprecated
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException
@@ -884,6 +902,8 @@ class FingerprintApi
      * @param string[] $environment                   Filter for events by providing one or more environment IDs. (optional)
      * @param string   $proximity_id                  Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response. (optional)
      * @param int      $proximity_precision_radius    Filter events by Proximity Radius. > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response. (optional)
+     *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::searchEventsWithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
      *
      * @return array{ \Fingerprint\ServerAPI\Model\SearchEventsResponse|null, \Psr\Http\Message\ResponseInterface }
      *
@@ -1049,6 +1069,8 @@ class FingerprintApi
      * @param string   $proximity_id                  Filter events by the most precise Proximity ID provided by default. > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response. (optional)
      * @param int      $proximity_precision_radius    Filter events by Proximity Radius. > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response. (optional)
      *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::searchEventsAsyncWithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
+     *
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
@@ -1167,6 +1189,8 @@ class FingerprintApi
      * @param EventsUpdateRequest $body       (required)
      * @param string              $request_id The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid). (required)
      *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::updateEventWithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
+     *
      * @return array{ null, \Psr\Http\Message\ResponseInterface }
      *
      * @throws \InvalidArgumentException
@@ -1265,6 +1289,8 @@ class FingerprintApi
      *
      * @param EventsUpdateRequest $body       (required)
      * @param string              $request_id The unique event [identifier](https://dev.fingerprint.com/reference/get-function#requestid). (required)
+     *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::updateEventAsyncWithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
      *
      * @throws \InvalidArgumentException
      * @throws SerializationException

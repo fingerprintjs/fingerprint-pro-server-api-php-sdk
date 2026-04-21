@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * Products Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise)

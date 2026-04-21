@@ -4,11 +4,15 @@ namespace Fingerprint\ServerAPI\Webhook;
 
 /**
  * Verifies Fingerprint webhook signature.
+ *
+ * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Webhook\WebhookVerifier instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
  */
 final class WebhookVerifier
 {
     /**
      * Checks whether the webhook signature header is valid for the given data and secret.
+     *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Webhook\WebhookVerifier::IsValidWebhookSignature(string $header, string $data, string $secret) instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
      *
      * @param string $header comma-separated list of versioned signatures
      * @param string $data   raw webhook request body

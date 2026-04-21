@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * SDK Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Contains information about the SDK used to perform the request.

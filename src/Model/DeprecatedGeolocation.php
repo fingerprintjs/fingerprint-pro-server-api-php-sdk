@@ -37,9 +37,9 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * @deprecated
+ * DeprecatedGeolocation Class Doc Comment.
  *
- * DeprecatedGeolocation Class Doc Comment
+ * @deprecated
  *
  * @category Class
  *

@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * RareDevice Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Rare device details (present if the device is considered rare) > This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).

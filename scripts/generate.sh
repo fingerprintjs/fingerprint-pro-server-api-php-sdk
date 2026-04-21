@@ -70,6 +70,15 @@ docker run --rm -u "$(id -u):$(id -g)" -v "${PWD}:/local" -w /local \
   -c ./config.json \
   --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array,GeolocationSubdivisions=array
 
+# Add `@deprecated` to the `SearchEventsResponseEvents`
+sed_in_place \
+  's/ \* SearchEventsResponseEvents Class Doc Comment\./ * SearchEventsResponseEvents Class Doc Comment.\n *\n * @deprecated/' \
+  src/Model/SearchEventsResponseEvents.php
+
+# Remove `@deprecated` description from the removed operations
+sed_in_place 's/ \* @deprecated 6\.11\.0 Use \\Fingerprint\\ServerSdk\\Api\\FingerprintApi::getVisits[a-zA-Z]*() instead\..*/ * @deprecated/' src/Api/FingerprintApi.php
+sed_in_place 's/ \* @deprecated 6\.11\.0 Use \\Fingerprint\\ServerSdk\\Api\\FingerprintApi::getRelatedVisitors[a-zA-Z]*() instead\..*/ * @deprecated/' src/Api/FingerprintApi.php
+
 # Format generated code
 if [ ! -f .php-cs-fixer.php ]; then
   echo ".php-cs-fixer.php configuration file not found!"

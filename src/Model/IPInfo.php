@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * IPInfo Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Details about the request IP address. Has separate fields for v4 and v6 IP address versions.

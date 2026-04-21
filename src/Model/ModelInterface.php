@@ -37,6 +37,8 @@ namespace Fingerprint\ServerAPI\Model;
 /**
  * Interface abstracting model access.
  *
+ * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Model\ModelInterface instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
+ *
  * @author  Swagger Codegen team
  */
 interface ModelInterface

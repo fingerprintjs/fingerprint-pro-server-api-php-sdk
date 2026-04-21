@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * WebhookSupplementaryIDs Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Other identities that have been established for a given Visitor.

@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * VelocityIntervals Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Is absent if the velocity data could not be generated for the visitor ID.

@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * WebhookProximity Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Proximity ID represents a fixed geographical zone in a discrete global grid within which the device is observed.

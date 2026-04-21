@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * EventsGetResponse Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Contains results from Fingerprint Identification and all active Smart Signals.

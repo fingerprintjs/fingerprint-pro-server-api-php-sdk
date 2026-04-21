@@ -39,6 +39,8 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 /**
  * ProxyDetails Class Doc Comment.
  *
+ * @deprecated
+ *
  * @category Class
  *
  * @description Proxy detection details (present if proxy is detected)

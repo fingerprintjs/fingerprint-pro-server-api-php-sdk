@@ -17,6 +17,11 @@ require_cmd curl
 echo "Downloading \`$schemaUrl\`..."
 curl "${CURL_OPTS[@]}" -o ./res/fingerprint-server-api.yaml "$schemaUrl"
 
+# Add `deprecated: true` for component schemas
+echo "Adding deprecation for component schemas..."
+docker run --rm -v "${PWD}:/work" python:3-alpine sh -c \
+  "pip install ruamel.yaml -q && python3 /work/scripts/deprecate.py"
+
 sed_in_place '/IpInfoResult:/,/IpBlockListResult:/ { /dataCenter:/ { N; d; }; }' ./res/fingerprint-server-api.yaml
 
 ./scripts/generate.sh
