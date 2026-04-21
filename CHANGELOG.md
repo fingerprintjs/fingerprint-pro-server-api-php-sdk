@@ -1,5 +1,21 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.11.0-beta.0
+
+### Minor Changes
+
+- **Deprecated:** `fingerprint/fingerprint-pro-server-api-sdk` uses Server API v3, which is deprecated. Please migrate to the new [`fingerprint/server-sdk`](https://github.com/fingerprintjs/php-sdk) package which uses Server API v4. ([941be0c](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/941be0cbfc07a1879cd4aac93f7270db5a13352e))
+- - Add `rareDevice` Smart Signal for detecting rare or previously unseen devices.
+  - **events-search**: Add `rare_device` and `rare_device_percentile_bucket` filter parameters.
+  - Add `type` property to `IPInfoASN`.
+  - Add `integrations` property to the `SDK` model.
+  - Add `confidence` and `mlScore` properties to the `Tampering` signal.
+  - Add `mlScore` property to the `VirtualMachine` signal.
+  - Add `WORKSPACE_SCOPED_SECRET_KEY_REQUIRED` to the `ErrorCode` enum.
+  - **webhook**: Add `rareDevice` property to the Webhook schema.
+  - **webhook**: Add `confidence` and `mlScore` properties to `WebhookTampering`.
+  - **webhook**: Add `mlScore` property to `WebhookVirtualMachine`. ([0abc29f](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/0abc29fc4e8a2bfbcecb10b287367ae6250cc59f))
+
 ## 6.10.0
 
 ### Minor Changes

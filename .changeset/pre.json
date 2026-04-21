@@ -4,5 +4,8 @@
   "initialVersions": {
     "fingerprint-pro-server-api-php-sdk": "6.10.0"
   },
-  "changesets": []
+  "changesets": [
+    "big-kiwis-sing",
+    "clean-beers-sort"
+  ]
 }
