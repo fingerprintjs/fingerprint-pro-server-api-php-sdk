@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore:
       - main
+      - api-v3
 
 jobs:
   tests:

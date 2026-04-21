@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - api-v3
 
 permissions:
   contents: write
