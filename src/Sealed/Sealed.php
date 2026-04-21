@@ -7,6 +7,9 @@ use Fingerprint\ServerAPI\ObjectSerializer;
 use Fingerprint\ServerAPI\SerializationException;
 use GuzzleHttp\Psr7\Response;
 
+/**
+ * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Sealed\Sealed instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
+ */
 class Sealed
 {
     private const NONCE_LENGTH = 12;
@@ -15,6 +18,8 @@ class Sealed
 
     /**
      * @param DecryptionKey[] $keys
+     *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Sealed\Sealed::unsealEventResponse(string $sealed, array $keys) instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
      *
      * @throws UnsealAggregateException
      * @throws SerializationException
@@ -36,6 +41,8 @@ class Sealed
 
     /**
      * Decrypts the sealed response with the provided keys.
+     *
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Sealed\Sealed::unseal(string $sealed, array $keys) instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
      *
      * @param string          $sealed Base64 encoded sealed data
      * @param DecryptionKey[] $keys   Decryption keys. The SDK will try to decrypt the result with each key until it succeeds.

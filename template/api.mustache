@@ -1,7 +1,6 @@
 <?php
 /**
  * {{classname}}
- * PHP version 5
  *
  * @category Class
  * @package  {{invokerPackage}}
@@ -35,6 +34,7 @@ use \GuzzleHttp\Exception\GuzzleException;
  * {{classname}} Class Doc Comment
  *
  * @category Class
+ * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
  * @package  {{invokerPackage}}
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
@@ -76,6 +76,7 @@ use \GuzzleHttp\Exception\GuzzleException;
 {{#parameters}}
      * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
 {{/parameters}}
+     * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::{{{operationId}}}WithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
      * @throws \InvalidArgumentException
      * @throws SerializationException
      * @throws GuzzleException
@@ -166,6 +167,7 @@ use \GuzzleHttp\Exception\GuzzleException;
     {{#parameters}}
     * @param  {{dataType}} ${{paramName}}{{#description}} {{{description}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
     {{/parameters}}
+    * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Api\FingerprintApi::{{{operationId}}}AsyncWithHttpInfo() instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
     *
     * @throws \InvalidArgumentException
     * @throws SerializationException

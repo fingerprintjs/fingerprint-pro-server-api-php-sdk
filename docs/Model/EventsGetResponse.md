@@ -1,5 +1,5 @@
 # EventsGetResponse
-Contains results from all activated products - Fingerprint Pro, Bot Detection, and others.
+Contains results from Fingerprint Identification and all active Smart Signals.
 
 
 ## Properties

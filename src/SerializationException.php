@@ -4,6 +4,9 @@ namespace Fingerprint\ServerAPI;
 
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @deprecated
+ */
 final class SerializationException extends \Exception
 {
     protected ?ResponseInterface $response;
