@@ -3,7 +3,6 @@ name: Functional tests
 on:
   push:
     branches-ignore:
-      - main
       - api-v3
   workflow_dispatch:
   schedule:
