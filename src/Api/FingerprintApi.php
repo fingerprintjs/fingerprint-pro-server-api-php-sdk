@@ -65,7 +65,7 @@ class FingerprintApi
     protected ClientInterface $client;
     protected Configuration $config;
 
-    protected string $integration_info = 'fingerprint-pro-server-php-sdk/6.11.0-beta.0';
+    protected string $integration_info = 'fingerprint-pro-server-php-sdk/6.11.0';
 
     public function __construct(
         ?ClientInterface $client = null,
