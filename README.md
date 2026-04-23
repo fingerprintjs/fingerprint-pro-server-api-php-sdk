@@ -11,10 +11,9 @@
 </a>
 </p>
 <p align="center">
-<a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/release.yml"><img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/release.yml/badge.svg" alt="CI badge" /></a>
-<a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/test.yml"><img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/test.yml/badge.svg" alt="CI badge" /></a>
-<a href="https://fingerprintjs.github.io/fingerprint-pro-server-api-php-sdk"><img src="https://fingerprintjs.github.io/fingerprint-pro-server-api-php-sdk/coverage.svg" alt="Unit Test Coverage" /></a>
-<a href="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/functional.yml"><img src="https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/actions/workflows/functional.yml/badge.svg" alt="CI badge" /></a>
+<a href="https://github.com/fingerprintjs/php-sdk/actions/workflows/release.yml"><img src="https://github.com/fingerprintjs/php-sdk/actions/workflows/release.yml/badge.svg" alt="CI badge" /></a>
+<a href="https://github.com/fingerprintjs/php-sdk/actions/workflows/test.yml"><img src="https://github.com/fingerprintjs/php-sdk/actions/workflows/test.yml/badge.svg" alt="CI badge" /></a>
+<a href="https://github.com/fingerprintjs/php-sdk/actions/workflows/functional.yml"><img src="https://github.com/fingerprintjs/php-sdk/actions/workflows/functional.yml/badge.svg" alt="CI badge" /></a>
 <a href="https://packagist.org/packages/fingerprint/fingerprint-pro-server-api-sdk"><img src="https://poser.pugx.org/fingerprint/fingerprint-pro-server-api-sdk/v" alt="Latest Stable Version on Packagist"></a>
 <a href="https://packagist.org/packages/fingerprint/fingerprint-pro-server-api-sdk"><img src="https://poser.pugx.org/fingerprint/fingerprint-pro-server-api-sdk/require/php?style=flat-square" alt="PHP Version Require"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/:license-mit-blue.svg?style=flat"/></a>
@@ -423,9 +422,9 @@ composer install
 
 ## Support
 
-To report problems, ask questions or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/issues).
+To report problems, ask questions or provide feedback, please use [Issues](https://github.com/fingerprintjs/php-sdk/issues).
 If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/blob/main/LICENSE).
+This project is licensed under the [MIT License](https://github.com/fingerprintjs/php-sdk/blob/api-v3/LICENSE).
