@@ -19,8 +19,9 @@ class ErrorCodeTest extends TestCase
     public function testEnumCases(): void
     {
         $cases = ErrorCode::cases();
-        $this->assertCount(17, $cases);
+        $this->assertCount(18, $cases);
         $this->assertContains(ErrorCode::REQUEST_CANNOT_BE_PARSED, $cases);
+        $this->assertContains(ErrorCode::REQUEST_READ_TIMEOUT, $cases);
         $this->assertContains(ErrorCode::SECRET_API_KEY_REQUIRED, $cases);
         $this->assertContains(ErrorCode::SECRET_API_KEY_NOT_FOUND, $cases);
         $this->assertContains(ErrorCode::PUBLIC_API_KEY_REQUIRED, $cases);
@@ -45,6 +46,7 @@ class ErrorCodeTest extends TestCase
     public function testEnumBackingValues(): void
     {
         $this->assertEquals('request_cannot_be_parsed', ErrorCode::REQUEST_CANNOT_BE_PARSED->value);
+        $this->assertEquals('request_read_timeout', ErrorCode::REQUEST_READ_TIMEOUT->value);
         $this->assertEquals('secret_api_key_required', ErrorCode::SECRET_API_KEY_REQUIRED->value);
         $this->assertEquals('secret_api_key_not_found', ErrorCode::SECRET_API_KEY_NOT_FOUND->value);
         $this->assertEquals('public_api_key_required', ErrorCode::PUBLIC_API_KEY_REQUIRED->value);
@@ -69,6 +71,7 @@ class ErrorCodeTest extends TestCase
     public function testFromValidValue(): void
     {
         $this->assertSame(ErrorCode::REQUEST_CANNOT_BE_PARSED, ErrorCode::from('request_cannot_be_parsed'));
+        $this->assertSame(ErrorCode::REQUEST_READ_TIMEOUT, ErrorCode::from('request_read_timeout'));
         $this->assertSame(ErrorCode::SECRET_API_KEY_REQUIRED, ErrorCode::from('secret_api_key_required'));
         $this->assertSame(ErrorCode::SECRET_API_KEY_NOT_FOUND, ErrorCode::from('secret_api_key_not_found'));
         $this->assertSame(ErrorCode::PUBLIC_API_KEY_REQUIRED, ErrorCode::from('public_api_key_required'));
