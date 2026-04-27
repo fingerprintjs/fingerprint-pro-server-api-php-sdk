@@ -402,7 +402,6 @@ paths:
           in: query
           schema:
             type: boolean
-            default: false
           description: >
             When `true`, sort events oldest first (ascending timestamp order).
             Default is newest first (descending timestamp order).
