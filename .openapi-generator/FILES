@@ -123,5 +123,3 @@ src/Sealed/Sealed.php
 src/Sealed/UnsealAggregateException.php
 src/Sealed/UnsealException.php
 src/Webhook/WebhookVerifier.php
-test/Model/RareDevicePercentileBucketTest.php
-test/Model/SearchEventsRareDevicePercentileBucketTest.php
