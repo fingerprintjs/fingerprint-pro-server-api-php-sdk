@@ -1,5 +1,16 @@
 # Fingerprint Server PHP SDK
 
+## 7.1.0
+
+### Minor Changes
+
+- **events**: Add Device Rarity Smart Signal ([2fb58fb](https://github.com/fingerprintjs/php-sdk/commit/2fb58fbf84a65f8cd48892f65504663dc2009dbb))
+- **events**: Add `proxy_ml_score` to `Event` ([2fb58fb](https://github.com/fingerprintjs/php-sdk/commit/2fb58fbf84a65f8cd48892f65504663dc2009dbb))
+- **events**: Add `font_hash` and `timezone_offset` fields for the `RawDeviceAttributes` ([2fb58fb](https://github.com/fingerprintjs/php-sdk/commit/2fb58fbf84a65f8cd48892f65504663dc2009dbb))
+- **events**: Enable `raw_device_attributes` for Android devices. Only `device_manufacturer` and `device_model` are currently supported for Android devices. ([2fb58fb](https://github.com/fingerprintjs/php-sdk/commit/2fb58fbf84a65f8cd48892f65504663dc2009dbb))
+- **events**: Enable `raw_device_attributes` for iOS devices. Only `device_manufacturer`, `device_model`, `hardware_concurrency`, `languages`, and `screen_resolution` are currently supported for iOS devices. ([2fb58fb](https://github.com/fingerprintjs/php-sdk/commit/2fb58fbf84a65f8cd48892f65504663dc2009dbb))
+- **events**: Add `request_read_timeout` error code ([2fb58fb](https://github.com/fingerprintjs/php-sdk/commit/2fb58fbf84a65f8cd48892f65504663dc2009dbb))
+
 ## 7.0.0
 
 ### Major Changes
