@@ -41,7 +41,16 @@
     "precision_radius": 10,
     "confidence": 0.95
   },
-  "bot": "not_detected",
+  "bot": "good",
+  "bot_type": "chatgpt_agent",
+  "bot_info": {
+    "category": "ai_agent",
+    "provider": "OpenAI",
+    "provider_url": "https://openai.com",
+    "name": "ChatGPT Agent",
+    "identity": "signed",
+    "confidence": "high"
+  },
   "root_apps": false,
   "emulator": false,
   "ip_info": {
@@ -126,8 +135,6 @@
   },
   "incognito": false,
   "tampering": false,
-  "tampering_confidence": "high",
-  "tampering_ml_score": 0.3231,
   "tampering_details": {
     "anomaly_score": 0.1955,
     "anti_detect_browser": false
@@ -139,7 +146,6 @@
   "frida": false,
   "privacy_settings": false,
   "virtual_machine": false,
-  "virtual_machine_ml_score": 0.2,
   "location_spoofing": false,
   "velocity": {
     "distinct_ip": {
@@ -195,89 +201,89 @@
     "math": "5f030fa7d2e5f9f757bfaf81642eb1a6",
     "vendor": "Google Inc.",
     "plugins": [
-      {
-        "description": "Portable Document Format",
-        "mimeTypes": [
-          {
-            "suffixes": "pdf",
-            "type": "application/pdf"
-          },
-          {
-            "suffixes": "pdf",
-            "type": "text/pdf"
-          }
-        ],
-        "name": "PDF Viewer"
-      }
+        {
+            "description": "Portable Document Format",
+            "mimeTypes": [
+                {
+                    "suffixes": "pdf",
+                    "type": "application/pdf"
+                },
+                {
+                    "suffixes": "pdf",
+                    "type": "text/pdf"
+                }
+            ],
+            "name": "PDF Viewer"
+        }
     ],
     "webgl_extensions": {
-      "context_attributes": "6b1ed336830d2bc96442a9d76373252a",
-      "extension_parameters": "86a8abb36f0cb30b5946dec0c761d042",
-      "extensions": "57233d7b10f89fcd1ff95e3837ccd72d",
-      "parameters": "ea118c48e308bc4b0677118bbb3019ec",
-      "shader_precisions": "f223dfbcd580cf142da156d93790eb83",
-      "unsupported_extensions": []
+        "context_attributes": "6b1ed336830d2bc96442a9d76373252a",
+        "extension_parameters": "86a8abb36f0cb30b5946dec0c761d042",
+        "extensions": "57233d7b10f89fcd1ff95e3837ccd72d",
+        "parameters": "ea118c48e308bc4b0677118bbb3019ec",
+        "shader_precisions": "f223dfbcd580cf142da156d93790eb83",
+        "unsupported_extensions": []
     },
     "cookies_enabled": true,
     "webgl_basics": {
-      "renderer": "WebKit WebGL",
-      "renderer_unmasked": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
-      "shading_language_version": "WebGL GLSL ES 1.0 (OpenGL ES GLSL ES 1.0 Chromium)",
-      "vendor": "WebKit",
-      "vendor_unmasked": "Google Inc. (Apple)",
-      "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)"
+        "renderer": "WebKit WebGL",
+        "renderer_unmasked": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+        "shading_language_version": "WebGL GLSL ES 1.0 (OpenGL ES GLSL ES 1.0 Chromium)",
+        "vendor": "WebKit",
+        "vendor_unmasked": "Google Inc. (Apple)",
+        "version": "WebGL 1.0 (OpenGL ES 2.0 Chromium)"
     },
     "canvas": {
-      "geometry": "db3c1462576a399a03ae93d0ab9eb5c4",
-      "text": "70c3d3f7eb4408dc37a6bf8af1c51029",
-      "winding": true
+        "geometry": "db3c1462576a399a03ae93d0ab9eb5c4",
+        "text": "70c3d3f7eb4408dc37a6bf8af1c51029",
+        "winding": true
     },
     "hardware_concurrency": 10,
     "languages": [
-      [
-        "en-US"
-      ]
+        [
+            "en-US"
+        ]
     ],
     "color_depth": 24,
     "fonts": [
-      "Arial Unicode MS",
-      "Gill Sans",
-      "Helvetica Neue",
-      "Menlo"
+        "Arial Unicode MS",
+        "Gill Sans",
+        "Helvetica Neue",
+        "Menlo"
     ],
     "indexed_db": true,
     "touch_support": {
-      "max_touch_points": 0,
-      "touch_event": false,
-      "touch_start": false
+        "max_touch_points": 0,
+        "touch_event": false,
+        "touch_start": false
     },
     "device_memory": 8,
     "oscpu": "Windows NT 6.1; Win64; x64",
     "architecture": 127,
     "screen_resolution": [
-      1920,
-      1080
+        1920,
+        1080
     ],
     "timezone": "America/Sao_Paulo",
     "emoji": {
-      "bottom": 32,
-      "font": "Times",
-      "height": 18,
-      "left": 8,
-      "right": 1608,
-      "top": 14,
-      "width": 1600,
-      "x": 8,
-      "y": 14
+        "bottom": 32,
+        "font": "Times",
+        "height": 18,
+        "left": 8,
+        "right": 1608,
+        "top": 14,
+        "width": 1600,
+        "x": 8,
+        "y": 14
     },
     "font_preferences": {
-      "apple": 147.5625,
-      "default": 147.5625,
-      "min": 9.234375,
-      "mono": 133.0625,
-      "sans": 144.015625,
-      "serif": 147.5625,
-      "system": 146.09375
+        "apple": 147.5625,
+        "default": 147.5625,
+        "min": 9.234375,
+        "mono": 133.0625,
+        "sans": 144.015625,
+        "serif": 147.5625,
+        "system": 146.09375
     },
     "platform": "MacIntel",
     "local_storage": true,
@@ -286,19 +292,5 @@
     "audio": 124.04347745512496
   },
   "rare_device": false,
-  "rare_device_percentile_bucket": "<p95",
-  "rule_action": {
-    "type": "block",
-    "status_code": 403,
-    "headers": [
-      {
-        "name": "Content-Type",
-        "value": "application/json"
-      }
-    ],
-    "body": "{\"title\":\"Forbidden\"}",
-    "ruleset_id": "rs_b1k1blhqpOX3kU",
-    "rule_id": "r_uE0af8497PFAOD",
-    "rule_expression": "bot in [\"bad\"] || incognito"
-  }
+  "rare_device_percentile_bucket": "<p95"
 }
