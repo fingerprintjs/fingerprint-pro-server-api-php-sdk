@@ -379,25 +379,34 @@ paths:
         - name: start
           in: query
           schema:
-            type: integer
-            format: int64
-            example: 1767225600000
+            oneOf:
+              - type: integer
+                format: int64
+                example: 1767225600000
+              - type: string
+                format: date-time
+                example: '2026-01-01T00:00:00Z'
           description: >
             Include events that happened after this point (with timestamp
-            greater than or equal the provided `start` Unix milliseconds value).
-            Defaults to 7 days ago. Setting `start` does not change `end`'s
-            default of `now` — adjust it separately if needed.
+            greater than or equal the provided `start` Unix milliseconds value
+            or RFC3339 timestamp). Defaults to 7 days ago. Setting `start` does
+            not change `end`'s default of `now` — adjust it separately if
+            needed.
         - name: end
           in: query
           schema:
-            type: integer
-            format: int64
-            example: 1769903999000
+            oneOf:
+              - type: integer
+                format: int64
+                example: 1769903999000
+              - type: string
+                format: date-time
+                example: '2026-01-31T23:59:59Z'
           description: >
             Include events that happened before this point (with timestamp less
-            than or equal the provided `end` Unix milliseconds value). Defaults
-            to now. Setting `end` does not change `start`'s default of `7 days
-            ago` — adjust it separately if needed.
+            than or equal the provided `end` Unix milliseconds value or RFC3339
+            timestamp). Defaults to now. Setting `end` does not change `start`'s
+            default of `7 days ago` — adjust it separately if needed.
         - name: reverse
           in: query
           schema:

@@ -19,3 +19,11 @@ test/Model/SearchEventsSdkPlatform.php
 test/Model/SearchEventsVpnConfidence.php
 test/Model/TamperingConfidence.php
 test/Model/VpnConfidence.php
+
+# Ignore no-discriminator oneOf model files
+docs/Model/SearchEventsEndParameter.md
+docs/Model/SearchEventsStartParameter.md
+src/Model/SearchEventsEndParameter.php
+src/Model/SearchEventsStartParameter.php
+test/Model/SearchEventsEndParameterTest.php
+test/Model/SearchEventsStartParameterTest.php
