@@ -146,7 +146,7 @@ if ($isValidWebhookSign) {
 
 // Check that old events still match expected format
 try {
-    $oldEvents = $client->searchEvents(1, start: $start->getTimestamp() * 1000, end: $end->getTimestamp() * 1000, reverse: true);
+    $oldEvents = $client->searchEvents(1, start: $start->getTimestamp() * 1000, end: $end, reverse: true);
     if (!is_countable($oldEvents->getEvents()) || count($oldEvents->getEvents()) === 0) {
         throw new Exception('No old events found');
     }
