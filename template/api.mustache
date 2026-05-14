@@ -95,7 +95,7 @@ use {{invokerPackage}}\ObjectSerializer;
      *
 {{/description}}
 {{#allParams}}
-     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{^required}}|null{{/required}} ${{paramName}}{{#description}} {{{.}}}{{/description}}{{^description}} {{paramName}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
+     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{^required}}|null{{/required}} ${{paramName}}{{#description}} {{{.}}}{{/description}}{{^description}} {{paramName}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
 {{/allParams}}
      *
      * @noinspection GrazieInspection
@@ -108,7 +108,7 @@ use {{invokerPackage}}\ObjectSerializer;
      * @deprecated
     {{/isDeprecated}}
      */
-    public function {{operationId}}({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}
+    public function {{operationId}}({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}
     {
         {{#returnType}}list($response) = {{/returnType}}$this->{{operationId}}WithHttpInfo({{#allParams}}${{paramName}}, {{/allParams}});{{#returnType}}
         return $response;{{/returnType}}
@@ -126,7 +126,7 @@ use {{invokerPackage}}\ObjectSerializer;
      *
 {{/description}}
 {{#allParams}}
-     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{#notRequiredOrIsNullable}}|null{{/notRequiredOrIsNullable}} ${{paramName}}{{#description}} {{{.}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
+     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{#notRequiredOrIsNullable}}|null{{/notRequiredOrIsNullable}} ${{paramName}}{{#description}} {{{.}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
 {{/allParams}}
      *
      * @noinspection GrazieInspection
@@ -141,7 +141,7 @@ use {{invokerPackage}}\ObjectSerializer;
      * @deprecated
     {{/isDeprecated}}
      */
-    public function {{operationId}}WithHttpInfo({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): array
+    public function {{operationId}}WithHttpInfo({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): array
     {
         $request = $this->{{operationId}}Request({{#allParams}}${{paramName}}, {{/allParams}});
 
@@ -206,7 +206,7 @@ use {{invokerPackage}}\ObjectSerializer;
      *
 {{/description}}
 {{#allParams}}
-     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{#notRequiredOrIsNullable}}|null{{/notRequiredOrIsNullable}} ${{paramName}}{{#description}} {{{.}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
+     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{#notRequiredOrIsNullable}}|null{{/notRequiredOrIsNullable}} ${{paramName}}{{#description}} {{{.}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
 {{/allParams}}
      *
      * @noinspection GrazieInspection
@@ -218,7 +218,7 @@ use {{invokerPackage}}\ObjectSerializer;
      * @deprecated
     {{/isDeprecated}}
      */
-    public function {{operationId}}Async({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): PromiseInterface
+    public function {{operationId}}Async({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): PromiseInterface
     {
         return $this->{{operationId}}AsyncWithHttpInfo({{#allParams}}${{paramName}}, {{/allParams}})
             ->then(
@@ -240,7 +240,7 @@ use {{invokerPackage}}\ObjectSerializer;
      *
 {{/description}}
 {{#allParams}}
-     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{#notRequiredOrIsNullable}}|null{{/notRequiredOrIsNullable}} ${{paramName}}{{#description}} {{{.}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
+     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{#notRequiredOrIsNullable}}|null{{/notRequiredOrIsNullable}} ${{paramName}}{{#description}} {{{.}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
 {{/allParams}}
      *
      * @noinspection GrazieInspection
@@ -252,7 +252,7 @@ use {{invokerPackage}}\ObjectSerializer;
      * @deprecated
     {{/isDeprecated}}
      */
-    public function {{operationId}}AsyncWithHttpInfo({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): PromiseInterface
+    public function {{operationId}}AsyncWithHttpInfo({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): PromiseInterface
     {
         $request = $this->{{operationId}}Request({{#allParams}}${{paramName}}, {{/allParams}});
 
@@ -283,7 +283,7 @@ use {{invokerPackage}}\ObjectSerializer;
      * Create request for operation '{{{operationId}}}'
      *
 {{#allParams}}
-     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{#notRequiredOrIsNullable}}|null{{/notRequiredOrIsNullable}} ${{paramName}}{{#description}} {{{.}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
+     * @param  {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{#notRequiredOrIsNullable}}|null{{/notRequiredOrIsNullable}} ${{paramName}}{{#description}} {{{.}}}{{/description}} {{#required}}(required){{/required}}{{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}{{#isDeprecated}} (deprecated){{/isDeprecated}}
 {{/allParams}}
      *
      * @noinspection GrazieInspection
@@ -295,7 +295,7 @@ use {{invokerPackage}}\ObjectSerializer;
      * @deprecated
     {{/isDeprecated}}
      */
-    public function {{operationId}}Request({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): Request
+    public function {{operationId}}Request({{#allParams}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{schema.complexType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{/isMap}}{{/isArray}} ${{paramName}}{{^required}} = {{#defaultValue}}{{{.}}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}): Request
     {
         {{#allParams}}
         {{#hasValidation}}
