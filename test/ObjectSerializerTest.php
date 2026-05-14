@@ -196,4 +196,72 @@ class ObjectSerializerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         ObjectSerializer::buildQuery(['key' => 'value'], 'invalid');
     }
+
+    /**
+     * toQueryValue with int|\DateTime type should format a DateTime using the current dateTimeFormat.
+     */
+    public function testToQueryValueDateTimeUnionWithDateTime(): void
+    {
+        $date = new \DateTime('2024-03-15T12:00:00+00:00');
+        $result = ObjectSerializer::toQueryValue($date, 'before', 'int|\DateTime');
+        $this->assertSame(['before' => $date->format(\DateTimeInterface::ATOM)], $result);
+    }
+
+    /**
+     * toQueryValue with \DateTime|int (reversed) should also format a DateTime correctly.
+     */
+    public function testToQueryValueDateTimeUnionReversedWithDateTime(): void
+    {
+        $date = new \DateTime('2024-03-15T12:00:00+00:00');
+        $result = ObjectSerializer::toQueryValue($date, 'after', '\DateTime|int');
+        $this->assertSame(['after' => $date->format(\DateTimeInterface::ATOM)], $result);
+    }
+
+    /**
+     * toQueryValue with int|\DateTime type should pass an integer through as-is.
+     */
+    public function testToQueryValueDateTimeUnionWithInt(): void
+    {
+        $result = ObjectSerializer::toQueryValue(1700000000, 'before', 'int|\DateTime');
+        $this->assertSame(['before' => 1700000000], $result);
+    }
+
+    /**
+     * toQueryValue with int|\DateTime type should omit a null value when the parameter is not required.
+     */
+    public function testToQueryValueDateTimeUnionNullOptional(): void
+    {
+        $result = ObjectSerializer::toQueryValue(null, 'before', 'int|\DateTime', 'form', true, false);
+        $this->assertSame([], $result);
+    }
+
+    /**
+     * toQueryValue with int|\DateTime type should return an empty string for a null value when the parameter is required.
+     */
+    public function testToQueryValueDateTimeUnionNullRequired(): void
+    {
+        $result = ObjectSerializer::toQueryValue(null, 'before', 'int|\DateTime', 'form', true, true);
+        $this->assertSame(['before' => ''], $result);
+    }
+
+    /**
+     * toQueryValue with int|\DateTime type should pass zero through because it should be treated as an integer.
+     */
+    public function testToQueryValueDateTimeUnionZeroOptional(): void
+    {
+        $result = ObjectSerializer::toQueryValue(0, 'before', 'int|\DateTime', 'form', true, false);
+        $this->assertSame(['before' => 0], $result);
+    }
+
+    /**
+     * toQueryValue with int|\DateTime type should respect a custom dateTimeFormat when formatting a DateTime.
+     */
+    public function testToQueryValueDateTimeUnionCustomFormat(): void
+    {
+        $date = new \DateTime('2024-03-15T12:00:00+00:00');
+        ObjectSerializer::setDateTimeFormat('Y-m-d');
+        $result = ObjectSerializer::toQueryValue($date, 'before', 'int|\DateTime');
+        ObjectSerializer::setDateTimeFormat(\DateTimeInterface::ATOM);
+        $this->assertSame(['before' => '2024-03-15'], $result);
+    }
 }
