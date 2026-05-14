@@ -166,7 +166,7 @@ class ObjectSerializer
             # For numeric values, false and '' are considered empty.
             # This comparison is safe for floating point values, since the previous call to empty() will
             # filter out values that don't match 0.
-            'int', 'integer' => 0 !== $value,
+            'int', 'integer', 'int|\DateTime', '\DateTime|int' => 0 !== $value,
             'number', 'float' => 0 !== $value && 0.0 !== $value,
             # For boolean values, '' is considered empty
             'bool', 'boolean' => !in_array($value, [false, 0], true),
