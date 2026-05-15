@@ -8,6 +8,8 @@ Filter events by Device Rarity percentile bucket.
 `p99.9+` - device is in the top 0.1% (rarest).
 `not_seen` - device configuration has never been observed before.
 
+> This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
+
 
 ## Values
 

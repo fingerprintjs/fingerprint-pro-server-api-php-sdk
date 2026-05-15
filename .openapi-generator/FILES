@@ -2,6 +2,9 @@ README.md
 composer.json
 docs/Api/FingerprintApi.md
 docs/Model/BotInfo.md
+docs/Model/BotInfoCategory.md
+docs/Model/BotInfoConfidence.md
+docs/Model/BotInfoIdentity.md
 docs/Model/BotResult.md
 docs/Model/BrowserDetails.md
 docs/Model/Canvas.md
@@ -27,6 +30,7 @@ docs/Model/IdentificationConfidence.md
 docs/Model/IncrementalIdentificationStatus.md
 docs/Model/Integration.md
 docs/Model/IntegrationSubintegration.md
+docs/Model/LabelsInner.md
 docs/Model/PluginsInner.md
 docs/Model/PluginsInnerMimeTypesInner.md
 docs/Model/Proximity.md
@@ -39,9 +43,12 @@ docs/Model/RuleActionHeaderField.md
 docs/Model/RuleActionType.md
 docs/Model/SDK.md
 docs/Model/SearchEventsBot.md
+docs/Model/SearchEventsBotInfo.md
+docs/Model/SearchEventsEndParameter.md
 docs/Model/SearchEventsIncrementalIdentificationStatus.md
 docs/Model/SearchEventsRareDevicePercentileBucket.md
 docs/Model/SearchEventsSdkPlatform.md
+docs/Model/SearchEventsStartParameter.md
 docs/Model/SearchEventsVpnConfidence.md
 docs/Model/SupplementaryIDHighRecall.md
 docs/Model/TamperingConfidence.md
@@ -61,6 +68,9 @@ src/Api/FingerprintApi.php
 src/ApiException.php
 src/Configuration.php
 src/Model/BotInfo.php
+src/Model/BotInfoCategory.php
+src/Model/BotInfoConfidence.php
+src/Model/BotInfoIdentity.php
 src/Model/BotResult.php
 src/Model/BrowserDetails.php
 src/Model/Canvas.php
@@ -86,6 +96,7 @@ src/Model/IdentificationConfidence.php
 src/Model/IncrementalIdentificationStatus.php
 src/Model/Integration.php
 src/Model/IntegrationSubintegration.php
+src/Model/LabelsInner.php
 src/Model/ModelInterface.php
 src/Model/PluginsInner.php
 src/Model/PluginsInnerMimeTypesInner.php
@@ -99,9 +110,12 @@ src/Model/RuleActionHeaderField.php
 src/Model/RuleActionType.php
 src/Model/SDK.php
 src/Model/SearchEventsBot.php
+src/Model/SearchEventsBotInfo.php
+src/Model/SearchEventsEndParameter.php
 src/Model/SearchEventsIncrementalIdentificationStatus.php
 src/Model/SearchEventsRareDevicePercentileBucket.php
 src/Model/SearchEventsSdkPlatform.php
+src/Model/SearchEventsStartParameter.php
 src/Model/SearchEventsVpnConfidence.php
 src/Model/SupplementaryIDHighRecall.php
 src/Model/TamperingConfidence.php
@@ -123,3 +137,10 @@ src/Sealed/Sealed.php
 src/Sealed/UnsealAggregateException.php
 src/Sealed/UnsealException.php
 src/Webhook/WebhookVerifier.php
+test/Model/BotInfoCategoryTest.php
+test/Model/BotInfoConfidenceTest.php
+test/Model/BotInfoIdentityTest.php
+test/Model/LabelsInnerTest.php
+test/Model/SearchEventsBotInfoTest.php
+test/Model/SearchEventsEndParameterTest.php
+test/Model/SearchEventsStartParameterTest.php

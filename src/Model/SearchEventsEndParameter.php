@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BotInfo.
+ * SearchEventsEndParameter.
  *
  * @category Class
  *
@@ -32,11 +32,9 @@ namespace Fingerprint\ServerSdk\Model;
 use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
- * Extended bot information.
+ * SearchEventsEndParameter Class.
  *
  * @category Class
- *
- * @description Extended bot information.
  *
  * @author   Fingerprint
  *
@@ -47,7 +45,7 @@ use Fingerprint\ServerSdk\ObjectSerializer;
  * @noinspection GrazieInspection
  * @noinspection RedundantSuppression
  */
-class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
+class SearchEventsEndParameter implements ModelInterface, \ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -55,21 +53,14 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      * The original name of the model.
      *
      */
-    protected static string $openAPIModelName = 'BotInfo';
+    protected static string $openAPIModelName = 'searchEvents_end_parameter';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static array $openAPITypes = [
-        'category' => '\Fingerprint\ServerSdk\Model\BotInfoCategory',
-        'provider' => 'string',
-        'provider_url' => 'string',
-        'name' => 'string',
-        'identity' => '\Fingerprint\ServerSdk\Model\BotInfoIdentity',
-        'confidence' => '\Fingerprint\ServerSdk\Model\BotInfoConfidence',
-    ];
+    protected static array $openAPITypes = [];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -80,28 +71,14 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      *
      * @psalm-var array<string, string|null>
      */
-    protected static array $openAPIFormats = [
-        'category' => null,
-        'provider' => null,
-        'provider_url' => null,
-        'name' => null,
-        'identity' => null,
-        'confidence' => null,
-    ];
+    protected static array $openAPIFormats = [];
 
     /**
      * Array of nullable properties. Used for (de)serialization.
      *
      * @var bool[]
      */
-    protected static array $openAPINullables = [
-        'category' => false,
-        'provider' => false,
-        'provider_url' => false,
-        'name' => false,
-        'identity' => false,
-        'confidence' => false,
-    ];
+    protected static array $openAPINullables = [];
 
     /**
      * If a nullable field gets set to null, insert it here.
@@ -116,42 +93,21 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      *
      * @var string[]
      */
-    protected static array $attributeMap = [
-        'category' => 'category',
-        'provider' => 'provider',
-        'provider_url' => 'provider_url',
-        'name' => 'name',
-        'identity' => 'identity',
-        'confidence' => 'confidence',
-    ];
+    protected static array $attributeMap = [];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
-    protected static array $setters = [
-        'category' => 'setCategory',
-        'provider' => 'setProvider',
-        'provider_url' => 'setProviderUrl',
-        'name' => 'setName',
-        'identity' => 'setIdentity',
-        'confidence' => 'setConfidence',
-    ];
+    protected static array $setters = [];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
-    protected static array $getters = [
-        'category' => 'getCategory',
-        'provider' => 'getProvider',
-        'provider_url' => 'getProviderUrl',
-        'name' => 'getName',
-        'identity' => 'getIdentity',
-        'confidence' => 'getConfidence',
-    ];
+    protected static array $getters = [];
 
     /**
      * Associative array for storing property values.
@@ -166,15 +122,7 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      *
      * @noinspection DuplicatedCode
      */
-    public function __construct(?array $data = null)
-    {
-        $this->setIfExists('category', $data ?? [], null);
-        $this->setIfExists('provider', $data ?? [], null);
-        $this->setIfExists('provider_url', $data ?? [], null);
-        $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('identity', $data ?? [], null);
-        $this->setIfExists('confidence', $data ?? [], null);
-    }
+    public function __construct(?array $data = null) {}
 
     /**
      * Gets the string presentation of the object.
@@ -267,25 +215,7 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      */
     public function listInvalidProperties(): array
     {
-        $invalidProperties = [];
-
-        if (null === $this->container['category']) {
-            $invalidProperties[] = "'category' can't be null";
-        }
-        if (null === $this->container['provider']) {
-            $invalidProperties[] = "'provider' can't be null";
-        }
-        if (null === $this->container['name']) {
-            $invalidProperties[] = "'name' can't be null";
-        }
-        if (null === $this->container['identity']) {
-            $invalidProperties[] = "'identity' can't be null";
-        }
-        if (null === $this->container['confidence']) {
-            $invalidProperties[] = "'confidence' can't be null";
-        }
-
-        return $invalidProperties;
+        return [];
     }
 
     /**
@@ -297,138 +227,6 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
-    }
-
-    /**
-     * Gets category.
-     *
-     */
-    public function getCategory(): ?BotInfoCategory
-    {
-        return $this->container['category'];
-    }
-
-    /**
-     * Sets category.
-     *
-     * @param BotInfoCategory $category category
-     *
-     */
-    public function setCategory(BotInfoCategory $category): self
-    {
-        $this->container['category'] = $category;
-
-        return $this;
-    }
-
-    /**
-     * Gets provider.
-     *
-     */
-    public function getProvider(): ?string
-    {
-        return $this->container['provider'];
-    }
-
-    /**
-     * Sets provider.
-     *
-     * @param string $provider the organization or company operating the bot
-     *
-     */
-    public function setProvider(string $provider): self
-    {
-        $this->container['provider'] = $provider;
-
-        return $this;
-    }
-
-    /**
-     * Gets provider_url.
-     *
-     */
-    public function getProviderUrl(): ?string
-    {
-        return $this->container['provider_url'];
-    }
-
-    /**
-     * Sets provider_url.
-     *
-     * @param string $provider_url the URL of the bot provider's website
-     *
-     */
-    public function setProviderUrl(string $provider_url): self
-    {
-        $this->container['provider_url'] = $provider_url;
-
-        return $this;
-    }
-
-    /**
-     * Gets name.
-     *
-     */
-    public function getName(): ?string
-    {
-        return $this->container['name'];
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param string $name the specific name or identifier of the bot
-     *
-     */
-    public function setName(string $name): self
-    {
-        $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets identity.
-     *
-     */
-    public function getIdentity(): ?BotInfoIdentity
-    {
-        return $this->container['identity'];
-    }
-
-    /**
-     * Sets identity.
-     *
-     * @param BotInfoIdentity $identity identity
-     *
-     */
-    public function setIdentity(BotInfoIdentity $identity): self
-    {
-        $this->container['identity'] = $identity;
-
-        return $this;
-    }
-
-    /**
-     * Gets confidence.
-     *
-     */
-    public function getConfidence(): ?BotInfoConfidence
-    {
-        return $this->container['confidence'];
-    }
-
-    /**
-     * Sets confidence.
-     *
-     * @param BotInfoConfidence $confidence confidence
-     *
-     */
-    public function setConfidence(BotInfoConfidence $confidence): self
-    {
-        $this->container['confidence'] = $confidence;
-
-        return $this;
     }
 
     /**

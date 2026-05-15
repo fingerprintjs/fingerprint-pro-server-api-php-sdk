@@ -121,6 +121,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'rare_device' => 'bool',
         'rare_device_percentile_bucket' => '\Fingerprint\ServerSdk\Model\RareDevicePercentileBucket',
         'raw_device_attributes' => '\Fingerprint\ServerSdk\Model\RawDeviceAttributes',
+        'labels' => '\Fingerprint\ServerSdk\Model\LabelsInner[]',
     ];
 
     /**
@@ -191,6 +192,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'rare_device' => null,
         'rare_device_percentile_bucket' => null,
         'raw_device_attributes' => null,
+        'labels' => null,
     ];
 
     /**
@@ -257,6 +259,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'rare_device' => false,
         'rare_device_percentile_bucket' => false,
         'raw_device_attributes' => false,
+        'labels' => false,
     ];
 
     /**
@@ -331,6 +334,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'rare_device' => 'rare_device',
         'rare_device_percentile_bucket' => 'rare_device_percentile_bucket',
         'raw_device_attributes' => 'raw_device_attributes',
+        'labels' => 'labels',
     ];
 
     /**
@@ -397,6 +401,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'rare_device' => 'setRareDevice',
         'rare_device_percentile_bucket' => 'setRareDevicePercentileBucket',
         'raw_device_attributes' => 'setRawDeviceAttributes',
+        'labels' => 'setLabels',
     ];
 
     /**
@@ -463,6 +468,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'rare_device' => 'getRareDevice',
         'rare_device_percentile_bucket' => 'getRareDevicePercentileBucket',
         'raw_device_attributes' => 'getRawDeviceAttributes',
+        'labels' => 'getLabels',
     ];
 
     /**
@@ -538,6 +544,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         $this->setIfExists('rare_device', $data ?? [], null);
         $this->setIfExists('rare_device_percentile_bucket', $data ?? [], null);
         $this->setIfExists('raw_device_attributes', $data ?? [], null);
+        $this->setIfExists('labels', $data ?? [], null);
     }
 
     /**
@@ -1196,7 +1203,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets developer_tools.
      *
-     * @param bool $developer_tools `true` if the browser is Chrome with DevTools open or Firefox with Developer Tools open, `false` otherwise
+     * @param bool $developer_tools `true` if the browser has DevTools open (Chrome, Firefox) or the Android/iOS device has Developer Tools enabled, `false` otherwise
      *
      */
     public function setDeveloperTools(bool $developer_tools): self
@@ -1394,7 +1401,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets proxy_ml_score.
      *
-     * @param float $proxy_ml_score Machine learning–based proxy score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `proxy` detection result
+     * @param float $proxy_ml_score Machine learning–based proxy score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `proxy` detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
      *
      */
     public function setProxyMlScore(float $proxy_ml_score): self
@@ -1760,7 +1767,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets virtual_machine_ml_score.
      *
-     * @param float $virtual_machine_ml_score Machine learning–based virtual machine score,  represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `virtual_machine` detection result
+     * @param float $virtual_machine_ml_score Machine learning–based virtual machine score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `virtual_machine` detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
      *
      */
     public function setVirtualMachineMlScore(float $virtual_machine_ml_score): self
@@ -1971,6 +1978,29 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function setRawDeviceAttributes(RawDeviceAttributes $raw_device_attributes): self
     {
         $this->container['raw_device_attributes'] = $raw_device_attributes;
+
+        return $this;
+    }
+
+    /**
+     * Gets labels.
+     *
+     * @return LabelsInner[]|null
+     */
+    public function getLabels(): ?array
+    {
+        return $this->container['labels'];
+    }
+
+    /**
+     * Sets labels.
+     *
+     * @param LabelsInner[] $labels Each label returns a prediction (true or false) for a specific use case (label field) based on a machine learning score. The machine learning score is determined by a model trained on customer data for that use case. This field is in the beta phase and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
+     *
+     */
+    public function setLabels(array $labels): self
+    {
+        $this->container['labels'] = $labels;
 
         return $this;
     }

@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 **bot_type** | **string** | Additional classification of the bot type if detected. | [optional]
 **bot_info** | [**\Fingerprint\ServerSdk\Model\BotInfo**](BotInfo.md) |  | [optional]
 **cloned_app** | **bool** | Android specific cloned application detection. There are 2 values:  * &#x60;true&#x60; - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). * &#x60;false&#x60; - No signs of cloned application detected or the client is not Android. | [optional]
-**developer_tools** | **bool** | &#x60;true&#x60; if the browser is Chrome with DevTools open or Firefox with Developer Tools open, &#x60;false&#x60; otherwise. | [optional]
+**developer_tools** | **bool** | &#x60;true&#x60; if the browser has DevTools open (Chrome, Firefox) or the Android/iOS device has Developer Tools enabled, &#x60;false&#x60; otherwise. | [optional]
 **emulator** | **bool** | Android specific emulator detection. There are 2 values:  * &#x60;true&#x60; - Emulated environment detected (e.g. launch inside of AVD).  * &#x60;false&#x60; - No signs of emulated environment detected or the client is not Android. | [optional]
 **factory_reset_timestamp** | **int** | The time of the most recent factory reset that happened on the **mobile device** is expressed as Unix epoch time. When a factory reset cannot be detected on the mobile device or when the request is initiated from a browser,  this field will correspond to the *epoch* time (i.e 1 Jan 1970 UTC) as a value of 0. See [Factory Reset Detection](https://docs.fingerprint.com/docs/smart-signals-reference#factory-reset-detection) to learn more about this Smart Signal. | [optional]
 **frida** | **bool** | [Frida](https://frida.re/docs/) detection for Android and iOS devices. There are 2 values: * &#x60;true&#x60; - Frida detected * &#x60;false&#x60; - No signs of Frida or the client is not a mobile device. | [optional]
@@ -38,7 +38,7 @@ Name | Type | Description | Notes
 **proxy** | **bool** | IP address was used by a public proxy provider or belonged to a known recent residential proxy | [optional]
 **proxy_confidence** | [**\Fingerprint\ServerSdk\Model\ProxyConfidence**](ProxyConfidence.md) |  | [optional]
 **proxy_details** | [**\Fingerprint\ServerSdk\Model\ProxyDetails**](ProxyDetails.md) |  | [optional]
-**proxy_ml_score** | **float** | Machine learning–based proxy score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive &#x60;proxy&#x60; detection result | [optional]
+**proxy_ml_score** | **float** | Machine learning–based proxy score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive &#x60;proxy&#x60; detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/). | [optional]
 **incognito** | **bool** | &#x60;true&#x60; if we detected incognito mode used in the browser, &#x60;false&#x60; otherwise. | [optional]
 **jailbroken** | **bool** | iOS specific jailbreak detection. There are 2 values:  * &#x60;true&#x60; - Jailbreak detected. * &#x60;false&#x60; - No signs of jailbreak or the client is not iOS. | [optional]
 **location_spoofing** | **bool** | Flag indicating whether the request came from a mobile device with location spoofing enabled. | [optional]
@@ -54,7 +54,7 @@ Name | Type | Description | Notes
 **tampering_details** | [**\Fingerprint\ServerSdk\Model\TamperingDetails**](TamperingDetails.md) |  | [optional]
 **velocity** | [**\Fingerprint\ServerSdk\Model\Velocity**](Velocity.md) |  | [optional]
 **virtual_machine** | **bool** | &#x60;true&#x60; if the request came from a browser running inside a virtual machine (e.g. VMWare), &#x60;false&#x60; otherwise. | [optional]
-**virtual_machine_ml_score** | **float** | Machine learning–based virtual machine score,  represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive &#x60;virtual_machine&#x60; detection result | [optional]
+**virtual_machine_ml_score** | **float** | Machine learning–based virtual machine score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive &#x60;virtual_machine&#x60; detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/). | [optional]
 **vpn** | **bool** | VPN or other anonymizing service has been used when sending the request. | [optional]
 **vpn_confidence** | [**\Fingerprint\ServerSdk\Model\VpnConfidence**](VpnConfidence.md) |  | [optional]
 **vpn_origin_timezone** | **string** | Local timezone which is used in timezone_mismatch method. | [optional]
@@ -64,5 +64,6 @@ Name | Type | Description | Notes
 **rare_device** | **bool** | &#x60;true&#x60; if the device is considered rare based on its combination of hardware and software attributes.  A device is classified as rare if it falls within the top 99.9 percentile (lowest-frequency segment) of observed traffic,  or if its configuration has not been previously seen (&#x60;not_seen&#x60;). &gt; This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/). | [optional]
 **rare_device_percentile_bucket** | [**\Fingerprint\ServerSdk\Model\RareDevicePercentileBucket**](RareDevicePercentileBucket.md) |  | [optional]
 **raw_device_attributes** | [**\Fingerprint\ServerSdk\Model\RawDeviceAttributes**](RawDeviceAttributes.md) |  | [optional]
+**labels** | [**\Fingerprint\ServerSdk\Model\LabelsInner[]**](LabelsInner.md) | Each label returns a prediction (true or false) for a specific use case (label field) based on a machine learning score. The machine learning score is determined by a model trained on customer data for that use case. This field is in the beta phase and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/). | [optional]
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -287,6 +287,13 @@
   },
   "rare_device": false,
   "rare_device_percentile_bucket": "<p95",
+  "labels": [
+    {
+      "label": "fraud",
+      "prediction": false,
+      "ml_score": 0.01
+    }
+  ],
   "rule_action": {
     "type": "block",
     "status_code": 403,

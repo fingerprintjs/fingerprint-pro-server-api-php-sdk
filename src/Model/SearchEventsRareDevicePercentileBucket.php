@@ -38,9 +38,11 @@ namespace Fingerprint\ServerSdk\Model;
  * `p99.9+` - device is in the top 0.1% (rarest).
  * `not_seen` - device configuration has never been observed before.
  *
+ * > This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
+ *
  * @category Enum
  *
- * @description Filter events by Device Rarity percentile bucket. &#x60;&lt;p95&#x60; - device configuration is in the bottom 95% (most common). &#x60;p95-p99&#x60; - device is in the 95th to 99th percentile. &#x60;p99-p99.5&#x60; - device is in the 99th to 99.5th percentile. &#x60;p99.5-p99.9&#x60; - device is in the 99.5th to 99.9th percentile. &#x60;p99.9+&#x60; - device is in the top 0.1% (rarest). &#x60;not_seen&#x60; - device configuration has never been observed before.
+ * @description Filter events by Device Rarity percentile bucket. &#x60;&lt;p95&#x60; - device configuration is in the bottom 95% (most common). &#x60;p95-p99&#x60; - device is in the 95th to 99th percentile. &#x60;p99-p99.5&#x60; - device is in the 99th to 99.5th percentile. &#x60;p99.5-p99.9&#x60; - device is in the 99.5th to 99.9th percentile. &#x60;p99.9+&#x60; - device is in the top 0.1% (rarest). &#x60;not_seen&#x60; - device configuration has never been observed before.  &gt; This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
  *
  * @author   Fingerprint
  *

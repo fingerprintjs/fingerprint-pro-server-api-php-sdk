@@ -220,7 +220,7 @@ if(!$isValidWebhookSign) {
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*FingerprintApi* | [**deleteVisitorData**](docs/Api/FingerprintApi.md#deletevisitordata) | **DELETE** /visitors/{visitor_id} | Delete data by visitor ID
+*FingerprintApi* | [**deleteVisitorData**](docs/Api/FingerprintApi.md#deletevisitordata) | **DELETE** /visitors/{visitor_id} | Delete a visitor ID
 *FingerprintApi* | [**getEvent**](docs/Api/FingerprintApi.md#getevent) | **GET** /events/{event_id} | Get an event by event ID
 *FingerprintApi* | [**searchEvents**](docs/Api/FingerprintApi.md#searchevents) | **GET** /events | Search events
 *FingerprintApi* | [**updateEvent**](docs/Api/FingerprintApi.md#updateevent) | **PATCH** /events/{event_id} | Update an event
@@ -229,6 +229,9 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [BotInfo](docs/Model/BotInfo.md)
+ - [BotInfoCategory](docs/Model/BotInfoCategory.md)
+ - [BotInfoConfidence](docs/Model/BotInfoConfidence.md)
+ - [BotInfoIdentity](docs/Model/BotInfoIdentity.md)
  - [BotResult](docs/Model/BotResult.md)
  - [BrowserDetails](docs/Model/BrowserDetails.md)
  - [Canvas](docs/Model/Canvas.md)
@@ -254,6 +257,7 @@ Class | Method | HTTP request | Description
  - [IncrementalIdentificationStatus](docs/Model/IncrementalIdentificationStatus.md)
  - [Integration](docs/Model/Integration.md)
  - [IntegrationSubintegration](docs/Model/IntegrationSubintegration.md)
+ - [LabelsInner](docs/Model/LabelsInner.md)
  - [PluginsInner](docs/Model/PluginsInner.md)
  - [PluginsInnerMimeTypesInner](docs/Model/PluginsInnerMimeTypesInner.md)
  - [Proximity](docs/Model/Proximity.md)
@@ -266,6 +270,7 @@ Class | Method | HTTP request | Description
  - [RuleActionType](docs/Model/RuleActionType.md)
  - [SDK](docs/Model/SDK.md)
  - [SearchEventsBot](docs/Model/SearchEventsBot.md)
+ - [SearchEventsBotInfo](docs/Model/SearchEventsBotInfo.md)
  - [SearchEventsIncrementalIdentificationStatus](docs/Model/SearchEventsIncrementalIdentificationStatus.md)
  - [SearchEventsRareDevicePercentileBucket](docs/Model/SearchEventsRareDevicePercentileBucket.md)
  - [SearchEventsSdkPlatform](docs/Model/SearchEventsSdkPlatform.md)

@@ -31,12 +31,12 @@ namespace Fingerprint\ServerSdk\Model;
 
 /**
  * Only included for requests using incremental identification.
- * - `partially_completed` - the event did not receive the second "update" request.
- * - `completed` - the event was updated and all information is available.
+ * - `partially_completed` - Indicates this event corresponds to a 'minimal' request. Smart Signals, even if included in your plan, are not computed; hence, their values must be ignored.
+ * - `completed` - Indicates this event corresponds to a 'complete' request. Smart Signals, if included in your plan, are computed; hence, their values are valid and relevant.
  *
  * @category Enum
  *
- * @description Only included for requests using incremental identification. - &#x60;partially_completed&#x60; - the event did not receive the second \&quot;update\&quot; request. - &#x60;completed&#x60; - the event was updated and all information is available.
+ * @description Only included for requests using incremental identification. - &#x60;partially_completed&#x60; - Indicates this event corresponds to a &#39;minimal&#39; request. Smart Signals, even if included in your plan, are not computed; hence, their values must be ignored. - &#x60;completed&#x60; - Indicates this event corresponds to a &#39;complete&#39; request. Smart Signals, if included in your plan, are computed; hence, their values are valid and relevant.
  *
  * @author   Fingerprint
  *

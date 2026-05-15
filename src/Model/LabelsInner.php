@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BotInfo.
+ * LabelsInner.
  *
  * @category Class
  *
@@ -32,11 +32,9 @@ namespace Fingerprint\ServerSdk\Model;
 use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
- * Extended bot information.
+ * LabelsInner Class.
  *
  * @category Class
- *
- * @description Extended bot information.
  *
  * @author   Fingerprint
  *
@@ -47,7 +45,7 @@ use Fingerprint\ServerSdk\ObjectSerializer;
  * @noinspection GrazieInspection
  * @noinspection RedundantSuppression
  */
-class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
+class LabelsInner implements ModelInterface, \ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -55,7 +53,7 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      * The original name of the model.
      *
      */
-    protected static string $openAPIModelName = 'BotInfo';
+    protected static string $openAPIModelName = 'Labels_inner';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -63,12 +61,9 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $openAPITypes = [
-        'category' => '\Fingerprint\ServerSdk\Model\BotInfoCategory',
-        'provider' => 'string',
-        'provider_url' => 'string',
-        'name' => 'string',
-        'identity' => '\Fingerprint\ServerSdk\Model\BotInfoIdentity',
-        'confidence' => '\Fingerprint\ServerSdk\Model\BotInfoConfidence',
+        'label' => 'string',
+        'prediction' => 'bool',
+        'ml_score' => 'float',
     ];
 
     /**
@@ -81,12 +76,9 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static array $openAPIFormats = [
-        'category' => null,
-        'provider' => null,
-        'provider_url' => null,
-        'name' => null,
-        'identity' => null,
-        'confidence' => null,
+        'label' => null,
+        'prediction' => null,
+        'ml_score' => 'double',
     ];
 
     /**
@@ -95,12 +87,9 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @var bool[]
      */
     protected static array $openAPINullables = [
-        'category' => false,
-        'provider' => false,
-        'provider_url' => false,
-        'name' => false,
-        'identity' => false,
-        'confidence' => false,
+        'label' => false,
+        'prediction' => false,
+        'ml_score' => false,
     ];
 
     /**
@@ -117,12 +106,9 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $attributeMap = [
-        'category' => 'category',
-        'provider' => 'provider',
-        'provider_url' => 'provider_url',
-        'name' => 'name',
-        'identity' => 'identity',
-        'confidence' => 'confidence',
+        'label' => 'label',
+        'prediction' => 'prediction',
+        'ml_score' => 'ml_score',
     ];
 
     /**
@@ -131,12 +117,9 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $setters = [
-        'category' => 'setCategory',
-        'provider' => 'setProvider',
-        'provider_url' => 'setProviderUrl',
-        'name' => 'setName',
-        'identity' => 'setIdentity',
-        'confidence' => 'setConfidence',
+        'label' => 'setLabel',
+        'prediction' => 'setPrediction',
+        'ml_score' => 'setMlScore',
     ];
 
     /**
@@ -145,12 +128,9 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static array $getters = [
-        'category' => 'getCategory',
-        'provider' => 'getProvider',
-        'provider_url' => 'getProviderUrl',
-        'name' => 'getName',
-        'identity' => 'getIdentity',
-        'confidence' => 'getConfidence',
+        'label' => 'getLabel',
+        'prediction' => 'getPrediction',
+        'ml_score' => 'getMlScore',
     ];
 
     /**
@@ -168,12 +148,9 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('category', $data ?? [], null);
-        $this->setIfExists('provider', $data ?? [], null);
-        $this->setIfExists('provider_url', $data ?? [], null);
-        $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('identity', $data ?? [], null);
-        $this->setIfExists('confidence', $data ?? [], null);
+        $this->setIfExists('label', $data ?? [], null);
+        $this->setIfExists('prediction', $data ?? [], null);
+        $this->setIfExists('ml_score', $data ?? [], null);
     }
 
     /**
@@ -269,20 +246,12 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (null === $this->container['category']) {
-            $invalidProperties[] = "'category' can't be null";
+        if (!is_null($this->container['ml_score']) && ($this->container['ml_score'] > 1)) {
+            $invalidProperties[] = "invalid value for 'ml_score', must be smaller than or equal to 1.";
         }
-        if (null === $this->container['provider']) {
-            $invalidProperties[] = "'provider' can't be null";
-        }
-        if (null === $this->container['name']) {
-            $invalidProperties[] = "'name' can't be null";
-        }
-        if (null === $this->container['identity']) {
-            $invalidProperties[] = "'identity' can't be null";
-        }
-        if (null === $this->container['confidence']) {
-            $invalidProperties[] = "'confidence' can't be null";
+
+        if (!is_null($this->container['ml_score']) && ($this->container['ml_score'] < 0)) {
+            $invalidProperties[] = "invalid value for 'ml_score', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -300,133 +269,74 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets category.
+     * Gets label.
      *
      */
-    public function getCategory(): ?BotInfoCategory
+    public function getLabel(): ?string
     {
-        return $this->container['category'];
+        return $this->container['label'];
     }
 
     /**
-     * Sets category.
+     * Sets label.
      *
-     * @param BotInfoCategory $category category
+     * @param string $label label
      *
      */
-    public function setCategory(BotInfoCategory $category): self
+    public function setLabel(string $label): self
     {
-        $this->container['category'] = $category;
+        $this->container['label'] = $label;
 
         return $this;
     }
 
     /**
-     * Gets provider.
+     * Gets prediction.
      *
      */
-    public function getProvider(): ?string
+    public function getPrediction(): ?bool
     {
-        return $this->container['provider'];
+        return $this->container['prediction'];
     }
 
     /**
-     * Sets provider.
+     * Sets prediction.
      *
-     * @param string $provider the organization or company operating the bot
+     * @param bool $prediction prediction
      *
      */
-    public function setProvider(string $provider): self
+    public function setPrediction(bool $prediction): self
     {
-        $this->container['provider'] = $provider;
+        $this->container['prediction'] = $prediction;
 
         return $this;
     }
 
     /**
-     * Gets provider_url.
+     * Gets ml_score.
      *
      */
-    public function getProviderUrl(): ?string
+    public function getMlScore(): ?float
     {
-        return $this->container['provider_url'];
+        return $this->container['ml_score'];
     }
 
     /**
-     * Sets provider_url.
+     * Sets ml_score.
      *
-     * @param string $provider_url the URL of the bot provider's website
-     *
-     */
-    public function setProviderUrl(string $provider_url): self
-    {
-        $this->container['provider_url'] = $provider_url;
-
-        return $this;
-    }
-
-    /**
-     * Gets name.
+     * @param float $ml_score ml_score
      *
      */
-    public function getName(): ?string
+    public function setMlScore(float $ml_score): self
     {
-        return $this->container['name'];
-    }
+        if ($ml_score > 1) {
+            throw new \InvalidArgumentException('invalid value for $ml_score when calling LabelsInner., must be smaller than or equal to 1.');
+        }
+        if ($ml_score < 0) {
+            throw new \InvalidArgumentException('invalid value for $ml_score when calling LabelsInner., must be bigger than or equal to 0.');
+        }
 
-    /**
-     * Sets name.
-     *
-     * @param string $name the specific name or identifier of the bot
-     *
-     */
-    public function setName(string $name): self
-    {
-        $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets identity.
-     *
-     */
-    public function getIdentity(): ?BotInfoIdentity
-    {
-        return $this->container['identity'];
-    }
-
-    /**
-     * Sets identity.
-     *
-     * @param BotInfoIdentity $identity identity
-     *
-     */
-    public function setIdentity(BotInfoIdentity $identity): self
-    {
-        $this->container['identity'] = $identity;
-
-        return $this;
-    }
-
-    /**
-     * Gets confidence.
-     *
-     */
-    public function getConfidence(): ?BotInfoConfidence
-    {
-        return $this->container['confidence'];
-    }
-
-    /**
-     * Sets confidence.
-     *
-     * @param BotInfoConfidence $confidence confidence
-     *
-     */
-    public function setConfidence(BotInfoConfidence $confidence): self
-    {
-        $this->container['confidence'] = $confidence;
+        $this->container['ml_score'] = $ml_score;
 
         return $this;
     }
