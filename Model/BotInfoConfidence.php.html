@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Code Coverage for /app/src/Model/RuleActionType.php</title>
+  <title>Code Coverage for /app/src/Model/BotInfoConfidence.php</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../_css/bootstrap.min.css?v=11.0.12" rel="stylesheet" type="text/css">
   <link href="../_css/octicons.css?v=11.0.12" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../index.html">/app/src</a></li>
          <li class="breadcrumb-item"><a href="index.html">Model</a></li>
-         <li class="breadcrumb-item active">RuleActionType.php</li>
+         <li class="breadcrumb-item active">BotInfoConfidence.php</li>
 
        </ol>
       </nav>
@@ -65,7 +65,7 @@
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="1" href="#1">1</a></td><td class="col-11 codeLine"><span class="default">&lt;?php</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="2" href="#2">2</a></td><td class="col-11 codeLine"></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="3" href="#3">3</a></td><td class="col-11 codeLine"><span class="comment">/**</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="4" href="#4">4</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;RuleActionType.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="4" href="#4">4</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;BotInfoConfidence.</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="5" href="#5">5</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="6" href="#6">6</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@category&nbsp;Enum</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="7" href="#7">7</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
@@ -94,11 +94,11 @@
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="30" href="#30">30</a></td><td class="col-11 codeLine"><span class="keyword">namespace</span><span class="default">&nbsp;</span><span class="default">Fingerprint\ServerSdk\Model</span><span class="keyword">;</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="31" href="#31">31</a></td><td class="col-11 codeLine"></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="32" href="#32">32</a></td><td class="col-11 codeLine"><span class="comment">/**</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="33" href="#33">33</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;Describes&nbsp;the&nbsp;action&nbsp;to&nbsp;take&nbsp;with&nbsp;the&nbsp;request.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="33" href="#33">33</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;Confidence&nbsp;level&nbsp;of&nbsp;the&nbsp;bot&nbsp;identification.</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="34" href="#34">34</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="35" href="#35">35</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@category&nbsp;Enum</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="36" href="#36">36</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="37" href="#37">37</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@description&nbsp;Describes&nbsp;the&nbsp;action&nbsp;to&nbsp;take&nbsp;with&nbsp;the&nbsp;request.</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="37" href="#37">37</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@description&nbsp;Confidence&nbsp;level&nbsp;of&nbsp;the&nbsp;bot&nbsp;identification.</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="38" href="#38">38</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="39" href="#39">39</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@author&nbsp;&nbsp;&nbsp;Fingerprint</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="40" href="#40">40</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*</span></td></tr>
@@ -107,11 +107,12 @@
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="43" href="#43">43</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@noinspection&nbsp;GrazieInspection</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="44" href="#44">44</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*&nbsp;@noinspection&nbsp;RedundantSuppression</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="45" href="#45">45</a></td><td class="col-11 codeLine"><span class="comment">&nbsp;*/</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="46" href="#46">46</a></td><td class="col-11 codeLine"><span class="keyword">enum</span><span class="default">&nbsp;</span><span class="default">RuleActionType</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="default">string</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="46" href="#46">46</a></td><td class="col-11 codeLine"><span class="keyword">enum</span><span class="default">&nbsp;</span><span class="default">BotInfoConfidence</span><span class="keyword">:</span><span class="default">&nbsp;</span><span class="default">string</span></td></tr>
     <tr class=" d-flex"><td  class="col-1 text-end"><a id="47" href="#47">47</a></td><td class="col-11 codeLine"><span class="keyword">{</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="48" href="#48">48</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">ALLOW</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'allow'</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="49" href="#49">49</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">BLOCK</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'block'</span><span class="keyword">;</span></td></tr>
-    <tr class=" d-flex"><td  class="col-1 text-end"><a id="50" href="#50">50</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="48" href="#48">48</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">LOW</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'low'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="49" href="#49">49</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">MEDIUM</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'medium'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="50" href="#50">50</a></td><td class="col-11 codeLine"><span class="default">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">case</span><span class="default">&nbsp;</span><span class="default">HIGH</span><span class="default">&nbsp;</span><span class="keyword">=</span><span class="default">&nbsp;</span><span class="default">'high'</span><span class="keyword">;</span></td></tr>
+    <tr class=" d-flex"><td  class="col-1 text-end"><a id="51" href="#51">51</a></td><td class="col-11 codeLine"><span class="keyword">}</span></td></tr>
 
 </tbody>
 </table>
