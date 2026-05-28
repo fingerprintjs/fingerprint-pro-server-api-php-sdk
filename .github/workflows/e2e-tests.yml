@@ -22,6 +22,7 @@ jobs:
     with:
       sdk: php
       sdkVersion: ${{ contains(needs.read-version.outputs.version, 'develop') && 'dev-main' || needs.read-version.outputs.version }}
+      sdkPackageName: 'fingerprint/fingerprint-pro-server-api-sdk'
       appId: ${{ vars.RUNNER_APP_ID }}
       commitSha: ${{ github.event.pull_request.head.sha || github.sha }}
     secrets:
