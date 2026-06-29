@@ -13,7 +13,7 @@
 /**
  * Server API.
  *
- * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device. The API also supports collection of Automation Intelligence for requests to your server in edge, pre-origin, or middleware contexts.
  *
  * The version of the OpenAPI document: 4
  * Contact: support@fingerprint.com
@@ -270,7 +270,7 @@ class EventUpdate implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets linked_id.
      *
-     * @param string $linked_id Linked Id value to assign to the existing event
+     * @param string $linked_id Linked ID value to assign to the existing event
      *
      */
     public function setLinkedId(string $linked_id): self

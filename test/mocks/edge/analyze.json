@@ -1,0 +1,31 @@
+{
+  "headers": [
+    {
+      "name": "user-agent",
+      "value": "Mozilla/5.0 (Local Test Bot)"
+    },
+    {
+      "name": "host",
+      "value": "example.com"
+    },
+    {
+      "name": "user-agent",
+      "value": "one.example.com"
+    },
+    {
+      "name": "Signature-Agent",
+      "value": "\"https://fingerprint.com\""
+    },
+    {
+      "name": "Signature-Input",
+      "value": "binding0=(\"@authority\" \"signature-agent\");created=1769022347;keyid=\"KYG4GtgVVPWw3r1AXgM6fYFw5kAvRZiJVxZY1Rsgc3Q\";alg=\"ed25519\";expires=1769022407;tag=\"web-bot-auth\""
+    },
+    {
+      "name": "Signature",
+      "value": "binding0=:DLRNY0BDeHGMovOo6flKtY70U+cHa3cKDiEdLm92NGpzR0uj4m7yTHtIZnXLlHFiKjUAUBJIgbcv0HuSt8KaBg==:"
+    }
+  ],
+  "method": "POST",
+  "url": "https://example.com/login?foo=bar",
+  "ipv4_address": "34.162.244.71"
+}

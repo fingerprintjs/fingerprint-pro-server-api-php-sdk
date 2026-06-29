@@ -8,6 +8,9 @@ info:
 
     Server API is intended for server-side usage, it's not intended to be used
     from the client side, whether it's a browser or a mobile device.
+
+    The API also supports collection of Automation Intelligence for requests to
+    your server in edge, pre-origin, or middleware contexts.
   version: '4'
   contact:
     name: Fingerprint Support
@@ -246,13 +249,12 @@ paths:
             format: int32
             minimum: 1
             maximum: 100
-            default: 10
-            example: 10
           description: >
-            Maximum number of events to return. Results are selected from the
-            time range (`start`, `end`), ordered by `reverse`, then truncated to
-            provided `limit` size. So `reverse=true` returns the oldest
-            N=`limit` events, otherwise the newest N=`limit` events.
+            Maximum number of events to return. Defaults to 10 when omitted.
+            Results are selected from the time range (`start`, `end`), ordered
+            by `reverse`, then truncated to provided `limit` size. So
+            `reverse=true` returns the oldest N=`limit` events, otherwise the
+            newest N=`limit` events.
         - name: pagination_key
           in: query
           schema:
@@ -274,7 +276,8 @@ paths:
             api-base-url/events?limit=100`
 
             2. Use `response.pagination_key` to get the next page of results:
-            `GET api-base-url/events?limit=100&pagination_key=1740815825085`
+            `GET
+            api-base-url/events?limit=100&pagination_key=S9rgMMUb4z3X5t5pr_tSgoSZlmyF0O8X7kCV2m981-iY1LmRTjraa1rTk3L-hQExnDWCi0RA-zAIjaVSTNO2AN2eqQWgzT0RjbieMxRfSdkM-HmOhdOgdQvYfPG3vqU1DJKh4Q`
         - name: visitor_id
           in: query
           schema:
@@ -475,10 +478,8 @@ paths:
             oneOf:
               - type: integer
                 format: int64
-                example: 1767225600000
               - type: string
                 format: date-time
-                example: '2026-01-01T00:00:00Z'
           description: >
             Include events that happened after this point (with timestamp
             greater than or equal the provided `start` Unix milliseconds value
@@ -491,10 +492,8 @@ paths:
             oneOf:
               - type: integer
                 format: int64
-                example: 1769903999000
               - type: string
                 format: date-time
-                example: '2026-01-31T23:59:59Z'
           description: >
             Include events that happened before this point (with timestamp less
             than or equal the provided `end` Unix milliseconds value or RFC3339
@@ -844,6 +843,24 @@ paths:
             > Note: When using this parameter, only events with the `simulator`
             property set to `true` or `false` are returned. Events without a
             `simulator` Smart Signal result are left out of the response.
+        - name: source
+          in: query
+          required: false
+          schema:
+            type: array
+            maxItems: 1
+            items:
+              $ref: '#/components/schemas/SearchEventsInline'
+          description: >
+            Selects the source of events to search. When omitted, only
+            traditional identification events generated from devices are
+            returned (the default behavior). When set to `edge`, only Automation
+            Intelligence (Edge) events are returned.
+
+
+            > Note: The Automation Intelligence API is in public preview testing
+            phase.  If you encounter any issues, please
+            [contact](https://fingerprint.com/support/) our support team.
       responses:
         '200':
           description: Events matching the filter(s).
@@ -861,6 +878,14 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
           description: Forbidden. Access to this API is denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Not found. The requested visitor does not exist in this workspace's
+            data.
           content:
             application/json:
               schema:
@@ -990,16 +1015,437 @@ components:
         Add your Secret API Key to the Authorization header using the standard
         Bearer format: `Authorization: Bearer <secret_api_key>`
   schemas:
+    LinkedId:
+      type: string
+      description: A customer-provided id that was sent with the request.
+    Tags:
+      type: object
+      description: >-
+        A customer-provided value or an object that was sent with the
+        identification request or updated later.
+      additionalProperties: true
+      required: []
     EventId:
       type: string
       description: >
         Unique identifier of the user's request. The first portion of the
-        event_id is a unix epoch milliseconds timestamp For example:
-        `1758130560902.8tRtrH`
+        event_id is a unix epoch milliseconds timestamp.
     Timestamp:
       description: Timestamp of the event with millisecond precision in Unix time.
       type: integer
       format: int64
+    Url:
+      type: string
+      description: Page URL from which the request was sent.
+    BotInfoCategory:
+      type: string
+      enum:
+        - advertising_and_marketing
+        - aggregator
+        - ai_agent
+        - ai_assistant
+        - ai_browser
+        - ai_crawler
+        - ai_search
+        - browser_automation
+        - ecommerce
+        - monitoring_and_analytics
+        - other
+        - scraping
+        - security
+        - search_engine_crawler
+        - search_engine_optimization
+        - unknown
+      description: |
+        The type and purpose of the bot.
+    BotInfoIdentity:
+      type: string
+      enum:
+        - verified
+        - signed
+        - spoofed
+        - unknown
+      description: |
+        The verification status of the bot's identity:
+         * `verified` - well-known bot with publicly verifiable identity, directed by the bot provider.
+         * `signed` - bot that signs its platform via Web Bot Auth, directed by the bot provider's customers.
+         * `spoofed` - bot that claims a public identity but fails verification.
+         * `unknown` - bot that does not publish a verifiable identity.
+    BotInfoConfidence:
+      type: string
+      enum:
+        - low
+        - medium
+        - high
+      description: Confidence level of the bot identification.
+    BotInfo:
+      type: object
+      description: Extended bot information.
+      required:
+        - category
+        - provider
+        - name
+        - identity
+        - confidence
+      properties:
+        category:
+          type: string
+          description: |
+            The type and purpose of the bot.
+        provider:
+          type: string
+          description: The organization or company operating the bot.
+        provider_url:
+          type: string
+          description: The URL of the bot provider's website.
+        name:
+          type: string
+          description: The specific name or identifier of the bot.
+        identity:
+          type: string
+          enum:
+            - verified
+            - signed
+            - spoofed
+            - unknown
+          description: |
+            The verification status of the bot's identity:
+             * `verified` - well-known bot with publicly verifiable identity, directed by the bot provider.
+             * `signed` - bot that signs its platform via Web Bot Auth, directed by the bot provider's customers.
+             * `spoofed` - bot that claims a public identity but fails verification.
+             * `unknown` - bot that does not publish a verifiable identity.
+        confidence:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+          description: Confidence level of the bot identification.
+    Geolocation:
+      type: object
+      required: []
+      properties:
+        accuracy_radius:
+          type: integer
+          minimum: 0
+          description: >-
+            The IP address is likely to be within this radius (in km) of the
+            specified location.
+        latitude:
+          type: number
+          format: double
+          minimum: -90
+          maximum: 90
+        longitude:
+          type: number
+          format: double
+          minimum: -180
+          maximum: 180
+        postal_code:
+          type: string
+        timezone:
+          type: string
+          format: timezone
+        city_name:
+          type: string
+        country_code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        country_name:
+          type: string
+        continent_code:
+          type: string
+          minLength: 2
+          maxLength: 2
+        continent_name:
+          type: string
+        subdivisions:
+          type: array
+          items:
+            type: object
+            required:
+              - iso_code
+              - name
+            properties:
+              iso_code:
+                type: string
+              name:
+                type: string
+    IPInfoV4:
+      type: object
+      required:
+        - address
+      properties:
+        address:
+          type: string
+          format: ipv4
+        geolocation:
+          $ref: '#/components/schemas/Geolocation'
+        asn:
+          type: string
+        asn_name:
+          type: string
+        asn_network:
+          type: string
+        asn_type:
+          type: string
+        datacenter_result:
+          type: boolean
+          description: When true, the request originated from a datacenter.
+        datacenter_name:
+          type: string
+    IPInfoV6:
+      type: object
+      required:
+        - address
+      properties:
+        address:
+          type: string
+          format: ipv6
+        geolocation:
+          $ref: '#/components/schemas/Geolocation'
+        asn:
+          type: string
+        asn_name:
+          type: string
+        asn_network:
+          type: string
+        asn_type:
+          type: string
+        datacenter_result:
+          type: boolean
+          description: When true, the request originated from a datacenter.
+        datacenter_name:
+          type: string
+    IPInfo:
+      type: object
+      description: >-
+        Details about the request IP address. Has separate fields for v4 and v6
+        IP address versions.
+      required: []
+      properties:
+        v4:
+          $ref: '#/components/schemas/IPInfoV4'
+        v6:
+          $ref: '#/components/schemas/IPInfoV6'
+    Proxy:
+      type: boolean
+      description: >
+        IP address was used by a public proxy provider or belonged to a known
+        recent residential proxy
+    ProxyConfidence:
+      type: string
+      enum:
+        - low
+        - medium
+        - high
+      description: >
+        Confidence level of the proxy detection. If a proxy is not detected,
+        confidence is "high". If it's detected, can be "low", "medium", or
+        "high".
+    ProxyDetails:
+      type: object
+      description: Proxy detection details (present if `proxy` is `true`)
+      required:
+        - proxy_type
+      properties:
+        proxy_type:
+          type: string
+          enum:
+            - residential
+            - data_center
+            - unknown
+          description: |
+            Proxy type:
+             * `residential` - proxies that route through residential and telecom IP addresses to appear as legitimate traffic
+             * `data_center` - proxies which route through data centers
+             * `unknown` - reported when a proxy is detected solely by the ML model and the IP sources did not determine a specific type
+        last_seen_at:
+          type: integer
+          format: int64
+          description: >
+            Unix millisecond timestamp with hourly resolution of when this IP
+            was last seen as a proxy
+        provider:
+          type: string
+          description: >
+            String representing the last proxy service provider detected when
+            this
+
+            IP was synced. An IP can be shared by multiple service providers.
+    Vpn:
+      type: boolean
+      description: |
+        VPN or other anonymizing service has been used when sending the request.
+    VpnConfidence:
+      type: string
+      enum:
+        - low
+        - medium
+        - high
+      description: >-
+        A confidence rating for the VPN detection result — "low", "medium", or
+        "high". Depends on the combination of results returned from all VPN
+        detection methods.
+    VpnMethods:
+      type: object
+      required: []
+      properties:
+        timezone_mismatch:
+          type: boolean
+          x-platforms:
+            - android
+            - ios
+            - browser
+          description: >-
+            The browser timezone doesn't match the timezone inferred from the
+            request IP address.
+        public_vpn:
+          type: boolean
+          x-platforms:
+            - android
+            - ios
+            - browser
+          description: >-
+            Request IP address is owned and used by a public VPN service
+            provider.
+        auxiliary_mobile:
+          type: boolean
+          x-platforms:
+            - android
+            - ios
+            - browser
+          description: >-
+            This method applies to mobile devices only. Indicates the result of
+            additional methods used to detect a VPN in mobile devices.
+        os_mismatch:
+          type: boolean
+          x-platforms:
+            - browser
+          description: >-
+            The browser runs on a different operating system than the operating
+            system inferred from the request network signature.
+        relay:
+          type: boolean
+          x-platforms:
+            - android
+            - ios
+            - browser
+          description: >
+            Request IP address belongs to a relay service provider, indicating
+            the use of relay services like [Apple Private
+            relay](https://support.apple.com/en-us/102602) or [Cloudflare
+            Warp](https://developers.cloudflare.com/warp-client/).
+
+
+            * Like VPNs, relay services anonymize the visitor's true IP address.
+
+            * Unlike traditional VPNs, relay services don't let visitors spoof
+            their location by choosing an exit node in a different country.
+
+
+            This field allows you to differentiate VPN users and relay service
+            users in your fraud prevention logic.
+        ml_prediction:
+          type: boolean
+          x-platforms:
+            - browser
+          description: >
+            `true` if the request came from a device running a VPN, `false`
+            otherwise.  
+    ErrorCode:
+      type: string
+      enum:
+        - request_cannot_be_parsed
+        - request_read_timeout
+        - secret_api_key_required
+        - secret_api_key_not_found
+        - public_api_key_required
+        - public_api_key_not_found
+        - subscription_not_active
+        - wrong_region
+        - feature_not_enabled
+        - visitor_not_found
+        - too_many_requests
+        - state_not_ready
+        - failed
+        - event_not_found
+        - missing_module
+        - payload_too_large
+        - service_unavailable
+        - ruleset_not_found
+      description: >
+        Error code:
+
+        * `request_cannot_be_parsed` - The query parameters or JSON payload
+        contains some errors
+          that prevented us from parsing it (wrong type/surpassed limits).
+        * `request_read_timeout` - The request body could not be read before the
+        connection timed out.
+
+        * `secret_api_key_required` - secret API key in header is missing or
+        empty.
+
+        * `secret_api_key_not_found` - No Fingerprint workspace found for
+        specified secret API key.
+
+        * `public_api_key_required` - public API key in header is missing or
+        empty.
+
+        * `public_api_key_not_found` - No Fingerprint workspace found for
+        specified public API key.
+
+        * `subscription_not_active` - Fingerprint workspace is not active.
+
+        * `wrong_region` - Server and workspace region differ.
+
+        * `feature_not_enabled` - This feature (for example, Delete API) is not
+        enabled for your workspace.
+
+        * `visitor_not_found` - The specified visitor ID was not found. It never
+        existed or it may have already been deleted.
+
+        * `too_many_requests` - The limit on secret API key requests per second
+        has been exceeded.
+
+        * `state_not_ready` - The event specified with event ID is
+          not ready for updates yet. Try again.
+          This error happens in rare cases when update API is called immediately
+          after receiving the event ID on the client. In case you need to send
+          information right away, we recommend using the JS agent API instead.
+        * `failed` - Internal server error.
+
+        * `event_not_found` - The specified event ID was not found. It never
+        existed, expired, or it has been deleted.
+
+        * `missing_module` - The request is invalid because it is missing a
+        required module.
+
+        * `payload_too_large` - The request payload is too large and cannot be
+        processed.
+
+        * `service_unavailable` - The service was unable to process the request.
+
+        * `ruleset_not_found` - The specified ruleset was not found. It never
+        existed or it has been deleted.
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
     IncrementalIdentificationStatus:
       type: string
       description: >
@@ -1015,13 +1461,9 @@ components:
       enum:
         - partially_completed
         - completed
-    LinkedId:
-      type: string
-      description: A customer-provided id that was sent with the request.
     EnvironmentId:
       type: string
-      description: |
-        Environment Id of the event. For example: `ae_47abaca3db2c7c43`
+      description: Environment Id of the event.
     Suspect:
       type: boolean
       description: >-
@@ -1030,22 +1472,24 @@ components:
         endpoint](https://docs.fingerprint.com/reference/server-api-v4-update-event).
     Integration:
       type: object
+      required: []
       properties:
         name:
           type: string
-          description: The name of the specific integration, e.g. "fingerprint-pro-react".
+          description: The name of the specific integration.
         version:
           type: string
-          description: The version of the specific integration, e.g. "3.11.10".
+          description: The version of the specific integration.
         subintegration:
           type: object
+          required: []
           properties:
             name:
               type: string
-              description: The name of the specific subintegration, e.g. "preact".
+              description: The name of the specific subintegration.
             version:
               type: string
-              description: The version of the specific subintegration, e.g. "10.21.0".
+              description: The version of the specific subintegration.
     SDK:
       type: object
       description: Contains information about the SDK used to perform the request.
@@ -1063,9 +1507,7 @@ components:
           description: Platform of the SDK used for the identification request.
         version:
           type: string
-          description: >
-            Version string of the SDK used for the identification request. For
-            example: `"3.12.1"`
+          description: Version string of the SDK used for the identification request.
         integrations:
           type: array
           items:
@@ -1173,43 +1615,44 @@ components:
             Unix epoch timestamp (in milliseconds) corresponding to the most
             recent visit by this browser. example: `1758069706642` -
             Corresponding to Wed Sep 17 2025 00:41:46 GMT+0000
-    Tags:
-      type: object
-      description: >-
-        A customer-provided value or an object that was sent with the
-        identification request or updated later.
-      additionalProperties: true
-    Url:
-      type: string
-      description: >
-        Page URL from which the request was sent. For example
-        `https://example.com/`
     BundleId:
       type: string
       description: >
         Bundle Id of the iOS application integrated with the Fingerprint SDK for
-        the event. For example: `com.foo.app`
+        the event.
     PackageName:
       type: string
       description: >
         Package name of the Android application integrated with the Fingerprint
-        SDK for the event. For example: `com.foo.app`
+        SDK for the event.
     IpAddress:
       type: string
       description: IP address of the requesting browser or bot.
     UserAgent:
       type: string
+      description: User Agent of the client.
+    Device:
+      type: string
       description: >
-        User Agent of the client, for example: `Mozilla/5.0 (Windows NT 6.1;
-        Win64; x64) ....`
+        Device model or family extracted from the user agent string. On web,
+        this field is also present inside `browser_details`.
+    Os:
+      type: string
+      description: >
+        Operating system family extracted from the user agent string. On web,
+        this field is also present inside `browser_details`.
+    OsVersion:
+      type: string
+      description: >
+        Operating system version string extracted from the user agent string. On
+        web, this field is also present inside `browser_details`.
     ClientReferrer:
       type: string
       description: >
         Client Referrer field corresponds to the `document.referrer` field
         gathered during an identification request. The value is an empty string
         if the user navigated to the page directly (not through a link, but, for
-        example, by using a bookmark) For example:
-        `https://example.com/blog/my-article`
+        example, by using a bookmark).
     BrowserDetails:
       type: object
       required:
@@ -1286,90 +1729,6 @@ components:
       type: string
       description: |
         Additional classification of the bot type if detected.
-    BotInfoCategory:
-      type: string
-      enum:
-        - advertising_and_marketing
-        - aggregator
-        - ai_agent
-        - ai_assistant
-        - ai_browser
-        - ai_crawler
-        - ai_search
-        - browser_automation
-        - ecommerce
-        - monitoring_and_analytics
-        - other
-        - scraping
-        - security
-        - search_engine_crawler
-        - search_engine_optimization
-        - unknown
-      description: |
-        The type and purpose of the bot.
-    BotInfoIdentity:
-      type: string
-      enum:
-        - verified
-        - signed
-        - spoofed
-        - unknown
-      description: |
-        The verification status of the bot's identity:
-         * `verified` - well-known bot with publicly verifiable identity, directed by the bot provider.
-         * `signed` - bot that signs its platform via Web Bot Auth, directed by the bot provider's customers.
-         * `spoofed` - bot that claims a public identity but fails verification.
-         * `unknown` - bot that does not publish a verifiable identity.
-    BotInfoConfidence:
-      type: string
-      enum:
-        - low
-        - medium
-        - high
-      description: Confidence level of the bot identification.
-    BotInfo:
-      type: object
-      description: Extended bot information.
-      required:
-        - category
-        - provider
-        - name
-        - identity
-        - confidence
-      properties:
-        category:
-          type: string
-          description: |
-            The type and purpose of the bot.
-        provider:
-          type: string
-          description: The organization or company operating the bot.
-        provider_url:
-          type: string
-          description: The URL of the bot provider's website.
-        name:
-          type: string
-          description: The specific name or identifier of the bot.
-        identity:
-          type: string
-          enum:
-            - verified
-            - signed
-            - spoofed
-            - unknown
-          description: |
-            The verification status of the bot's identity:
-             * `verified` - well-known bot with publicly verifiable identity, directed by the bot provider.
-             * `signed` - bot that signs its platform via Web Bot Auth, directed by the bot provider's customers.
-             * `spoofed` - bot that claims a public identity but fails verification.
-             * `unknown` - bot that does not publish a verifiable identity.
-        confidence:
-          type: string
-          enum:
-            - low
-            - medium
-            - high
-          description: Confidence level of the bot identification.
     ClonedApp:
       type: boolean
       description: >
@@ -1417,6 +1776,7 @@ components:
         * `false` - No signs of Frida or the client is not a mobile device.
     IPBlockList:
       type: object
+      required: []
       properties:
         email_spam:
           type: boolean
@@ -1427,154 +1787,6 @@ components:
         tor_node:
           type: boolean
           description: IP address was part of known TOR network activity.
-    Geolocation:
-      type: object
-      properties:
-        accuracy_radius:
-          type: integer
-          minimum: 0
-          description: >-
-            The IP address is likely to be within this radius (in km) of the
-            specified location.
-        latitude:
-          type: number
-          format: double
-          minimum: -90
-          maximum: 90
-        longitude:
-          type: number
-          format: double
-          minimum: -180
-          maximum: 180
-        postal_code:
-          type: string
-        timezone:
-          type: string
-          format: timezone
-        city_name:
-          type: string
-        country_code:
-          type: string
-          minLength: 2
-          maxLength: 2
-        country_name:
-          type: string
-        continent_code:
-          type: string
-          minLength: 2
-          maxLength: 2
-        continent_name:
-          type: string
-        subdivisions:
-          type: array
-          items:
-            type: object
-            required:
-              - iso_code
-              - name
-            properties:
-              iso_code:
-                type: string
-              name:
-                type: string
-    IPInfoV4:
-      type: object
-      required:
-        - address
-      properties:
-        address:
-          type: string
-          format: ipv4
-        geolocation:
-          $ref: '#/components/schemas/Geolocation'
-        asn:
-          type: string
-        asn_name:
-          type: string
-        asn_network:
-          type: string
-        asn_type:
-          type: string
-        datacenter_result:
-          type: boolean
-        datacenter_name:
-          type: string
-    IPInfoV6:
-      type: object
-      required:
-        - address
-      properties:
-        address:
-          type: string
-          format: ipv6
-        geolocation:
-          $ref: '#/components/schemas/Geolocation'
-        asn:
-          type: string
-        asn_name:
-          type: string
-        asn_network:
-          type: string
-        asn_type:
-          type: string
-        datacenter_result:
-          type: boolean
-        datacenter_name:
-          type: string
-    IPInfo:
-      type: object
-      description: >-
-        Details about the request IP address. Has separate fields for v4 and v6
-        IP address versions.
-      properties:
-        v4:
-          $ref: '#/components/schemas/IPInfoV4'
-        v6:
-          $ref: '#/components/schemas/IPInfoV6'
-    Proxy:
-      type: boolean
-      description: >
-        IP address was used by a public proxy provider or belonged to a known
-        recent residential proxy
-    ProxyConfidence:
-      type: string
-      enum:
-        - low
-        - medium
-        - high
-      description: >
-        Confidence level of the proxy detection. If a proxy is not detected,
-        confidence is "high". If it's detected, can be "low", "medium", or
-        "high".
-    ProxyDetails:
-      type: object
-      description: Proxy detection details (present if `proxy` is `true`)
-      required:
-        - proxy_type
-      properties:
-        proxy_type:
-          type: string
-          enum:
-            - residential
-            - data_center
-          description: >
-            Residential proxies use real user IP addresses to appear as
-            legitimate traffic, 
-
-            while data center proxies are public proxies hosted in data centers
-        last_seen_at:
-          type: integer
-          format: int64
-          description: >
-            Unix millisecond timestamp with hourly resolution of when this IP
-            was last seen as a proxy
-        provider:
-          type: string
-          description: >
-            String representing the last proxy service provider detected when
-            this
-
-            IP was synced. An IP can be shared by multiple service providers.
     ProxyMLScore:
       type: number
       format: double
@@ -1660,6 +1872,7 @@ components:
       description: >-
         The set of header modifications to apply, in the following order:
         remove, set, append.
+      required: []
       properties:
         remove:
           type: array
@@ -1818,6 +2031,7 @@ components:
         anti_detect_browser fields conveniently captures that fact)
     TamperingDetails:
       type: object
+      required: []
       properties:
         anomaly_score:
           type: number
@@ -1920,6 +2134,7 @@ components:
         if the 
 
         associated event does not have the required data, such as a linked_id.
+      required: []
       properties:
         distinct_ip:
           $ref: '#/components/schemas/VelocityData'
@@ -1953,20 +2168,18 @@ components:
         currently in beta and only available to select customers. If you are
         interested, please [contact our support
         team](https://fingerprint.com/support/).
-    Vpn:
-      type: boolean
-      description: |
-        VPN or other anonymizing service has been used when sending the request.
-    VpnConfidence:
-      type: string
-      enum:
-        - low
-        - medium
-        - high
-      description: >-
-        A confidence rating for the VPN detection result — "low", "medium", or
-        "high". Depends on the combination of results returned from all VPN
-        detection methods.
+    VpnMLScore:
+      type: number
+      format: double
+      minimum: 0
+      maximum: 1
+      description: >
+        Machine learning–based VPN score, represented as a floating-point value
+        between 0 and 1 (inclusive), with up to three decimal places of
+        precision. A higher score means a higher confidence in the positive
+        `vpn` detection result. This Smart Signal is currently in beta and only
+        available to select customers. If you are interested, please [contact
+        our support team](https://fingerprint.com/support/).
     VpnOriginTimezone:
       type: string
       description: |
@@ -1976,64 +2189,6 @@ components:
       description: >
         Country of the request (only for Android SDK version >= 2.4.0, ISO 3166
         format or unknown).
-    VpnMethods:
-      type: object
-      properties:
-        timezone_mismatch:
-          type: boolean
-          x-platforms:
-            - android
-            - ios
-            - browser
-          description: >-
-            The browser timezone doesn't match the timezone inferred from the
-            request IP address.
-        public_vpn:
-          type: boolean
-          x-platforms:
-            - android
-            - ios
-            - browser
-          description: >-
-            Request IP address is owned and used by a public VPN service
-            provider.
-        auxiliary_mobile:
-          type: boolean
-          x-platforms:
-            - android
-            - ios
-            - browser
-          description: >-
-            This method applies to mobile devices only. Indicates the result of
-            additional methods used to detect a VPN in mobile devices.
-        os_mismatch:
-          type: boolean
-          x-platforms:
-            - browser
-          description: >-
-            The browser runs on a different operating system than the operating
-            system inferred from the request network signature.
-        relay:
-          type: boolean
-          x-platforms:
-            - android
-            - ios
-            - browser
-          description: >
-            Request IP address belongs to a relay service provider, indicating
-            the use of relay services like [Apple Private
-            relay](https://support.apple.com/en-us/102602) or [Cloudflare
-            Warp](https://developers.cloudflare.com/warp-client/).
-
-
-            * Like VPNs, relay services anonymize the visitor's true IP address.
-
-            * Unlike traditional VPNs, relay services don't let visitors spoof
-            their location by choosing an exit node in a different country.
-
-
-            This field allows you to differentiate VPN users and relay service
-            users in your fraud prevention logic.
     HighActivity:
       type: boolean
       description: Flag indicating if the request came from a high-activity visitor.
@@ -2071,6 +2226,7 @@ components:
         Baseline measurement of canonical fonts rendered on the device. Numeric
         width metrics, in CSS pixels, for the canonical fonts collected by the
         agent.
+      required: []
       properties:
         default:
           type: number
@@ -2096,6 +2252,7 @@ components:
     Emoji:
       type: object
       description: Bounding box metrics describing how the emoji glyph renders.
+      required: []
       properties:
         font:
           type: string
@@ -2129,23 +2286,18 @@ components:
       description: List of fonts detected on the device.
       items:
         type: string
-      example:
-        - Arial Unicode MS
-        - Gill Sans
-        - Helvetica Neue
-        - Menlo
     DeviceMemory:
       type: integer
       format: int32
       minimum: 0
-      example: 8
-      description: Rounded amount of RAM (in gigabytes) reported by the browser.
+      description: Rounded amount of RAM in gigabytes.
     Timezone:
       type: string
       description: Timezone identifier detected on the client.
     Canvas:
       type: object
       description: Canvas fingerprint containing winding flag plus geometry/text hashes.
+      required: []
       properties:
         winding:
           type: boolean
@@ -2160,7 +2312,7 @@ components:
       description: >
         Navigator languages reported by the agent including fallbacks. Each
         inner array represents ordered language preferences reported by
-        different APIs. Available for both browsers and iOS devices
+        different APIs. Available for browsers, iOS, and Android devices.
       items:
         type: array
         items:
@@ -2168,6 +2320,7 @@ components:
     WebGlExtensions:
       type: object
       description: Hashes of WebGL context attributes and extension support.
+      required: []
       properties:
         context_attributes:
           type: string
@@ -2186,6 +2339,7 @@ components:
     WebGlBasics:
       type: object
       description: Render and vendor strings reported by the WebGL context.
+      required: []
       properties:
         version:
           type: string
@@ -2210,6 +2364,7 @@ components:
     TouchSupport:
       type: object
       description: Browser-reported touch capabilities.
+      required: []
       properties:
         touch_event:
           type: boolean
@@ -2289,6 +2444,7 @@ components:
             type: array
             items:
               type: object
+              required: []
               properties:
                 type:
                   type: string
@@ -2316,12 +2472,26 @@ components:
     TimezoneOffset:
       type: string
       description: UTC offset in "±HH:MM" format derived from the detected IANA timezone.
+    BatteryLevel:
+      type: integer
+      format: int32
+      minimum: 0
+      maximum: 100
+      description: >-
+        Battery charge level as a percentage (0-100). Available only for Android
+        and iOS devices.
+    BatteryLowPowerMode:
+      type: boolean
+      description: >-
+        Whether the device's low power mode is enabled. Available only for
+        Android and iOS devices.
     RawDeviceAttributes:
       type: object
       description: >
         A curated subset of raw browser/device attributes that the API surface
         exposes. Each property contains a value or object with the data for the
         collected signal.
+      required: []
       properties:
         font_preferences:
           $ref: '#/components/schemas/FontPreferences'
@@ -2381,6 +2551,10 @@ components:
           $ref: '#/components/schemas/FontHash'
         timezone_offset:
           $ref: '#/components/schemas/TimezoneOffset'
+        battery_level:
+          $ref: '#/components/schemas/BatteryLevel'
+        battery_low_power_mode:
+          $ref: '#/components/schemas/BatteryLowPowerMode'
     Labels:
       type: array
       items:
@@ -2501,6 +2675,24 @@ components:
             - android
             - ios
             - browser
+        device:
+          $ref: '#/components/schemas/Device'
+          x-platforms:
+            - android
+            - ios
+            - browser
+        os:
+          $ref: '#/components/schemas/Os'
+          x-platforms:
+            - android
+            - ios
+            - browser
+        os_version:
+          $ref: '#/components/schemas/OsVersion'
+          x-platforms:
+            - android
+            - ios
+            - browser
         client_referrer:
           $ref: '#/components/schemas/ClientReferrer'
           x-platforms:
@@ -2514,6 +2706,7 @@ components:
           x-platforms:
             - android
             - ios
+            - browser
         bot:
           $ref: '#/components/schemas/BotResult'
           x-platforms:
@@ -2672,6 +2865,10 @@ components:
             - android
             - ios
             - browser
+        vpn_ml_score:
+          $ref: '#/components/schemas/VpnMLScore'
+          x-platforms:
+            - browser
         vpn_origin_timezone:
           $ref: '#/components/schemas/VpnOriginTimezone'
           x-platforms:
@@ -2715,110 +2912,20 @@ components:
             - browser
             - ios
             - android
-    ErrorCode:
-      type: string
-      enum:
-        - request_cannot_be_parsed
-        - request_read_timeout
-        - secret_api_key_required
-        - secret_api_key_not_found
-        - public_api_key_required
-        - public_api_key_not_found
-        - subscription_not_active
-        - wrong_region
-        - feature_not_enabled
-        - visitor_not_found
-        - too_many_requests
-        - state_not_ready
-        - failed
-        - event_not_found
-        - missing_module
-        - payload_too_large
-        - service_unavailable
-        - ruleset_not_found
-      description: >
-        Error code:
-
-        * `request_cannot_be_parsed` - The query parameters or JSON payload
-        contains some errors
-          that prevented us from parsing it (wrong type/surpassed limits).
-        * `request_read_timeout` - The request body could not be read before the
-        connection timed out.
-
-        * `secret_api_key_required` - secret API key in header is missing or
-        empty.
-
-        * `secret_api_key_not_found` - No Fingerprint workspace found for
-        specified secret API key.
-
-        * `public_api_key_required` - public API key in header is missing or
-        empty.
-
-        * `public_api_key_not_found` - No Fingerprint workspace found for
-        specified public API key.
-
-        * `subscription_not_active` - Fingerprint workspace is not active.
-
-        * `wrong_region` - Server and workspace region differ.
-
-        * `feature_not_enabled` - This feature (for example, Delete API) is not
-        enabled for your workspace.
-
-        * `visitor_not_found` - The specified visitor ID was not found. It never
-        existed or it may have already been deleted.
-
-        * `too_many_requests` - The limit on secret API key requests per second
-        has been exceeded.
-
-        * `state_not_ready` - The event specified with event ID is
-          not ready for updates yet. Try again.
-          This error happens in rare cases when update API is called immediately
-          after receiving the event ID on the client. In case you need to send
-          information right away, we recommend using the JS agent API instead.
-        * `failed` - Internal server error.
-
-        * `event_not_found` - The specified event ID was not found. It never
-        existed, expired, or it has been deleted.
-
-        * `missing_module` - The request is invalid because it is missing a
-        required module.
-
-        * `payload_too_large` - The request payload is too large and cannot be
-        processed.
-
-        * `service_unavailable` - The service was unable to process the request.
-
-        * `ruleset_not_found` - The specified ruleset was not found. It never
-        existed or it has been deleted.
-    Error:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          $ref: '#/components/schemas/ErrorCode'
-        message:
-          type: string
-    ErrorResponse:
-      type: object
-      required:
-        - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
     EventUpdate:
       type: object
+      required: []
       properties:
         linked_id:
           type: string
-          description: Linked Id value to assign to the existing event
+          description: Linked ID value to assign to the existing event
         tags:
           type: object
           description: >-
             A customer-provided value or an object that was sent with the
             identification request or updated later.
           additionalProperties: true
+          required: []
         suspect:
           type: boolean
           description: Suspect flag indicating observed suspicious or fraudulent event
@@ -2942,3 +3049,7 @@ components:
         Filter events by their incremental identification status
         (`incremental_identification_status` property). Non incremental
         identification events are left out of the response.
+    SearchEventsInline:
+      type: string
+      enum:
+        - edge

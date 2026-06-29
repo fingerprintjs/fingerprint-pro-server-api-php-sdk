@@ -1,0 +1,50 @@
+{
+  "event_id": "1758130560902.8tRtrH",
+  "timestamp": 1758130560902,
+  "url": "https://example.com/login?foo=bar",
+  "bot_info": {
+    "category": "ai_agent",
+    "provider": "Fingerprint",
+    "provider_url": "https://fingerprint.com",
+    "name": "Fingerprint Agent",
+    "identity": "signed",
+    "confidence": "high"
+  },
+  "ip_info": {
+    "v4": {
+      "address": "34.162.244.71",
+      "geolocation": {
+        "accuracy_radius": 20,
+        "latitude": 39.96118,
+        "longitude": -82.99879,
+        "postal_code": "43215",
+        "timezone": "America/New_York",
+        "city_name": "Columbus",
+        "country_code": "US",
+        "country_name": "United States",
+        "continent_code": "NA",
+        "continent_name": "North America",
+        "subdivisions": [
+          {
+            "iso_code": "OH",
+            "name": "Ohio"
+          }
+        ]
+      },
+      "asn": "396982",
+      "asn_name": "Google LLC",
+      "asn_network": "34.160.0.0/12",
+      "asn_type": "hosting",
+      "datacenter_result": true,
+      "datacenter_name": "Google Cloud"
+    }
+  },
+  "proxy": false,
+  "proxy_confidence": "high",
+  "vpn": true,
+  "vpn_confidence": "high",
+  "vpn_methods": {
+    "public_vpn": false,
+    "relay": true
+  }
+}

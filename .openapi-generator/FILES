@@ -44,8 +44,8 @@ docs/Model/RuleActionType.md
 docs/Model/SDK.md
 docs/Model/SearchEventsBot.md
 docs/Model/SearchEventsBotInfo.md
-docs/Model/SearchEventsEndParameter.md
 docs/Model/SearchEventsIncrementalIdentificationStatus.md
+docs/Model/SearchEventsInline.md
 docs/Model/SearchEventsRareDevicePercentileBucket.md
 docs/Model/SearchEventsSdkPlatform.md
 docs/Model/SearchEventsStartParameter.md
@@ -111,8 +111,8 @@ src/Model/RuleActionType.php
 src/Model/SDK.php
 src/Model/SearchEventsBot.php
 src/Model/SearchEventsBotInfo.php
-src/Model/SearchEventsEndParameter.php
 src/Model/SearchEventsIncrementalIdentificationStatus.php
+src/Model/SearchEventsInline.php
 src/Model/SearchEventsRareDevicePercentileBucket.php
 src/Model/SearchEventsSdkPlatform.php
 src/Model/SearchEventsStartParameter.php
@@ -137,3 +137,4 @@ src/Sealed/Sealed.php
 src/Sealed/UnsealAggregateException.php
 src/Sealed/UnsealException.php
 src/Webhook/WebhookVerifier.php
+test/Model/SearchEventsInlineTest.php

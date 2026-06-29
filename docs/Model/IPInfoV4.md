@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **asn_name** | **string** |  | [optional]
 **asn_network** | **string** |  | [optional]
 **asn_type** | **string** |  | [optional]
-**datacenter_result** | **bool** |  | [optional]
+**datacenter_result** | **bool** | When true, the request originated from a datacenter. | [optional]
 **datacenter_name** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -1,0 +1,46 @@
+{
+  "event_id": "1758130561187.Rm9Vxd",
+  "timestamp": 1758130561187,
+  "url": "https://example.com/login?foo=bar",
+  "ip_info": {
+    "v4": {
+      "address": "173.56.25.103",
+      "geolocation": {
+        "accuracy_radius": 20,
+        "latitude": 40.71427,
+        "longitude": -74.00597,
+        "postal_code": "10001",
+        "timezone": "America/New_York",
+        "city_name": "New York City",
+        "country_code": "US",
+        "country_name": "United States",
+        "continent_code": "NA",
+        "continent_name": "North America",
+        "subdivisions": [
+          {
+            "iso_code": "NY",
+            "name": "New York"
+          }
+        ]
+      },
+      "asn": "701",
+      "asn_name": "Verizon Business",
+      "asn_network": "173.56.0.0/16",
+      "asn_type": "isp",
+      "datacenter_result": false
+    }
+  },
+  "proxy": true,
+  "proxy_confidence": "high",
+  "proxy_details": {
+    "proxy_type": "data_center",
+    "last_seen_at": 1716057600000,
+    "provider": "DataImpulse"
+  },
+  "vpn": false,
+  "vpn_confidence": "medium",
+  "vpn_methods": {
+    "public_vpn": false,
+    "relay": false
+  }
+}

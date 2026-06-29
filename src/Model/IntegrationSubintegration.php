@@ -13,7 +13,7 @@
 /**
  * Server API.
  *
- * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device. The API also supports collection of Automation Intelligence for requests to your server in edge, pre-origin, or middleware contexts.
  *
  * The version of the OpenAPI document: 4
  * Contact: support@fingerprint.com
@@ -263,7 +263,7 @@ class IntegrationSubintegration implements ModelInterface, \ArrayAccess, \JsonSe
     /**
      * Sets name.
      *
-     * @param string $name The name of the specific subintegration, e.g. \"preact\".
+     * @param string $name the name of the specific subintegration
      *
      */
     public function setName(string $name): self
@@ -285,7 +285,7 @@ class IntegrationSubintegration implements ModelInterface, \ArrayAccess, \JsonSe
     /**
      * Sets version.
      *
-     * @param string $version The version of the specific subintegration, e.g. \"10.21.0\".
+     * @param string $version the version of the specific subintegration
      *
      */
     public function setVersion(string $version): self

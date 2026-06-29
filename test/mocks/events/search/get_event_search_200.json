@@ -9,6 +9,9 @@
       "url": "https://www.example.com/login?hope{this{works[!",
       "ip_address": "61.127.217.15",
       "user_agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+      "device": "Other",
+      "os": "Windows",
+      "os_version": "7",
       "client_referrer": "https://example.com/blog/my-article",
       "browser_details": {
         "browser_name": "Chrome",
@@ -117,6 +120,7 @@
       "proxy_ml_score": 0.2,
       "vpn": false,
       "vpn_confidence": "high",
+      "vpn_ml_score": 0.2,
       "vpn_origin_timezone": "Europe/Berlin",
       "vpn_origin_country": "unknown",
       "vpn_methods": {
@@ -124,7 +128,8 @@
         "public_vpn": false,
         "auxiliary_mobile": false,
         "os_mismatch": false,
-        "relay": false
+        "relay": false,
+        "ml_prediction": false
       },
       "incognito": false,
       "tampering": false,
@@ -298,5 +303,5 @@
       ]
     }
   ],
-  "pagination_key": "1708102555327"
+  "pagination_key": "S9rgMMUb4z3X5t5pr_tSgoSZlmyF0O8X7kCV2m981-iY1LmRTjraa1rTk3L-hQExnDWCi0RA-zAIjaVSTNO2AN2eqQWgzT0RjbieMxRfSdkM-HmOhdOgdQvYfPG3vqU1DJKh4Q"
 }
