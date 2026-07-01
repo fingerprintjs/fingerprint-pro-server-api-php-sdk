@@ -13,7 +13,7 @@
 /**
  * Server API.
  *
- * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device. The API also supports collection of Automation Intelligence for requests to your server in edge, pre-origin, or middleware contexts.
  *
  * The version of the OpenAPI document: 4
  * Contact: support@fingerprint.com
@@ -66,6 +66,7 @@ class VpnMethods implements ModelInterface, \ArrayAccess, \JsonSerializable
         'auxiliary_mobile' => 'bool',
         'os_mismatch' => 'bool',
         'relay' => 'bool',
+        'ml_prediction' => 'bool',
     ];
 
     /**
@@ -83,6 +84,7 @@ class VpnMethods implements ModelInterface, \ArrayAccess, \JsonSerializable
         'auxiliary_mobile' => null,
         'os_mismatch' => null,
         'relay' => null,
+        'ml_prediction' => null,
     ];
 
     /**
@@ -96,6 +98,7 @@ class VpnMethods implements ModelInterface, \ArrayAccess, \JsonSerializable
         'auxiliary_mobile' => false,
         'os_mismatch' => false,
         'relay' => false,
+        'ml_prediction' => false,
     ];
 
     /**
@@ -117,6 +120,7 @@ class VpnMethods implements ModelInterface, \ArrayAccess, \JsonSerializable
         'auxiliary_mobile' => 'auxiliary_mobile',
         'os_mismatch' => 'os_mismatch',
         'relay' => 'relay',
+        'ml_prediction' => 'ml_prediction',
     ];
 
     /**
@@ -130,6 +134,7 @@ class VpnMethods implements ModelInterface, \ArrayAccess, \JsonSerializable
         'auxiliary_mobile' => 'setAuxiliaryMobile',
         'os_mismatch' => 'setOsMismatch',
         'relay' => 'setRelay',
+        'ml_prediction' => 'setMlPrediction',
     ];
 
     /**
@@ -143,6 +148,7 @@ class VpnMethods implements ModelInterface, \ArrayAccess, \JsonSerializable
         'auxiliary_mobile' => 'getAuxiliaryMobile',
         'os_mismatch' => 'getOsMismatch',
         'relay' => 'getRelay',
+        'ml_prediction' => 'getMlPrediction',
     ];
 
     /**
@@ -165,6 +171,7 @@ class VpnMethods implements ModelInterface, \ArrayAccess, \JsonSerializable
         $this->setIfExists('auxiliary_mobile', $data ?? [], null);
         $this->setIfExists('os_mismatch', $data ?? [], null);
         $this->setIfExists('relay', $data ?? [], null);
+        $this->setIfExists('ml_prediction', $data ?? [], null);
     }
 
     /**
@@ -378,6 +385,28 @@ class VpnMethods implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function setRelay(bool $relay): self
     {
         $this->container['relay'] = $relay;
+
+        return $this;
+    }
+
+    /**
+     * Gets ml_prediction.
+     *
+     */
+    public function getMlPrediction(): ?bool
+    {
+        return $this->container['ml_prediction'];
+    }
+
+    /**
+     * Sets ml_prediction.
+     *
+     * @param bool $ml_prediction `true` if the request came from a device running a VPN, `false` otherwise
+     *
+     */
+    public function setMlPrediction(bool $ml_prediction): self
+    {
+        $this->container['ml_prediction'] = $ml_prediction;
 
         return $this;
     }

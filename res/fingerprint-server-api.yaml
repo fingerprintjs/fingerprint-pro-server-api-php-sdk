@@ -8,6 +8,9 @@ info:
 
     Server API is intended for server-side usage, it's not intended to be used
     from the client side, whether it's a browser or a mobile device.
+
+    The API also supports collection of Automation Intelligence for requests to
+    your server in edge, pre-origin, or middleware contexts.
   version: '4'
   contact:
     name: Fingerprint Support
@@ -53,6 +56,9 @@ paths:
           required: true
           schema:
             type: string
+            examples:
+              - 1708102555327.NLOjmg
+            example: 1708102555327.NLOjmg
           description: >-
             The unique
             [identifier](https://docs.fingerprint.com/reference/js-agent-v4-get-function#event_id)
@@ -63,6 +69,9 @@ paths:
           required: false
           schema:
             type: string
+            examples:
+              - D6N9Kbk9HRWrIWGz
+            example: D6N9Kbk9HRWrIWGz
           description: >
             The ID of the ruleset to evaluate against the event, producing the
             action to take for this event.
@@ -138,6 +147,9 @@ paths:
           required: true
           schema:
             type: string
+            examples:
+              - 1708102555327.NLOjmg
+            example: 1708102555327.NLOjmg
           description: >-
             The unique event
             [identifier](https://docs.fingerprint.com/reference/js-agent-v4-get-function#event_id).
@@ -246,17 +258,24 @@ paths:
             format: int32
             minimum: 1
             maximum: 100
-            default: 10
+            examples:
+              - 10
             example: 10
           description: >
-            Maximum number of events to return. Results are selected from the
-            time range (`start`, `end`), ordered by `reverse`, then truncated to
-            provided `limit` size. So `reverse=true` returns the oldest
-            N=`limit` events, otherwise the newest N=`limit` events.
+            Maximum number of events to return. Defaults to 10 when omitted.
+            Results are selected from the time range (`start`, `end`), ordered
+            by `reverse`, then truncated to provided `limit` size. So
+            `reverse=true` returns the oldest N=`limit` events, otherwise the
+            newest N=`limit` events.
         - name: pagination_key
           in: query
           schema:
             type: string
+            examples:
+              - >-
+                S9rgMMUb4z3X5t5pr_tSgoSZlmyF0O8X7kCV2m981-iY1LmRTjraa1rTk3L-hQExnDWCi0RA-zAIjaVSTNO2AN2eqQWgzT0RjbieMxRfSdkM-HmOhdOgdQvYfPG3vqU1DJKh4Q
+            example: >-
+              S9rgMMUb4z3X5t5pr_tSgoSZlmyF0O8X7kCV2m981-iY1LmRTjraa1rTk3L-hQExnDWCi0RA-zAIjaVSTNO2AN2eqQWgzT0RjbieMxRfSdkM-HmOhdOgdQvYfPG3vqU1DJKh4Q
           description: >
             Use `pagination_key` to get the next page of results.
 
@@ -274,11 +293,15 @@ paths:
             api-base-url/events?limit=100`
 
             2. Use `response.pagination_key` to get the next page of results:
-            `GET api-base-url/events?limit=100&pagination_key=1740815825085`
+            `GET
+            api-base-url/events?limit=100&pagination_key=S9rgMMUb4z3X5t5pr_tSgoSZlmyF0O8X7kCV2m981-iY1LmRTjraa1rTk3L-hQExnDWCi0RA-zAIjaVSTNO2AN2eqQWgzT0RjbieMxRfSdkM-HmOhdOgdQvYfPG3vqU1DJKh4Q`
         - name: visitor_id
           in: query
           schema:
             type: string
+            examples:
+              - Ibk1527CUFmcnjLwIs4A9
+            example: Ibk1527CUFmcnjLwIs4A9
           description: >
             Unique [visitor
             identifier](https://docs.fingerprint.com/reference/js-agent-v4-get-function#visitor_id)
@@ -291,6 +314,9 @@ paths:
           in: query
           schema:
             type: string
+            examples:
+              - Ibk1527CUFmcnjLwIs4A9
+            example: Ibk1527CUFmcnjLwIs4A9
           description: >
             The High Recall ID is a supplementary browser identifier designed
             for use cases that require wider coverage over precision. Compared
@@ -382,6 +408,9 @@ paths:
             type: array
             items:
               type: string
+              examples:
+                - OpenAI
+              example: OpenAI
           description: >
             Filter events by their Bot Info Provider. The provider must match
             exactly, partial or wildcard matching is not supported.
@@ -399,6 +428,9 @@ paths:
             type: array
             items:
               type: string
+              examples:
+                - ChatGPT-User
+              example: ChatGPT-User
           description: >
             Filter events by their Bot Info Name. The name must match exactly,
             partial or wildcard matching is not supported.
@@ -414,6 +446,9 @@ paths:
           in: query
           schema:
             type: string
+            examples:
+              - 61.127.217.15
+            example: 61.127.217.15
           description: >
             Filter events by IP address or IP range (if CIDR notation is used).
             If CIDR notation is not used, a /32 for IPv4 or /128 for IPv6 is
@@ -424,6 +459,9 @@ paths:
           in: query
           schema:
             type: string
+            examples:
+              - '12876'
+            example: '12876'
           description: >
             Filter events by the ASN associated with the event's IP address.
 
@@ -433,6 +471,9 @@ paths:
           in: query
           schema:
             type: string
+            examples:
+              - somelinkedId
+            example: somelinkedId
           description: >
             Filter events by your custom identifier.
 
@@ -447,18 +488,27 @@ paths:
           in: query
           schema:
             type: string
+            examples:
+              - https://example.com/login
+            example: https://example.com/login
           description: |
             Filter events by the URL (`url` property) associated with the event.
         - name: bundle_id
           in: query
           schema:
             type: string
+            examples:
+              - com.example.app
+            example: com.example.app
           description: |
             Filter events by the Bundle ID (iOS) associated with the event.
         - name: package_name
           in: query
           schema:
             type: string
+            examples:
+              - com.example.app
+            example: com.example.app
           description: >
             Filter events by the Package Name (Android) associated with the
             event.
@@ -466,6 +516,9 @@ paths:
           in: query
           schema:
             type: string
+            examples:
+              - https://example.com
+            example: https://example.com
           description: >
             Filter events by the origin field of the event. This is applicable
             to web events only (e.g., https://example.com)
@@ -475,10 +528,17 @@ paths:
             oneOf:
               - type: integer
                 format: int64
+                examples:
+                  - 1767225600000
                 example: 1767225600000
               - type: string
                 format: date-time
+                examples:
+                  - '2026-01-01T00:00:00Z'
                 example: '2026-01-01T00:00:00Z'
+            examples:
+              - '2026-01-01T00:00:00Z'
+            example: '2026-01-01T00:00:00Z'
           description: >
             Include events that happened after this point (with timestamp
             greater than or equal the provided `start` Unix milliseconds value
@@ -491,10 +551,17 @@ paths:
             oneOf:
               - type: integer
                 format: int64
+                examples:
+                  - 1769903999000
                 example: 1769903999000
               - type: string
                 format: date-time
+                examples:
+                  - '2026-01-31T23:59:59Z'
                 example: '2026-01-31T23:59:59Z'
+            examples:
+              - '2026-01-31T23:59:59Z'
+            example: '2026-01-31T23:59:59Z'
           description: >
             Include events that happened before this point (with timestamp less
             than or equal the provided `end` Unix milliseconds value or RFC3339
@@ -663,6 +730,9 @@ paths:
           schema:
             type: number
             format: float
+            examples:
+              - 7.5
+            example: 7.5
           description: >
             Filter events with Suspect Score result above a provided minimum
             threshold.
@@ -757,6 +827,9 @@ paths:
           in: query
           schema:
             type: string
+            examples:
+              - 3.11.14
+            example: 3.11.14
           description: >
             Filter events by a specific SDK version associated with the
             identification event (`sdk.version` property). Example: `3.11.14`
@@ -793,11 +866,17 @@ paths:
             type: array
             items:
               type: string
+              examples:
+                - ae_47abaca3db2c7c43
+              example: ae_47abaca3db2c7c43
           style: form
         - name: proximity_id
           in: query
           schema:
             type: string
+            examples:
+              - C9rJYBlOFsAfBwQ
+            example: C9rJYBlOFsAfBwQ
           description: >
             Filter events by the most precise Proximity ID provided by default.
 
@@ -811,6 +890,9 @@ paths:
             format: int64
             minimum: 1
             maximum: 1000
+            examples:
+              - 100
+            example: 100
           description: >
             When set, the response will include a `total_hits` property with a
             count of total query matches across all pages, up to the specified
@@ -844,6 +926,24 @@ paths:
             > Note: When using this parameter, only events with the `simulator`
             property set to `true` or `false` are returned. Events without a
             `simulator` Smart Signal result are left out of the response.
+        - name: source
+          in: query
+          required: false
+          schema:
+            type: array
+            maxItems: 1
+            items:
+              $ref: '#/components/schemas/SearchEventsSource'
+          description: >
+            Selects the source of events to search. When omitted, only
+            traditional identification events generated from devices are
+            returned (the default behavior). When set to `edge`, only Automation
+            Intelligence (Edge) events are returned.
+
+
+            > Note: The Automation Intelligence API is in public preview testing
+            phase.  If you encounter any issues, please
+            [contact](https://fingerprint.com/support/) our support team.
       responses:
         '200':
           description: Events matching the filter(s).
@@ -861,6 +961,14 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '403':
           description: Forbidden. Access to this API is denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: >-
+            Not found. The requested visitor does not exist in this workspace's
+            data.
           content:
             application/json:
               schema:
@@ -947,6 +1055,9 @@ paths:
           required: true
           schema:
             type: string
+            examples:
+              - Ibk1527CUFmcnjLwIs4A9
+            example: Ibk1527CUFmcnjLwIs4A9
           description: >-
             The [visitor
             ID](https://docs.fingerprint.com/reference/js-agent-v4-get-function#visitor_id)
@@ -990,302 +1101,36 @@ components:
         Add your Secret API Key to the Authorization header using the standard
         Bearer format: `Authorization: Bearer <secret_api_key>`
   schemas:
-    EventId:
-      type: string
-      description: >
-        Unique identifier of the user's request. The first portion of the
-        event_id is a unix epoch milliseconds timestamp For example:
-        `1758130560902.8tRtrH`
-    Timestamp:
-      description: Timestamp of the event with millisecond precision in Unix time.
-      type: integer
-      format: int64
-    IncrementalIdentificationStatus:
-      type: string
-      description: >
-        Only included for requests using incremental identification.
-
-        - `partially_completed` - Indicates this event corresponds to a
-        'minimal' request. Smart Signals, even if included in your plan, are not
-        computed; hence, their values must be ignored.
-
-        - `completed` - Indicates this event corresponds to a 'complete'
-        request. Smart Signals, if included in your plan, are computed; hence,
-        their values are valid and relevant. 
-      enum:
-        - partially_completed
-        - completed
     LinkedId:
       type: string
+      examples:
+        - somelinkedId
       description: A customer-provided id that was sent with the request.
-    EnvironmentId:
-      type: string
-      description: |
-        Environment Id of the event. For example: `ae_47abaca3db2c7c43`
-    Suspect:
-      type: boolean
-      description: >-
-        Field is `true` if you have previously set the `suspect` flag for this
-        event using the [Server API Update event
-        endpoint](https://docs.fingerprint.com/reference/server-api-v4-update-event).
-    Integration:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the specific integration, e.g. "fingerprint-pro-react".
-        version:
-          type: string
-          description: The version of the specific integration, e.g. "3.11.10".
-        subintegration:
-          type: object
-          properties:
-            name:
-              type: string
-              description: The name of the specific subintegration, e.g. "preact".
-            version:
-              type: string
-              description: The version of the specific subintegration, e.g. "10.21.0".
-    SDK:
-      type: object
-      description: Contains information about the SDK used to perform the request.
-      required:
-        - platform
-        - version
-      properties:
-        platform:
-          type: string
-          enum:
-            - js
-            - android
-            - ios
-            - unknown
-          description: Platform of the SDK used for the identification request.
-        version:
-          type: string
-          description: >
-            Version string of the SDK used for the identification request. For
-            example: `"3.12.1"`
-        integrations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Integration'
-    Replayed:
-      type: boolean
-      description: >
-        `true` if we determined that this payload was replayed, `false`
-        otherwise.
-    IdentificationConfidence:
-      type: object
-      description: >-
-        The confidence score represents the probability of a false-positive
-        identification. To learn more, visit [Confidence
-        Score](https://docs.fingerprint.com/docs/identification-accuracy-and-confidence#confidence-score).
-        Please note that the confidence score is not yet supported for [High
-        Recall
-        ID](https://docs.fingerprint.com/docs/supplementary-identifiers-highrecall). 
-      required:
-        - score
-      properties:
-        score:
-          type: number
-          format: double
-          minimum: 0
-          maximum: 1
-          description: >-
-            A floating-point number between 0 and 1 that represents the
-            probability of a false-positive identification. For High Recall ID,
-            this value is 0. 
-        version:
-          type: string
-          description: >-
-            The version name of the method used to calculate the confidence
-            score. For High Recall ID, this value is "Not Supported". 
-        comment:
-          type: string
-    Identification:
-      type: object
-      required:
-        - visitor_id
-        - visitor_found
-      properties:
-        visitor_id:
-          type: string
-          description: >-
-            String of 20 characters that uniquely identifies the visitor's
-            browser or mobile device.
-        confidence:
-          $ref: '#/components/schemas/IdentificationConfidence'
-        visitor_found:
-          type: boolean
-          description: Attribute represents if a visitor had been identified before.
-        first_seen_at:
-          type: integer
-          format: int64
-          description: >
-            Unix epoch time milliseconds timestamp indicating the time at which
-            this visitor ID was first seen. example: `1758069706642` -
-            Corresponding to Wed Sep 17 2025 00:41:46 GMT+0000
-        last_seen_at:
-          type: integer
-          format: int64
-          description: >
-            Unix epoch time milliseconds timestamp indicating the time at which
-            this visitor ID was last seen. example: `1758069706642` -
-            Corresponding to Wed Sep 17 2025 00:41:46 GMT+0000
-    SupplementaryIDHighRecall:
-      type: object
-      description: >-
-        The High Recall ID is a supplementary browser identifier designed for
-        use cases that require wider coverage over precision. Compared to the
-        standard visitor ID, the High Recall ID strives to match incoming
-        browsers more generously (rather than precisely) with existing browsers
-        and thus identifies fewer browsers as new. The High Recall ID is best
-        suited for use cases that are sensitive to browsers being identified as
-        new and where mismatched browsers are not detrimental.
-      required:
-        - visitor_id
-        - visitor_found
-      properties:
-        visitor_id:
-          type: string
-          description: >-
-            The High Recall identifier for the visitor's browser. It is an
-            alphanumeric string with a maximum length of 25 characters.
-        visitor_found:
-          type: boolean
-          description: >-
-            True if this is a returning browser and has been previously
-            identified. Otherwise, false.
-        confidence:
-          $ref: '#/components/schemas/IdentificationConfidence'
-        first_seen_at:
-          type: integer
-          format: int64
-          description: >
-            Unix epoch timestamp (in milliseconds) indicating when the browser
-            was first identified. example: `1758069706642` - Corresponding to
-            Wed Sep 17 2025 00:41:46 GMT+0000
-        last_seen_at:
-          type: integer
-          format: int64
-          description: >
-            Unix epoch timestamp (in milliseconds) corresponding to the most
-            recent visit by this browser. example: `1758069706642` -
-            Corresponding to Wed Sep 17 2025 00:41:46 GMT+0000
     Tags:
       type: object
       description: >-
         A customer-provided value or an object that was sent with the
         identification request or updated later.
       additionalProperties: true
+      required: []
+    EventId:
+      type: string
+      examples:
+        - 1708102555327.NLOjmg
+      description: >
+        Unique identifier of the user's request. The first portion of the
+        event_id is a unix epoch milliseconds timestamp.
+    Timestamp:
+      description: Timestamp of the event with millisecond precision in Unix time.
+      type: integer
+      format: int64
+      examples:
+        - 1708102555327
     Url:
       type: string
-      description: >
-        Page URL from which the request was sent. For example
-        `https://example.com/`
-    BundleId:
-      type: string
-      description: >
-        Bundle Id of the iOS application integrated with the Fingerprint SDK for
-        the event. For example: `com.foo.app`
-    PackageName:
-      type: string
-      description: >
-        Package name of the Android application integrated with the Fingerprint
-        SDK for the event. For example: `com.foo.app`
-    IpAddress:
-      type: string
-      description: IP address of the requesting browser or bot.
-    UserAgent:
-      type: string
-      description: >
-        User Agent of the client, for example: `Mozilla/5.0 (Windows NT 6.1;
-        Win64; x64) ....`
-    ClientReferrer:
-      type: string
-      description: >
-        Client Referrer field corresponds to the `document.referrer` field
-        gathered during an identification request. The value is an empty string
-        if the user navigated to the page directly (not through a link, but, for
-        example, by using a bookmark) For example:
-        `https://example.com/blog/my-article`
-    BrowserDetails:
-      type: object
-      required:
-        - browser_name
-        - browser_full_version
-        - browser_major_version
-        - os
-        - os_version
-        - device
-      properties:
-        browser_name:
-          type: string
-        browser_major_version:
-          type: string
-        browser_full_version:
-          type: string
-        os:
-          type: string
-        os_version:
-          type: string
-        device:
-          type: string
-    Proximity:
-      type: object
-      description: >
-        Proximity ID represents a fixed geographical zone in a discrete global
-        grid within which the device is observed.
-      required:
-        - id
-        - precision_radius
-        - confidence
-      properties:
-        id:
-          type: string
-          description: |
-            A stable privacy-preserving identifier for a given proximity zone.
-        precision_radius:
-          type: integer
-          format: int32
-          enum:
-            - 10
-            - 25
-            - 65
-            - 175
-            - 450
-            - 1200
-            - 3300
-            - 8500
-            - 22500
-          description: |
-            The radius of the proximity zone’s precision level, in meters.
-        confidence:
-          type: number
-          format: float
-          minimum: 0
-          maximum: 1
-          description: >
-            A value between `0` and `1` representing the likelihood that the
-            true device location lies within the mapped proximity zone.
-              * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.
-              * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
-    BotResult:
-      type: string
-      enum:
-        - bad
-        - good
-        - not_detected
-      description: |
-        Bot detection result:
-         * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
-         * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
-         * `not_detected` - the visitor is not a bot
-    BotType:
-      type: string
-      description: |
-        Additional classification of the bot type if detected.
+      examples:
+        - https://www.example.com/login
+      description: Page URL from which the request was sent.
     BotInfoCategory:
       type: string
       enum:
@@ -1344,12 +1189,25 @@ components:
         provider:
           type: string
           description: The organization or company operating the bot.
+          examples:
+            - Anthropic
+            - Browserbase
+            - Google
+            - OpenAI
         provider_url:
           type: string
+          examples:
+            - https://fingerprint.com
           description: The URL of the bot provider's website.
         name:
           type: string
           description: The specific name or identifier of the bot.
+          examples:
+            - ClaudeBot
+            - Browserbase Agent
+            - Googlebot
+            - GPTBot
+            - ChatGPT-User
         identity:
           type: string
           enum:
@@ -1370,68 +1228,14 @@ components:
             - medium
             - high
           description: Confidence level of the bot identification.
-    ClonedApp:
-      type: boolean
-      description: >
-        Android specific cloned application detection. There are 2 values: 
-
-        * `true` - Presence of app cloners work detected (e.g. fully cloned
-        application found or launch of it inside of a not main working profile
-        detected).
-
-        * `false` - No signs of cloned application detected or the client is not
-        Android.
-    DeveloperTools:
-      type: boolean
-      description: >
-        `true` if the browser has DevTools open (Chrome, Firefox) or the
-        Android/iOS device has Developer Tools enabled, `false` otherwise.
-    Emulator:
-      type: boolean
-      description: >
-        Android specific emulator detection. There are 2 values: 
-
-        * `true` - Emulated environment detected (e.g. launch inside of AVD). 
-
-        * `false` - No signs of emulated environment detected or the client is
-        not Android.
-    FactoryReset:
-      type: integer
-      format: int64
-      description: >
-        The time of the most recent factory reset that happened on the **mobile
-        device** is expressed as Unix epoch time. When a factory reset cannot be
-        detected on the mobile device or when the request is initiated from a
-        browser,  this field will correspond to the *epoch* time (i.e 1 Jan 1970
-        UTC) as a value of 0. See [Factory Reset
-        Detection](https://docs.fingerprint.com/docs/smart-signals-reference#factory-reset-detection)
-        to learn more about this Smart Signal.
-    Frida:
-      type: boolean
-      description: >
-        [Frida](https://frida.re/docs/) detection for Android and iOS devices.
-        There are 2 values:
-
-        * `true` - Frida detected
-
-        * `false` - No signs of Frida or the client is not a mobile device.
-    IPBlockList:
-      type: object
-      properties:
-        email_spam:
-          type: boolean
-          description: IP address was part of a known email spam attack (SMTP).
-        attack_source:
-          type: boolean
-          description: IP address was part of a known network attack (SSH/HTTPS).
-        tor_node:
-          type: boolean
-          description: IP address was part of known TOR network activity.
     Geolocation:
       type: object
+      required: []
       properties:
         accuracy_radius:
           type: integer
+          examples:
+            - 20
           minimum: 0
           description: >-
             The IP address is likely to be within this radius (in km) of the
@@ -1439,32 +1243,50 @@ components:
         latitude:
           type: number
           format: double
+          examples:
+            - 50.05
           minimum: -90
           maximum: 90
         longitude:
           type: number
           format: double
+          examples:
+            - 14.4
           minimum: -180
           maximum: 180
         postal_code:
           type: string
+          examples:
+            - 150 00
         timezone:
           type: string
           format: timezone
+          examples:
+            - Europe/Prague
         city_name:
           type: string
+          examples:
+            - Prague
         country_code:
           type: string
+          examples:
+            - CZ
           minLength: 2
           maxLength: 2
         country_name:
           type: string
+          examples:
+            - Czechia
         continent_code:
           type: string
+          examples:
+            - EU
           minLength: 2
           maxLength: 2
         continent_name:
           type: string
+          examples:
+            - Europe
         subdivisions:
           type: array
           items:
@@ -1475,8 +1297,12 @@ components:
             properties:
               iso_code:
                 type: string
+                examples:
+                  - '10'
               name:
                 type: string
+                examples:
+                  - Hlavni mesto Praha
     IPInfoV4:
       type: object
       required:
@@ -1485,20 +1311,43 @@ components:
         address:
           type: string
           format: ipv4
+          examples:
+            - 94.142.239.124
         geolocation:
           $ref: '#/components/schemas/Geolocation'
         asn:
           type: string
+          examples:
+            - '396982'
+            - '16509'
+            - '701'
         asn_name:
           type: string
+          examples:
+            - Google LLC
+            - Amazon.com, Inc.
+            - Verizon Business
         asn_network:
           type: string
+          examples:
+            - 34.160.0.0/12
+            - 3.208.0.0/12
+            - 173.56.0.0/16
         asn_type:
           type: string
+          examples:
+            - hosting
+            - isp
+            - business
+            - education
         datacenter_result:
           type: boolean
+          description: When true, the request originated from a datacenter.
         datacenter_name:
           type: string
+          examples:
+            - Google Cloud
+            - Amazon AWS
     IPInfoV6:
       type: object
       required:
@@ -1507,25 +1356,49 @@ components:
         address:
           type: string
           format: ipv6
+          examples:
+            - 2001:db8:3333:4444:5555:6666:7777:8888
         geolocation:
           $ref: '#/components/schemas/Geolocation'
         asn:
           type: string
+          examples:
+            - '396982'
+            - '16509'
+            - '701'
         asn_name:
           type: string
+          examples:
+            - Google LLC
+            - Amazon.com, Inc.
+            - Verizon Business
         asn_network:
           type: string
+          examples:
+            - 2001:4860:4801:10::/64
+            - 2600:1f00::/24
+            - 2001:4868:800::/40
         asn_type:
           type: string
+          examples:
+            - hosting
+            - isp
+            - business
+            - education
         datacenter_result:
           type: boolean
+          description: When true, the request originated from a datacenter.
         datacenter_name:
           type: string
+          examples:
+            - Google Cloud
+            - Amazon AWS
     IPInfo:
       type: object
       description: >-
         Details about the request IP address. Has separate fields for v4 and v6
         IP address versions.
+      required: []
       properties:
         v4:
           $ref: '#/components/schemas/IPInfoV4'
@@ -1557,402 +1430,29 @@ components:
           enum:
             - residential
             - data_center
-          description: >
-            Residential proxies use real user IP addresses to appear as
-            legitimate traffic, 
-
-            while data center proxies are public proxies hosted in data centers
+            - unknown
+          description: |
+            Proxy type:
+             * `residential` - proxies that route through residential and telecom IP addresses to appear as legitimate traffic
+             * `data_center` - proxies which route through data centers
+             * `unknown` - reported when a proxy is detected solely by the ML model and the IP sources did not determine a specific type
         last_seen_at:
           type: integer
           format: int64
+          examples:
+            - 1708102555327
           description: >
             Unix millisecond timestamp with hourly resolution of when this IP
             was last seen as a proxy
         provider:
           type: string
+          examples:
+            - Massive
           description: >
             String representing the last proxy service provider detected when
             this
 
             IP was synced. An IP can be shared by multiple service providers.
-    ProxyMLScore:
-      type: number
-      format: double
-      minimum: 0
-      maximum: 1
-      description: >
-        Machine learning–based proxy score, represented as a floating-point
-        value between 0 and 1 (inclusive), with up to three decimal places of
-        precision. A higher score means a higher confidence in the positive
-        `proxy` detection result. This Smart Signal is currently in beta and
-        only available to select customers. If you are interested, please
-        [contact our support team](https://fingerprint.com/support/).
-    Incognito:
-      type: boolean
-      description: >
-        `true` if we detected incognito mode used in the browser, `false`
-        otherwise.
-    Jailbroken:
-      type: boolean
-      description: |
-        iOS specific jailbreak detection. There are 2 values: 
-        * `true` - Jailbreak detected.
-        * `false` - No signs of jailbreak or the client is not iOS.
-    LocationSpoofing:
-      type: boolean
-      description: >-
-        Flag indicating whether the request came from a mobile device with
-        location spoofing enabled.
-    MitMAttack:
-      type: boolean
-      description: >
-        * `true` - When requests made from your users' mobile devices to
-        Fingerprint servers have been intercepted and potentially modified. 
-
-        * `false` - Otherwise or when the request originated from a browser.
-
-        See [MitM Attack
-        Detection](https://docs.fingerprint.com/docs/smart-signals-reference#mitm-attack-detection)
-        to learn more about this Smart Signal.
-    PrivacySettings:
-      type: boolean
-      description: >
-        `true` if the request is from a privacy aware browser (e.g. Tor) or from
-        a browser in which fingerprinting is blocked. Otherwise `false`.
-    RootApps:
-      type: boolean
-      description: >
-        Android specific root management apps detection. There are 2 values: 
-
-        * `true` - Root Management Apps detected (e.g. Magisk).
-
-        * `false` - No Root Management Apps detected or the client isn't
-        Android.
-    RulesetId:
-      type: string
-      description: The ID of the evaluated ruleset.
-    RuleId:
-      type: string
-      description: The ID of the rule that matched the identification event.
-    RuleExpression:
-      type: string
-      description: The expression of the rule that matched the identification event.
-    RuleActionType:
-      type: string
-      description: Describes the action to take with the request.
-      enum:
-        - allow
-        - block
-    RuleActionHeaderField:
-      type: object
-      required:
-        - name
-        - value
-      properties:
-        name:
-          type: string
-          description: The header field name.
-        value:
-          type: string
-          description: The value of the header field.
-    RequestHeaderModifications:
-      type: object
-      description: >-
-        The set of header modifications to apply, in the following order:
-        remove, set, append.
-      properties:
-        remove:
-          type: array
-          description: The list of headers to remove.
-          items:
-            type: string
-        set:
-          type: array
-          description: >-
-            The list of headers to set, overwriting any existing headers with
-            the same name.
-          items:
-            $ref: '#/components/schemas/RuleActionHeaderField'
-        append:
-          type: array
-          description: The list of headers to append.
-          items:
-            $ref: '#/components/schemas/RuleActionHeaderField'
-    EventRuleActionAllow:
-      description: >-
-        Informs the client that the request should be forwarded to the origin
-        with optional request header modifications.
-      type: object
-      properties:
-        ruleset_id:
-          $ref: '#/components/schemas/RulesetId'
-        rule_id:
-          $ref: '#/components/schemas/RuleId'
-        rule_expression:
-          $ref: '#/components/schemas/RuleExpression'
-        type:
-          allOf:
-            - $ref: '#/components/schemas/RuleActionType'
-            - const: allow
-        request_header_modifications:
-          $ref: '#/components/schemas/RequestHeaderModifications'
-      required:
-        - ruleset_id
-        - type
-    StatusCode:
-      type: integer
-      description: A valid HTTP status code.
-    RuleActionBody:
-      type: string
-      description: The response body to send to the client.
-    EventRuleActionBlock:
-      description: >-
-        Informs the client the request should be blocked using the response
-        described by this rule action.
-      type: object
-      properties:
-        ruleset_id:
-          $ref: '#/components/schemas/RulesetId'
-        rule_id:
-          $ref: '#/components/schemas/RuleId'
-        rule_expression:
-          $ref: '#/components/schemas/RuleExpression'
-        type:
-          allOf:
-            - $ref: '#/components/schemas/RuleActionType'
-            - const: block
-        status_code:
-          $ref: '#/components/schemas/StatusCode'
-        headers:
-          type: array
-          description: A list of headers to send.
-          items:
-            $ref: '#/components/schemas/RuleActionHeaderField'
-        body:
-          $ref: '#/components/schemas/RuleActionBody'
-      required:
-        - ruleset_id
-        - type
-    EventRuleAction:
-      type: object
-      description: >-
-        Describes the action the client should take, according to the rule in
-        the ruleset that matched the event. When getting an event by event ID,
-        the rule_action will only be included when the ruleset_id query
-        parameter is specified.
-      oneOf:
-        - $ref: '#/components/schemas/EventRuleActionAllow'
-        - $ref: '#/components/schemas/EventRuleActionBlock'
-      discriminator:
-        propertyName: type
-        mapping:
-          allow: '#/components/schemas/EventRuleActionAllow'
-          block: '#/components/schemas/EventRuleActionBlock'
-    Simulator:
-      type: boolean
-      description: |
-        iOS specific simulator detection. There are 2 values:
-        * `true` - Simulator environment detected.
-        * `false` - No signs of simulator or the client is not iOS.
-    SuspectScore:
-      type: integer
-      description: >
-        Suspect Score is an easy way to integrate Smart Signals into your fraud
-        protection work flow.  It is a weighted representation of all Smart
-        Signals present in the payload that helps identify suspicious activity.
-        The value range is [0; S] where S is sum of all Smart Signals weights. 
-        See more details here: https://docs.fingerprint.com/docs/suspect-score
-    Tampering:
-      type: boolean
-      description: >
-        The field can be used as a standalone flag for tampering detection.
-        Alternatively, the more granular fields documented below can be used for
-        workflows that require more context.
-
-        * `true` if tampering is detected through an anomalous browser
-        signature, anti-detect browser detection, or other tampering-related
-        methods
-
-        * `false` if none of the tampering checks return a positive result
-    TamperingConfidence:
-      type: string
-      enum:
-        - low
-        - medium
-        - high
-      description: >
-        The confidence level indicates how certain Fingerprint is that the
-        current request involves browser tampering. This confidence level is
-        determined by evaluating multiple factors, such as heuristic rules,
-        probabilistic anomaly detection, an anti detect browser ml model, and
-        other relevant methods. It is conveyed as a string with possible values
-        such as high, medium, or low
-
-        In case of tampering: `true`
-
-        * **High confidence**: heuristic anti detect browser signals and the ml
-        model are triggered, or all of the methods are triggered.
-
-        * **Medium confidence**: either the ml model triggers alone, the anomaly
-        score triggers alone with or without the heuristic anti detect browser
-        methods trigger.
-
-        * **Low confidence**: only the heuristic anti detect methods are
-        triggered.
-
-
-        In case of tampering: `false`
-
-        * **High confidence:** Strong signals suggest the user is not tampering
-        with their request.
-    TamperingMlScore:
-      type: number
-      format: double
-      minimum: 0
-      maximum: 1
-      description: >
-        The output of this model is captured as tampering_ml_score, a number
-        indicating how likely an event is coming from an anti detect browser.
-        Values close to 1 signify higher confidence and we consider anything
-        above the threshold of 0.8 to be actionable (the result and
-        anti_detect_browser fields conveniently captures that fact)
-    TamperingDetails:
-      type: object
-      properties:
-        anomaly_score:
-          type: number
-          format: double
-          minimum: 0
-          maximum: 1
-          x-platforms:
-            - android
-            - ios
-            - browser
-          description: >
-            The output of this model is captured as anomaly_score, a statistical
-            score indicating how rare the visitor's browser signature is
-            compared to the overall population. Values close to 1 signify highly
-            anomalous browsers and we consider anything above the threshold of
-            0.5 to be actionable (the result field conveniently captures that
-            fact).
-        anti_detect_browser:
-          type: boolean
-          x-platforms:
-            - browser
-          description: >
-            Detects whether the request shows evidence of anti-detect browser
-            usage.
-
-            This field may be triggered by:
-
-            * heuristic detection of known anti-detect browser behavior
-
-            * machine learning detection of anti-detect browser patterns
-
-
-            Examples of anti-detect browsers include tools such as AdsPower,
-            DolphinAnty, OctoBrowser, and GoLogin.
-    VelocityData:
-      type: object
-      description: >
-        Is absent if the velocity data could not be generated for the visitor
-        Id.
-      required:
-        - 5_minutes
-        - 1_hour
-      properties:
-        5_minutes:
-          type: integer
-          description: >
-            Count for the last 5 minutes of velocity data, from the time of the
-            event.
-        1_hour:
-          type: integer
-          description: >
-            Count for the last 1 hour of velocity data, from the time of the
-            event.
-        24_hours:
-          type: integer
-          description: >
-            The `24_hours` interval of `distinct_ip`, `distinct_linked_id`,
-            `distinct_country`, `distinct_ip_by_linked_id` and
-            `distinct_visitor_id_by_linked_id` will be omitted if the number of
-            `events` for the visitor Id in the last 24 hours
-            (`events.['24_hours']`) is higher than 20.000.
-    Velocity:
-      type: object
-      description: >
-        Sums key data points for a specific `visitor_id`, `ip_address` and
-        `linked_id` at three distinct time
-
-        intervals: 5 minutes, 1 hour, and 24 hours as follows: 
-
-
-        - Number of distinct IP addresses associated to the visitor Id.
-
-        - Number of distinct linked Ids associated with the visitor Id.
-
-        - Number of distinct countries associated with the visitor Id.
-
-        - Number of identification events associated with the visitor Id.
-
-        - Number of identification events associated with the detected IP
-        address.
-
-        - Number of distinct IP addresses associated with the provided linked
-        Id.
-
-        - Number of distinct visitor Ids associated with the provided linked Id.
-
-
-        The `24h` interval of `distinct_ip`, `distinct_linked_id`,
-        `distinct_country`,
-
-        `distinct_ip_by_linked_id` and `distinct_visitor_id_by_linked_id` will
-        be omitted 
-
-        if the number of `events` for the visitor Id in the last 24
-
-        hours (`events.['24h']`) is higher than 20.000.
-
-
-        All will not necessarily be returned in a response, some may be omitted
-        if the 
-
-        associated event does not have the required data, such as a linked_id.
-      properties:
-        distinct_ip:
-          $ref: '#/components/schemas/VelocityData'
-        distinct_linked_id:
-          $ref: '#/components/schemas/VelocityData'
-        distinct_country:
-          $ref: '#/components/schemas/VelocityData'
-        events:
-          $ref: '#/components/schemas/VelocityData'
-        ip_events:
-          $ref: '#/components/schemas/VelocityData'
-        distinct_ip_by_linked_id:
-          $ref: '#/components/schemas/VelocityData'
-        distinct_visitor_id_by_linked_id:
-          $ref: '#/components/schemas/VelocityData'
-    VirtualMachine:
-      type: boolean
-      description: >
-        `true` if the request came from a browser running inside a virtual
-        machine (e.g. VMWare), `false` otherwise.
-    VirtualMachineMLScore:
-      type: number
-      format: double
-      minimum: 0
-      maximum: 1
-      description: >
-        Machine learning–based virtual machine score, represented as a
-        floating-point value between 0 and 1 (inclusive), with up to three
-        decimal places of precision. A higher score means a higher confidence in
-        the positive `virtual_machine` detection result. This Smart Signal is
-        currently in beta and only available to select customers. If you are
-        interested, please [contact our support
-        team](https://fingerprint.com/support/).
     Vpn:
       type: boolean
       description: |
@@ -1967,17 +1467,9 @@ components:
         A confidence rating for the VPN detection result — "low", "medium", or
         "high". Depends on the combination of results returned from all VPN
         detection methods.
-    VpnOriginTimezone:
-      type: string
-      description: |
-        Local timezone which is used in timezone_mismatch method.
-    VpnOriginCountry:
-      type: string
-      description: >
-        Country of the request (only for Android SDK version >= 2.4.0, ISO 3166
-        format or unknown).
     VpnMethods:
       type: object
+      required: []
       properties:
         timezone_mismatch:
           type: boolean
@@ -2034,6 +1526,960 @@ components:
 
             This field allows you to differentiate VPN users and relay service
             users in your fraud prevention logic.
+        ml_prediction:
+          type: boolean
+          x-platforms:
+            - browser
+          description: >
+            `true` if the request came from a device running a VPN, `false`
+            otherwise.  
+    ErrorCode:
+      type: string
+      enum:
+        - request_cannot_be_parsed
+        - request_read_timeout
+        - secret_api_key_required
+        - secret_api_key_not_found
+        - public_api_key_required
+        - public_api_key_not_found
+        - subscription_not_active
+        - wrong_region
+        - feature_not_enabled
+        - visitor_not_found
+        - too_many_requests
+        - state_not_ready
+        - failed
+        - event_not_found
+        - missing_module
+        - payload_too_large
+        - service_unavailable
+        - ruleset_not_found
+      description: >
+        Error code:
+
+        * `request_cannot_be_parsed` - The query parameters or JSON payload
+        contains some errors
+          that prevented us from parsing it (wrong type/surpassed limits).
+        * `request_read_timeout` - The request body could not be read before the
+        connection timed out.
+
+        * `secret_api_key_required` - secret API key in header is missing or
+        empty.
+
+        * `secret_api_key_not_found` - No Fingerprint workspace found for
+        specified secret API key.
+
+        * `public_api_key_required` - public API key in header is missing or
+        empty.
+
+        * `public_api_key_not_found` - No Fingerprint workspace found for
+        specified public API key.
+
+        * `subscription_not_active` - Fingerprint workspace is not active.
+
+        * `wrong_region` - Server and workspace region differ.
+
+        * `feature_not_enabled` - This feature (for example, Delete API) is not
+        enabled for your workspace.
+
+        * `visitor_not_found` - The specified visitor ID was not found. It never
+        existed or it may have already been deleted.
+
+        * `too_many_requests` - The limit on secret API key requests per second
+        has been exceeded.
+
+        * `state_not_ready` - The event specified with event ID is
+          not ready for updates yet. Try again.
+          This error happens in rare cases when update API is called immediately
+          after receiving the event ID on the client. In case you need to send
+          information right away, we recommend using the JS agent API instead.
+        * `failed` - Internal server error.
+
+        * `event_not_found` - The specified event ID was not found. It never
+        existed, expired, or it has been deleted.
+
+        * `missing_module` - The request is invalid because it is missing a
+        required module.
+
+        * `payload_too_large` - The request payload is too large and cannot be
+        processed.
+
+        * `service_unavailable` - The service was unable to process the request.
+
+        * `ruleset_not_found` - The specified ruleset was not found. It never
+        existed or it has been deleted.
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          type: string
+          examples:
+            - Forbidden
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    IncrementalIdentificationStatus:
+      type: string
+      description: >
+        Only included for requests using incremental identification.
+
+        - `partially_completed` - Indicates this event corresponds to a
+        'minimal' request. Smart Signals, even if included in your plan, are not
+        computed; hence, their values must be ignored.
+
+        - `completed` - Indicates this event corresponds to a 'complete'
+        request. Smart Signals, if included in your plan, are computed; hence,
+        their values are valid and relevant. 
+      enum:
+        - partially_completed
+        - completed
+    EnvironmentId:
+      type: string
+      examples:
+        - ae_47abaca3db2c7c43
+      description: Environment Id of the event.
+    Suspect:
+      type: boolean
+      description: >-
+        Field is `true` if you have previously set the `suspect` flag for this
+        event using the [Server API Update event
+        endpoint](https://docs.fingerprint.com/reference/server-api-v4-update-event).
+    Integration:
+      type: object
+      required: []
+      properties:
+        name:
+          type: string
+          examples:
+            - fingerprint-pro-react
+          description: The name of the specific integration.
+        version:
+          type: string
+          examples:
+            - 3.11.10
+          description: The version of the specific integration.
+        subintegration:
+          type: object
+          required: []
+          properties:
+            name:
+              type: string
+              examples:
+                - preact
+              description: The name of the specific subintegration.
+            version:
+              type: string
+              examples:
+                - 10.21.0
+              description: The version of the specific subintegration.
+    SDK:
+      type: object
+      description: Contains information about the SDK used to perform the request.
+      required:
+        - platform
+        - version
+      properties:
+        platform:
+          type: string
+          enum:
+            - js
+            - android
+            - ios
+            - unknown
+          description: Platform of the SDK used for the identification request.
+        version:
+          type: string
+          examples:
+            - 3.11.10
+          description: Version string of the SDK used for the identification request.
+        integrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Integration'
+    Replayed:
+      type: boolean
+      description: >
+        `true` if we determined that this payload was replayed, `false`
+        otherwise.
+    IdentificationConfidence:
+      type: object
+      description: >-
+        The confidence score represents the probability of a false-positive
+        identification. To learn more, visit [Confidence
+        Score](https://docs.fingerprint.com/docs/identification-accuracy-and-confidence#confidence-score).
+        Please note that the confidence score is not yet supported for [High
+        Recall
+        ID](https://docs.fingerprint.com/docs/supplementary-identifiers-highrecall). 
+      required:
+        - score
+      properties:
+        score:
+          type: number
+          format: double
+          examples:
+            - 0.97
+          minimum: 0
+          maximum: 1
+          description: >-
+            A floating-point number between 0 and 1 that represents the
+            probability of a false-positive identification. For High Recall ID,
+            this value is 0. 
+        version:
+          type: string
+          examples:
+            - '1.1'
+          description: >-
+            The version name of the method used to calculate the confidence
+            score. For High Recall ID, this value is "Not Supported". 
+        comment:
+          type: string
+          examples:
+            - Low confidence due to bot signals
+    Identification:
+      type: object
+      required:
+        - visitor_id
+        - visitor_found
+      properties:
+        visitor_id:
+          type: string
+          examples:
+            - Ibk1527CUFmcnjLwIs4A9
+          description: >-
+            String of 20 characters that uniquely identifies the visitor's
+            browser or mobile device.
+        confidence:
+          $ref: '#/components/schemas/IdentificationConfidence'
+        visitor_found:
+          type: boolean
+          description: Attribute represents if a visitor had been identified before.
+        first_seen_at:
+          type: integer
+          format: int64
+          examples:
+            - 1708102555327
+          description: >
+            Unix epoch time milliseconds timestamp indicating the time at which
+            this visitor ID was first seen. example: `1758069706642` -
+            Corresponding to Wed Sep 17 2025 00:41:46 GMT+0000
+        last_seen_at:
+          type: integer
+          format: int64
+          examples:
+            - 1708102555327
+          description: >
+            Unix epoch time milliseconds timestamp indicating the time at which
+            this visitor ID was last seen. example: `1758069706642` -
+            Corresponding to Wed Sep 17 2025 00:41:46 GMT+0000
+    SupplementaryIDHighRecall:
+      type: object
+      description: >-
+        The High Recall ID is a supplementary browser identifier designed for
+        use cases that require wider coverage over precision. Compared to the
+        standard visitor ID, the High Recall ID strives to match incoming
+        browsers more generously (rather than precisely) with existing browsers
+        and thus identifies fewer browsers as new. The High Recall ID is best
+        suited for use cases that are sensitive to browsers being identified as
+        new and where mismatched browsers are not detrimental.
+      required:
+        - visitor_id
+        - visitor_found
+      properties:
+        visitor_id:
+          type: string
+          examples:
+            - 0jnGMkPYXX37DqVa4ZIO3f_hr
+          description: >-
+            The High Recall identifier for the visitor's browser. It is an
+            alphanumeric string with a maximum length of 25 characters.
+        visitor_found:
+          type: boolean
+          description: >-
+            True if this is a returning browser and has been previously
+            identified. Otherwise, false.
+        confidence:
+          $ref: '#/components/schemas/IdentificationConfidence'
+        first_seen_at:
+          type: integer
+          format: int64
+          examples:
+            - 1778086556130
+          description: >
+            Unix epoch timestamp (in milliseconds) indicating when the browser
+            was first identified. example: `1758069706642` - Corresponding to
+            Wed Sep 17 2025 00:41:46 GMT+0000
+        last_seen_at:
+          type: integer
+          format: int64
+          examples:
+            - 1778604975494
+          description: >
+            Unix epoch timestamp (in milliseconds) corresponding to the most
+            recent visit by this browser. example: `1758069706642` -
+            Corresponding to Wed Sep 17 2025 00:41:46 GMT+0000
+    BundleId:
+      type: string
+      examples:
+        - com.foo.app
+      description: >
+        Bundle Id of the iOS application integrated with the Fingerprint SDK for
+        the event.
+    PackageName:
+      type: string
+      examples:
+        - com.foo.app
+      description: >
+        Package name of the Android application integrated with the Fingerprint
+        SDK for the event.
+    IpAddress:
+      type: string
+      examples:
+        - 61.127.217.15
+      description: IP address of the requesting browser or bot.
+    UserAgent:
+      type: string
+      examples:
+        - Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
+      description: User Agent of the client.
+    Device:
+      type: string
+      examples:
+        - Generic Smartphone
+        - Desktop
+        - iPhone
+      description: >
+        Device model or family extracted from the user agent string. On web,
+        this field is also present inside `browser_details`.
+    Os:
+      type: string
+      examples:
+        - Windows
+        - iOS
+        - Android
+      description: >
+        Operating system family extracted from the user agent string. On web,
+        this field is also present inside `browser_details`.
+    OsVersion:
+      type: string
+      examples:
+        - '17.4'
+        - '14'
+        - '10'
+      description: >
+        Operating system version string extracted from the user agent string. On
+        web, this field is also present inside `browser_details`.
+    ClientReferrer:
+      type: string
+      examples:
+        - https://example.com/blog/my-article
+      description: >
+        Client Referrer field corresponds to the `document.referrer` field
+        gathered during an identification request. The value is an empty string
+        if the user navigated to the page directly (not through a link, but, for
+        example, by using a bookmark).
+    BrowserDetails:
+      type: object
+      required:
+        - browser_name
+        - browser_full_version
+        - browser_major_version
+        - os
+        - os_version
+        - device
+      properties:
+        browser_name:
+          type: string
+          examples:
+            - Chrome
+        browser_major_version:
+          type: string
+          examples:
+            - '74'
+        browser_full_version:
+          type: string
+          examples:
+            - 74.0.3729
+        os:
+          type: string
+          examples:
+            - Windows
+        os_version:
+          type: string
+          examples:
+            - '7'
+        device:
+          type: string
+          examples:
+            - Other
+    Proximity:
+      type: object
+      description: >
+        Proximity ID represents a fixed geographical zone in a discrete global
+        grid within which the device is observed.
+      required:
+        - id
+        - precision_radius
+        - confidence
+      properties:
+        id:
+          type: string
+          examples:
+            - w1aTfd4MCvl
+          description: |
+            A stable privacy-preserving identifier for a given proximity zone.
+        precision_radius:
+          type: integer
+          format: int32
+          enum:
+            - 10
+            - 25
+            - 65
+            - 175
+            - 450
+            - 1200
+            - 3300
+            - 8500
+            - 22500
+          description: |
+            The radius of the proximity zone’s precision level, in meters.
+        confidence:
+          type: number
+          format: float
+          examples:
+            - 0.95
+          minimum: 0
+          maximum: 1
+          description: >
+            A value between `0` and `1` representing the likelihood that the
+            true device location lies within the mapped proximity zone.
+              * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.
+              * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
+    BotResult:
+      type: string
+      enum:
+        - bad
+        - good
+        - not_detected
+      description: |
+        Bot detection result:
+         * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
+         * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
+         * `not_detected` - the visitor is not a bot
+    BotType:
+      type: string
+      examples:
+        - fingerprint_agent
+      description: |
+        Additional classification of the bot type if detected.
+    ClonedApp:
+      type: boolean
+      description: >
+        Android specific cloned application detection. There are 2 values: 
+
+        * `true` - Presence of app cloners work detected (e.g. fully cloned
+        application found or launch of it inside of a not main working profile
+        detected).
+
+        * `false` - No signs of cloned application detected or the client is not
+        Android.
+    DeveloperTools:
+      type: boolean
+      description: >
+        `true` if the browser has DevTools open (Chrome, Firefox) or the
+        Android/iOS device has Developer Tools enabled, `false` otherwise.
+    Emulator:
+      type: boolean
+      description: >
+        Android specific emulator detection. There are 2 values: 
+
+        * `true` - Emulated environment detected (e.g. launch inside of AVD). 
+
+        * `false` - No signs of emulated environment detected or the client is
+        not Android.
+    FactoryReset:
+      type: integer
+      format: int64
+      examples:
+        - 1708102555327
+      description: >
+        The time of the most recent factory reset that happened on the **mobile
+        device** is expressed as Unix epoch time. When a factory reset cannot be
+        detected on the mobile device or when the request is initiated from a
+        browser,  this field will correspond to the *epoch* time (i.e 1 Jan 1970
+        UTC) as a value of 0. See [Factory Reset
+        Detection](https://docs.fingerprint.com/docs/smart-signals-reference#factory-reset-detection)
+        to learn more about this Smart Signal.
+    Frida:
+      type: boolean
+      description: >
+        [Frida](https://frida.re/docs/) detection for Android and iOS devices.
+        There are 2 values:
+
+        * `true` - Frida detected
+
+        * `false` - No signs of Frida or the client is not a mobile device.
+    IPBlockList:
+      type: object
+      required: []
+      properties:
+        email_spam:
+          type: boolean
+          description: IP address was part of a known email spam attack (SMTP).
+        attack_source:
+          type: boolean
+          description: IP address was part of a known network attack (SSH/HTTPS).
+        tor_node:
+          type: boolean
+          description: IP address was part of known TOR network activity.
+    ProxyMLScore:
+      type: number
+      format: double
+      examples:
+        - 0.2
+      minimum: 0
+      maximum: 1
+      description: >
+        Machine learning–based proxy score, represented as a floating-point
+        value between 0 and 1 (inclusive), with up to three decimal places of
+        precision. A higher score means a higher confidence in the positive
+        `proxy` detection result. This Smart Signal is currently in beta and
+        only available to select customers. If you are interested, please
+        [contact our support team](https://fingerprint.com/support/).
+    Incognito:
+      type: boolean
+      description: >
+        `true` if we detected incognito mode used in the browser, `false`
+        otherwise.
+    Jailbroken:
+      type: boolean
+      description: |
+        iOS specific jailbreak detection. There are 2 values: 
+        * `true` - Jailbreak detected.
+        * `false` - No signs of jailbreak or the client is not iOS.
+    LocationSpoofing:
+      type: boolean
+      description: >-
+        Flag indicating whether the request came from a mobile device with
+        location spoofing enabled.
+    MitMAttack:
+      type: boolean
+      description: >
+        * `true` - When requests made from your users' mobile devices to
+        Fingerprint servers have been intercepted and potentially modified. 
+
+        * `false` - Otherwise or when the request originated from a browser.
+
+        See [MitM Attack
+        Detection](https://docs.fingerprint.com/docs/smart-signals-reference#mitm-attack-detection)
+        to learn more about this Smart Signal.
+    PrivacySettings:
+      type: boolean
+      description: >
+        `true` if the request is from a privacy aware browser (e.g. Tor) or from
+        a browser in which fingerprinting is blocked. Otherwise `false`.
+    RootApps:
+      type: boolean
+      description: >
+        Android specific root management apps detection. There are 2 values: 
+
+        * `true` - Root Management Apps detected (e.g. Magisk).
+
+        * `false` - No Root Management Apps detected or the client isn't
+        Android.
+    RulesetId:
+      type: string
+      examples:
+        - rs_b1k1blhqpOX3kU
+      description: The ID of the evaluated ruleset.
+    RuleId:
+      type: string
+      examples:
+        - r_uE0af8497PFAOD
+      description: The ID of the rule that matched the identification event.
+    RuleExpression:
+      type: string
+      examples:
+        - bot in ["bad"] || incognito
+      description: The expression of the rule that matched the identification event.
+    RuleActionType:
+      type: string
+      description: Describes the action to take with the request.
+      enum:
+        - allow
+        - block
+    RuleActionHeaderField:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+          examples:
+            - Content-Type
+          description: The header field name.
+        value:
+          type: string
+          examples:
+            - application/json
+          description: The value of the header field.
+    RequestHeaderModifications:
+      type: object
+      description: >-
+        The set of header modifications to apply, in the following order:
+        remove, set, append.
+      required: []
+      properties:
+        remove:
+          type: array
+          description: The list of headers to remove.
+          items:
+            type: string
+            examples:
+              - X-Forwarded-For
+        set:
+          type: array
+          description: >-
+            The list of headers to set, overwriting any existing headers with
+            the same name.
+          items:
+            $ref: '#/components/schemas/RuleActionHeaderField'
+        append:
+          type: array
+          description: The list of headers to append.
+          items:
+            $ref: '#/components/schemas/RuleActionHeaderField'
+    EventRuleActionAllow:
+      description: >-
+        Informs the client that the request should be forwarded to the origin
+        with optional request header modifications.
+      type: object
+      properties:
+        ruleset_id:
+          $ref: '#/components/schemas/RulesetId'
+        rule_id:
+          $ref: '#/components/schemas/RuleId'
+        rule_expression:
+          $ref: '#/components/schemas/RuleExpression'
+        type:
+          allOf:
+            - $ref: '#/components/schemas/RuleActionType'
+            - const: allow
+        request_header_modifications:
+          $ref: '#/components/schemas/RequestHeaderModifications'
+      required:
+        - ruleset_id
+        - type
+    StatusCode:
+      type: integer
+      examples:
+        - 200
+      description: A valid HTTP status code.
+    RuleActionBody:
+      type: string
+      examples:
+        - '{"title":"Forbidden"}'
+      description: The response body to send to the client.
+    EventRuleActionBlock:
+      description: >-
+        Informs the client the request should be blocked using the response
+        described by this rule action.
+      type: object
+      properties:
+        ruleset_id:
+          $ref: '#/components/schemas/RulesetId'
+        rule_id:
+          $ref: '#/components/schemas/RuleId'
+        rule_expression:
+          $ref: '#/components/schemas/RuleExpression'
+        type:
+          allOf:
+            - $ref: '#/components/schemas/RuleActionType'
+            - const: block
+        status_code:
+          $ref: '#/components/schemas/StatusCode'
+        headers:
+          type: array
+          description: A list of headers to send.
+          items:
+            $ref: '#/components/schemas/RuleActionHeaderField'
+        body:
+          $ref: '#/components/schemas/RuleActionBody'
+      required:
+        - ruleset_id
+        - type
+    EventRuleAction:
+      type: object
+      description: >-
+        Describes the action the client should take, according to the rule in
+        the ruleset that matched the event. When getting an event by event ID,
+        the rule_action will only be included when the ruleset_id query
+        parameter is specified.
+      oneOf:
+        - $ref: '#/components/schemas/EventRuleActionAllow'
+        - $ref: '#/components/schemas/EventRuleActionBlock'
+      discriminator:
+        propertyName: type
+        mapping:
+          allow: '#/components/schemas/EventRuleActionAllow'
+          block: '#/components/schemas/EventRuleActionBlock'
+    Simulator:
+      type: boolean
+      description: |
+        iOS specific simulator detection. There are 2 values:
+        * `true` - Simulator environment detected.
+        * `false` - No signs of simulator or the client is not iOS.
+    SuspectScore:
+      type: integer
+      examples:
+        - 8
+      description: >
+        Suspect Score is an easy way to integrate Smart Signals into your fraud
+        protection work flow.  It is a weighted representation of all Smart
+        Signals present in the payload that helps identify suspicious activity.
+        The value range is [0; S] where S is sum of all Smart Signals weights. 
+        See more details here: https://docs.fingerprint.com/docs/suspect-score
+    Tampering:
+      type: boolean
+      description: >
+        The field can be used as a standalone flag for tampering detection.
+        Alternatively, the more granular fields documented below can be used for
+        workflows that require more context.
+
+        * `true` if tampering is detected through an anomalous browser
+        signature, anti-detect browser detection, or other tampering-related
+        methods
+
+        * `false` if none of the tampering checks return a positive result
+    TamperingConfidence:
+      type: string
+      enum:
+        - low
+        - medium
+        - high
+      description: >
+        The confidence level indicates how certain Fingerprint is that the
+        current request involves browser tampering. This confidence level is
+        determined by evaluating multiple factors, such as heuristic rules,
+        probabilistic anomaly detection, an anti detect browser ml model, and
+        other relevant methods. It is conveyed as a string with possible values
+        such as high, medium, or low
+
+        In case of tampering: `true`
+
+        * **High confidence**: heuristic anti detect browser signals and the ml
+        model are triggered, or all of the methods are triggered.
+
+        * **Medium confidence**: either the ml model triggers alone, the anomaly
+        score triggers alone with or without the heuristic anti detect browser
+        methods trigger.
+
+        * **Low confidence**: only the heuristic anti detect methods are
+        triggered.
+
+
+        In case of tampering: `false`
+
+        * **High confidence:** Strong signals suggest the user is not tampering
+        with their request.
+    TamperingMlScore:
+      type: number
+      format: double
+      examples:
+        - 0.5
+      minimum: 0
+      maximum: 1
+      description: >
+        The output of this model is captured as tampering_ml_score, a number
+        indicating how likely an event is coming from an anti detect browser.
+        Values close to 1 signify higher confidence and we consider anything
+        above the threshold of 0.8 to be actionable (the result and
+        anti_detect_browser fields conveniently captures that fact)
+    TamperingDetails:
+      type: object
+      required: []
+      properties:
+        anomaly_score:
+          type: number
+          format: double
+          examples:
+            - 0.5
+          minimum: 0
+          maximum: 1
+          x-platforms:
+            - android
+            - ios
+            - browser
+          description: >
+            The output of this model is captured as anomaly_score, a statistical
+            score indicating how rare the visitor's browser signature is
+            compared to the overall population. Values close to 1 signify highly
+            anomalous browsers and we consider anything above the threshold of
+            0.5 to be actionable (the result field conveniently captures that
+            fact).
+        anti_detect_browser:
+          type: boolean
+          x-platforms:
+            - browser
+          description: >
+            Detects whether the request shows evidence of anti-detect browser
+            usage.
+
+            This field may be triggered by:
+
+            * heuristic detection of known anti-detect browser behavior
+
+            * machine learning detection of anti-detect browser patterns
+
+
+            Examples of anti-detect browsers include tools such as AdsPower,
+            DolphinAnty, OctoBrowser, and GoLogin.
+    VelocityData:
+      type: object
+      description: >
+        Is absent if the velocity data could not be generated for the visitor
+        Id.
+      required:
+        - 5_minutes
+        - 1_hour
+      properties:
+        5_minutes:
+          type: integer
+          examples:
+            - 1
+          description: >
+            Count for the last 5 minutes of velocity data, from the time of the
+            event.
+        1_hour:
+          type: integer
+          examples:
+            - 5
+          description: >
+            Count for the last 1 hour of velocity data, from the time of the
+            event.
+        24_hours:
+          type: integer
+          examples:
+            - 5
+          description: >
+            The `24_hours` interval of `distinct_ip`, `distinct_linked_id`,
+            `distinct_country`, `distinct_ip_by_linked_id` and
+            `distinct_visitor_id_by_linked_id` will be omitted if the number of
+            `events` for the visitor Id in the last 24 hours
+            (`events.['24_hours']`) is higher than 20.000.
+    Velocity:
+      type: object
+      description: >
+        Sums key data points for a specific `visitor_id`, `ip_address` and
+        `linked_id` at three distinct time
+
+        intervals: 5 minutes, 1 hour, and 24 hours as follows: 
+
+
+        - Number of distinct IP addresses associated to the visitor Id.
+
+        - Number of distinct linked Ids associated with the visitor Id.
+
+        - Number of distinct countries associated with the visitor Id.
+
+        - Number of identification events associated with the visitor Id.
+
+        - Number of identification events associated with the detected IP
+        address.
+
+        - Number of distinct IP addresses associated with the provided linked
+        Id.
+
+        - Number of distinct visitor Ids associated with the provided linked Id.
+
+
+        The `24h` interval of `distinct_ip`, `distinct_linked_id`,
+        `distinct_country`,
+
+        `distinct_ip_by_linked_id` and `distinct_visitor_id_by_linked_id` will
+        be omitted 
+
+        if the number of `events` for the visitor Id in the last 24
+
+        hours (`events.['24h']`) is higher than 20.000.
+
+
+        All will not necessarily be returned in a response, some may be omitted
+        if the 
+
+        associated event does not have the required data, such as a linked_id.
+      required: []
+      properties:
+        distinct_ip:
+          $ref: '#/components/schemas/VelocityData'
+        distinct_linked_id:
+          $ref: '#/components/schemas/VelocityData'
+        distinct_country:
+          $ref: '#/components/schemas/VelocityData'
+        events:
+          $ref: '#/components/schemas/VelocityData'
+        ip_events:
+          $ref: '#/components/schemas/VelocityData'
+        distinct_ip_by_linked_id:
+          $ref: '#/components/schemas/VelocityData'
+        distinct_visitor_id_by_linked_id:
+          $ref: '#/components/schemas/VelocityData'
+    VirtualMachine:
+      type: boolean
+      description: >
+        `true` if the request came from a browser running inside a virtual
+        machine (e.g. VMWare), `false` otherwise.
+    VirtualMachineMLScore:
+      type: number
+      format: double
+      examples:
+        - 0.5
+      minimum: 0
+      maximum: 1
+      description: >
+        Machine learning–based virtual machine score, represented as a
+        floating-point value between 0 and 1 (inclusive), with up to three
+        decimal places of precision. A higher score means a higher confidence in
+        the positive `virtual_machine` detection result. This Smart Signal is
+        currently in beta and only available to select customers. If you are
+        interested, please [contact our support
+        team](https://fingerprint.com/support/).
+    VpnMLScore:
+      type: number
+      format: double
+      examples:
+        - 0.2
+      minimum: 0
+      maximum: 1
+      description: >
+        Machine learning–based VPN score, represented as a floating-point value
+        between 0 and 1 (inclusive), with up to three decimal places of
+        precision. A higher score means a higher confidence in the positive
+        `vpn` detection result. This Smart Signal is currently in beta and only
+        available to select customers. If you are interested, please [contact
+        our support team](https://fingerprint.com/support/).
+    VpnOriginTimezone:
+      type: string
+      examples:
+        - Europe/Berlin
+      description: |
+        Local timezone which is used in timezone_mismatch method.
+    VpnOriginCountry:
+      type: string
+      examples:
+        - DE
+      description: >
+        Country of the request (only for Android SDK version >= 2.4.0, ISO 3166
+        format or unknown).
     HighActivity:
       type: boolean
       description: Flag indicating if the request came from a high-activity visitor.
@@ -2071,134 +2517,206 @@ components:
         Baseline measurement of canonical fonts rendered on the device. Numeric
         width metrics, in CSS pixels, for the canonical fonts collected by the
         agent.
+      required: []
       properties:
         default:
           type: number
           format: double
+          examples:
+            - 147.5625
         serif:
           type: number
           format: double
+          examples:
+            - 147.5625
         sans:
           type: number
           format: double
+          examples:
+            - 144.015625
         mono:
           type: number
           format: double
+          examples:
+            - 133.0625
         apple:
           type: number
           format: double
+          examples:
+            - 147.5625
         min:
           type: number
           format: double
+          examples:
+            - 9.234375
         system:
           type: number
           format: double
+          examples:
+            - 146.09375
     Emoji:
       type: object
       description: Bounding box metrics describing how the emoji glyph renders.
+      required: []
       properties:
         font:
           type: string
+          examples:
+            - Times
           description: Font family reported by the browser when drawing the emoji.
         width:
           type: number
           format: double
+          examples:
+            - 1600
         height:
           type: number
           format: double
+          examples:
+            - 18
         top:
           type: number
           format: double
+          examples:
+            - 14
         bottom:
           type: number
           format: double
+          examples:
+            - 32
         left:
           type: number
           format: double
+          examples:
+            - 8
         right:
           type: number
           format: double
+          examples:
+            - 1608
         x:
           type: number
           format: double
+          examples:
+            - 8
         'y':
           type: number
           format: double
+          examples:
+            - 14
     Fonts:
       type: array
       description: List of fonts detected on the device.
       items:
         type: string
-      example:
-        - Arial Unicode MS
-        - Gill Sans
-        - Helvetica Neue
-        - Menlo
+        examples:
+          - Arial Unicode MS
+      examples:
+        - - Arial Unicode MS
+          - Gill Sans
+          - Helvetica Neue
+          - Menlo
     DeviceMemory:
       type: integer
       format: int32
       minimum: 0
-      example: 8
-      description: Rounded amount of RAM (in gigabytes) reported by the browser.
+      examples:
+        - 8
+      description: Rounded amount of RAM in gigabytes.
     Timezone:
       type: string
+      examples:
+        - America/Sao_Paulo
       description: Timezone identifier detected on the client.
     Canvas:
       type: object
       description: Canvas fingerprint containing winding flag plus geometry/text hashes.
+      required: []
       properties:
         winding:
           type: boolean
         geometry:
           type: string
+          examples:
+            - db3c1462576a399a03ae93d0ab9eb5c4
           description: Hash of geometry rendering output or `unsupported` markers.
         text:
           type: string
+          examples:
+            - 70c3d3f7eb4408dc37a6bf8af1c51029
           description: Hash of text rendering output or `unsupported` markers.
     Languages:
       type: array
       description: >
         Navigator languages reported by the agent including fallbacks. Each
         inner array represents ordered language preferences reported by
-        different APIs. Available for both browsers and iOS devices
+        different APIs. Available for browsers, iOS, and Android devices.
       items:
         type: array
         items:
           type: string
+          examples:
+            - en-US
     WebGlExtensions:
       type: object
       description: Hashes of WebGL context attributes and extension support.
+      required: []
       properties:
         context_attributes:
           type: string
+          examples:
+            - 6b1ed336830d2bc96442a9d76373252a
         parameters:
           type: string
+          examples:
+            - ea118c48e308bc4b0677118bbb3019ec
         shader_precisions:
           type: string
+          examples:
+            - f223dfbcd580cf142da156d93790eb83
         extensions:
           type: string
+          examples:
+            - 57233d7b10f89fcd1ff95e3837ccd72d
         extension_parameters:
           type: string
+          examples:
+            - 86a8abb36f0cb30b5946dec0c761d042
         unsupported_extensions:
           type: array
           items:
             type: string
+            examples:
+              - WEBGL_compressed_texture_s3tc_srgb
     WebGlBasics:
       type: object
       description: Render and vendor strings reported by the WebGL context.
+      required: []
       properties:
         version:
           type: string
+          examples:
+            - WebGL 1.0 (OpenGL ES 2.0 Chromium)
         vendor:
           type: string
+          examples:
+            - WebKit
         vendor_unmasked:
           type: string
+          examples:
+            - Google Inc. (Apple)
         renderer:
           type: string
+          examples:
+            - WebKit WebGL
         renderer_unmasked:
           type: string
+          examples:
+            - 'ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)'
         shading_language_version:
           type: string
+          examples:
+            - WebGL GLSL ES 1.0 (OpenGL ES GLSL ES 1.0 Chromium)
     ScreenResolution:
       type: array
       description: Current screen resolution. Available for both browsers and iOS devices
@@ -2207,9 +2725,12 @@ components:
       items:
         type: integer
         format: int32
+        examples:
+          - 1920
     TouchSupport:
       type: object
       description: Browser-reported touch capabilities.
+      required: []
       properties:
         touch_event:
           type: boolean
@@ -2218,12 +2739,18 @@ components:
         max_touch_points:
           type: integer
           format: int64
+          examples:
+            - 0
     Oscpu:
       type: string
+      examples:
+        - Windows NT 6.1; Win64; x64
       description: Navigator `oscpu` string.
     Architecture:
       type: integer
       format: int32
+      examples:
+        - 127
       description: Integer representing the CPU architecture exposed by the browser.
     CookiesEnabled:
       type: boolean
@@ -2231,9 +2758,13 @@ components:
     HardwareConcurrency:
       type: integer
       format: int32
+      examples:
+        - 10
       description: Number of logical CPU cores reported by the browser.
     DateTimeLocale:
       type: string
+      examples:
+        - en-US
       description: >
         Locale derived from the Intl.DateTimeFormat API. Negative values
         indicate known error states. The negative statuses can be:
@@ -2247,13 +2778,19 @@ components:
         is undefined or null.
     Vendor:
       type: string
+      examples:
+        - Google Inc.
       description: Navigator vendor string.
     ColorDepth:
       type: integer
       format: int32
+      examples:
+        - 24
       description: Screen color depth in bits.
     Platform:
       type: string
+      examples:
+        - MacIntel
       description: Navigator platform string.
     SessionStorage:
       type: boolean
@@ -2264,6 +2801,8 @@ components:
     Audio:
       type: number
       format: double
+      examples:
+        - 124.04347745512496
       description: >
         AudioContext fingerprint or negative status when unavailable. The
         negative statuses can be:
@@ -2283,19 +2822,30 @@ components:
         properties:
           name:
             type: string
+            examples:
+              - PDF Viewer
           description:
             type: string
+            examples:
+              - Portable Document Format
           mimeTypes:
             type: array
             items:
               type: object
+              required: []
               properties:
                 type:
                   type: string
+                  examples:
+                    - application/pdf
                 suffixes:
                   type: string
+                  examples:
+                    - pdf
                 description:
                   type: string
+                  examples:
+                    - Portable Document Format
         required:
           - name
     IndexedDb:
@@ -2303,25 +2853,51 @@ components:
       description: Whether IndexedDB is available.
     Math:
       type: string
+      examples:
+        - 5f030fa7d2e5f9f757bfaf81642eb1a6
       description: Hash of Math APIs used for entropy collection.
     DeviceModel:
       type: string
+      examples:
+        - iPhone 15 Pro
       description: Device model string. Available only for Android and iOS devices.
     DeviceManufacturer:
       type: string
+      examples:
+        - Apple
       description: Device manufacturer string. Available only for Android and iOS devices.
     FontHash:
       type: string
+      examples:
+        - e9f96f6c0e2c0b3a7a8b1d2c3e4f5a6b
       description: Unique identifier for the user’s installed fonts.
     TimezoneOffset:
       type: string
+      examples:
+        - '+02:00'
       description: UTC offset in "±HH:MM" format derived from the detected IANA timezone.
+    BatteryLevel:
+      type: integer
+      format: int32
+      minimum: 0
+      maximum: 100
+      examples:
+        - 75
+      description: >-
+        Battery charge level as a percentage (0-100). Available only for Android
+        and iOS devices.
+    BatteryLowPowerMode:
+      type: boolean
+      description: >-
+        Whether the device's low power mode is enabled. Available only for
+        Android and iOS devices.
     RawDeviceAttributes:
       type: object
       description: >
         A curated subset of raw browser/device attributes that the API surface
         exposes. Each property contains a value or object with the data for the
         collected signal.
+      required: []
       properties:
         font_preferences:
           $ref: '#/components/schemas/FontPreferences'
@@ -2381,6 +2957,10 @@ components:
           $ref: '#/components/schemas/FontHash'
         timezone_offset:
           $ref: '#/components/schemas/TimezoneOffset'
+        battery_level:
+          $ref: '#/components/schemas/BatteryLevel'
+        battery_low_power_mode:
+          $ref: '#/components/schemas/BatteryLowPowerMode'
     Labels:
       type: array
       items:
@@ -2390,11 +2970,15 @@ components:
         properties:
           label:
             type: string
+            examples:
+              - automation_tool
           prediction:
             type: boolean
           ml_score:
             type: number
             format: double
+            examples:
+              - 0.95
             minimum: 0
             maximum: 1
       description: >
@@ -2501,6 +3085,24 @@ components:
             - android
             - ios
             - browser
+        device:
+          $ref: '#/components/schemas/Device'
+          x-platforms:
+            - android
+            - ios
+            - browser
+        os:
+          $ref: '#/components/schemas/Os'
+          x-platforms:
+            - android
+            - ios
+            - browser
+        os_version:
+          $ref: '#/components/schemas/OsVersion'
+          x-platforms:
+            - android
+            - ios
+            - browser
         client_referrer:
           $ref: '#/components/schemas/ClientReferrer'
           x-platforms:
@@ -2514,6 +3116,7 @@ components:
           x-platforms:
             - android
             - ios
+            - browser
         bot:
           $ref: '#/components/schemas/BotResult'
           x-platforms:
@@ -2672,6 +3275,10 @@ components:
             - android
             - ios
             - browser
+        vpn_ml_score:
+          $ref: '#/components/schemas/VpnMLScore'
+          x-platforms:
+            - browser
         vpn_origin_timezone:
           $ref: '#/components/schemas/VpnOriginTimezone'
           x-platforms:
@@ -2715,110 +3322,22 @@ components:
             - browser
             - ios
             - android
-    ErrorCode:
-      type: string
-      enum:
-        - request_cannot_be_parsed
-        - request_read_timeout
-        - secret_api_key_required
-        - secret_api_key_not_found
-        - public_api_key_required
-        - public_api_key_not_found
-        - subscription_not_active
-        - wrong_region
-        - feature_not_enabled
-        - visitor_not_found
-        - too_many_requests
-        - state_not_ready
-        - failed
-        - event_not_found
-        - missing_module
-        - payload_too_large
-        - service_unavailable
-        - ruleset_not_found
-      description: >
-        Error code:
-
-        * `request_cannot_be_parsed` - The query parameters or JSON payload
-        contains some errors
-          that prevented us from parsing it (wrong type/surpassed limits).
-        * `request_read_timeout` - The request body could not be read before the
-        connection timed out.
-
-        * `secret_api_key_required` - secret API key in header is missing or
-        empty.
-
-        * `secret_api_key_not_found` - No Fingerprint workspace found for
-        specified secret API key.
-
-        * `public_api_key_required` - public API key in header is missing or
-        empty.
-
-        * `public_api_key_not_found` - No Fingerprint workspace found for
-        specified public API key.
-
-        * `subscription_not_active` - Fingerprint workspace is not active.
-
-        * `wrong_region` - Server and workspace region differ.
-
-        * `feature_not_enabled` - This feature (for example, Delete API) is not
-        enabled for your workspace.
-
-        * `visitor_not_found` - The specified visitor ID was not found. It never
-        existed or it may have already been deleted.
-
-        * `too_many_requests` - The limit on secret API key requests per second
-        has been exceeded.
-
-        * `state_not_ready` - The event specified with event ID is
-          not ready for updates yet. Try again.
-          This error happens in rare cases when update API is called immediately
-          after receiving the event ID on the client. In case you need to send
-          information right away, we recommend using the JS agent API instead.
-        * `failed` - Internal server error.
-
-        * `event_not_found` - The specified event ID was not found. It never
-        existed, expired, or it has been deleted.
-
-        * `missing_module` - The request is invalid because it is missing a
-        required module.
-
-        * `payload_too_large` - The request payload is too large and cannot be
-        processed.
-
-        * `service_unavailable` - The service was unable to process the request.
-
-        * `ruleset_not_found` - The specified ruleset was not found. It never
-        existed or it has been deleted.
-    Error:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          $ref: '#/components/schemas/ErrorCode'
-        message:
-          type: string
-    ErrorResponse:
-      type: object
-      required:
-        - error
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
     EventUpdate:
       type: object
+      required: []
       properties:
         linked_id:
           type: string
-          description: Linked Id value to assign to the existing event
+          examples:
+            - somelinkedId
+          description: Linked ID value to assign to the existing event
         tags:
           type: object
           description: >-
             A customer-provided value or an object that was sent with the
             identification request or updated later.
           additionalProperties: true
+          required: []
         suspect:
           type: boolean
           description: Suspect flag indicating observed suspicious or fraudulent event
@@ -2837,12 +3356,17 @@ components:
             $ref: '#/components/schemas/Event'
         pagination_key:
           type: string
+          examples:
+            - >-
+              S9rgMMUb4z3X5t5pr_tSgoSZlmyF0O8X7kCV2m981-iY1LmRTjraa1rTk3L-hQExnDWCi0RA-zAIjaVSTNO2AN2eqQWgzT0RjbieMxRfSdkM-HmOhdOgdQvYfPG3vqU1DJKh4Q
           description: >-
             Use this value in the `pagination_key` parameter to request the next
             page of search results.
         total_hits:
           type: integer
           format: int64
+          examples:
+            - 100
           description: >-
             This value represents the total number of events matching the search
             query, up to the limit provided in the `total_hits` query parameter.
@@ -2942,3 +3466,7 @@ components:
         Filter events by their incremental identification status
         (`incremental_identification_status` property). Non incremental
         identification events are left out of the response.
+    SearchEventsSource:
+      type: string
+      enum:
+        - edge

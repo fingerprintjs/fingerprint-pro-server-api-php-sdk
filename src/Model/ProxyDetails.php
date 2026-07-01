@@ -13,7 +13,7 @@
 /**
  * Server API.
  *
- * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device. The API also supports collection of Automation Intelligence for requests to your server in edge, pre-origin, or middleware contexts.
  *
  * The version of the OpenAPI document: 4
  * Contact: support@fingerprint.com
@@ -53,6 +53,7 @@ class ProxyDetails implements ModelInterface, \ArrayAccess, \JsonSerializable
 
     public const PROXY_TYPE_RESIDENTIAL = 'residential';
     public const PROXY_TYPE_DATA_CENTER = 'data_center';
+    public const PROXY_TYPE_UNKNOWN = 'unknown';
 
     /**
      * The original name of the model.
@@ -252,6 +253,7 @@ class ProxyDetails implements ModelInterface, \ArrayAccess, \JsonSerializable
         return [
             self::PROXY_TYPE_RESIDENTIAL,
             self::PROXY_TYPE_DATA_CENTER,
+            self::PROXY_TYPE_UNKNOWN,
         ];
     }
 
@@ -294,7 +296,7 @@ class ProxyDetails implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets proxy_type.
      *
-     * @param string $proxy_type Residential proxies use real user IP addresses to appear as legitimate traffic,  while data center proxies are public proxies hosted in data centers
+     * @param string $proxy_type Proxy type:  * `residential` - proxies that route through residential and telecom IP addresses to appear as legitimate traffic  * `data_center` - proxies which route through data centers  * `unknown` - reported when a proxy is detected solely by the ML model and the IP sources did not determine a specific type
      *
      */
     public function setProxyType(string $proxy_type): self

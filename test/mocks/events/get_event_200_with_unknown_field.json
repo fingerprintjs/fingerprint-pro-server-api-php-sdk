@@ -7,6 +7,9 @@
   "url": "https://www.example.com/login?hope{this{works[!",
   "ip_address": "61.127.217.15",
   "user_agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+  "device": "Other",
+  "os": "Windows",
+  "os_version": "7",
   "client_referrer": "https://example.com/blog/my-article",
   "browser_details": {
     "browser_name": "Chrome",
@@ -15,7 +18,7 @@
     "os": "Windows",
     "os_version": "7",
     "device": "Other",
-    "new_sub_field": "new_sub_field_value"
+    "unknown_sub_field": "unknown_sub_field_value"
   },
   "identification": {
     "visitor_id": "Ibk1527CUFmcnjLwIs4A9",
@@ -116,6 +119,7 @@
   "proxy_ml_score": 0.2,
   "vpn": false,
   "vpn_confidence": "high",
+  "vpn_ml_score": 0.2,
   "vpn_origin_timezone": "Europe/Berlin",
   "vpn_origin_country": "unknown",
   "vpn_methods": {
@@ -123,7 +127,8 @@
     "public_vpn": false,
     "auxiliary_mobile": false,
     "os_mismatch": false,
-    "relay": false
+    "relay": false,
+    "ml_prediction": false
   },
   "incognito": false,
   "tampering": false,
@@ -288,12 +293,12 @@
   },
   "rare_device": false,
   "rare_device_percentile_bucket": "<p95",
-  "labels":[
+  "labels": [
     {
       "label": "fraud",
       "prediction": false,
       "ml_score": 0.01
     }
   ],
-  "new_field": "new_field_value"
+  "unknown_field": "unknown_field_value"
 }

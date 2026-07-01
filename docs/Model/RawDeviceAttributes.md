@@ -10,10 +10,10 @@ Name | Type | Description | Notes
 **font_preferences** | [**\Fingerprint\ServerSdk\Model\FontPreferences**](FontPreferences.md) |  | [optional]
 **emoji** | [**\Fingerprint\ServerSdk\Model\Emoji**](Emoji.md) |  | [optional]
 **fonts** | **string[]** | List of fonts detected on the device. | [optional]
-**device_memory** | **int** | Rounded amount of RAM (in gigabytes) reported by the browser. | [optional]
+**device_memory** | **int** | Rounded amount of RAM in gigabytes. | [optional]
 **timezone** | **string** | Timezone identifier detected on the client. | [optional]
 **canvas** | [**\Fingerprint\ServerSdk\Model\Canvas**](Canvas.md) |  | [optional]
-**languages** | **string[][]** | Navigator languages reported by the agent including fallbacks. Each inner array represents ordered language preferences reported by different APIs. Available for both browsers and iOS devices | [optional]
+**languages** | **string[][]** | Navigator languages reported by the agent including fallbacks. Each inner array represents ordered language preferences reported by different APIs. Available for browsers, iOS, and Android devices. | [optional]
 **webgl_extensions** | [**\Fingerprint\ServerSdk\Model\WebGlExtensions**](WebGlExtensions.md) |  | [optional]
 **webgl_basics** | [**\Fingerprint\ServerSdk\Model\WebGlBasics**](WebGlBasics.md) |  | [optional]
 **screen_resolution** | **int[]** | Current screen resolution. Available for both browsers and iOS devices | [optional]
@@ -36,5 +36,7 @@ Name | Type | Description | Notes
 **device_manufacturer** | **string** | Device manufacturer string. Available only for Android and iOS devices. | [optional]
 **font_hash** | **string** | Unique identifier for the user’s installed fonts. | [optional]
 **timezone_offset** | **string** | UTC offset in \&quot;±HH:MM\&quot; format derived from the detected IANA timezone. | [optional]
+**battery_level** | **int** | Battery charge level as a percentage (0-100). Available only for Android and iOS devices. | [optional]
+**battery_low_power_mode** | **bool** | Whether the device&#39;s low power mode is enabled. Available only for Android and iOS devices. | [optional]
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

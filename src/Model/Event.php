@@ -13,7 +13,7 @@
 /**
  * Server API.
  *
- * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device. The API also supports collection of Automation Intelligence for requests to your server in edge, pre-origin, or middleware contexts.
  *
  * The version of the OpenAPI document: 4
  * Contact: support@fingerprint.com
@@ -79,6 +79,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'package_name' => 'string',
         'ip_address' => 'string',
         'user_agent' => 'string',
+        'device' => 'string',
+        'os' => 'string',
+        'os_version' => 'string',
         'client_referrer' => 'string',
         'browser_details' => '\Fingerprint\ServerSdk\Model\BrowserDetails',
         'proximity' => '\Fingerprint\ServerSdk\Model\Proximity',
@@ -114,6 +117,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'virtual_machine_ml_score' => 'float',
         'vpn' => 'bool',
         'vpn_confidence' => '\Fingerprint\ServerSdk\Model\VpnConfidence',
+        'vpn_ml_score' => 'float',
         'vpn_origin_timezone' => 'string',
         'vpn_origin_country' => 'string',
         'vpn_methods' => '\Fingerprint\ServerSdk\Model\VpnMethods',
@@ -150,6 +154,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'package_name' => null,
         'ip_address' => null,
         'user_agent' => null,
+        'device' => null,
+        'os' => null,
+        'os_version' => null,
         'client_referrer' => null,
         'browser_details' => null,
         'proximity' => null,
@@ -185,6 +192,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'virtual_machine_ml_score' => 'double',
         'vpn' => null,
         'vpn_confidence' => null,
+        'vpn_ml_score' => 'double',
         'vpn_origin_timezone' => null,
         'vpn_origin_country' => null,
         'vpn_methods' => null,
@@ -217,6 +225,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'package_name' => false,
         'ip_address' => false,
         'user_agent' => false,
+        'device' => false,
+        'os' => false,
+        'os_version' => false,
         'client_referrer' => false,
         'browser_details' => false,
         'proximity' => false,
@@ -252,6 +263,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'virtual_machine_ml_score' => false,
         'vpn' => false,
         'vpn_confidence' => false,
+        'vpn_ml_score' => false,
         'vpn_origin_timezone' => false,
         'vpn_origin_country' => false,
         'vpn_methods' => false,
@@ -292,6 +304,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'package_name' => 'package_name',
         'ip_address' => 'ip_address',
         'user_agent' => 'user_agent',
+        'device' => 'device',
+        'os' => 'os',
+        'os_version' => 'os_version',
         'client_referrer' => 'client_referrer',
         'browser_details' => 'browser_details',
         'proximity' => 'proximity',
@@ -327,6 +342,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'virtual_machine_ml_score' => 'virtual_machine_ml_score',
         'vpn' => 'vpn',
         'vpn_confidence' => 'vpn_confidence',
+        'vpn_ml_score' => 'vpn_ml_score',
         'vpn_origin_timezone' => 'vpn_origin_timezone',
         'vpn_origin_country' => 'vpn_origin_country',
         'vpn_methods' => 'vpn_methods',
@@ -359,6 +375,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'package_name' => 'setPackageName',
         'ip_address' => 'setIpAddress',
         'user_agent' => 'setUserAgent',
+        'device' => 'setDevice',
+        'os' => 'setOs',
+        'os_version' => 'setOsVersion',
         'client_referrer' => 'setClientReferrer',
         'browser_details' => 'setBrowserDetails',
         'proximity' => 'setProximity',
@@ -394,6 +413,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'virtual_machine_ml_score' => 'setVirtualMachineMlScore',
         'vpn' => 'setVpn',
         'vpn_confidence' => 'setVpnConfidence',
+        'vpn_ml_score' => 'setVpnMlScore',
         'vpn_origin_timezone' => 'setVpnOriginTimezone',
         'vpn_origin_country' => 'setVpnOriginCountry',
         'vpn_methods' => 'setVpnMethods',
@@ -426,6 +446,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'package_name' => 'getPackageName',
         'ip_address' => 'getIpAddress',
         'user_agent' => 'getUserAgent',
+        'device' => 'getDevice',
+        'os' => 'getOs',
+        'os_version' => 'getOsVersion',
         'client_referrer' => 'getClientReferrer',
         'browser_details' => 'getBrowserDetails',
         'proximity' => 'getProximity',
@@ -461,6 +484,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'virtual_machine_ml_score' => 'getVirtualMachineMlScore',
         'vpn' => 'getVpn',
         'vpn_confidence' => 'getVpnConfidence',
+        'vpn_ml_score' => 'getVpnMlScore',
         'vpn_origin_timezone' => 'getVpnOriginTimezone',
         'vpn_origin_country' => 'getVpnOriginCountry',
         'vpn_methods' => 'getVpnMethods',
@@ -502,6 +526,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         $this->setIfExists('package_name', $data ?? [], null);
         $this->setIfExists('ip_address', $data ?? [], null);
         $this->setIfExists('user_agent', $data ?? [], null);
+        $this->setIfExists('device', $data ?? [], null);
+        $this->setIfExists('os', $data ?? [], null);
+        $this->setIfExists('os_version', $data ?? [], null);
         $this->setIfExists('client_referrer', $data ?? [], null);
         $this->setIfExists('browser_details', $data ?? [], null);
         $this->setIfExists('proximity', $data ?? [], null);
@@ -537,6 +564,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         $this->setIfExists('virtual_machine_ml_score', $data ?? [], null);
         $this->setIfExists('vpn', $data ?? [], null);
         $this->setIfExists('vpn_confidence', $data ?? [], null);
+        $this->setIfExists('vpn_ml_score', $data ?? [], null);
         $this->setIfExists('vpn_origin_timezone', $data ?? [], null);
         $this->setIfExists('vpn_origin_country', $data ?? [], null);
         $this->setIfExists('vpn_methods', $data ?? [], null);
@@ -670,6 +698,14 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'virtual_machine_ml_score', must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['vpn_ml_score']) && ($this->container['vpn_ml_score'] > 1)) {
+            $invalidProperties[] = "invalid value for 'vpn_ml_score', must be smaller than or equal to 1.";
+        }
+
+        if (!is_null($this->container['vpn_ml_score']) && ($this->container['vpn_ml_score'] < 0)) {
+            $invalidProperties[] = "invalid value for 'vpn_ml_score', must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -696,7 +732,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets event_id.
      *
-     * @param string $event_id Unique identifier of the user's request. The first portion of the event_id is a unix epoch milliseconds timestamp For example: `1758130560902.8tRtrH`
+     * @param string $event_id Unique identifier of the user's request. The first portion of the event_id is a unix epoch milliseconds timestamp.
      *
      */
     public function setEventId(string $event_id): self
@@ -784,7 +820,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets environment_id.
      *
-     * @param string $environment_id Environment Id of the event. For example: `ae_47abaca3db2c7c43`
+     * @param string $environment_id environment Id of the event
      *
      */
     public function setEnvironmentId(string $environment_id): self
@@ -939,7 +975,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets url.
      *
-     * @param string $url Page URL from which the request was sent. For example `https://example.com/`
+     * @param string $url page URL from which the request was sent
      *
      */
     public function setUrl(string $url): self
@@ -961,7 +997,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets bundle_id.
      *
-     * @param string $bundle_id Bundle Id of the iOS application integrated with the Fingerprint SDK for the event. For example: `com.foo.app`
+     * @param string $bundle_id bundle Id of the iOS application integrated with the Fingerprint SDK for the event
      *
      */
     public function setBundleId(string $bundle_id): self
@@ -983,7 +1019,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets package_name.
      *
-     * @param string $package_name Package name of the Android application integrated with the Fingerprint SDK for the event. For example: `com.foo.app`
+     * @param string $package_name package name of the Android application integrated with the Fingerprint SDK for the event
      *
      */
     public function setPackageName(string $package_name): self
@@ -1027,12 +1063,78 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets user_agent.
      *
-     * @param string $user_agent User Agent of the client, for example: `Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....`
+     * @param string $user_agent user Agent of the client
      *
      */
     public function setUserAgent(string $user_agent): self
     {
         $this->container['user_agent'] = $user_agent;
+
+        return $this;
+    }
+
+    /**
+     * Gets device.
+     *
+     */
+    public function getDevice(): ?string
+    {
+        return $this->container['device'];
+    }
+
+    /**
+     * Sets device.
+     *
+     * @param string $device Device model or family extracted from the user agent string. On web, this field is also present inside `browser_details`.
+     *
+     */
+    public function setDevice(string $device): self
+    {
+        $this->container['device'] = $device;
+
+        return $this;
+    }
+
+    /**
+     * Gets os.
+     *
+     */
+    public function getOs(): ?string
+    {
+        return $this->container['os'];
+    }
+
+    /**
+     * Sets os.
+     *
+     * @param string $os Operating system family extracted from the user agent string. On web, this field is also present inside `browser_details`.
+     *
+     */
+    public function setOs(string $os): self
+    {
+        $this->container['os'] = $os;
+
+        return $this;
+    }
+
+    /**
+     * Gets os_version.
+     *
+     */
+    public function getOsVersion(): ?string
+    {
+        return $this->container['os_version'];
+    }
+
+    /**
+     * Sets os_version.
+     *
+     * @param string $os_version Operating system version string extracted from the user agent string. On web, this field is also present inside `browser_details`.
+     *
+     */
+    public function setOsVersion(string $os_version): self
+    {
+        $this->container['os_version'] = $os_version;
 
         return $this;
     }
@@ -1049,7 +1151,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets client_referrer.
      *
-     * @param string $client_referrer Client Referrer field corresponds to the `document.referrer` field gathered during an identification request. The value is an empty string if the user navigated to the page directly (not through a link, but, for example, by using a bookmark) For example: `https://example.com/blog/my-article`
+     * @param string $client_referrer Client Referrer field corresponds to the `document.referrer` field gathered during an identification request. The value is an empty string if the user navigated to the page directly (not through a link, but, for example, by using a bookmark).
      *
      */
     public function setClientReferrer(string $client_referrer): self
@@ -1824,6 +1926,35 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function setVpnConfidence(string|VpnConfidence $vpn_confidence): self
     {
         $this->container['vpn_confidence'] = $vpn_confidence;
+
+        return $this;
+    }
+
+    /**
+     * Gets vpn_ml_score.
+     *
+     */
+    public function getVpnMlScore(): ?float
+    {
+        return $this->container['vpn_ml_score'];
+    }
+
+    /**
+     * Sets vpn_ml_score.
+     *
+     * @param float $vpn_ml_score Machine learning–based VPN score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `vpn` detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
+     *
+     */
+    public function setVpnMlScore(float $vpn_ml_score): self
+    {
+        if ($vpn_ml_score > 1) {
+            throw new \InvalidArgumentException('invalid value for $vpn_ml_score when calling Event., must be smaller than or equal to 1.');
+        }
+        if ($vpn_ml_score < 0) {
+            throw new \InvalidArgumentException('invalid value for $vpn_ml_score when calling Event., must be bigger than or equal to 0.');
+        }
+
+        $this->container['vpn_ml_score'] = $vpn_ml_score;
 
         return $this;
     }

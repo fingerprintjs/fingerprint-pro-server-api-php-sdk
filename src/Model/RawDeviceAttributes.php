@@ -13,7 +13,7 @@
 /**
  * Server API.
  *
- * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ * Fingerprint Server API allows you to get, search, and update Events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios. Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device. The API also supports collection of Automation Intelligence for requests to your server in edge, pre-origin, or middleware contexts.
  *
  * The version of the OpenAPI document: 4
  * Contact: support@fingerprint.com
@@ -92,6 +92,8 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'device_manufacturer' => 'string',
         'font_hash' => 'string',
         'timezone_offset' => 'string',
+        'battery_level' => 'int',
+        'battery_low_power_mode' => 'bool',
     ];
 
     /**
@@ -133,6 +135,8 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'device_manufacturer' => null,
         'font_hash' => null,
         'timezone_offset' => null,
+        'battery_level' => 'int32',
+        'battery_low_power_mode' => null,
     ];
 
     /**
@@ -170,6 +174,8 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'device_manufacturer' => false,
         'font_hash' => false,
         'timezone_offset' => false,
+        'battery_level' => false,
+        'battery_low_power_mode' => false,
     ];
 
     /**
@@ -215,6 +221,8 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'device_manufacturer' => 'device_manufacturer',
         'font_hash' => 'font_hash',
         'timezone_offset' => 'timezone_offset',
+        'battery_level' => 'battery_level',
+        'battery_low_power_mode' => 'battery_low_power_mode',
     ];
 
     /**
@@ -252,6 +260,8 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'device_manufacturer' => 'setDeviceManufacturer',
         'font_hash' => 'setFontHash',
         'timezone_offset' => 'setTimezoneOffset',
+        'battery_level' => 'setBatteryLevel',
+        'battery_low_power_mode' => 'setBatteryLowPowerMode',
     ];
 
     /**
@@ -289,6 +299,8 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'device_manufacturer' => 'getDeviceManufacturer',
         'font_hash' => 'getFontHash',
         'timezone_offset' => 'getTimezoneOffset',
+        'battery_level' => 'getBatteryLevel',
+        'battery_low_power_mode' => 'getBatteryLowPowerMode',
     ];
 
     /**
@@ -335,6 +347,8 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         $this->setIfExists('device_manufacturer', $data ?? [], null);
         $this->setIfExists('font_hash', $data ?? [], null);
         $this->setIfExists('timezone_offset', $data ?? [], null);
+        $this->setIfExists('battery_level', $data ?? [], null);
+        $this->setIfExists('battery_low_power_mode', $data ?? [], null);
     }
 
     /**
@@ -442,6 +456,14 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
             $invalidProperties[] = "invalid value for 'screen_resolution', number of items must be greater than or equal to 2.";
         }
 
+        if (!is_null($this->container['battery_level']) && ($this->container['battery_level'] > 100)) {
+            $invalidProperties[] = "invalid value for 'battery_level', must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['battery_level']) && ($this->container['battery_level'] < 0)) {
+            $invalidProperties[] = "invalid value for 'battery_level', must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -535,7 +557,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
     /**
      * Sets device_memory.
      *
-     * @param int $device_memory rounded amount of RAM (in gigabytes) reported by the browser
+     * @param int $device_memory rounded amount of RAM in gigabytes
      *
      */
     public function setDeviceMemory(int $device_memory): self
@@ -606,7 +628,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
     /**
      * Sets languages.
      *
-     * @param string[][] $languages Navigator languages reported by the agent including fallbacks. Each inner array represents ordered language preferences reported by different APIs. Available for both browsers and iOS devices
+     * @param string[][] $languages Navigator languages reported by the agent including fallbacks. Each inner array represents ordered language preferences reported by different APIs. Available for browsers, iOS, and Android devices.
      *
      */
     public function setLanguages(array $languages): self
@@ -1104,6 +1126,57 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
     public function setTimezoneOffset(string $timezone_offset): self
     {
         $this->container['timezone_offset'] = $timezone_offset;
+
+        return $this;
+    }
+
+    /**
+     * Gets battery_level.
+     *
+     */
+    public function getBatteryLevel(): ?int
+    {
+        return $this->container['battery_level'];
+    }
+
+    /**
+     * Sets battery_level.
+     *
+     * @param int $battery_level Battery charge level as a percentage (0-100). Available only for Android and iOS devices.
+     *
+     */
+    public function setBatteryLevel(int $battery_level): self
+    {
+        if ($battery_level > 100) {
+            throw new \InvalidArgumentException('invalid value for $battery_level when calling RawDeviceAttributes., must be smaller than or equal to 100.');
+        }
+        if ($battery_level < 0) {
+            throw new \InvalidArgumentException('invalid value for $battery_level when calling RawDeviceAttributes., must be bigger than or equal to 0.');
+        }
+
+        $this->container['battery_level'] = $battery_level;
+
+        return $this;
+    }
+
+    /**
+     * Gets battery_low_power_mode.
+     *
+     */
+    public function getBatteryLowPowerMode(): ?bool
+    {
+        return $this->container['battery_low_power_mode'];
+    }
+
+    /**
+     * Sets battery_low_power_mode.
+     *
+     * @param bool $battery_low_power_mode Whether the device's low power mode is enabled. Available only for Android and iOS devices.
+     *
+     */
+    public function setBatteryLowPowerMode(bool $battery_low_power_mode): self
+    {
+        $this->container['battery_low_power_mode'] = $battery_low_power_mode;
 
         return $this;
     }
