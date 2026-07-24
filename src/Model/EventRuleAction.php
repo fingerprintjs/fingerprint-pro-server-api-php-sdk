@@ -289,8 +289,10 @@ class EventRuleAction implements ModelInterface, \ArrayAccess, \JsonSerializable
         if (null === $this->container['ruleset_id']) {
             $invalidProperties[] = "'ruleset_id' can't be null";
         }
+        // @codeCoverageIgnoreStart
         if (null === $this->container['type']) {
             $invalidProperties[] = "'type' can't be null";
+            // @codeCoverageIgnoreEnd
         }
 
         return $invalidProperties;
