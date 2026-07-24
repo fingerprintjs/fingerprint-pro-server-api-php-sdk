@@ -10,8 +10,10 @@ use Fingerprint\ServerSdk\Model\ErrorResponse;
 use Fingerprint\ServerSdk\Model\EventUpdate;
 use Fingerprint\ServerSdk\Test\MockHelper;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -99,5 +101,57 @@ class FingerprintApiAsyncErrorTest extends TestCase
 
             throw $e;
         }
+    }
+
+    public function testGetEventAsyncConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'Connection refused',
+            new Request('GET', '/events/test')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Connection refused/');
+
+        $this->api->getEventAsync('test')->wait();
+    }
+
+    public function testSearchEventsAsyncConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'DNS resolution failed',
+            new Request('GET', '/events/search')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/DNS resolution failed/');
+
+        $this->api->searchEventsAsync()->wait();
+    }
+
+    public function testDeleteVisitorDataAsyncConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'Connection timed out',
+            new Request('DELETE', '/visitors/test')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Connection timed out/');
+
+        $this->api->deleteVisitorDataAsync('test')->wait();
+    }
+
+    public function testUpdateEventAsyncConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'Network unreachable',
+            new Request('PATCH', '/events/test')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Network unreachable/');
+
+        $this->api->updateEventAsync('test', new EventUpdate())->wait();
     }
 }
