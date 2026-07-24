@@ -9,7 +9,7 @@ class Sealed
 {
     private const NONCE_LENGTH = 12;
     private const AUTH_TAG_LENGTH = 16;
-    private static string $SEAL_HEADER = "\x9E\x85\xDC\xED";
+    private const SEAL_HEADER = "\x9E\x85\xDC\xED";
 
     /**
      * @param DecryptionKey[] $keys
@@ -48,7 +48,7 @@ class Sealed
      */
     public static function unseal(string $sealed, array $keys): string
     {
-        if (!str_starts_with($sealed, self::$SEAL_HEADER)) {
+        if (!str_starts_with($sealed, self::SEAL_HEADER)) {
             throw new InvalidSealedDataHeaderException();
         }
 
@@ -58,7 +58,7 @@ class Sealed
             switch ($key->getAlgorithm()) {
                 case DecryptionAlgorithm::AES_256_GCM:
                     try {
-                        $data = substr($sealed, strlen(self::$SEAL_HEADER));
+                        $data = substr($sealed, strlen(self::SEAL_HEADER));
 
                         return self::decryptAes256Gcm($data, $key->getKey());
                     } catch (\Exception $exception) {
@@ -100,13 +100,11 @@ class Sealed
     }
 
     /**
-     * @param bool|string $data
-     *
      * @throws DecompressionException
      */
-    private static function decompress(mixed $data): string
+    private static function decompress(string $data): string
     {
-        if (false === $data || 0 === strlen($data)) {
+        if (0 === strlen($data)) {
             throw new DecompressionException();
         }
         $inflated = @gzinflate($data); // Ignore warnings, because we check the decompressed data's validity and throw error if necessary

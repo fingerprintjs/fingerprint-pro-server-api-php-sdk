@@ -4,9 +4,9 @@ namespace Fingerprint\ServerSdk\Sealed;
 
 class UnsealException extends \Exception
 {
-    public string $decryptionKeyDescription;
+    public readonly string $decryptionKeyDescription;
 
-    public function __construct($message, $cause, DecryptionKey $decryptionKey)
+    public function __construct(string $message, \Throwable $cause, DecryptionKey $decryptionKey)
     {
         parent::__construct($message, 0, $cause);
         $key = $decryptionKey->getKey();

@@ -2,16 +2,12 @@
 
 namespace Fingerprint\ServerSdk\Sealed;
 
-class DecryptionKey
+readonly class DecryptionKey
 {
-    private string $key;
-    private DecryptionAlgorithm $algorithm;
-
-    public function __construct(string $key, DecryptionAlgorithm $algorithm)
-    {
-        $this->key = $key;
-        $this->algorithm = $algorithm;
-    }
+    public function __construct(
+        private string $key,
+        private DecryptionAlgorithm $algorithm,
+    ) {}
 
     public function getKey(): string
     {
