@@ -20,6 +20,7 @@ use Fingerprint\ServerSdk\Model\SearchEventsSource;
 use Fingerprint\ServerSdk\Model\SearchEventsVpnConfidence;
 use Fingerprint\ServerSdk\Model\TamperingConfidence;
 use Fingerprint\ServerSdk\Model\VpnConfidence;
+use Fingerprint\ServerSdk\ObjectSerializer;
 use Fingerprint\ServerSdk\Sealed\DecryptionAlgorithm;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -75,6 +76,19 @@ class EnumCoverageTest extends TestCase
     {
         $result = $enumClass::tryFrom('__nonexistent_value__');
         $this->assertNull($result);
+    }
+
+    /**
+     * @param class-string<\BackedEnum> $enumClass
+     * @throws \DateMalformedStringException
+     */
+    #[DataProvider('enumClassProvider')]
+    public function testObjectSerializerDeserializesAllCases(string $enumClass): void
+    {
+        foreach ($enumClass::cases() as $case) {
+            $deserialized = ObjectSerializer::deserialize($case->value, $enumClass);
+            $this->assertSame($case, $deserialized);
+        }
     }
 
     /**

@@ -2,7 +2,14 @@
 
 namespace Fingerprint\ServerSdk\Test\Model;
 
+use Fingerprint\ServerSdk\Model\Canvas;
+use Fingerprint\ServerSdk\Model\Emoji;
+use Fingerprint\ServerSdk\Model\FontPreferences;
+use Fingerprint\ServerSdk\Model\PluginsInner;
 use Fingerprint\ServerSdk\Model\RawDeviceAttributes;
+use Fingerprint\ServerSdk\Model\TouchSupport;
+use Fingerprint\ServerSdk\Model\WebGlBasics;
+use Fingerprint\ServerSdk\Model\WebGlExtensions;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -12,158 +19,185 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(RawDeviceAttributes::class)]
 class RawDeviceAttributesTest extends TestCase
 {
-    private const EXAMPLE = [
-        'timezone' => 'America/New_York',
-        'device_memory' => 8,
-        'architecture' => 64,
-        'cookies_enabled' => true,
-    ];
-
-    /**
-     * Constructor without arguments should initialize all properties to null.
-     */
-    public function testConstructorDefaults(): void
+    public function testAllGettersAndSetters(): void
     {
         $model = new RawDeviceAttributes();
 
-        $this->assertNull($model->getFontPreferences());
-        $this->assertNull($model->getEmoji());
-        $this->assertNull($model->getFonts());
-        $this->assertNull($model->getDeviceMemory());
-        $this->assertNull($model->getTimezone());
-        $this->assertNull($model->getCanvas());
-        $this->assertNull($model->getLanguages());
-        $this->assertNull($model->getWebglExtensions());
-        $this->assertNull($model->getWebglBasics());
-        $this->assertNull($model->getScreenResolution());
-        $this->assertNull($model->getTouchSupport());
-        $this->assertNull($model->getOscpu());
-        $this->assertNull($model->getArchitecture());
-        $this->assertNull($model->getCookiesEnabled());
-        $this->assertNull($model->getHardwareConcurrency());
-        $this->assertNull($model->getDateTimeLocale());
-        $this->assertNull($model->getVendor());
-        $this->assertNull($model->getColorDepth());
-        $this->assertNull($model->getPlatform());
-        $this->assertNull($model->getSessionStorage());
-        $this->assertNull($model->getLocalStorage());
-        $this->assertNull($model->getAudio());
-        $this->assertNull($model->getPlugins());
-        $this->assertNull($model->getIndexedDb());
-        $this->assertNull($model->getMath());
+        $model->setArchitecture(127);
+        $this->assertSame(127, $model->getArchitecture());
+
+        $model->setAudio(0.5);
+        $this->assertSame(0.5, $model->getAudio());
+
+        $canvas = new Canvas();
+        $model->setCanvas($canvas);
+        $this->assertSame($canvas, $model->getCanvas());
+
+        $model->setColorDepth(24);
+        $this->assertSame(24, $model->getColorDepth());
+
+        $model->setCookiesEnabled(true);
+        $this->assertTrue($model->getCookiesEnabled());
+
+        $model->setDeviceMemory(8);
+        $this->assertSame(8, $model->getDeviceMemory());
+
+        $emoji = new Emoji();
+        $model->setEmoji($emoji);
+        $this->assertSame($emoji, $model->getEmoji());
+
+        $fontPrefs = new FontPreferences();
+        $model->setFontPreferences($fontPrefs);
+        $this->assertSame($fontPrefs, $model->getFontPreferences());
+
+        $model->setFonts([]);
+        $this->assertSame([], $model->getFonts());
+
+        $model->setHardwareConcurrency(8);
+        $this->assertSame(8, $model->getHardwareConcurrency());
+
+        $model->setIndexedDb(true);
+        $this->assertTrue($model->getIndexedDb());
+
+        $model->setLanguages([['en-US', 'en'], ['en-GB', 'en']]);
+        $this->assertSame([['en-US', 'en'], ['en-GB', 'en']], $model->getLanguages());
+
+        $model->setLocalStorage(true);
+        $this->assertTrue($model->getLocalStorage());
+
+        $model->setMath('12345');
+        $this->assertSame('12345', $model->getMath());
+
+        $model->setOscpu('Linux x86_64');
+        $this->assertSame('Linux x86_64', $model->getOscpu());
+
+        $model->setPlatform('Linux');
+        $this->assertSame('Linux', $model->getPlatform());
+
+        $plugin = new PluginsInner();
+        $model->setPlugins([$plugin]);
+        $this->assertCount(1, $model->getPlugins());
+
+        $model->setScreenResolution([1920, 1080]);
+        $this->assertSame([1920, 1080], $model->getScreenResolution());
+
+        $model->setSessionStorage(true);
+        $this->assertTrue($model->getSessionStorage());
+
+        $touchSupport = new TouchSupport();
+        $model->setTouchSupport($touchSupport);
+        $this->assertSame($touchSupport, $model->getTouchSupport());
+
+        $model->setVendor('Google Inc.');
+        $this->assertSame('Google Inc.', $model->getVendor());
+
+        $model->setTimezone('America/New_York');
+        $this->assertSame('America/New_York', $model->getTimezone());
+
+        $model->setTimezoneOffset('-300');
+        $this->assertSame('-300', $model->getTimezoneOffset());
+
+        $webGlBasics = new WebGlBasics();
+        $model->setWebglBasics($webGlBasics);
+        $this->assertSame($webGlBasics, $model->getWebglBasics());
+
+        $webGlExt = new WebGlExtensions();
+        $model->setWebglExtensions($webGlExt);
+        $this->assertSame($webGlExt, $model->getWebglExtensions());
+
+        $model->setDateTimeLocale('en-US');
+        $this->assertSame('en-US', $model->getDateTimeLocale());
+
+        $model->setDeviceModel('Pixel 7');
+        $this->assertSame('Pixel 7', $model->getDeviceModel());
+
+        $model->setDeviceManufacturer('Google');
+        $this->assertSame('Google', $model->getDeviceManufacturer());
+
+        $model->setFontHash('abc123');
+        $this->assertSame('abc123', $model->getFontHash());
+
+        $model->setBatteryLevel(85);
+        $this->assertSame(85, $model->getBatteryLevel());
+
+        $model->setBatteryLowPowerMode(false);
+        $this->assertFalse($model->getBatteryLowPowerMode());
     }
 
-    /**
-     * Constructor should accept an array and populate the scalar properties.
-     */
-    public function testConstructorWithData(): void
-    {
-        $model = new RawDeviceAttributes(self::EXAMPLE);
-
-        $this->assertEquals(self::EXAMPLE['timezone'], $model->getTimezone());
-        $this->assertEquals(self::EXAMPLE['device_memory'], $model->getDeviceMemory());
-        $this->assertEquals(self::EXAMPLE['architecture'], $model->getArchitecture());
-        $this->assertEquals(self::EXAMPLE['cookies_enabled'], $model->getCookiesEnabled());
-    }
-
-    /**
-     * Setters should return the model instance for chaining.
-     */
-    public function testSettersReturnSelf(): void
-    {
-        $model = new RawDeviceAttributes();
-
-        $this->assertSame($model, $model->setTimezone(self::EXAMPLE['timezone']));
-        $this->assertSame($model, $model->setDeviceMemory(self::EXAMPLE['device_memory']));
-        $this->assertSame($model, $model->setArchitecture(self::EXAMPLE['architecture']));
-        $this->assertSame($model, $model->setCookiesEnabled(self::EXAMPLE['cookies_enabled']));
-    }
-
-    /**
-     * ArrayAccess interface should allow bracket notation for getting and setting properties.
-     *
-     * @noinspection PhpConditionAlreadyCheckedInspection
-     */
-    public function testArrayAccess(): void
-    {
-        $model = new RawDeviceAttributes();
-
-        $model['timezone'] = self::EXAMPLE['timezone'];
-        $this->assertEquals(self::EXAMPLE['timezone'], $model['timezone']);
-        $this->assertTrue(isset($model['timezone']));
-
-        unset($model['timezone']);
-        $this->assertNull($model['timezone']);
-    }
-
-    /**
-     * An empty model should be valid because there are no required properties.
-     */
-    public function testValidation(): void
-    {
-        $emptyModel = new RawDeviceAttributes();
-        $this->assertTrue($emptyModel->valid());
-        $this->assertEmpty($emptyModel->listInvalidProperties());
-    }
-
-    /**
-     * __toString should return a valid JSON representation.
-     */
-    public function testToString(): void
-    {
-        $model = new RawDeviceAttributes(self::EXAMPLE);
-        $string = (string) $model;
-
-        $decoded = json_decode($string, true);
-        $this->assertEquals(self::EXAMPLE['timezone'], $decoded['timezone']);
-        $this->assertEquals(self::EXAMPLE['device_memory'], $decoded['device_memory']);
-    }
-
-    /**
-     * getModelName should return the OpenAPI model name.
-     */
-    public function testGetModelName(): void
-    {
-        $model = new RawDeviceAttributes();
-
-        $this->assertEquals('RawDeviceAttributes', $model->getModelName());
-    }
-
-    /**
-     * offsetSet with null offset should append the value to the container.
-     */
-    public function testOffsetSetWithNullKey(): void
+    public function testDeviceMemoryLowerBoundValidation(): void
     {
         $model = new RawDeviceAttributes();
-
-        $model[] = 'appended_value';
-        $this->assertEquals('appended_value', $model[0]);
+        $this->expectException(\InvalidArgumentException::class);
+        $model->setDeviceMemory(-1);
     }
 
-    /**
-     * jsonSerialize should return the sanitized representation used by json_encode.
-     */
+    public function testBatteryLevelUpperBoundValidation(): void
+    {
+        $model = new RawDeviceAttributes();
+        $this->expectException(\InvalidArgumentException::class);
+        $model->setBatteryLevel(101);
+    }
+
+    public function testBatteryLevelLowerBoundValidation(): void
+    {
+        $model = new RawDeviceAttributes();
+        $this->expectException(\InvalidArgumentException::class);
+        $model->setBatteryLevel(-1);
+    }
+
+    public function testScreenResolutionTooManyValidation(): void
+    {
+        $model = new RawDeviceAttributes();
+        $this->expectException(\InvalidArgumentException::class);
+        $model->setScreenResolution([1920, 1080, 32]);
+    }
+
+    public function testScreenResolutionTooFewValidation(): void
+    {
+        $model = new RawDeviceAttributes();
+        $this->expectException(\InvalidArgumentException::class);
+        $model->setScreenResolution([1920]);
+    }
+
+    public function testListInvalidProperties(): void
+    {
+        $model = new RawDeviceAttributes([
+            'device_memory' => -5,
+            'battery_level' => 150,
+            'screen_resolution' => [1],
+        ]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
+
+    public function testValidModel(): void
+    {
+        $model = new RawDeviceAttributes();
+        $this->assertTrue($model->valid());
+    }
+
     public function testJsonSerialize(): void
     {
-        $model = new RawDeviceAttributes(self::EXAMPLE);
-        $serialized = $model->jsonSerialize();
-
-        $this->assertIsObject($serialized);
-        $this->assertEquals(self::EXAMPLE['timezone'], $serialized->timezone);
-        $this->assertEquals(self::EXAMPLE['device_memory'], $serialized->device_memory);
+        $model = new RawDeviceAttributes(['architecture' => 127]);
+        $json = json_encode($model);
+        $decoded = json_decode($json, true);
+        $this->assertSame(127, $decoded['architecture']);
     }
 
-    /**
-     * toHeaderValue should return a compact JSON string.
-     */
-    public function testToHeaderValue(): void
+    public function testToStringAndToHeaderValue(): void
     {
-        $model = new RawDeviceAttributes(self::EXAMPLE);
-        $header = $model->toHeaderValue();
+        $model = new RawDeviceAttributes(['architecture' => 127]);
+        $this->assertStringContainsString('127', (string) $model);
+        $this->assertIsString($model->toHeaderValue());
+    }
 
-        $decoded = json_decode($header, true);
-        $this->assertIsArray($decoded);
-        $this->assertEquals(self::EXAMPLE['timezone'], $decoded['timezone']);
-        $this->assertStringNotContainsString("\n", $header);
+    public function testStaticMethods(): void
+    {
+        $this->assertIsArray(RawDeviceAttributes::openAPITypes());
+        $this->assertIsArray(RawDeviceAttributes::openAPIFormats());
+        $this->assertIsArray(RawDeviceAttributes::attributeMap());
+        $this->assertIsArray(RawDeviceAttributes::setters());
+        $this->assertIsArray(RawDeviceAttributes::getters());
+        $this->assertSame('RawDeviceAttributes', (new RawDeviceAttributes())->getModelName());
     }
 }

@@ -285,4 +285,196 @@ class ObjectSerializerTest extends TestCase
         ObjectSerializer::setDateTimeFormat(\DateTimeInterface::ATOM);
         $this->assertSame(['before' => '2024-03-15'], $result);
     }
+
+    // -- sanitizeTimestamp --
+
+    public function testSanitizeTimestamp(): void
+    {
+        $result = ObjectSerializer::sanitizeTimestamp('2024-01-01T00:00:00.123456789');
+        $this->assertSame('2024-01-01T00:00:00.123456', $result);
+    }
+
+    // -- toPathValue --
+
+    public function testToPathValue(): void
+    {
+        $this->assertSame('hello%20world', ObjectSerializer::toPathValue('hello world'));
+        $this->assertSame('simple', ObjectSerializer::toPathValue('simple'));
+    }
+
+    // -- toHeaderValue --
+
+    public function testToHeaderValueWithString(): void
+    {
+        $this->assertSame('test', ObjectSerializer::toHeaderValue('test'));
+    }
+
+    public function testToHeaderValueWithDateTime(): void
+    {
+        $dt = new \DateTime('2024-01-15T12:00:00+00:00');
+        $result = ObjectSerializer::toHeaderValue($dt);
+        $this->assertStringContainsString('2024-01-15', $result);
+    }
+
+    public function testToHeaderValueWithModel(): void
+    {
+        $event = new Event(['event_id' => 'e1', 'timestamp' => 1]);
+        $result = ObjectSerializer::toHeaderValue($event);
+        $this->assertIsString($result);
+        $this->assertStringContainsString('e1', $result);
+    }
+
+    // -- toString --
+
+    public function testToStringWithBool(): void
+    {
+        $this->assertSame('true', ObjectSerializer::toString(true));
+        $this->assertSame('false', ObjectSerializer::toString(false));
+    }
+
+    public function testToStringWithDateTime(): void
+    {
+        $dt = new \DateTime('2024-01-15T12:00:00+00:00');
+        $result = ObjectSerializer::toString($dt);
+        $this->assertStringContainsString('2024-01-15', $result);
+    }
+
+    public function testToStringWithNumber(): void
+    {
+        $this->assertSame('42', ObjectSerializer::toString(42));
+        $this->assertSame('3.14', ObjectSerializer::toString(3.14));
+    }
+
+    // -- serializeCollection --
+
+    public function testSerializeCollectionPipes(): void
+    {
+        $this->assertSame('a|b|c', ObjectSerializer::serializeCollection(['a', 'b', 'c'], 'pipes'));
+        $this->assertSame('a|b', ObjectSerializer::serializeCollection(['a', 'b'], 'pipeDelimited'));
+    }
+
+    public function testSerializeCollectionTsv(): void
+    {
+        $this->assertSame("a\tb\tc", ObjectSerializer::serializeCollection(['a', 'b', 'c'], 'tsv'));
+    }
+
+    public function testSerializeCollectionSsv(): void
+    {
+        $this->assertSame('a b c', ObjectSerializer::serializeCollection(['a', 'b', 'c'], 'ssv'));
+        $this->assertSame('a b', ObjectSerializer::serializeCollection(['a', 'b'], 'spaceDelimited'));
+    }
+
+    public function testSerializeCollectionCsv(): void
+    {
+        $this->assertSame('a,b,c', ObjectSerializer::serializeCollection(['a', 'b', 'c'], 'csv'));
+    }
+
+    public function testSerializeCollectionMulti(): void
+    {
+        $result = ObjectSerializer::serializeCollection(['a', 'b'], 'multi', true);
+        $this->assertStringContainsString('a', $result);
+        $this->assertStringContainsString('b', $result);
+    }
+
+    // -- deserialize edge cases --
+
+    public function testDeserializeNull(): void
+    {
+        $this->assertNull(ObjectSerializer::deserialize(null, Event::class));
+    }
+
+    public function testDeserializeArray(): void
+    {
+        $data = [
+            ['event_id' => 'e1', 'timestamp' => 1],
+            ['event_id' => 'e2', 'timestamp' => 2],
+        ];
+        $result = ObjectSerializer::deserialize($data, Event::class.'[]');
+        $this->assertCount(2, $result);
+        $this->assertInstanceOf(Event::class, $result[0]);
+        $this->assertSame('e1', $result[0]->getEventId());
+    }
+
+    public function testDeserializeArrayWithInvalidData(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        ObjectSerializer::deserialize('not-an-array', Event::class.'[]');
+    }
+
+    public function testDeserializeMap(): void
+    {
+        $data = (object) ['key1' => 'value1', 'key2' => 'value2'];
+        $result = ObjectSerializer::deserialize($data, 'array<string,string>');
+        $this->assertSame(['key1' => 'value1', 'key2' => 'value2'], $result);
+    }
+
+    public function testDeserializeObject(): void
+    {
+        $data = (object) ['foo' => 'bar'];
+        $result = ObjectSerializer::deserialize($data, 'object');
+        $this->assertIsArray($result);
+        $this->assertSame('bar', $result['foo']);
+    }
+
+    public function testDeserializeMixed(): void
+    {
+        $this->assertSame('hello', ObjectSerializer::deserialize('hello', 'mixed'));
+        $this->assertSame(42, ObjectSerializer::deserialize(42, 'mixed'));
+    }
+
+    public function testDeserializeDateTimeEmpty(): void
+    {
+        $this->assertNull(ObjectSerializer::deserialize('', '\DateTime'));
+    }
+
+    public function testDeserializeDateTimeValid(): void
+    {
+        $result = ObjectSerializer::deserialize('2024-01-15T12:00:00Z', '\DateTime');
+        $this->assertInstanceOf(\DateTime::class, $result);
+    }
+
+    public function testDeserializeDateTimeHighPrecision(): void
+    {
+        $result = ObjectSerializer::deserialize('2024-01-15T12:00:00.123456789012Z', '\DateTime');
+        $this->assertInstanceOf(\DateTime::class, $result);
+    }
+
+    public function testDeserializePrimitiveInt(): void
+    {
+        $result = ObjectSerializer::deserialize('42', 'int');
+        $this->assertSame(42, $result);
+    }
+
+    public function testDeserializePrimitiveBool(): void
+    {
+        $result = ObjectSerializer::deserialize(true, 'bool');
+        $this->assertTrue($result);
+    }
+
+    public function testDeserializePrimitiveString(): void
+    {
+        $result = ObjectSerializer::deserialize('hello', 'string');
+        $this->assertSame('hello', $result);
+    }
+
+    public function testDeserializePrimitiveFloat(): void
+    {
+        $result = ObjectSerializer::deserialize('3.14', 'float');
+        $this->assertSame(3.14, $result);
+    }
+
+    public function testDeserializeFromJsonString(): void
+    {
+        $json = json_encode(['event_id' => 'e1', 'timestamp' => 1]);
+        $result = ObjectSerializer::deserialize($json, Event::class);
+        $this->assertInstanceOf(Event::class, $result);
+        $this->assertSame('e1', $result->getEventId());
+    }
+
+    public function testDeserializeArrayFromJsonString(): void
+    {
+        $json = json_encode([['event_id' => 'e1', 'timestamp' => 1]]);
+        $result = ObjectSerializer::deserialize($json, Event::class.'[]');
+        $this->assertCount(1, $result);
+    }
 }
