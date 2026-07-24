@@ -163,4 +163,11 @@ class LabelsInnerTest extends TestCase
         $model = new LabelsInner();
         $this->assertFalse($model->isNullableSetToNull('label'));
     }
+
+    public function testListInvalidPropertiesWhenMlScoreTooLow(): void
+    {
+        $model = new LabelsInner(['label' => 'test', 'ml_score' => -0.5]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
 }

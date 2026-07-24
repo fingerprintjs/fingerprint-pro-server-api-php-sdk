@@ -163,4 +163,10 @@ class PluginsInnerMimeTypesInnerTest extends TestCase
         $this->assertEquals(self::EXAMPLE['type'], $decoded['type']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new PluginsInnerMimeTypesInner();
+        $this->assertIsBool($model->isNullableSetToNull('type'));
+    }
 }

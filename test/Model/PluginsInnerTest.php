@@ -3,6 +3,7 @@
 namespace Fingerprint\ServerSdk\Test\Model;
 
 use Fingerprint\ServerSdk\Model\PluginsInner;
+use Fingerprint\ServerSdk\Model\PluginsInnerMimeTypesInner;
 use Fingerprint\ServerSdk\ObjectSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -158,5 +159,19 @@ class PluginsInnerTest extends TestCase
         $this->assertIsArray($decoded);
         $this->assertEquals(self::EXAMPLE['name'], $decoded['name']);
         $this->assertStringNotContainsString("\n", $header);
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new PluginsInner();
+        $this->assertIsBool($model->isNullableSetToNull('name'));
+    }
+
+    public function testSetMimeTypes(): void
+    {
+        $model = new PluginsInner();
+        $mime = new PluginsInnerMimeTypesInner();
+        $model->setMimeTypes([$mime]);
+        $this->assertCount(1, $model->getMimeTypes());
     }
 }
