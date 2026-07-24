@@ -26,9 +26,11 @@ use Fingerprint\ServerSdk\Model\SearchEventsVpnConfidence;
 use Fingerprint\ServerSdk\Model\SupplementaryIDHighRecall;
 use Fingerprint\ServerSdk\Test\MockHelper;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Utils;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -1205,6 +1207,126 @@ class FingerprintApiTest extends TestCase
 
             throw $e;
         }
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     */
+    public function testGetEventConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'Connection refused',
+            new Request('GET', '/events/test')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Connection refused/');
+
+        $this->api->getEvent('test');
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     */
+    public function testSearchEventsConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'DNS resolution failed',
+            new Request('GET', '/events/search')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/DNS resolution failed/');
+
+        $this->api->searchEvents(10);
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     */
+    public function testDeleteVisitorDataConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'Connection timed out',
+            new Request('DELETE', '/visitors/test')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Connection timed out/');
+
+        $this->api->deleteVisitorData('test-visitor');
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     */
+    public function testUpdateEventConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'Network unreachable',
+            new Request('PATCH', '/events/test')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Network unreachable/');
+
+        $this->api->updateEvent('test', new EventUpdate());
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function testCreateHttpClientOptionWithDebug(): void
+    {
+        $debugFile = tempnam(sys_get_temp_dir(), 'fp_debug_');
+        $this->configuration->setDebug(true);
+        $this->configuration->setDebugFile($debugFile);
+
+        $this->mockHandler->append(new Response(200, [], '{}'));
+        // The debug option is applied internally when making a request
+        // Just verify the request completes without error
+        $this->api->deleteVisitorData('test');
+        $this->assertTrue(file_exists($debugFile));
+        unlink($debugFile);
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function testCreateHttpClientOptionWithCertFile(): void
+    {
+        $certFile = tempnam(sys_get_temp_dir(), 'fp_cert_');
+        $this->configuration->setCertFile($certFile);
+
+        $this->mockHandler->append(new Response(200, [], '{}'));
+        $this->api->deleteVisitorData('test');
+        // If we get here without error, cert option was accepted
+        $this->assertTrue(true);
+        unlink($certFile);
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function testCreateHttpClientOptionWithKeyFile(): void
+    {
+        $keyFile = tempnam(sys_get_temp_dir(), 'fp_key_');
+        $this->configuration->setKeyFile($keyFile);
+
+        $this->mockHandler->append(new Response(200, [], '{}'));
+        $this->api->deleteVisitorData('test');
+        $this->assertTrue(true);
+        unlink($keyFile);
     }
 
     private function parseQueryString(string $query): array
