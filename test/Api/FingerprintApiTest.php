@@ -1302,6 +1302,7 @@ class FingerprintApiTest extends TestCase
                 unlink($debugFile);
             }
         }
+    }
 
     /**
      * @throws \DateMalformedStringException
