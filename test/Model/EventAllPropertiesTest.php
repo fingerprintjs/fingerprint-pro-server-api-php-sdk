@@ -382,4 +382,34 @@ class EventAllPropertiesTest extends TestCase
         $this->assertNotEmpty($invalid);
         $this->assertGreaterThanOrEqual(4, count($invalid));
     }
+
+    public function testMlScoreValidationOppositeDirection(): void
+    {
+        $event = new Event([
+            'event_id' => 'e',
+            'timestamp' => 1,
+            'proxy_ml_score' => -0.1,
+            'tampering_ml_score' => 1.5,
+            'virtual_machine_ml_score' => -0.1,
+            'vpn_ml_score' => 1.5,
+        ]);
+        $invalid = $event->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+        $this->assertGreaterThanOrEqual(4, count($invalid));
+    }
+
+    public function testSetProximity(): void
+    {
+        $event = new Event(['event_id' => 'e', 'timestamp' => 1]);
+        $proximity = new \Fingerprint\ServerSdk\Model\Proximity();
+        $event->setProximity($proximity);
+        $this->assertSame($proximity, $event->getProximity());
+    }
+
+    public function testSetTamperingConfidence(): void
+    {
+        $event = new Event(['event_id' => 'e', 'timestamp' => 1]);
+        $event->setTamperingConfidence('high');
+        $this->assertSame('high', $event->getTamperingConfidence());
+    }
 }

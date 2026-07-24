@@ -200,4 +200,45 @@ class RawDeviceAttributesTest extends TestCase
         $this->assertIsArray(RawDeviceAttributes::getters());
         $this->assertSame('RawDeviceAttributes', (new RawDeviceAttributes())->getModelName());
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new RawDeviceAttributes();
+        $this->assertIsBool($model->isNullableSetToNull('architecture'));
+    }
+
+    public function testArrayAccess(): void
+    {
+        $model = new RawDeviceAttributes(['architecture' => 127]);
+
+        $this->assertTrue(isset($model['architecture']));
+        $this->assertSame(127, $model['architecture']);
+
+        $model['color_depth'] = 24;
+        $this->assertSame(24, $model['color_depth']);
+
+        unset($model['color_depth']);
+        $this->assertNull($model['color_depth']);
+    }
+
+    public function testArrayAccessWithNullOffset(): void
+    {
+        $model = new RawDeviceAttributes();
+        $model[] = 'appended';
+        $this->assertTrue(true);
+    }
+
+    public function testListInvalidPropertiesScreenResolutionTooMany(): void
+    {
+        $model = new RawDeviceAttributes(['screen_resolution' => [1920, 1080, 32]]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
+
+    public function testListInvalidPropertiesBatteryLevelTooLow(): void
+    {
+        $model = new RawDeviceAttributes(['battery_level' => -1]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
 }
