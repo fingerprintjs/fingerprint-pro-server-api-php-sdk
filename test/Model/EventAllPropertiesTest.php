@@ -12,6 +12,7 @@ use Fingerprint\ServerSdk\Model\Identification;
 use Fingerprint\ServerSdk\Model\IPBlockList;
 use Fingerprint\ServerSdk\Model\IPInfo;
 use Fingerprint\ServerSdk\Model\LabelsInner;
+use Fingerprint\ServerSdk\Model\Proximity;
 use Fingerprint\ServerSdk\Model\ProxyDetails;
 use Fingerprint\ServerSdk\Model\RawDeviceAttributes;
 use Fingerprint\ServerSdk\Model\SDK;
@@ -401,7 +402,7 @@ class EventAllPropertiesTest extends TestCase
     public function testSetProximity(): void
     {
         $event = new Event(['event_id' => 'e', 'timestamp' => 1]);
-        $proximity = new \Fingerprint\ServerSdk\Model\Proximity();
+        $proximity = new Proximity();
         $event->setProximity($proximity);
         $this->assertSame($proximity, $event->getProximity());
     }

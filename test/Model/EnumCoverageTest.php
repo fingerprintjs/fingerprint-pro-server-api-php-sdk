@@ -80,6 +80,7 @@ class EnumCoverageTest extends TestCase
 
     /**
      * @param class-string<\BackedEnum> $enumClass
+     *
      * @throws \DateMalformedStringException
      */
     #[DataProvider('enumClassProvider')]
