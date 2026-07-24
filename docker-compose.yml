@@ -7,7 +7,7 @@ services:
     volumes:
       - ./:/app
   php:
-    image: php:8.4-cli
+    image: php:8.4-cli-alpine
     volumes:
       - ./:/app
     working_dir: /app
