@@ -1285,16 +1285,23 @@ class FingerprintApiTest extends TestCase
     public function testCreateHttpClientOptionWithDebug(): void
     {
         $debugFile = tempnam(sys_get_temp_dir(), 'fp_debug_');
+        // tempnam() creates the file; remove it so the request path must recreate/write it.
+        unlink($debugFile);
+
         $this->configuration->setDebug(true);
         $this->configuration->setDebugFile($debugFile);
 
         $this->mockHandler->append(new Response(200, [], '{}'));
-        // The debug option is applied internally when making a request
-        // Just verify the request completes without error
-        $this->api->deleteVisitorData('test');
-        $this->assertTrue(file_exists($debugFile));
-        unlink($debugFile);
-    }
+
+        try {
+            // The debug option is applied internally when making a request.
+            $this->api->deleteVisitorData('test');
+            $this->assertFileExists($debugFile);
+        } finally {
+            if (file_exists($debugFile)) {
+                unlink($debugFile);
+            }
+        }
 
     /**
      * @throws \DateMalformedStringException
