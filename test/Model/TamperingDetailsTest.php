@@ -173,4 +173,17 @@ class TamperingDetailsTest extends TestCase
         $invalid = $model->listInvalidProperties();
         $this->assertNotEmpty($invalid);
     }
+
+    public function testListInvalidPropertiesAnomalyScoreTooLow(): void
+    {
+        $model = new TamperingDetails(['anomaly_score' => -0.5]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new TamperingDetails();
+        $this->assertIsBool($model->isNullableSetToNull('anomaly_score'));
+    }
 }

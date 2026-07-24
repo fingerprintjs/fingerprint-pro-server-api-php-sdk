@@ -176,4 +176,17 @@ class VpnMethodsTest extends TestCase
         $model->setRelay(true);
         $this->assertTrue($model->getRelay());
     }
+
+    public function testSetMlPrediction(): void
+    {
+        $model = new VPNMethods();
+        $model->setMlPrediction(true);
+        $this->assertTrue($model->getMlPrediction());
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new VPNMethods();
+        $this->assertIsBool($model->isNullableSetToNull('timezone_mismatch'));
+    }
 }

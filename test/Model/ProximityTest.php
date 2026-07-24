@@ -284,4 +284,11 @@ class ProximityTest extends TestCase
         $invalid = $model->listInvalidProperties();
         $this->assertNotEmpty($invalid);
     }
+
+    public function testConfidenceValidationTooLow(): void
+    {
+        $model = new Proximity(['confidence' => -0.1]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
 }
