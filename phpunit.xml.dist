@@ -16,6 +16,9 @@
         <include>
             <directory>./src</directory>
         </include>
+        <exclude>
+            <file>./src/Model/ModelInterface.php</file>
+        </exclude>
     </source>
 
     <php>
