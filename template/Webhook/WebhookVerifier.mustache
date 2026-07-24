@@ -14,7 +14,7 @@ final class WebhookVerifier
      * @param string $data   raw webhook request body
      * @param string $secret webhook signing secret
      */
-    public static function IsValidWebhookSignature(string $header, string $data, string $secret): bool
+    public static function isValidWebhookSignature(string $header, string $data, string $secret): bool
     {
         $signatures = explode(',', $header);
         foreach ($signatures as $signature) {
