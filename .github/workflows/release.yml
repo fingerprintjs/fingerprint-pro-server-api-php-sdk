@@ -16,7 +16,7 @@ jobs:
       language: php
       language-version: '8.3'
       prepare-command: |
-        composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+        composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --prefer-dist
     secrets:
       APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
       RUNNER_APP_PRIVATE_KEY: ${{ secrets.RUNNER_APP_PRIVATE_KEY }}
