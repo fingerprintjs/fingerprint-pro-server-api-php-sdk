@@ -1329,6 +1329,86 @@ class FingerprintApiTest extends TestCase
         unlink($keyFile);
     }
 
+    public function testSearchEventsRequestLimitTooHigh(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(limit: 101);
+    }
+
+    public function testSearchEventsRequestLimitTooLow(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(limit: 0);
+    }
+
+    public function testSearchEventsRequestTotalHitsTooHigh(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(total_hits: 1001);
+    }
+
+    public function testSearchEventsRequestTotalHitsTooLow(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(total_hits: 0);
+    }
+
+    public function testSearchEventsRequestSourceTooMany(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(source: [SearchEventsSource::EDGE, SearchEventsSource::EDGE]);
+    }
+
+    public function testGetEventWithInvalidJson(): void
+    {
+        $this->mockHandler->append(new Response(200, [], 'not-valid-json'));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Error JSON decoding/');
+
+        $this->api->getEvent('test');
+    }
+
+    public function testDeleteVisitorDataNon2xxStatusCode(): void
+    {
+        $this->mockHandler->append(new Response(301, [], ''));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(301);
+
+        $this->api->deleteVisitorData('test');
+    }
+
+    public function testGetEventNon2xxStatusCode(): void
+    {
+        $this->mockHandler->append(new Response(301, [], ''));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(301);
+
+        $this->api->getEvent('test');
+    }
+
+    public function testSearchEventsNon2xxStatusCode(): void
+    {
+        $this->mockHandler->append(new Response(301, [], ''));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(301);
+
+        $this->api->searchEvents(10);
+    }
+
+    public function testUpdateEventNon2xxStatusCode(): void
+    {
+        $this->mockHandler->append(new Response(301, [], ''));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(301);
+
+        $this->api->updateEvent('test', new EventUpdate());
+    }
+
     private function parseQueryString(string $query): array
     {
         $queryArray = [];
