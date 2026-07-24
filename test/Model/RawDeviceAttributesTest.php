@@ -225,7 +225,7 @@ class RawDeviceAttributesTest extends TestCase
     {
         $model = new RawDeviceAttributes();
         $model[] = 'appended';
-        $this->assertTrue(true);
+        $this->assertSame('appended', $model[0]);
     }
 
     public function testListInvalidPropertiesScreenResolutionTooMany(): void
