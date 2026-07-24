@@ -154,7 +154,7 @@ class RequestHeaderModificationsTest extends TestCase
     public function testIsNullableSetToNullPath(): void
     {
         $model = new RequestHeaderModifications();
-        $this->assertIsBool($model->isNullableSetToNull('name'));
+        $this->assertFalse($model->isNullableSetToNull('remove'));
     }
 
     public function testSetRemoveSetAppend(): void
