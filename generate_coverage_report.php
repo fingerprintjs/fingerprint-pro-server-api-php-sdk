@@ -70,6 +70,11 @@ foreach ($arr['project']['file'] as $file) {
     $filePath = 'src/'.explode('src/', $file['@attributes']['name'])[1];
     $fileMetrics = $file['metrics']['@attributes'];
 
+    // Skip files with no coverable statements
+    if (0 === (int) $fileMetrics['statements'] && 0 === (int) $fileMetrics['methods']) {
+        continue;
+    }
+
     $methodsPct = $fileMetrics['methods'] > 0 ? ($fileMetrics['coveredmethods'] / $fileMetrics['methods']) * 100 : 0;
     $statementsPct = $fileMetrics['statements'] > 0 ? ($fileMetrics['coveredstatements'] / $fileMetrics['statements']) * 100 : 0;
 
