@@ -1329,6 +1329,19 @@ class FingerprintApiTest extends TestCase
         unlink($keyFile);
     }
 
+    public function testCreateHttpClientOptionDebugFileOpenFailure(): void
+    {
+        $this->configuration->setDebug(true);
+        $this->configuration->setDebugFile('/nonexistent/directory/debug.log');
+
+        $this->mockHandler->append(new Response(200, [], '{}'));
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessageMatches('/Failed to open the debug file/');
+
+        $this->api->deleteVisitorData('test');
+    }
+
     public function testSearchEventsRequestLimitTooHigh(): void
     {
         $this->expectException(\InvalidArgumentException::class);
