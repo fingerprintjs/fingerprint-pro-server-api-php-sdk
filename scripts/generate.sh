@@ -90,11 +90,11 @@ sed_in_place 's/@param  int|null \$limit/@param  int \$limit/' "$API_FILE"
 # Exclude unreachable discriminator null-check from coverage in EventRuleAction.
 # The `type` property is always set by the constructor, so the null check is dead code.
 EVENT_RULE_ACTION_FILE="src/Model/EventRuleAction.php"
-TYPE_NULL_LINE=$(grep -n "null === \$this->container\['type'\]" "$EVENT_RULE_ACTION_FILE" | cut -d: -f1)
+TYPE_NULL_LINE=$(grep -n -m1 "null === \$this->container\['type'\]" "$EVENT_RULE_ACTION_FILE" | cut -d: -f1)
 if [ -n "$TYPE_NULL_LINE" ]; then
   sed_in_place "${TYPE_NULL_LINE}i\\
         // @codeCoverageIgnoreStart" "$EVENT_RULE_ACTION_FILE"
-  INVALIDPROPS_LINE=$((TYPE_NULL_LINE + 2))
-  sed_in_place "${INVALIDPROPS_LINE}a\\
-            // @codeCoverageIgnoreEnd" "$EVENT_RULE_ACTION_FILE"
+  CLOSING_BRACE_LINE=$((TYPE_NULL_LINE + 3))
+  sed_in_place "${CLOSING_BRACE_LINE}a\\
+        // @codeCoverageIgnoreEnd" "$EVENT_RULE_ACTION_FILE"
 fi
