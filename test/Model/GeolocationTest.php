@@ -287,4 +287,16 @@ class GeolocationTest extends TestCase
         $invalid = $model->listInvalidProperties();
         $this->assertCount(5, $invalid);
     }
+
+    public function testListInvalidPropertiesOppositeDirection(): void
+    {
+        $model = new Geolocation([
+            'latitude' => -100,
+            'longitude' => -200,
+            'country_code' => 'G',
+            'continent_code' => 'EUR',
+        ]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertCount(4, $invalid);
+    }
 }
