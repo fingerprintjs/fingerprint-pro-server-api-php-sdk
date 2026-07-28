@@ -17,15 +17,12 @@ jobs:
           extensions: xdebug
       - name: Install Dependencies
         run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --prefer-dist
-      - uses: KengoTODA/actions-setup-docker-compose@477353946803dd64eaa44008b865b6bfc88cab4e # v1.2.4
-        with:
-          version: '2.14.2'
       - name: "Create Empty env File for Docker"
         run: touch .env
       - name: Clear previous coverage data
         run: rm -f cov/xml/clover-pr.xml cov/xml/clover-base.xml cov/xml/clover.xml
       - name: PHPUnit for PR
-        run: docker-compose run phpunit
+        run: docker compose run phpunit
       - name: Create coverage report for PR
         id: pr_coverage
         run: |
@@ -52,13 +49,10 @@ jobs:
           extensions: xdebug
       - name: Install Dependencies
         run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --prefer-dist
-      - uses: KengoTODA/actions-setup-docker-compose@477353946803dd64eaa44008b865b6bfc88cab4e # v1.2.4
-        with:
-          version: '2.14.2'
       - name: "Create Empty env File for Docker"
         run: touch .env
       - name: PHPUnit for Base
-        run: docker-compose run phpunit
+        run: docker compose run phpunit
       - name: Create coverage report for Base
         id: base_coverage
         run: |

@@ -2,6 +2,6 @@
 
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
-require_cmd docker-compose
+require_cmd docker
 
-docker-compose run phpunit
+docker compose run phpunit
