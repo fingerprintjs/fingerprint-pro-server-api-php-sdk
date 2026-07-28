@@ -232,6 +232,28 @@ class FingerprintApi
                     return [null, $response];
                 },
                 function ($e) {
+                    if ($e instanceof RequestException) {
+                        $e = new ApiException(
+                            "[{$e->getCode()}] {$e->getMessage()}",
+                            (int) $e->getCode(),
+                            $e->getResponse(),
+                            $e
+                        );
+                    } elseif ($e instanceof ConnectException) {
+                        $e = new ApiException(
+                            "[{$e->getCode()}] {$e->getMessage()}",
+                            (int) $e->getCode(),
+                            null,
+                            $e
+                        );
+                    } elseif (!$e instanceof ApiException) {
+                        $e = new ApiException(
+                            $e->getMessage(),
+                            (int) $e->getCode(),
+                            null,
+                            $e
+                        );
+                    }
                     $this->handleDeleteVisitorDataError($e);
                 }
             );
@@ -425,6 +447,28 @@ class FingerprintApi
                     ];
                 },
                 function ($e) {
+                    if ($e instanceof RequestException) {
+                        $e = new ApiException(
+                            "[{$e->getCode()}] {$e->getMessage()}",
+                            (int) $e->getCode(),
+                            $e->getResponse(),
+                            $e
+                        );
+                    } elseif ($e instanceof ConnectException) {
+                        $e = new ApiException(
+                            "[{$e->getCode()}] {$e->getMessage()}",
+                            (int) $e->getCode(),
+                            null,
+                            $e
+                        );
+                    } elseif (!$e instanceof ApiException) {
+                        $e = new ApiException(
+                            $e->getMessage(),
+                            (int) $e->getCode(),
+                            null,
+                            $e
+                        );
+                    }
                     $this->handleGetEventError($e);
                 }
             );
@@ -825,6 +869,28 @@ class FingerprintApi
                     ];
                 },
                 function ($e) {
+                    if ($e instanceof RequestException) {
+                        $e = new ApiException(
+                            "[{$e->getCode()}] {$e->getMessage()}",
+                            (int) $e->getCode(),
+                            $e->getResponse(),
+                            $e
+                        );
+                    } elseif ($e instanceof ConnectException) {
+                        $e = new ApiException(
+                            "[{$e->getCode()}] {$e->getMessage()}",
+                            (int) $e->getCode(),
+                            null,
+                            $e
+                        );
+                    } elseif (!$e instanceof ApiException) {
+                        $e = new ApiException(
+                            $e->getMessage(),
+                            (int) $e->getCode(),
+                            null,
+                            $e
+                        );
+                    }
                     $this->handleSearchEventsError($e);
                 }
             );
@@ -1525,6 +1591,28 @@ class FingerprintApi
                     return [null, $response];
                 },
                 function ($e) {
+                    if ($e instanceof RequestException) {
+                        $e = new ApiException(
+                            "[{$e->getCode()}] {$e->getMessage()}",
+                            (int) $e->getCode(),
+                            $e->getResponse(),
+                            $e
+                        );
+                    } elseif ($e instanceof ConnectException) {
+                        $e = new ApiException(
+                            "[{$e->getCode()}] {$e->getMessage()}",
+                            (int) $e->getCode(),
+                            null,
+                            $e
+                        );
+                    } elseif (!$e instanceof ApiException) {
+                        $e = new ApiException(
+                            $e->getMessage(),
+                            (int) $e->getCode(),
+                            null,
+                            $e
+                        );
+                    }
                     $this->handleUpdateEventError($e);
                 }
             );
