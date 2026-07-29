@@ -24,7 +24,7 @@ class WebhookVerifierTest extends TestCase
     {
         /** @noinspection SpellCheckingInspection */
         $validHeader = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db';
-        $result = WebhookVerifier::IsValidWebhookSignature($validHeader, $this->data, $this->secret);
+        $result = WebhookVerifier::isValidWebhookSignature($validHeader, $this->data, $this->secret);
         $this->assertTrue($result, 'With valid signature');
     }
 
@@ -33,7 +33,7 @@ class WebhookVerifierTest extends TestCase
      */
     public function testWithInvalidHeader(): void
     {
-        $result = WebhookVerifier::IsValidWebhookSignature('v2=invalid', $this->data, $this->secret);
+        $result = WebhookVerifier::isValidWebhookSignature('v2=invalid', $this->data, $this->secret);
         $this->assertFalse($result, 'With invalid header');
     }
 
@@ -42,7 +42,7 @@ class WebhookVerifierTest extends TestCase
      */
     public function testWithHeaderWithoutVersion(): void
     {
-        $result = WebhookVerifier::IsValidWebhookSignature('invalid', $this->data, $this->secret);
+        $result = WebhookVerifier::isValidWebhookSignature('invalid', $this->data, $this->secret);
         $this->assertFalse($result, 'With header without version');
     }
 
@@ -51,7 +51,7 @@ class WebhookVerifierTest extends TestCase
      */
     public function testWithEmptyHeader(): void
     {
-        $result = WebhookVerifier::IsValidWebhookSignature('', $this->data, $this->secret);
+        $result = WebhookVerifier::isValidWebhookSignature('', $this->data, $this->secret);
         $this->assertFalse($result, 'With empty header');
     }
 
@@ -62,7 +62,7 @@ class WebhookVerifierTest extends TestCase
     {
         /** @noinspection SpellCheckingInspection */
         $validHeader = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db';
-        $result = WebhookVerifier::IsValidWebhookSignature($validHeader, $this->data, '');
+        $result = WebhookVerifier::isValidWebhookSignature($validHeader, $this->data, '');
         $this->assertFalse($result, 'With empty secret');
     }
 
@@ -73,7 +73,7 @@ class WebhookVerifierTest extends TestCase
     {
         /** @noinspection SpellCheckingInspection */
         $validHeader = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db';
-        $result = WebhookVerifier::IsValidWebhookSignature($validHeader, '', $this->secret);
+        $result = WebhookVerifier::isValidWebhookSignature($validHeader, '', $this->secret);
         $this->assertFalse($result, 'With empty data');
     }
 }

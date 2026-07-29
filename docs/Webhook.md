@@ -1,8 +1,8 @@
 # Webhook
 
-## **IsValidWebhookSignature**
+## **isValidWebhookSignature**
 
-> Fingerprint\ServerSdk\Webhook\WebhookVerifier::IsValidWebhookSignature(string $header, string $data, string $secret): bool
+> Fingerprint\ServerSdk\Webhook\WebhookVerifier::isValidWebhookSignature(string $header, string $data, string $secret): bool
 
 Verifies the HMAC signature extracted from the "fpjs-event-signature" header of the incoming request. This is a part of the [webhook signing](https://docs.fingerprint.com/docs/webhooks#protecting-your-webhooks) process.
 
