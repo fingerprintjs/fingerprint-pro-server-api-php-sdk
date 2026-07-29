@@ -23,6 +23,7 @@ use PHPUnit\Framework\TestCase;
  * @internal
  */
 #[CoversClass(Sealed::class)]
+#[CoversClass(UnsealAggregateException::class)]
 class SealedTest extends TestCase
 {
     public const VALID_KEY = 'p2PA7MGy5tx56cnyJaFZMr96BCFwZeHjZV2EqMvTq53=';
@@ -159,6 +160,12 @@ class SealedTest extends TestCase
             $sealedResult,
             [$this->keys[0]]
         );
+    }
+
+    public function testUnsealAggregateExceptionReturnsEmptyArrayWhenNoExceptionsAdded()
+    {
+        $exception = new UnsealAggregateException();
+        $this->assertSame([], $exception->getExceptions());
     }
 
     public function testUnsealEventResponseWithInvalidNonce()
