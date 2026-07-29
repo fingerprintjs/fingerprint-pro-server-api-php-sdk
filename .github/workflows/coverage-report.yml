@@ -18,7 +18,7 @@ jobs:
           tools: composer:v2
           extensions: xdebug
       - name: Install Dependencies
-        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --prefer-dist
       - name: "Create Empty env File for Docker"
         run: touch .env
       - name: PHPUnit

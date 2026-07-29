@@ -34,7 +34,7 @@ jobs:
           coverage: none
           tools: composer:v2
       - name: Install Dependencies
-        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --no-suggest --prefer-dist
+        run: composer install -q --profile --ignore-platform-reqs --no-interaction --no-ansi --no-scripts --prefer-dist
       - name: "Try to get data using SDK"
         run: "php ./run_checks.php"
         env:
