@@ -2,6 +2,7 @@
 
 namespace Fingerprint\ServerSdk\Test\Model;
 
+use Fingerprint\ServerSdk\Model\IdentificationConfidence;
 use Fingerprint\ServerSdk\Model\SupplementaryIDHighRecall;
 use Fingerprint\ServerSdk\ObjectSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -168,5 +169,19 @@ class SupplementaryIDHighRecallTest extends TestCase
         $this->assertIsArray($decoded);
         $this->assertEquals(self::EXAMPLE['visitor_id'], $decoded['visitor_id']);
         $this->assertStringNotContainsString("\n", $header);
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new SupplementaryIDHighRecall();
+        $this->assertIsBool($model->isNullableSetToNull('visitor_id'));
+    }
+
+    public function testSetConfidence(): void
+    {
+        $model = new SupplementaryIDHighRecall();
+        $confidence = new IdentificationConfidence();
+        $model->setConfidence($confidence);
+        $this->assertSame($confidence, $model->getConfidence());
     }
 }

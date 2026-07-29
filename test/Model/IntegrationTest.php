@@ -3,6 +3,7 @@
 namespace Fingerprint\ServerSdk\Test\Model;
 
 use Fingerprint\ServerSdk\Model\Integration;
+use Fingerprint\ServerSdk\Model\IntegrationSubintegration;
 use Fingerprint\ServerSdk\ObjectSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -158,5 +159,19 @@ class IntegrationTest extends TestCase
         $this->assertIsArray($decoded);
         $this->assertEquals(self::EXAMPLE['name'], $decoded['name']);
         $this->assertStringNotContainsString("\n", $header);
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new Integration();
+        $this->assertIsBool($model->isNullableSetToNull('name'));
+    }
+
+    public function testSetSubintegration(): void
+    {
+        $model = new Integration();
+        $sub = new IntegrationSubintegration();
+        $model->setSubintegration($sub);
+        $this->assertSame($sub, $model->getSubintegration());
     }
 }

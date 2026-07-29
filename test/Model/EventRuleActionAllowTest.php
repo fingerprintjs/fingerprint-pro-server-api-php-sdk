@@ -3,6 +3,7 @@
 namespace Fingerprint\ServerSdk\Test\Model;
 
 use Fingerprint\ServerSdk\Model\EventRuleActionAllow;
+use Fingerprint\ServerSdk\Model\RequestHeaderModifications;
 use Fingerprint\ServerSdk\Model\RuleActionType;
 use Fingerprint\ServerSdk\ObjectSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -193,5 +194,13 @@ class EventRuleActionAllowTest extends TestCase
 
         $this->assertNull($model->getRulesetId());
         $this->assertFalse($model->isNullableSetToNull('ruleset_id'));
+    }
+
+    public function testSetRequestHeaderModifications(): void
+    {
+        $model = new EventRuleActionAllow();
+        $modifications = new RequestHeaderModifications();
+        $model->setRequestHeaderModifications($modifications);
+        $this->assertSame($modifications, $model->getRequestHeaderModifications());
     }
 }

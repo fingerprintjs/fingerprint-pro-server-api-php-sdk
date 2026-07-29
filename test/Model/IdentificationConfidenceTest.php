@@ -212,4 +212,24 @@ class IdentificationConfidenceTest extends TestCase
         $this->assertNull($model->getScore());
         $this->assertFalse($model->isNullableSetToNull('score'));
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new IdentificationConfidence();
+        $this->assertIsBool($model->isNullableSetToNull('score'));
+    }
+
+    public function testScoreValidationTooHigh(): void
+    {
+        $model = new IdentificationConfidence(['score' => 1.5]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
+
+    public function testScoreValidationTooLow(): void
+    {
+        $model = new IdentificationConfidence(['score' => -0.1]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
 }

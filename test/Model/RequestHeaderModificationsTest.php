@@ -3,6 +3,7 @@
 namespace Fingerprint\ServerSdk\Test\Model;
 
 use Fingerprint\ServerSdk\Model\RequestHeaderModifications;
+use Fingerprint\ServerSdk\Model\RuleActionHeaderField;
 use Fingerprint\ServerSdk\ObjectSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -148,5 +149,23 @@ class RequestHeaderModificationsTest extends TestCase
         $this->assertIsArray($decoded);
         $this->assertEquals(self::EXAMPLE['remove'], $decoded['remove']);
         $this->assertStringNotContainsString("\n", $header);
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new RequestHeaderModifications();
+        $this->assertFalse($model->isNullableSetToNull('remove'));
+    }
+
+    public function testSetRemoveSetAppend(): void
+    {
+        $model = new RequestHeaderModifications();
+        $header = new RuleActionHeaderField();
+        $model->setRemove(['x-header']);
+        $this->assertCount(1, $model->getRemove());
+        $model->setSet([$header]);
+        $this->assertCount(1, $model->getSet());
+        $model->setAppend([$header]);
+        $this->assertCount(1, $model->getAppend());
     }
 }

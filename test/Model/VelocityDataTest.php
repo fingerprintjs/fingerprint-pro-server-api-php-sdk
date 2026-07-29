@@ -160,4 +160,10 @@ class VelocityDataTest extends TestCase
         $this->assertIsArray($decoded);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new VelocityData();
+        $this->assertIsBool($model->isNullableSetToNull('five_minutes'));
+    }
 }

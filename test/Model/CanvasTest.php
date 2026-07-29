@@ -163,4 +163,10 @@ class CanvasTest extends TestCase
         $this->assertEquals(self::EXAMPLE['winding'], $decoded['winding']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new Canvas();
+        $this->assertIsBool($model->isNullableSetToNull('geometry'));
+    }
 }

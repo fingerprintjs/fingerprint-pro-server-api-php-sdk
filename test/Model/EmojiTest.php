@@ -193,4 +193,10 @@ class EmojiTest extends TestCase
         $this->assertEquals(self::EXAMPLE['font'], $decoded['font']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new Emoji();
+        $this->assertIsBool($model->isNullableSetToNull('emoji'));
+    }
 }

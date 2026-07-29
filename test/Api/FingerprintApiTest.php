@@ -26,9 +26,11 @@ use Fingerprint\ServerSdk\Model\SearchEventsVpnConfidence;
 use Fingerprint\ServerSdk\Model\SupplementaryIDHighRecall;
 use Fingerprint\ServerSdk\Test\MockHelper;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Utils;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -1205,6 +1207,227 @@ class FingerprintApiTest extends TestCase
 
             throw $e;
         }
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     */
+    public function testGetEventConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'Connection refused',
+            new Request('GET', '/events/test')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Connection refused/');
+
+        $this->api->getEvent('test');
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     */
+    public function testSearchEventsConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'DNS resolution failed',
+            new Request('GET', '/events/search')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/DNS resolution failed/');
+
+        $this->api->searchEvents(10);
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     */
+    public function testDeleteVisitorDataConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'Connection timed out',
+            new Request('DELETE', '/visitors/test')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Connection timed out/');
+
+        $this->api->deleteVisitorData('test-visitor');
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     */
+    public function testUpdateEventConnectException(): void
+    {
+        $this->mockHandler->append(new ConnectException(
+            'Network unreachable',
+            new Request('PATCH', '/events/test')
+        ));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Network unreachable/');
+
+        $this->api->updateEvent('test', new EventUpdate());
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function testCreateHttpClientOptionWithDebug(): void
+    {
+        $debugFile = tempnam(sys_get_temp_dir(), 'fp_debug_');
+        // tempnam() creates the file; remove it so the request path must recreate/write it.
+        unlink($debugFile);
+
+        $this->configuration->setDebug(true);
+        $this->configuration->setDebugFile($debugFile);
+
+        $this->mockHandler->append(new Response(200, [], '{}'));
+
+        try {
+            // The debug option is applied internally when making a request.
+            $this->api->deleteVisitorData('test');
+            $this->assertFileExists($debugFile);
+        } finally {
+            if (file_exists($debugFile)) {
+                unlink($debugFile);
+            }
+        }
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function testCreateHttpClientOptionWithCertFile(): void
+    {
+        $certFile = tempnam(sys_get_temp_dir(), 'fp_cert_');
+        $this->configuration->setCertFile($certFile);
+
+        $this->mockHandler->append(new Response(200, [], '{}'));
+        $this->api->deleteVisitorData('test');
+        // If we get here without error, cert option was accepted
+        $this->assertTrue(true);
+        unlink($certFile);
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws GuzzleException
+     * @throws ApiException
+     */
+    public function testCreateHttpClientOptionWithKeyFile(): void
+    {
+        $keyFile = tempnam(sys_get_temp_dir(), 'fp_key_');
+        $this->configuration->setKeyFile($keyFile);
+
+        $this->mockHandler->append(new Response(200, [], '{}'));
+        $this->api->deleteVisitorData('test');
+        $this->assertTrue(true);
+        unlink($keyFile);
+    }
+
+    public function testCreateHttpClientOptionDebugFileOpenFailure(): void
+    {
+        $this->configuration->setDebug(true);
+        $this->configuration->setDebugFile('/nonexistent/directory/debug.log');
+
+        $this->mockHandler->append(new Response(200, [], '{}'));
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessageMatches('/Failed to open the debug file/');
+
+        $this->api->deleteVisitorData('test');
+    }
+
+    public function testSearchEventsRequestLimitTooHigh(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(limit: 101);
+    }
+
+    public function testSearchEventsRequestLimitTooLow(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(limit: 0);
+    }
+
+    public function testSearchEventsRequestTotalHitsTooHigh(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(total_hits: 1001);
+    }
+
+    public function testSearchEventsRequestTotalHitsTooLow(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(total_hits: 0);
+    }
+
+    public function testSearchEventsRequestSourceTooMany(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->api->searchEventsRequest(source: [SearchEventsSource::EDGE, SearchEventsSource::EDGE]);
+    }
+
+    public function testGetEventWithInvalidJson(): void
+    {
+        $this->mockHandler->append(new Response(200, [], 'not-valid-json'));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionMessageMatches('/Error JSON decoding/');
+
+        $this->api->getEvent('test');
+    }
+
+    public function testDeleteVisitorDataNon2xxStatusCode(): void
+    {
+        $this->mockHandler->append(new Response(301, [], ''));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(301);
+
+        $this->api->deleteVisitorData('test');
+    }
+
+    public function testGetEventNon2xxStatusCode(): void
+    {
+        $this->mockHandler->append(new Response(301, [], ''));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(301);
+
+        $this->api->getEvent('test');
+    }
+
+    public function testSearchEventsNon2xxStatusCode(): void
+    {
+        $this->mockHandler->append(new Response(301, [], ''));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(301);
+
+        $this->api->searchEvents(10);
+    }
+
+    public function testUpdateEventNon2xxStatusCode(): void
+    {
+        $this->mockHandler->append(new Response(301, [], ''));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(301);
+
+        $this->api->updateEvent('test', new EventUpdate());
     }
 
     private function parseQueryString(string $query): array

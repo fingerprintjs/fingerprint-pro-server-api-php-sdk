@@ -169,4 +169,24 @@ class VpnMethodsTest extends TestCase
         $this->assertEquals(self::EXAMPLE['timezone_mismatch'], $decoded['timezone_mismatch']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testSetRelay(): void
+    {
+        $model = new VPNMethods();
+        $model->setRelay(true);
+        $this->assertTrue($model->getRelay());
+    }
+
+    public function testSetMlPrediction(): void
+    {
+        $model = new VPNMethods();
+        $model->setMlPrediction(true);
+        $this->assertTrue($model->getMlPrediction());
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new VPNMethods();
+        $this->assertIsBool($model->isNullableSetToNull('timezone_mismatch'));
+    }
 }

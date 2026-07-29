@@ -159,4 +159,10 @@ class TouchSupportTest extends TestCase
         $this->assertEquals(self::EXAMPLE['touch_event'], $decoded['touch_event']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new TouchSupport();
+        $this->assertIsBool($model->isNullableSetToNull('max_touch_points'));
+    }
 }

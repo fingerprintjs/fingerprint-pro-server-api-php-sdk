@@ -264,4 +264,31 @@ class ProximityTest extends TestCase
         $this->assertNull($model->getId());
         $this->assertFalse($model->isNullableSetToNull('id'));
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new Proximity();
+        $this->assertIsBool($model->isNullableSetToNull('id'));
+    }
+
+    public function testPrecisionRadiusValidation(): void
+    {
+        $model = new Proximity(['precision_radius' => -1]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
+
+    public function testConfidenceValidation(): void
+    {
+        $model = new Proximity(['confidence' => 1.5]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
+
+    public function testConfidenceValidationTooLow(): void
+    {
+        $model = new Proximity(['confidence' => -0.1]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
 }

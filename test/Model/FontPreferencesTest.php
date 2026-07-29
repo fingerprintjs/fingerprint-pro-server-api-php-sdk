@@ -183,4 +183,10 @@ class FontPreferencesTest extends TestCase
         $this->assertEquals(self::EXAMPLE['default'], $decoded['default']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new FontPreferences();
+        $this->assertIsBool($model->isNullableSetToNull('default_width'));
+    }
 }

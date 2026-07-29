@@ -158,4 +158,10 @@ class IntegrationSubintegrationTest extends TestCase
         $this->assertEquals(self::EXAMPLE['name'], $decoded['name']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new IntegrationSubintegration();
+        $this->assertIsBool($model->isNullableSetToNull('name'));
+    }
 }

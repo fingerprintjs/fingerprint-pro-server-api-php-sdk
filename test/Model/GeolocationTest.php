@@ -220,4 +220,83 @@ class GeolocationTest extends TestCase
         $this->assertNull($model->getCityName());
         $this->assertFalse($model->isNullableSetToNull('city_name'));
     }
+
+    public function testAccuracyRadiusNegativeThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Geolocation())->setAccuracyRadius(-1);
+    }
+
+    public function testLatitudeTooHighThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Geolocation())->setLatitude(91);
+    }
+
+    public function testLatitudeTooLowThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Geolocation())->setLatitude(-91);
+    }
+
+    public function testLongitudeTooHighThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Geolocation())->setLongitude(181);
+    }
+
+    public function testLongitudeTooLowThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Geolocation())->setLongitude(-181);
+    }
+
+    public function testCountryCodeTooLongThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Geolocation())->setCountryCode('GBR');
+    }
+
+    public function testCountryCodeTooShortThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Geolocation())->setCountryCode('G');
+    }
+
+    public function testContinentCodeTooLongThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Geolocation())->setContinentCode('EUR');
+    }
+
+    public function testContinentCodeTooShortThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new Geolocation())->setContinentCode('E');
+    }
+
+    public function testListInvalidPropertiesWithInvalidValues(): void
+    {
+        $model = new Geolocation([
+            'accuracy_radius' => -1,
+            'latitude' => 100,
+            'longitude' => 200,
+            'country_code' => 'GBR',
+            'continent_code' => 'E',
+        ]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertCount(5, $invalid);
+    }
+
+    public function testListInvalidPropertiesOppositeDirection(): void
+    {
+        $model = new Geolocation([
+            'latitude' => -100,
+            'longitude' => -200,
+            'country_code' => 'G',
+            'continent_code' => 'EUR',
+        ]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertCount(4, $invalid);
+    }
 }

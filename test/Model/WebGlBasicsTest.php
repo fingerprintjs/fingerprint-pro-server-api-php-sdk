@@ -165,4 +165,10 @@ class WebGlBasicsTest extends TestCase
         $this->assertEquals(self::EXAMPLE['version'], $decoded['version']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new WebGlBasics();
+        $this->assertIsBool($model->isNullableSetToNull('version'));
+    }
 }

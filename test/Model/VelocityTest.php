@@ -3,6 +3,7 @@
 namespace Fingerprint\ServerSdk\Test\Model;
 
 use Fingerprint\ServerSdk\Model\Velocity;
+use Fingerprint\ServerSdk\Model\VelocityData;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -110,5 +111,19 @@ class VelocityTest extends TestCase
         $decoded = json_decode($header, true);
         $this->assertIsArray($decoded);
         $this->assertStringNotContainsString("\n", $header);
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new Velocity();
+        $this->assertIsBool($model->isNullableSetToNull('distinct_ip'));
+    }
+
+    public function testSetDistinctLinkedId(): void
+    {
+        $model = new Velocity();
+        $data = new VelocityData();
+        $model->setDistinctLinkedId($data);
+        $this->assertSame($data, $model->getDistinctLinkedId());
     }
 }

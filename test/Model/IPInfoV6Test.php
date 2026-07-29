@@ -2,6 +2,7 @@
 
 namespace Fingerprint\ServerSdk\Test\Model;
 
+use Fingerprint\ServerSdk\Model\Geolocation;
 use Fingerprint\ServerSdk\Model\IPInfoV6;
 use Fingerprint\ServerSdk\ObjectSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -183,5 +184,19 @@ class IPInfoV6Test extends TestCase
         $this->assertIsArray($decoded);
         $this->assertEquals(self::EXAMPLE['address'], $decoded['address']);
         $this->assertStringNotContainsString("\n", $header);
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new IPInfoV6();
+        $this->assertIsBool($model->isNullableSetToNull('address'));
+    }
+
+    public function testSetGeolocation(): void
+    {
+        $model = new IPInfoV6();
+        $geo = new Geolocation();
+        $model->setGeolocation($geo);
+        $this->assertSame($geo, $model->getGeolocation());
     }
 }

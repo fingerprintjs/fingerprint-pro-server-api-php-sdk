@@ -165,4 +165,10 @@ class WebGlExtensionsTest extends TestCase
         $this->assertEquals(self::EXAMPLE['context_attributes'], $decoded['context_attributes']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new WebGlExtensions();
+        $this->assertIsBool($model->isNullableSetToNull('extensions'));
+    }
 }

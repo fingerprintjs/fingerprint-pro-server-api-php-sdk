@@ -154,4 +154,36 @@ class TamperingDetailsTest extends TestCase
         $this->assertEquals(self::EXAMPLE['anomaly_score'], $decoded['anomaly_score']);
         $this->assertStringNotContainsString("\n", $header);
     }
+
+    public function testAnomalyScoreUpperBoundThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new TamperingDetails())->setAnomalyScore(1.1);
+    }
+
+    public function testAnomalyScoreLowerBoundThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        (new TamperingDetails())->setAnomalyScore(-0.1);
+    }
+
+    public function testListInvalidPropertiesWithInvalidAnomalyScore(): void
+    {
+        $model = new TamperingDetails(['anomaly_score' => 1.5]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
+
+    public function testListInvalidPropertiesAnomalyScoreTooLow(): void
+    {
+        $model = new TamperingDetails(['anomaly_score' => -0.5]);
+        $invalid = $model->listInvalidProperties();
+        $this->assertNotEmpty($invalid);
+    }
+
+    public function testIsNullableSetToNullPath(): void
+    {
+        $model = new TamperingDetails();
+        $this->assertIsBool($model->isNullableSetToNull('anomaly_score'));
+    }
 }
