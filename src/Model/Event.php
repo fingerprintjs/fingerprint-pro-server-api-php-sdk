@@ -32,11 +32,11 @@ namespace Fingerprint\ServerSdk\Model;
 use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
- * Contains results from Fingerprint Identification and all active Smart Signals.
+ * Contains results from Fingerprint Identification and all active Smart Signals. Some Smart Signals are only supported for certain device types, these fields will be omitted for events not generated from the supported devices. Consult the [Smart Signals reference](https://docs.fingerprint.com/docs/smart-signals-reference) for more details.
  *
  * @category Class
  *
- * @description Contains results from Fingerprint Identification and all active Smart Signals.
+ * @description Contains results from Fingerprint Identification and all active Smart Signals. Some Smart Signals are only supported for certain device types, these fields will be omitted for events not generated from the supported devices. Consult the [Smart Signals reference](https://docs.fingerprint.com/docs/smart-signals-reference) for more details.
  *
  * @author   Fingerprint
  *
@@ -85,6 +85,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'client_referrer' => 'string',
         'browser_details' => '\Fingerprint\ServerSdk\Model\BrowserDetails',
         'proximity' => '\Fingerprint\ServerSdk\Model\Proximity',
+        'active_call' => 'bool',
         'bot' => '\Fingerprint\ServerSdk\Model\BotResult',
         'bot_type' => 'string',
         'bot_info' => '\Fingerprint\ServerSdk\Model\BotInfo',
@@ -160,6 +161,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'client_referrer' => null,
         'browser_details' => null,
         'proximity' => null,
+        'active_call' => null,
         'bot' => null,
         'bot_type' => null,
         'bot_info' => null,
@@ -231,6 +233,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'client_referrer' => false,
         'browser_details' => false,
         'proximity' => false,
+        'active_call' => false,
         'bot' => false,
         'bot_type' => false,
         'bot_info' => false,
@@ -310,6 +313,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'client_referrer' => 'client_referrer',
         'browser_details' => 'browser_details',
         'proximity' => 'proximity',
+        'active_call' => 'active_call',
         'bot' => 'bot',
         'bot_type' => 'bot_type',
         'bot_info' => 'bot_info',
@@ -381,6 +385,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'client_referrer' => 'setClientReferrer',
         'browser_details' => 'setBrowserDetails',
         'proximity' => 'setProximity',
+        'active_call' => 'setActiveCall',
         'bot' => 'setBot',
         'bot_type' => 'setBotType',
         'bot_info' => 'setBotInfo',
@@ -452,6 +457,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         'client_referrer' => 'getClientReferrer',
         'browser_details' => 'getBrowserDetails',
         'proximity' => 'getProximity',
+        'active_call' => 'getActiveCall',
         'bot' => 'getBot',
         'bot_type' => 'getBotType',
         'bot_info' => 'getBotInfo',
@@ -532,6 +538,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         $this->setIfExists('client_referrer', $data ?? [], null);
         $this->setIfExists('browser_details', $data ?? [], null);
         $this->setIfExists('proximity', $data ?? [], null);
+        $this->setIfExists('active_call', $data ?? [], null);
         $this->setIfExists('bot', $data ?? [], null);
         $this->setIfExists('bot_type', $data ?? [], null);
         $this->setIfExists('bot_info', $data ?? [], null);
@@ -1201,6 +1208,28 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function setProximity(Proximity $proximity): self
     {
         $this->container['proximity'] = $proximity;
+
+        return $this;
+    }
+
+    /**
+     * Gets active_call.
+     *
+     */
+    public function getActiveCall(): ?bool
+    {
+        return $this->container['active_call'];
+    }
+
+    /**
+     * Sets active_call.
+     *
+     * @param bool $active_call Indicates whether the mobile device had an active call (cellular or VoIP) at the time of the request. Available from SDK 2.16.0+ on iOS and Android.
+     *
+     */
+    public function setActiveCall(bool $active_call): self
+    {
+        $this->container['active_call'] = $active_call;
 
         return $this;
     }
@@ -1993,7 +2022,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets vpn_origin_country.
      *
-     * @param string $vpn_origin_country Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).
+     * @param string $vpn_origin_country Country of the request (Android SDK version >= 2.4.0, iOS SDK version >= 2.9.0, JS agent >= 3.12.9 / 4.0.2), ISO 3166 format or unknown.
      *
      */
     public function setVpnOriginCountry(string $vpn_origin_country): self
