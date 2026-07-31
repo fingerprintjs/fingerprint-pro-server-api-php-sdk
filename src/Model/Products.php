@@ -89,7 +89,8 @@ class Products implements ModelInterface, \ArrayAccess
         'developer_tools' => '\Fingerprint\ServerAPI\Model\ProductDeveloperTools',
         'mitm_attack' => '\Fingerprint\ServerAPI\Model\ProductMitMAttack',
         'rare_device' => '\Fingerprint\ServerAPI\Model\ProductRareDevice',
-        'proximity' => '\Fingerprint\ServerAPI\Model\ProductProximity'];
+        'proximity' => '\Fingerprint\ServerAPI\Model\ProductProximity',
+        'labels' => '\Fingerprint\ServerAPI\Model\ProductLabels'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -123,7 +124,8 @@ class Products implements ModelInterface, \ArrayAccess
         'developer_tools' => null,
         'mitm_attack' => null,
         'rare_device' => null,
-        'proximity' => null];
+        'proximity' => null,
+        'labels' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -158,7 +160,8 @@ class Products implements ModelInterface, \ArrayAccess
         'developer_tools' => 'developerTools',
         'mitm_attack' => 'mitmAttack',
         'rare_device' => 'rareDevice',
-        'proximity' => 'proximity'];
+        'proximity' => 'proximity',
+        'labels' => 'labels'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -192,7 +195,8 @@ class Products implements ModelInterface, \ArrayAccess
         'developer_tools' => 'setDeveloperTools',
         'mitm_attack' => 'setMitmAttack',
         'rare_device' => 'setRareDevice',
-        'proximity' => 'setProximity'];
+        'proximity' => 'setProximity',
+        'labels' => 'setLabels'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -226,7 +230,8 @@ class Products implements ModelInterface, \ArrayAccess
         'developer_tools' => 'getDeveloperTools',
         'mitm_attack' => 'getMitmAttack',
         'rare_device' => 'getRareDevice',
-        'proximity' => 'getProximity'];
+        'proximity' => 'getProximity',
+        'labels' => 'getLabels'];
 
     /**
      * Associative array for storing property values.
@@ -270,6 +275,7 @@ class Products implements ModelInterface, \ArrayAccess
         $this->container['mitm_attack'] = isset($data['mitm_attack']) ? $data['mitm_attack'] : null;
         $this->container['rare_device'] = isset($data['rare_device']) ? $data['rare_device'] : null;
         $this->container['proximity'] = isset($data['proximity']) ? $data['proximity'] : null;
+        $this->container['labels'] = isset($data['labels']) ? $data['labels'] : null;
     }
 
     /**
@@ -941,6 +947,28 @@ class Products implements ModelInterface, \ArrayAccess
     public function setProximity(?ProductProximity $proximity): self
     {
         $this->container['proximity'] = $proximity;
+
+        return $this;
+    }
+
+    /**
+     * Gets labels.
+     */
+    public function getLabels(): ?ProductLabels
+    {
+        return $this->container['labels'];
+    }
+
+    /**
+     * Sets labels.
+     *
+     * @param ?\Fingerprint\ServerAPI\Model\ProductLabels $labels labels
+     *
+     * @return $this
+     */
+    public function setLabels(?ProductLabels $labels): self
+    {
+        $this->container['labels'] = $labels;
 
         return $this;
     }

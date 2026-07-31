@@ -68,7 +68,7 @@ docker run --rm -u "$(id -u):$(id -g)" -v "${PWD}:/local" -w /local \
   -i ./res/fingerprint-server-api.yaml \
   -o ./ \
   -c ./config.json \
-  --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array,GeolocationSubdivisions=array
+  --type-mapping RawDeviceAttributes=array,WebhookRawDeviceAttributes=array,Tag=array,GeolocationSubdivisions=array,Labels=array
 
 # Add `@deprecated` to the `SearchEventsResponseEvents`
 sed_in_place \
@@ -105,6 +105,8 @@ patterns=(
   '\[Tag\](docs\/Model\/Tag\.md)'
   '\[GeolocationSubdivisions\](docs\/Model\/GeolocationSubdivisions\.md)'
   '\[GeolocationSubdivision\](docs\/Model\/GeolocationSubdivision\.md)'
+  '\[Labels\](docs\/Model\/Labels\.md)'
+  '\[LabelsInner\](docs\/Model\/LabelsInner\.md)'
 )
 for pattern in "${patterns[@]}"; do
   sed_in_place "/$pattern/d" src/README.md
