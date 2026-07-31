@@ -53,6 +53,7 @@ class ProxyDetails implements ModelInterface, \ArrayAccess
 {
     public const PROXY_TYPE_RESIDENTIAL = 'residential';
     public const PROXY_TYPE_DATA_CENTER = 'data_center';
+    public const PROXY_TYPE_UNKNOWN = 'unknown';
 
     /**
      * The original name of the model.
@@ -192,7 +193,8 @@ class ProxyDetails implements ModelInterface, \ArrayAccess
     {
         return [
             self::PROXY_TYPE_RESIDENTIAL,
-            self::PROXY_TYPE_DATA_CENTER,        ];
+            self::PROXY_TYPE_DATA_CENTER,
+            self::PROXY_TYPE_UNKNOWN,        ];
     }
 
     /**
@@ -240,7 +242,7 @@ class ProxyDetails implements ModelInterface, \ArrayAccess
     /**
      * Sets proxy_type.
      *
-     * @param string $proxy_type Residential proxies use real user IP addresses to appear as legitimate traffic,  while data center proxies are public proxies hosted in data centers
+     * @param string $proxy_type Residential proxies use real user IP addresses to appear as legitimate traffic, while data center proxies are public proxies hosted in data centers. `unknown` is reported when a proxy is detected solely by the ML model and the IP sources did not determine a specific type.
      *
      * @return $this
      */

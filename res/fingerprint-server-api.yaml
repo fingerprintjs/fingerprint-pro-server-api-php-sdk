@@ -1914,11 +1914,13 @@ components:
           enum:
             - residential
             - data_center
+            - unknown
           description: >
             Residential proxies use real user IP addresses to appear as
-            legitimate traffic, 
-
-            while data center proxies are public proxies hosted in data centers
+            legitimate traffic, while data center proxies are public proxies
+            hosted in data centers. `unknown` is reported when a proxy is
+            detected solely by the ML model and the IP sources did not determine
+            a specific type.
         lastSeenAt:
           type: string
           format: date-time
