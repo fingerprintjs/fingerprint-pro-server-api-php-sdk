@@ -93,7 +93,9 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'font_hash' => 'string',
         'timezone_offset' => 'string',
         'battery_level' => 'int',
+        'battery_charging' => 'bool',
         'battery_low_power_mode' => 'bool',
+        'keyboard_layout_hash' => 'string',
     ];
 
     /**
@@ -136,7 +138,9 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'font_hash' => null,
         'timezone_offset' => null,
         'battery_level' => 'int32',
+        'battery_charging' => null,
         'battery_low_power_mode' => null,
+        'keyboard_layout_hash' => null,
     ];
 
     /**
@@ -175,7 +179,9 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'font_hash' => false,
         'timezone_offset' => false,
         'battery_level' => false,
+        'battery_charging' => false,
         'battery_low_power_mode' => false,
+        'keyboard_layout_hash' => false,
     ];
 
     /**
@@ -222,7 +228,9 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'font_hash' => 'font_hash',
         'timezone_offset' => 'timezone_offset',
         'battery_level' => 'battery_level',
+        'battery_charging' => 'battery_charging',
         'battery_low_power_mode' => 'battery_low_power_mode',
+        'keyboard_layout_hash' => 'keyboard_layout_hash',
     ];
 
     /**
@@ -261,7 +269,9 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'font_hash' => 'setFontHash',
         'timezone_offset' => 'setTimezoneOffset',
         'battery_level' => 'setBatteryLevel',
+        'battery_charging' => 'setBatteryCharging',
         'battery_low_power_mode' => 'setBatteryLowPowerMode',
+        'keyboard_layout_hash' => 'setKeyboardLayoutHash',
     ];
 
     /**
@@ -300,7 +310,9 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'font_hash' => 'getFontHash',
         'timezone_offset' => 'getTimezoneOffset',
         'battery_level' => 'getBatteryLevel',
+        'battery_charging' => 'getBatteryCharging',
         'battery_low_power_mode' => 'getBatteryLowPowerMode',
+        'keyboard_layout_hash' => 'getKeyboardLayoutHash',
     ];
 
     /**
@@ -348,7 +360,9 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         $this->setIfExists('font_hash', $data ?? [], null);
         $this->setIfExists('timezone_offset', $data ?? [], null);
         $this->setIfExists('battery_level', $data ?? [], null);
+        $this->setIfExists('battery_charging', $data ?? [], null);
         $this->setIfExists('battery_low_power_mode', $data ?? [], null);
+        $this->setIfExists('keyboard_layout_hash', $data ?? [], null);
     }
 
     /**
@@ -557,7 +571,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
     /**
      * Sets device_memory.
      *
-     * @param int $device_memory rounded amount of RAM in gigabytes
+     * @param int $device_memory Rounded amount of RAM in gigabytes. Available for browsers, Android, and iOS devices.
      *
      */
     public function setDeviceMemory(int $device_memory): self
@@ -1142,7 +1156,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
     /**
      * Sets battery_level.
      *
-     * @param int $battery_level Battery charge level as a percentage (0-100). Available only for Android and iOS devices.
+     * @param int $battery_level Battery charge level as a percentage (0-100). Available for Android, iOS, and web devices. On web, only available in Chromium-based browsers.
      *
      */
     public function setBatteryLevel(int $battery_level): self
@@ -1155,6 +1169,28 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         }
 
         $this->container['battery_level'] = $battery_level;
+
+        return $this;
+    }
+
+    /**
+     * Gets battery_charging.
+     *
+     */
+    public function getBatteryCharging(): ?bool
+    {
+        return $this->container['battery_charging'];
+    }
+
+    /**
+     * Sets battery_charging.
+     *
+     * @param bool $battery_charging When `true`, the device is currently charging. Available only for web devices on Chromium-based browsers.
+     *
+     */
+    public function setBatteryCharging(bool $battery_charging): self
+    {
+        $this->container['battery_charging'] = $battery_charging;
 
         return $this;
     }
@@ -1177,6 +1213,28 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
     public function setBatteryLowPowerMode(bool $battery_low_power_mode): self
     {
         $this->container['battery_low_power_mode'] = $battery_low_power_mode;
+
+        return $this;
+    }
+
+    /**
+     * Gets keyboard_layout_hash.
+     *
+     */
+    public function getKeyboardLayoutHash(): ?string
+    {
+        return $this->container['keyboard_layout_hash'];
+    }
+
+    /**
+     * Sets keyboard_layout_hash.
+     *
+     * @param string $keyboard_layout_hash unique identifier for the user's keyboard layout
+     *
+     */
+    public function setKeyboardLayoutHash(string $keyboard_layout_hash): self
+    {
+        $this->container['keyboard_layout_hash'] = $keyboard_layout_hash;
 
         return $this;
     }

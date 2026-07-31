@@ -325,7 +325,7 @@ class VelocityData implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets _24_hours.
      *
-     * @param int $_24_hours The `24_hours` interval of `distinct_ip`, `distinct_linked_id`, `distinct_country`, `distinct_ip_by_linked_id` and `distinct_visitor_id_by_linked_id` will be omitted if the number of `events` for the visitor Id in the last 24 hours (`events.['24_hours']`) is higher than 20.000.
+     * @param int $_24_hours count for the last 24 hours of velocity data, from the time of the event
      *
      */
     public function set24Hours(int $_24_hours): self

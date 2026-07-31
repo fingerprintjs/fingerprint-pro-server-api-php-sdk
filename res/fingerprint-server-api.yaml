@@ -104,13 +104,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '429':
-          description: Too Many Requests. The request is throttled.
+          description: >
+            Too Many Requests. The request is throttled.
+
+            To protect service stability during rare periods of extreme load, we
+            may return HTTP 429 responses with message `too many search
+            requests` even if you are within your assigned rate limits.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '500':
           description: Workspace error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: >-
+            Gateway Timeout. Search execution exceeded the allowed timeout
+            window.
           content:
             application/json:
               schema:
@@ -350,7 +363,7 @@ paths:
           description: |
             Filter events by their Bot Info result, specifically:
               - `all` - events where any kind of bot was detected.
-              - `none` - events where no bot was detected.
+              - `none` - events where no bot was detected, and no `bot_info` was present.
         - name: bot_info_category
           in: query
           style: form
@@ -526,47 +539,48 @@ paths:
           in: query
           schema:
             oneOf:
-              - type: integer
-                format: int64
-                examples:
-                  - 1767225600000
-                example: 1767225600000
               - type: string
                 format: date-time
                 examples:
                   - '2026-01-01T00:00:00Z'
                 example: '2026-01-01T00:00:00Z'
+              - type: integer
+                format: int64
+                examples:
+                  - 1767225600000
+                example: 1767225600000
             examples:
               - '2026-01-01T00:00:00Z'
             example: '2026-01-01T00:00:00Z'
           description: >
-            Include events that happened after this point (with timestamp
-            greater than or equal the provided `start` Unix milliseconds value
-            or RFC3339 timestamp). Defaults to 7 days ago. Setting `start` does
-            not change `end`'s default of `now` — adjust it separately if
-            needed.
+            Include events that happened after the provided `start` date
+            formatted as an RFC3339 timestamp. For backward compatibility, a
+            Unix milliseconds timestamp is also accepted. Defaults to 7 days
+            ago. Setting `start` does not change the default `end` date of `now`
+            — adjust it separately if needed.
         - name: end
           in: query
           schema:
             oneOf:
-              - type: integer
-                format: int64
-                examples:
-                  - 1769903999000
-                example: 1769903999000
               - type: string
                 format: date-time
                 examples:
                   - '2026-01-31T23:59:59Z'
                 example: '2026-01-31T23:59:59Z'
+              - type: integer
+                format: int64
+                examples:
+                  - 1769903999000
+                example: 1769903999000
             examples:
               - '2026-01-31T23:59:59Z'
             example: '2026-01-31T23:59:59Z'
           description: >
-            Include events that happened before this point (with timestamp less
-            than or equal the provided `end` Unix milliseconds value or RFC3339
-            timestamp). Defaults to now. Setting `end` does not change `start`'s
-            default of `7 days ago` — adjust it separately if needed.
+            Include events that happened before the provided `end` date
+            formatted as an RFC3339 timestamp. For backward compatibility, a
+            Unix milliseconds timestamp is also accepted. Defaults to now.
+            Setting `end` does not change the default `start` date of `7 days
+            ago` — adjust it separately if needed.
         - name: reverse
           in: query
           schema:
@@ -613,10 +627,9 @@ paths:
           description: >
             Filter events by Browser Tampering Detection result.
 
-            > Note: When using this parameter, only events with the
-            `tampering.result` property set to `true` or `false` are returned.
-            Events without a `tampering` Smart Signal result are left out of the
-            response.
+            > Note: When using this parameter, only events with the `tampering`
+            property set to `true` or `false` are returned. Events without a
+            `tampering` Smart Signal result are left out of the response.
         - name: anti_detect_browser
           in: query
           schema:
@@ -625,9 +638,9 @@ paths:
             Filter events by Anti-detect Browser Detection result.
 
             > Note: When using this parameter, only events with the
-            `tampering.anti_detect_browser` property set to `true` or `false`
-            are returned. Events without a `tampering` Smart Signal result are
-            left out of the response.
+            `tampering_details.anti_detect_browser` property set to `true` or
+            `false` are returned. Events without a `tampering` Smart Signal
+            result are left out of the response.
         - name: incognito
           in: query
           schema:
@@ -677,8 +690,9 @@ paths:
             Filter events by Factory Reset Detection result.
 
             > Note: When using this parameter, only events with a
-            `factory_reset` time. Events without a `factory_reset` Smart Signal
-            result are left out of the response.
+            `factory_reset_timestamp` property populated are included. Events
+            without a `factory_reset_timestamp` Smart Signal result are left out
+            of the response.
         - name: cloned_app
           in: query
           schema:
@@ -941,6 +955,11 @@ paths:
             Intelligence (Edge) events are returned.
 
 
+            To retrieve all events regardless of source, you must make two
+            requests. One with the `source` parameter set to `edge`, and another
+            with the `source` parameter omitted.
+
+
             > Note: The Automation Intelligence API is in public preview testing
             phase.  If you encounter any issues, please
             [contact](https://fingerprint.com/support/) our support team.
@@ -973,8 +992,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: >
+            Too Many Requests. The request is throttled.
+
+            To protect service stability during rare periods of extreme load, we
+            may return HTTP 429 responses with message `too many search
+            requests` even if you are within your assigned rate limits.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '500':
           description: Workspace error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: >-
+            Gateway Timeout. Search execution exceeded the allowed timeout
+            window.
           content:
             application/json:
               schema:
@@ -1197,7 +1235,7 @@ components:
         provider_url:
           type: string
           examples:
-            - https://fingerprint.com
+            - https://chatgpt.com
           description: The URL of the bot provider's website.
         name:
           type: string
@@ -1963,6 +2001,12 @@ components:
             true device location lies within the mapped proximity zone.
               * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.
               * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
+    ActiveCall:
+      type: boolean
+      description: >
+        Indicates whether the mobile device had an active call (cellular or
+        VoIP) at the time of the request. Available from SDK 2.16.0+ on iOS and
+        Android.
     BotResult:
       type: string
       enum:
@@ -1977,7 +2021,7 @@ components:
     BotType:
       type: string
       examples:
-        - fingerprint_agent
+        - chatgpt_agent
       description: |
         Additional classification of the bot type if detected.
     ClonedApp:
@@ -2371,11 +2415,8 @@ components:
           examples:
             - 5
           description: >
-            The `24_hours` interval of `distinct_ip`, `distinct_linked_id`,
-            `distinct_country`, `distinct_ip_by_linked_id` and
-            `distinct_visitor_id_by_linked_id` will be omitted if the number of
-            `events` for the visitor Id in the last 24 hours
-            (`events.['24_hours']`) is higher than 20.000.
+            Count for the last 24 hours of velocity data, from the time of the
+            event.
     Velocity:
       type: object
       description: >
@@ -2402,7 +2443,7 @@ components:
         - Number of distinct visitor Ids associated with the provided linked Id.
 
 
-        The `24h` interval of `distinct_ip`, `distinct_linked_id`,
+        The `24_hours` interval of `distinct_ip`, `distinct_linked_id`,
         `distinct_country`,
 
         `distinct_ip_by_linked_id` and `distinct_visitor_id_by_linked_id` will
@@ -2410,7 +2451,7 @@ components:
 
         if the number of `events` for the visitor Id in the last 24
 
-        hours (`events.['24h']`) is higher than 20.000.
+        hours (`events.['24_hours']`) is higher than 20.000.
 
 
         All will not necessarily be returned in a response, some may be omitted
@@ -2478,8 +2519,8 @@ components:
       examples:
         - DE
       description: >
-        Country of the request (only for Android SDK version >= 2.4.0, ISO 3166
-        format or unknown).
+        Country of the request (Android SDK version >= 2.4.0, iOS SDK version >=
+        2.9.0, JS agent >= 3.12.9 / 4.0.2), ISO 3166 format or unknown.
     HighActivity:
       type: boolean
       description: Flag indicating if the request came from a high-activity visitor.
@@ -2622,7 +2663,9 @@ components:
       minimum: 0
       examples:
         - 8
-      description: Rounded amount of RAM in gigabytes.
+      description: >-
+        Rounded amount of RAM in gigabytes. Available for browsers, Android, and
+        iOS devices.
     Timezone:
       type: string
       examples:
@@ -2884,13 +2927,23 @@ components:
       examples:
         - 75
       description: >-
-        Battery charge level as a percentage (0-100). Available only for Android
-        and iOS devices.
+        Battery charge level as a percentage (0-100). Available for Android,
+        iOS, and web devices. On web, only available in Chromium-based browsers.
+    BatteryCharging:
+      type: boolean
+      description: >-
+        When `true`, the device is currently charging. Available only for web
+        devices on Chromium-based browsers.
     BatteryLowPowerMode:
       type: boolean
       description: >-
         Whether the device's low power mode is enabled. Available only for
         Android and iOS devices.
+    KeyboardLayoutHash:
+      type: string
+      examples:
+        - 3f33b68235d36b8821147349f1161379
+      description: Unique identifier for the user's keyboard layout.
     RawDeviceAttributes:
       type: object
       description: >
@@ -2959,8 +3012,12 @@ components:
           $ref: '#/components/schemas/TimezoneOffset'
         battery_level:
           $ref: '#/components/schemas/BatteryLevel'
+        battery_charging:
+          $ref: '#/components/schemas/BatteryCharging'
         battery_low_power_mode:
           $ref: '#/components/schemas/BatteryLowPowerMode'
+        keyboard_layout_hash:
+          $ref: '#/components/schemas/KeyboardLayoutHash'
     Labels:
       type: array
       items:
@@ -2992,7 +3049,11 @@ components:
       type: object
       description: >-
         Contains results from Fingerprint Identification and all active Smart
-        Signals.
+        Signals. Some Smart Signals are only supported for certain device types,
+        these fields will be omitted for events not generated from the supported
+        devices. Consult the [Smart Signals
+        reference](https://docs.fingerprint.com/docs/smart-signals-reference)
+        for more details.
       required:
         - event_id
         - timestamp
@@ -3117,6 +3178,11 @@ components:
             - android
             - ios
             - browser
+        active_call:
+          $ref: '#/components/schemas/ActiveCall'
+          x-platforms:
+            - android
+            - ios
         bot:
           $ref: '#/components/schemas/BotResult'
           x-platforms:
@@ -3395,7 +3461,7 @@ components:
       description: |
         Filter events by their Bot Info result, specifically:
           - `all` - events where any kind of bot was detected.
-          - `none` - events where no bot was detected.
+          - `none` - events where no bot was detected, and no `bot_info` was present.
     SearchEventsVpnConfidence:
       type: string
       enum:
