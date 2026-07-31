@@ -63,7 +63,8 @@ class Proxy implements ModelInterface, \ArrayAccess
     protected static array $swaggerTypes = [
         'result' => 'bool',
         'confidence' => '\Fingerprint\ServerAPI\Model\ProxyConfidence',
-        'details' => '\Fingerprint\ServerAPI\Model\ProxyDetails'];
+        'details' => '\Fingerprint\ServerAPI\Model\ProxyDetails',
+        'ml_score' => 'double'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -73,7 +74,8 @@ class Proxy implements ModelInterface, \ArrayAccess
     protected static array $swaggerFormats = [
         'result' => null,
         'confidence' => null,
-        'details' => null];
+        'details' => null,
+        'ml_score' => 'double'];
 
     /**
      * Array of attributes where the key is the local name,
@@ -84,7 +86,8 @@ class Proxy implements ModelInterface, \ArrayAccess
     protected static array $attributeMap = [
         'result' => 'result',
         'confidence' => 'confidence',
-        'details' => 'details'];
+        'details' => 'details',
+        'ml_score' => 'mlScore'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -94,7 +97,8 @@ class Proxy implements ModelInterface, \ArrayAccess
     protected static array $setters = [
         'result' => 'setResult',
         'confidence' => 'setConfidence',
-        'details' => 'setDetails'];
+        'details' => 'setDetails',
+        'ml_score' => 'setMlScore'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -104,7 +108,8 @@ class Proxy implements ModelInterface, \ArrayAccess
     protected static array $getters = [
         'result' => 'getResult',
         'confidence' => 'getConfidence',
-        'details' => 'getDetails'];
+        'details' => 'getDetails',
+        'ml_score' => 'getMlScore'];
 
     /**
      * Associative array for storing property values.
@@ -124,6 +129,7 @@ class Proxy implements ModelInterface, \ArrayAccess
         $this->container['result'] = isset($data['result']) ? $data['result'] : null;
         $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
         $this->container['details'] = isset($data['details']) ? $data['details'] : null;
+        $this->container['ml_score'] = isset($data['ml_score']) ? $data['ml_score'] : null;
     }
 
     /**
@@ -276,6 +282,30 @@ class Proxy implements ModelInterface, \ArrayAccess
     public function setDetails(?ProxyDetails $details): self
     {
         $this->container['details'] = $details;
+
+        return $this;
+    }
+
+    /**
+     * Gets ml_score.
+     *
+     * @return ?double
+     */
+    public function getMlScore(): ?float
+    {
+        return $this->container['ml_score'];
+    }
+
+    /**
+     * Sets ml_score.
+     *
+     * @param ?double $ml_score Machine learning-based proxy score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `proxy` detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
+     *
+     * @return $this
+     */
+    public function setMlScore(?float $ml_score): self
+    {
+        $this->container['ml_score'] = $ml_score;
 
         return $this;
     }

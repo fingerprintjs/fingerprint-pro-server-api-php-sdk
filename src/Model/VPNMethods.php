@@ -65,7 +65,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'public_vpn' => 'bool',
         'auxiliary_mobile' => 'bool',
         'os_mismatch' => 'bool',
-        'relay' => 'bool'];
+        'relay' => 'bool',
+        'ml_prediction' => 'bool'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -77,7 +78,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'public_vpn' => null,
         'auxiliary_mobile' => null,
         'os_mismatch' => null,
-        'relay' => null];
+        'relay' => null,
+        'ml_prediction' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -90,7 +92,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'public_vpn' => 'publicVPN',
         'auxiliary_mobile' => 'auxiliaryMobile',
         'os_mismatch' => 'osMismatch',
-        'relay' => 'relay'];
+        'relay' => 'relay',
+        'ml_prediction' => 'mlPrediction'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -102,7 +105,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'public_vpn' => 'setPublicVpn',
         'auxiliary_mobile' => 'setAuxiliaryMobile',
         'os_mismatch' => 'setOsMismatch',
-        'relay' => 'setRelay'];
+        'relay' => 'setRelay',
+        'ml_prediction' => 'setMlPrediction'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -114,7 +118,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         'public_vpn' => 'getPublicVpn',
         'auxiliary_mobile' => 'getAuxiliaryMobile',
         'os_mismatch' => 'getOsMismatch',
-        'relay' => 'getRelay'];
+        'relay' => 'getRelay',
+        'ml_prediction' => 'getMlPrediction'];
 
     /**
      * Associative array for storing property values.
@@ -136,6 +141,7 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         $this->container['auxiliary_mobile'] = isset($data['auxiliary_mobile']) ? $data['auxiliary_mobile'] : null;
         $this->container['os_mismatch'] = isset($data['os_mismatch']) ? $data['os_mismatch'] : null;
         $this->container['relay'] = isset($data['relay']) ? $data['relay'] : null;
+        $this->container['ml_prediction'] = isset($data['ml_prediction']) ? $data['ml_prediction'] : null;
     }
 
     /**
@@ -341,6 +347,28 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     public function setRelay(bool $relay): self
     {
         $this->container['relay'] = $relay;
+
+        return $this;
+    }
+
+    /**
+     * Gets ml_prediction.
+     */
+    public function getMlPrediction(): ?bool
+    {
+        return $this->container['ml_prediction'];
+    }
+
+    /**
+     * Sets ml_prediction.
+     *
+     * @param ?bool $ml_prediction `true` if the request came from a device running a VPN, `false` otherwise
+     *
+     * @return $this
+     */
+    public function setMlPrediction(?bool $ml_prediction): self
+    {
+        $this->container['ml_prediction'] = $ml_prediction;
 
         return $this;
     }
