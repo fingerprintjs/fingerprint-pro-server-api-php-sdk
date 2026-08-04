@@ -1,6 +1,6 @@
 <?php
 /**
- * WebhookProxy.
+ * ProductLabels.
  *
  * @category Class
  *
@@ -37,7 +37,7 @@ namespace Fingerprint\ServerAPI\Model;
 use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookProxy Class Doc Comment.
+ * ProductLabels Class Doc Comment.
  *
  * @deprecated
  *
@@ -47,13 +47,13 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookProxy implements ModelInterface, \ArrayAccess
+class ProductLabels implements ModelInterface, \ArrayAccess
 {
     /**
      * The original name of the model.
      *
      */
-    protected static string $swaggerModelName = 'WebhookProxy';
+    protected static string $swaggerModelName = 'ProductLabels';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -61,10 +61,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerTypes = [
-        'result' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\ProxyConfidence',
-        'details' => '\Fingerprint\ServerAPI\Model\ProxyDetails',
-        'ml_score' => 'double'];
+        'data' => 'array',
+        'error' => '\Fingerprint\ServerAPI\Model\Error'];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -72,10 +70,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $swaggerFormats = [
-        'result' => null,
-        'confidence' => null,
-        'details' => null,
-        'ml_score' => 'double'];
+        'data' => null,
+        'error' => null];
 
     /**
      * Array of attributes where the key is the local name,
@@ -84,10 +80,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $attributeMap = [
-        'result' => 'result',
-        'confidence' => 'confidence',
-        'details' => 'details',
-        'ml_score' => 'mlScore'];
+        'data' => 'data',
+        'error' => 'error'];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
@@ -95,10 +89,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $setters = [
-        'result' => 'setResult',
-        'confidence' => 'setConfidence',
-        'details' => 'setDetails',
-        'ml_score' => 'setMlScore'];
+        'data' => 'setData',
+        'error' => 'setError'];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
@@ -106,10 +98,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      * @var string[]
      */
     protected static array $getters = [
-        'result' => 'getResult',
-        'confidence' => 'getConfidence',
-        'details' => 'getDetails',
-        'ml_score' => 'getMlScore'];
+        'data' => 'getData',
+        'error' => 'getError'];
 
     /**
      * Associative array for storing property values.
@@ -126,10 +116,8 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
      */
     public function __construct(?array $data = null)
     {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
-        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
-        $this->container['details'] = isset($data['details']) ? $data['details'] : null;
-        $this->container['ml_score'] = isset($data['ml_score']) ? $data['ml_score'] : null;
+        $this->container['data'] = isset($data['data']) ? $data['data'] : null;
+        $this->container['error'] = isset($data['error']) ? $data['error'] : null;
     }
 
     /**
@@ -212,91 +200,45 @@ class WebhookProxy implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets result.
+     * Gets data.
      */
-    public function getResult(): ?bool
+    public function getData(): ?array
     {
-        return $this->container['result'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets result.
+     * Sets data.
      *
-     * @param ?bool $result IP address was used by a public proxy provider or belonged to a known recent residential proxy
+     * @param ?array $data data
      *
      * @return $this
      */
-    public function setResult(?bool $result): self
+    public function setData(?array $data): self
     {
-        $this->container['result'] = $result;
+        $this->container['data'] = $data;
 
         return $this;
     }
 
     /**
-     * Gets confidence.
+     * Gets error.
      */
-    public function getConfidence(): ?ProxyConfidence
+    public function getError(): ?Error
     {
-        return $this->container['confidence'];
+        return $this->container['error'];
     }
 
     /**
-     * Sets confidence.
+     * Sets error.
      *
-     * @param ?\Fingerprint\ServerAPI\Model\ProxyConfidence $confidence confidence
+     * @param ?\Fingerprint\ServerAPI\Model\Error $error error
      *
      * @return $this
      */
-    public function setConfidence(?ProxyConfidence $confidence): self
+    public function setError(?Error $error): self
     {
-        $this->container['confidence'] = $confidence;
-
-        return $this;
-    }
-
-    /**
-     * Gets details.
-     */
-    public function getDetails(): ?ProxyDetails
-    {
-        return $this->container['details'];
-    }
-
-    /**
-     * Sets details.
-     *
-     * @param ?\Fingerprint\ServerAPI\Model\ProxyDetails $details details
-     *
-     * @return $this
-     */
-    public function setDetails(?ProxyDetails $details): self
-    {
-        $this->container['details'] = $details;
-
-        return $this;
-    }
-
-    /**
-     * Gets ml_score.
-     *
-     * @return ?double
-     */
-    public function getMlScore(): ?float
-    {
-        return $this->container['ml_score'];
-    }
-
-    /**
-     * Sets ml_score.
-     *
-     * @param ?double $ml_score Machine learning-based proxy score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `proxy` detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
-     *
-     * @return $this
-     */
-    public function setMlScore(?float $ml_score): self
-    {
-        $this->container['ml_score'] = $ml_score;
+        $this->container['error'] = $error;
 
         return $this;
     }

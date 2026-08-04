@@ -204,7 +204,7 @@ class WebhookDeveloperTools implements ModelInterface, \ArrayAccess
     /**
      * Sets result.
      *
-     * @param ?bool $result `true` if the browser has DevTools open (Chrome, Firefox) or the Android device has Developer Tools enabled, `false` otherwise
+     * @param ?bool $result `true` if the browser has DevTools open (Chrome, Firefox) or the Android/iOS device has Developer Tools enabled, `false` otherwise
      *
      * @return $this
      */

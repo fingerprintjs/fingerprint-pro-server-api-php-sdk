@@ -15,6 +15,8 @@ src/docs/Model/Tag.md
 src/docs/Model/WebhookRawDeviceAttributes.md
 src/docs/Model/GeolocationSubdivisions.md
 src/docs/Model/GeolocationSubdivision.md
+src/docs/Model/Labels.md
+src/docs/Model/LabelsInner.md
 
 src/Model/RawDeviceAttribute.php
 src/Model/RawDeviceAttributeError.php
@@ -23,3 +25,5 @@ src/Model/Tag.php
 src/Model/WebhookRawDeviceAttributes.php
 src/Model/GeolocationSubdivisions.php
 src/Model/GeolocationSubdivision.php
+src/Model/Labels.php
+src/Model/LabelsInner.php

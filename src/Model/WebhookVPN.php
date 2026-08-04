@@ -63,6 +63,7 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
     protected static array $swaggerTypes = [
         'result' => 'bool',
         'confidence' => '\Fingerprint\ServerAPI\Model\VPNConfidence',
+        'ml_score' => 'double',
         'origin_timezone' => 'string',
         'origin_country' => 'string',
         'methods' => '\Fingerprint\ServerAPI\Model\VPNMethods'];
@@ -75,6 +76,7 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
     protected static array $swaggerFormats = [
         'result' => null,
         'confidence' => null,
+        'ml_score' => 'double',
         'origin_timezone' => null,
         'origin_country' => null,
         'methods' => null];
@@ -88,6 +90,7 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
     protected static array $attributeMap = [
         'result' => 'result',
         'confidence' => 'confidence',
+        'ml_score' => 'mlScore',
         'origin_timezone' => 'originTimezone',
         'origin_country' => 'originCountry',
         'methods' => 'methods'];
@@ -100,6 +103,7 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
     protected static array $setters = [
         'result' => 'setResult',
         'confidence' => 'setConfidence',
+        'ml_score' => 'setMlScore',
         'origin_timezone' => 'setOriginTimezone',
         'origin_country' => 'setOriginCountry',
         'methods' => 'setMethods'];
@@ -112,6 +116,7 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
     protected static array $getters = [
         'result' => 'getResult',
         'confidence' => 'getConfidence',
+        'ml_score' => 'getMlScore',
         'origin_timezone' => 'getOriginTimezone',
         'origin_country' => 'getOriginCountry',
         'methods' => 'getMethods'];
@@ -133,6 +138,7 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
     {
         $this->container['result'] = isset($data['result']) ? $data['result'] : null;
         $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
+        $this->container['ml_score'] = isset($data['ml_score']) ? $data['ml_score'] : null;
         $this->container['origin_timezone'] = isset($data['origin_timezone']) ? $data['origin_timezone'] : null;
         $this->container['origin_country'] = isset($data['origin_country']) ? $data['origin_country'] : null;
         $this->container['methods'] = isset($data['methods']) ? $data['methods'] : null;
@@ -257,6 +263,30 @@ class WebhookVPN implements ModelInterface, \ArrayAccess
     public function setConfidence(?VPNConfidence $confidence): self
     {
         $this->container['confidence'] = $confidence;
+
+        return $this;
+    }
+
+    /**
+     * Gets ml_score.
+     *
+     * @return ?double
+     */
+    public function getMlScore(): ?float
+    {
+        return $this->container['ml_score'];
+    }
+
+    /**
+     * Sets ml_score.
+     *
+     * @param ?double $ml_score Machine learning–based VPN score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `vpn` detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
+     *
+     * @return $this
+     */
+    public function setMlScore(?float $ml_score): self
+    {
+        $this->container['ml_score'] = $ml_score;
 
         return $this;
     }

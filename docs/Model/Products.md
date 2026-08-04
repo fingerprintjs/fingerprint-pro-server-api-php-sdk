@@ -32,6 +32,7 @@ Name | Type | Description | Notes
 **mitm_attack** | [**\Fingerprint\ServerAPI\Model\ProductMitMAttack**](ProductMitMAttack.md) |  | [optional] 
 **rare_device** | [**\Fingerprint\ServerAPI\Model\ProductRareDevice**](ProductRareDevice.md) |  | [optional] 
 **proximity** | [**\Fingerprint\ServerAPI\Model\ProductProximity**](ProductProximity.md) |  | [optional] 
+**labels** | [**\Fingerprint\ServerAPI\Model\ProductLabels**](ProductLabels.md) |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

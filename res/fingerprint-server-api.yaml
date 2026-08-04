@@ -1835,6 +1835,11 @@ components:
 
             This field allows you to differentiate VPN users and relay service
             users in your fraud prevention logic.
+        mlPrediction:
+          type: boolean
+          description: >
+            `true` if the request came from a device running a VPN, `false`
+            otherwise.
       deprecated: true
     VPN:
       type: object
@@ -1853,6 +1858,18 @@ components:
             request.
         confidence:
           $ref: '#/components/schemas/VPNConfidence'
+        mlScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: >
+            Machine learning–based VPN score, represented as a floating-point
+            value between 0 and 1 (inclusive), with up to three decimal places
+            of precision. A higher score means a higher confidence in the
+            positive `vpn` detection result. This Smart Signal is currently in
+            beta and only available to select customers. If you are interested,
+            please [contact our support team](https://fingerprint.com/support/).
         originTimezone:
           type: string
           description: Local timezone which is used in timezoneMismatch method.
@@ -1897,11 +1914,13 @@ components:
           enum:
             - residential
             - data_center
+            - unknown
           description: >
             Residential proxies use real user IP addresses to appear as
-            legitimate traffic, 
-
-            while data center proxies are public proxies hosted in data centers
+            legitimate traffic, while data center proxies are public proxies
+            hosted in data centers. `unknown` is reported when a proxy is
+            detected solely by the ML model and the IP sources did not determine
+            a specific type.
         lastSeenAt:
           type: string
           format: date-time
@@ -1926,6 +1945,18 @@ components:
           $ref: '#/components/schemas/ProxyConfidence'
         details:
           $ref: '#/components/schemas/ProxyDetails'
+        mlScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: >
+            Machine learning-based proxy score, represented as a floating-point
+            value between 0 and 1 (inclusive), with up to three decimal places
+            of precision. A higher score means a higher confidence in the
+            positive `proxy` detection result. This Smart Signal is currently in
+            beta and only available to select customers. If you are interested,
+            please [contact our support team](https://fingerprint.com/support/).
       deprecated: true
     ProductProxy:
       type: object
@@ -2440,7 +2471,7 @@ components:
           type: boolean
           description: >
             `true` if the browser has DevTools open (Chrome, Firefox) or the
-            Android device has Developer Tools enabled, `false` otherwise.
+            Android/iOS device has Developer Tools enabled, `false` otherwise.
       deprecated: true
     ProductDeveloperTools:
       type: object
@@ -2475,6 +2506,38 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/MitMAttack'
+        error:
+          $ref: '#/components/schemas/Error'
+      deprecated: true
+    Labels:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        properties:
+          label:
+            type: string
+          prediction:
+            type: boolean
+          mlScore:
+            type: number
+            format: double
+            minimum: 0
+            maximum: 1
+      description: >
+        Each label returns a prediction (true or false) for a specific use case
+        (label field) based on a machine learning score. The machine learning
+        score is determined by a model trained on customer data for that use
+        case. This field is in the beta phase and only available to select
+        customers. If you are interested, please [contact our support
+        team](https://fingerprint.com/support/).
+      deprecated: true
+    ProductLabels:
+      type: object
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/Labels'
         error:
           $ref: '#/components/schemas/Error'
       deprecated: true
@@ -2589,6 +2652,8 @@ components:
           $ref: '#/components/schemas/ProductRareDevice'
         proximity:
           $ref: '#/components/schemas/ProductProximity'
+        labels:
+          $ref: '#/components/schemas/ProductLabels'
       deprecated: true
     EventsGetResponse:
       type: object
@@ -2840,6 +2905,18 @@ components:
             request.
         confidence:
           $ref: '#/components/schemas/VPNConfidence'
+        mlScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: >
+            Machine learning–based VPN score, represented as a floating-point
+            value between 0 and 1 (inclusive), with up to three decimal places
+            of precision. A higher score means a higher confidence in the
+            positive `vpn` detection result. This Smart Signal is currently in
+            beta and only available to select customers. If you are interested,
+            please [contact our support team](https://fingerprint.com/support/).
         originTimezone:
           type: string
           description: Local timezone which is used in timezoneMismatch method.
@@ -2864,6 +2941,18 @@ components:
           $ref: '#/components/schemas/ProxyConfidence'
         details:
           $ref: '#/components/schemas/ProxyDetails'
+        mlScore:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: >
+            Machine learning-based proxy score, represented as a floating-point
+            value between 0 and 1 (inclusive), with up to three decimal places
+            of precision. A higher score means a higher confidence in the
+            positive `proxy` detection result. This Smart Signal is currently in
+            beta and only available to select customers. If you are interested,
+            please [contact our support team](https://fingerprint.com/support/).
       deprecated: true
     WebhookTampering:
       type: object
@@ -3141,7 +3230,7 @@ components:
           type: boolean
           description: >
             `true` if the browser has DevTools open (Chrome, Firefox) or the
-            Android device has Developer Tools enabled, `false` otherwise.
+            Android/iOS device has Developer Tools enabled, `false` otherwise.
       deprecated: true
     WebhookMitMAttack:
       type: object
