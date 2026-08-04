@@ -1607,6 +1607,8 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals($actualProximity->precision_radius, $proximity->getPrecisionRadius());
         $this->assertEquals($actualProximity->confidence, $proximity->getConfidence());
 
+        $this->assertEquals($actual->active_call, $event->getActiveCall());
+
         $this->assertEquals(BotResult::NOT_DETECTED, $event->getBot());
         $this->assertEquals(null, $event->getBotType());
         $this->assertEquals(null, $event->getBotInfo());
@@ -1637,6 +1639,10 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals('db3c1462576a399a03ae93d0ab9eb5c4', $rawDeviceAttributes->getCanvas()->getGeometry());
         $this->assertEquals('24', $rawDeviceAttributes->getColorDepth());
         $this->assertTrue($rawDeviceAttributes->getCookiesEnabled());
+        $this->assertEquals(80, $rawDeviceAttributes->getBatteryLevel());
+        $this->assertTrue($rawDeviceAttributes->getBatteryCharging());
+        $this->assertTrue($rawDeviceAttributes->getBatteryLowPowerMode());
+        $this->assertEquals('691e3845c85c202a1514b6fd7ef17065', $rawDeviceAttributes->getKeyboardLayoutHash());
 
         $labels = $event->getLabels();
         $actualLabels = $actual->labels;
