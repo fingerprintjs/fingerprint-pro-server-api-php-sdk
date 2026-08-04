@@ -1,5 +1,14 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.12.0
+
+### Minor Changes
+
+- Add the Labels Smart Signal. The `Products` response now exposes a `labels` field (`ProductLabels`) whose `data` is an array of label predictions (`label`, `prediction`, `mlScore`). ([7564735](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/756473574154d916cf9adf941cfb2460b71de8d4))
+- Add machine learning-based Smart Signals from the Server API schema: `mlScore` on the `VPN` and `Proxy` results (and their webhook counterparts), and `mlPrediction` on `VPNMethods`. These signals are in beta and only available to select customers. ([9253a67](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/9253a679d06a8564248d206a28809ef52750c801))
+- Add the `unknown` value to the `ProxyDetails` `proxyType` field. ([c748eff](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/c748effe1d4cccdac672a1c273b4209da886dbab))
+- Clarify the `DeveloperTools` and `WebhookDeveloperTools` `result` description to note that it also covers iOS devices with Developer Tools enabled. ([6216a26](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/6216a263c9adfb92effa46b4584626d5a593d654))
+
 ## 6.11.0
 
 ### Minor Changes
