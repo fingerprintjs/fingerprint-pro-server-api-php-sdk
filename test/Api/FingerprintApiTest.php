@@ -375,7 +375,7 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
-     * Verifies getEvent throws 504
+     * Verifies getEvent throws 504.
      *
      * @throws GuzzleException
      * @throws \DateMalformedStringException
@@ -952,7 +952,7 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
-     * Verifies searchEvents throws 429 too many requests
+     * Verifies searchEvents throws 429 too many requests.
      *
      * @throws GuzzleException
      * @throws \DateMalformedStringException
@@ -1006,7 +1006,7 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
-     * Verifies searchEvents throws 504
+     * Verifies searchEvents throws 504.
      *
      * @throws GuzzleException
      * @throws \DateMalformedStringException

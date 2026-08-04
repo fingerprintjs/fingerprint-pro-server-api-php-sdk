@@ -135,7 +135,7 @@ final class MockHelper
         self::OPERATION_ERROR_504_GATEWAY_TIMEOUT => [
             'file' => ['errors', '504_search_timeout_exceeded.json'],
             'status' => 504,
-        ]
+        ],
     ];
 
     public static function getMockResponse(string $operationId): Response
