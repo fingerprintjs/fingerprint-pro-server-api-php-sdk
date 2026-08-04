@@ -54,6 +54,8 @@ final class MockHelper
 
     public const OPERATION_ERROR_500_INTERNAL_SERVER_ERROR = 'OPERATION_ERROR_500_INTERNAL_SERVER_ERROR';
 
+    public const OPERATION_ERROR_504_GATEWAY_TIMEOUT = 'OPERATION_ERROR_504_GATEWAY_TIMEOUT';
+
     /**
      * Mock response map: operationId => [file, status, extra_headers].
      */
@@ -130,6 +132,10 @@ final class MockHelper
             'file' => ['errors', '500_internal_server_error.json'],
             'status' => 500,
         ],
+        self::OPERATION_ERROR_504_GATEWAY_TIMEOUT => [
+            'file' => ['errors', '504_search_timeout_exceeded.json'],
+            'status' => 504,
+        ]
     ];
 
     public static function getMockResponse(string $operationId): Response

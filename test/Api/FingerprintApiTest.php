@@ -375,6 +375,33 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
+     * Verifies getEvent throws 504
+     *
+     * @throws GuzzleException
+     * @throws \DateMalformedStringException
+     */
+    public function testGetEvent504Error()
+    {
+        $this->mockHandler->append(MockHelper::getMockResponse(MockHelper::OPERATION_ERROR_504_GATEWAY_TIMEOUT));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(504);
+
+        try {
+            $this->api->getEvent(MockHelper::MOCK_EVENT_ID);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+
+            /** @var ErrorResponse $errorDetails */
+            $errorDetails = $e->getErrorDetails();
+            $this->assertEquals(ErrorCode::FAILED, $errorDetails->getError()->getCode());
+            $this->assertEquals('gateway timeout', $errorDetails->getError()->getMessage());
+
+            throw $e;
+        }
+    }
+
+    /**
      * Verifies updateEvent sends correct request body and method.
      *
      * @throws ApiException
@@ -925,6 +952,33 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
+     * Verifies searchEvents throws 429 too many requests
+     *
+     * @throws GuzzleException
+     * @throws \DateMalformedStringException
+     */
+    public function testSearchEvents429Error()
+    {
+        $this->mockHandler->append(MockHelper::getMockResponse(MockHelper::OPERATION_ERROR_429_TOO_MANY_REQUESTS));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(429);
+
+        try {
+            $this->api->searchEvents();
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+
+            /** @var ErrorResponse $errorDetails */
+            $errorDetails = $e->getErrorDetails();
+            $this->assertEquals(ErrorCode::TOO_MANY_REQUESTS, $errorDetails->getError()->getCode());
+            $this->assertEquals('too many requests', $errorDetails->getError()->getMessage());
+
+            throw $e;
+        }
+    }
+
+    /**
      * Verifies searchEvents throws 500 for internal error.
      *
      * @throws GuzzleException
@@ -946,6 +1000,33 @@ class FingerprintApiTest extends TestCase
             $errorDetails = $e->getErrorDetails();
             $this->assertEquals(ErrorCode::FAILED, $errorDetails->getError()->getCode());
             $this->assertEquals('internal server error', $errorDetails->getError()->getMessage());
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Verifies searchEvents throws 504
+     *
+     * @throws GuzzleException
+     * @throws \DateMalformedStringException
+     */
+    public function testSearchEvents504Error()
+    {
+        $this->mockHandler->append(MockHelper::getMockResponse(MockHelper::OPERATION_ERROR_504_GATEWAY_TIMEOUT));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(504);
+
+        try {
+            $this->api->searchEvents();
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+
+            /** @var ErrorResponse $errorDetails */
+            $errorDetails = $e->getErrorDetails();
+            $this->assertEquals(ErrorCode::FAILED, $errorDetails->getError()->getCode());
+            $this->assertEquals('gateway timeout', $errorDetails->getError()->getMessage());
 
             throw $e;
         }
