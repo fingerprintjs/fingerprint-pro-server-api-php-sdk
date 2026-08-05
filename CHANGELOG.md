@@ -1,5 +1,20 @@
 # Fingerprint Server PHP SDK
 
+## 7.4.0
+
+### Minor Changes
+
+- **events**: Add `active_call` smart signal to `Event` ([8e91fa9](https://github.com/fingerprintjs/php-sdk/commit/8e91fa92524de7be3d5ed75b4e0d819827360e24))
+- Added support for `PHP 8.5`. ([c1c6dd5](https://github.com/fingerprintjs/php-sdk/commit/c1c6dd5e4865c99e33ffccbf48b165a1c2e85ebf))
+- **events**: Add `keyboard_layout_hash` to `RawDeviceAttributes` ([8e91fa9](https://github.com/fingerprintjs/php-sdk/commit/8e91fa92524de7be3d5ed75b4e0d819827360e24))
+- **events**: Add `battery_charging` field to `RawDeviceAttributes` ([8e91fa9](https://github.com/fingerprintjs/php-sdk/commit/8e91fa92524de7be3d5ed75b4e0d819827360e24))
+
+### Patch Changes
+
+- Fixed async error handling throwing TypeError instead of ApiException on failed requests. ([82c4c9e](https://github.com/fingerprintjs/php-sdk/commit/82c4c9ea78929a553e96735a1e03a56de1ae9a5d))
+- **events**: Fix types for `start`/`start_date_time` and `end`/`end_date_time` in normalized schema ([8e91fa9](https://github.com/fingerprintjs/php-sdk/commit/8e91fa92524de7be3d5ed75b4e0d819827360e24))
+- Improved type safety and PHP 8.2+ compatibility in the Sealed Result module. ([070c8c6](https://github.com/fingerprintjs/php-sdk/commit/070c8c66d19f2fa6e6c52f744184e8720b7b7493))
+
 ## 7.3.0
 
 ### Minor Changes
