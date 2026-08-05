@@ -32,11 +32,11 @@ namespace Fingerprint\ServerSdk\Model;
 /**
  * Filter events by their Bot Info result, specifically:
  * - `all` - events where any kind of bot was detected.
- * - `none` - events where no bot was detected.
+ * - `none` - events where no bot was detected, and no `bot_info` was present.
  *
  * @category Enum
  *
- * @description Filter events by their Bot Info result, specifically:   - &#x60;all&#x60; - events where any kind of bot was detected.   - &#x60;none&#x60; - events where no bot was detected.
+ * @description Filter events by their Bot Info result, specifically:   - &#x60;all&#x60; - events where any kind of bot was detected.   - &#x60;none&#x60; - events where no bot was detected, and no &#x60;bot_info&#x60; was present.
  *
  * @author   Fingerprint
  *

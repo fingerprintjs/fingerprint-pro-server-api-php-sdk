@@ -407,6 +407,13 @@ class EventAllPropertiesTest extends TestCase
         $this->assertSame($proximity, $event->getProximity());
     }
 
+    public function testSetActiveCall(): void
+    {
+        $event = new Event(['event_id' => 'e', 'timestamp' => 1]);
+        $event->setActiveCall(true);
+        $this->assertTrue($event->getActiveCall());
+    }
+
     public function testSetTamperingConfidence(): void
     {
         $event = new Event(['event_id' => 'e', 'timestamp' => 1]);

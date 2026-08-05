@@ -375,6 +375,33 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
+     * Verifies getEvent throws 504.
+     *
+     * @throws GuzzleException
+     * @throws \DateMalformedStringException
+     */
+    public function testGetEvent504Error()
+    {
+        $this->mockHandler->append(MockHelper::getMockResponse(MockHelper::OPERATION_ERROR_504_GATEWAY_TIMEOUT));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(504);
+
+        try {
+            $this->api->getEvent(MockHelper::MOCK_EVENT_ID);
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+
+            /** @var ErrorResponse $errorDetails */
+            $errorDetails = $e->getErrorDetails();
+            $this->assertEquals(ErrorCode::FAILED, $errorDetails->getError()->getCode());
+            $this->assertEquals('gateway timeout', $errorDetails->getError()->getMessage());
+
+            throw $e;
+        }
+    }
+
+    /**
      * Verifies updateEvent sends correct request body and method.
      *
      * @throws ApiException
@@ -925,6 +952,33 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
+     * Verifies searchEvents throws 429 too many requests.
+     *
+     * @throws GuzzleException
+     * @throws \DateMalformedStringException
+     */
+    public function testSearchEvents429Error()
+    {
+        $this->mockHandler->append(MockHelper::getMockResponse(MockHelper::OPERATION_ERROR_429_TOO_MANY_REQUESTS));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(429);
+
+        try {
+            $this->api->searchEvents();
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+
+            /** @var ErrorResponse $errorDetails */
+            $errorDetails = $e->getErrorDetails();
+            $this->assertEquals(ErrorCode::TOO_MANY_REQUESTS, $errorDetails->getError()->getCode());
+            $this->assertEquals('too many requests', $errorDetails->getError()->getMessage());
+
+            throw $e;
+        }
+    }
+
+    /**
      * Verifies searchEvents throws 500 for internal error.
      *
      * @throws GuzzleException
@@ -946,6 +1000,33 @@ class FingerprintApiTest extends TestCase
             $errorDetails = $e->getErrorDetails();
             $this->assertEquals(ErrorCode::FAILED, $errorDetails->getError()->getCode());
             $this->assertEquals('internal server error', $errorDetails->getError()->getMessage());
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Verifies searchEvents throws 504.
+     *
+     * @throws GuzzleException
+     * @throws \DateMalformedStringException
+     */
+    public function testSearchEvents504Error()
+    {
+        $this->mockHandler->append(MockHelper::getMockResponse(MockHelper::OPERATION_ERROR_504_GATEWAY_TIMEOUT));
+
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(504);
+
+        try {
+            $this->api->searchEvents();
+        } catch (ApiException $e) {
+            $this->assertEquals(ErrorResponse::class, get_class($e->getErrorDetails()));
+
+            /** @var ErrorResponse $errorDetails */
+            $errorDetails = $e->getErrorDetails();
+            $this->assertEquals(ErrorCode::FAILED, $errorDetails->getError()->getCode());
+            $this->assertEquals('gateway timeout', $errorDetails->getError()->getMessage());
 
             throw $e;
         }
@@ -1526,6 +1607,8 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals($actualProximity->precision_radius, $proximity->getPrecisionRadius());
         $this->assertEquals($actualProximity->confidence, $proximity->getConfidence());
 
+        $this->assertEquals($actual->active_call, $event->getActiveCall());
+
         $this->assertEquals(BotResult::NOT_DETECTED, $event->getBot());
         $this->assertEquals(null, $event->getBotType());
         $this->assertEquals(null, $event->getBotInfo());
@@ -1556,6 +1639,10 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals('db3c1462576a399a03ae93d0ab9eb5c4', $rawDeviceAttributes->getCanvas()->getGeometry());
         $this->assertEquals('24', $rawDeviceAttributes->getColorDepth());
         $this->assertTrue($rawDeviceAttributes->getCookiesEnabled());
+        $this->assertEquals(80, $rawDeviceAttributes->getBatteryLevel());
+        $this->assertTrue($rawDeviceAttributes->getBatteryCharging());
+        $this->assertTrue($rawDeviceAttributes->getBatteryLowPowerMode());
+        $this->assertEquals('691e3845c85c202a1514b6fd7ef17065', $rawDeviceAttributes->getKeyboardLayoutHash());
 
         $labels = $event->getLabels();
         $actualLabels = $actual->labels;

@@ -122,6 +122,12 @@ class RawDeviceAttributesTest extends TestCase
 
         $model->setBatteryLowPowerMode(false);
         $this->assertFalse($model->getBatteryLowPowerMode());
+
+        $model->setBatteryCharging(true);
+        $this->assertTrue($model->getBatteryCharging());
+
+        $model->setKeyboardLayoutHash('691e3845c85c202a1514b6fd7ef17065');
+        $this->assertSame('691e3845c85c202a1514b6fd7ef17065', $model->getKeyboardLayoutHash());
     }
 
     public function testDeviceMemoryLowerBoundValidation(): void
