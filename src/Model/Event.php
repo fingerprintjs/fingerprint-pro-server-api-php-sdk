@@ -65,6 +65,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     protected static array $openAPITypes = [
         'event_id' => 'string',
         'timestamp' => 'int',
+        'source' => '\Fingerprint\ServerSdk\Model\EventSource',
         'incremental_identification_status' => '\Fingerprint\ServerSdk\Model\IncrementalIdentificationStatus',
         'linked_id' => 'string',
         'environment_id' => 'string',
@@ -141,6 +142,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     protected static array $openAPIFormats = [
         'event_id' => null,
         'timestamp' => 'int64',
+        'source' => null,
         'incremental_identification_status' => null,
         'linked_id' => null,
         'environment_id' => null,
@@ -213,6 +215,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'event_id' => false,
         'timestamp' => false,
+        'source' => false,
         'incremental_identification_status' => false,
         'linked_id' => false,
         'environment_id' => false,
@@ -293,6 +296,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     protected static array $attributeMap = [
         'event_id' => 'event_id',
         'timestamp' => 'timestamp',
+        'source' => 'source',
         'incremental_identification_status' => 'incremental_identification_status',
         'linked_id' => 'linked_id',
         'environment_id' => 'environment_id',
@@ -365,6 +369,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     protected static array $setters = [
         'event_id' => 'setEventId',
         'timestamp' => 'setTimestamp',
+        'source' => 'setSource',
         'incremental_identification_status' => 'setIncrementalIdentificationStatus',
         'linked_id' => 'setLinkedId',
         'environment_id' => 'setEnvironmentId',
@@ -437,6 +442,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     protected static array $getters = [
         'event_id' => 'getEventId',
         'timestamp' => 'getTimestamp',
+        'source' => 'getSource',
         'incremental_identification_status' => 'getIncrementalIdentificationStatus',
         'linked_id' => 'getLinkedId',
         'environment_id' => 'getEnvironmentId',
@@ -518,6 +524,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('event_id', $data ?? [], null);
         $this->setIfExists('timestamp', $data ?? [], null);
+        $this->setIfExists('source', $data ?? [], null);
         $this->setIfExists('incremental_identification_status', $data ?? [], null);
         $this->setIfExists('linked_id', $data ?? [], null);
         $this->setIfExists('environment_id', $data ?? [], null);
@@ -767,6 +774,28 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function setTimestamp(int $timestamp): self
     {
         $this->container['timestamp'] = $timestamp;
+
+        return $this;
+    }
+
+    /**
+     * Gets source.
+     *
+     */
+    public function getSource(): EventSource|string|null
+    {
+        return $this->container['source'];
+    }
+
+    /**
+     * Sets source.
+     *
+     * @param EventSource|string $source source
+     *
+     */
+    public function setSource(EventSource|string $source): self
+    {
+        $this->container['source'] = $source;
 
         return $this;
     }

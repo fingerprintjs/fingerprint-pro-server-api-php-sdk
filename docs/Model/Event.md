@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **string** | Unique identifier of the user&#39;s request. The first portion of the event_id is a unix epoch milliseconds timestamp. |
 **timestamp** | **int** | Timestamp of the event with millisecond precision in Unix time. |
+**source** | [**\Fingerprint\ServerSdk\Model\EventSource**](EventSource.md) |  | [optional]
 **incremental_identification_status** | [**\Fingerprint\ServerSdk\Model\IncrementalIdentificationStatus**](IncrementalIdentificationStatus.md) |  | [optional]
 **linked_id** | **string** | A customer-provided id that was sent with the request. | [optional]
 **environment_id** | **string** | Environment Id of the event. | [optional]

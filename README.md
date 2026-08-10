@@ -263,6 +263,7 @@ Class | Method | HTTP request | Description
  - [EventRuleActionAllow](docs/Model/EventRuleActionAllow.md)
  - [EventRuleActionBlock](docs/Model/EventRuleActionBlock.md)
  - [EventSearch](docs/Model/EventSearch.md)
+ - [EventSource](docs/Model/EventSource.md)
  - [EventUpdate](docs/Model/EventUpdate.md)
  - [FontPreferences](docs/Model/FontPreferences.md)
  - [Geolocation](docs/Model/Geolocation.md)
