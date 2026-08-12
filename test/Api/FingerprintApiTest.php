@@ -11,6 +11,7 @@ use Fingerprint\ServerSdk\Model\ErrorCode;
 use Fingerprint\ServerSdk\Model\ErrorResponse;
 use Fingerprint\ServerSdk\Model\Event;
 use Fingerprint\ServerSdk\Model\EventRuleAction;
+use Fingerprint\ServerSdk\Model\EventSource;
 use Fingerprint\ServerSdk\Model\EventUpdate;
 use Fingerprint\ServerSdk\Model\Identification;
 use Fingerprint\ServerSdk\Model\IdentificationConfidence;
@@ -1535,6 +1536,7 @@ class FingerprintApiTest extends TestCase
     {
         $this->assertEquals(MockHelper::MOCK_EVENT_ID, $event->getEventId());
         $this->assertEquals($actual->timestamp, $event->getTimestamp());
+        $this->assertEquals(EventSource::DEVICE, $event->getSource());
         $this->assertEquals(IncrementalIdentificationStatus::COMPLETED, $event->getIncrementalIdentificationStatus());
         $this->assertEquals($actual->linked_id, $event->getLinkedId());
         $this->assertEquals(null, $event->getEnvironmentId());
