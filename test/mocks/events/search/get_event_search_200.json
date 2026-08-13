@@ -5,6 +5,7 @@
       "tags": {},
       "timestamp": 1708102555327,
       "event_id": "1708102555327.NLOjmg",
+      "source": "device",
       "incremental_identification_status": "completed",
       "url": "https://www.example.com/login?hope{this{works[!",
       "ip_address": "61.127.217.15",

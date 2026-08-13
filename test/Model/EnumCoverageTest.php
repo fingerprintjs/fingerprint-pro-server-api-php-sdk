@@ -7,6 +7,7 @@ use Fingerprint\ServerSdk\Model\BotInfoConfidence;
 use Fingerprint\ServerSdk\Model\BotInfoIdentity;
 use Fingerprint\ServerSdk\Model\BotResult;
 use Fingerprint\ServerSdk\Model\ErrorCode;
+use Fingerprint\ServerSdk\Model\EventSource;
 use Fingerprint\ServerSdk\Model\IncrementalIdentificationStatus;
 use Fingerprint\ServerSdk\Model\ProxyConfidence;
 use Fingerprint\ServerSdk\Model\RareDevicePercentileBucket;
@@ -37,6 +38,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(BotInfoIdentity::class)]
 #[CoversClass(BotResult::class)]
 #[CoversClass(ErrorCode::class)]
+#[CoversClass(EventSource::class)]
 #[CoversClass(IncrementalIdentificationStatus::class)]
 #[CoversClass(ProxyConfidence::class)]
 #[CoversClass(RareDevicePercentileBucket::class)]
@@ -103,6 +105,7 @@ class EnumCoverageTest extends TestCase
             'BotInfoIdentity' => [BotInfoIdentity::class],
             'BotResult' => [BotResult::class],
             'ErrorCode' => [ErrorCode::class],
+            'EventSource' => [EventSource::class],
             'IncrementalIdentificationStatus' => [IncrementalIdentificationStatus::class],
             'ProxyConfidence' => [ProxyConfidence::class],
             'RareDevicePercentileBucket' => [RareDevicePercentileBucket::class],

@@ -17,6 +17,7 @@ docs/Model/EventRuleAction.md
 docs/Model/EventRuleActionAllow.md
 docs/Model/EventRuleActionBlock.md
 docs/Model/EventSearch.md
+docs/Model/EventSource.md
 docs/Model/EventUpdate.md
 docs/Model/FontPreferences.md
 docs/Model/Geolocation.md
@@ -82,6 +83,7 @@ src/Model/EventRuleAction.php
 src/Model/EventRuleActionAllow.php
 src/Model/EventRuleActionBlock.php
 src/Model/EventSearch.php
+src/Model/EventSource.php
 src/Model/EventUpdate.php
 src/Model/FontPreferences.php
 src/Model/Geolocation.php

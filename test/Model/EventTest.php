@@ -3,6 +3,7 @@
 namespace Fingerprint\ServerSdk\Test\Model;
 
 use Fingerprint\ServerSdk\Model\Event;
+use Fingerprint\ServerSdk\Model\EventSource;
 use Fingerprint\ServerSdk\ObjectSerializer;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -171,6 +172,72 @@ class EventTest extends TestCase
 
         $this->assertFalse($model->isNullableSetToNull('event_id'));
         $this->assertFalse($model->isNullableSetToNull('timestamp'));
+    }
+
+    /**
+     * Deserializing an event should map the source values to the matching enum cases.
+     *
+     * @throws \DateMalformedStringException
+     */
+    public function testDeserializationWithSource(): void
+    {
+        foreach ([EventSource::DEVICE, EventSource::EDGE] as $expected) {
+            $json = json_encode(self::EXAMPLE + ['source' => $expected->value]);
+
+            /** @var Event $model */
+            $model = ObjectSerializer::deserialize(json_decode($json), Event::class);
+
+            $this->assertSame($expected, $model->getSource());
+        }
+    }
+
+    /**
+     * Source is optional, so an event payload without it should deserialize with a null source.
+     *
+     * @throws \DateMalformedStringException
+     */
+    public function testDeserializationWithoutSource(): void
+    {
+        $json = json_encode(self::EXAMPLE);
+
+        /** @var Event $model */
+        $model = ObjectSerializer::deserialize(json_decode($json), Event::class);
+
+        $this->assertNull($model->getSource());
+        $this->assertTrue($model->valid());
+    }
+
+    /**
+     * Deserializing a JSON response with an unknown source should not throw.
+     * The unknown value should be preserved through deserialization and re-serialization.
+     *
+     * @throws \DateMalformedStringException
+     */
+    public function testDeserializationWithUnknownSource(): void
+    {
+        $json = json_encode(self::EXAMPLE + ['source' => 'unknown-value']);
+
+        /** @var Event $model */
+        $model = ObjectSerializer::deserialize(json_decode($json), Event::class);
+
+        $this->assertEquals('unknown-value', $model->getSource());
+        $this->assertTrue($model->valid());
+
+        // Re-serialization should preserve the unknown value
+        $reserialized = json_encode(ObjectSerializer::sanitizeForSerialization($model));
+        $decoded = json_decode($reserialized, true);
+        $this->assertEquals('unknown-value', $decoded['source']);
+    }
+
+    /**
+     * setSource should accept unknown enum values without throwing.
+     */
+    public function testSetSourceAcceptsUnknownValue(): void
+    {
+        $model = new Event();
+
+        $model->setSource('unknown-value');
+        $this->assertEquals('unknown-value', $model->getSource());
     }
 
     /**
