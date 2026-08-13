@@ -1,5 +1,11 @@
 # Fingerprint Server PHP SDK
 
+## 7.5.0
+
+### Minor Changes
+
+- Add `source` field to `Event` to identify how the event was generated (`device` or `edge`) ([86e1fb0](https://github.com/fingerprintjs/php-sdk/commit/86e1fb0cc4fb3277f72caf8bb263e4577b9b5f80))
+
 ## 7.4.0
 
 ### Minor Changes
