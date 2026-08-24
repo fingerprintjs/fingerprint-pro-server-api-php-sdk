@@ -128,6 +128,9 @@ class RawDeviceAttributesTest extends TestCase
 
         $model->setKeyboardLayoutHash('691e3845c85c202a1514b6fd7ef17065');
         $this->assertSame('691e3845c85c202a1514b6fd7ef17065', $model->getKeyboardLayoutHash());
+
+        $model->setKeyboardLayoutName('en-US');
+        $this->assertSame('en-US', $model->getKeyboardLayoutName());
     }
 
     public function testDeviceMemoryLowerBoundValidation(): void
