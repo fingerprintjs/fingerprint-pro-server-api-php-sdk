@@ -742,6 +742,7 @@ class FingerprintApiTest extends TestCase
             'incremental_identification_status' => [SearchEventsIncrementalIdentificationStatus::COMPLETED, 'completed'],
             'simulator' => true,
             'source' => [[SearchEventsSource::EDGE], ['edge']],
+            'active_call' => false,
         ];
 
         $this->mockHandler->append(function (RequestInterface $request) use ($expected) {
@@ -814,6 +815,7 @@ class FingerprintApiTest extends TestCase
             incremental_identification_status: $expected['incremental_identification_status'][0],
             simulator: $expected['simulator'],
             source: $expected['source'][0],
+            active_call: $expected['active_call'],
         )->getEvents();
 
         $this->assertCount(1, $events);
@@ -1645,6 +1647,7 @@ class FingerprintApiTest extends TestCase
         $this->assertTrue($rawDeviceAttributes->getBatteryCharging());
         $this->assertTrue($rawDeviceAttributes->getBatteryLowPowerMode());
         $this->assertEquals('691e3845c85c202a1514b6fd7ef17065', $rawDeviceAttributes->getKeyboardLayoutHash());
+        $this->assertEquals('en-US', $rawDeviceAttributes->getKeyboardLayoutName());
 
         $labels = $event->getLabels();
         $actualLabels = $actual->labels;

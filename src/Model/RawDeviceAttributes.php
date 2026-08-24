@@ -96,6 +96,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'battery_charging' => 'bool',
         'battery_low_power_mode' => 'bool',
         'keyboard_layout_hash' => 'string',
+        'keyboard_layout_name' => 'string',
     ];
 
     /**
@@ -141,6 +142,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'battery_charging' => null,
         'battery_low_power_mode' => null,
         'keyboard_layout_hash' => null,
+        'keyboard_layout_name' => null,
     ];
 
     /**
@@ -182,6 +184,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'battery_charging' => false,
         'battery_low_power_mode' => false,
         'keyboard_layout_hash' => false,
+        'keyboard_layout_name' => false,
     ];
 
     /**
@@ -231,6 +234,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'battery_charging' => 'battery_charging',
         'battery_low_power_mode' => 'battery_low_power_mode',
         'keyboard_layout_hash' => 'keyboard_layout_hash',
+        'keyboard_layout_name' => 'keyboard_layout_name',
     ];
 
     /**
@@ -272,6 +276,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'battery_charging' => 'setBatteryCharging',
         'battery_low_power_mode' => 'setBatteryLowPowerMode',
         'keyboard_layout_hash' => 'setKeyboardLayoutHash',
+        'keyboard_layout_name' => 'setKeyboardLayoutName',
     ];
 
     /**
@@ -313,6 +318,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         'battery_charging' => 'getBatteryCharging',
         'battery_low_power_mode' => 'getBatteryLowPowerMode',
         'keyboard_layout_hash' => 'getKeyboardLayoutHash',
+        'keyboard_layout_name' => 'getKeyboardLayoutName',
     ];
 
     /**
@@ -363,6 +369,7 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
         $this->setIfExists('battery_charging', $data ?? [], null);
         $this->setIfExists('battery_low_power_mode', $data ?? [], null);
         $this->setIfExists('keyboard_layout_hash', $data ?? [], null);
+        $this->setIfExists('keyboard_layout_name', $data ?? [], null);
     }
 
     /**
@@ -1235,6 +1242,28 @@ class RawDeviceAttributes implements ModelInterface, \ArrayAccess, \JsonSerializ
     public function setKeyboardLayoutHash(string $keyboard_layout_hash): self
     {
         $this->container['keyboard_layout_hash'] = $keyboard_layout_hash;
+
+        return $this;
+    }
+
+    /**
+     * Gets keyboard_layout_name.
+     *
+     */
+    public function getKeyboardLayoutName(): ?string
+    {
+        return $this->container['keyboard_layout_name'];
+    }
+
+    /**
+     * Sets keyboard_layout_name.
+     *
+     * @param string $keyboard_layout_name Name of the user's configured keyboard layout as a BCP 47-style identifier. Only available in Chromium-based browsers, omitted otherwise.
+     *
+     */
+    public function setKeyboardLayoutName(string $keyboard_layout_name): self
+    {
+        $this->container['keyboard_layout_name'] = $keyboard_layout_name;
 
         return $this;
     }
