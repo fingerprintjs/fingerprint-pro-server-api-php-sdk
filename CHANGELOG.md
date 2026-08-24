@@ -1,5 +1,12 @@
 # Fingerprint Server PHP SDK
 
+## 7.6.0
+
+### Minor Changes
+
+- **events-search**: Add `active_call` filter parameter ([3fdbe69](https://github.com/fingerprintjs/php-sdk/commit/3fdbe698d2a8ccef2de324cd92d063e561a0d176))
+- Add `keyboard_layout_name` to `RawDeviceAttributes` ([3fdbe69](https://github.com/fingerprintjs/php-sdk/commit/3fdbe698d2a8ccef2de324cd92d063e561a0d176))
+
 ## 7.5.0
 
 ### Minor Changes

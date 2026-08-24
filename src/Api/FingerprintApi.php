@@ -81,7 +81,7 @@ class FingerprintApi
     /**
      * @var string integration information
      */
-    protected string $integration_info = 'fingerprint-pro-server-php-sdk/7.5.0';
+    protected string $integration_info = 'fingerprint-pro-server-php-sdk/7.6.0';
 
     /**
      * @param Configuration        $config API client configuration
