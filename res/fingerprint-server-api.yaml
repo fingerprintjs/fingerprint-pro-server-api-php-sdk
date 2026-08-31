@@ -1845,54 +1845,22 @@ components:
             - browser
         url:
           $ref: '#/components/schemas/Url'
-          x-platforms:
-            - browser
         bot_info:
           $ref: '#/components/schemas/BotInfo'
-          x-platforms:
-            - browser
         ip_info:
           $ref: '#/components/schemas/IPInfo'
-          x-platforms:
-            - android
-            - ios
-            - browser
         proxy:
           $ref: '#/components/schemas/Proxy'
-          x-platforms:
-            - android
-            - ios
-            - browser
         proxy_confidence:
           $ref: '#/components/schemas/ProxyConfidence'
-          x-platforms:
-            - android
-            - ios
-            - browser
         proxy_details:
           $ref: '#/components/schemas/ProxyDetails'
-          x-platforms:
-            - android
-            - ios
-            - browser
         vpn:
           $ref: '#/components/schemas/Vpn'
-          x-platforms:
-            - android
-            - ios
-            - browser
         vpn_confidence:
           $ref: '#/components/schemas/VpnConfidence'
-          x-platforms:
-            - android
-            - ios
-            - browser
         vpn_methods:
           $ref: '#/components/schemas/VpnMethods'
-          x-platforms:
-            - android
-            - ios
-            - browser
         source:
           $ref: '#/components/schemas/EventSource'
           const: edge
@@ -3478,6 +3446,10 @@ components:
             - browser
         source:
           $ref: '#/components/schemas/EventSource'
+          x-platforms:
+            - android
+            - ios
+            - browser
         incremental_identification_status:
           $ref: '#/components/schemas/IncrementalIdentificationStatus'
           x-platforms:
