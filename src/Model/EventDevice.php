@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Event.
+ * EventDevice.
  *
  * @category Class
  *
@@ -32,15 +32,11 @@ namespace Fingerprint\ServerSdk\Model;
 use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
- * An identification event (`source: device`) or an Automation Intelligence event (`source: edge`).
- *
- * Use `source` to tell them apart. Device events include Identification and device-derived Smart Signals. Edge events do not.
- *
- * Consult the [Smart Signals reference](https://docs.fingerprint.com/docs/smart-signals-reference) for more details.
+ * Contains results from Fingerprint Identification and Smart Signals derived from client-side device telemetry. Consult the [Smart Signals reference](https://docs.fingerprint.com/docs/smart-signals-reference) for more details.
  *
  * @category Class
  *
- * @description An identification event (&#x60;source: device&#x60;) or an Automation Intelligence event (&#x60;source: edge&#x60;).  Use &#x60;source&#x60; to tell them apart. Device events include Identification and device-derived Smart Signals. Edge events do not.  Consult the [Smart Signals reference](https://docs.fingerprint.com/docs/smart-signals-reference) for more details.
+ * @description Contains results from Fingerprint Identification and Smart Signals derived from client-side device telemetry. Consult the [Smart Signals reference](https://docs.fingerprint.com/docs/smart-signals-reference) for more details.
  *
  * @author   Fingerprint
  *
@@ -51,23 +47,15 @@ use Fingerprint\ServerSdk\ObjectSerializer;
  * @noinspection GrazieInspection
  * @noinspection RedundantSuppression
  */
-class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
+class EventDevice implements ModelInterface, \ArrayAccess, \JsonSerializable
 {
-    /**
-     * SPIKE INTER-2457 — Event call sites do NOT break in PHP.
-     * DISCRIMINATOR looks up `\Fingerprint\ServerSdk\Model\device` / `edge`,
-     * which do not exist (real classes are EventDevice / EventEdge).
-     * ObjectSerializer falls back to this flat Event class, so
-     * getIdentification() still works. Proof that PHP codegen does not split
-     * this oneOf.
-     */
-    public const DISCRIMINATOR = 'source';
+    public const DISCRIMINATOR = null;
 
     /**
      * The original name of the model.
      *
      */
-    protected static string $openAPIModelName = 'Event';
+    protected static string $openAPIModelName = 'EventDevice';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
@@ -599,9 +587,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         $this->setIfExists('rare_device_percentile_bucket', $data ?? [], null);
         $this->setIfExists('raw_device_attributes', $data ?? [], null);
         $this->setIfExists('labels', $data ?? [], null);
-
-        // Initialize discriminator property with the model name.
-        $this->container['source'] = static::$openAPIModelName;
     }
 
     /**
@@ -702,9 +687,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         }
         if (null === $this->container['timestamp']) {
             $invalidProperties[] = "'timestamp' can't be null";
-        }
-        if (null === $this->container['ip_info']) {
-            $invalidProperties[] = "'ip_info' can't be null";
         }
         if (null === $this->container['source']) {
             $invalidProperties[] = "'source' can't be null";
@@ -1177,8 +1159,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets identification.
      *
-     * SPIKE INTER-2457 — This getter still exists. PHP did not split Event into
-     * a union, so existing `$event->getIdentification()` call sites keep working.
      */
     public function getIdentification(): ?Identification
     {
@@ -1656,10 +1636,10 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function setProxyMlScore(float $proxy_ml_score): self
     {
         if ($proxy_ml_score > 1) {
-            throw new \InvalidArgumentException('invalid value for $proxy_ml_score when calling Event., must be smaller than or equal to 1.');
+            throw new \InvalidArgumentException('invalid value for $proxy_ml_score when calling EventDevice., must be smaller than or equal to 1.');
         }
         if ($proxy_ml_score < 0) {
-            throw new \InvalidArgumentException('invalid value for $proxy_ml_score when calling Event., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid value for $proxy_ml_score when calling EventDevice., must be bigger than or equal to 0.');
         }
 
         $this->container['proxy_ml_score'] = $proxy_ml_score;
@@ -1927,10 +1907,10 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function setTamperingMlScore(float $tampering_ml_score): self
     {
         if ($tampering_ml_score > 1) {
-            throw new \InvalidArgumentException('invalid value for $tampering_ml_score when calling Event., must be smaller than or equal to 1.');
+            throw new \InvalidArgumentException('invalid value for $tampering_ml_score when calling EventDevice., must be smaller than or equal to 1.');
         }
         if ($tampering_ml_score < 0) {
-            throw new \InvalidArgumentException('invalid value for $tampering_ml_score when calling Event., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid value for $tampering_ml_score when calling EventDevice., must be bigger than or equal to 0.');
         }
 
         $this->container['tampering_ml_score'] = $tampering_ml_score;
@@ -2022,10 +2002,10 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function setVirtualMachineMlScore(float $virtual_machine_ml_score): self
     {
         if ($virtual_machine_ml_score > 1) {
-            throw new \InvalidArgumentException('invalid value for $virtual_machine_ml_score when calling Event., must be smaller than or equal to 1.');
+            throw new \InvalidArgumentException('invalid value for $virtual_machine_ml_score when calling EventDevice., must be smaller than or equal to 1.');
         }
         if ($virtual_machine_ml_score < 0) {
-            throw new \InvalidArgumentException('invalid value for $virtual_machine_ml_score when calling Event., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid value for $virtual_machine_ml_score when calling EventDevice., must be bigger than or equal to 0.');
         }
 
         $this->container['virtual_machine_ml_score'] = $virtual_machine_ml_score;
@@ -2051,10 +2031,10 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     public function setVpnMlScore(float $vpn_ml_score): self
     {
         if ($vpn_ml_score > 1) {
-            throw new \InvalidArgumentException('invalid value for $vpn_ml_score when calling Event., must be smaller than or equal to 1.');
+            throw new \InvalidArgumentException('invalid value for $vpn_ml_score when calling EventDevice., must be smaller than or equal to 1.');
         }
         if ($vpn_ml_score < 0) {
-            throw new \InvalidArgumentException('invalid value for $vpn_ml_score when calling Event., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid value for $vpn_ml_score when calling EventDevice., must be bigger than or equal to 0.');
         }
 
         $this->container['vpn_ml_score'] = $vpn_ml_score;

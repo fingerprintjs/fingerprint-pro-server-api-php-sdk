@@ -422,6 +422,10 @@ class ObjectSerializer
         }
 
         // If a discriminator is defined and points to a valid subclass, use it.
+        // SPIKE INTER-2457 — THIS IS WHY PHP DOES NOT BREAK.
+        // Event::DISCRIMINATOR is `source`. For source=device this looks up
+        // \Fingerprint\ServerSdk\Model\device, which is not a subclass of Event,
+        // so deserialization stays on the flat Event class.
         $discriminator = defined("$class::DISCRIMINATOR") ? $class::DISCRIMINATOR : null;
         if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
             $subclass = '\Fingerprint\ServerSdk\Model\\'.$data->{$discriminator};
