@@ -142,8 +142,8 @@ paths:
         request, i.e. all returned information is by `event_id`.
 
 
-        Returns `EventDevice` when `source` is `device`, and `EventEdge` when
-        `source` is `edge`.
+        Use `source` to tell identification events (`device`) from Automation
+        Intelligence events (`edge`).
       parameters:
         - name: event_id
           in: path
@@ -1272,6 +1272,17 @@ components:
         an IPv4-mapped IPv6 address is provided in the `ipv6_address` request
         property, the IP intelligence will be provided in the `ipv4_address`
         property of the response.
+      example:
+        method: GET
+        url: https://example.com/login
+        ipv4_address: 34.162.244.71
+        headers:
+          - name: Host
+            value: example.com
+          - name: User-Agent
+            value: Mozilla/5.0
+          - name: Authorization
+            value: ''
       required:
         - headers
         - method
@@ -1286,9 +1297,9 @@ components:
 
 
             Headers that contain authentication or session data must still be
-            included, but with with their value set to an empty string. This
-            includes headers like `Authorization` and `Cookie`, but may contain
-            more depending on your specific project, for instance
+            included, but with their value set to an empty string. This includes
+            headers like `Authorization` and `Cookie`, but may contain more
+            depending on your specific project, for instance
             `Proxy-Authenticate` or `X-Api-Key`. Omitting the headers entirely
             changes the shape of the request and can affect detection. Never
             forward the real secret values.
