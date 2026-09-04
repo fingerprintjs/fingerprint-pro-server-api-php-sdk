@@ -1873,8 +1873,9 @@ components:
         vpn_methods:
           $ref: '#/components/schemas/VpnMethods'
         source:
-          $ref: '#/components/schemas/EventSource'
-          const: edge
+          allOf:
+            - $ref: '#/components/schemas/EventSource'
+            - const: edge
       required:
         - event_id
         - timestamp
