@@ -336,10 +336,10 @@ composer install
 
 ## Version support
 
-| SDK major version | Server API version | Status | End of support | Notes |
-|---|---|---|---|---|
-| v7.x (current) | [v4](https://docs.fingerprint.com/reference/server-api) | Supported | - | - |
-| v1.x-v6.x | [v3](https://docs.fingerprint.com/reference/v3/server-api) | Deprecated (security fixes only). See the [migration guide](https://docs.fingerprint.com/reference/php-server-sdk#migration-guide-for-php-sdk-v7). | To be decided | Maintained in the [old repository](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk) |
+| SDK major version | Server API version | Status | End of support |
+|---|---|---|---|
+| v7.x (current) | [v4](https://docs.fingerprint.com/reference/server-api) | Supported | - |
+| v1.x-v6.x | [v3](https://docs.fingerprint.com/reference/v3/server-api) | Deprecated (security fixes only). See the [migration guide](https://docs.fingerprint.com/reference/php-server-sdk#migration-guide-for-php-sdk-v7). | To be decided |
 
 ## Support
 
