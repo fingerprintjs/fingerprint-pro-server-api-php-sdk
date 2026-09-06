@@ -29,6 +29,7 @@
 
 namespace Fingerprint\ServerSdk;
 
+use Fingerprint\ServerSdk\Model\Event;
 use Fingerprint\ServerSdk\Model\ModelInterface;
 
 /**
@@ -419,6 +420,11 @@ class ObjectSerializer
 
         if (is_array($data)) {
             $data = (object) $data;
+        }
+
+        // SPIKE INTER-2457 — omit source means device. Never rewrite edge.
+        if (is_object($data) && (Event::class === $class || '\\'.Event::class === $class)) {
+            $data = Event::hydrateMissingSource($data);
         }
 
         // If a discriminator is defined and points to a valid subclass, use it.

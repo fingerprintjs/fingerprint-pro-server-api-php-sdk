@@ -192,7 +192,7 @@ class EventTest extends TestCase
     }
 
     /**
-     * Source is optional, so an event payload without it should deserialize with a null source.
+     * A missing `source` key hydrates to device. `source: edge` is left alone.
      *
      * @throws \DateMalformedStringException
      */
@@ -203,8 +203,29 @@ class EventTest extends TestCase
         /** @var Event $model */
         $model = ObjectSerializer::deserialize(json_decode($json), Event::class);
 
-        $this->assertNull($model->getSource());
-        $this->assertTrue($model->valid());
+        $this->assertSame(EventSource::DEVICE, $model->getSource());
+
+        /** @var Event $fromArray */
+        $fromArray = ObjectSerializer::deserialize(self::EXAMPLE, Event::class);
+        $this->assertSame(EventSource::DEVICE, $fromArray->getSource());
+
+        $edgeJson = json_encode(self::EXAMPLE + ['source' => EventSource::EDGE->value]);
+
+        /** @var Event $edge */
+        $edge = ObjectSerializer::deserialize(json_decode($edgeJson), Event::class);
+        $this->assertSame(EventSource::EDGE, $edge->getSource());
+    }
+
+    /**
+     * Constructor without `source` hydrates to device. Explicit edge is kept.
+     */
+    public function testConstructorHydratesMissingSourceToDevice(): void
+    {
+        $omitted = new Event(self::EXAMPLE);
+        $this->assertSame(EventSource::DEVICE->value, $omitted->getSource());
+
+        $edge = new Event(self::EXAMPLE + ['source' => EventSource::EDGE]);
+        $this->assertSame(EventSource::EDGE, $edge->getSource());
     }
 
     /**
