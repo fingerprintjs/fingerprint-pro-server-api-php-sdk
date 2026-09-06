@@ -19,6 +19,7 @@
 namespace {{invokerPackage}};
 
 use GuzzleHttp\Psr7\Utils;
+use {{modelPackage}}\Event;
 use {{modelPackage}}\ModelInterface;
 
 /**
@@ -41,6 +42,43 @@ class ObjectSerializer
     public static function setDateTimeFormat(string $format): void
     {
         self::$dateTimeFormat = $format;
+    }
+
+    /**
+     * Treat a missing, null, or empty Event `source` as `device`.
+     * Unknown non-empty values fail. Never rewrites `edge`.
+     */
+    public static function hydrateEmptyEventSource(mixed $data): mixed
+    {
+        if ($data === null) {
+            return ['source' => 'device'];
+        }
+
+        if (is_array($data)) {
+            $source = $data['source'] ?? null;
+            if (!array_key_exists('source', $data) || $source === null || $source === '') {
+                $data['source'] = 'device';
+                return $data;
+            }
+            $value = $source instanceof \BackedEnum ? $source->value : $source;
+            if (!is_string($value) || !in_array($value, ['device', 'edge'], true)) {
+                throw new \InvalidArgumentException('unknown Event source: ' . json_encode($value));
+            }
+            return $data;
+        }
+
+        if (is_object($data)) {
+            if (!property_exists($data, 'source') || $data->source === null || $data->source === '') {
+                $data->source = 'device';
+                return $data;
+            }
+            $value = $data->source instanceof \BackedEnum ? $data->source->value : $data->source;
+            if (!is_string($value) || !in_array($value, ['device', 'edge'], true)) {
+                throw new \InvalidArgumentException('unknown Event source: ' . json_encode($value));
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -432,6 +470,10 @@ class ObjectSerializer
 
         if (is_array($data)) {
             $data = (object)$data;
+        }
+
+        if (is_object($data) && ($class === Event::class || $class === '\\' . Event::class)) {
+            $data = self::hydrateEmptyEventSource($data);
         }
 
         // If a discriminator is defined and points to a valid subclass, use it.

@@ -1562,6 +1562,7 @@ class FingerprintApiTest extends TestCase
 
         $this->assertEquals($actual->replayed, $event->getReplayed());
 
+        // SPIKE INTER-2457 — This still works. PHP did not split Event, so getIdentification() remains.
         $identification = $event->getIdentification();
         $actualIdentification = $actual->identification;
         $this->assertEquals(Identification::class, get_class($identification));

@@ -84,6 +84,30 @@ sed_in_place "s|new ${NS}${NS}SearchEventsVpnConfidence()|${NS}SearchEventsVpnCo
 API_FILE="src/Api/FingerprintApi.php"
 sed_in_place 's/@param  int|null \$limit/@param  int \$limit/' "$API_FILE"
 
+# Event constructor: hydrate omit/empty source; do not write the model name into source.
+EVENT_FILE="src/Model/Event.php"
+python3 - <<'PY'
+from pathlib import Path
+p = Path("src/Model/Event.php")
+text = p.read_text()
+old = """    public function __construct(?array $data = null)
+    {
+"""
+new = """    public function __construct(?array $data = null)
+    {
+        $data = ObjectSerializer::hydrateEmptyEventSource($data);
+"""
+if old not in text:
+    raise SystemExit("Event constructor not found")
+text = text.replace(old, new, 1)
+text = text.replace(
+    "        // Initialize discriminator property with the model name.\n        $this->container['source'] = static::$openAPIModelName;\n",
+    "",
+    1,
+)
+p.write_text(text)
+PY
+
 # Format generated code
 "$(dirname "${BASH_SOURCE[0]}")/php-cs-fixer.sh"
 

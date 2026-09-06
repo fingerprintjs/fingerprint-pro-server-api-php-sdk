@@ -97,9 +97,9 @@ class EventTest extends TestCase
         $this->assertFalse($emptyModel->valid());
         $this->assertNotEmpty($emptyModel->listInvalidProperties());
 
-        $validModel = new Event(self::EXAMPLE);
-        $this->assertTrue($validModel->valid());
-        $this->assertEmpty($validModel->listInvalidProperties());
+        $model = new Event(self::EXAMPLE);
+        $this->assertSame(EventSource::DEVICE->value, $model->getSource());
+        $this->assertContains("'ip_info' can't be null", $model->listInvalidProperties());
     }
 
     /**
@@ -192,7 +192,7 @@ class EventTest extends TestCase
     }
 
     /**
-     * Source is optional, so an event payload without it should deserialize with a null source.
+     * A missing `source` key hydrates to device. `source: edge` is left alone.
      *
      * @throws \DateMalformedStringException
      */
@@ -203,13 +203,33 @@ class EventTest extends TestCase
         /** @var Event $model */
         $model = ObjectSerializer::deserialize(json_decode($json), Event::class);
 
-        $this->assertNull($model->getSource());
-        $this->assertTrue($model->valid());
+        $this->assertSame(EventSource::DEVICE, $model->getSource());
+
+        /** @var Event $fromArray */
+        $fromArray = ObjectSerializer::deserialize(self::EXAMPLE, Event::class);
+        $this->assertSame(EventSource::DEVICE, $fromArray->getSource());
+
+        $edgeJson = json_encode(self::EXAMPLE + ['source' => EventSource::EDGE->value]);
+
+        /** @var Event $edge */
+        $edge = ObjectSerializer::deserialize(json_decode($edgeJson), Event::class);
+        $this->assertSame(EventSource::EDGE, $edge->getSource());
     }
 
     /**
-     * Deserializing a JSON response with an unknown source should not throw.
-     * The unknown value should be preserved through deserialization and re-serialization.
+     * Constructor without `source` hydrates to device. Explicit edge is kept.
+     */
+    public function testConstructorHydratesMissingSourceToDevice(): void
+    {
+        $omitted = new Event(self::EXAMPLE);
+        $this->assertSame(EventSource::DEVICE->value, $omitted->getSource());
+
+        $edge = new Event(self::EXAMPLE + ['source' => EventSource::EDGE]);
+        $this->assertSame(EventSource::EDGE, $edge->getSource());
+    }
+
+    /**
+     * Unknown non-empty source cannot pick an Event variant.
      *
      * @throws \DateMalformedStringException
      */
@@ -217,16 +237,9 @@ class EventTest extends TestCase
     {
         $json = json_encode(self::EXAMPLE + ['source' => 'unknown-value']);
 
-        /** @var Event $model */
-        $model = ObjectSerializer::deserialize(json_decode($json), Event::class);
-
-        $this->assertEquals('unknown-value', $model->getSource());
-        $this->assertTrue($model->valid());
-
-        // Re-serialization should preserve the unknown value
-        $reserialized = json_encode(ObjectSerializer::sanitizeForSerialization($model));
-        $decoded = json_decode($reserialized, true);
-        $this->assertEquals('unknown-value', $decoded['source']);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('unknown Event source');
+        ObjectSerializer::deserialize(json_decode($json), Event::class);
     }
 
     /**
