@@ -61,8 +61,8 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
      * getIdentification() still works. Proof that PHP codegen does not split
      * this oneOf.
      *
-     * Missing `source` hydrates to `device` (see hydrateMissingSource).
-     * `source: edge` is never rewritten.
+     * Missing `source` hydrates to `device` (see ObjectSerializer::hydrateEmptyEventSource).
+     * `source: edge` is never rewritten. Unknown non-empty source fails.
      */
     public const DISCRIMINATOR = 'source';
 
@@ -528,29 +528,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     protected array $container = [];
 
     /**
-     * Treat a missing `source` key as `device`.
-     *
-     * Identification events stored before `source` existed omit the field.
-     * Never rewrites `edge` or an existing `source`.
-     */
-    public static function hydrateMissingSource(array|object $data): array|object
-    {
-        if (is_array($data)) {
-            if (!array_key_exists('source', $data)) {
-                $data['source'] = EventSource::DEVICE->value;
-            }
-
-            return $data;
-        }
-
-        if (!property_exists($data, 'source')) {
-            $data->source = EventSource::DEVICE->value;
-        }
-
-        return $data;
-    }
-
-    /**
      * Constructor.
      *
      * @param array|null $data Associated array of property values
@@ -560,9 +537,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        if (is_array($data)) {
-            $data = self::hydrateMissingSource($data);
-        }
+        $data = ObjectSerializer::hydrateEmptyEventSource($data);
 
         $this->setIfExists('event_id', $data ?? [], null);
         $this->setIfExists('timestamp', $data ?? [], null);
@@ -629,12 +604,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
         $this->setIfExists('rare_device_percentile_bucket', $data ?? [], null);
         $this->setIfExists('raw_device_attributes', $data ?? [], null);
         $this->setIfExists('labels', $data ?? [], null);
-
-        // SPIKE INTER-2457 — generated discriminator wrote the model name
-        // (`Event`) into `source`. Omit means device; never rewrite edge.
-        if (null === $data) {
-            $this->container['source'] = EventSource::DEVICE;
-        }
     }
 
     /**

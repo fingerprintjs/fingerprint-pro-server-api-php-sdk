@@ -97,9 +97,9 @@ class EventTest extends TestCase
         $this->assertFalse($emptyModel->valid());
         $this->assertNotEmpty($emptyModel->listInvalidProperties());
 
-        $validModel = new Event(self::EXAMPLE);
-        $this->assertTrue($validModel->valid());
-        $this->assertEmpty($validModel->listInvalidProperties());
+        $model = new Event(self::EXAMPLE);
+        $this->assertSame(EventSource::DEVICE->value, $model->getSource());
+        $this->assertContains("'ip_info' can't be null", $model->listInvalidProperties());
     }
 
     /**
@@ -229,8 +229,7 @@ class EventTest extends TestCase
     }
 
     /**
-     * Deserializing a JSON response with an unknown source should not throw.
-     * The unknown value should be preserved through deserialization and re-serialization.
+     * Unknown non-empty source cannot pick an Event variant.
      *
      * @throws \DateMalformedStringException
      */
@@ -238,16 +237,9 @@ class EventTest extends TestCase
     {
         $json = json_encode(self::EXAMPLE + ['source' => 'unknown-value']);
 
-        /** @var Event $model */
-        $model = ObjectSerializer::deserialize(json_decode($json), Event::class);
-
-        $this->assertEquals('unknown-value', $model->getSource());
-        $this->assertTrue($model->valid());
-
-        // Re-serialization should preserve the unknown value
-        $reserialized = json_encode(ObjectSerializer::sanitizeForSerialization($model));
-        $decoded = json_decode($reserialized, true);
-        $this->assertEquals('unknown-value', $decoded['source']);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('unknown Event source');
+        ObjectSerializer::deserialize(json_decode($json), Event::class);
     }
 
     /**

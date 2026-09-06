@@ -56,6 +56,46 @@ class ObjectSerializer
     }
 
     /**
+     * Treat a missing, null, or empty Event `source` as `device`.
+     * Unknown non-empty values fail. Never rewrites `edge`.
+     */
+    public static function hydrateEmptyEventSource(mixed $data): mixed
+    {
+        if (null === $data) {
+            return ['source' => 'device'];
+        }
+
+        if (is_array($data)) {
+            $source = $data['source'] ?? null;
+            if (!array_key_exists('source', $data) || null === $source || '' === $source) {
+                $data['source'] = 'device';
+
+                return $data;
+            }
+            $value = $source instanceof \BackedEnum ? $source->value : $source;
+            if (!is_string($value) || !in_array($value, ['device', 'edge'], true)) {
+                throw new \InvalidArgumentException('unknown Event source: '.json_encode($value));
+            }
+
+            return $data;
+        }
+
+        if (is_object($data)) {
+            if (!property_exists($data, 'source') || null === $data->source || '' === $data->source) {
+                $data->source = 'device';
+
+                return $data;
+            }
+            $value = $data->source instanceof \BackedEnum ? $data->source->value : $data->source;
+            if (!is_string($value) || !in_array($value, ['device', 'edge'], true)) {
+                throw new \InvalidArgumentException('unknown Event source: '.json_encode($value));
+            }
+        }
+
+        return $data;
+    }
+
+    /**
      * Serialize data.
      *
      * @param mixed       $data   the data to serialize
@@ -422,13 +462,11 @@ class ObjectSerializer
             $data = (object) $data;
         }
 
-        // SPIKE INTER-2457 — omit source means device. Never rewrite edge.
         if (is_object($data) && (Event::class === $class || '\\'.Event::class === $class)) {
-            $data = Event::hydrateMissingSource($data);
+            $data = self::hydrateEmptyEventSource($data);
         }
 
         // If a discriminator is defined and points to a valid subclass, use it.
-        // SPIKE INTER-2457 — THIS IS WHY PHP DOES NOT BREAK.
         // Event::DISCRIMINATOR is `source`. For source=device this looks up
         // \Fingerprint\ServerSdk\Model\device, which is not a subclass of Event,
         // so deserialization stays on the flat Event class.
