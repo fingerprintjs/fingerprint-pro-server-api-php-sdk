@@ -1016,7 +1016,9 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
-     * Verifies searchEvents sends only limit query parameter.
+     * Verifies searchEvents sends only the limit query parameter (plus the
+     * `reverse` parameter, which now defaults to `false` and is therefore
+     * always sent unless explicitly overridden).
      *
      * @throws ApiException
      * @throws GuzzleException
@@ -1027,8 +1029,9 @@ class FingerprintApiTest extends TestCase
         $this->mockHandler->append(function (RequestInterface $request) {
             $queryArray = [];
             parse_str($request->getUri()->getQuery(), $queryArray);
-            $this->assertCount(2, $queryArray);
+            $this->assertCount(3, $queryArray);
             $this->assertEquals('10', $queryArray['limit']);
+            $this->assertEquals('false', $queryArray['reverse']);
 
             return $this->returnMockResponse("get_event_search_200.json");
         });

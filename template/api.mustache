@@ -85,7 +85,7 @@ use \GuzzleHttp\Exception\GuzzleException;
      */
     public function {{operationId}}(
     {{#parameters}}
-        {{#isContainer}}array{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}
+        {{#isContainer}}array{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}} ${{paramName}}{{^required}} = {{#defaultValue}}{{#isString}}'{{{.}}}'{{/isString}}{{^isString}}{{{.}}}{{/isString}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}
     {{/parameters}}
     ): array
     {
@@ -176,7 +176,7 @@ use \GuzzleHttp\Exception\GuzzleException;
     */
     public function {{operationId}}Async(
     {{#parameters}}
-        {{#isContainer}}array{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}
+        {{#isContainer}}array{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}} ${{paramName}}{{^required}} = {{#defaultValue}}{{#isString}}'{{{.}}}'{{/isString}}{{^isString}}{{{.}}}{{/isString}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}
     {{/parameters}}
     ): \GuzzleHttp\Promise\PromiseInterface
     {
@@ -249,7 +249,7 @@ use \GuzzleHttp\Exception\GuzzleException;
      */
     protected function {{operationId}}Request(
     {{#parameters}}
-        {{#isContainer}}array{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}}{{^required}}|null{{/required}} ${{paramName}}{{^required}} = {{#defaultValue}}'{{{.}}}'{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}
+        {{#isContainer}}array{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}}{{^required}}|null{{/required}} ${{paramName}}{{^required}} = {{#defaultValue}}{{#isString}}'{{{.}}}'{{/isString}}{{^isString}}{{{.}}}{{/isString}}{{/defaultValue}}{{^defaultValue}}null{{/defaultValue}}{{/required}}{{#hasMore}}, {{/hasMore}}
     {{/parameters}}
     ): \GuzzleHttp\Psr7\Request
     {
