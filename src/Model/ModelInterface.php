@@ -1,24 +1,23 @@
 <?php
 /**
- * ModelInterface.
+ * ModelInterface
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI\Model
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated).
+ * Server API v3 (deprecated)
  *
  * > 🚧 Deprecation Notice
- * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
- *
- * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
- * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
- *
+>
+> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+
+Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -37,8 +36,8 @@ namespace Fingerprint\ServerAPI\Model;
 /**
  * Interface abstracting model access.
  *
+ * @package Fingerprint\ServerAPI\Model
  * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\Model\ModelInterface instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
- *
  * @author  Swagger Codegen team
  */
 interface ModelInterface
@@ -51,35 +50,35 @@ interface ModelInterface
     public function getModelName();
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
+     * Array of property to type mappings. Used for (de)serialization
      *
      * @return array
      */
     public static function swaggerTypes();
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
+     * Array of property to format mappings. Used for (de)serialization
      *
      * @return array
      */
     public static function swaggerFormats();
 
     /**
-     * Array of attributes where the key is the local name, and the value is the original name.
+     * Array of attributes where the key is the local name, and the value is the original name
      *
      * @return array
      */
     public static function attributeMap();
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      *
      * @return array
      */
     public static function setters();
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      *
      * @return array
      */
@@ -94,7 +93,7 @@ interface ModelInterface
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool
      */

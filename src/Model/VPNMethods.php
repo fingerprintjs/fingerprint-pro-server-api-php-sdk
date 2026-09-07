@@ -1,24 +1,22 @@
 <?php
 /**
- * VPNMethods.
+ * VPNMethods
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated).
+ * Server API v3 (deprecated)
  *
  * > 🚧 Deprecation Notice
- * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
- *
- * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
- * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
- *
+>
+> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+
+Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -34,127 +32,57 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * VPNMethods Class Doc Comment.
+ * VPNMethods Class Doc Comment
  *
  * @deprecated
+ * 
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class VPNMethods implements ModelInterface, \ArrayAccess
+class VPNMethods implements ModelInterface, ArrayAccess
 {
     /**
-     * The original name of the model.
-     *
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'VPNMethods';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'timezone_mismatch' => 'bool',
-        'public_vpn' => 'bool',
-        'auxiliary_mobile' => 'bool',
-        'os_mismatch' => 'bool',
-        'relay' => 'bool',
-        'ml_prediction' => 'bool'];
+'public_vpn' => 'bool',
+'auxiliary_mobile' => 'bool',
+'os_mismatch' => 'bool',
+'relay' => 'bool',
+'ml_prediction' => 'bool'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'timezone_mismatch' => null,
-        'public_vpn' => null,
-        'auxiliary_mobile' => null,
-        'os_mismatch' => null,
-        'relay' => null,
-        'ml_prediction' => null];
+'public_vpn' => null,
+'auxiliary_mobile' => null,
+'os_mismatch' => null,
+'relay' => null,
+'ml_prediction' => null    ];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'timezone_mismatch' => 'timezoneMismatch',
-        'public_vpn' => 'publicVPN',
-        'auxiliary_mobile' => 'auxiliaryMobile',
-        'os_mismatch' => 'osMismatch',
-        'relay' => 'relay',
-        'ml_prediction' => 'mlPrediction'];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'timezone_mismatch' => 'setTimezoneMismatch',
-        'public_vpn' => 'setPublicVpn',
-        'auxiliary_mobile' => 'setAuxiliaryMobile',
-        'os_mismatch' => 'setOsMismatch',
-        'relay' => 'setRelay',
-        'ml_prediction' => 'setMlPrediction'];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'timezone_mismatch' => 'getTimezoneMismatch',
-        'public_vpn' => 'getPublicVpn',
-        'auxiliary_mobile' => 'getAuxiliaryMobile',
-        'os_mismatch' => 'getOsMismatch',
-        'relay' => 'getRelay',
-        'ml_prediction' => 'getMlPrediction'];
-
-    /**
-     * Associative array for storing property values.
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor.
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(?array $data = null)
-    {
-        $this->container['timezone_mismatch'] = isset($data['timezone_mismatch']) ? $data['timezone_mismatch'] : null;
-        $this->container['public_vpn'] = isset($data['public_vpn']) ? $data['public_vpn'] : null;
-        $this->container['auxiliary_mobile'] = isset($data['auxiliary_mobile']) ? $data['auxiliary_mobile'] : null;
-        $this->container['os_mismatch'] = isset($data['os_mismatch']) ? $data['os_mismatch'] : null;
-        $this->container['relay'] = isset($data['relay']) ? $data['relay'] : null;
-        $this->container['ml_prediction'] = isset($data['ml_prediction']) ? $data['ml_prediction'] : null;
-    }
-
-    /**
-     * Gets the string presentation of the object.
-     *
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
+     * Array of property to type mappings. Used for (de)serialization
      */
     public static function swaggerTypes(): array
     {
@@ -162,7 +90,7 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
+     * Array of property to format mappings. Used for (de)serialization
      */
     public static function swaggerFormats(): array
     {
@@ -171,7 +99,47 @@ class VPNMethods implements ModelInterface, \ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'timezone_mismatch' => 'timezoneMismatch',
+'public_vpn' => 'publicVPN',
+'auxiliary_mobile' => 'auxiliaryMobile',
+'os_mismatch' => 'osMismatch',
+'relay' => 'relay',
+'ml_prediction' => 'mlPrediction'    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'timezone_mismatch' => 'setTimezoneMismatch',
+'public_vpn' => 'setPublicVpn',
+'auxiliary_mobile' => 'setAuxiliaryMobile',
+'os_mismatch' => 'setOsMismatch',
+'relay' => 'setRelay',
+'ml_prediction' => 'setMlPrediction'    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'timezone_mismatch' => 'getTimezoneMismatch',
+'public_vpn' => 'getPublicVpn',
+'auxiliary_mobile' => 'getAuxiliaryMobile',
+'os_mismatch' => 'getOsMismatch',
+'relay' => 'getRelay',
+'ml_prediction' => 'getMlPrediction'    ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
      */
     public static function attributeMap(): array
     {
@@ -179,7 +147,7 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      */
     public static function setters(): array
     {
@@ -187,7 +155,7 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      */
     public static function getters(): array
     {
@@ -202,6 +170,31 @@ class VPNMethods implements ModelInterface, \ArrayAccess
         return self::$swaggerModelName;
     }
 
+    
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['timezone_mismatch'] = isset($data['timezone_mismatch']) ? $data['timezone_mismatch'] : null;
+        $this->container['public_vpn'] = isset($data['public_vpn']) ? $data['public_vpn'] : null;
+        $this->container['auxiliary_mobile'] = isset($data['auxiliary_mobile']) ? $data['auxiliary_mobile'] : null;
+        $this->container['os_mismatch'] = isset($data['os_mismatch']) ? $data['os_mismatch'] : null;
+        $this->container['relay'] = isset($data['relay']) ? $data['relay'] : null;
+        $this->container['ml_prediction'] = isset($data['ml_prediction']) ? $data['ml_prediction'] : null;
+    }
+
     /**
      * Show all the invalid properties with reasons.
      *
@@ -211,38 +204,39 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     {
         $invalidProperties = [];
 
-        if (null === $this->container['timezone_mismatch']) {
+        if ($this->container['timezone_mismatch'] === null) {
             $invalidProperties[] = "'timezone_mismatch' can't be null";
         }
-        if (null === $this->container['public_vpn']) {
+        if ($this->container['public_vpn'] === null) {
             $invalidProperties[] = "'public_vpn' can't be null";
         }
-        if (null === $this->container['auxiliary_mobile']) {
+        if ($this->container['auxiliary_mobile'] === null) {
             $invalidProperties[] = "'auxiliary_mobile' can't be null";
         }
-        if (null === $this->container['os_mismatch']) {
+        if ($this->container['os_mismatch'] === null) {
             $invalidProperties[] = "'os_mismatch' can't be null";
         }
-        if (null === $this->container['relay']) {
+        if ($this->container['relay'] === null) {
             $invalidProperties[] = "'relay' can't be null";
         }
-
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets timezone_mismatch.
+     * Gets timezone_mismatch
+     * @return bool
      */
     public function getTimezoneMismatch(): bool
     {
@@ -250,9 +244,9 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets timezone_mismatch.
+     * Sets timezone_mismatch
      *
-     * @param bool $timezone_mismatch the browser timezone doesn't match the timezone inferred from the request IP address
+     * @param bool $timezone_mismatch The browser timezone doesn't match the timezone inferred from the request IP address.
      *
      * @return $this
      */
@@ -264,7 +258,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets public_vpn.
+     * Gets public_vpn
+     * @return bool
      */
     public function getPublicVpn(): bool
     {
@@ -272,9 +267,9 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets public_vpn.
+     * Sets public_vpn
      *
-     * @param bool $public_vpn request IP address is owned and used by a public VPN service provider
+     * @param bool $public_vpn Request IP address is owned and used by a public VPN service provider.
      *
      * @return $this
      */
@@ -286,7 +281,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets auxiliary_mobile.
+     * Gets auxiliary_mobile
+     * @return bool
      */
     public function getAuxiliaryMobile(): bool
     {
@@ -294,7 +290,7 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets auxiliary_mobile.
+     * Sets auxiliary_mobile
      *
      * @param bool $auxiliary_mobile This method applies to mobile devices only. Indicates the result of additional methods used to detect a VPN in mobile devices.
      *
@@ -308,7 +304,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets os_mismatch.
+     * Gets os_mismatch
+     * @return bool
      */
     public function getOsMismatch(): bool
     {
@@ -316,9 +313,9 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets os_mismatch.
+     * Sets os_mismatch
      *
-     * @param bool $os_mismatch the browser runs on a different operating system than the operating system inferred from the request network signature
+     * @param bool $os_mismatch The browser runs on a different operating system than the operating system inferred from the request network signature.
      *
      * @return $this
      */
@@ -330,7 +327,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets relay.
+     * Gets relay
+     * @return bool
      */
     public function getRelay(): bool
     {
@@ -338,7 +336,7 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets relay.
+     * Sets relay
      *
      * @param bool $relay Request IP address belongs to a relay service provider, indicating the use of relay services like [Apple Private relay](https://support.apple.com/en-us/102602) or [Cloudflare Warp](https://developers.cloudflare.com/warp-client/).   * Like VPNs, relay services anonymize the visitor's true IP address. * Unlike traditional VPNs, relay services don't let visitors spoof their location by choosing an exit node in a different country.  This field allows you to differentiate VPN users and relay service users in your fraud prevention logic.
      *
@@ -352,7 +350,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets ml_prediction.
+     * Gets ml_prediction
+     * @return ?bool
      */
     public function getMlPrediction(): ?bool
     {
@@ -360,9 +359,9 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets ml_prediction.
+     * Sets ml_prediction
      *
-     * @param ?bool $ml_prediction `true` if the request came from a device running a VPN, `false` otherwise
+     * @param ?bool $ml_prediction `true` if the request came from a device running a VPN, `false` otherwise.
      *
      * @return $this
      */
@@ -372,11 +371,10 @@ class VPNMethods implements ModelInterface, \ArrayAccess
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -386,7 +384,7 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -396,8 +394,8 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -411,16 +409,27 @@ class VPNMethods implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-    /**
-     * Gets the string presentation of the object in a pretty JSON format.
+   /**
+     * Gets the string presentation of the object
      *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Gets the string presentation of the object in a pretty JSON format
+     *
+     * @return string
      */
     public function toPrettyString(): string
     {

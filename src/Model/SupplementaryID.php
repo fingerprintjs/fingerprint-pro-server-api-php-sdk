@@ -1,24 +1,22 @@
 <?php
 /**
- * SupplementaryID.
+ * SupplementaryID
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated).
+ * Server API v3 (deprecated)
  *
  * > 🚧 Deprecation Notice
- * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
- *
- * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
- * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
- *
+>
+> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+
+Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -34,121 +32,55 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * SupplementaryID Class Doc Comment.
+ * SupplementaryID Class Doc Comment
  *
  * @deprecated
+ * 
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class SupplementaryID implements ModelInterface, \ArrayAccess
+class SupplementaryID implements ModelInterface, ArrayAccess
 {
     /**
-     * The original name of the model.
-     *
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'SupplementaryID';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'visitor_id' => 'string',
-        'visitor_found' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\IdentificationConfidence',
-        'first_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
-        'last_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt'];
+'visitor_found' => 'bool',
+'confidence' => '\Fingerprint\ServerAPI\Model\IdentificationConfidence',
+'first_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt',
+'last_seen_at' => '\Fingerprint\ServerAPI\Model\IdentificationSeenAt'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'visitor_id' => null,
-        'visitor_found' => null,
-        'confidence' => null,
-        'first_seen_at' => null,
-        'last_seen_at' => null];
+'visitor_found' => null,
+'confidence' => null,
+'first_seen_at' => null,
+'last_seen_at' => null    ];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'visitor_id' => 'visitorId',
-        'visitor_found' => 'visitorFound',
-        'confidence' => 'confidence',
-        'first_seen_at' => 'firstSeenAt',
-        'last_seen_at' => 'lastSeenAt'];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'visitor_id' => 'setVisitorId',
-        'visitor_found' => 'setVisitorFound',
-        'confidence' => 'setConfidence',
-        'first_seen_at' => 'setFirstSeenAt',
-        'last_seen_at' => 'setLastSeenAt'];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'visitor_id' => 'getVisitorId',
-        'visitor_found' => 'getVisitorFound',
-        'confidence' => 'getConfidence',
-        'first_seen_at' => 'getFirstSeenAt',
-        'last_seen_at' => 'getLastSeenAt'];
-
-    /**
-     * Associative array for storing property values.
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor.
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(?array $data = null)
-    {
-        $this->container['visitor_id'] = isset($data['visitor_id']) ? $data['visitor_id'] : null;
-        $this->container['visitor_found'] = isset($data['visitor_found']) ? $data['visitor_found'] : null;
-        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
-        $this->container['first_seen_at'] = isset($data['first_seen_at']) ? $data['first_seen_at'] : null;
-        $this->container['last_seen_at'] = isset($data['last_seen_at']) ? $data['last_seen_at'] : null;
-    }
-
-    /**
-     * Gets the string presentation of the object.
-     *
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
+     * Array of property to type mappings. Used for (de)serialization
      */
     public static function swaggerTypes(): array
     {
@@ -156,7 +88,7 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
+     * Array of property to format mappings. Used for (de)serialization
      */
     public static function swaggerFormats(): array
     {
@@ -165,7 +97,44 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'visitor_id' => 'visitorId',
+'visitor_found' => 'visitorFound',
+'confidence' => 'confidence',
+'first_seen_at' => 'firstSeenAt',
+'last_seen_at' => 'lastSeenAt'    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'visitor_id' => 'setVisitorId',
+'visitor_found' => 'setVisitorFound',
+'confidence' => 'setConfidence',
+'first_seen_at' => 'setFirstSeenAt',
+'last_seen_at' => 'setLastSeenAt'    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'visitor_id' => 'getVisitorId',
+'visitor_found' => 'getVisitorFound',
+'confidence' => 'getConfidence',
+'first_seen_at' => 'getFirstSeenAt',
+'last_seen_at' => 'getLastSeenAt'    ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
      */
     public static function attributeMap(): array
     {
@@ -173,7 +142,7 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      */
     public static function setters(): array
     {
@@ -181,7 +150,7 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      */
     public static function getters(): array
     {
@@ -196,6 +165,30 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
         return self::$swaggerModelName;
     }
 
+    
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['visitor_id'] = isset($data['visitor_id']) ? $data['visitor_id'] : null;
+        $this->container['visitor_found'] = isset($data['visitor_found']) ? $data['visitor_found'] : null;
+        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
+        $this->container['first_seen_at'] = isset($data['first_seen_at']) ? $data['first_seen_at'] : null;
+        $this->container['last_seen_at'] = isset($data['last_seen_at']) ? $data['last_seen_at'] : null;
+    }
+
     /**
      * Show all the invalid properties with reasons.
      *
@@ -203,22 +196,26 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
      */
     public function listInvalidProperties(): array
     {
-        return [];
+        $invalidProperties = [];
+
+        return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets visitor_id.
+     * Gets visitor_id
+     * @return ?string
      */
     public function getVisitorId(): ?string
     {
@@ -226,9 +223,9 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets visitor_id.
+     * Sets visitor_id
      *
-     * @param ?string $visitor_id string of 20 characters that uniquely identifies the visitor's browser or mobile device
+     * @param ?string $visitor_id String of 20 characters that uniquely identifies the visitor's browser or mobile device.
      *
      * @return $this
      */
@@ -240,7 +237,8 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets visitor_found.
+     * Gets visitor_found
+     * @return ?bool
      */
     public function getVisitorFound(): ?bool
     {
@@ -248,9 +246,9 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets visitor_found.
+     * Sets visitor_found
      *
-     * @param ?bool $visitor_found attribute represents if a visitor had been identified before
+     * @param ?bool $visitor_found Attribute represents if a visitor had been identified before.
      *
      * @return $this
      */
@@ -262,21 +260,22 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets confidence.
+     * Gets confidence
+     * @return ?\Fingerprint\ServerAPI\Model\IdentificationConfidence
      */
-    public function getConfidence(): ?IdentificationConfidence
+    public function getConfidence(): ?\Fingerprint\ServerAPI\Model\IdentificationConfidence
     {
         return $this->container['confidence'];
     }
 
     /**
-     * Sets confidence.
+     * Sets confidence
      *
      * @param ?\Fingerprint\ServerAPI\Model\IdentificationConfidence $confidence confidence
      *
      * @return $this
      */
-    public function setConfidence(?IdentificationConfidence $confidence): self
+    public function setConfidence(?\Fingerprint\ServerAPI\Model\IdentificationConfidence $confidence): self
     {
         $this->container['confidence'] = $confidence;
 
@@ -284,21 +283,22 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets first_seen_at.
+     * Gets first_seen_at
+     * @return ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt
      */
-    public function getFirstSeenAt(): ?IdentificationSeenAt
+    public function getFirstSeenAt(): ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt
     {
         return $this->container['first_seen_at'];
     }
 
     /**
-     * Sets first_seen_at.
+     * Sets first_seen_at
      *
      * @param ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt $first_seen_at first_seen_at
      *
      * @return $this
      */
-    public function setFirstSeenAt(?IdentificationSeenAt $first_seen_at): self
+    public function setFirstSeenAt(?\Fingerprint\ServerAPI\Model\IdentificationSeenAt $first_seen_at): self
     {
         $this->container['first_seen_at'] = $first_seen_at;
 
@@ -306,31 +306,31 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets last_seen_at.
+     * Gets last_seen_at
+     * @return ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt
      */
-    public function getLastSeenAt(): ?IdentificationSeenAt
+    public function getLastSeenAt(): ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt
     {
         return $this->container['last_seen_at'];
     }
 
     /**
-     * Sets last_seen_at.
+     * Sets last_seen_at
      *
      * @param ?\Fingerprint\ServerAPI\Model\IdentificationSeenAt $last_seen_at last_seen_at
      *
      * @return $this
      */
-    public function setLastSeenAt(?IdentificationSeenAt $last_seen_at): self
+    public function setLastSeenAt(?\Fingerprint\ServerAPI\Model\IdentificationSeenAt $last_seen_at): self
     {
         $this->container['last_seen_at'] = $last_seen_at;
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -340,7 +340,7 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -350,8 +350,8 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -365,16 +365,27 @@ class SupplementaryID implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-    /**
-     * Gets the string presentation of the object in a pretty JSON format.
+   /**
+     * Gets the string presentation of the object
      *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Gets the string presentation of the object in a pretty JSON format
+     *
+     * @return string
      */
     public function toPrettyString(): string
     {

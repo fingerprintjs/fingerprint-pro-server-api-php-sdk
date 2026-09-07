@@ -1,24 +1,22 @@
 <?php
 /**
- * WebhookProximity.
+ * WebhookProximity
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated).
+ * Server API v3 (deprecated)
  *
  * > 🚧 Deprecation Notice
- * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
- *
- * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
- * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
- *
+>
+> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+
+Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -34,121 +32,52 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookProximity Class Doc Comment.
+ * WebhookProximity Class Doc Comment
  *
  * @deprecated
+ * 
  *
  * @category Class
- *
  * @description Proximity ID represents a fixed geographical zone in a discrete global grid within which the device is observed.
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookProximity implements ModelInterface, \ArrayAccess
+class WebhookProximity implements ModelInterface, ArrayAccess
 {
-    public const PRECISION_RADIUS_10 = 10;
-    public const PRECISION_RADIUS_25 = 25;
-    public const PRECISION_RADIUS_65 = 65;
-    public const PRECISION_RADIUS_175 = 175;
-    public const PRECISION_RADIUS_450 = 450;
-    public const PRECISION_RADIUS_1200 = 1200;
-    public const PRECISION_RADIUS_3300 = 3300;
-    public const PRECISION_RADIUS_8500 = 8500;
-    public const PRECISION_RADIUS_22500 = 22500;
-
     /**
-     * The original name of the model.
-     *
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'WebhookProximity';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'id' => 'string',
-        'precision_radius' => 'int',
-        'confidence' => 'float'];
+'precision_radius' => 'int',
+'confidence' => 'float'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'id' => null,
-        'precision_radius' => 'int32',
-        'confidence' => 'float'];
+'precision_radius' => 'int32',
+'confidence' => 'float'    ];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'id' => 'id',
-        'precision_radius' => 'precisionRadius',
-        'confidence' => 'confidence'];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'id' => 'setId',
-        'precision_radius' => 'setPrecisionRadius',
-        'confidence' => 'setConfidence'];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'id' => 'getId',
-        'precision_radius' => 'getPrecisionRadius',
-        'confidence' => 'getConfidence'];
-
-    /**
-     * Associative array for storing property values.
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor.
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(?array $data = null)
-    {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['precision_radius'] = isset($data['precision_radius']) ? $data['precision_radius'] : null;
-        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
-    }
-
-    /**
-     * Gets the string presentation of the object.
-     *
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
+     * Array of property to type mappings. Used for (de)serialization
      */
     public static function swaggerTypes(): array
     {
@@ -156,7 +85,7 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
+     * Array of property to format mappings. Used for (de)serialization
      */
     public static function swaggerFormats(): array
     {
@@ -165,7 +94,38 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'id' => 'id',
+'precision_radius' => 'precisionRadius',
+'confidence' => 'confidence'    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'id' => 'setId',
+'precision_radius' => 'setPrecisionRadius',
+'confidence' => 'setConfidence'    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'id' => 'getId',
+'precision_radius' => 'getPrecisionRadius',
+'confidence' => 'getConfidence'    ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
      */
     public static function attributeMap(): array
     {
@@ -173,7 +133,7 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      */
     public static function setters(): array
     {
@@ -181,7 +141,7 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      */
     public static function getters(): array
     {
@@ -196,8 +156,18 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const PRECISION_RADIUS_10 = 10;
+const PRECISION_RADIUS_25 = 25;
+const PRECISION_RADIUS_65 = 65;
+const PRECISION_RADIUS_175 = 175;
+const PRECISION_RADIUS_450 = 450;
+const PRECISION_RADIUS_1200 = 1200;
+const PRECISION_RADIUS_3300 = 3300;
+const PRECISION_RADIUS_8500 = 8500;
+const PRECISION_RADIUS_22500 = 22500;
+
     /**
-     * Gets allowable values of the enum.
+     * Gets allowable values of the enum
      *
      * @return string[]
      */
@@ -205,14 +175,34 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     {
         return [
             self::PRECISION_RADIUS_10,
-            self::PRECISION_RADIUS_25,
-            self::PRECISION_RADIUS_65,
-            self::PRECISION_RADIUS_175,
-            self::PRECISION_RADIUS_450,
-            self::PRECISION_RADIUS_1200,
-            self::PRECISION_RADIUS_3300,
-            self::PRECISION_RADIUS_8500,
-            self::PRECISION_RADIUS_22500,        ];
+self::PRECISION_RADIUS_25,
+self::PRECISION_RADIUS_65,
+self::PRECISION_RADIUS_175,
+self::PRECISION_RADIUS_450,
+self::PRECISION_RADIUS_1200,
+self::PRECISION_RADIUS_3300,
+self::PRECISION_RADIUS_8500,
+self::PRECISION_RADIUS_22500,        ];
+    }
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['precision_radius'] = isset($data['precision_radius']) ? $data['precision_radius'] : null;
+        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
     }
 
     /**
@@ -224,10 +214,10 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     {
         $invalidProperties = [];
 
-        if (null === $this->container['id']) {
+        if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if (null === $this->container['precision_radius']) {
+        if ($this->container['precision_radius'] === null) {
             $invalidProperties[] = "'precision_radius' can't be null";
         }
         $allowedValues = $this->getPrecisionRadiusAllowableValues();
@@ -238,26 +228,27 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
             );
         }
 
-        if (null === $this->container['confidence']) {
+        if ($this->container['confidence'] === null) {
             $invalidProperties[] = "'confidence' can't be null";
         }
-
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets id.
+     * Gets id
+     * @return string
      */
     public function getId(): string
     {
@@ -265,9 +256,9 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets id.
+     * Sets id
      *
-     * @param string $id a stable privacy-preserving identifier for a given proximity zone
+     * @param string $id A stable privacy-preserving identifier for a given proximity zone.
      *
      * @return $this
      */
@@ -279,7 +270,8 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets precision_radius.
+     * Gets precision_radius
+     * @return int
      */
     public function getPrecisionRadius(): int
     {
@@ -287,9 +279,9 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets precision_radius.
+     * Sets precision_radius
      *
-     * @param int $precision_radius the radius of the proximity zone’s precision level, in meters
+     * @param int $precision_radius The radius of the proximity zone’s precision level, in meters.
      *
      * @return $this
      */
@@ -310,7 +302,8 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets confidence.
+     * Gets confidence
+     * @return float
      */
     public function getConfidence(): float
     {
@@ -318,7 +311,7 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets confidence.
+     * Sets confidence
      *
      * @param float $confidence A value between `0` and `1` representing the likelihood that the true device location lies within the mapped proximity zone.   * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.   * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
      *
@@ -330,11 +323,10 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -344,7 +336,7 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -354,8 +346,8 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -369,16 +361,27 @@ class WebhookProximity implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-    /**
-     * Gets the string presentation of the object in a pretty JSON format.
+   /**
+     * Gets the string presentation of the object
      *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Gets the string presentation of the object in a pretty JSON format
+     *
+     * @return string
      */
     public function toPrettyString(): string
     {

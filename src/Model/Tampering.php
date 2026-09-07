@@ -1,24 +1,22 @@
 <?php
 /**
- * Tampering.
+ * Tampering
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated).
+ * Server API v3 (deprecated)
  *
  * > 🚧 Deprecation Notice
- * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
- *
- * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
- * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
- *
+>
+> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+
+Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -34,125 +32,55 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * Tampering Class Doc Comment.
+ * Tampering Class Doc Comment
  *
  * @deprecated
+ * 
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class Tampering implements ModelInterface, \ArrayAccess
+class Tampering implements ModelInterface, ArrayAccess
 {
-    public const CONFIDENCE_LOW = 'low';
-    public const CONFIDENCE_MEDIUM = 'medium';
-    public const CONFIDENCE_HIGH = 'high';
-
     /**
-     * The original name of the model.
-     *
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'Tampering';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'result' => 'bool',
-        'confidence' => 'string',
-        'anomaly_score' => 'double',
-        'ml_score' => 'double',
-        'anti_detect_browser' => 'bool'];
+'confidence' => 'string',
+'anomaly_score' => 'double',
+'ml_score' => 'double',
+'anti_detect_browser' => 'bool'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'result' => null,
-        'confidence' => null,
-        'anomaly_score' => 'double',
-        'ml_score' => 'double',
-        'anti_detect_browser' => null];
+'confidence' => null,
+'anomaly_score' => 'double',
+'ml_score' => 'double',
+'anti_detect_browser' => null    ];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'result' => 'result',
-        'confidence' => 'confidence',
-        'anomaly_score' => 'anomalyScore',
-        'ml_score' => 'mlScore',
-        'anti_detect_browser' => 'antiDetectBrowser'];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'result' => 'setResult',
-        'confidence' => 'setConfidence',
-        'anomaly_score' => 'setAnomalyScore',
-        'ml_score' => 'setMlScore',
-        'anti_detect_browser' => 'setAntiDetectBrowser'];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'result' => 'getResult',
-        'confidence' => 'getConfidence',
-        'anomaly_score' => 'getAnomalyScore',
-        'ml_score' => 'getMlScore',
-        'anti_detect_browser' => 'getAntiDetectBrowser'];
-
-    /**
-     * Associative array for storing property values.
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor.
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(?array $data = null)
-    {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
-        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
-        $this->container['anomaly_score'] = isset($data['anomaly_score']) ? $data['anomaly_score'] : null;
-        $this->container['ml_score'] = isset($data['ml_score']) ? $data['ml_score'] : null;
-        $this->container['anti_detect_browser'] = isset($data['anti_detect_browser']) ? $data['anti_detect_browser'] : null;
-    }
-
-    /**
-     * Gets the string presentation of the object.
-     *
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
+     * Array of property to type mappings. Used for (de)serialization
      */
     public static function swaggerTypes(): array
     {
@@ -160,7 +88,7 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
+     * Array of property to format mappings. Used for (de)serialization
      */
     public static function swaggerFormats(): array
     {
@@ -169,7 +97,44 @@ class Tampering implements ModelInterface, \ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'result' => 'result',
+'confidence' => 'confidence',
+'anomaly_score' => 'anomalyScore',
+'ml_score' => 'mlScore',
+'anti_detect_browser' => 'antiDetectBrowser'    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'result' => 'setResult',
+'confidence' => 'setConfidence',
+'anomaly_score' => 'setAnomalyScore',
+'ml_score' => 'setMlScore',
+'anti_detect_browser' => 'setAntiDetectBrowser'    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'result' => 'getResult',
+'confidence' => 'getConfidence',
+'anomaly_score' => 'getAnomalyScore',
+'ml_score' => 'getMlScore',
+'anti_detect_browser' => 'getAntiDetectBrowser'    ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
      */
     public static function attributeMap(): array
     {
@@ -177,7 +142,7 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      */
     public static function setters(): array
     {
@@ -185,7 +150,7 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      */
     public static function getters(): array
     {
@@ -200,8 +165,12 @@ class Tampering implements ModelInterface, \ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const CONFIDENCE_LOW = 'low';
+const CONFIDENCE_MEDIUM = 'medium';
+const CONFIDENCE_HIGH = 'high';
+
     /**
-     * Gets allowable values of the enum.
+     * Gets allowable values of the enum
      *
      * @return string[]
      */
@@ -209,8 +178,30 @@ class Tampering implements ModelInterface, \ArrayAccess
     {
         return [
             self::CONFIDENCE_LOW,
-            self::CONFIDENCE_MEDIUM,
-            self::CONFIDENCE_HIGH,        ];
+self::CONFIDENCE_MEDIUM,
+self::CONFIDENCE_HIGH,        ];
+    }
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
+        $this->container['anomaly_score'] = isset($data['anomaly_score']) ? $data['anomaly_score'] : null;
+        $this->container['ml_score'] = isset($data['ml_score']) ? $data['ml_score'] : null;
+        $this->container['anti_detect_browser'] = isset($data['anti_detect_browser']) ? $data['anti_detect_browser'] : null;
     }
 
     /**
@@ -222,10 +213,10 @@ class Tampering implements ModelInterface, \ArrayAccess
     {
         $invalidProperties = [];
 
-        if (null === $this->container['result']) {
+        if ($this->container['result'] === null) {
             $invalidProperties[] = "'result' can't be null";
         }
-        if (null === $this->container['confidence']) {
+        if ($this->container['confidence'] === null) {
             $invalidProperties[] = "'confidence' can't be null";
         }
         $allowedValues = $this->getConfidenceAllowableValues();
@@ -236,32 +227,33 @@ class Tampering implements ModelInterface, \ArrayAccess
             );
         }
 
-        if (null === $this->container['anomaly_score']) {
+        if ($this->container['anomaly_score'] === null) {
             $invalidProperties[] = "'anomaly_score' can't be null";
         }
-        if (null === $this->container['ml_score']) {
+        if ($this->container['ml_score'] === null) {
             $invalidProperties[] = "'ml_score' can't be null";
         }
-        if (null === $this->container['anti_detect_browser']) {
+        if ($this->container['anti_detect_browser'] === null) {
             $invalidProperties[] = "'anti_detect_browser' can't be null";
         }
-
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets result.
+     * Gets result
+     * @return bool
      */
     public function getResult(): bool
     {
@@ -269,7 +261,7 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets result.
+     * Sets result
      *
      * @param bool $result Indicates if an identification request from a browser or an Android SDK has been tampered with. Not supported in the iOS SDK, is always `false` for iOS requests.   * `true` - If the request meets either of the following conditions:     * Contains anomalous browser or device attributes that could not have been legitimately produced by the JavaScript agent or the Android SDK (see `anomalyScore`).     * Originated from an anti-detect browser like Incognition (see `antiDetectBrowser`).   * `false` - If the request is considered genuine or was generated by the iOS SDK.
      *
@@ -283,7 +275,8 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets confidence.
+     * Gets confidence
+     * @return string
      */
     public function getConfidence(): string
     {
@@ -291,7 +284,7 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets confidence.
+     * Sets confidence
      *
      * @param string $confidence Confidence level of the tampering detection. If a tampering is not detected, confidence is \"high\". If it's detected, can be \"low\", \"medium\", or \"high\".
      *
@@ -314,7 +307,8 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets anomaly_score.
+     * Gets anomaly_score
+     * @return double
      */
     public function getAnomalyScore(): float
     {
@@ -322,9 +316,9 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets anomaly_score.
+     * Sets anomaly_score
      *
-     * @param float $anomaly_score A score that indicates the extent of anomalous data in the request. This field applies to requests originating from **both** browsers and Android SDKs.    * Values above `0.5` indicate that the request has been tampered with.   * Values below `0.5` indicate that the request is genuine.
+     * @param double $anomaly_score A score that indicates the extent of anomalous data in the request. This field applies to requests originating from **both** browsers and Android SDKs.    * Values above `0.5` indicate that the request has been tampered with.   * Values below `0.5` indicate that the request is genuine.
      *
      * @return $this
      */
@@ -336,7 +330,8 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets ml_score.
+     * Gets ml_score
+     * @return double
      */
     public function getMlScore(): float
     {
@@ -344,9 +339,9 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets ml_score.
+     * Sets ml_score
      *
-     * @param float $ml_score A score that indicates the models calculated probability that an event is coming from an anti detect browser.   * Values above `0.8` indicate that the request is an anti detect browser based on the ml model   * Values below `0.8` indicate that the request is not an anti detect browser based on the ml model
+     * @param double $ml_score A score that indicates the models calculated probability that an event is coming from an anti detect browser.   * Values above `0.8` indicate that the request is an anti detect browser based on the ml model   * Values below `0.8` indicate that the request is not an anti detect browser based on the ml model
      *
      * @return $this
      */
@@ -358,7 +353,8 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets anti_detect_browser.
+     * Gets anti_detect_browser
+     * @return bool
      */
     public function getAntiDetectBrowser(): bool
     {
@@ -366,7 +362,7 @@ class Tampering implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets anti_detect_browser.
+     * Sets anti_detect_browser
      *
      * @param bool $anti_detect_browser Anti-detect browsers try to evade identification by masking or manipulating their fingerprint to imitate legitimate browser configurations. This field does not apply to requests originating from mobile SDKs.   * `true` - The browser resembles a known anti-detect browser, for example, Incognition.   * `false` - The browser does not resemble an anti-detect browser or the request originates from a mobile SDK.
      *
@@ -378,11 +374,10 @@ class Tampering implements ModelInterface, \ArrayAccess
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -392,7 +387,7 @@ class Tampering implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -402,8 +397,8 @@ class Tampering implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -417,16 +412,27 @@ class Tampering implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-    /**
-     * Gets the string presentation of the object in a pretty JSON format.
+   /**
+     * Gets the string presentation of the object
      *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Gets the string presentation of the object in a pretty JSON format
+     *
+     * @return string
      */
     public function toPrettyString(): string
     {

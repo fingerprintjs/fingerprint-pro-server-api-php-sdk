@@ -1,24 +1,22 @@
 <?php
 /**
- * BrowserDetails.
+ * BrowserDetails
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated).
+ * Server API v3 (deprecated)
  *
  * > 🚧 Deprecation Notice
- * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
- *
- * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
- * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
- *
+>
+> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+
+Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -34,133 +32,59 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * BrowserDetails Class Doc Comment.
+ * BrowserDetails Class Doc Comment
  *
  * @deprecated
+ * 
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class BrowserDetails implements ModelInterface, \ArrayAccess
+class BrowserDetails implements ModelInterface, ArrayAccess
 {
     /**
-     * The original name of the model.
-     *
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'BrowserDetails';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'browser_name' => 'string',
-        'browser_major_version' => 'string',
-        'browser_full_version' => 'string',
-        'os' => 'string',
-        'os_version' => 'string',
-        'device' => 'string',
-        'user_agent' => 'string'];
+'browser_major_version' => 'string',
+'browser_full_version' => 'string',
+'os' => 'string',
+'os_version' => 'string',
+'device' => 'string',
+'user_agent' => 'string'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'browser_name' => null,
-        'browser_major_version' => null,
-        'browser_full_version' => null,
-        'os' => null,
-        'os_version' => null,
-        'device' => null,
-        'user_agent' => null];
+'browser_major_version' => null,
+'browser_full_version' => null,
+'os' => null,
+'os_version' => null,
+'device' => null,
+'user_agent' => null    ];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'browser_name' => 'browserName',
-        'browser_major_version' => 'browserMajorVersion',
-        'browser_full_version' => 'browserFullVersion',
-        'os' => 'os',
-        'os_version' => 'osVersion',
-        'device' => 'device',
-        'user_agent' => 'userAgent'];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'browser_name' => 'setBrowserName',
-        'browser_major_version' => 'setBrowserMajorVersion',
-        'browser_full_version' => 'setBrowserFullVersion',
-        'os' => 'setOs',
-        'os_version' => 'setOsVersion',
-        'device' => 'setDevice',
-        'user_agent' => 'setUserAgent'];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'browser_name' => 'getBrowserName',
-        'browser_major_version' => 'getBrowserMajorVersion',
-        'browser_full_version' => 'getBrowserFullVersion',
-        'os' => 'getOs',
-        'os_version' => 'getOsVersion',
-        'device' => 'getDevice',
-        'user_agent' => 'getUserAgent'];
-
-    /**
-     * Associative array for storing property values.
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor.
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(?array $data = null)
-    {
-        $this->container['browser_name'] = isset($data['browser_name']) ? $data['browser_name'] : null;
-        $this->container['browser_major_version'] = isset($data['browser_major_version']) ? $data['browser_major_version'] : null;
-        $this->container['browser_full_version'] = isset($data['browser_full_version']) ? $data['browser_full_version'] : null;
-        $this->container['os'] = isset($data['os']) ? $data['os'] : null;
-        $this->container['os_version'] = isset($data['os_version']) ? $data['os_version'] : null;
-        $this->container['device'] = isset($data['device']) ? $data['device'] : null;
-        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
-    }
-
-    /**
-     * Gets the string presentation of the object.
-     *
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
+     * Array of property to type mappings. Used for (de)serialization
      */
     public static function swaggerTypes(): array
     {
@@ -168,7 +92,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
+     * Array of property to format mappings. Used for (de)serialization
      */
     public static function swaggerFormats(): array
     {
@@ -177,7 +101,50 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'browser_name' => 'browserName',
+'browser_major_version' => 'browserMajorVersion',
+'browser_full_version' => 'browserFullVersion',
+'os' => 'os',
+'os_version' => 'osVersion',
+'device' => 'device',
+'user_agent' => 'userAgent'    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'browser_name' => 'setBrowserName',
+'browser_major_version' => 'setBrowserMajorVersion',
+'browser_full_version' => 'setBrowserFullVersion',
+'os' => 'setOs',
+'os_version' => 'setOsVersion',
+'device' => 'setDevice',
+'user_agent' => 'setUserAgent'    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'browser_name' => 'getBrowserName',
+'browser_major_version' => 'getBrowserMajorVersion',
+'browser_full_version' => 'getBrowserFullVersion',
+'os' => 'getOs',
+'os_version' => 'getOsVersion',
+'device' => 'getDevice',
+'user_agent' => 'getUserAgent'    ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
      */
     public static function attributeMap(): array
     {
@@ -185,7 +152,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      */
     public static function setters(): array
     {
@@ -193,7 +160,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      */
     public static function getters(): array
     {
@@ -208,6 +175,32 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
         return self::$swaggerModelName;
     }
 
+    
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['browser_name'] = isset($data['browser_name']) ? $data['browser_name'] : null;
+        $this->container['browser_major_version'] = isset($data['browser_major_version']) ? $data['browser_major_version'] : null;
+        $this->container['browser_full_version'] = isset($data['browser_full_version']) ? $data['browser_full_version'] : null;
+        $this->container['os'] = isset($data['os']) ? $data['os'] : null;
+        $this->container['os_version'] = isset($data['os_version']) ? $data['os_version'] : null;
+        $this->container['device'] = isset($data['device']) ? $data['device'] : null;
+        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
+    }
+
     /**
      * Show all the invalid properties with reasons.
      *
@@ -217,44 +210,45 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     {
         $invalidProperties = [];
 
-        if (null === $this->container['browser_name']) {
+        if ($this->container['browser_name'] === null) {
             $invalidProperties[] = "'browser_name' can't be null";
         }
-        if (null === $this->container['browser_major_version']) {
+        if ($this->container['browser_major_version'] === null) {
             $invalidProperties[] = "'browser_major_version' can't be null";
         }
-        if (null === $this->container['browser_full_version']) {
+        if ($this->container['browser_full_version'] === null) {
             $invalidProperties[] = "'browser_full_version' can't be null";
         }
-        if (null === $this->container['os']) {
+        if ($this->container['os'] === null) {
             $invalidProperties[] = "'os' can't be null";
         }
-        if (null === $this->container['os_version']) {
+        if ($this->container['os_version'] === null) {
             $invalidProperties[] = "'os_version' can't be null";
         }
-        if (null === $this->container['device']) {
+        if ($this->container['device'] === null) {
             $invalidProperties[] = "'device' can't be null";
         }
-        if (null === $this->container['user_agent']) {
+        if ($this->container['user_agent'] === null) {
             $invalidProperties[] = "'user_agent' can't be null";
         }
-
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets browser_name.
+     * Gets browser_name
+     * @return string
      */
     public function getBrowserName(): string
     {
@@ -262,7 +256,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets browser_name.
+     * Sets browser_name
      *
      * @param string $browser_name browser_name
      *
@@ -276,7 +270,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets browser_major_version.
+     * Gets browser_major_version
+     * @return string
      */
     public function getBrowserMajorVersion(): string
     {
@@ -284,7 +279,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets browser_major_version.
+     * Sets browser_major_version
      *
      * @param string $browser_major_version browser_major_version
      *
@@ -298,7 +293,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets browser_full_version.
+     * Gets browser_full_version
+     * @return string
      */
     public function getBrowserFullVersion(): string
     {
@@ -306,7 +302,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets browser_full_version.
+     * Sets browser_full_version
      *
      * @param string $browser_full_version browser_full_version
      *
@@ -320,7 +316,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets os.
+     * Gets os
+     * @return string
      */
     public function getOs(): string
     {
@@ -328,7 +325,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets os.
+     * Sets os
      *
      * @param string $os os
      *
@@ -342,7 +339,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets os_version.
+     * Gets os_version
+     * @return string
      */
     public function getOsVersion(): string
     {
@@ -350,7 +348,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets os_version.
+     * Sets os_version
      *
      * @param string $os_version os_version
      *
@@ -364,7 +362,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets device.
+     * Gets device
+     * @return string
      */
     public function getDevice(): string
     {
@@ -372,7 +371,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets device.
+     * Sets device
      *
      * @param string $device device
      *
@@ -386,7 +385,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets user_agent.
+     * Gets user_agent
+     * @return string
      */
     public function getUserAgent(): string
     {
@@ -394,7 +394,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets user_agent.
+     * Sets user_agent
      *
      * @param string $user_agent user_agent
      *
@@ -406,11 +406,10 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -420,7 +419,7 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -430,8 +429,8 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -445,16 +444,27 @@ class BrowserDetails implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-    /**
-     * Gets the string presentation of the object in a pretty JSON format.
+   /**
+     * Gets the string presentation of the object
      *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Gets the string presentation of the object in a pretty JSON format
+     *
+     * @return string
      */
     public function toPrettyString(): string
     {

@@ -1,24 +1,22 @@
 <?php
 /**
- * Products.
+ * Products
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated).
+ * Server API v3 (deprecated)
  *
  * > 🚧 Deprecation Notice
- * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
- *
- * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
- * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
- *
+>
+> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+
+Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -34,219 +32,271 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * Products Class Doc Comment.
+ * Products Class Doc Comment
  *
  * @deprecated
+ * 
  *
  * @category Class
- *
  * @description Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise)
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class Products implements ModelInterface, \ArrayAccess
+class Products implements ModelInterface, ArrayAccess
 {
     /**
-     * The original name of the model.
-     *
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'Products';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'identification' => '\Fingerprint\ServerAPI\Model\ProductIdentification',
-        'botd' => '\Fingerprint\ServerAPI\Model\ProductBotd',
-        'root_apps' => '\Fingerprint\ServerAPI\Model\ProductRootApps',
-        'emulator' => '\Fingerprint\ServerAPI\Model\ProductEmulator',
-        'ip_info' => '\Fingerprint\ServerAPI\Model\ProductIPInfo',
-        'ip_blocklist' => '\Fingerprint\ServerAPI\Model\ProductIPBlocklist',
-        'tor' => '\Fingerprint\ServerAPI\Model\ProductTor',
-        'vpn' => '\Fingerprint\ServerAPI\Model\ProductVPN',
-        'proxy' => '\Fingerprint\ServerAPI\Model\ProductProxy',
-        'incognito' => '\Fingerprint\ServerAPI\Model\ProductIncognito',
-        'tampering' => '\Fingerprint\ServerAPI\Model\ProductTampering',
-        'cloned_app' => '\Fingerprint\ServerAPI\Model\ProductClonedApp',
-        'factory_reset' => '\Fingerprint\ServerAPI\Model\ProductFactoryReset',
-        'jailbroken' => '\Fingerprint\ServerAPI\Model\ProductJailbroken',
-        'frida' => '\Fingerprint\ServerAPI\Model\ProductFrida',
-        'privacy_settings' => '\Fingerprint\ServerAPI\Model\ProductPrivacySettings',
-        'virtual_machine' => '\Fingerprint\ServerAPI\Model\ProductVirtualMachine',
-        'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\ProductRawDeviceAttributes',
-        'high_activity' => '\Fingerprint\ServerAPI\Model\ProductHighActivity',
-        'location_spoofing' => '\Fingerprint\ServerAPI\Model\ProductLocationSpoofing',
-        'suspect_score' => '\Fingerprint\ServerAPI\Model\ProductSuspectScore',
-        'remote_control' => '\Fingerprint\ServerAPI\Model\ProductRemoteControl',
-        'velocity' => '\Fingerprint\ServerAPI\Model\ProductVelocity',
-        'developer_tools' => '\Fingerprint\ServerAPI\Model\ProductDeveloperTools',
-        'mitm_attack' => '\Fingerprint\ServerAPI\Model\ProductMitMAttack',
-        'rare_device' => '\Fingerprint\ServerAPI\Model\ProductRareDevice',
-        'proximity' => '\Fingerprint\ServerAPI\Model\ProductProximity',
-        'labels' => '\Fingerprint\ServerAPI\Model\ProductLabels'];
+'botd' => '\Fingerprint\ServerAPI\Model\ProductBotd',
+'root_apps' => '\Fingerprint\ServerAPI\Model\ProductRootApps',
+'emulator' => '\Fingerprint\ServerAPI\Model\ProductEmulator',
+'ip_info' => '\Fingerprint\ServerAPI\Model\ProductIPInfo',
+'ip_blocklist' => '\Fingerprint\ServerAPI\Model\ProductIPBlocklist',
+'tor' => '\Fingerprint\ServerAPI\Model\ProductTor',
+'vpn' => '\Fingerprint\ServerAPI\Model\ProductVPN',
+'proxy' => '\Fingerprint\ServerAPI\Model\ProductProxy',
+'incognito' => '\Fingerprint\ServerAPI\Model\ProductIncognito',
+'tampering' => '\Fingerprint\ServerAPI\Model\ProductTampering',
+'cloned_app' => '\Fingerprint\ServerAPI\Model\ProductClonedApp',
+'factory_reset' => '\Fingerprint\ServerAPI\Model\ProductFactoryReset',
+'jailbroken' => '\Fingerprint\ServerAPI\Model\ProductJailbroken',
+'frida' => '\Fingerprint\ServerAPI\Model\ProductFrida',
+'privacy_settings' => '\Fingerprint\ServerAPI\Model\ProductPrivacySettings',
+'virtual_machine' => '\Fingerprint\ServerAPI\Model\ProductVirtualMachine',
+'raw_device_attributes' => '\Fingerprint\ServerAPI\Model\ProductRawDeviceAttributes',
+'high_activity' => '\Fingerprint\ServerAPI\Model\ProductHighActivity',
+'location_spoofing' => '\Fingerprint\ServerAPI\Model\ProductLocationSpoofing',
+'suspect_score' => '\Fingerprint\ServerAPI\Model\ProductSuspectScore',
+'remote_control' => '\Fingerprint\ServerAPI\Model\ProductRemoteControl',
+'velocity' => '\Fingerprint\ServerAPI\Model\ProductVelocity',
+'developer_tools' => '\Fingerprint\ServerAPI\Model\ProductDeveloperTools',
+'mitm_attack' => '\Fingerprint\ServerAPI\Model\ProductMitMAttack',
+'rare_device' => '\Fingerprint\ServerAPI\Model\ProductRareDevice',
+'proximity' => '\Fingerprint\ServerAPI\Model\ProductProximity',
+'labels' => '\Fingerprint\ServerAPI\Model\ProductLabels'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'identification' => null,
-        'botd' => null,
-        'root_apps' => null,
-        'emulator' => null,
-        'ip_info' => null,
-        'ip_blocklist' => null,
-        'tor' => null,
-        'vpn' => null,
-        'proxy' => null,
-        'incognito' => null,
-        'tampering' => null,
-        'cloned_app' => null,
-        'factory_reset' => null,
-        'jailbroken' => null,
-        'frida' => null,
-        'privacy_settings' => null,
-        'virtual_machine' => null,
-        'raw_device_attributes' => null,
-        'high_activity' => null,
-        'location_spoofing' => null,
-        'suspect_score' => null,
-        'remote_control' => null,
-        'velocity' => null,
-        'developer_tools' => null,
-        'mitm_attack' => null,
-        'rare_device' => null,
-        'proximity' => null,
-        'labels' => null];
+'botd' => null,
+'root_apps' => null,
+'emulator' => null,
+'ip_info' => null,
+'ip_blocklist' => null,
+'tor' => null,
+'vpn' => null,
+'proxy' => null,
+'incognito' => null,
+'tampering' => null,
+'cloned_app' => null,
+'factory_reset' => null,
+'jailbroken' => null,
+'frida' => null,
+'privacy_settings' => null,
+'virtual_machine' => null,
+'raw_device_attributes' => null,
+'high_activity' => null,
+'location_spoofing' => null,
+'suspect_score' => null,
+'remote_control' => null,
+'velocity' => null,
+'developer_tools' => null,
+'mitm_attack' => null,
+'rare_device' => null,
+'proximity' => null,
+'labels' => null    ];
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization
+     */
+    public static function swaggerTypes(): array
+    {
+        return self::$swaggerTypes;
+    }
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization
+     */
+    public static function swaggerFormats(): array
+    {
+        return self::$swaggerFormats;
+    }
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
      *
      * @var string[]
      */
     protected static array $attributeMap = [
         'identification' => 'identification',
-        'botd' => 'botd',
-        'root_apps' => 'rootApps',
-        'emulator' => 'emulator',
-        'ip_info' => 'ipInfo',
-        'ip_blocklist' => 'ipBlocklist',
-        'tor' => 'tor',
-        'vpn' => 'vpn',
-        'proxy' => 'proxy',
-        'incognito' => 'incognito',
-        'tampering' => 'tampering',
-        'cloned_app' => 'clonedApp',
-        'factory_reset' => 'factoryReset',
-        'jailbroken' => 'jailbroken',
-        'frida' => 'frida',
-        'privacy_settings' => 'privacySettings',
-        'virtual_machine' => 'virtualMachine',
-        'raw_device_attributes' => 'rawDeviceAttributes',
-        'high_activity' => 'highActivity',
-        'location_spoofing' => 'locationSpoofing',
-        'suspect_score' => 'suspectScore',
-        'remote_control' => 'remoteControl',
-        'velocity' => 'velocity',
-        'developer_tools' => 'developerTools',
-        'mitm_attack' => 'mitmAttack',
-        'rare_device' => 'rareDevice',
-        'proximity' => 'proximity',
-        'labels' => 'labels'];
+'botd' => 'botd',
+'root_apps' => 'rootApps',
+'emulator' => 'emulator',
+'ip_info' => 'ipInfo',
+'ip_blocklist' => 'ipBlocklist',
+'tor' => 'tor',
+'vpn' => 'vpn',
+'proxy' => 'proxy',
+'incognito' => 'incognito',
+'tampering' => 'tampering',
+'cloned_app' => 'clonedApp',
+'factory_reset' => 'factoryReset',
+'jailbroken' => 'jailbroken',
+'frida' => 'frida',
+'privacy_settings' => 'privacySettings',
+'virtual_machine' => 'virtualMachine',
+'raw_device_attributes' => 'rawDeviceAttributes',
+'high_activity' => 'highActivity',
+'location_spoofing' => 'locationSpoofing',
+'suspect_score' => 'suspectScore',
+'remote_control' => 'remoteControl',
+'velocity' => 'velocity',
+'developer_tools' => 'developerTools',
+'mitm_attack' => 'mitmAttack',
+'rare_device' => 'rareDevice',
+'proximity' => 'proximity',
+'labels' => 'labels'    ];
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
     protected static array $setters = [
         'identification' => 'setIdentification',
-        'botd' => 'setBotd',
-        'root_apps' => 'setRootApps',
-        'emulator' => 'setEmulator',
-        'ip_info' => 'setIpInfo',
-        'ip_blocklist' => 'setIpBlocklist',
-        'tor' => 'setTor',
-        'vpn' => 'setVpn',
-        'proxy' => 'setProxy',
-        'incognito' => 'setIncognito',
-        'tampering' => 'setTampering',
-        'cloned_app' => 'setClonedApp',
-        'factory_reset' => 'setFactoryReset',
-        'jailbroken' => 'setJailbroken',
-        'frida' => 'setFrida',
-        'privacy_settings' => 'setPrivacySettings',
-        'virtual_machine' => 'setVirtualMachine',
-        'raw_device_attributes' => 'setRawDeviceAttributes',
-        'high_activity' => 'setHighActivity',
-        'location_spoofing' => 'setLocationSpoofing',
-        'suspect_score' => 'setSuspectScore',
-        'remote_control' => 'setRemoteControl',
-        'velocity' => 'setVelocity',
-        'developer_tools' => 'setDeveloperTools',
-        'mitm_attack' => 'setMitmAttack',
-        'rare_device' => 'setRareDevice',
-        'proximity' => 'setProximity',
-        'labels' => 'setLabels'];
+'botd' => 'setBotd',
+'root_apps' => 'setRootApps',
+'emulator' => 'setEmulator',
+'ip_info' => 'setIpInfo',
+'ip_blocklist' => 'setIpBlocklist',
+'tor' => 'setTor',
+'vpn' => 'setVpn',
+'proxy' => 'setProxy',
+'incognito' => 'setIncognito',
+'tampering' => 'setTampering',
+'cloned_app' => 'setClonedApp',
+'factory_reset' => 'setFactoryReset',
+'jailbroken' => 'setJailbroken',
+'frida' => 'setFrida',
+'privacy_settings' => 'setPrivacySettings',
+'virtual_machine' => 'setVirtualMachine',
+'raw_device_attributes' => 'setRawDeviceAttributes',
+'high_activity' => 'setHighActivity',
+'location_spoofing' => 'setLocationSpoofing',
+'suspect_score' => 'setSuspectScore',
+'remote_control' => 'setRemoteControl',
+'velocity' => 'setVelocity',
+'developer_tools' => 'setDeveloperTools',
+'mitm_attack' => 'setMitmAttack',
+'rare_device' => 'setRareDevice',
+'proximity' => 'setProximity',
+'labels' => 'setLabels'    ];
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
     protected static array $getters = [
         'identification' => 'getIdentification',
-        'botd' => 'getBotd',
-        'root_apps' => 'getRootApps',
-        'emulator' => 'getEmulator',
-        'ip_info' => 'getIpInfo',
-        'ip_blocklist' => 'getIpBlocklist',
-        'tor' => 'getTor',
-        'vpn' => 'getVpn',
-        'proxy' => 'getProxy',
-        'incognito' => 'getIncognito',
-        'tampering' => 'getTampering',
-        'cloned_app' => 'getClonedApp',
-        'factory_reset' => 'getFactoryReset',
-        'jailbroken' => 'getJailbroken',
-        'frida' => 'getFrida',
-        'privacy_settings' => 'getPrivacySettings',
-        'virtual_machine' => 'getVirtualMachine',
-        'raw_device_attributes' => 'getRawDeviceAttributes',
-        'high_activity' => 'getHighActivity',
-        'location_spoofing' => 'getLocationSpoofing',
-        'suspect_score' => 'getSuspectScore',
-        'remote_control' => 'getRemoteControl',
-        'velocity' => 'getVelocity',
-        'developer_tools' => 'getDeveloperTools',
-        'mitm_attack' => 'getMitmAttack',
-        'rare_device' => 'getRareDevice',
-        'proximity' => 'getProximity',
-        'labels' => 'getLabels'];
+'botd' => 'getBotd',
+'root_apps' => 'getRootApps',
+'emulator' => 'getEmulator',
+'ip_info' => 'getIpInfo',
+'ip_blocklist' => 'getIpBlocklist',
+'tor' => 'getTor',
+'vpn' => 'getVpn',
+'proxy' => 'getProxy',
+'incognito' => 'getIncognito',
+'tampering' => 'getTampering',
+'cloned_app' => 'getClonedApp',
+'factory_reset' => 'getFactoryReset',
+'jailbroken' => 'getJailbroken',
+'frida' => 'getFrida',
+'privacy_settings' => 'getPrivacySettings',
+'virtual_machine' => 'getVirtualMachine',
+'raw_device_attributes' => 'getRawDeviceAttributes',
+'high_activity' => 'getHighActivity',
+'location_spoofing' => 'getLocationSpoofing',
+'suspect_score' => 'getSuspectScore',
+'remote_control' => 'getRemoteControl',
+'velocity' => 'getVelocity',
+'developer_tools' => 'getDeveloperTools',
+'mitm_attack' => 'getMitmAttack',
+'rare_device' => 'getRareDevice',
+'proximity' => 'getProximity',
+'labels' => 'getLabels'    ];
 
     /**
-     * Associative array for storing property values.
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
+     */
+    public static function attributeMap(): array
+    {
+        return self::$attributeMap;
+    }
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     */
+    public static function setters(): array
+    {
+        return self::$setters;
+    }
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     */
+    public static function getters(): array
+    {
+        return self::$getters;
+    }
+
+    /**
+     * The original name of the model.
+     */
+    public function getModelName(): string
+    {
+        return self::$swaggerModelName;
+    }
+
+    
+
+    /**
+     * Associative array for storing property values
      *
      * @var mixed[]
      */
     protected array $container = [];
 
     /**
-     * Constructor.
+     * Constructor
      *
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct(array $data = null)
     {
         $this->container['identification'] = isset($data['identification']) ? $data['identification'] : null;
         $this->container['botd'] = isset($data['botd']) ? $data['botd'] : null;
@@ -279,100 +329,46 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets the string presentation of the object.
-     *
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
-     */
-    public static function swaggerTypes(): array
-    {
-        return self::$swaggerTypes;
-    }
-
-    /**
-     * Array of property to format mappings. Used for (de)serialization.
-     */
-    public static function swaggerFormats(): array
-    {
-        return self::$swaggerFormats;
-    }
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     */
-    public static function attributeMap(): array
-    {
-        return self::$attributeMap;
-    }
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     */
-    public static function setters(): array
-    {
-        return self::$setters;
-    }
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     */
-    public static function getters(): array
-    {
-        return self::$getters;
-    }
-
-    /**
-     * The original name of the model.
-     */
-    public function getModelName(): string
-    {
-        return self::$swaggerModelName;
-    }
-
-    /**
      * Show all the invalid properties with reasons.
      *
      * @return array invalid properties with reasons
      */
     public function listInvalidProperties(): array
     {
-        return [];
+        $invalidProperties = [];
+
+        return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets identification.
+     * Gets identification
+     * @return ?\Fingerprint\ServerAPI\Model\ProductIdentification
      */
-    public function getIdentification(): ?ProductIdentification
+    public function getIdentification(): ?\Fingerprint\ServerAPI\Model\ProductIdentification
     {
         return $this->container['identification'];
     }
 
     /**
-     * Sets identification.
+     * Sets identification
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductIdentification $identification identification
      *
      * @return $this
      */
-    public function setIdentification(?ProductIdentification $identification): self
+    public function setIdentification(?\Fingerprint\ServerAPI\Model\ProductIdentification $identification): self
     {
         $this->container['identification'] = $identification;
 
@@ -380,21 +376,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets botd.
+     * Gets botd
+     * @return ?\Fingerprint\ServerAPI\Model\ProductBotd
      */
-    public function getBotd(): ?ProductBotd
+    public function getBotd(): ?\Fingerprint\ServerAPI\Model\ProductBotd
     {
         return $this->container['botd'];
     }
 
     /**
-     * Sets botd.
+     * Sets botd
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductBotd $botd botd
      *
      * @return $this
      */
-    public function setBotd(?ProductBotd $botd): self
+    public function setBotd(?\Fingerprint\ServerAPI\Model\ProductBotd $botd): self
     {
         $this->container['botd'] = $botd;
 
@@ -402,21 +399,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets root_apps.
+     * Gets root_apps
+     * @return ?\Fingerprint\ServerAPI\Model\ProductRootApps
      */
-    public function getRootApps(): ?ProductRootApps
+    public function getRootApps(): ?\Fingerprint\ServerAPI\Model\ProductRootApps
     {
         return $this->container['root_apps'];
     }
 
     /**
-     * Sets root_apps.
+     * Sets root_apps
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductRootApps $root_apps root_apps
      *
      * @return $this
      */
-    public function setRootApps(?ProductRootApps $root_apps): self
+    public function setRootApps(?\Fingerprint\ServerAPI\Model\ProductRootApps $root_apps): self
     {
         $this->container['root_apps'] = $root_apps;
 
@@ -424,21 +422,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets emulator.
+     * Gets emulator
+     * @return ?\Fingerprint\ServerAPI\Model\ProductEmulator
      */
-    public function getEmulator(): ?ProductEmulator
+    public function getEmulator(): ?\Fingerprint\ServerAPI\Model\ProductEmulator
     {
         return $this->container['emulator'];
     }
 
     /**
-     * Sets emulator.
+     * Sets emulator
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductEmulator $emulator emulator
      *
      * @return $this
      */
-    public function setEmulator(?ProductEmulator $emulator): self
+    public function setEmulator(?\Fingerprint\ServerAPI\Model\ProductEmulator $emulator): self
     {
         $this->container['emulator'] = $emulator;
 
@@ -446,21 +445,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets ip_info.
+     * Gets ip_info
+     * @return ?\Fingerprint\ServerAPI\Model\ProductIPInfo
      */
-    public function getIpInfo(): ?ProductIPInfo
+    public function getIpInfo(): ?\Fingerprint\ServerAPI\Model\ProductIPInfo
     {
         return $this->container['ip_info'];
     }
 
     /**
-     * Sets ip_info.
+     * Sets ip_info
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductIPInfo $ip_info ip_info
      *
      * @return $this
      */
-    public function setIpInfo(?ProductIPInfo $ip_info): self
+    public function setIpInfo(?\Fingerprint\ServerAPI\Model\ProductIPInfo $ip_info): self
     {
         $this->container['ip_info'] = $ip_info;
 
@@ -468,21 +468,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets ip_blocklist.
+     * Gets ip_blocklist
+     * @return ?\Fingerprint\ServerAPI\Model\ProductIPBlocklist
      */
-    public function getIpBlocklist(): ?ProductIPBlocklist
+    public function getIpBlocklist(): ?\Fingerprint\ServerAPI\Model\ProductIPBlocklist
     {
         return $this->container['ip_blocklist'];
     }
 
     /**
-     * Sets ip_blocklist.
+     * Sets ip_blocklist
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductIPBlocklist $ip_blocklist ip_blocklist
      *
      * @return $this
      */
-    public function setIpBlocklist(?ProductIPBlocklist $ip_blocklist): self
+    public function setIpBlocklist(?\Fingerprint\ServerAPI\Model\ProductIPBlocklist $ip_blocklist): self
     {
         $this->container['ip_blocklist'] = $ip_blocklist;
 
@@ -490,21 +491,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets tor.
+     * Gets tor
+     * @return ?\Fingerprint\ServerAPI\Model\ProductTor
      */
-    public function getTor(): ?ProductTor
+    public function getTor(): ?\Fingerprint\ServerAPI\Model\ProductTor
     {
         return $this->container['tor'];
     }
 
     /**
-     * Sets tor.
+     * Sets tor
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductTor $tor tor
      *
      * @return $this
      */
-    public function setTor(?ProductTor $tor): self
+    public function setTor(?\Fingerprint\ServerAPI\Model\ProductTor $tor): self
     {
         $this->container['tor'] = $tor;
 
@@ -512,21 +514,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets vpn.
+     * Gets vpn
+     * @return ?\Fingerprint\ServerAPI\Model\ProductVPN
      */
-    public function getVpn(): ?ProductVPN
+    public function getVpn(): ?\Fingerprint\ServerAPI\Model\ProductVPN
     {
         return $this->container['vpn'];
     }
 
     /**
-     * Sets vpn.
+     * Sets vpn
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductVPN $vpn vpn
      *
      * @return $this
      */
-    public function setVpn(?ProductVPN $vpn): self
+    public function setVpn(?\Fingerprint\ServerAPI\Model\ProductVPN $vpn): self
     {
         $this->container['vpn'] = $vpn;
 
@@ -534,21 +537,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets proxy.
+     * Gets proxy
+     * @return ?\Fingerprint\ServerAPI\Model\ProductProxy
      */
-    public function getProxy(): ?ProductProxy
+    public function getProxy(): ?\Fingerprint\ServerAPI\Model\ProductProxy
     {
         return $this->container['proxy'];
     }
 
     /**
-     * Sets proxy.
+     * Sets proxy
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductProxy $proxy proxy
      *
      * @return $this
      */
-    public function setProxy(?ProductProxy $proxy): self
+    public function setProxy(?\Fingerprint\ServerAPI\Model\ProductProxy $proxy): self
     {
         $this->container['proxy'] = $proxy;
 
@@ -556,21 +560,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets incognito.
+     * Gets incognito
+     * @return ?\Fingerprint\ServerAPI\Model\ProductIncognito
      */
-    public function getIncognito(): ?ProductIncognito
+    public function getIncognito(): ?\Fingerprint\ServerAPI\Model\ProductIncognito
     {
         return $this->container['incognito'];
     }
 
     /**
-     * Sets incognito.
+     * Sets incognito
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductIncognito $incognito incognito
      *
      * @return $this
      */
-    public function setIncognito(?ProductIncognito $incognito): self
+    public function setIncognito(?\Fingerprint\ServerAPI\Model\ProductIncognito $incognito): self
     {
         $this->container['incognito'] = $incognito;
 
@@ -578,21 +583,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets tampering.
+     * Gets tampering
+     * @return ?\Fingerprint\ServerAPI\Model\ProductTampering
      */
-    public function getTampering(): ?ProductTampering
+    public function getTampering(): ?\Fingerprint\ServerAPI\Model\ProductTampering
     {
         return $this->container['tampering'];
     }
 
     /**
-     * Sets tampering.
+     * Sets tampering
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductTampering $tampering tampering
      *
      * @return $this
      */
-    public function setTampering(?ProductTampering $tampering): self
+    public function setTampering(?\Fingerprint\ServerAPI\Model\ProductTampering $tampering): self
     {
         $this->container['tampering'] = $tampering;
 
@@ -600,21 +606,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets cloned_app.
+     * Gets cloned_app
+     * @return ?\Fingerprint\ServerAPI\Model\ProductClonedApp
      */
-    public function getClonedApp(): ?ProductClonedApp
+    public function getClonedApp(): ?\Fingerprint\ServerAPI\Model\ProductClonedApp
     {
         return $this->container['cloned_app'];
     }
 
     /**
-     * Sets cloned_app.
+     * Sets cloned_app
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductClonedApp $cloned_app cloned_app
      *
      * @return $this
      */
-    public function setClonedApp(?ProductClonedApp $cloned_app): self
+    public function setClonedApp(?\Fingerprint\ServerAPI\Model\ProductClonedApp $cloned_app): self
     {
         $this->container['cloned_app'] = $cloned_app;
 
@@ -622,21 +629,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets factory_reset.
+     * Gets factory_reset
+     * @return ?\Fingerprint\ServerAPI\Model\ProductFactoryReset
      */
-    public function getFactoryReset(): ?ProductFactoryReset
+    public function getFactoryReset(): ?\Fingerprint\ServerAPI\Model\ProductFactoryReset
     {
         return $this->container['factory_reset'];
     }
 
     /**
-     * Sets factory_reset.
+     * Sets factory_reset
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductFactoryReset $factory_reset factory_reset
      *
      * @return $this
      */
-    public function setFactoryReset(?ProductFactoryReset $factory_reset): self
+    public function setFactoryReset(?\Fingerprint\ServerAPI\Model\ProductFactoryReset $factory_reset): self
     {
         $this->container['factory_reset'] = $factory_reset;
 
@@ -644,21 +652,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets jailbroken.
+     * Gets jailbroken
+     * @return ?\Fingerprint\ServerAPI\Model\ProductJailbroken
      */
-    public function getJailbroken(): ?ProductJailbroken
+    public function getJailbroken(): ?\Fingerprint\ServerAPI\Model\ProductJailbroken
     {
         return $this->container['jailbroken'];
     }
 
     /**
-     * Sets jailbroken.
+     * Sets jailbroken
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductJailbroken $jailbroken jailbroken
      *
      * @return $this
      */
-    public function setJailbroken(?ProductJailbroken $jailbroken): self
+    public function setJailbroken(?\Fingerprint\ServerAPI\Model\ProductJailbroken $jailbroken): self
     {
         $this->container['jailbroken'] = $jailbroken;
 
@@ -666,21 +675,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets frida.
+     * Gets frida
+     * @return ?\Fingerprint\ServerAPI\Model\ProductFrida
      */
-    public function getFrida(): ?ProductFrida
+    public function getFrida(): ?\Fingerprint\ServerAPI\Model\ProductFrida
     {
         return $this->container['frida'];
     }
 
     /**
-     * Sets frida.
+     * Sets frida
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductFrida $frida frida
      *
      * @return $this
      */
-    public function setFrida(?ProductFrida $frida): self
+    public function setFrida(?\Fingerprint\ServerAPI\Model\ProductFrida $frida): self
     {
         $this->container['frida'] = $frida;
 
@@ -688,21 +698,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets privacy_settings.
+     * Gets privacy_settings
+     * @return ?\Fingerprint\ServerAPI\Model\ProductPrivacySettings
      */
-    public function getPrivacySettings(): ?ProductPrivacySettings
+    public function getPrivacySettings(): ?\Fingerprint\ServerAPI\Model\ProductPrivacySettings
     {
         return $this->container['privacy_settings'];
     }
 
     /**
-     * Sets privacy_settings.
+     * Sets privacy_settings
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductPrivacySettings $privacy_settings privacy_settings
      *
      * @return $this
      */
-    public function setPrivacySettings(?ProductPrivacySettings $privacy_settings): self
+    public function setPrivacySettings(?\Fingerprint\ServerAPI\Model\ProductPrivacySettings $privacy_settings): self
     {
         $this->container['privacy_settings'] = $privacy_settings;
 
@@ -710,21 +721,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets virtual_machine.
+     * Gets virtual_machine
+     * @return ?\Fingerprint\ServerAPI\Model\ProductVirtualMachine
      */
-    public function getVirtualMachine(): ?ProductVirtualMachine
+    public function getVirtualMachine(): ?\Fingerprint\ServerAPI\Model\ProductVirtualMachine
     {
         return $this->container['virtual_machine'];
     }
 
     /**
-     * Sets virtual_machine.
+     * Sets virtual_machine
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductVirtualMachine $virtual_machine virtual_machine
      *
      * @return $this
      */
-    public function setVirtualMachine(?ProductVirtualMachine $virtual_machine): self
+    public function setVirtualMachine(?\Fingerprint\ServerAPI\Model\ProductVirtualMachine $virtual_machine): self
     {
         $this->container['virtual_machine'] = $virtual_machine;
 
@@ -732,21 +744,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets raw_device_attributes.
+     * Gets raw_device_attributes
+     * @return ?\Fingerprint\ServerAPI\Model\ProductRawDeviceAttributes
      */
-    public function getRawDeviceAttributes(): ?ProductRawDeviceAttributes
+    public function getRawDeviceAttributes(): ?\Fingerprint\ServerAPI\Model\ProductRawDeviceAttributes
     {
         return $this->container['raw_device_attributes'];
     }
 
     /**
-     * Sets raw_device_attributes.
+     * Sets raw_device_attributes
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductRawDeviceAttributes $raw_device_attributes raw_device_attributes
      *
      * @return $this
      */
-    public function setRawDeviceAttributes(?ProductRawDeviceAttributes $raw_device_attributes): self
+    public function setRawDeviceAttributes(?\Fingerprint\ServerAPI\Model\ProductRawDeviceAttributes $raw_device_attributes): self
     {
         $this->container['raw_device_attributes'] = $raw_device_attributes;
 
@@ -754,21 +767,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets high_activity.
+     * Gets high_activity
+     * @return ?\Fingerprint\ServerAPI\Model\ProductHighActivity
      */
-    public function getHighActivity(): ?ProductHighActivity
+    public function getHighActivity(): ?\Fingerprint\ServerAPI\Model\ProductHighActivity
     {
         return $this->container['high_activity'];
     }
 
     /**
-     * Sets high_activity.
+     * Sets high_activity
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductHighActivity $high_activity high_activity
      *
      * @return $this
      */
-    public function setHighActivity(?ProductHighActivity $high_activity): self
+    public function setHighActivity(?\Fingerprint\ServerAPI\Model\ProductHighActivity $high_activity): self
     {
         $this->container['high_activity'] = $high_activity;
 
@@ -776,21 +790,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets location_spoofing.
+     * Gets location_spoofing
+     * @return ?\Fingerprint\ServerAPI\Model\ProductLocationSpoofing
      */
-    public function getLocationSpoofing(): ?ProductLocationSpoofing
+    public function getLocationSpoofing(): ?\Fingerprint\ServerAPI\Model\ProductLocationSpoofing
     {
         return $this->container['location_spoofing'];
     }
 
     /**
-     * Sets location_spoofing.
+     * Sets location_spoofing
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductLocationSpoofing $location_spoofing location_spoofing
      *
      * @return $this
      */
-    public function setLocationSpoofing(?ProductLocationSpoofing $location_spoofing): self
+    public function setLocationSpoofing(?\Fingerprint\ServerAPI\Model\ProductLocationSpoofing $location_spoofing): self
     {
         $this->container['location_spoofing'] = $location_spoofing;
 
@@ -798,21 +813,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets suspect_score.
+     * Gets suspect_score
+     * @return ?\Fingerprint\ServerAPI\Model\ProductSuspectScore
      */
-    public function getSuspectScore(): ?ProductSuspectScore
+    public function getSuspectScore(): ?\Fingerprint\ServerAPI\Model\ProductSuspectScore
     {
         return $this->container['suspect_score'];
     }
 
     /**
-     * Sets suspect_score.
+     * Sets suspect_score
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductSuspectScore $suspect_score suspect_score
      *
      * @return $this
      */
-    public function setSuspectScore(?ProductSuspectScore $suspect_score): self
+    public function setSuspectScore(?\Fingerprint\ServerAPI\Model\ProductSuspectScore $suspect_score): self
     {
         $this->container['suspect_score'] = $suspect_score;
 
@@ -820,21 +836,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets remote_control.
+     * Gets remote_control
+     * @return ?\Fingerprint\ServerAPI\Model\ProductRemoteControl
      */
-    public function getRemoteControl(): ?ProductRemoteControl
+    public function getRemoteControl(): ?\Fingerprint\ServerAPI\Model\ProductRemoteControl
     {
         return $this->container['remote_control'];
     }
 
     /**
-     * Sets remote_control.
+     * Sets remote_control
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductRemoteControl $remote_control remote_control
      *
      * @return $this
      */
-    public function setRemoteControl(?ProductRemoteControl $remote_control): self
+    public function setRemoteControl(?\Fingerprint\ServerAPI\Model\ProductRemoteControl $remote_control): self
     {
         $this->container['remote_control'] = $remote_control;
 
@@ -842,21 +859,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets velocity.
+     * Gets velocity
+     * @return ?\Fingerprint\ServerAPI\Model\ProductVelocity
      */
-    public function getVelocity(): ?ProductVelocity
+    public function getVelocity(): ?\Fingerprint\ServerAPI\Model\ProductVelocity
     {
         return $this->container['velocity'];
     }
 
     /**
-     * Sets velocity.
+     * Sets velocity
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductVelocity $velocity velocity
      *
      * @return $this
      */
-    public function setVelocity(?ProductVelocity $velocity): self
+    public function setVelocity(?\Fingerprint\ServerAPI\Model\ProductVelocity $velocity): self
     {
         $this->container['velocity'] = $velocity;
 
@@ -864,21 +882,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets developer_tools.
+     * Gets developer_tools
+     * @return ?\Fingerprint\ServerAPI\Model\ProductDeveloperTools
      */
-    public function getDeveloperTools(): ?ProductDeveloperTools
+    public function getDeveloperTools(): ?\Fingerprint\ServerAPI\Model\ProductDeveloperTools
     {
         return $this->container['developer_tools'];
     }
 
     /**
-     * Sets developer_tools.
+     * Sets developer_tools
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductDeveloperTools $developer_tools developer_tools
      *
      * @return $this
      */
-    public function setDeveloperTools(?ProductDeveloperTools $developer_tools): self
+    public function setDeveloperTools(?\Fingerprint\ServerAPI\Model\ProductDeveloperTools $developer_tools): self
     {
         $this->container['developer_tools'] = $developer_tools;
 
@@ -886,21 +905,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets mitm_attack.
+     * Gets mitm_attack
+     * @return ?\Fingerprint\ServerAPI\Model\ProductMitMAttack
      */
-    public function getMitmAttack(): ?ProductMitMAttack
+    public function getMitmAttack(): ?\Fingerprint\ServerAPI\Model\ProductMitMAttack
     {
         return $this->container['mitm_attack'];
     }
 
     /**
-     * Sets mitm_attack.
+     * Sets mitm_attack
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductMitMAttack $mitm_attack mitm_attack
      *
      * @return $this
      */
-    public function setMitmAttack(?ProductMitMAttack $mitm_attack): self
+    public function setMitmAttack(?\Fingerprint\ServerAPI\Model\ProductMitMAttack $mitm_attack): self
     {
         $this->container['mitm_attack'] = $mitm_attack;
 
@@ -908,21 +928,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets rare_device.
+     * Gets rare_device
+     * @return ?\Fingerprint\ServerAPI\Model\ProductRareDevice
      */
-    public function getRareDevice(): ?ProductRareDevice
+    public function getRareDevice(): ?\Fingerprint\ServerAPI\Model\ProductRareDevice
     {
         return $this->container['rare_device'];
     }
 
     /**
-     * Sets rare_device.
+     * Sets rare_device
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductRareDevice $rare_device rare_device
      *
      * @return $this
      */
-    public function setRareDevice(?ProductRareDevice $rare_device): self
+    public function setRareDevice(?\Fingerprint\ServerAPI\Model\ProductRareDevice $rare_device): self
     {
         $this->container['rare_device'] = $rare_device;
 
@@ -930,21 +951,22 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets proximity.
+     * Gets proximity
+     * @return ?\Fingerprint\ServerAPI\Model\ProductProximity
      */
-    public function getProximity(): ?ProductProximity
+    public function getProximity(): ?\Fingerprint\ServerAPI\Model\ProductProximity
     {
         return $this->container['proximity'];
     }
 
     /**
-     * Sets proximity.
+     * Sets proximity
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductProximity $proximity proximity
      *
      * @return $this
      */
-    public function setProximity(?ProductProximity $proximity): self
+    public function setProximity(?\Fingerprint\ServerAPI\Model\ProductProximity $proximity): self
     {
         $this->container['proximity'] = $proximity;
 
@@ -952,31 +974,31 @@ class Products implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets labels.
+     * Gets labels
+     * @return ?\Fingerprint\ServerAPI\Model\ProductLabels
      */
-    public function getLabels(): ?ProductLabels
+    public function getLabels(): ?\Fingerprint\ServerAPI\Model\ProductLabels
     {
         return $this->container['labels'];
     }
 
     /**
-     * Sets labels.
+     * Sets labels
      *
      * @param ?\Fingerprint\ServerAPI\Model\ProductLabels $labels labels
      *
      * @return $this
      */
-    public function setLabels(?ProductLabels $labels): self
+    public function setLabels(?\Fingerprint\ServerAPI\Model\ProductLabels $labels): self
     {
         $this->container['labels'] = $labels;
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -986,7 +1008,7 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -996,8 +1018,8 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -1011,16 +1033,27 @@ class Products implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-    /**
-     * Gets the string presentation of the object in a pretty JSON format.
+   /**
+     * Gets the string presentation of the object
      *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Gets the string presentation of the object in a pretty JSON format
+     *
+     * @return string
      */
     public function toPrettyString(): string
     {

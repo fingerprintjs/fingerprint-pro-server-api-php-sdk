@@ -1,24 +1,22 @@
 <?php
 /**
- * VPN.
+ * VPN
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated).
+ * Server API v3 (deprecated)
  *
  * > 🚧 Deprecation Notice
- * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
- *
- * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
- * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
- *
+>
+> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+
+Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -34,127 +32,57 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * VPN Class Doc Comment.
+ * VPN Class Doc Comment
  *
  * @deprecated
+ * 
  *
  * @category Class
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class VPN implements ModelInterface, \ArrayAccess
+class VPN implements ModelInterface, ArrayAccess
 {
     /**
-     * The original name of the model.
-     *
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'VPN';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'result' => 'bool',
-        'confidence' => '\Fingerprint\ServerAPI\Model\VPNConfidence',
-        'ml_score' => 'double',
-        'origin_timezone' => 'string',
-        'origin_country' => 'string',
-        'methods' => '\Fingerprint\ServerAPI\Model\VPNMethods'];
+'confidence' => '\Fingerprint\ServerAPI\Model\VPNConfidence',
+'ml_score' => 'double',
+'origin_timezone' => 'string',
+'origin_country' => 'string',
+'methods' => '\Fingerprint\ServerAPI\Model\VPNMethods'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'result' => null,
-        'confidence' => null,
-        'ml_score' => 'double',
-        'origin_timezone' => null,
-        'origin_country' => null,
-        'methods' => null];
+'confidence' => null,
+'ml_score' => 'double',
+'origin_timezone' => null,
+'origin_country' => null,
+'methods' => null    ];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'result' => 'result',
-        'confidence' => 'confidence',
-        'ml_score' => 'mlScore',
-        'origin_timezone' => 'originTimezone',
-        'origin_country' => 'originCountry',
-        'methods' => 'methods'];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'result' => 'setResult',
-        'confidence' => 'setConfidence',
-        'ml_score' => 'setMlScore',
-        'origin_timezone' => 'setOriginTimezone',
-        'origin_country' => 'setOriginCountry',
-        'methods' => 'setMethods'];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'result' => 'getResult',
-        'confidence' => 'getConfidence',
-        'ml_score' => 'getMlScore',
-        'origin_timezone' => 'getOriginTimezone',
-        'origin_country' => 'getOriginCountry',
-        'methods' => 'getMethods'];
-
-    /**
-     * Associative array for storing property values.
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor.
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(?array $data = null)
-    {
-        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
-        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
-        $this->container['ml_score'] = isset($data['ml_score']) ? $data['ml_score'] : null;
-        $this->container['origin_timezone'] = isset($data['origin_timezone']) ? $data['origin_timezone'] : null;
-        $this->container['origin_country'] = isset($data['origin_country']) ? $data['origin_country'] : null;
-        $this->container['methods'] = isset($data['methods']) ? $data['methods'] : null;
-    }
-
-    /**
-     * Gets the string presentation of the object.
-     *
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
+     * Array of property to type mappings. Used for (de)serialization
      */
     public static function swaggerTypes(): array
     {
@@ -162,7 +90,7 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
+     * Array of property to format mappings. Used for (de)serialization
      */
     public static function swaggerFormats(): array
     {
@@ -171,7 +99,47 @@ class VPN implements ModelInterface, \ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'result' => 'result',
+'confidence' => 'confidence',
+'ml_score' => 'mlScore',
+'origin_timezone' => 'originTimezone',
+'origin_country' => 'originCountry',
+'methods' => 'methods'    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'result' => 'setResult',
+'confidence' => 'setConfidence',
+'ml_score' => 'setMlScore',
+'origin_timezone' => 'setOriginTimezone',
+'origin_country' => 'setOriginCountry',
+'methods' => 'setMethods'    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'result' => 'getResult',
+'confidence' => 'getConfidence',
+'ml_score' => 'getMlScore',
+'origin_timezone' => 'getOriginTimezone',
+'origin_country' => 'getOriginCountry',
+'methods' => 'getMethods'    ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
      */
     public static function attributeMap(): array
     {
@@ -179,7 +147,7 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      */
     public static function setters(): array
     {
@@ -187,7 +155,7 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      */
     public static function getters(): array
     {
@@ -202,6 +170,31 @@ class VPN implements ModelInterface, \ArrayAccess
         return self::$swaggerModelName;
     }
 
+    
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
+        $this->container['confidence'] = isset($data['confidence']) ? $data['confidence'] : null;
+        $this->container['ml_score'] = isset($data['ml_score']) ? $data['ml_score'] : null;
+        $this->container['origin_timezone'] = isset($data['origin_timezone']) ? $data['origin_timezone'] : null;
+        $this->container['origin_country'] = isset($data['origin_country']) ? $data['origin_country'] : null;
+        $this->container['methods'] = isset($data['methods']) ? $data['methods'] : null;
+    }
+
     /**
      * Show all the invalid properties with reasons.
      *
@@ -211,38 +204,39 @@ class VPN implements ModelInterface, \ArrayAccess
     {
         $invalidProperties = [];
 
-        if (null === $this->container['result']) {
+        if ($this->container['result'] === null) {
             $invalidProperties[] = "'result' can't be null";
         }
-        if (null === $this->container['confidence']) {
+        if ($this->container['confidence'] === null) {
             $invalidProperties[] = "'confidence' can't be null";
         }
-        if (null === $this->container['origin_timezone']) {
+        if ($this->container['origin_timezone'] === null) {
             $invalidProperties[] = "'origin_timezone' can't be null";
         }
-        if (null === $this->container['origin_country']) {
+        if ($this->container['origin_country'] === null) {
             $invalidProperties[] = "'origin_country' can't be null";
         }
-        if (null === $this->container['methods']) {
+        if ($this->container['methods'] === null) {
             $invalidProperties[] = "'methods' can't be null";
         }
-
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets result.
+     * Gets result
+     * @return bool
      */
     public function getResult(): bool
     {
@@ -250,9 +244,9 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets result.
+     * Sets result
      *
-     * @param bool $result VPN or other anonymizing service has been used when sending the request
+     * @param bool $result VPN or other anonymizing service has been used when sending the request.
      *
      * @return $this
      */
@@ -264,21 +258,22 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets confidence.
+     * Gets confidence
+     * @return \Fingerprint\ServerAPI\Model\VPNConfidence
      */
-    public function getConfidence(): VPNConfidence
+    public function getConfidence(): \Fingerprint\ServerAPI\Model\VPNConfidence
     {
         return $this->container['confidence'];
     }
 
     /**
-     * Sets confidence.
+     * Sets confidence
      *
-     * @param VPNConfidence $confidence confidence
+     * @param \Fingerprint\ServerAPI\Model\VPNConfidence $confidence confidence
      *
      * @return $this
      */
-    public function setConfidence(VPNConfidence $confidence): self
+    public function setConfidence(\Fingerprint\ServerAPI\Model\VPNConfidence $confidence): self
     {
         $this->container['confidence'] = $confidence;
 
@@ -286,8 +281,7 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets ml_score.
-     *
+     * Gets ml_score
      * @return ?double
      */
     public function getMlScore(): ?float
@@ -296,7 +290,7 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets ml_score.
+     * Sets ml_score
      *
      * @param ?double $ml_score Machine learning–based VPN score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `vpn` detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
      *
@@ -310,7 +304,8 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets origin_timezone.
+     * Gets origin_timezone
+     * @return string
      */
     public function getOriginTimezone(): string
     {
@@ -318,9 +313,9 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets origin_timezone.
+     * Sets origin_timezone
      *
-     * @param string $origin_timezone local timezone which is used in timezoneMismatch method
+     * @param string $origin_timezone Local timezone which is used in timezoneMismatch method.
      *
      * @return $this
      */
@@ -332,7 +327,8 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets origin_country.
+     * Gets origin_country
+     * @return string
      */
     public function getOriginCountry(): string
     {
@@ -340,7 +336,7 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets origin_country.
+     * Sets origin_country
      *
      * @param string $origin_country Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).
      *
@@ -354,31 +350,31 @@ class VPN implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets methods.
+     * Gets methods
+     * @return \Fingerprint\ServerAPI\Model\VPNMethods
      */
-    public function getMethods(): VPNMethods
+    public function getMethods(): \Fingerprint\ServerAPI\Model\VPNMethods
     {
         return $this->container['methods'];
     }
 
     /**
-     * Sets methods.
+     * Sets methods
      *
-     * @param VPNMethods $methods methods
+     * @param \Fingerprint\ServerAPI\Model\VPNMethods $methods methods
      *
      * @return $this
      */
-    public function setMethods(VPNMethods $methods): self
+    public function setMethods(\Fingerprint\ServerAPI\Model\VPNMethods $methods): self
     {
         $this->container['methods'] = $methods;
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -388,7 +384,7 @@ class VPN implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -398,8 +394,8 @@ class VPN implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -413,16 +409,27 @@ class VPN implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-    /**
-     * Gets the string presentation of the object in a pretty JSON format.
+   /**
+     * Gets the string presentation of the object
      *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Gets the string presentation of the object in a pretty JSON format
+     *
+     * @return string
      */
     public function toPrettyString(): string
     {

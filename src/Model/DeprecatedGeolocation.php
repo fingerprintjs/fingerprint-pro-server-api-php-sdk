@@ -1,24 +1,22 @@
 <?php
 /**
- * DeprecatedGeolocation.
+ * DeprecatedGeolocation
  *
  * @category Class
- *
  * @author   Swagger Codegen team
- *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated).
+ * Server API v3 (deprecated)
  *
  * > 🚧 Deprecation Notice
- * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
- *
- * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
- * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
- *
+>
+> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+
+Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -34,147 +32,64 @@
 
 namespace Fingerprint\ServerAPI\Model;
 
-use Fingerprint\ServerAPI\ObjectSerializer;
+use \ArrayAccess;
+use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * DeprecatedGeolocation Class Doc Comment.
+ * DeprecatedGeolocation Class Doc Comment
  *
  * @deprecated
+ * 
  *
  * @category Class
- *
  * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**.  Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
- *
+ * @package  Fingerprint\ServerAPI
  * @author   Swagger Codegen team
- *
- * @see     https://github.com/swagger-api/swagger-codegen
+ * @link     https://github.com/swagger-api/swagger-codegen
  */
-class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
+class DeprecatedGeolocation implements ModelInterface, ArrayAccess
 {
     /**
-     * The original name of the model.
-     *
-     */
+      * The original name of the model.
+      *
+      * @var string
+      */
     protected static string $swaggerModelName = 'DeprecatedGeolocation';
 
     /**
-     * Array of property to type mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerTypes = [
         'accuracy_radius' => 'int',
-        'latitude' => 'double',
-        'longitude' => 'double',
-        'postal_code' => 'string',
-        'timezone' => 'string',
-        'city' => '\Fingerprint\ServerAPI\Model\GeolocationCity',
-        'country' => '\Fingerprint\ServerAPI\Model\GeolocationCountry',
-        'continent' => '\Fingerprint\ServerAPI\Model\GeolocationContinent',
-        'subdivisions' => 'array'];
+'latitude' => 'double',
+'longitude' => 'double',
+'postal_code' => 'string',
+'timezone' => 'string',
+'city' => '\Fingerprint\ServerAPI\Model\GeolocationCity',
+'country' => '\Fingerprint\ServerAPI\Model\GeolocationCountry',
+'continent' => '\Fingerprint\ServerAPI\Model\GeolocationContinent',
+'subdivisions' => 'array'    ];
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
-     *
-     * @var string[]
-     */
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
     protected static array $swaggerFormats = [
         'accuracy_radius' => null,
-        'latitude' => 'double',
-        'longitude' => 'double',
-        'postal_code' => null,
-        'timezone' => 'timezone',
-        'city' => null,
-        'country' => null,
-        'continent' => null,
-        'subdivisions' => null];
+'latitude' => 'double',
+'longitude' => 'double',
+'postal_code' => null,
+'timezone' => 'timezone',
+'city' => null,
+'country' => null,
+'continent' => null,
+'subdivisions' => null    ];
 
     /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name.
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'accuracy_radius' => 'accuracyRadius',
-        'latitude' => 'latitude',
-        'longitude' => 'longitude',
-        'postal_code' => 'postalCode',
-        'timezone' => 'timezone',
-        'city' => 'city',
-        'country' => 'country',
-        'continent' => 'continent',
-        'subdivisions' => 'subdivisions'];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses).
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'accuracy_radius' => 'setAccuracyRadius',
-        'latitude' => 'setLatitude',
-        'longitude' => 'setLongitude',
-        'postal_code' => 'setPostalCode',
-        'timezone' => 'setTimezone',
-        'city' => 'setCity',
-        'country' => 'setCountry',
-        'continent' => 'setContinent',
-        'subdivisions' => 'setSubdivisions'];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests).
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'accuracy_radius' => 'getAccuracyRadius',
-        'latitude' => 'getLatitude',
-        'longitude' => 'getLongitude',
-        'postal_code' => 'getPostalCode',
-        'timezone' => 'getTimezone',
-        'city' => 'getCity',
-        'country' => 'getCountry',
-        'continent' => 'getContinent',
-        'subdivisions' => 'getSubdivisions'];
-
-    /**
-     * Associative array for storing property values.
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor.
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(?array $data = null)
-    {
-        $this->container['accuracy_radius'] = isset($data['accuracy_radius']) ? $data['accuracy_radius'] : null;
-        $this->container['latitude'] = isset($data['latitude']) ? $data['latitude'] : null;
-        $this->container['longitude'] = isset($data['longitude']) ? $data['longitude'] : null;
-        $this->container['postal_code'] = isset($data['postal_code']) ? $data['postal_code'] : null;
-        $this->container['timezone'] = isset($data['timezone']) ? $data['timezone'] : null;
-        $this->container['city'] = isset($data['city']) ? $data['city'] : null;
-        $this->container['country'] = isset($data['country']) ? $data['country'] : null;
-        $this->container['continent'] = isset($data['continent']) ? $data['continent'] : null;
-        $this->container['subdivisions'] = isset($data['subdivisions']) ? $data['subdivisions'] : null;
-    }
-
-    /**
-     * Gets the string presentation of the object.
-     *
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
-    /**
-     * Array of property to type mappings. Used for (de)serialization.
+     * Array of property to type mappings. Used for (de)serialization
      */
     public static function swaggerTypes(): array
     {
@@ -182,7 +97,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization.
+     * Array of property to format mappings. Used for (de)serialization
      */
     public static function swaggerFormats(): array
     {
@@ -191,7 +106,56 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name.
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'accuracy_radius' => 'accuracyRadius',
+'latitude' => 'latitude',
+'longitude' => 'longitude',
+'postal_code' => 'postalCode',
+'timezone' => 'timezone',
+'city' => 'city',
+'country' => 'country',
+'continent' => 'continent',
+'subdivisions' => 'subdivisions'    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'accuracy_radius' => 'setAccuracyRadius',
+'latitude' => 'setLatitude',
+'longitude' => 'setLongitude',
+'postal_code' => 'setPostalCode',
+'timezone' => 'setTimezone',
+'city' => 'setCity',
+'country' => 'setCountry',
+'continent' => 'setContinent',
+'subdivisions' => 'setSubdivisions'    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'accuracy_radius' => 'getAccuracyRadius',
+'latitude' => 'getLatitude',
+'longitude' => 'getLongitude',
+'postal_code' => 'getPostalCode',
+'timezone' => 'getTimezone',
+'city' => 'getCity',
+'country' => 'getCountry',
+'continent' => 'getContinent',
+'subdivisions' => 'getSubdivisions'    ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
      */
     public static function attributeMap(): array
     {
@@ -199,7 +163,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses).
+     * Array of attributes to setter functions (for deserialization of responses)
      */
     public static function setters(): array
     {
@@ -207,7 +171,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests).
+     * Array of attributes to getter functions (for serialization of requests)
      */
     public static function getters(): array
     {
@@ -222,6 +186,34 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
         return self::$swaggerModelName;
     }
 
+    
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['accuracy_radius'] = isset($data['accuracy_radius']) ? $data['accuracy_radius'] : null;
+        $this->container['latitude'] = isset($data['latitude']) ? $data['latitude'] : null;
+        $this->container['longitude'] = isset($data['longitude']) ? $data['longitude'] : null;
+        $this->container['postal_code'] = isset($data['postal_code']) ? $data['postal_code'] : null;
+        $this->container['timezone'] = isset($data['timezone']) ? $data['timezone'] : null;
+        $this->container['city'] = isset($data['city']) ? $data['city'] : null;
+        $this->container['country'] = isset($data['country']) ? $data['country'] : null;
+        $this->container['continent'] = isset($data['continent']) ? $data['continent'] : null;
+        $this->container['subdivisions'] = isset($data['subdivisions']) ? $data['subdivisions'] : null;
+    }
+
     /**
      * Show all the invalid properties with reasons.
      *
@@ -229,22 +221,26 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
      */
     public function listInvalidProperties(): array
     {
-        return [];
+        $invalidProperties = [];
+
+        return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed.
+     * return true if all passed
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return 0 === count($this->listInvalidProperties());
+        return count($this->listInvalidProperties()) === 0;
     }
 
+
     /**
-     * Gets accuracy_radius.
+     * Gets accuracy_radius
+     * @return ?int
      */
     public function getAccuracyRadius(): ?int
     {
@@ -252,9 +248,9 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets accuracy_radius.
+     * Sets accuracy_radius
      *
-     * @param ?int $accuracy_radius the IP address is likely to be within this radius (in km) of the specified location
+     * @param ?int $accuracy_radius The IP address is likely to be within this radius (in km) of the specified location.
      *
      * @return $this
      */
@@ -266,8 +262,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets latitude.
-     *
+     * Gets latitude
      * @return ?double
      */
     public function getLatitude(): ?float
@@ -276,7 +271,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets latitude.
+     * Sets latitude
      *
      * @param ?double $latitude latitude
      *
@@ -290,8 +285,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets longitude.
-     *
+     * Gets longitude
      * @return ?double
      */
     public function getLongitude(): ?float
@@ -300,7 +294,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets longitude.
+     * Sets longitude
      *
      * @param ?double $longitude longitude
      *
@@ -314,7 +308,8 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets postal_code.
+     * Gets postal_code
+     * @return ?string
      */
     public function getPostalCode(): ?string
     {
@@ -322,7 +317,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets postal_code.
+     * Sets postal_code
      *
      * @param ?string $postal_code postal_code
      *
@@ -336,7 +331,8 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets timezone.
+     * Gets timezone
+     * @return ?string
      */
     public function getTimezone(): ?string
     {
@@ -344,7 +340,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets timezone.
+     * Sets timezone
      *
      * @param ?string $timezone timezone
      *
@@ -358,21 +354,22 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets city.
+     * Gets city
+     * @return ?\Fingerprint\ServerAPI\Model\GeolocationCity
      */
-    public function getCity(): ?GeolocationCity
+    public function getCity(): ?\Fingerprint\ServerAPI\Model\GeolocationCity
     {
         return $this->container['city'];
     }
 
     /**
-     * Sets city.
+     * Sets city
      *
      * @param ?\Fingerprint\ServerAPI\Model\GeolocationCity $city city
      *
      * @return $this
      */
-    public function setCity(?GeolocationCity $city): self
+    public function setCity(?\Fingerprint\ServerAPI\Model\GeolocationCity $city): self
     {
         $this->container['city'] = $city;
 
@@ -380,21 +377,22 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets country.
+     * Gets country
+     * @return ?\Fingerprint\ServerAPI\Model\GeolocationCountry
      */
-    public function getCountry(): ?GeolocationCountry
+    public function getCountry(): ?\Fingerprint\ServerAPI\Model\GeolocationCountry
     {
         return $this->container['country'];
     }
 
     /**
-     * Sets country.
+     * Sets country
      *
      * @param ?\Fingerprint\ServerAPI\Model\GeolocationCountry $country country
      *
      * @return $this
      */
-    public function setCountry(?GeolocationCountry $country): self
+    public function setCountry(?\Fingerprint\ServerAPI\Model\GeolocationCountry $country): self
     {
         $this->container['country'] = $country;
 
@@ -402,21 +400,22 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets continent.
+     * Gets continent
+     * @return ?\Fingerprint\ServerAPI\Model\GeolocationContinent
      */
-    public function getContinent(): ?GeolocationContinent
+    public function getContinent(): ?\Fingerprint\ServerAPI\Model\GeolocationContinent
     {
         return $this->container['continent'];
     }
 
     /**
-     * Sets continent.
+     * Sets continent
      *
      * @param ?\Fingerprint\ServerAPI\Model\GeolocationContinent $continent continent
      *
      * @return $this
      */
-    public function setContinent(?GeolocationContinent $continent): self
+    public function setContinent(?\Fingerprint\ServerAPI\Model\GeolocationContinent $continent): self
     {
         $this->container['continent'] = $continent;
 
@@ -424,7 +423,8 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Gets subdivisions.
+     * Gets subdivisions
+     * @return ?array
      */
     public function getSubdivisions(): ?array
     {
@@ -432,7 +432,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     }
 
     /**
-     * Sets subdivisions.
+     * Sets subdivisions
      *
      * @param ?array $subdivisions subdivisions
      *
@@ -444,11 +444,10 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
 
         return $this;
     }
-
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -458,7 +457,7 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     /**
      * Gets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -468,8 +467,8 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param int   $offset Offset
-     * @param mixed $value  Value to be set
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -483,16 +482,27 @@ class DeprecatedGeolocation implements ModelInterface, \ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param int $offset Offset
+     * @param integer $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-    /**
-     * Gets the string presentation of the object in a pretty JSON format.
+   /**
+     * Gets the string presentation of the object
      *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Gets the string presentation of the object in a pretty JSON format
+     *
+     * @return string
      */
     public function toPrettyString(): string
     {
