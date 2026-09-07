@@ -1,22 +1,24 @@
 <?php
 /**
- * IPInfoV6
+ * IPInfoV6.
  *
  * @category Class
+ *
  * @author   Swagger Codegen team
+ *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated)
+ * Server API v3 (deprecated).
  *
  * > 🚧 Deprecation Notice
->
-> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
-
-Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
-Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
-
+ * >
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ *
+ * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+ * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ *
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -32,53 +34,115 @@ Server API is intended for server-side usage, it's not intended to be used from 
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * IPInfoV6 Class Doc Comment
+ * IPInfoV6 Class Doc Comment.
  *
  * @deprecated
- * 
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class IPInfoV6 implements ModelInterface, ArrayAccess
+class IPInfoV6 implements ModelInterface, \ArrayAccess
 {
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     */
     protected static string $swaggerModelName = 'IPInfoV6';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerTypes = [
         'address' => 'string',
-'geolocation' => '\Fingerprint\ServerAPI\Model\Geolocation',
-'asn' => '\Fingerprint\ServerAPI\Model\IPInfoASN',
-'datacenter' => '\Fingerprint\ServerAPI\Model\IPInfoDataCenter'    ];
+        'geolocation' => '\Fingerprint\ServerAPI\Model\Geolocation',
+        'asn' => '\Fingerprint\ServerAPI\Model\IPInfoASN',
+        'datacenter' => '\Fingerprint\ServerAPI\Model\IPInfoDataCenter'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerFormats = [
         'address' => 'ipv6',
-'geolocation' => null,
-'asn' => null,
-'datacenter' => null    ];
+        'geolocation' => null,
+        'asn' => null,
+        'datacenter' => null];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'address' => 'address',
+        'geolocation' => 'geolocation',
+        'asn' => 'asn',
+        'datacenter' => 'datacenter'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'address' => 'setAddress',
+        'geolocation' => 'setGeolocation',
+        'asn' => 'setAsn',
+        'datacenter' => 'setDatacenter'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'address' => 'getAddress',
+        'geolocation' => 'getGeolocation',
+        'asn' => 'getAsn',
+        'datacenter' => 'getDatacenter'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['address'] = isset($data['address']) ? $data['address'] : null;
+        $this->container['geolocation'] = isset($data['geolocation']) ? $data['geolocation'] : null;
+        $this->container['asn'] = isset($data['asn']) ? $data['asn'] : null;
+        $this->container['datacenter'] = isset($data['datacenter']) ? $data['datacenter'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      */
     public static function swaggerTypes(): array
     {
@@ -86,7 +150,7 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      */
     public static function swaggerFormats(): array
     {
@@ -95,41 +159,7 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'address' => 'address',
-'geolocation' => 'geolocation',
-'asn' => 'asn',
-'datacenter' => 'datacenter'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'address' => 'setAddress',
-'geolocation' => 'setGeolocation',
-'asn' => 'setAsn',
-'datacenter' => 'setDatacenter'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'address' => 'getAddress',
-'geolocation' => 'getGeolocation',
-'asn' => 'getAsn',
-'datacenter' => 'getDatacenter'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      */
     public static function attributeMap(): array
     {
@@ -137,7 +167,7 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      */
     public static function setters(): array
     {
@@ -145,7 +175,7 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      */
     public static function getters(): array
     {
@@ -160,29 +190,6 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['address'] = isset($data['address']) ? $data['address'] : null;
-        $this->container['geolocation'] = isset($data['geolocation']) ? $data['geolocation'] : null;
-        $this->container['asn'] = isset($data['asn']) ? $data['asn'] : null;
-        $this->container['datacenter'] = isset($data['datacenter']) ? $data['datacenter'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -192,30 +199,29 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['address'] === null) {
+        if (null === $this->container['address']) {
             $invalidProperties[] = "'address' can't be null";
         }
-        if ($this->container['geolocation'] === null) {
+        if (null === $this->container['geolocation']) {
             $invalidProperties[] = "'geolocation' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets address
-     * @return string
+     * Gets address.
      */
     public function getAddress(): string
     {
@@ -223,7 +229,7 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets address
+     * Sets address.
      *
      * @param string $address address
      *
@@ -237,22 +243,21 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets geolocation
-     * @return \Fingerprint\ServerAPI\Model\Geolocation
+     * Gets geolocation.
      */
-    public function getGeolocation(): \Fingerprint\ServerAPI\Model\Geolocation
+    public function getGeolocation(): Geolocation
     {
         return $this->container['geolocation'];
     }
 
     /**
-     * Sets geolocation
+     * Sets geolocation.
      *
-     * @param \Fingerprint\ServerAPI\Model\Geolocation $geolocation geolocation
+     * @param Geolocation $geolocation geolocation
      *
      * @return $this
      */
-    public function setGeolocation(\Fingerprint\ServerAPI\Model\Geolocation $geolocation): self
+    public function setGeolocation(Geolocation $geolocation): self
     {
         $this->container['geolocation'] = $geolocation;
 
@@ -260,22 +265,21 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets asn
-     * @return ?\Fingerprint\ServerAPI\Model\IPInfoASN
+     * Gets asn.
      */
-    public function getAsn(): ?\Fingerprint\ServerAPI\Model\IPInfoASN
+    public function getAsn(): ?IPInfoASN
     {
         return $this->container['asn'];
     }
 
     /**
-     * Sets asn
+     * Sets asn.
      *
      * @param ?\Fingerprint\ServerAPI\Model\IPInfoASN $asn asn
      *
      * @return $this
      */
-    public function setAsn(?\Fingerprint\ServerAPI\Model\IPInfoASN $asn): self
+    public function setAsn(?IPInfoASN $asn): self
     {
         $this->container['asn'] = $asn;
 
@@ -283,31 +287,31 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets datacenter
-     * @return ?\Fingerprint\ServerAPI\Model\IPInfoDataCenter
+     * Gets datacenter.
      */
-    public function getDatacenter(): ?\Fingerprint\ServerAPI\Model\IPInfoDataCenter
+    public function getDatacenter(): ?IPInfoDataCenter
     {
         return $this->container['datacenter'];
     }
 
     /**
-     * Sets datacenter
+     * Sets datacenter.
      *
      * @param ?\Fingerprint\ServerAPI\Model\IPInfoDataCenter $datacenter datacenter
      *
      * @return $this
      */
-    public function setDatacenter(?\Fingerprint\ServerAPI\Model\IPInfoDataCenter $datacenter): self
+    public function setDatacenter(?IPInfoDataCenter $datacenter): self
     {
         $this->container['datacenter'] = $datacenter;
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -317,7 +321,7 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -327,8 +331,8 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -342,27 +346,16 @@ class IPInfoV6 implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-   /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
     /**
-     * Gets the string presentation of the object in a pretty JSON format
+     * Gets the string presentation of the object in a pretty JSON format.
      *
-     * @return string
      */
     public function toPrettyString(): string
     {

@@ -1,22 +1,24 @@
 <?php
 /**
- * SearchEventsResponseEvents
+ * SearchEventsResponseEvents.
  *
  * @category Class
+ *
  * @author   Swagger Codegen team
+ *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated)
+ * Server API v3 (deprecated).
  *
  * > 🚧 Deprecation Notice
->
-> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
-
-Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
-Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
-
+ * >
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ *
+ * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+ * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ *
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -32,45 +34,97 @@ Server API is intended for server-side usage, it's not intended to be used from 
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * SearchEventsResponseEvents Class Doc Comment
+ * SearchEventsResponseEvents Class Doc Comment.
  *
  * @category Class
+ *
  * @description Device intelligence results for the identification event.
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
+class SearchEventsResponseEvents implements ModelInterface, \ArrayAccess
 {
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     */
     protected static string $swaggerModelName = 'SearchEventsResponse_events';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerTypes = [
-        'products' => '\Fingerprint\ServerAPI\Model\Products'    ];
+        'products' => '\Fingerprint\ServerAPI\Model\Products'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerFormats = [
-        'products' => null    ];
+        'products' => null];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'products' => 'products'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'products' => 'setProducts'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'products' => 'getProducts'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['products'] = isset($data['products']) ? $data['products'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      */
     public static function swaggerTypes(): array
     {
@@ -78,7 +132,7 @@ class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      */
     public static function swaggerFormats(): array
     {
@@ -87,32 +141,7 @@ class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'products' => 'products'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'products' => 'setProducts'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'products' => 'getProducts'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      */
     public static function attributeMap(): array
     {
@@ -120,7 +149,7 @@ class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      */
     public static function setters(): array
     {
@@ -128,7 +157,7 @@ class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      */
     public static function getters(): array
     {
@@ -143,26 +172,6 @@ class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['products'] = isset($data['products']) ? $data['products'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -172,50 +181,50 @@ class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['products'] === null) {
+        if (null === $this->container['products']) {
             $invalidProperties[] = "'products' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets products
-     * @return \Fingerprint\ServerAPI\Model\Products
+     * Gets products.
      */
-    public function getProducts(): \Fingerprint\ServerAPI\Model\Products
+    public function getProducts(): Products
     {
         return $this->container['products'];
     }
 
     /**
-     * Sets products
+     * Sets products.
      *
-     * @param \Fingerprint\ServerAPI\Model\Products $products products
+     * @param Products $products products
      *
      * @return $this
      */
-    public function setProducts(\Fingerprint\ServerAPI\Model\Products $products): self
+    public function setProducts(Products $products): self
     {
         $this->container['products'] = $products;
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -225,7 +234,7 @@ class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -235,8 +244,8 @@ class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -250,27 +259,16 @@ class SearchEventsResponseEvents implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-   /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
     /**
-     * Gets the string presentation of the object in a pretty JSON format
+     * Gets the string presentation of the object in a pretty JSON format.
      *
-     * @return string
      */
     public function toPrettyString(): string
     {

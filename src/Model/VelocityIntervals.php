@@ -1,22 +1,24 @@
 <?php
 /**
- * VelocityIntervals
+ * VelocityIntervals.
  *
  * @category Class
+ *
  * @author   Swagger Codegen team
+ *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated)
+ * Server API v3 (deprecated).
  *
  * > 🚧 Deprecation Notice
->
-> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
-
-Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
-Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
-
+ * >
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ *
+ * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+ * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ *
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -32,52 +34,111 @@ Server API is intended for server-side usage, it's not intended to be used from 
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * VelocityIntervals Class Doc Comment
+ * VelocityIntervals Class Doc Comment.
  *
  * @deprecated
- * 
  *
  * @category Class
+ *
  * @description Is absent if the velocity data could not be generated for the visitor ID.
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class VelocityIntervals implements ModelInterface, ArrayAccess
+class VelocityIntervals implements ModelInterface, \ArrayAccess
 {
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     */
     protected static string $swaggerModelName = 'VelocityIntervals';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerTypes = [
         '_5m' => 'int',
-'_1h' => 'int',
-'_24h' => 'int'    ];
+        '_1h' => 'int',
+        '_24h' => 'int'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerFormats = [
         '_5m' => null,
-'_1h' => null,
-'_24h' => null    ];
+        '_1h' => null,
+        '_24h' => null];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        '_5m' => '5m',
+        '_1h' => '1h',
+        '_24h' => '24h'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        '_5m' => 'set5m',
+        '_1h' => 'set1h',
+        '_24h' => 'set24h'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        '_5m' => 'get5m',
+        '_1h' => 'get1h',
+        '_24h' => 'get24h'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['_5m'] = isset($data['_5m']) ? $data['_5m'] : null;
+        $this->container['_1h'] = isset($data['_1h']) ? $data['_1h'] : null;
+        $this->container['_24h'] = isset($data['_24h']) ? $data['_24h'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      */
     public static function swaggerTypes(): array
     {
@@ -85,7 +146,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      */
     public static function swaggerFormats(): array
     {
@@ -94,38 +155,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        '_5m' => '5m',
-'_1h' => '1h',
-'_24h' => '24h'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        '_5m' => 'set5m',
-'_1h' => 'set1h',
-'_24h' => 'set24h'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        '_5m' => 'get5m',
-'_1h' => 'get1h',
-'_24h' => 'get24h'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      */
     public static function attributeMap(): array
     {
@@ -133,7 +163,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      */
     public static function setters(): array
     {
@@ -141,7 +171,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      */
     public static function getters(): array
     {
@@ -156,28 +186,6 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['_5m'] = isset($data['_5m']) ? $data['_5m'] : null;
-        $this->container['_1h'] = isset($data['_1h']) ? $data['_1h'] : null;
-        $this->container['_24h'] = isset($data['_24h']) ? $data['_24h'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -187,30 +195,29 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['_5m'] === null) {
+        if (null === $this->container['_5m']) {
             $invalidProperties[] = "'_5m' can't be null";
         }
-        if ($this->container['_1h'] === null) {
+        if (null === $this->container['_1h']) {
             $invalidProperties[] = "'_1h' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets _5m
-     * @return int
+     * Gets _5m.
      */
     public function get5m(): int
     {
@@ -218,7 +225,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets _5m
+     * Sets _5m.
      *
      * @param int $_5m _5m
      *
@@ -232,8 +239,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets _1h
-     * @return int
+     * Gets _1h.
      */
     public function get1h(): int
     {
@@ -241,7 +247,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets _1h
+     * Sets _1h.
      *
      * @param int $_1h _1h
      *
@@ -255,8 +261,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets _24h
-     * @return ?int
+     * Gets _24h.
      */
     public function get24h(): ?int
     {
@@ -264,7 +269,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets _24h
+     * Sets _24h.
      *
      * @param ?int $_24h The `24h` interval of `distinctIp`, `distinctLinkedId`, `distinctCountry`, `distinctIpByLinkedId` and `distinctVisitorIdByLinkedId` will be omitted if the number of `events`` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
      *
@@ -276,10 +281,11 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -289,7 +295,7 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -299,8 +305,8 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -314,27 +320,16 @@ class VelocityIntervals implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-   /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
     /**
-     * Gets the string presentation of the object in a pretty JSON format
+     * Gets the string presentation of the object in a pretty JSON format.
      *
-     * @return string
      */
     public function toPrettyString(): string
     {

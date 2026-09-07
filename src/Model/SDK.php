@@ -1,22 +1,24 @@
 <?php
 /**
- * SDK
+ * SDK.
  *
  * @category Class
+ *
  * @author   Swagger Codegen team
+ *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated)
+ * Server API v3 (deprecated).
  *
  * > 🚧 Deprecation Notice
->
-> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
-
-Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
-Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
-
+ * >
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ *
+ * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+ * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ *
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -32,52 +34,111 @@ Server API is intended for server-side usage, it's not intended to be used from 
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * SDK Class Doc Comment
+ * SDK Class Doc Comment.
  *
  * @deprecated
- * 
  *
  * @category Class
+ *
  * @description Contains information about the SDK used to perform the request.
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class SDK implements ModelInterface, ArrayAccess
+class SDK implements ModelInterface, \ArrayAccess
 {
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     */
     protected static string $swaggerModelName = 'SDK';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerTypes = [
         'platform' => 'string',
-'version' => 'string',
-'integrations' => '\Fingerprint\ServerAPI\Model\Integration[]'    ];
+        'version' => 'string',
+        'integrations' => '\Fingerprint\ServerAPI\Model\Integration[]'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerFormats = [
         'platform' => null,
-'version' => null,
-'integrations' => null    ];
+        'version' => null,
+        'integrations' => null];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'platform' => 'platform',
+        'version' => 'version',
+        'integrations' => 'integrations'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'platform' => 'setPlatform',
+        'version' => 'setVersion',
+        'integrations' => 'setIntegrations'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'platform' => 'getPlatform',
+        'version' => 'getVersion',
+        'integrations' => 'getIntegrations'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['platform'] = isset($data['platform']) ? $data['platform'] : null;
+        $this->container['version'] = isset($data['version']) ? $data['version'] : null;
+        $this->container['integrations'] = isset($data['integrations']) ? $data['integrations'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      */
     public static function swaggerTypes(): array
     {
@@ -85,7 +146,7 @@ class SDK implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      */
     public static function swaggerFormats(): array
     {
@@ -94,38 +155,7 @@ class SDK implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'platform' => 'platform',
-'version' => 'version',
-'integrations' => 'integrations'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'platform' => 'setPlatform',
-'version' => 'setVersion',
-'integrations' => 'setIntegrations'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'platform' => 'getPlatform',
-'version' => 'getVersion',
-'integrations' => 'getIntegrations'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      */
     public static function attributeMap(): array
     {
@@ -133,7 +163,7 @@ class SDK implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      */
     public static function setters(): array
     {
@@ -141,7 +171,7 @@ class SDK implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      */
     public static function getters(): array
     {
@@ -156,28 +186,6 @@ class SDK implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['platform'] = isset($data['platform']) ? $data['platform'] : null;
-        $this->container['version'] = isset($data['version']) ? $data['version'] : null;
-        $this->container['integrations'] = isset($data['integrations']) ? $data['integrations'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -187,30 +195,29 @@ class SDK implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['platform'] === null) {
+        if (null === $this->container['platform']) {
             $invalidProperties[] = "'platform' can't be null";
         }
-        if ($this->container['version'] === null) {
+        if (null === $this->container['version']) {
             $invalidProperties[] = "'version' can't be null";
         }
+
         return $invalidProperties;
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets platform
-     * @return string
+     * Gets platform.
      */
     public function getPlatform(): string
     {
@@ -218,9 +225,9 @@ class SDK implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets platform
+     * Sets platform.
      *
-     * @param string $platform Platform of the SDK.
+     * @param string $platform platform of the SDK
      *
      * @return $this
      */
@@ -232,8 +239,7 @@ class SDK implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets version
-     * @return string
+     * Gets version.
      */
     public function getVersion(): string
     {
@@ -241,9 +247,9 @@ class SDK implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets version
+     * Sets version.
      *
-     * @param string $version SDK version string.
+     * @param string $version SDK version string
      *
      * @return $this
      */
@@ -255,7 +261,8 @@ class SDK implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets integrations
+     * Gets integrations.
+     *
      * @return ?\Fingerprint\ServerAPI\Model\Integration[]
      */
     public function getIntegrations(): ?array
@@ -264,7 +271,7 @@ class SDK implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Sets integrations
+     * Sets integrations.
      *
      * @param ?\Fingerprint\ServerAPI\Model\Integration[] $integrations integrations
      *
@@ -276,10 +283,11 @@ class SDK implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -289,7 +297,7 @@ class SDK implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -299,8 +307,8 @@ class SDK implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -314,27 +322,16 @@ class SDK implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-   /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
     /**
-     * Gets the string presentation of the object in a pretty JSON format
+     * Gets the string presentation of the object in a pretty JSON format.
      *
-     * @return string
      */
     public function toPrettyString(): string
     {

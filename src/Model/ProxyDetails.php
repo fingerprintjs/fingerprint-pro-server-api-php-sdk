@@ -1,22 +1,24 @@
 <?php
 /**
- * ProxyDetails
+ * ProxyDetails.
  *
  * @category Class
+ *
  * @author   Swagger Codegen team
+ *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated)
+ * Server API v3 (deprecated).
  *
  * > 🚧 Deprecation Notice
->
-> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
-
-Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
-Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
-
+ * >
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ *
+ * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+ * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ *
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -32,50 +34,109 @@ Server API is intended for server-side usage, it's not intended to be used from 
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ProxyDetails Class Doc Comment
+ * ProxyDetails Class Doc Comment.
  *
  * @deprecated
- * 
  *
  * @category Class
+ *
  * @description Proxy detection details (present if proxy is detected)
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ProxyDetails implements ModelInterface, ArrayAccess
+class ProxyDetails implements ModelInterface, \ArrayAccess
 {
+    public const PROXY_TYPE_RESIDENTIAL = 'residential';
+    public const PROXY_TYPE_DATA_CENTER = 'data_center';
+    public const PROXY_TYPE_UNKNOWN = 'unknown';
+
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     */
     protected static string $swaggerModelName = 'ProxyDetails';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerTypes = [
         'proxy_type' => 'string',
-'last_seen_at' => '\DateTime'    ];
+        'last_seen_at' => '\DateTime'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerFormats = [
         'proxy_type' => null,
-'last_seen_at' => 'date-time'    ];
+        'last_seen_at' => 'date-time'];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'proxy_type' => 'proxyType',
+        'last_seen_at' => 'lastSeenAt'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'proxy_type' => 'setProxyType',
+        'last_seen_at' => 'setLastSeenAt'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'proxy_type' => 'getProxyType',
+        'last_seen_at' => 'getLastSeenAt'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['proxy_type'] = isset($data['proxy_type']) ? $data['proxy_type'] : null;
+        $this->container['last_seen_at'] = isset($data['last_seen_at']) ? $data['last_seen_at'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      */
     public static function swaggerTypes(): array
     {
@@ -83,7 +144,7 @@ class ProxyDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      */
     public static function swaggerFormats(): array
     {
@@ -92,35 +153,7 @@ class ProxyDetails implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'proxy_type' => 'proxyType',
-'last_seen_at' => 'lastSeenAt'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'proxy_type' => 'setProxyType',
-'last_seen_at' => 'setLastSeenAt'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'proxy_type' => 'getProxyType',
-'last_seen_at' => 'getLastSeenAt'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      */
     public static function attributeMap(): array
     {
@@ -128,7 +161,7 @@ class ProxyDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      */
     public static function setters(): array
     {
@@ -136,7 +169,7 @@ class ProxyDetails implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      */
     public static function getters(): array
     {
@@ -151,12 +184,8 @@ class ProxyDetails implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const PROXY_TYPE_RESIDENTIAL = 'residential';
-const PROXY_TYPE_DATA_CENTER = 'data_center';
-const PROXY_TYPE_UNKNOWN = 'unknown';
-
     /**
-     * Gets allowable values of the enum
+     * Gets allowable values of the enum.
      *
      * @return string[]
      */
@@ -164,27 +193,8 @@ const PROXY_TYPE_UNKNOWN = 'unknown';
     {
         return [
             self::PROXY_TYPE_RESIDENTIAL,
-self::PROXY_TYPE_DATA_CENTER,
-self::PROXY_TYPE_UNKNOWN,        ];
-    }
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['proxy_type'] = isset($data['proxy_type']) ? $data['proxy_type'] : null;
-        $this->container['last_seen_at'] = isset($data['last_seen_at']) ? $data['last_seen_at'] : null;
+            self::PROXY_TYPE_DATA_CENTER,
+            self::PROXY_TYPE_UNKNOWN,        ];
     }
 
     /**
@@ -196,7 +206,7 @@ self::PROXY_TYPE_UNKNOWN,        ];
     {
         $invalidProperties = [];
 
-        if ($this->container['proxy_type'] === null) {
+        if (null === $this->container['proxy_type']) {
             $invalidProperties[] = "'proxy_type' can't be null";
         }
         $allowedValues = $this->getProxyTypeAllowableValues();
@@ -212,19 +222,17 @@ self::PROXY_TYPE_UNKNOWN,        ];
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets proxy_type
-     * @return string
+     * Gets proxy_type.
      */
     public function getProxyType(): string
     {
@@ -232,7 +240,7 @@ self::PROXY_TYPE_UNKNOWN,        ];
     }
 
     /**
-     * Sets proxy_type
+     * Sets proxy_type.
      *
      * @param string $proxy_type Proxy type:  * `residential` - proxies that route through residential and telecom IP addresses to appear as legitimate traffic  * `data_center` - proxies which route through data centers  * `unknown` - reported when a proxy is detected solely by the ML model and the IP sources did not determine a specific type
      *
@@ -255,8 +263,7 @@ self::PROXY_TYPE_UNKNOWN,        ];
     }
 
     /**
-     * Gets last_seen_at
-     * @return ?\DateTime
+     * Gets last_seen_at.
      */
     public function getLastSeenAt(): ?\DateTime
     {
@@ -264,9 +271,9 @@ self::PROXY_TYPE_UNKNOWN,        ];
     }
 
     /**
-     * Sets last_seen_at
+     * Sets last_seen_at.
      *
-     * @param ?\DateTime $last_seen_at ISO 8601 formatted timestamp in UTC with hourly resolution of when this IP was last seen as a proxy when available.
+     * @param ?\DateTime $last_seen_at ISO 8601 formatted timestamp in UTC with hourly resolution of when this IP was last seen as a proxy when available
      *
      * @return $this
      */
@@ -276,10 +283,11 @@ self::PROXY_TYPE_UNKNOWN,        ];
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -289,7 +297,7 @@ self::PROXY_TYPE_UNKNOWN,        ];
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -299,8 +307,8 @@ self::PROXY_TYPE_UNKNOWN,        ];
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -314,27 +322,16 @@ self::PROXY_TYPE_UNKNOWN,        ];
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-   /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
     /**
-     * Gets the string presentation of the object in a pretty JSON format
+     * Gets the string presentation of the object in a pretty JSON format.
      *
-     * @return string
      */
     public function toPrettyString(): string
     {

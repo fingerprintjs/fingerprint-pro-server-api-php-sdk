@@ -1,22 +1,24 @@
 <?php
 /**
- * ErrorCode
+ * ErrorCode.
  *
  * @category Class
+ *
  * @author   Swagger Codegen team
+ *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated)
+ * Server API v3 (deprecated).
  *
  * > 🚧 Deprecation Notice
->
-> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
-
-Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
-Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
-
+ * >
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ *
+ * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+ * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ *
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -31,34 +33,34 @@ Server API is intended for server-side usage, it's not intended to be used from 
  */
 
 namespace Fingerprint\ServerAPI\Model;
-use \Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * ErrorCode Class Doc Comment
+ * ErrorCode Class Doc Comment.
  *
  * @deprecated
- * 
  *
  * @category Class
+ *
  * @description Error code:  * `RequestCannotBeParsed` - the query parameters or JSON payload contains some errors            that prevented us from parsing it (wrong type/surpassed limits).  * `RequestReadTimeout` - the request body could not be read before the connection timed out.  * `TokenRequired` - `Auth-API-Key` header is missing or empty.  * `TokenNotFound` - no Fingerprint application found for specified secret key.  * `SubscriptionNotActive` - Fingerprint application is not active.  * `WrongRegion` - server and application region differ.  * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application.  * `WorkspaceScopedSecretKeyRequired` - The provided secret API key is scoped to an environment, but this operation requires a workspace-scoped secret API key.  * `RequestNotFound` - the specified request ID was not found. It never existed, expired, or it has been deleted.  * `VisitorNotFound` - The specified visitor ID was not found. It never existed or it may have already been deleted.  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded.  * `429 Too Many Requests` - the limit on secret API key requests per second has been exceeded.  * `StateNotReady` - The event specified with request id is           not ready for updates yet. Try again.           This error happens in rare cases when update API is called immediately           after receiving the request id on the client. In case you need to send           information right away, we recommend using the JS agent API instead.  * `Failed` - internal server error.
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 enum ErrorCode: string
 {
     case REQUEST_CANNOT_BE_PARSED = 'RequestCannotBeParsed';
-case REQUEST_READ_TIMEOUT = 'RequestReadTimeout';
-case TOKEN_REQUIRED = 'TokenRequired';
-case TOKEN_NOT_FOUND = 'TokenNotFound';
-case SUBSCRIPTION_NOT_ACTIVE = 'SubscriptionNotActive';
-case WRONG_REGION = 'WrongRegion';
-case FEATURE_NOT_ENABLED = 'FeatureNotEnabled';
-case WORKSPACE_SCOPED_SECRET_KEY_REQUIRED = 'WorkspaceScopedSecretKeyRequired';
-case REQUEST_NOT_FOUND = 'RequestNotFound';
-case VISITOR_NOT_FOUND = 'VisitorNotFound';
-case TOO_MANY_REQUESTS = 'TooManyRequests';
-case _429_TOO_MANY_REQUESTS = '429 Too Many Requests';
-case STATE_NOT_READY = 'StateNotReady';
-case FAILED = 'Failed';
+    case REQUEST_READ_TIMEOUT = 'RequestReadTimeout';
+    case TOKEN_REQUIRED = 'TokenRequired';
+    case TOKEN_NOT_FOUND = 'TokenNotFound';
+    case SUBSCRIPTION_NOT_ACTIVE = 'SubscriptionNotActive';
+    case WRONG_REGION = 'WrongRegion';
+    case FEATURE_NOT_ENABLED = 'FeatureNotEnabled';
+    case WORKSPACE_SCOPED_SECRET_KEY_REQUIRED = 'WorkspaceScopedSecretKeyRequired';
+    case REQUEST_NOT_FOUND = 'RequestNotFound';
+    case VISITOR_NOT_FOUND = 'VisitorNotFound';
+    case TOO_MANY_REQUESTS = 'TooManyRequests';
+    case _429_TOO_MANY_REQUESTS = '429 Too Many Requests';
+    case STATE_NOT_READY = 'StateNotReady';
+    case FAILED = 'Failed';
 }

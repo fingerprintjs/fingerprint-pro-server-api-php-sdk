@@ -1,23 +1,24 @@
 <?php
 /**
- * ApiException
+ * ApiException.
  *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated)
+ * Server API v3 (deprecated).
  *
  * > 🚧 Deprecation Notice
->
-> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
-
-Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
-Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
-
+ * >
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ *
+ * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+ * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ *
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -33,34 +34,34 @@ Server API is intended for server-side usage, it's not intended to be used from 
 
 namespace Fingerprint\ServerAPI;
 
-use \Exception;
 use Fingerprint\ServerAPI\Model\ModelInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * ApiException Class Doc Comment
+ * ApiException Class Doc Comment.
  *
  * @deprecated 6.11.0 Use \Fingerprint\ServerSdk\ApiException instead. This package will receive minor and security fixes until 2027/04/21 date, then be archived.
+ *
  * @category Class
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class ApiException extends Exception
+class ApiException extends \Exception
 {
     protected ResponseInterface $responseObject;
     protected ?ModelInterface $errorDetails = null;
     protected ?int $retryAfter = null;
 
-    public function __construct(?string $message = "", ?int $code = 0)
+    public function __construct(?string $message = '', ?int $code = 0)
     {
         parent::__construct($message, $code);
     }
 
-
     /**
-    * Sets the deseralized response object (during deserialization)
-    */
+     * Sets the deseralized response object (during deserialization).
+     */
     public function setResponseObject(ResponseInterface $obj): void
     {
         $this->responseObject = $obj;

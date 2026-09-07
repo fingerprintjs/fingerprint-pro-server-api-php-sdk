@@ -1,22 +1,24 @@
 <?php
 /**
- * WebhookVelocity
+ * WebhookVelocity.
  *
  * @category Class
+ *
  * @author   Swagger Codegen team
+ *
  * @see     https://github.com/swagger-api/swagger-codegen
  */
 
 /**
- * Server API v3 (deprecated)
+ * Server API v3 (deprecated).
  *
  * > 🚧 Deprecation Notice
->
-> This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
-
-Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
-Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
-
+ * >
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ *
+ * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
+ * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
+ *
  *
  * OpenAPI spec version: 3
  * Contact: support@fingerprint.com
@@ -32,60 +34,135 @@ Server API is intended for server-side usage, it's not intended to be used from 
 
 namespace Fingerprint\ServerAPI\Model;
 
-use \ArrayAccess;
-use \Fingerprint\ServerAPI\ObjectSerializer;
+use Fingerprint\ServerAPI\ObjectSerializer;
 
 /**
- * WebhookVelocity Class Doc Comment
+ * WebhookVelocity Class Doc Comment.
  *
  * @deprecated
- * 
  *
  * @category Class
+ *
  * @description Sums key data points for a specific `visitorId`, `ipAddress` and `linkedId` at three distinct time intervals: 5 minutes, 1 hour, and 24 hours as follows:   - Number of distinct IP addresses associated to the visitor ID. - Number of distinct linked IDs associated with the visitor ID. - Number of distinct countries associated with the visitor ID. - Number of identification events associated with the visitor ID. - Number of identification events associated with the detected IP address. - Number of distinct IP addresses associated with the provided linked ID. - Number of distinct visitor IDs associated with the provided linked ID.  The `24h` interval of `distinctIp`, `distinctLinkedId`, `distinctCountry`, `distinctIpByLinkedId` and `distinctVisitorIdByLinkedId` will be omitted  if the number of `events` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
- * @package  Fingerprint\ServerAPI
+ *
  * @author   Swagger Codegen team
- * @link     https://github.com/swagger-api/swagger-codegen
+ *
+ * @see     https://github.com/swagger-api/swagger-codegen
  */
-class WebhookVelocity implements ModelInterface, ArrayAccess
+class WebhookVelocity implements ModelInterface, \ArrayAccess
 {
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     */
     protected static string $swaggerModelName = 'WebhookVelocity';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerTypes = [
         'distinct_ip' => '\Fingerprint\ServerAPI\Model\VelocityData',
-'distinct_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData',
-'distinct_country' => '\Fingerprint\ServerAPI\Model\VelocityData',
-'events' => '\Fingerprint\ServerAPI\Model\VelocityData',
-'ip_events' => '\Fingerprint\ServerAPI\Model\VelocityData',
-'distinct_ip_by_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData',
-'distinct_visitor_id_by_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData'    ];
+        'distinct_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData',
+        'distinct_country' => '\Fingerprint\ServerAPI\Model\VelocityData',
+        'events' => '\Fingerprint\ServerAPI\Model\VelocityData',
+        'ip_events' => '\Fingerprint\ServerAPI\Model\VelocityData',
+        'distinct_ip_by_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData',
+        'distinct_visitor_id_by_linked_id' => '\Fingerprint\ServerAPI\Model\VelocityData'];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization.
+     *
+     * @var string[]
+     */
     protected static array $swaggerFormats = [
         'distinct_ip' => null,
-'distinct_linked_id' => null,
-'distinct_country' => null,
-'events' => null,
-'ip_events' => null,
-'distinct_ip_by_linked_id' => null,
-'distinct_visitor_id_by_linked_id' => null    ];
+        'distinct_linked_id' => null,
+        'distinct_country' => null,
+        'events' => null,
+        'ip_events' => null,
+        'distinct_ip_by_linked_id' => null,
+        'distinct_visitor_id_by_linked_id' => null];
 
     /**
-     * Array of property to type mappings. Used for (de)serialization
+     * Array of attributes where the key is the local name,
+     * and the value is the original name.
+     *
+     * @var string[]
+     */
+    protected static array $attributeMap = [
+        'distinct_ip' => 'distinctIp',
+        'distinct_linked_id' => 'distinctLinkedId',
+        'distinct_country' => 'distinctCountry',
+        'events' => 'events',
+        'ip_events' => 'ipEvents',
+        'distinct_ip_by_linked_id' => 'distinctIpByLinkedId',
+        'distinct_visitor_id_by_linked_id' => 'distinctVisitorIdByLinkedId'];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses).
+     *
+     * @var string[]
+     */
+    protected static array $setters = [
+        'distinct_ip' => 'setDistinctIp',
+        'distinct_linked_id' => 'setDistinctLinkedId',
+        'distinct_country' => 'setDistinctCountry',
+        'events' => 'setEvents',
+        'ip_events' => 'setIpEvents',
+        'distinct_ip_by_linked_id' => 'setDistinctIpByLinkedId',
+        'distinct_visitor_id_by_linked_id' => 'setDistinctVisitorIdByLinkedId'];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests).
+     *
+     * @var string[]
+     */
+    protected static array $getters = [
+        'distinct_ip' => 'getDistinctIp',
+        'distinct_linked_id' => 'getDistinctLinkedId',
+        'distinct_country' => 'getDistinctCountry',
+        'events' => 'getEvents',
+        'ip_events' => 'getIpEvents',
+        'distinct_ip_by_linked_id' => 'getDistinctIpByLinkedId',
+        'distinct_visitor_id_by_linked_id' => 'getDistinctVisitorIdByLinkedId'];
+
+    /**
+     * Associative array for storing property values.
+     *
+     * @var mixed[]
+     */
+    protected array $container = [];
+
+    /**
+     * Constructor.
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(?array $data = null)
+    {
+        $this->container['distinct_ip'] = isset($data['distinct_ip']) ? $data['distinct_ip'] : null;
+        $this->container['distinct_linked_id'] = isset($data['distinct_linked_id']) ? $data['distinct_linked_id'] : null;
+        $this->container['distinct_country'] = isset($data['distinct_country']) ? $data['distinct_country'] : null;
+        $this->container['events'] = isset($data['events']) ? $data['events'] : null;
+        $this->container['ip_events'] = isset($data['ip_events']) ? $data['ip_events'] : null;
+        $this->container['distinct_ip_by_linked_id'] = isset($data['distinct_ip_by_linked_id']) ? $data['distinct_ip_by_linked_id'] : null;
+        $this->container['distinct_visitor_id_by_linked_id'] = isset($data['distinct_visitor_id_by_linked_id']) ? $data['distinct_visitor_id_by_linked_id'] : null;
+    }
+
+    /**
+     * Gets the string presentation of the object.
+     *
+     */
+    public function __toString(): string
+    {
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization.
      */
     public static function swaggerTypes(): array
     {
@@ -93,7 +170,7 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of property to format mappings. Used for (de)serialization
+     * Array of property to format mappings. Used for (de)serialization.
      */
     public static function swaggerFormats(): array
     {
@@ -102,50 +179,7 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
 
     /**
      * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static array $attributeMap = [
-        'distinct_ip' => 'distinctIp',
-'distinct_linked_id' => 'distinctLinkedId',
-'distinct_country' => 'distinctCountry',
-'events' => 'events',
-'ip_events' => 'ipEvents',
-'distinct_ip_by_linked_id' => 'distinctIpByLinkedId',
-'distinct_visitor_id_by_linked_id' => 'distinctVisitorIdByLinkedId'    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static array $setters = [
-        'distinct_ip' => 'setDistinctIp',
-'distinct_linked_id' => 'setDistinctLinkedId',
-'distinct_country' => 'setDistinctCountry',
-'events' => 'setEvents',
-'ip_events' => 'setIpEvents',
-'distinct_ip_by_linked_id' => 'setDistinctIpByLinkedId',
-'distinct_visitor_id_by_linked_id' => 'setDistinctVisitorIdByLinkedId'    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static array $getters = [
-        'distinct_ip' => 'getDistinctIp',
-'distinct_linked_id' => 'getDistinctLinkedId',
-'distinct_country' => 'getDistinctCountry',
-'events' => 'getEvents',
-'ip_events' => 'getIpEvents',
-'distinct_ip_by_linked_id' => 'getDistinctIpByLinkedId',
-'distinct_visitor_id_by_linked_id' => 'getDistinctVisitorIdByLinkedId'    ];
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
+     * and the value is the original name.
      */
     public static function attributeMap(): array
     {
@@ -153,7 +187,7 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to setter functions (for deserialization of responses)
+     * Array of attributes to setter functions (for deserialization of responses).
      */
     public static function setters(): array
     {
@@ -161,7 +195,7 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Array of attributes to getter functions (for serialization of requests)
+     * Array of attributes to getter functions (for serialization of requests).
      */
     public static function getters(): array
     {
@@ -176,32 +210,6 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    /**
-     * Associative array for storing property values
-     *
-     * @var mixed[]
-     */
-    protected array $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
-    {
-        $this->container['distinct_ip'] = isset($data['distinct_ip']) ? $data['distinct_ip'] : null;
-        $this->container['distinct_linked_id'] = isset($data['distinct_linked_id']) ? $data['distinct_linked_id'] : null;
-        $this->container['distinct_country'] = isset($data['distinct_country']) ? $data['distinct_country'] : null;
-        $this->container['events'] = isset($data['events']) ? $data['events'] : null;
-        $this->container['ip_events'] = isset($data['ip_events']) ? $data['ip_events'] : null;
-        $this->container['distinct_ip_by_linked_id'] = isset($data['distinct_ip_by_linked_id']) ? $data['distinct_ip_by_linked_id'] : null;
-        $this->container['distinct_visitor_id_by_linked_id'] = isset($data['distinct_visitor_id_by_linked_id']) ? $data['distinct_visitor_id_by_linked_id'] : null;
-    }
-
     /**
      * Show all the invalid properties with reasons.
      *
@@ -209,40 +217,36 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
      */
     public function listInvalidProperties(): array
     {
-        $invalidProperties = [];
-
-        return $invalidProperties;
+        return [];
     }
 
     /**
      * Validate all the properties in the model
-     * return true if all passed
+     * return true if all passed.
      *
      * @return bool True if all properties are valid
      */
     public function valid(): bool
     {
-        return count($this->listInvalidProperties()) === 0;
+        return 0 === count($this->listInvalidProperties());
     }
 
-
     /**
-     * Gets distinct_ip
-     * @return ?\Fingerprint\ServerAPI\Model\VelocityData
+     * Gets distinct_ip.
      */
-    public function getDistinctIp(): ?\Fingerprint\ServerAPI\Model\VelocityData
+    public function getDistinctIp(): ?VelocityData
     {
         return $this->container['distinct_ip'];
     }
 
     /**
-     * Sets distinct_ip
+     * Sets distinct_ip.
      *
      * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_ip distinct_ip
      *
      * @return $this
      */
-    public function setDistinctIp(?\Fingerprint\ServerAPI\Model\VelocityData $distinct_ip): self
+    public function setDistinctIp(?VelocityData $distinct_ip): self
     {
         $this->container['distinct_ip'] = $distinct_ip;
 
@@ -250,22 +254,21 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets distinct_linked_id
-     * @return ?\Fingerprint\ServerAPI\Model\VelocityData
+     * Gets distinct_linked_id.
      */
-    public function getDistinctLinkedId(): ?\Fingerprint\ServerAPI\Model\VelocityData
+    public function getDistinctLinkedId(): ?VelocityData
     {
         return $this->container['distinct_linked_id'];
     }
 
     /**
-     * Sets distinct_linked_id
+     * Sets distinct_linked_id.
      *
      * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_linked_id distinct_linked_id
      *
      * @return $this
      */
-    public function setDistinctLinkedId(?\Fingerprint\ServerAPI\Model\VelocityData $distinct_linked_id): self
+    public function setDistinctLinkedId(?VelocityData $distinct_linked_id): self
     {
         $this->container['distinct_linked_id'] = $distinct_linked_id;
 
@@ -273,22 +276,21 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets distinct_country
-     * @return ?\Fingerprint\ServerAPI\Model\VelocityData
+     * Gets distinct_country.
      */
-    public function getDistinctCountry(): ?\Fingerprint\ServerAPI\Model\VelocityData
+    public function getDistinctCountry(): ?VelocityData
     {
         return $this->container['distinct_country'];
     }
 
     /**
-     * Sets distinct_country
+     * Sets distinct_country.
      *
      * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_country distinct_country
      *
      * @return $this
      */
-    public function setDistinctCountry(?\Fingerprint\ServerAPI\Model\VelocityData $distinct_country): self
+    public function setDistinctCountry(?VelocityData $distinct_country): self
     {
         $this->container['distinct_country'] = $distinct_country;
 
@@ -296,22 +298,21 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets events
-     * @return ?\Fingerprint\ServerAPI\Model\VelocityData
+     * Gets events.
      */
-    public function getEvents(): ?\Fingerprint\ServerAPI\Model\VelocityData
+    public function getEvents(): ?VelocityData
     {
         return $this->container['events'];
     }
 
     /**
-     * Sets events
+     * Sets events.
      *
      * @param ?\Fingerprint\ServerAPI\Model\VelocityData $events events
      *
      * @return $this
      */
-    public function setEvents(?\Fingerprint\ServerAPI\Model\VelocityData $events): self
+    public function setEvents(?VelocityData $events): self
     {
         $this->container['events'] = $events;
 
@@ -319,22 +320,21 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets ip_events
-     * @return ?\Fingerprint\ServerAPI\Model\VelocityData
+     * Gets ip_events.
      */
-    public function getIpEvents(): ?\Fingerprint\ServerAPI\Model\VelocityData
+    public function getIpEvents(): ?VelocityData
     {
         return $this->container['ip_events'];
     }
 
     /**
-     * Sets ip_events
+     * Sets ip_events.
      *
      * @param ?\Fingerprint\ServerAPI\Model\VelocityData $ip_events ip_events
      *
      * @return $this
      */
-    public function setIpEvents(?\Fingerprint\ServerAPI\Model\VelocityData $ip_events): self
+    public function setIpEvents(?VelocityData $ip_events): self
     {
         $this->container['ip_events'] = $ip_events;
 
@@ -342,22 +342,21 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets distinct_ip_by_linked_id
-     * @return ?\Fingerprint\ServerAPI\Model\VelocityData
+     * Gets distinct_ip_by_linked_id.
      */
-    public function getDistinctIpByLinkedId(): ?\Fingerprint\ServerAPI\Model\VelocityData
+    public function getDistinctIpByLinkedId(): ?VelocityData
     {
         return $this->container['distinct_ip_by_linked_id'];
     }
 
     /**
-     * Sets distinct_ip_by_linked_id
+     * Sets distinct_ip_by_linked_id.
      *
      * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_ip_by_linked_id distinct_ip_by_linked_id
      *
      * @return $this
      */
-    public function setDistinctIpByLinkedId(?\Fingerprint\ServerAPI\Model\VelocityData $distinct_ip_by_linked_id): self
+    public function setDistinctIpByLinkedId(?VelocityData $distinct_ip_by_linked_id): self
     {
         $this->container['distinct_ip_by_linked_id'] = $distinct_ip_by_linked_id;
 
@@ -365,31 +364,31 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets distinct_visitor_id_by_linked_id
-     * @return ?\Fingerprint\ServerAPI\Model\VelocityData
+     * Gets distinct_visitor_id_by_linked_id.
      */
-    public function getDistinctVisitorIdByLinkedId(): ?\Fingerprint\ServerAPI\Model\VelocityData
+    public function getDistinctVisitorIdByLinkedId(): ?VelocityData
     {
         return $this->container['distinct_visitor_id_by_linked_id'];
     }
 
     /**
-     * Sets distinct_visitor_id_by_linked_id
+     * Sets distinct_visitor_id_by_linked_id.
      *
      * @param ?\Fingerprint\ServerAPI\Model\VelocityData $distinct_visitor_id_by_linked_id distinct_visitor_id_by_linked_id
      *
      * @return $this
      */
-    public function setDistinctVisitorIdByLinkedId(?\Fingerprint\ServerAPI\Model\VelocityData $distinct_visitor_id_by_linked_id): self
+    public function setDistinctVisitorIdByLinkedId(?VelocityData $distinct_visitor_id_by_linked_id): self
     {
         $this->container['distinct_visitor_id_by_linked_id'] = $distinct_visitor_id_by_linked_id;
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetExists($offset): bool
     {
@@ -399,7 +398,7 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     /**
      * Gets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetGet($offset): mixed
     {
@@ -409,8 +408,8 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     /**
      * Sets value based on offset.
      *
-     * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param int   $offset Offset
+     * @param mixed $value  Value to be set
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -424,27 +423,16 @@ class WebhookVelocity implements ModelInterface, ArrayAccess
     /**
      * Unsets offset.
      *
-     * @param integer $offset Offset
+     * @param int $offset Offset
      */
     public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
-   /**
-     * Gets the string presentation of the object
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
-    }
-
     /**
-     * Gets the string presentation of the object in a pretty JSON format
+     * Gets the string presentation of the object in a pretty JSON format.
      *
-     * @return string
      */
     public function toPrettyString(): string
     {
