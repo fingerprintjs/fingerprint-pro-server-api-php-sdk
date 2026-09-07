@@ -47,7 +47,9 @@ $client = new FingerprintApi(
     $config
 );
 
-$start = (new DateTime())->sub(new DateInterval('P3M'));
+// Use an 89-day window (not 90) so request latency doesn't push the start
+// time past the API's 90-day lookback limit.
+$start = (new DateTime())->sub(new DateInterval('P89D'));
 $end = new DateTime();
 
 // FingerprintApi->searchEvents usage example
