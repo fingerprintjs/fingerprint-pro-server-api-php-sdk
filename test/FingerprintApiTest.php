@@ -1044,6 +1044,30 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
+     * Verifies searchEvents still accepts an explicit `null` for `reverse`.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
+    public function testSearchEventsAcceptsNullReversePositionally()
+    {
+        $this->mockHandler->append(function (RequestInterface $request) {
+            $queryArray = [];
+            parse_str($request->getUri()->getQuery(), $queryArray);
+            $this->assertArrayNotHasKey('reverse', $queryArray);
+            $this->assertEquals('10', $queryArray['limit']);
+
+            return $this->returnMockResponse("get_event_search_200.json");
+        });
+
+        // Intentional positional call to test behavior
+        list($events) = $this->fingerprint_api->searchEvents(10, null, null, null, null, null, null, null, null);
+
+        $this->assertCount(1, $events->getEvents());
+    }
+
+    /**
      * Verifies searchEvents sends subset of query parameters.
      *
      * @throws ApiException
