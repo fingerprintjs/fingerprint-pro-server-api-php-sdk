@@ -14,7 +14,7 @@
  *
  * > 🚧 Deprecation Notice
  * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
  *
  * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
  * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
@@ -43,7 +43,7 @@ use Fingerprint\ServerAPI\ObjectSerializer;
  *
  * @category Class
  *
- * @description Pagination-related fields `lastTimestamp` and `paginationKey` are included if you use a pagination parameter like `limit` or `before` and there is more data available on the next page.
+ * @description Deprecated response shape for `GET /visitors/{visitor_id}`. The `visits` array currently contains at most one item. Use `GET /events/search` for multi-event history and filtering.
  *
  * @author   Swagger Codegen team
  *
@@ -301,7 +301,7 @@ class VisitorsGetResponse implements ModelInterface, \ArrayAccess
     /**
      * Sets pagination_key.
      *
-     * @param ?string $pagination_key Request ID of the last visit in the current page of results. Use this value in the following request as the `paginationKey` parameter to get the next page of results.
+     * @param ?string $pagination_key use this value in the following request as the `paginationKey` parameter to get the next result
      *
      * @return $this
      */

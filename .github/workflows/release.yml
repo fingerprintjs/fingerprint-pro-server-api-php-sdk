@@ -9,6 +9,7 @@ jobs:
     name: 'Release project'
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-sdk-changesets.yml@v1
     with:
+      unmarkReleaseAsLatest: true
       appId: ${{ vars.APP_ID }}
       runnerAppId: ${{ vars.RUNNER_APP_ID }}
       version-command: bash ./changeset-version.sh

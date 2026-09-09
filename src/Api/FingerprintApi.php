@@ -14,7 +14,7 @@
  *
  * > 🚧 Deprecation Notice
  * >
- * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully defunct on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+ * > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
  *
  * Fingerprint Server API allows you to search, update, and delete identification events in a server environment. It can be used for data exports, decision-making, and data analysis scenarios.
  * Server API is intended for server-side usage, it's not intended to be used from the client side, whether it's a browser or a mobile device.
@@ -348,6 +348,20 @@ class FingerprintApi
                     $e->setResponseObject($response);
 
                     break;
+
+                case 429:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 504:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
             }
 
             if (429 === $e->getCode()) {
@@ -425,6 +439,20 @@ class FingerprintApi
                             break;
 
                         case 404:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 429:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 504:
                             $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
@@ -657,9 +685,9 @@ class FingerprintApi
      * @param string $visitor_id     Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Identification and all active Smart Signals. (required)
      * @param string $request_id     Filter visits by `requestId`.  Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/reference/get-function#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
      * @param string $linked_id      Filter visits by your custom identifier.  You can use [`linkedId`](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
-     * @param int    $limit          Limit scanned results.  For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
-     * @param string $pagination_key Use `paginationKey` to get the next page of results.  When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. (optional)
-     * @param int    $before         ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
+     * @param int    $limit          Limit scanned results.  `GET /visitors/{visitor_id}` currently returns at most one visit. Use `GET /events/search` for paginated multi-event queries. (optional)
+     * @param string $pagination_key Deprecated pagination parameter retained for backward compatibility.  `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected. Use `GET /events/search` for paginated results. (optional)
+     * @param int    $before         ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected. (optional)
      *
      * @deprecated
      *
@@ -741,8 +769,22 @@ class FingerprintApi
 
                     break;
 
+                case 404:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
                 case 429:
                     $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 504:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
                     $e->setErrorDetails($errorDetail);
                     $e->setResponseObject($response);
 
@@ -768,9 +810,9 @@ class FingerprintApi
      * @param string $visitor_id     Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Identification and all active Smart Signals. (required)
      * @param string $request_id     Filter visits by `requestId`.  Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/reference/get-function#requestid). When you filter visits by `requestId`, only one visit will be returned. (optional)
      * @param string $linked_id      Filter visits by your custom identifier.  You can use [`linkedId`](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
-     * @param int    $limit          Limit scanned results.  For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500. (optional)
-     * @param string $pagination_key Use `paginationKey` to get the next page of results.  When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200` 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned. (optional)
-     * @param int    $before         ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. (optional)
+     * @param int    $limit          Limit scanned results.  `GET /visitors/{visitor_id}` currently returns at most one visit. Use `GET /events/search` for paginated multi-event queries. (optional)
+     * @param string $pagination_key Deprecated pagination parameter retained for backward compatibility.  `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected. Use `GET /events/search` for paginated results. (optional)
+     * @param int    $before         ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected. (optional)
      *
      * @deprecated
      *
@@ -840,8 +882,22 @@ class FingerprintApi
 
                             break;
 
+                        case 404:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
                         case 429:
                             $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorPlainResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 504:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
 
@@ -873,7 +929,7 @@ class FingerprintApi
      * @param string   $linked_id                     Filter events by your custom identifier.  You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
      * @param int      $start                         Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
      * @param int      $end                           Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
-     * @param bool     $reverse                       Sort events in reverse timestamp order. (optional)
+     * @param bool     $reverse                       When `true`, sort events oldest first (ascending timestamp order). Default is newest first (descending timestamp order). (optional, default to false)
      * @param bool     $suspect                       Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent). > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
      * @param bool     $vpn                           Filter events by VPN Detection result. > Note: When using this parameter, only events with the `products.vpn.data.result` property set to `true` or `false` are returned. Events without a `products.vpn` Smart Signal result are left out of the response. (optional)
      * @param bool     $virtual_machine               Filter events by Virtual Machine Detection result. > Note: When using this parameter, only events with the `products.virtualMachine.data.result` property set to `true` or `false` are returned. Events without a `products.virtualMachine` Smart Signal result are left out of the response. (optional)
@@ -921,7 +977,7 @@ class FingerprintApi
         ?string $linked_id = null,
         ?int $start = null,
         ?int $end = null,
-        ?bool $reverse = null,
+        ?bool $reverse = false,
         ?bool $suspect = null,
         ?bool $vpn = null,
         ?bool $virtual_machine = null,
@@ -1013,6 +1069,27 @@ class FingerprintApi
                     $e->setResponseObject($response);
 
                     break;
+
+                case 404:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 429:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
+
+                case 504:
+                    $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                    $e->setErrorDetails($errorDetail);
+                    $e->setResponseObject($response);
+
+                    break;
             }
 
             if (429 === $e->getCode()) {
@@ -1039,7 +1116,7 @@ class FingerprintApi
      * @param string   $linked_id                     Filter events by your custom identifier.  You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier. (optional)
      * @param int      $start                         Filter events with a timestamp greater than the start time, in Unix time (milliseconds). (optional)
      * @param int      $end                           Filter events with a timestamp smaller than the end time, in Unix time (milliseconds). (optional)
-     * @param bool     $reverse                       Sort events in reverse timestamp order. (optional)
+     * @param bool     $reverse                       When `true`, sort events oldest first (ascending timestamp order). Default is newest first (descending timestamp order). (optional, default to false)
      * @param bool     $suspect                       Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent). > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response. (optional)
      * @param bool     $vpn                           Filter events by VPN Detection result. > Note: When using this parameter, only events with the `products.vpn.data.result` property set to `true` or `false` are returned. Events without a `products.vpn` Smart Signal result are left out of the response. (optional)
      * @param bool     $virtual_machine               Filter events by Virtual Machine Detection result. > Note: When using this parameter, only events with the `products.virtualMachine.data.result` property set to `true` or `false` are returned. Events without a `products.virtualMachine` Smart Signal result are left out of the response. (optional)
@@ -1085,7 +1162,7 @@ class FingerprintApi
         ?string $linked_id = null,
         ?int $start = null,
         ?int $end = null,
-        ?bool $reverse = null,
+        ?bool $reverse = false,
         ?bool $suspect = null,
         ?bool $vpn = null,
         ?bool $virtual_machine = null,
@@ -1162,6 +1239,27 @@ class FingerprintApi
                             break;
 
                         case 403:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 404:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 429:
+                            $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
+                            $e->setErrorDetails($errorDetail);
+                            $e->setResponseObject($response);
+
+                            break;
+
+                        case 504:
                             $errorDetail = ObjectSerializer::deserialize($response, '\Fingerprint\ServerAPI\Model\ErrorResponse');
                             $e->setErrorDetails($errorDetail);
                             $e->setResponseObject($response);
@@ -1701,7 +1799,7 @@ class FingerprintApi
         ?string $linked_id = null,
         ?int $start = null,
         ?int $end = null,
-        ?bool $reverse = null,
+        ?bool $reverse = false,
         ?bool $suspect = null,
         ?bool $vpn = null,
         ?bool $virtual_machine = null,

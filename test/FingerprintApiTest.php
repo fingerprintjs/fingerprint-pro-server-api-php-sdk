@@ -1016,7 +1016,9 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
-     * Verifies searchEvents sends only limit query parameter.
+     * Verifies searchEvents sends only the limit query parameter (plus the
+     * `reverse` parameter, which now defaults to `false` and is therefore
+     * always sent unless explicitly overridden).
      *
      * @throws ApiException
      * @throws GuzzleException
@@ -1027,8 +1029,9 @@ class FingerprintApiTest extends TestCase
         $this->mockHandler->append(function (RequestInterface $request) {
             $queryArray = [];
             parse_str($request->getUri()->getQuery(), $queryArray);
-            $this->assertCount(2, $queryArray);
+            $this->assertCount(3, $queryArray);
             $this->assertEquals('10', $queryArray['limit']);
+            $this->assertEquals('false', $queryArray['reverse']);
 
             return $this->returnMockResponse("get_event_search_200.json");
         });
@@ -1038,6 +1041,30 @@ class FingerprintApiTest extends TestCase
         $this->assertCount(1, $events->getEvents());
         /** @noinspection SpellCheckingInspection */
         $this->assertEquals("Ibk1527CUFmcnjLwIs4A9", $events->getEvents()[0]->getProducts()->getIdentification()->getData()->getVisitorId());
+    }
+
+    /**
+     * Verifies searchEvents still accepts an explicit `null` for `reverse`.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws SerializationException
+     */
+    public function testSearchEventsAcceptsNullReversePositionally()
+    {
+        $this->mockHandler->append(function (RequestInterface $request) {
+            $queryArray = [];
+            parse_str($request->getUri()->getQuery(), $queryArray);
+            $this->assertArrayNotHasKey('reverse', $queryArray);
+            $this->assertEquals('10', $queryArray['limit']);
+
+            return $this->returnMockResponse("get_event_search_200.json");
+        });
+
+        // Intentional positional call to test behavior
+        list($events) = $this->fingerprint_api->searchEvents(10, null, null, null, null, null, null, null, null);
+
+        $this->assertCount(1, $events->getEvents());
     }
 
     /**
