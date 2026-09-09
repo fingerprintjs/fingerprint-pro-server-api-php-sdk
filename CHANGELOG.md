@@ -1,5 +1,22 @@
 # Fingerprint Pro Server PHP SDK
 
+## 6.13.0
+
+### Minor Changes
+
+- Handle additional error responses:
+
+  - `getEvent`: `429` and `504`
+  - `searchEvents`: `404`, `429`, and `504`
+  - `getVisits`: `404` and `504`
+
+  Add `REQUEST_READ_TIMEOUT` to the `ErrorCode` enum. ([a523516](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/a52351675be2c0060549a8eaa0403cebd594c256))
+
+- Change the default value of the `reverse` parameter on `GET /events/search` to `false` and clarify its description. ([a523516](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/a52351675be2c0060549a8eaa0403cebd594c256))
+- Limit `VisitorsGetResponse.visits` to a maximum of one item and clarify that `GET /visitors/{visitor_id}` is deprecated in favor of `GET /events/search`. ([a523516](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/a52351675be2c0060549a8eaa0403cebd594c256))
+- Require the `label` field on entries in the `labels` Smart Signal response. ([a523516](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/a52351675be2c0060549a8eaa0403cebd594c256))
+- Clarify the `ProxyDetails` `proxyType` description to list the `residential`, `data_center`, and `unknown` proxy types explicitly. ([a523516](https://github.com/fingerprintjs/fingerprint-pro-server-api-php-sdk/commit/a52351675be2c0060549a8eaa0403cebd594c256))
+
 ## 6.12.0
 
 ### Minor Changes
