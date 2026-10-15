@@ -3,9 +3,14 @@
   "tags": {},
   "timestamp": 1708102555327,
   "event_id": "1708102555327.NLOjmg",
+  "source": "device",
+  "incremental_identification_status": "completed",
   "url": "https://www.example.com/login?hope{this{works[!",
   "ip_address": "61.127.217.15",
   "user_agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+  "device": "Other",
+  "os": "Windows",
+  "os_version": "7",
   "client_referrer": "https://example.com/blog/my-article",
   "browser_details": {
     "browser_name": "Chrome",
@@ -26,14 +31,14 @@
     "last_seen_at": 1708102555327
   },
   "supplementary_id_high_recall": {
-    "visitor_id": "3HNey93AkBW6CRbxV6xP",
+    "visitor_id": "0jnGMkPYXX37DqVa4ZIO3f_hr",
     "visitor_found": true,
     "confidence": {
-      "score": 0.97,
-      "version": "1.1"
+      "score": 0,
+      "version": "Not Supported"
     },
-    "first_seen_at": 1708102555327,
-    "last_seen_at": 1708102555327
+    "first_seen_at": 1778086556130,
+    "last_seen_at": 1778604975494
   },
   "proximity": {
     "id": "w1aTfd4MCvl",
@@ -111,8 +116,10 @@
     "last_seen_at": 1708102555327,
     "provider": "Massive"
   },
+  "proxy_ml_score": 0.2,
   "vpn": false,
   "vpn_confidence": "high",
+  "vpn_ml_score": 0.2,
   "vpn_origin_timezone": "Europe/Berlin",
   "vpn_origin_country": "unknown",
   "vpn_methods": {
@@ -120,10 +127,13 @@
     "public_vpn": false,
     "auxiliary_mobile": false,
     "os_mismatch": false,
-    "relay": false
+    "relay": false,
+    "ml_prediction": false
   },
   "incognito": false,
   "tampering": false,
+  "tampering_confidence": "high",
+  "tampering_ml_score": 0.3231,
   "tampering_details": {
     "anomaly_score": 0.1955,
     "anti_detect_browser": false
@@ -142,6 +152,11 @@
       "5_minutes": 1,
       "1_hour": 1,
       "24_hours": 1
+    },
+    "distinct_linked_id": {
+      "5_minutes": 1,
+      "1_hour": 5,
+      "24_hours": 5
     },
     "distinct_country": {
       "5_minutes": 1,
@@ -170,6 +185,11 @@
     }
   },
   "developer_tools": false,
+  "device_details": {
+    "device_manufacturer": "samsung",
+    "device_model": "SM-G991U",
+    "os_version": "13"
+  },
   "mitm_attack": false,
   "sdk": {
     "platform": "js",
@@ -187,8 +207,6 @@
   },
   "replayed": false,
   "high_activity_device": false,
-  "rare_device": false,
-  "rare_device_percentile_bucket": "<p95",
   "raw_device_attributes": {
     "math": "5f030fa7d2e5f9f757bfaf81642eb1a6",
     "vendor": "Google Inc.",
@@ -281,6 +299,25 @@
     "local_storage": true,
     "session_storage": true,
     "date_time_locale": "en-US",
-    "audio": 124.04347745512496
-  }
+    "audio": 124.04347745512496,
+    "keyboard_layout_hash": "691e3845c85c202a1514b6fd7ef17065",
+    "keyboard_layout_name": "en-US",
+    "battery_charging": true,
+    "battery_level": 80,
+    "battery_low_power_mode": true,
+    "timezone_offset": "-03:00",
+    "font_hash": "bb4d842593877975d45017c603ff5994",
+    "device_manufacturer": "samsung",
+    "device_model": "SM-S921U"
+  },
+  "rare_device": false,
+  "rare_device_percentile_bucket": "<p95",
+  "labels": [
+    {
+      "label": "fraud",
+      "prediction": false,
+      "ml_score": 0.01
+    }
+  ],
+  "active_call": false
 }

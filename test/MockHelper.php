@@ -22,6 +22,8 @@ final class MockHelper
 
     public const OPERATION_GET_EVENT_WITH_RULESET = 'OPERATION_GET_EVENT_WITH_RULESET';
 
+    public const OPERATION_GET_EVENT_WITH_EDGE = 'OPERATION_GET_EVENT_WITH_EDGE';
+
     public const OPERATION_SEARCH_EVENTS = 'OPERATION_SEARCH_EVENTS';
 
     public const OPERATION_ERROR_400_INVALID_EVENT_ID = 'OPERATION_ERROR_400_INVALID_EVENT_ID';
@@ -70,6 +72,9 @@ final class MockHelper
         ],
         self::OPERATION_GET_EVENT_WITH_RULESET => [
             'file' => ['events', 'get_event_ruleset_200.json'],
+        ],
+        self::OPERATION_GET_EVENT_WITH_EDGE => [
+            'file' => ['events', 'get_event_with_edge_200.json'],
         ],
         self::OPERATION_SEARCH_EVENTS => [
             'file' => ['events', 'search', 'get_event_search_200.json'],
