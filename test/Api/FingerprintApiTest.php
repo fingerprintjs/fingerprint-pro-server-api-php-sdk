@@ -86,6 +86,48 @@ class FingerprintApiTest extends TestCase
     }
 
     /**
+     * Verifies getEvent parses an event from the Automation Intelligence API (no Identification or device signals).
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws \DateMalformedStringException
+     */
+    public function testGetEventWithEdgeSource()
+    {
+        $this->mockHandler->append(MockHelper::getMockResponse(MockHelper::OPERATION_GET_EVENT_WITH_EDGE));
+
+        $event = $this->api->getEvent(MockHelper::MOCK_EVENT_ID);
+
+        $this->assertSame(EventSource::EDGE, $event->getSource());
+        $this->assertSame('1758130560902.8tRtrH', $event->getEventId());
+        $this->assertNull($event->getIdentification());
+        $this->assertSame('ChatGPT Agent', $event->getBotInfo()->getName());
+        $this->assertSame('104.210.139.192', $event->getIpInfo()->getV4()->getAddress());
+        $this->assertFalse($event->getVpn());
+        $this->assertTrue($event->valid());
+    }
+
+    /**
+     * Verifies getEvent parses an event stored before `source` was added.
+     *
+     * @throws ApiException
+     * @throws GuzzleException
+     * @throws \DateMalformedStringException
+     */
+    public function testGetEventWithoutSource()
+    {
+        $payload = json_decode(MockHelper::getMockData(MockHelper::OPERATION_GET_EVENT)['contents'], true);
+        unset($payload['source']);
+        $this->mockHandler->append(new Response(200, ['Content-Type' => 'application/json'], json_encode($payload)));
+
+        $event = $this->api->getEvent(MockHelper::MOCK_EVENT_ID);
+
+        $this->assertNull($event->getSource());
+        $this->assertSame($payload['identification']['visitor_id'], $event->getIdentification()->getVisitorId());
+        $this->assertTrue($event->valid());
+    }
+
+    /**
      * Verifies getEvent raw response matches the mock JSON.
      *
      * @throws ApiException
