@@ -2,7 +2,7 @@
 
 Using the Server API you can retrieve information about individual analysis events or event history of individual visitors.
 
-All URIs are relative to *https://api.fpjs.io/v4*
+All URIs are relative to `https://api.fpjs.io/v4`
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
